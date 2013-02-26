@@ -1,0 +1,70 @@
+.enme-web-context {
+  background: url("../images/background.png") repeat center center fixed;
+}
+
+.web-position-down {
+  background: url("../images/icons/enme_down.png") no-repeat scroll 0 0 transparent;
+}
+
+.web-position-up {
+  background: url("../images/icons/enme_up.png") no-repeat scroll 0 0 transparent;
+}
+
+.web-position-equal {
+  background: url("../images/icons/enme_equals.png") no-repeat scroll 0 0 transparent;
+}
+
+.ellipsis {
+  -moz-binding: url("assets/xml/ellipsis.xml#ellipsis");
+}
+
+.modal-box-im {
+  background: url("../images/background-mobalbox.png") repeat-x scroll left bottom transparent;
+}
+
+.web-item-wrapper .item .loading {
+  /*background-image: url(../../images/ball-loader.gif);*/
+}
+
+div.options .saveButton {
+  background-image: url(../../images/icons/add.png);
+}
+
+div.publishWrapper div.itemPublish .account {
+  background-image: url(../../images/icons/twitter-logo-small.png);
+}
+
+div.web-folder-wrapper .web-folder-item .icon-folder {
+  background-image: url("../images/icons/enme_folder.png");
+}
+
+.ui-image-wrapper, .ui-hits, .ui-comments, .ui-likes, .ui-dislike {
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 15px;
+  padding-top: 3px;
+}
+
+.ui-hits {
+  background-image: url("../images/icons/enme_hits.gif");
+  background-position: left center;
+  padding-left: 20px;
+}
+
+.ui-comments {
+  background-image: url("../images/icons/enme_comment_reply.png");
+  padding-left: 24px;
+}
+
+.ui-likes {
+  background-image: url("../images/icons/1344286942_Like.png");
+  background-position: left center;
+  height: 12px;
+  padding-left: 24px;
+}
+
+.ui-dislike {
+  background-image: url("../images/icons/1344286943_Dislike.png");
+  background-position: left center;
+  padding-left: 24px;
+}

@@ -172,10 +172,6 @@ and (orientation : portrait) {
 
 }
 
-.enme-web-context {
-    background: url(../../images/background.png) repeat center center fixed;
-}
-
 /* Desktops and laptops  */
     body {
         height: 100%;
@@ -332,38 +328,21 @@ and (orientation : portrait) {
 
     //http://compass-style.org/examples/compass/layout/sticky-footer/
 
-    @include sticky-footer(40px, "#mainWrapper", "#footer", "#footer-f");
+    @include sticky-footer($footer_height, "#mainWrapper", "#footer", "#footer-f");
 
     #footer-f {
-      // width: 100%;
-      // height: 40px;
-      // bottom: 0;
-      // position: fixed;
-      // left: 0;
-      //z-index: 2;
-     @extend .text-white;
-      // background: $black_hight;
-      // background: -moz-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
-      // background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #202020), color-stop(42%, #111111), color-stop(100%, #111111));
-      // background: -webkit-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
-      // background: -o-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
-      // background: -ms-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
-      // background: linear-gradient(to bottom, #202020 0%, #111111 42%, #111111 100%);
+      @extend .text-white;
       @extend .main_header_colors;
-      //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#202020', endColorstr='#111111',GradientType=0 );
+      a:link, a:visited, a {
+        @extend .text-white;
+        @extend .bold;
+        &:hover {  text-decoration: underline; }
+        text-decoration: none;
+      }
     }
 
     .text-color {
         @extend .text-white;
-    }
-
-    #footer .powered {
-
-    }
-
-    #footer-f .powered a:link, #footer .powered a:visited, #footer .powered a{
-        color: white;
-        text-decoration: underline;
     }
 
     #footer-f .footer {

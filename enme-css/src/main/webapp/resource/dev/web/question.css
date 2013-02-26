@@ -1,0 +1,18 @@
+.question .dijitTextBox {
+  padding: 3px;
+  font-size: 130%;
+}
+
+.question .dijitTextArea {
+  padding: 3px;
+  font-size: 130%;
+}
+
+.question .questionTextBox {
+  width: 90%;
+}
+
+.question .questionTextBox input {
+  padding: 4px;
+  font-size: 130%;
+}

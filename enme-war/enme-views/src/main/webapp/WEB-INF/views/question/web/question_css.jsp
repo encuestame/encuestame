@@ -1,2 +1,8 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<link rel="stylesheet"  href="<c:url value="/resources/css/me.home.web.css" />" />
+<c:if test="${!development}">
+	<link rel="stylesheet"  href="<c:url value="/resources/css/question.min.web.css" />" />
+</c:if>
+
+<c:if test="${development}">
+	<link rel="stylesheet"  href="<c:url value="/resources/dev/sections/web/question.css" />" />
+</c:if>

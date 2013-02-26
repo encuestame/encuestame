@@ -1,0 +1,18 @@
+/** tweetPollVote **/
+div.tweetPollVote div.question {
+  font-size: 180%;
+  font-weight: bold;
+  padding: 5px;
+  color: #C4C4C4;
+}
+
+div.tweetPollVote div.answer {
+  font-size: 150%;
+  font-weight: bold;
+  padding: 15px;
+  background-color: #DCE0FF;
+  color: #515151;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}

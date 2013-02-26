@@ -1,0 +1,113 @@
+.web-filters-options nav {
+  line-height: 20px;
+}
+
+.web-filters-options nav a.selected, .web-filters-options nav a:hover {
+  background-color: #e5e5e5;
+  color: #222222;
+  text-decoration: none;
+}
+
+.web-filters-options nav a, .web-filters-options nav a:link, .web-filters-options nav a:visited {
+  margin: 3px;
+  padding: 3px;
+  color: white;
+}
+
+/**
+    web-filters-wrapper
+**/
+.web-filters-wrapper {
+  margin: 10px 2px;
+  min-height: 105px;
+  padding: 13px 17px 10px;
+  color: black;
+  -webkit-box-shadow: #666666 1px 0px 4px 2px inset;
+  -moz-box-shadow: #666666 1px 0px 4px 2px inset;
+  box-shadow: #666666 1px 0px 4px 2px inset;
+  background-color: #918f8f;
+}
+
+.web-filters-wrapper label {
+  color: white;
+  margin-bottom: 3px;
+}
+
+.web-filters-wrapper .dijitRuleLabel {
+  color: white !important;
+}
+
+.web-filters-wrapper .dijitSliderH {
+  margin-top: 5px;
+}
+
+.web-filters-wrapper .dijitRuleMark {
+  border: 1px solid white;
+}
+
+.web-filters-search .web-filters-search-input {
+  padding-bottom: 10px;
+}
+
+.web-filters-search .web-filters-search-multi {
+  padding: 5px;
+  width: 200px;
+}
+
+.web-filters-search .web-filters-search-multi > select {
+  margin-top: 4px;
+  min-width: 200px;
+}
+
+.web-filters-search .web-filters-search-check {
+  margin-left: 25px;
+  margin-top: 22px;
+  width: 180px;
+}
+
+.web-filters-search .web-filters-search-check > div {
+  margin-top: 5px;
+}
+
+.web-filters-search .web-filters-search-button {
+  margin-top: 4px;
+  padding: 1px;
+  text-align: right;
+}
+
+.web-social-filter > div {
+  margin-top: 2px;
+}
+
+.web-social-filter-items {
+  height: 130px;
+}
+
+.web-social-filter-items .web-social-filter-item {
+  padding: 1px;
+  width: 80%;
+  margin-top: 5px;
+  position: relative;
+}
+
+.web-social-filter-items .web-social-filter-item .web-social-icon-image {
+  position: absolute;
+  top: 5px;
+  right: 25px;
+}
+
+.web-social-filter-items .selected {
+  background-color: #cdcdcd;
+  color: black !important;
+  margin-top: 5px;
+}
+
+.web-social-filter-items .web-social-filter-item .web-social-filter-image {
+  margin-right: 15px;
+  padding: 2px 2px 0;
+}
+
+.web-social-filter-items .web-social-filter-item .web-social-filter-name {
+  line-height: 20px;
+  margin-left: 31px;
+}

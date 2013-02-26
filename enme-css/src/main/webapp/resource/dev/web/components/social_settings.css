@@ -1,0 +1,59 @@
+/** Row Account */
+.socialWrapperRow {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: #888888 1px 1px 3px inset;
+  -moz-box-shadow: #888888 1px 1px 3px inset;
+  box-shadow: #888888 1px 1px 3px inset;
+  background-color: white;
+}
+
+.socialWrapperRow .sub-title-account {
+  position: relative;
+}
+
+.socialWrapperRow div.title {
+  font-size: 14px;
+  margin-left: 30px;
+  padding: 5px;
+}
+
+.socialWrapperRow .favorite {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.socialWrapperRow div.socialNewForm {
+  clear: both;
+  position: fixed;
+}
+
+.socialWrapperRow .tokensWrapper {
+  padding: 5px;
+  border-top: 1px dotted;
+}
+
+.socialWrapperRow .tokensWrapper div.tokenHideOptions {
+  min-height: 45px;
+}
+
+.socialWrapperRow .tokensWrapper div.tokenHideOptions table td {
+  padding: 5px;
+}
+
+.socialWrapperRow .tokensWrapper div.tokenHideOptions table td label {
+  color: #666666;
+  text-shadow: white 1px 2px 1px;
+}
+
+.socialWrapperRow .tokensWrapper .dijitTextBox {
+  min-width: 250px;
+}
+
+.socialWrapperRow .tokensWrapper label {
+  font-size: 11px;
+}

@@ -41,7 +41,7 @@
                         </classpath>
                         <target>
                             <echo message="CSS Web optimized Initialized" />
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -51,7 +51,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=admon.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/admon.web.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/admon.min.web.css" />
                           </java>
 
                         </target>
@@ -70,7 +70,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -80,7 +80,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=dashboard.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/dashboard.web.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/dashboard.min.web.css" />
                           </java>
 
                         </target>
@@ -99,7 +99,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -109,7 +109,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=home.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/home.web.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/home.min.web.css" />
                           </java>
 
                         </target>
@@ -128,7 +128,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -138,7 +138,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=notifications.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/notifications.web.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/notifications.min.web.css" />
                           </java>
 
                         </target>
@@ -157,7 +157,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -167,7 +167,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=poll.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/poll.web.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/poll.min.web.css" />
                           </java>
 
                         </target>
@@ -186,7 +186,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -196,7 +196,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=question.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/question.web.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/question.min.web.css" />
                           </java>
 
                         </target>
@@ -215,7 +215,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -225,7 +225,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=settings.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/settings.web.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/settings.min.web.css" />
                           </java>
 
                         </target>
@@ -244,7 +244,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -254,7 +254,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=setup.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/setup.web.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/setup.min.web.css" />
                           </java>
 
                         </target>
@@ -273,7 +273,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -283,7 +283,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=survey.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/survey.web.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/survey.min.web.css" />
                           </java>
 
                         </target>
@@ -302,7 +302,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -312,7 +312,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=tweetpoll.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/tweetpoll.web.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/tweetpoll.min.web.css" />
                           </java>
 
                         </target>
@@ -331,7 +331,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -341,7 +341,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=user.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/user.web.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/user.min.web.css" />
                           </java>
 
                         </target>
@@ -360,7 +360,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -370,7 +370,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=vote.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/vote.web.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/vote.min.web.css" />
                           </java>
 
                         </target>
@@ -392,7 +392,7 @@
                         </classpath>
                         <target>
                             <echo message="CSS Web optimized Initialized" />
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -402,7 +402,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=admon.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/admon.mobile.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/admon.min.mobile.css" />
                           </java>
 
                         </target>
@@ -421,7 +421,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -431,7 +431,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=dashboard.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/dashboard.mobile.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/dashboard.min.mobile.css" />
                           </java>
 
                         </target>
@@ -450,7 +450,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -460,7 +460,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=home.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/home.mobile.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/home.min.mobile.css" />
                           </java>
 
                         </target>
@@ -479,7 +479,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -489,7 +489,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=notifications.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/notifications.mobile.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/notifications.min.mobile.css" />
                           </java>
 
                         </target>
@@ -508,7 +508,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -518,7 +518,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=poll.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/poll.mobile.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/poll.min.mobile.css" />
                           </java>
 
                         </target>
@@ -537,7 +537,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -547,7 +547,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=question.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/question.mobile.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/question.min.mobile.css" />
                           </java>
 
                         </target>
@@ -566,7 +566,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -576,7 +576,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=settings.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/settings.mobile.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/settings.min.mobile.css" />
                           </java>
 
                         </target>
@@ -595,7 +595,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -605,7 +605,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=setup.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/setup.mobile.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/setup.min.mobile.css" />
                           </java>
 
                         </target>
@@ -624,7 +624,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -634,7 +634,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=survey.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/survey.mobile.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/survey.min.mobile.css" />
                           </java>
 
                         </target>
@@ -653,7 +653,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -663,7 +663,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=tweetpoll.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/tweetpoll.mobile.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/tweetpoll.min.mobile.css" />
                           </java>
 
                         </target>
@@ -682,7 +682,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -692,7 +692,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=user.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/user.mobile.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/user.min.mobile.css" />
                           </java>
 
                         </target>
@@ -711,7 +711,7 @@
                         </classpath>
                         <target>
 
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -721,7 +721,7 @@
                             <arg value="-o" />
                             <arg value="cssIn=vote.css" />
                             <arg value="optimizeCss=default" />
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/vote.mobile.css" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/vote.min.mobile.css" />
                           </java>
 
                         </target>
@@ -730,7 +730,6 @@
                         <goal>run</goal>
                     </goals>
                 </execution>
-
             </executions>
         </plugin>
     </plugins>

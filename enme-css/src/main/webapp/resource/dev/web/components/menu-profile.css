@@ -1,0 +1,93 @@
+/** profile menu **/
+div.profilePanel {
+  display: none;
+  position: absolute;
+  min-height: 120px;
+  min-width: 202px;
+  background: #222;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444444), color-stop(100%, #222222));
+  background: -webkit-linear-gradient(#444444, #222222);
+  background: -moz-linear-gradient(#444444, #222222);
+  background: -o-linear-gradient(#444444, #222222);
+  background: linear-gradient(#444444, #222222);
+  right: 0px;
+  left: 0px;
+  top: 32px;
+  zoom: 1;
+  -moz-box-shadow: 1px 2px 3px #888888;
+  -webkit-box-shadow: 1px 2px 3px #888888;
+  box-shadow: 1px 2px 3px #888888;
+  -webkit-border-radius: 0px 0px 5px 5px;
+  -moz-border-radius: 0px 0px 5px 5px;
+  border-radius: 0px 0px 5px 5px;
+  z-index: 99999;
+}
+
+div.profileOpenPanel {
+  display: block;
+}
+
+/** web-profile-menu **/
+div.profilePanel ul {
+  max-height: 350px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+div.profilePanel li {
+  background-image: none;
+  clear: both;
+  display: block;
+  width: 85%;
+  float: left;
+  text-align: left;
+  list-style: none;
+  margin: 0px;
+  padding: 6px 15px;
+}
+
+div.profilePanel li:hover {
+  background-color: #FFF;
+}
+
+div.profilePanel li:hover a:link,
+div.profilePanel li:hover a:visited {
+  color: #444 !important;
+}
+
+div.profilePanel li a:link {
+  color: #BABABA !important;
+  font-weight: normal;
+  text-decoration: none !important;
+}
+
+div.profilePanel li a:hover {
+  color: white !important;
+  text-decoration: none;
+}
+
+div.profilePanel li a {
+  padding: 10px;
+  color: #BABABA !important;
+  font-weight: normal;
+}
+
+div.web-profile-menu {
+  color: #FFFFFF;
+  cursor: pointer;
+  height: 25px;
+  vertical-align: middle;
+}
+
+div.web-profile-menu .image {
+  float: left;
+}
+
+div.web-profile-menu .real-name {
+  line-height: 22px;
+  margin-left: 20px;
+  min-width: 119px;
+  padding-right: 4px;
+  text-align: center;
+  vertical-align: middle;
+}

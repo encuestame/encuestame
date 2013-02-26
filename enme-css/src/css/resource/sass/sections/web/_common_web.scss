@@ -5,9 +5,9 @@
 
 // commons enme css libs
 @import "../../common";
+@import "../../resources";
 @import "../../required";
 @import "../../input";
-@import "../../resources";
 @import "../../dojo-fixes";
 @import "../../layout";
 
@@ -15,4 +15,6 @@
 @import "../../web/suggest";
 @import "../../web/menu";
 @import "../../web/public";
+
+@import "../../web/components/button";
 

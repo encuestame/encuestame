@@ -94,6 +94,7 @@
               resource/static/**/*,
               resource/images/**/*,
               resource/css/*.css,
+              resource/dev/*.css,
               resource/js/dojo/**/*,
               resource/js/dijit/**/*,
               resource/js/me/**/*,
