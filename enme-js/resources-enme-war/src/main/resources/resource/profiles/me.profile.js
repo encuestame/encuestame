@@ -38,7 +38,7 @@ var profile = {
   // though ShrinkSafe is deprecated and not recommended.
   // This option defaults to "" (no compression) if not provided.
   // FIXME: issues with inheritance with "closure"
-  optimize: 'shrinksafe',
+  optimize: 'closure',
 
   // We're building layers, so we need to set the minifier to use for those, too.
   // This defaults to "shrinksafe" if not provided.
@@ -185,19 +185,19 @@ var profile = {
         ]
     },
 
-    'me/web/widget/hashtags/Cloud' : {
-        include :[
-               "me/web/widget/utils/ToggleText",
-               "me/web/widget/hashtags/Cloud",
-               "me/web/widget/rated/Comment",
-               "me/web/widget/rated/Comments",
-               "me/web/widget/rated/UsersProfile",
-               "me/web/widget/rated/RatedProfile",
-               "me/web/widget/rated/Comments",
-               "me/web/widget/rated/LikeRate",
-               "me/web/widget/rated/RatedOperations"
-            ]
-    },
+    // 'me/web/widget/hashtags/Cloud' : {
+    //     include :[
+    //            "me/web/widget/utils/ToggleText",
+    //            "me/web/widget/hashtags/Cloud",
+    //            "me/web/widget/rated/Comment",
+    //            "me/web/widget/rated/Comments",
+    //            "me/web/widget/rated/UsersProfile",
+    //            "me/web/widget/rated/RatedProfile",
+    //            "me/web/widget/rated/Comments",
+    //            "me/web/widget/rated/LikeRate",
+    //            "me/web/widget/rated/RatedOperations"
+    //         ]
+    // },
 
     "me/web/widget/stream/FrontEnd" : {
       include :[

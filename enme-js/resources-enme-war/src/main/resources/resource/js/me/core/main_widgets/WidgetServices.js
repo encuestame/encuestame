@@ -22,12 +22,10 @@
  *  @class WidgetServices
  */
 define([ "dojo/_base/declare",
-     "me/core/URLServices",
      "me/web/widget/dialog/ModalBox",
      "dijit/registry",
      "me/core/enme"], function(
     declare,
-    _URL,
     ModalBox,
     registry,
     _ENME) {
@@ -39,7 +37,7 @@ define([ "dojo/_base/declare",
        * @method getURLService
        */
       getURLService : function() {
-        return _URL;
+        return _ENME.xhr;
       },
 
       /**

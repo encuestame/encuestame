@@ -52,7 +52,7 @@
                       <arg value="--releaseDir" />
                       <arg value="${project.build.directory}/dojo-compiled" />
                     </java>
-                    <delete includeEmptyDirs="true" verbose="true">
+                   <!--  <delete includeEmptyDirs="true" verbose="false">
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="tests/**/" />
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/tests/**/" />
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/demos/**/" />
@@ -72,7 +72,7 @@
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="**/package.json" />
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="**/package.js" />
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="build-report.txt" />
-                    </delete>
+                    </delete> -->
                     <echo message="ENCUESTAME :: Dojo AMD optimized ::" />
                   </target>
                 </configuration>

@@ -76,7 +76,7 @@ define([
               var error = function(error) {
                   //console.debug("error", error);
               };
-              URLServices.get('encuestame.service.list.cloud', {}, load, error , dojo.hitch(this, function() {
+              _ENME.xhr.get('encuestame.service.list.cloud', {}, load, error , dojo.hitch(this, function() {
 
               }));
           }
