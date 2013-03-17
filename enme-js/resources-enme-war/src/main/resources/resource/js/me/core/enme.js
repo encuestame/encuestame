@@ -81,7 +81,7 @@ define(["dojo",
      */
     var _appendContext = function(service) {
        var url = this.config['contextPath'];
-       url = url.concat("/");
+       this.log("_appendContext-->", url);
        url = url.concat(service);
        return url;
     };
@@ -91,91 +91,91 @@ define(["dojo",
      * @property SERVICES
      */
     var SERVICES = {
-        "encuestame.service.list.userList" : "api/admon/users.json",
-        "encuestame.service.list.getNotifications" : "api/notifications/list.json",
-        "encuestame.service.list.getAllNotifications" : "api/notifications/all/list.json",
-        "encuestame.service.list.changeStatusNotification" : "api/notifications/readed.json",
-        "encuestame.service.list.removeNotification" : "api/notification/remove.json",
-        "encuestame.service.list.userInfo" : "api/admon/user-info.json",
-        "encuestame.poll.publish.social" : "/api/survey/poll/social/publish.json",
-        "encuestame.service.list.createUser" : "api/admon/create-user.json",
-        "encuestame.service.list.profile.my" : "api/settings/profile/my.json",
-        "encuestame.service.list.upgradeProfile" : "api/user/profile/upgrade.json",
-        "encuestame.service.list.updateProfile" : "api/settings/profile/update.json",
-        "encuestame.service.list.updateUsername" : "api/settings/profile/username/update.json",
-        "encuestame.service.list.updateEmail" : "api/settings/profile/email/update.json",
-        "encuestame.service.list.updatePicture" : "api/settings/profile/picture/update.json",
-        "encuestame.service.list.listPermissions" : "api/admon/list-permissions.json",
-        "encuestame.service.list.listUserPermissions" : "api/admon/list-user-permissions.json",
-        "encuestame.service.list.addPermission" : "api/admon/add-permission.json",
-        "encuestame.service.list.removePermission" : "api/admon/remove-permission.json",
-        "encuestame.service.list.hashtags" : "api/common/hashtags.json",
-        "encuestame.service.list.ranking.hashtag" : "api/common/hashtags/stats/ranking.json",
-        "encuestame.service.list.range.hashtag" : "api/common/hashtags/stats/button/range.json",
-        "encuestame.service.list.hashtagsAction.getAction" : "api/survey/hashtag/$0/$1.json",
-        "encuestame.service.list.cloud" : "api/common/hashtags/cloud.json",
-        "encuestame.service.list.allSocialAccount" : "api/common/social/accounts.json",
-        "encuestame.service.list.publishTweetPoll" : "/api/survey/tweetpoll/publish.json",
-        "encuestame.service.list.listTweetPoll" : "api/survey/tweetpoll/search.json",
-        "encuestame.service.list.changeTweetPollStatus" : "api/survey/tweetpoll/change-open-status-tweetpoll.json",
-        "encuestame.service.list.resumeliveResultsTweetPoll" : "api/survey/tweetpoll/resumeliveResults-tweetpoll.json",
-        "encuestame.service.list.captchaTweetPoll" : "api/survey/tweetpoll/captcha-tweetpoll.json",
-        "encuestame.service.list.favouriteTweetPoll" : "api/survey/tweetpoll/favourite-tweetpoll.json",
-        "encuestame.service.list.liveResultsTweetPoll" : "api/survey/tweetpoll/liveResults-tweetpoll.json",
-        "encuestame.service.list.notificationTweetPoll" : "api/survey/tweetpoll/notification-tweetpoll.json",
-        "encuestame.service.list.repeatedTweetPoll" : "api/survey/tweetpoll/repeated-tweetpoll.json",
-        "encuestame.service.list.VotesTweetPoll" : "api/chart/tweetpoll/votes.json",
-        "encuestame.service.list.tweetpoll.answer.getVotes" : "api/tweetpoll/$0/answer/$1/votes.json",
-        "encuestame.service.list.listPoll" : "api/survey/poll/search.json",
-        "encuestame.service.list.poll.create" : "api/survey/poll/create.json",
-        "encuestame.service.list.poll.publish" : "api/survey/poll/publish.json",
-        "encuestame.service.list.poll.remove" : "/api/survey/poll/remove.json",
-        "encuestame.service.list.poll.detail" : "api/survey/poll/detail.json",
-        "encuestame.service.list.poll.setParameter" : "api/survey/poll/$0-poll.json",
-        "encuestame.service.list.poll.getVotes" : "api/$0/poll/votes.json",
-        "encuestame.service.comments.list" : "api/common/comment/comments/$0.json",
-        "encuestame.service.comments.search" : "api/common/comment/search.json",
-        "encuestame.service.comments.like" : "api/common/comment/like_vote.json",
-        "encuestame.service.comments.dislike" : "api/common/comment/dislike_vote.json",
-        "encuestame.service.comments.create" : "api/common/comment/create.json",
-        "encuestame.service.list.rate.comments" : "api/common/comment/rate/top.json",
-        "encuestame.service.list.rate.profile" : "api/common/frontend/topusers.json",
-        "encuestame.service.list.rate.stats" : "api/common/frontend/$0/stats.json",
-        "encuestame.service.list.generic.stats" : "api/common/stats/generic.json",
-        "encuestame.service.list.rate.buttons" : "api/common/hashtags/stats/button.json",
-        "encuestame.service.list.getTweetPollVotes" : "api/$0/tweetpoll/$1/votes.json",
-        "encuestame.service.list.votes.home" : "api/frontend/home/vote.json",
-        "encuestame.service.list.addAnswer" : "api/survey/tweetpoll/answer/add.json",
-        "encuestame.service.list.removeAnswer" : "api/survey/tweetpoll/answer/remove.json",
-        "encuestame.service.list.groupCreate" : "api/groups/createGroup.json",
-        "encuestame.service.list.updateCreate" : "api/groups/updateGroup.json",
-        "encuestame.service.list.removeGroup" : "api/groups/removeGroup.json",
-        "encuestame.service.list.loadGroups" : "api/groups/groups.json",
-        "encuestame.service.list.assingGroups" : "api/admon/groups/assingToUser.json",
-        "encuestame.service.list.checkProfile" : "api/user/account/validate.json",
-        "encuestame.service.publicService.validate.username" : "api/public/validator/username.json",
-        "encuestame.service.publicService.validate.email" : "api/public/validator/email.json",
-        "encuestame.service.publicService.validate.realName" : "api/public/validator/realName.json",
-        "encuestame.service.social.links.loadByType" : "api/public/social/links/published.json",
-        "encuestame.service.social.action.defaultState" : "api/social/actions/account/default.json",
-        "encuestame.service.social.action.remove" : "api/social/actions/account/remove.json",
-        "encuestame.service.search.suggest" : "api/search/quick-suggest.json",
-        "encuestame.service.stream" : "api/common/frontend/stream.json",
-        "encuestame.service.folder.create" : "api/survey/folder/$0/create.json",
-        "encuestame.service.folder.update" : "api/survey/folder/$0/update.json",
-        "encuestame.service.folder.remove" : "api/survey/folder/$0/remove.json",
-        "encuestame.service.folder.move" : "api/survey/folder/$0/move.json",
-        "encuestame.service.folder.list" : "api/survey/folder/$0/list.json",
-        "encuestame.service.dashboard.create" : "api/common/dashboard/create-dashboard.json",
-        "encuestame.service.dashboard.list" : "api/common/dashboard/list.json",
-        "encuestame.service.dashboard.select" : "api/common/dashboard/select.json",
-        "encuestame.service.gadget.directory" : "api/common/gadgets/directory.json",
-        "encuestame.service.gadget.list" : "api/common/gadgets/list.json",
-        "encuestame.service.gadget.move" : "api/common/dashboard/move-gadget.json",
-        "encuestame.service.gadget.add" : "api/common/gadgets/add.json",
-        "encuestame.service.gadget.load" : "api/common/dashboard/gadget/load.json",
-        "encuestame.service.gadget.remove" : "api/common/dashboard/gadget/remove.json",
-        "encuestame.service.tweetpoll.autosave" : "api/survey/tweetpoll/autosave.json"
+        "encuestame.service.list.userList" : "/api/admon/users.json",
+        "encuestame.service.list.getNotifications" : "/api/notifications/list.json",
+        "encuestame.service.list.getAllNotifications" : "/api/notifications/all/list.json",
+        "encuestame.service.list.changeStatusNotification" : "/api/notifications/readed.json",
+        "encuestame.service.list.removeNotification" : "/api/notification/remove.json",
+        "encuestame.service.list.userInfo" : "/api/admon/user-info.json",
+        "encuestame.poll.publish.social" : "//api/survey/poll/social/publish.json",
+        "encuestame.service.list.createUser" : "/api/admon/create-user.json",
+        "encuestame.service.list.profile.my" : "/api/settings/profile/my.json",
+        "encuestame.service.list.upgradeProfile" : "/api/user/profile/upgrade.json",
+        "encuestame.service.list.updateProfile" : "/api/settings/profile/update.json",
+        "encuestame.service.list.updateUsername" : "/api/settings/profile/username/update.json",
+        "encuestame.service.list.updateEmail" : "/api/settings/profile/email/update.json",
+        "encuestame.service.list.updatePicture" : "/api/settings/profile/picture/update.json",
+        "encuestame.service.list.listPermissions" : "/api/admon/list-permissions.json",
+        "encuestame.service.list.listUserPermissions" : "/api/admon/list-user-permissions.json",
+        "encuestame.service.list.addPermission" : "/api/admon/add-permission.json",
+        "encuestame.service.list.removePermission" : "/api/admon/remove-permission.json",
+        "encuestame.service.list.hashtags" : "/api/common/hashtags.json",
+        "encuestame.service.list.ranking.hashtag" : "/api/common/hashtags/stats/ranking.json",
+        "encuestame.service.list.range.hashtag" : "/api/common/hashtags/stats/button/range.json",
+        "encuestame.service.list.hashtagsAction.getAction" : "/api/survey/hashtag/$0/$1.json",
+        "encuestame.service.list.cloud" : "/api/common/hashtags/cloud.json",
+        "encuestame.service.list.allSocialAccount" : "/api/common/social/accounts.json",
+        "encuestame.service.list.publishTweetPoll" : "//api/survey/tweetpoll/publish.json",
+        "encuestame.service.list.listTweetPoll" : "/api/survey/tweetpoll/search.json",
+        "encuestame.service.list.changeTweetPollStatus" : "/api/survey/tweetpoll/change-open-status-tweetpoll.json",
+        "encuestame.service.list.resumeliveResultsTweetPoll" : "/api/survey/tweetpoll/resumeliveResults-tweetpoll.json",
+        "encuestame.service.list.captchaTweetPoll" : "/api/survey/tweetpoll/captcha-tweetpoll.json",
+        "encuestame.service.list.favouriteTweetPoll" : "/api/survey/tweetpoll/favourite-tweetpoll.json",
+        "encuestame.service.list.liveResultsTweetPoll" : "/api/survey/tweetpoll/liveResults-tweetpoll.json",
+        "encuestame.service.list.notificationTweetPoll" : "/api/survey/tweetpoll/notification-tweetpoll.json",
+        "encuestame.service.list.repeatedTweetPoll" : "/api/survey/tweetpoll/repeated-tweetpoll.json",
+        "encuestame.service.list.VotesTweetPoll" : "/api/chart/tweetpoll/votes.json",
+        "encuestame.service.list.tweetpoll.answer.getVotes" : "/api/tweetpoll/$0/answer/$1/votes.json",
+        "encuestame.service.list.listPoll" : "/api/survey/poll/search.json",
+        "encuestame.service.list.poll.create" : "/api/survey/poll/create.json",
+        "encuestame.service.list.poll.publish" : "/api/survey/poll/publish.json",
+        "encuestame.service.list.poll.remove" : "//api/survey/poll/remove.json",
+        "encuestame.service.list.poll.detail" : "/api/survey/poll/detail.json",
+        "encuestame.service.list.poll.setParameter" : "/api/survey/poll/$0-poll.json",
+        "encuestame.service.list.poll.getVotes" : "/api/$0/poll/votes.json",
+        "encuestame.service.comments.list" : "/api/common/comment/comments/$0.json",
+        "encuestame.service.comments.search" : "/api/common/comment/search.json",
+        "encuestame.service.comments.like" : "/api/common/comment/like_vote.json",
+        "encuestame.service.comments.dislike" : "/api/common/comment/dislike_vote.json",
+        "encuestame.service.comments.create" : "/api/common/comment/create.json",
+        "encuestame.service.list.rate.comments" : "/api/common/comment/rate/top.json",
+        "encuestame.service.list.rate.profile" : "/api/common/frontend/topusers.json",
+        "encuestame.service.list.rate.stats" : "/api/common/frontend/$0/stats.json",
+        "encuestame.service.list.generic.stats" : "/api/common/stats/generic.json",
+        "encuestame.service.list.rate.buttons" : "/api/common/hashtags/stats/button.json",
+        "encuestame.service.list.getTweetPollVotes" : "/api/$0/tweetpoll/$1/votes.json",
+        "encuestame.service.list.votes.home" : "/api/frontend/home/vote.json",
+        "encuestame.service.list.addAnswer" : "/api/survey/tweetpoll/answer/add.json",
+        "encuestame.service.list.removeAnswer" : "/api/survey/tweetpoll/answer/remove.json",
+        "encuestame.service.list.groupCreate" : "/api/groups/createGroup.json",
+        "encuestame.service.list.updateCreate" : "/api/groups/updateGroup.json",
+        "encuestame.service.list.removeGroup" : "/api/groups/removeGroup.json",
+        "encuestame.service.list.loadGroups" : "/api/groups/groups.json",
+        "encuestame.service.list.assingGroups" : "/api/admon/groups/assingToUser.json",
+        "encuestame.service.list.checkProfile" : "/api/user/account/validate.json",
+        "encuestame.service.publicService.validate.username" : "/api/public/validator/username.json",
+        "encuestame.service.publicService.validate.email" : "/api/public/validator/email.json",
+        "encuestame.service.publicService.validate.realName" : "/api/public/validator/realName.json",
+        "encuestame.service.social.links.loadByType" : "/api/public/social/links/published.json",
+        "encuestame.service.social.action.defaultState" : "/api/social/actions/account/default.json",
+        "encuestame.service.social.action.remove" : "/api/social/actions/account/remove.json",
+        "encuestame.service.search.suggest" : "/api/search/quick-suggest.json",
+        "encuestame.service.stream" : "/api/common/frontend/stream.json",
+        "encuestame.service.folder.create" : "/api/survey/folder/$0/create.json",
+        "encuestame.service.folder.update" : "/api/survey/folder/$0/update.json",
+        "encuestame.service.folder.remove" : "/api/survey/folder/$0/remove.json",
+        "encuestame.service.folder.move" : "/api/survey/folder/$0/move.json",
+        "encuestame.service.folder.list" : "/api/survey/folder/$0/list.json",
+        "encuestame.service.dashboard.create" : "/api/common/dashboard/create-dashboard.json",
+        "encuestame.service.dashboard.list" : "/api/common/dashboard/list.json",
+        "encuestame.service.dashboard.select" : "/api/common/dashboard/select.json",
+        "encuestame.service.gadget.directory" : "/api/common/gadgets/directory.json",
+        "encuestame.service.gadget.list" : "/api/common/gadgets/list.json",
+        "encuestame.service.gadget.move" : "/api/common/dashboard/move-gadget.json",
+        "encuestame.service.gadget.add" : "/api/common/gadgets/add.json",
+        "encuestame.service.gadget.load" : "/api/common/dashboard/gadget/load.json",
+        "encuestame.service.gadget.remove" : "/api/common/dashboard/gadget/remove.json",
+        "encuestame.service.tweetpoll.autosave" : "/api/survey/tweetpoll/autosave.json"
     };
 
     /**
@@ -183,11 +183,17 @@ define(["dojo",
      * @method
      */
     var _service = function(key, params) {
-        var _service_store = SERVICES;
+        this.log("_service key-->", key);
+        this.log("_service params-->", params);
+        var _service_store = SERVICES,
+        _parent = this;
           if (!params) {
-            return _service_store[key];
+             var url = _config['contextPath'];
+             url = url.concat(_service_store[key]);
+            return url;
           } else {
-            var url = _appendContext(_service_store[key]);
+            var url = _config['contextPath'];
+            url = url.concat(_service_store[key]);
             _array.forEach(params, function(entry, i) {
               if (entry !== "undefined" && entry !== '') {
                 url = url.replace("$" + i, entry);
@@ -258,9 +264,10 @@ define(["dojo",
              } else if (lang.isArray(url) && url.length === 1) {
                  _service_url = _service(url[0]);
              }
-             this.log("url to call -->", _service_url);
              if (_service_url !== null ) {
                   // make the request
+                  this.log("url to call -->", _service_url);
+                  console.log("URL ---->", _service_url);
                   request(_service_url, _params).then(_load, _error,
                            function(evt) {});
              }
