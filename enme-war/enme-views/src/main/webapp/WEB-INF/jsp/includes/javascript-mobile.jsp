@@ -24,12 +24,11 @@
 </script>
 <script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/me/run.js"></script>
-<!-- Temporal service to store all service. -->
-<script src="<%=request.getContextPath()%>/resources/js/commons.js"></script>
 <script>
 var config = {
     contextPath: '${pageContext.request.contextPath}'
 };
+console.log("Moderninz", Modernizr.svg);
 require([
     "dojo",
     "dojo/_base/declare",

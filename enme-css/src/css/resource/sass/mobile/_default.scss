@@ -1,4 +1,11 @@
-.mobile{}
+.mobile {
+
+}
+
+
+.mobile h1, .mobile h2, .mobile h3 {
+    margin: 0;
+}
 
 .mobile .enme-mobile-main-message {
     padding: 30px;
@@ -14,9 +21,7 @@
 .mobile .tags a.tag {
     position: relative;
     display: inline-block;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    @extend .default-rd;
     border: solid 1px transparent;
     padding: 1px 4px 2px 4px;
     -moz-transition: all .1s linear;
@@ -26,6 +31,7 @@
     color: #666;
     background-color: #F0F0F0;
     border-bottom: 1px solid #CCC;
+    color : #444444 !important;
 }
 
 .mobile a, .mobile a:link {
