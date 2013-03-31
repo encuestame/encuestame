@@ -3,3 +3,4 @@
 <meta name="keywords" content="survey, twitter, social, open source, etc, etc" />
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link type="text/plain" rel="author" href="humans.txt" />
