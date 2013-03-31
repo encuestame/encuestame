@@ -7,13 +7,10 @@
         <title>
             <tiles:insertAttribute name="title" defaultValue="encuestame mobile" />
         </title>
-        <%@ include file="/WEB-INF/jsp/includes/meta.jsp"%>
+        <%@ include file="decorators/mobile-meta.jsp"%>
         <%@ include file="/WEB-INF/jsp/includes/mobile/css.jsp"%>
         <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
         <%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
-
-        <%@ include file="decorators/mobile-meta.jsp"%>
-
         <%@ include file="/WEB-INF/jsp/includes/javascript-mobile.jsp"%>
 
     </head>
