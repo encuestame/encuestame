@@ -158,21 +158,22 @@ public class JsonUsersController extends AbstractJsonController{
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         try {
-            log.debug("user newUsername "+username);
-            log.debug("user newEmailUser "+email);
+            log.debug("user newUsername " + username);
+            log.debug("user newEmailUser " + email);
             final UserAccountBean userBean = new UserAccountBean();
             userBean.setEmail(email);
             userBean.setUsername(username);
+            // get the current user logged
+            final UserAccount account = getUserAccount();
             final ValidateOperations cv = new ValidateOperations( getServiceManager().getApplicationServices()
                   .getSecurityService());
-            if(cv.validateEmail(email)){ //TODO && cv.validateUsername(username)
-                final Map<String, Object> sucess = new HashMap<String, Object>();
-                getServiceManager().getApplicationServices().getSecurityService()
-                .createUser(userBean, getUserPrincipalUsername());
-                sucess.put("userAdded", "ok");
-                setItemResponse(sucess);
+            boolean emailValid = cv.validateUserEmail(email, account);
+            boolean usernameValid = cv.validateUsername(username, account);
+            if (emailValid && usernameValid) {
+                getServiceManager().getApplicationServices().getSecurityService().createUser(userBean, getUserPrincipalUsername());
+                setSuccesResponse();
             } else {
-                setError("user or email exist are used.", response);
+                setError(getMessage("e_026", request, null), response);
             }
         } catch (Exception e) {
             log.error(e);

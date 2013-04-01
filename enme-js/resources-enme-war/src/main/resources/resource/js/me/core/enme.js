@@ -207,19 +207,23 @@ define(["dojo",
        *
        */
       var _makeCall = function(url , params, method, response, error, loaderHandler) {
-          var _load = response;
-          var _error = error;
+          var _load = response,
+          _error = error,
+          make_call_parent = this;
           if (loaderHandler != 'undefined' && typeof loaderHandler === 'function') {
+              // load default handler
               _load = function(r) {
-                  try{
+                  try {
+                    //TODO: this sentence is repeated
                     if (typeof loaderHandler === 'function') {
                        loaderHandler();
                     }
                     response(r);
                   } catch(error) {
-                      this.log(error);
+                      make_call_parent.log(error);
                   }
               };
+              // error default handler
               _error = function(e) {
                   try{
                       if (typeof loaderHandler === 'function') {
@@ -227,12 +231,12 @@ define(["dojo",
                       }
                       error(e);
                   } catch(error) {
-                      this.log(error);
+                      make_call_parent.log(error);
                   }
               };
           }
 
-          // defaultt params
+          // default xhr parameters
           var _params = {
              handleAs : _handleAs,
                failOk : _failOk,
@@ -267,12 +271,12 @@ define(["dojo",
              if (_service_url !== null ) {
                   // make the request
                   this.log("url to call -->", _service_url);
-                  console.log("URL ---->", _service_url);
+                  this.log("URL ---->", _service_url);
                   request(_service_url, _params).then(_load, _error,
                            function(evt) {});
              }
           } catch (error) {
-              console.error("error service ", error, arguments);
+              this.log("error service ", error, arguments);
           }
     };
 

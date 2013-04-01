@@ -170,14 +170,15 @@ public class ValidateOperations {
 
     /**
      * Validate user email.
-     * @param email
+     * @param email email as string to validate
      * @param userLogged
      * @param username
      * @return
      */
-    public Boolean validateUserEmail(final String email, final UserAccount userLogged){
+    public Boolean validateUserEmail(final String email, final UserAccount userLogged) {
         log.debug("validating email... ->"+email);
         if (this.validateEmail(email)) {
+            // try to find a user with the same email
             final UserAccount user = getSecurityService().findUserAccountByEmail(email);
             return this.validateUserEmail(email, user, userLogged);
         } else {
@@ -200,32 +201,36 @@ public class ValidateOperations {
 
     /**
      * Validate user email.
-     * @param email
-     * @param user
-     * @param userLogged
+     * @param email the email to validate
+     * @param user the possible account to validate, if is null the user not exist
+     * @param userLogged user try to create new validate the email
      * @param username
      * @return
      */
-    public Boolean validateUserEmail(final String email, final UserAccount user, final UserAccount userLogged){
+    public Boolean validateUserEmail(final String email, final UserAccount user, final UserAccount userLogged) {
         log.debug("validating email... ->"+email);
         log.debug("validating email UserAccount... ->"+user);
         boolean valid = false;
+        // user null, email available
         if (user == null) {
             log.debug("email is valid.. 1 ");
             getMessages().put("email", "email is available");
             valid = true;
-        } else if(userLogged != null && userLogged.getUserEmail().equals(email)){
+        // if the user logged try to validate own email
+        } else if (userLogged != null && userLogged.getUserEmail().equals(email)) {
             log.debug("email is valid.. 2 ");
             getMessages().put("email", "it's your email");
             valid = true;
-        } else if(email.equals(user.getUserEmail())){
+         // email previous exist, return error
+        } else if(email.equals(user.getUserEmail())) {
             log.debug("email not valid.. 3 ");
             getMessages().put("email", "email already exist");
         } else {
+            // any other option is not valid
             log.debug("email not valid.. 4 ");
             getMessages().put("email", "email not valid");
         }
-        log.debug("validateUserEmail valid ->>>>"+valid);
+        log.debug("validateUserEmail valid ->>>>" + valid);
         return valid;
     }
 

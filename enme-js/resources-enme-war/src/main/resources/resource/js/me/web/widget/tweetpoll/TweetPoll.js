@@ -625,9 +625,9 @@ define([
               * @param status {Object}
               */
              _autoSaveStatus : function(status) {
-                 //console.debug("auto save status", status);
+               // console.debug("auto save status", status);
                this.loading_hide();
-                 if (this.tweetPoll.tweetPollId == null) {
+                 if (this.tweetPoll.tweetPollId === null) {
                    this.tweetPoll.tweetPollId = status.data.tweetPollId;
                    var tweetPoll = {
                        id : this.tweetPoll.tweetPollId

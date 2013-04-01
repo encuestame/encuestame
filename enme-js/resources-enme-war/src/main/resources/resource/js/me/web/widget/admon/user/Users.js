@@ -42,6 +42,7 @@ define([
          "me/web/widget/validator/UsernameValidator",
          'me/web/widget/validator/EmailValidator',
          "me/web/widget/data/Table",
+         "me/web/widget/ui/DialogGenericContentMessage",
          "me/core/enme",
          "dojo/text!me/web/widget/admon/user/template/Users.html" ],
         function(
@@ -65,12 +66,21 @@ define([
                 UsernameValidator,
                 EmailValidator,
                 Table,
+                DialogGenericContentMessage,
                 _ENME,
                 template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, Table, _WidgetsInTemplateMixin], {
 
-          // template string.
+            /**
+             * template string.
+             *
+             */
             templateString : template,
+
+            /**
+             * @param the publish dialog to alocate the publish widget.
+             */
+            dialogWidget : null,
 
             /**
              *
@@ -105,14 +115,6 @@ define([
                     dojo.hitch(this, function(data, index) {
                         this.buildRow(data);
                     }));
-            },
-
-            /**
-             * Error Resonse.
-             * @method
-             */
-            errorResponse : function(error) {
-                console.error("error", error);
             },
 
             /**
@@ -156,8 +158,8 @@ define([
             },
 
             /**
-             *
-             * @method
+             * Create a user based on username and password
+             * @method _createDirectlyUser
              */
             _createDirectlyUser : function(event) {
                     var parent = this;
@@ -165,12 +167,13 @@ define([
                     var newEmailUser = registry.byId("newEmailUser");
                     if (newUsername.isValid && newEmailUser.isValid) {
                         var load = dojo.hitch(this, function(data) {
+                            parent.dialogWidget.hide();
                             if ('success' in data) {
                                 this.loading_hide();
                                 parent._request_button.disabled = false;
-                                if (data.success.userAdded === "ok") {
+                                if (data.success.r === 0) {
                                      this.loadItems();
-                                     registry.byId("newUser").hide();
+                                     parent._clearForms();
                                      parent.successMesage("The request has been sent to " + newEmailUser.getValue());
                                      newUsername.clear();
                                      newEmailUser.clear();
@@ -178,8 +181,11 @@ define([
                             }
                         }),
                         error = function(error) {
-                            parent.loading_hide();
-                            parent.errorMessage(error);
+                            //parent.loading_hide();
+                            parent.dialogWidget.hide();
+                            if ("message" in error.response.data.error) {
+                                parent.errorMessage(error.response.data.error.message);
+                            }
                             parent._request_button.disabled = false;
                         };
                         var params = {
@@ -188,6 +194,18 @@ define([
                         };
                         this.loading_show();
                         this._request_button.disabled = true;
+
+                        // create the dialog
+                        var content_widget = new DialogGenericContentMessage({
+                                message_content : "Creando usuario"
+                             });
+                             parent.dialogWidget = new Dialog({
+                                 content: content_widget.domNode,
+                                 style: "width: 700px",
+                                 draggable : false
+                             });
+                             parent.dialogWidget.show();
+
                         this.getURLService().post('encuestame.service.list.createUser', params, load, error , dojo.hitch(this, function() {
 
                         }));

@@ -77,7 +77,7 @@ define([
                 this.createColumn(data.poll, true);
                 this.createColumn(data.survey, true);
                 // moment replace by ENME.fromNow
-                var _date = moment(data.lastTimeLogged).fromNow();
+                var _date = moment(data.lastTimeLogged || "never").fromNow();
                 this.createColumn(_date, true);
                 this.createColumn(data.followers == null ? 0 : data.followers, true);
             },

@@ -167,6 +167,7 @@ public class SettingsJsonController extends AbstractJsonController{
             JsonMappingException, IOException {
         try {
             final SecurityOperations security = getSecurityService();
+            // get the user account of previous user logged.
             final UserAccount account = getUserAccount();
             final ValidateOperations operations = new ValidateOperations(security);
             final HashMap<String, Object> listError = new HashMap<String, Object>();

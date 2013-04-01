@@ -5,7 +5,7 @@
 </h1>
 <p>
     <spring:message code="setup.step2.long.des"></spring:message>
-    <a href="http://wiki.encuestame.org/display/DOC/Basic+Configuration" target="_blank">
+    <a href="http://www.encuestame.org/wiki/display/DOC/Basic+Configuration" target="_blank">
         <spring:message code="setup.step2.url"></spring:message> </a>
 </p>
 <c:if test="${not empty message}">

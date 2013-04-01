@@ -38,7 +38,7 @@
 	<script src="http://widgets.twimg.com/j/2/widget.js"></script>
         <title>Encuestame Open Source Survey Software Social Tool</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="description" content="encuestame is a survey software specialized in creating online surveys. 
+        <meta name="description" content="encuestame is a survey software specialized in creating online surveys.
 					  but not only Surveys, you will also have the opportunity to get the user opinions in different ways, as well as sharing and collecting information trough 						  social network applications like twitter, facebook or in your own website if you wish." />
         <meta name="keywords" content="survey, java, open source, web tool, questionnaries, mysql, sql server, postgres, free, encuestame, poll, twitter, facebook, google, spring framework, social,
 					  dojo, software" />
@@ -71,8 +71,8 @@
 	    <item name="Wiki" href="http://wiki.encuestame.org" />
 	    <item name="Bug Tracking" href="http://issues.encuestame.org" />
             <item name="Download" href="download.html" />
-            <item name="Releases Notes" href="http://wiki.encuestame.org/display/RELEASE/Home" />
-            <item name="Source Browser Repository" href="http://code.encuestame.org" />
+            <item name="Releases Notes" href="http://www.encuestame.org/wiki/display/RELEASE/Home" />
+            <item name="Source Browser Repository" href="http://www.encuestame.org/code" />
             <item name="License" href="license.html" />
 	    <item name="Screenshots" href="screenshots.html" />
         </menu>
