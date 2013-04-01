@@ -46,7 +46,7 @@ define([
                              _WidgetsInTemplateMixin], {
 
           // template string.
-            templateString : template,
+          templateString : template,
 
           /***
           * the body of hashtag.

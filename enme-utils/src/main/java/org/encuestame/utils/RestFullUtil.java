@@ -20,9 +20,8 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
- * Test for {@link PictureUtils}.
+ * RESTFul utilities.
  * @author Picado, Juan juanATencuestame.org
- * @since
  */
 public class RestFullUtil {
 
@@ -37,9 +36,9 @@ public class RestFullUtil {
     private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
 
     /**
-     *
+     * Apply the correct format on a hastag.
      */
-    public static String formatHasgTag(String hashTag){
+    public static String formatHasgTag(String hashTag) {
         if (hashTag != null) {
             hashTag = hashTag.toLowerCase();
         } else {
@@ -49,9 +48,9 @@ public class RestFullUtil {
     }
 
     /**
-     *
+     * Slugify a string
      * @param input
-     * @return
+     * @return slug string
      * @throws UnsupportedEncodingException
      */
     public static String slugify(final String input) {
@@ -59,14 +58,15 @@ public class RestFullUtil {
             return "";
         }
         String toReturn = RestFullUtil.normalize(input);
+        toReturn = toReturn.replaceAll("[^a-zA-Z]", " ");
+        toReturn = toReturn.replaceAll("\\s+", " ").trim().toLowerCase();
         toReturn = toReturn.replace(" ", "-");
-        toReturn = toReturn.toLowerCase();
         toReturn = RestFullUtil.encodeUTF8(toReturn);
         return toReturn;
     }
 
     /**
-     *
+     * Encode a string with UTF-8.
      * @param toReturn
      * @return
      */
@@ -92,11 +92,11 @@ public class RestFullUtil {
       }
 
     /**
-     *
+     * Normalize a string
      * @param input
      * @return
      */
-    private static String normalize(String input) {
+    private static String normalize(final String input) {
         if (input == null || input.length() == 0) return "";
         return Normalizer.normalize(input, Form.NFD).replaceAll("[^\\p{ASCII}]","");
     }
