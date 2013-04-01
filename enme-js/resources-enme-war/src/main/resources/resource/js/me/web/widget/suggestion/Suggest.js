@@ -225,7 +225,7 @@ define([ "dojo/parser",
                 }));
                 //query read store.
                 this.store = new dojox.data.QueryReadStore({
-                    url : this.getURLService().service(this.url),
+                    url : _ENME.service(this.url),
                     sortFields : this.sortFields,
                     requestMethod : this.modeQuery}
                 );

@@ -293,6 +293,8 @@ define(["dojo",
 
     return {
 
+      service : _service,
+
       /**
        *
        */

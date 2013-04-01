@@ -50,18 +50,6 @@ define([
            // template string.
            templateString : template,
 
-           /***
-            * Post create cycle life.
-            */
-           postCreate : function() {
-                var myTextBox = new TextBox({
-                    name: "suggest_" + this.id,
-                    value: "",
-                    placeHolder: ''
-                });
-                this._suggest.appendChild(myTextBox.domNode);
-           },
-
           /*
            *
            */

@@ -80,7 +80,7 @@ define([
               var error = function(error) {
                   dojo.publish('/encuestame/settings/profile/message', [message, 'error']);
               };
-              encuestame.service.xhrGet(URLServices.service('encuestame.service.list.checkProfile'),
+              _ENME.xhr.get('encuestame.service.list.checkProfile',
               {
                 type:type,
                 value : this.textbox.value
@@ -233,10 +233,7 @@ define([
                var error = function(error) {
                    _ENME.log("error", error);
                };
-              //encuestame.service.xhrGet(this.getURLService().service('encuestame.service.list.profile.my'), {}, load, error);
-              URLServices.get('encuestame.service.list.profile.my',  {
-
-              }, load, error , dojo.hitch(this, function() {
+              URLServices.get('encuestame.service.list.profile.my', {}, load, error , dojo.hitch(this, function() {
 
               }));
            },
@@ -247,13 +244,10 @@ define([
            _updateProfile : function(event) {
                dojo.stopEvent(event);
                var form = dojo.byId("profileForm");
-               //console.debug("form ", form);
                var formDijit = registry.byId("profileForm");
-               //console.debug("form", formDijit);
                if (formDijit.isValid()) {
                    var params = formDijit.getValues();
                    var load = dojo.hitch(this, function(data) {
-                       //console.debug(data);
                      if ("success" in data) {
                        var message = data.success.message;
                        if (message != 'undefined') {
@@ -272,7 +266,6 @@ define([
                     //query.username =  registry.byId("username").get("value") ;
                     //query.email = registry.byId("email").get("value");
                     //var queryStr = dojo.objectToQuery(query);
-                    //encuestame.service.xhrPost(this.getURLService().service('encuestame.service.list.updateProfile'), form, load, error, true);
                     URLServices.post('encuestame.service.list.updateProfile',  params, load, error , dojo.hitch(this, function() {
 
                     }));

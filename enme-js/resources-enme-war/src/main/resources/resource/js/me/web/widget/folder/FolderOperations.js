@@ -44,7 +44,6 @@ define([
    /*
     * load folders.
     */
-   //this.getURLService().service(
    _callFolderService : function(onLoad, params, action, enableStorFormat) {
        var load = dojo.hitch(this, onLoad);
        var error = dojo.hitch(this,  function(error) {
@@ -53,14 +52,11 @@ define([
        dojo.mixin(params, { store : enableStorFormat });
        if (this._ready) {
            var url = this._getContextUrlService(this._actions[action]);
-           encuestame.service.xhrGet(
+           _ENME.xhr.get(
                       url,
                       params,
                       load,
                       error);
-//           this.getURLService().get(url, params, load, error , dojo.hitch(this, function() {
-//
-//           }));
        }
    },
 
@@ -74,7 +70,6 @@ define([
     */
    getAction : function(action) {
        var position = dojo.indexOf(this._actions, action);
-       //console.info("getAction position", position);
        if (position == -1) {
            console.error("invalid action");
        } else {
@@ -98,18 +93,17 @@ define([
    /*
     * get service by action.
     */
-   //this.getURLService().service(
    _serviceAction : function(type, context) {
        if (type == this._actions[0]) {
-           return this.getURLService().service('encuestame.service.folder.create', [context]);
+           return ['encuestame.service.folder.create', [context]];
       } else if (type == this._actions[1]) {
-        return this.getURLService().service('encuestame.service.folder.update', [context]);
+        return ['encuestame.service.folder.update', [context]];
       } else if (type == this._actions[2]) {
-        return this.getURLService().service('encuestame.service.folder.move', [context]);
+        return ['encuestame.service.folder.move', [context]];
       } else if (type == this._actions[3]) {
-        return this.getURLService().service('encuestame.service.folder.list', [context]);
+        return ['encuestame.service.folder.list', [context]];
       } else if (type == this._actions[4]) {
-        return this.getURLService().service('encuestame.service.folder.remove', [context]);
+        return ['encuestame.service.folder.remove', [context]];
       }
    }
 

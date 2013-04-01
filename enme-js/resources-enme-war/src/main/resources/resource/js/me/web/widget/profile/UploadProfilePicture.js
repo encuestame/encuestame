@@ -165,8 +165,6 @@ define([
                        var error = dojo.hitch(this, function(error) {
                            parent.errorMessage(error);
                        });
-                       // encuestame.service.xhrPostParam(
-                       //     this.getURLService().service('encuestame.service.list.updatePicture'), params, load, error);
                        URLServices.post('encuestame.service.list.updatePicture',  params, load, error , dojo.hitch(this, function() {
 
                         }));

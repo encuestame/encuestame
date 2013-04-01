@@ -157,8 +157,7 @@ define([
                 var error = function(error) {
                     console.debug("error", error);
                 };
-                //encuestame.service.xhrGet('encuestame.service.list.userInfo', {id: id}, load, error);
-                this.getURLService().get('encuestame.service.list.userInfo', {id: id}, load, error , dojo.hitch(this, function() {}));
+                _ENME.xhr.get('encuestame.service.list.userInfo', {id: id}, load, error , dojo.hitch(this, function() {}));
             },
 
             /**
