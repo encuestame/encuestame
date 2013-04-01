@@ -182,7 +182,7 @@ public class HomeController extends AbstractViewController {
      * @param username
      * @return
      */
-    @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
+    @RequestMapping(value = "/profile/{username:.*}", method = RequestMethod.GET)
     public String userProfileController(
             final ModelMap model,
             @PathVariable String username,

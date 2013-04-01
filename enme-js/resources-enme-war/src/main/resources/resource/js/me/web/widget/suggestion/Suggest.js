@@ -227,8 +227,8 @@ define([ "dojo/parser",
                 this.store = new dojox.data.QueryReadStore({
                     url : _ENME.service(this.url),
                     sortFields : this.sortFields,
-                    requestMethod : this.modeQuery}
-                );
+                    requestMethod : this.modeQuery
+                });
                  this.callSuggest();
                 //enable add button, if not the default add is click on item.
                 if (this.addButton) {

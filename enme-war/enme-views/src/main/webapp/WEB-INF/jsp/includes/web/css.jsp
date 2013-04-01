@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <link rel="stylesheet"  href="<c:url value="/resources/js/me/resources/core.css"/>" />
-<tiles:insertAttribute name="css_module" ignore="false" />
+<tiles:insertAttribute name="css_module" ignore="true" />
 <c:if test="${development}">
 	<link rel="stylesheet"  href="<c:url value="/resources/dev/resources.css" />" />
 </c:if>
