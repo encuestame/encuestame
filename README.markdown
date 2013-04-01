@@ -3,17 +3,17 @@
 Encuestame Open Source Social Survey
 =====================================
 
-For information on how to **build** check out [documentation](http://wiki.encuestame.org/display/DOC/How+to+build+Encuestame).
+For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
 
-## Current Version (1.147-ALPHA) Info
+## Current Version (1.147-M1) Info
 
-The **last release versions** are defined [here](http://wiki.encuestame.org/display/RELEASE/Encuestame+1.146-FINAL+Release+Notes), if you are interested in the **Roadmap** click [here](http://issues.encuestame.org/browse/ENCUESTAME#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
+The **last release versions** are defined [here](http://wiki.encuestame.org/display/RELEASE/Encuestame+1.146-FINAL+Release+Notes), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
 If you want to download a build version of encuestame, they're hosted on the [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
 
 ## Maintainers
 * [Diana Paola Morales](http://about.me/dianmorales)
-* [Juan Carlos Picado](http://about.me/jotadeveloper)
+* [Juan Carlos Picado](http://www.jotadeveloper.es)
 * [All Contributors](http://www.encuestame.org#contributors)
 
 ## Where is the most stable code?
@@ -28,7 +28,7 @@ If you are looking for the most stable code, please clone **stable** branch
 
 
 ## Contributions
-Pull requests are, of course, very welcome! A few "todos", if anyone is [interested](http://wiki.encuestame.org/display/DEVELOPMENT/Commiters+Guidelines).
+Pull requests are, of course, very welcome! A few "todos", if anyone is [interested](http://www.encuestame.org/wiki/display/DEVELOPMENT/Commiters+Guidelines).
 
 ## Acknowledgments
 * Thanks to [Atlassian Open Source Program](http://www.atlassian.com/)
@@ -37,8 +37,8 @@ Pull requests are, of course, very welcome! A few "todos", if anyone is [interes
 
 ## Related Sites
 
-* [JIRA](http://issues.encuestame.org)
-* [Wiki](http://wiki.encuestame.org)
+* [JIRA](http://www.encuestame.org/issues)
+* [Wiki](http://www.encuestame.org/wiki)
 * [Metrics](http://metrics.encuestame.org)
 * [API Javadoc](http://api.encuestame.org)
 * [Demo Site](http://demo.encuestame.org)
