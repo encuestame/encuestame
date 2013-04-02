@@ -239,6 +239,27 @@ define([
              leave_mesage : _ENME.getMessage("leave_mesage")
            },
 
+           // i18nMessages : _ENME.getMessages([
+           //      'tp_write_questions',
+           //      'tp_add_answer',
+           //      'tp_add_hashtag',
+           //      'tp_customize',
+           //      'tp_scheduled',
+           //      'tp_options_scheduled_this_tweetpoll',
+           //      'tp_options_chart',
+           //      'tp_options_resume_live_results',
+           //      'tp_options_spam',
+           //      'tp_options_limit_votes',
+           //      'tp_options_allow_repeated_votes',
+           //      'tp_options_resume_live_results',
+           //      'commons_captcha',
+           //      'tp_options_report',
+           //      'tp_options_follow_dashboard',
+           //      'button_publish',
+           //      'tp_select_publish',
+           //      'leave_mesage'
+           // ]),
+
             /***
              * Stored save tweetPoll.
              **/
@@ -625,9 +646,9 @@ define([
               * @param status {Object}
               */
              _autoSaveStatus : function(status) {
-               // console.debug("auto save status", status);
-               this.loading_hide();
-                 if (this.tweetPoll.tweetPollId === null) {
+                // console.debug("auto save status", status);
+                this.loading_hide();
+                if (this.tweetPoll.tweetPollId === null) {
                    this.tweetPoll.tweetPollId = status.data.tweetPollId;
                    var tweetPoll = {
                        id : this.tweetPoll.tweetPollId

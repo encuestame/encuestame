@@ -738,26 +738,30 @@ input:focus {
 }
 
 /* line 24, ../../../../../../css/resource/sass/resources.scss */
-.web-item-wrapper .item .loading {
-  /*background-image: url(../../images/ball-loader.gif);*/
+.loading-icon {
+  background-image: url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==);
+  width: 50px;
+  display: inline-block;
+  height: 50px;
+  background-repeat: no-repeat;
 }
 
-/* line 28, ../../../../../../css/resource/sass/resources.scss */
+/* line 32, ../../../../../../css/resource/sass/resources.scss */
 div.options .saveButton {
   background-image: url(../../images/icons/add.png);
 }
 
-/* line 32, ../../../../../../css/resource/sass/resources.scss */
+/* line 36, ../../../../../../css/resource/sass/resources.scss */
 div.publishWrapper div.itemPublish .account {
   background-image: url(../../images/icons/twitter-logo-small.png);
 }
 
-/* line 36, ../../../../../../css/resource/sass/resources.scss */
+/* line 40, ../../../../../../css/resource/sass/resources.scss */
 div.web-folder-wrapper .web-folder-item .icon-folder {
   background-image: url("../images/icons/enme_folder.png");
 }
 
-/* line 42, ../../../../../../css/resource/sass/resources.scss */
+/* line 46, ../../../../../../css/resource/sass/resources.scss */
 .ui-image-wrapper, .ui-hits, .ui-comments, .ui-likes, .ui-dislike {
   background-repeat: no-repeat;
   display: inline-block;
@@ -765,20 +769,20 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
   padding-top: 3px;
 }
 
-/* line 50, ../../../../../../css/resource/sass/resources.scss */
+/* line 54, ../../../../../../css/resource/sass/resources.scss */
 .ui-hits {
   background-image: url("../images/icons/enme_hits.gif");
   background-position: left center;
   padding-left: 20px;
 }
 
-/* line 57, ../../../../../../css/resource/sass/resources.scss */
+/* line 61, ../../../../../../css/resource/sass/resources.scss */
 .ui-comments {
   background-image: url("../images/icons/enme_comment_reply.png");
   padding-left: 24px;
 }
 
-/* line 63, ../../../../../../css/resource/sass/resources.scss */
+/* line 67, ../../../../../../css/resource/sass/resources.scss */
 .ui-likes {
   background-image: url("../images/icons/1344286942_Like.png");
   background-position: left center;
@@ -786,7 +790,7 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
   padding-left: 24px;
 }
 
-/* line 71, ../../../../../../css/resource/sass/resources.scss */
+/* line 75, ../../../../../../css/resource/sass/resources.scss */
 .ui-dislike {
   background-image: url("../images/icons/1344286943_Dislike.png");
   background-position: left center;
@@ -851,8 +855,8 @@ html, body {
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   /* line 18, ../../../../../../css/resource/sass/_layout.scss */
   body.mobile {
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
 
   /* line 23, ../../../../../../css/resource/sass/_layout.scss */

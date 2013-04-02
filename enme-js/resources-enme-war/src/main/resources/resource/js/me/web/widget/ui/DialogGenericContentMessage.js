@@ -51,13 +51,21 @@ define([
      *
      * @property
      */
+    icon_class : "",
+
+    /**
+     *
+     * @property
+     */
     message_content : "",
 
     /**
      *
      * @property
      */
-    postCreate : function() {}
+    postCreate : function() {
+
+    }
 
   });
 });

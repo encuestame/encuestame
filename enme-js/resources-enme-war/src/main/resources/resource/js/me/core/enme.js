@@ -877,6 +877,23 @@ define(["dojo",
     },
 
     /**
+     * Convert array of string to object, get a i18n message from the context and return object.
+     * @method object with i18n message
+     */
+    getMessages : function(arrayList) {
+        var i18n = {},
+        parent_enme = this;
+        _array.forEach(arrayList, function(message, i) {
+              if (typeof(message === 'string')) {
+                  var iMessage = parent_enme.getMessage(message);
+                  i18n[message] = iMessage;
+              }
+
+            });
+        return i18n;
+    },
+
+    /**
      * Get the current activity object
      * @method  getActivity
      */

@@ -94,6 +94,11 @@ define([
              */
             total : 0,
 
+           i18nMessages : _ENME.getMessages([
+                'var1',
+                'var2'
+           ]),
+
             /**
              * Build Row.
              * @method
@@ -197,7 +202,8 @@ define([
 
                         // create the dialog
                         var content_widget = new DialogGenericContentMessage({
-                                message_content : "Creando usuario"
+                                message_content : "Creando usuario",
+                                icon_class : "loading-icon"
                              });
                              parent.dialogWidget = new Dialog({
                                  content: content_widget.domNode,
