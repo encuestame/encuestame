@@ -49,14 +49,13 @@ public class AdmonController extends AbstractViewController {
     }
 
     /**
-     *
-     * @param model
+     * Display the members page.
+     * @param model {@link ModelMap}
      * @return
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/admon/members", method = RequestMethod.GET)
     public String membersLocation(ModelMap model) {
-        log.debug("MEMBERS");
         addi18nProperty(model, "admon_create_user", getMessage("admon_create_user"));
         addi18nProperty(model, "admon_username", getMessage("admon_username"));
         addi18nProperty(model, "admon_group", getMessage("admon_group"));
@@ -67,6 +66,22 @@ public class AdmonController extends AbstractViewController {
         addi18nProperty(model, "admon_survey_count", getMessage("admon_survey_count"));
         addi18nProperty(model, "admon_last_logged", getMessage("admon_last_logged"));
         addi18nProperty(model, "followers", getMessage("followers"));
+        addi18nProperty(model, "placeholder_username");
+        addi18nProperty(model, "placeholder_email");
+        addi18nProperty(model, "table_first");
+        addi18nProperty(model, "table_previous");
+        addi18nProperty(model, "table_next");
+        addi18nProperty(model, "table_last");
+        addi18nProperty(model, "admon_members_title");
+        addi18nProperty(model, "admon_members_subtitle");
+        addi18nProperty(model, "admon_users_new_title");
+        addi18nProperty(model, "admon_users_new_option1_title");
+        addi18nProperty(model, "admon_users_new_user_subtitle");
+        addi18nProperty(model, "admon_users_new_button");
+        addi18nProperty(model, "admon_users_new_invite_title");
+        addi18nProperty(model, "admon_users_invite_subtitle");
+        addi18nProperty(model, "button_close");
+        addi18nProperty(model, "admon_users_invite_button");
         return "members";
     }
 

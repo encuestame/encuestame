@@ -100,7 +100,8 @@ define([
             */
            postCreate : function () {
                 this.inherited(arguments);
-                console.log(_ENME.getAllMessages());
+                console.log("juan", _ENME.getAllMessages());
+                console.log("juan", this.i18n);
            },
 
             /**

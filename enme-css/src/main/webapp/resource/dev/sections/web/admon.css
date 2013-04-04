@@ -835,34 +835,34 @@ a:-webkit-any-link {
 }
 
 /* line 3, ../../../../../../css/resource/sass/_dojo-fixes.scss */
-#enme-content input, textarea, select .dijitInputField {
+input, textarea, select .dijitInputField {
   /*width: 16px;*/
 }
 
 /* line 7, ../../../../../../css/resource/sass/_dojo-fixes.scss */
-#enme-content .dijitInputField input:focus {
+.dijitInputField input:focus {
   box-shadow: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
 }
 
 /* line 16, ../../../../../../css/resource/sass/_dojo-fixes.scss */
-#enme-content .dijitSelectFocused,
-#enme-content .dijitSelectFocused .dijitButtonContents,
-#enme-content .dijitTextBoxFocused,
-#enme-content .dijitTextBoxFocused .dijitButtonNode {
+.enme-web-context .dijitSelectFocused,
+.enme-web-context .dijitSelectFocused .dijitButtonContents,
+.enme-web-context .dijitTextBoxFocused,
+.enme-web-context .dijitTextBoxFocused .dijitButtonNode {
   border-color: #ffb23c;
   transition-duration: 0.1s;
 }
 
 /** avoid shadows and other effects inside widgets text box **/
 /* line 22, ../../../../../../css/resource/sass/_dojo-fixes.scss */
-#enme-content .dijitInputField > input {
+.enme-web-context .dijitInputField > input {
   box-shadow: none !important;
 }
 
 /* line 26, ../../../../../../css/resource/sass/_dojo-fixes.scss */
-#enme-content .dijitButtonText {
+.enme-web-context .dijitButtonText {
   font-weight: normal;
 }
 
