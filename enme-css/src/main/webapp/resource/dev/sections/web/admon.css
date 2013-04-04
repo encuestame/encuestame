@@ -251,7 +251,7 @@ img {
 }
 
 /* line 156, ../../../../../../css/resource/sass/_common.scss */
-.default-rd, .main-shadow-box, #web-main-public-line, #enme-content input, textarea, select, #content-container #enme-content div.errorWrapper div.extra, .error, .roundTable, .defaultInputClass, .enme-text .dijitTextBox, .enme-web-context .dijitDialog, div.socialAccountPicker div.account, button.emne-menu, button.button, .enme-ui-button, .dijitButton .dijitButtonNode {
+.default-rd, .main-shadow-box, #web-main-public-line, #enme-content input, #enme-content textarea, #enme-content select, .css-input input, #content-container #enme-content div.errorWrapper div.extra, .error, .roundTable, .defaultInputClass, .enme-text .dijitTextBox, .enme-web-context .dijitDialog, div.socialAccountPicker div.account, button.emne-menu, button.button, .enme-ui-button, .dijitButton .dijitButtonNode {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -740,9 +740,9 @@ input:focus {
 /* line 24, ../../../../../../css/resource/sass/resources.scss */
 .loading-icon {
   background-image: url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==);
-  width: 50px;
+  width: 25px;
   display: inline-block;
-  height: 50px;
+  height: 15px;
   background-repeat: no-repeat;
 }
 
@@ -807,14 +807,14 @@ a:-webkit-any-link {
 /** default transition **/
 /** placeholder text **/
 /* line 26, ../../../../../../css/resource/sass/_input.scss */
-#enme-content input, textarea {
+#enme-content input, #enme-content textarea, .css-input input {
   -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0 1px 3px inset, rgba(255, 255, 255, 0.075) 0 1px 0;
   -moz-box-shadow: rgba(0, 0, 0, 0.05) 0 1px 3px inset, rgba(255, 255, 255, 0.075) 0 1px 0;
   box-shadow: rgba(0, 0, 0, 0.05) 0 1px 3px inset, rgba(255, 255, 255, 0.075) 0 1px 0;
 }
 
-/* line 30, ../../../../../../css/resource/sass/_input.scss */
-#enme-content input, textarea, select {
+/* line 31, ../../../../../../css/resource/sass/_input.scss */
+#enme-content input, #enme-content textarea, #enme-content select, .css-input input {
   display: inline-block;
   margin: 0;
   outline: 0;
@@ -822,15 +822,15 @@ a:-webkit-any-link {
   border: 1px solid #CCC;
 }
 
-/* line 40, ../../../../../../css/resource/sass/_input.scss */
-#enme-content input:focus {
+/* line 41, ../../../../../../css/resource/sass/_input.scss */
+#enme-content input:focus, .css-input input:focus {
   -webkit-box-shadow: #e7a441 0 0 5px;
   -moz-box-shadow: #e7a441 0 0 5px;
   box-shadow: #e7a441 0 0 5px;
 }
 
-/* line 48, ../../../../../../css/resource/sass/_input.scss */
-.txt-padding, #enme-content input, textarea, select, .enme-text .setting-detail .dijitTextBox {
+/* line 49, ../../../../../../css/resource/sass/_input.scss */
+.txt-padding, #enme-content input, #enme-content textarea, #enme-content select, .css-input input, .enme-text .setting-detail .dijitTextBox {
   padding: 4px;
 }
 
@@ -3766,7 +3766,7 @@ groupWidget div.selected {
 
 /**web-admon-user-create **/
 /* line 157, ../../../../../../css/resource/sass/web/_admon.scss */
-#web-user-actions-form-wrapper.web-admon-user-create {
+.web-admon-user-create {
   padding: 10px 20px;
   margin: 0;
   background: none;
@@ -3774,40 +3774,84 @@ groupWidget div.selected {
   border: none;
 }
 
-/* line 165, ../../../../../../css/resource/sass/web/_admon.scss */
-#web-user-actions-form-wrapper.web-admon-user-create div.sidetip {
-  top: 10px;
-  left: 205px;
+/* line 172, ../../../../../../css/resource/sass/web/_admon.scss */
+.web-admon-user-create tr {
+  z-index: 1;
 }
 
-/* line 174, ../../../../../../css/resource/sass/web/_admon.scss */
-.web-admon-user-create td {
-  padding: 10px 0;
+/* line 176, ../../../../../../css/resource/sass/web/_admon.scss */
+.web-admon-user-create td > div {
   position: relative;
+  width: 520px;
 }
 
-/* line 179, ../../../../../../css/resource/sass/web/_admon.scss */
+/* line 181, ../../../../../../css/resource/sass/web/_admon.scss */
+.web-admon-user-create .validator-wrapper {
+  z-index: 1;
+}
+
+/* line 185, ../../../../../../css/resource/sass/web/_admon.scss */
 .web-admon-user-create .suggestions {
   width: 400px;
 }
 
-/* line 183, ../../../../../../css/resource/sass/web/_admon.scss */
-#web-user-actions-form-wrapper.web-admon-user-create input {
+/* line 189, ../../../../../../css/resource/sass/web/_admon.scss */
+.web-admon-user-create input {
   padding: 5px;
 }
 
-/* line 187, ../../../../../../css/resource/sass/web/_admon.scss */
+/* line 193, ../../../../../../css/resource/sass/web/_admon.scss */
+.web-admon-user-create .validator-wrapper .sidetip {
+  top: 3px;
+  left: 300px;
+  position: absolute;
+}
+
+/* line 199, ../../../../../../css/resource/sass/web/_admon.scss */
+.web-admon-user-create .validator-wrapper .input-design {
+  width: 60%;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+/* line 205, ../../../../../../css/resource/sass/web/_admon.scss */
+.web-admon-user-create .validator-wrapper .input-design fieldset {
+  z-index: 1;
+}
+
+/* line 209, ../../../../../../css/resource/sass/web/_admon.scss */
+.web-admon-user-create .validator-wrapper .input-design input {
+  width: 300px;
+  font-size: 12px;
+}
+
+/* line 214, ../../../../../../css/resource/sass/web/_admon.scss */
+.web-admon-user-create .suggestions {
+  width: 100%;
+}
+
+/* line 218, ../../../../../../css/resource/sass/web/_admon.scss */
+.web-admon-user-create .suggestions > span {
+  font-size: 10px;
+}
+
+/* line 222, ../../../../../../css/resource/sass/web/_admon.scss */
 .web-admon-user-create .suggestions ul > li {
   margin: 5px 0 0px 0;
   list-style: none;
   margin-right: 5px;
   float: left;
-  background-color: #444;
-  padding: 5px;
+  background-color: #666;
+  padding: 0px 5px;
   border-radius: 5px;
   border: 1px solid #cecace;
   cursor: pointer;
   color: white;
+}
+
+/* line 235, ../../../../../../css/resource/sass/web/_admon.scss */
+.web-admon-user-create .submit {
+  padding: 10px 0px 0px 0px;
 }
 
 /* line 1, ../../../../../../css/resource/sass/web/_table.scss */

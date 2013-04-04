@@ -154,7 +154,7 @@ groupWidget div.selected{
 
 /**web-admon-user-create **/
 
-#web-user-actions-form-wrapper.web-admon-user-create {
+.web-admon-user-create {
     padding: 10px 20px;
     margin: 0;
     background: none;
@@ -162,26 +162,61 @@ groupWidget div.selected{
     border: none;
 }
 
-#web-user-actions-form-wrapper.web-admon-user-create div.sidetip {
-    top: 10px;
-    left: 205px;
-}
-
-.web-admon-user-create table{
+.web-admon-user-create table {
 
 }
 
 .web-admon-user-create td {
-    padding: 10px 0;
+}
+
+.web-admon-user-create tr {
+    z-index: 1;
+}
+
+.web-admon-user-create td > div {
     position: relative;
+    width: 520px;
+}
+
+.web-admon-user-create .validator-wrapper {
+    z-index: 1;
 }
 
 .web-admon-user-create .suggestions {
     width: 400px;
 }
 
-#web-user-actions-form-wrapper.web-admon-user-create  input {
+.web-admon-user-create  input {
     padding: 5px;
+}
+
+.web-admon-user-create .validator-wrapper .sidetip {
+    top: 3px;
+    left: 300px;
+    position: absolute;
+}
+
+.web-admon-user-create .validator-wrapper .input-design {
+    width: 60%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.web-admon-user-create .validator-wrapper .input-design fieldset {
+    z-index: 1;
+}
+
+.web-admon-user-create .validator-wrapper .input-design input {
+    width: 300px;
+    font-size: 12px;
+}
+
+.web-admon-user-create .suggestions {
+    width: 100%;
+}
+
+.web-admon-user-create .suggestions > span {
+    font-size: 10px;
 }
 
 .web-admon-user-create .suggestions ul > li {
@@ -189,10 +224,14 @@ groupWidget div.selected{
     list-style: none;
     margin-right: 5px;
     float: left;
-    background-color: #444;
-    padding: 5px;
+    background-color: #666;
+    padding: 0px 5px;
     border-radius: 5px;
     border: 1px solid rgb(206, 202, 206);
     cursor: pointer;
     color: white;
+}
+
+.web-admon-user-create .submit {
+    padding: 10px 0px 0px 0px;
 }

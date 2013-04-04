@@ -251,7 +251,7 @@ img {
 }
 
 /* line 156, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../_common.scss */
-.default-rd, .main-shadow-box, #web-main-public-line, #enme-content input, textarea, select, #content-container #enme-content div.errorWrapper div.extra, .error, .roundTable, .defaultInputClass, .enme-text .dijitTextBox, .enme-web-context .dijitDialog, div.socialAccountPicker div.account, button.emne-menu, button.button, .enme-ui-button, .dijitButton .dijitButtonNode {
+.default-rd, .main-shadow-box, #web-main-public-line, #enme-content input, #enme-content textarea, #enme-content select, .css-input input, #content-container #enme-content div.errorWrapper div.extra, .error, .roundTable, .defaultInputClass, .enme-text .dijitTextBox, .enme-web-context .dijitDialog, div.socialAccountPicker div.account, button.emne-menu, button.button, .enme-ui-button, .dijitButton .dijitButtonNode {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -739,25 +739,29 @@ input:focus {
 
 /* line 24, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
 .loading-icon {
-  background-image: url(data:image/gif;base64,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);
+  background-image: url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==);
+  width: 25px;
+  display: inline-block;
+  height: 15px;
+  background-repeat: no-repeat;
 }
 
-/* line 28, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
+/* line 32, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
 div.options .saveButton {
   background-image: url(../../images/icons/add.png);
 }
 
-/* line 32, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
+/* line 36, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
 div.publishWrapper div.itemPublish .account {
   background-image: url(../../images/icons/twitter-logo-small.png);
 }
 
-/* line 36, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
+/* line 40, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
 div.web-folder-wrapper .web-folder-item .icon-folder {
   background-image: url("../images/icons/enme_folder.png");
 }
 
-/* line 42, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
+/* line 46, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
 .ui-image-wrapper, .ui-hits, .ui-comments, .ui-likes, .ui-dislike {
   background-repeat: no-repeat;
   display: inline-block;
@@ -765,20 +769,20 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
   padding-top: 3px;
 }
 
-/* line 50, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
+/* line 54, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
 .ui-hits {
   background-image: url("../images/icons/enme_hits.gif");
   background-position: left center;
   padding-left: 20px;
 }
 
-/* line 57, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
+/* line 61, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
 .ui-comments {
   background-image: url("../images/icons/enme_comment_reply.png");
   padding-left: 24px;
 }
 
-/* line 63, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
+/* line 67, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
 .ui-likes {
   background-image: url("../images/icons/1344286942_Like.png");
   background-position: left center;
@@ -786,7 +790,7 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
   padding-left: 24px;
 }
 
-/* line 71, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
+/* line 75, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../resources.scss */
 .ui-dislike {
   background-image: url("../images/icons/1344286943_Dislike.png");
   background-position: left center;
@@ -803,14 +807,14 @@ a:-webkit-any-link {
 /** default transition **/
 /** placeholder text **/
 /* line 26, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../_input.scss */
-#enme-content input, textarea {
+#enme-content input, #enme-content textarea, .css-input input {
   -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0 1px 3px inset, rgba(255, 255, 255, 0.075) 0 1px 0;
   -moz-box-shadow: rgba(0, 0, 0, 0.05) 0 1px 3px inset, rgba(255, 255, 255, 0.075) 0 1px 0;
   box-shadow: rgba(0, 0, 0, 0.05) 0 1px 3px inset, rgba(255, 255, 255, 0.075) 0 1px 0;
 }
 
-/* line 30, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../_input.scss */
-#enme-content input, textarea, select {
+/* line 31, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../_input.scss */
+#enme-content input, #enme-content textarea, #enme-content select, .css-input input {
   display: inline-block;
   margin: 0;
   outline: 0;
@@ -818,15 +822,15 @@ a:-webkit-any-link {
   border: 1px solid #CCC;
 }
 
-/* line 40, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../_input.scss */
-#enme-content input:focus {
+/* line 41, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../_input.scss */
+#enme-content input:focus, .css-input input:focus {
   -webkit-box-shadow: #e7a441 0 0 5px;
   -moz-box-shadow: #e7a441 0 0 5px;
   box-shadow: #e7a441 0 0 5px;
 }
 
-/* line 48, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../_input.scss */
-.txt-padding, #enme-content input, textarea, select, .enme-text .setting-detail .dijitTextBox {
+/* line 49, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../_input.scss */
+.txt-padding, #enme-content input, #enme-content textarea, #enme-content select, .css-input input, .enme-text .setting-detail .dijitTextBox {
   padding: 4px;
 }
 

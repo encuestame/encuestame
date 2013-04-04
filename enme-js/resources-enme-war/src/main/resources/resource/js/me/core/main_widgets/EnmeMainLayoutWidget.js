@@ -48,12 +48,26 @@ define([ "dojo/parser",
         */
        contextDefaultPath : _ENME.config('contextPath'),
 
+       /**
+        * Contains all 18n messages available in the context
+        * @property
+        */
+       i18n : {},
+
       /**
        * add item on drop down menu.
        * @property append
        */
        append : function(node, place) {
-         dojo.place(node, place);
+          dojo.place(node, place);
+       },
+
+       /**
+        * Constructor
+        * @method constructor
+        */
+       constructor : function () {
+            this.i18n = _ENME.getAllMessages();
        },
 
        /**

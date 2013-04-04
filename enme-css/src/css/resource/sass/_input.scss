@@ -23,11 +23,12 @@
 //   color: #D0D0D0;
 // }
 
-#enme-content input, textarea {
+#enme-content input,  #enme-content  textarea, .css-input input {
     @include box-shadow(rgba(0, 0, 0, .05) 0 1px 3px inset, rgba(255, 255, 255, .075) 0 1px 0);
 }
 
-#enme-content input, textarea, select {
+
+#enme-content input, #enme-content  textarea,  #enme-content select, .css-input input {
     display: inline-block;
     @extend .txt-padding;
     margin: 0;
@@ -37,11 +38,11 @@
    @extend .default-rd;
 }
 
-#enme-content input:focus {
+#enme-content input:focus, .css-input input:focus  {
     @include box-shadow($orange 0 0 5px);
 }
 
-.enme-text  .setting-detail .dijitTextBox {
+.enme-text  .setting-detail .dijitTextBox, .css-input input {
      @extend .txt-padding;
 }
 

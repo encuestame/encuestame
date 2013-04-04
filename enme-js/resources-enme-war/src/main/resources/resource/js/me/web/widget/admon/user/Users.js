@@ -94,10 +94,14 @@ define([
              */
             total : 0,
 
-           i18nMessages : _ENME.getMessages([
-                'var1',
-                'var2'
-           ]),
+           /**
+            * Post create.
+            * @method postCreate
+            */
+           postCreate : function () {
+                this.inherited(arguments);
+                console.log(_ENME.getAllMessages());
+           },
 
             /**
              * Build Row.

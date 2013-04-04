@@ -894,6 +894,14 @@ define(["dojo",
     },
 
     /**
+     * Return all i18n messages.
+     * @method
+     */
+    getAllMessages : function () {
+        return this.params
+    },
+
+    /**
      * Get the current activity object
      * @method  getActivity
      */
