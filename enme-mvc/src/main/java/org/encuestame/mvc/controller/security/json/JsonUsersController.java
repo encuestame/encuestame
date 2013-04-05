@@ -27,11 +27,13 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.Profile;
 import org.encuestame.utils.enums.RelativeTimeEnum;
 import org.encuestame.utils.web.UserAccountBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -53,6 +55,11 @@ public class JsonUsersController extends AbstractJsonController{
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
+
+    /**
+     * Unconfirmed Accounts Limit Test
+     **/
+    @Value("${application.user.unconfirmed.limit}") private Integer unconfirmedAccountsLimit;
 
     /**
      * Get List of Users.
@@ -160,6 +167,10 @@ public class JsonUsersController extends AbstractJsonController{
         try {
             log.debug("user newUsername " + username);
             log.debug("user newEmailUser " + email);
+            final Integer userUnconfirmed = getSecurityService().retrieveListUserUnconfirmedByAccount();
+            if (userUnconfirmed >= unconfirmedAccountsLimit) {
+                throw new EnMeExpcetion(getMessage("unconfirmed_limit", request, null));
+            }
             final UserAccountBean userBean = new UserAccountBean();
             userBean.setEmail(email);
             userBean.setUsername(username);
