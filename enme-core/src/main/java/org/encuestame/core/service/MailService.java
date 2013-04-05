@@ -206,6 +206,31 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
      * Send Email Invitation.
      * @param invitation {@link InvitationBean}
      */
+    public void sendEmailJoinInvitation(final String email, final String username) {
+        final MimeMessagePreparator preparator = new MimeMessagePreparator() {
+        public void prepare(MimeMessage mimeMessage) throws Exception {
+              MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              message.setTo(email);
+              message.setSubject(buildSubject(getMessageProperties("mail.message.join.us.subject")));
+              message.setFrom(noEmailResponse);
+              @SuppressWarnings("rawtypes")
+              Map model = new HashMap();
+              getLogo(model);
+              model.put("domain", domainDefault);
+              model.put("username", username);
+              getGreetingMessage(model);
+              final String text = VelocityEngineUtils.mergeTemplateIntoString(
+                 velocityEngine, "/org/encuestame/business/mail/templates/invite-enme.vm", "utf-8", model);
+              message.setText(text, true);
+           }
+        };
+        send(preparator);
+     }
+
+    /**
+     * Send Email Invitation.
+     * @param invitation {@link InvitationBean}
+     */
     public void sendEmailInvitation(final InvitationBean invitation) {
         final MimeMessagePreparator preparator = new MimeMessagePreparator() {
         public void prepare(MimeMessage mimeMessage) throws Exception {

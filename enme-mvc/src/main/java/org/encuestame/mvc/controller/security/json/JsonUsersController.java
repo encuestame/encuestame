@@ -351,4 +351,38 @@ public class JsonUsersController extends AbstractJsonController{
         }
         return returnData();
     }
+
+    /**
+     * Check if profile item is valid.
+     * @param request
+     * @param type
+     * @param value
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/api/user/invite.json", method = RequestMethod.GET)
+    public @ResponseBody ModelMap invite(HttpServletRequest request,
+            @RequestParam(value = "email", required = true) String email,
+            HttpServletResponse response) throws JsonGenerationException,
+            JsonMappingException, IOException {
+        try {
+            final String valueFilteres = filterValue(email);
+            final ValidateOperations cv = new ValidateOperations( getServiceManager().getApplicationServices().getSecurityService());
+            boolean existEmail = cv.validateUserEmail(valueFilteres, null);
+            if (!existEmail) {
+                throw new EnMeExpcetion(getMessage("e_008", request, null));
+            }
+            getMailService().sendEmailJoinInvitation(valueFilteres, getUserPrincipalUsername());
+            //FUTURE: count and limit the number of invitations
+            setSuccesResponse();
+        } catch (Exception e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 }

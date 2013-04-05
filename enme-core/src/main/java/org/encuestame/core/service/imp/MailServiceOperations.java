@@ -108,4 +108,10 @@ public interface MailServiceOperations extends ServiceOperations {
      * @param message
      */
     void sendNotificationStatusAccount(final SignUpBean user, final String message);
+
+    /**
+     * Send Email Invitation.
+     * @param invitation {@link InvitationBean}
+     */
+    void sendEmailJoinInvitation(final String email, final String username);
 }

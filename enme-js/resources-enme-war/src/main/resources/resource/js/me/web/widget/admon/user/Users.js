@@ -168,6 +168,14 @@ define([
             },
 
             /**
+             * Send a user invitation.
+             * @method
+             */
+            _sendInvitation : function () {
+
+            },
+
+            /**
              * Create a user based on username and password
              * @method _createDirectlyUser
              */

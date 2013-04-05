@@ -92,6 +92,7 @@ define(["dojo",
      */
     var SERVICES = {
         "encuestame.service.list.userList" : "/api/admon/users.json",
+        "encuestame.user.invite" : "api/user/invite.json",
         "encuestame.service.list.getNotifications" : "/api/notifications/list.json",
         "encuestame.service.list.getAllNotifications" : "/api/notifications/all/list.json",
         "encuestame.service.list.changeStatusNotification" : "/api/notifications/readed.json",

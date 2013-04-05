@@ -132,9 +132,14 @@
                          <label for="desc">
                              ${i18n.placeholder_email}
                           </label>
-                          <br/>
-                         <input data-dojo-type="dijit/form/TextBox" class="questionTextBox" type="text" name="emailList" id="emailList">
-                         <button data-dojo-type="dijit/form/Button"  data-dojo-attach-point="_invitation_button">
+                         <input data-dojo-type="me/web/widget/validator/EmailValidator"
+                                   size="30"
+                                   required="true"
+                                   placeholder="${i18n.placeholder_email}"
+                                   regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+                                   type="text" name="emailInvitationText" id="emailInvitationText">
+                         <button data-dojo-type="dijit/form/Button"  data-dojo-attach-point="_invitation_button"
+                         data-dojo-attach-event="onClick:_sendInvitation">
                               ${i18n.admon_users_invite_button}
                          </button>
                      </div>

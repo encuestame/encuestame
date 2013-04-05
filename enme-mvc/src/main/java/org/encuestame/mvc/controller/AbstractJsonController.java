@@ -12,16 +12,23 @@
  */
 package org.encuestame.mvc.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.core.service.MailService;
+import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -66,6 +73,13 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
 
     /** Error JSON. **/
     private Map<String, Object> error = new HashMap<String, Object>();
+
+
+    /**
+     *  {@link MailService}.
+     */
+    @Resource()
+    private MailServiceOperations mailService;
 
     /**
      * This is a successful message, when a services got nothing to answer.
@@ -274,6 +288,66 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
     }
 
     /**
+     * Validate items based on context.
+     * @param context could be signup, update profile or another one.
+     * @param type
+     * @param value
+     * @return
+     */
+    protected  Map<String, Object> validate(final String context, final String type, String value, final  HttpServletRequest request) {
+        value = value == null ? "" : value;
+        final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+        final ValidateOperations validateOperations = new ValidateOperations(getSecurityService());
+        boolean valid = false;
+        if ("email".equals(type)) {
+            if (value.isEmpty() || value.length() < ValidateOperations.MIN_EMAIL_LENGTH) {
+                 log.debug("validate email emtpy");
+                jsonResponse.put("msg", getMessage("secure.email.emtpy", request, null));
+            } else {
+                valid = validateOperations.validateUserEmail(value, null);
+                log.debug("validate EMAIL"+valid);
+                if (valid) {
+                    jsonResponse.put("msg", getMessage("secure.email.valid", request, null));
+                } else {
+                    jsonResponse.put("msg", getMessage("secure.email.notvalid", request, null));
+                }
+            }
+        } else if("username".equals(type)) {
+            valid = validateOperations.validateUsername(value, null);
+            if(value.isEmpty() || value.length() < ValidateOperations.MIN_USERNAME_LENGTH) {
+                log.debug("validate username emtpy");
+                jsonResponse.put("msg", getMessage("secure.username.empty", request, null));
+            } else {
+                log.debug("validate username NO emtpy");
+                if (!valid) {
+                    jsonResponse.put("msg", getMessage("secure.user.notvalid", request, null));
+                    final List<String> suggestions = new ArrayList<String>();
+                    for (int i = 0; i < 5; i++) {
+                        suggestions.add(value+RandomStringUtils.randomAlphabetic(ValidateOperations.LENGTH_RANDOM_VALUE));
+                    }
+                    jsonResponse.put("suggestions", suggestions);
+                } else {
+                    jsonResponse.put("msg", getMessage("secure.username.valid", request, null));
+                }
+                jsonResponse.put("valid", valid);
+            }
+        } else if("realName".equals(type)) {
+            if (value.isEmpty()){
+                valid = false;
+                jsonResponse.put("msg", getMessage("secure.realName.empty", request, null));
+            } else {
+                valid = true;
+                jsonResponse.put("msg", getMessage("secure.realName.valid", request, null));
+            }
+        } else {
+            jsonResponse.put("msg", getMessage("secure.type.not.valid", request, null));
+        }
+        jsonResponse.put("valid", valid);
+        jsonResponse.put("color", "#RRR");
+        return jsonResponse;
+    }
+
+    /**
      *
      * @param label
      * @param object
@@ -307,5 +381,20 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
      */
     public void setNotificationDao(INotification notificationDao) {
         this.notificationDao = notificationDao;
+    }
+
+    /**
+     * @return the mailServiceOperations
+     */
+    @Autowired
+    public MailServiceOperations getMailService() {
+        return mailService;
+    }
+
+    /**
+     * @param mailServiceOperations the mailServiceOperations to set
+     */
+    public void setMailService(final MailServiceOperations mailServiceOperations) {
+        this.mailService = mailServiceOperations;
     }
 }
