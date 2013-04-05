@@ -308,4 +308,11 @@ public interface IAccountDao extends IBaseDao {
      * @return
      */
     List<UserAccount> getUserAccounts(final Boolean status);
+
+    /**
+     * Retrieve a list of unconfirmed user by {@link Account}.
+     * @param account
+     * @return
+     */
+    List<UserAccount> retrieveListUserUnconfirmedByAccount(final Account account);
 }

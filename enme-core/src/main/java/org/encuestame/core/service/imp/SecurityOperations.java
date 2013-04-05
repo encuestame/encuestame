@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.encuestame.core.config.AdministratorProfile;
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -57,6 +58,13 @@ public interface SecurityOperations extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      */
     void refreshInviteCode() throws EnMeNoResultsFoundException;
+
+    /**
+     * Retrieve the number of user unconfirmed accounts by {@link Account}.
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Integer retrieveListUserUnconfirmedByAccount() throws EnMeNoResultsFoundException;
 
     /**
      *

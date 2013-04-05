@@ -668,10 +668,21 @@ public abstract class AbstractBaseService extends AbstractDataSource {
         if(userAccount != null){
             final Collection<UserAccount> listUsers = getAccountDao()
                  .retrieveListOwnerUsers(userAccount.getAccount(), start, maxResults);
-                log.info("list users "+listUsers.size());
+                log.info("list users " + listUsers.size());
                 loadListUsers = ConvertDomainBean.convertCollectionUsersToBean(listUsers);
         }
         return loadListUsers;
+    }
+
+    /**
+     * Retrieve the number of user unconfirmed accounts by {@link Account}.
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public Integer retrieveListUserUnconfirmedByAccount() throws EnMeNoResultsFoundException {
+        final Account userAccount = this.getUserAccount(this.getUserPrincipalUsername()).getAccount();
+        final List<UserAccount> unconfirmedAccounts = this.getAccountDao().retrieveListUserUnconfirmedByAccount(userAccount);
+        return unconfirmedAccounts.size();
     }
 
     /**

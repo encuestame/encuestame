@@ -62,18 +62,69 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
      */
     private static final long serialVersionUID = -184652572883512949L;
 
+    /**
+     * Primary user key.
+     */
     private Long uid;
+
+    /**
+     * User complete name.
+     */
     private String completeName;
+
+    /**
+     * User email.
+     */
     private String userEmail;
+
+    /**
+     * User name.
+     */
     private String username;
+
+    /**
+     * The user passwrod.
+     */
     private String password;
+
+    /**
+     * {@link Account}
+     */
     private Account account;
+
+    /**
+     * Invite Code.
+     */
     private String inviteCode;
+
+    /**
+     * {@link Date} the date the user join in the encuestame.
+     */
     private Date enjoyDate;
+
+    /**
+     * User status, if is false is disabled.
+     */
     private Boolean userStatus;
+
+    /**
+     * {@link Date} last time logged
+     */
     private Date lastTimeLogged;
+
+    /**
+     * {@link String} Last ip registred in the last time logged
+     */
     private String lastIpLogged;
+
+    /**
+     * {@link String} user profile picture path.
+     */
     private String userProfilePicture;
+
+    /**
+     * {@link Boolean} Shared profile.
+     */
     private Boolean sharedProfile = Boolean.FALSE;
 
     /**

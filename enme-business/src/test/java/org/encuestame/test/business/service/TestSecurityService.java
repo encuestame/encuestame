@@ -321,8 +321,24 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
                 super.createGroups("editor"));
         addGroupUser(super.createUserAccount("user 2", this.userPrimary),
                 super.createGroups("admon"));
-        // assertEquals("Should be equals", 3,
-        // securityService.loadListUsers("user 1").size());
+        assertEquals("Should be equals", 3, securityService.loadListUsers("user 1", 0, 10).size());
+    }
+
+    /**
+     * @throws Exception
+     */
+    @Category(DefaultTest.class)
+    @Test
+    public void testretrieveListUserUnconfirmedByAccount() throws Exception {
+        final UserAccount user = createUserAccount("demoUn1", getSpringSecurityLoggedUserAccount().getAccount());
+        final UserAccount user1 = createUserAccount("demoUn2", getSpringSecurityLoggedUserAccount().getAccount());
+        createUserAccount("demoUn3", getSpringSecurityLoggedUserAccount().getAccount());
+        user.setInviteCode(null);
+        user1.setInviteCode(null);
+        getAccountDao().saveOrUpdate(user);
+        getAccountDao().saveOrUpdate(user1);
+        final Integer total = securityService.retrieveListUserUnconfirmedByAccount();
+        assertEquals("Should be equals", 3, total.intValue());
     }
 
     /**

@@ -81,6 +81,16 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
 
     /*
      * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#retrieveListUserUnconfirmedByAccount(org.encuestame.persistence.domain.security.Account)
+     */
+    public final List<UserAccount> retrieveListUserUnconfirmedByAccount(final Account account) {
+     final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
+     criteria.add(Restrictions.isNotNull("inviteCode"));
+     return getHibernateTemplate().findByCriteria(criteria);
+ }
+
+    /*
+     * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#retrieveTotalUsers(org.encuestame.persistence.domain.security.Account)
      */
     public final Long retrieveTotalUsers(final Account account){
