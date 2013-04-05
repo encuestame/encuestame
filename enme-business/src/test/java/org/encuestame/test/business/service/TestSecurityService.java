@@ -332,13 +332,17 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     public void testretrieveListUserUnconfirmedByAccount() throws Exception {
         final UserAccount user = createUserAccount("demoUn1", getSpringSecurityLoggedUserAccount().getAccount());
         final UserAccount user1 = createUserAccount("demoUn2", getSpringSecurityLoggedUserAccount().getAccount());
-        createUserAccount("demoUn3", getSpringSecurityLoggedUserAccount().getAccount());
+        final UserAccount user2 = createUserAccount("demoUn3", getSpringSecurityLoggedUserAccount().getAccount());
         user.setInviteCode(null);
         user1.setInviteCode(null);
         getAccountDao().saveOrUpdate(user);
         getAccountDao().saveOrUpdate(user1);
         final Integer total = securityService.retrieveListUserUnconfirmedByAccount();
         assertEquals("Should be equals", 3, total.intValue());
+        user2.setInviteCode(null);
+        getAccountDao().saveOrUpdate(user2);
+        final Integer total2 = securityService.retrieveListUserUnconfirmedByAccount();
+        assertEquals("Should be equals", 2, total2.intValue());
     }
 
     /**
