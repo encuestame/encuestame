@@ -72,9 +72,8 @@ define([
             /**
              * Load Users.
              */
-            loadItems : function(){
+            loadItems : function() {
                 var load = dojo.hitch(this, function(data){
-                    console.debug("data", data);
                     this.cleanTable();
                     this.iterateResponseItems(data);
                 });

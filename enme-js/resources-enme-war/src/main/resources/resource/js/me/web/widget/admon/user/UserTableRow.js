@@ -101,7 +101,7 @@ define([
                  dojo.addClass(a, "link");
                  a.innerHTML = text;
                  a.href = "#";
-                 //dojo.connect(a, "onclick", this, this.editUSer);
+                 dojo.connect(a, "onclick", this, this.editUSer);
                  td.appendChild(a);
                  this._trbody.appendChild(td);
             },
@@ -123,10 +123,10 @@ define([
             /**
              * Edit User.
              */
-            editUSer : function(){
+            editUSer : function() {
                 var userEdit = registry.byId("userEdit");
                 userEdit.data = this.data;
-                if (userEdit != null) {
+                if (userEdit !== null) {
                     this.getUserInfo(this.data.id);
                 }
             },

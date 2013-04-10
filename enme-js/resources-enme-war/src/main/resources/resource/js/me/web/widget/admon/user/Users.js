@@ -100,8 +100,6 @@ define([
             */
            postCreate : function () {
                 this.inherited(arguments);
-                console.log("juan", _ENME.getAllMessages());
-                console.log("juan", this.i18n);
            },
 
             /**
@@ -169,10 +167,56 @@ define([
 
             /**
              * Send a user invitation.
-             * @method
+             * @method _sendInvitation
              */
             _sendInvitation : function () {
+                 var parent = this;
+                    var emailInvitationText = registry.byId("emailInvitationText");
+                    if (emailInvitationText.isValid) {
+                        var load = dojo.hitch(this, function(data) {
+                            parent.dialogWidget.hide();
+                            if ('success' in data) {
+                                this.loading_hide();
+                                parent._request_button.disabled = false;
+                                if (data.success.r === 0) {
+                                     this.loadItems();
+                                     parent._clearForms();
+                                     parent.successMesage("The request has been sent to " + newEmailUser.getValue());
+                                     newUsername.clear();
+                                     newEmailUser.clear();
+                                }
+                            }
+                        }),
+                        error = function(error) {
+                            //parent.loading_hide();
+                            parent.dialogWidget.hide();
+                            if ("message" in error.response.data.error) {
+                                parent.errorMessage(error.response.data.error.message);
+                            }
+                            parent._request_button.disabled = false;
+                        };
+                        var params = {
+                            email : emailInvitationText.getValue()
+                        };
+                        this.loading_show();
+                        // create the dialog
+                        var content_widget = new DialogGenericContentMessage({
+                                message_content : "Sending Invitation",
+                                icon_class : "loading-icon"
+                             });
+                             parent.dialogWidget = new Dialog({
+                                 content: content_widget.domNode,
+                                 style: "width: 700px",
+                                 draggable : false
+                             });
+                             parent.dialogWidget.show();
 
+                        this.getURLService().put('encuestame.user.invite', params, load, error , dojo.hitch(this, function() {
+
+                        }));
+                    } else {
+                        this.warningMesage("the email is invalid");
+                    }
             },
 
             /**

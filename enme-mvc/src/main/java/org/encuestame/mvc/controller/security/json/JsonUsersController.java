@@ -364,7 +364,7 @@ public class JsonUsersController extends AbstractJsonController{
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
-    @RequestMapping(value = "/api/user/invite.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/user/invite.json", method = RequestMethod.PUT)
     public @ResponseBody ModelMap invite(HttpServletRequest request,
             @RequestParam(value = "email", required = true) String email,
             HttpServletResponse response) throws JsonGenerationException,
