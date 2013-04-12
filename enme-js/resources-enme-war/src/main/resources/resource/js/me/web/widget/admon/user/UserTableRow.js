@@ -32,6 +32,7 @@ define([
          "me/web/widget/pictures/AccountPicture",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/admon/user/UserGroup",
+         "me/web/widget/admon/user/UserEdit",
          "me/core/enme",
          "dojo/text!me/web/widget/admon/user/template/UserTableRow.html" ],
         function(
@@ -45,6 +46,7 @@ define([
                 AccountPicture,
                 main_widget,
                 UserGroup,
+                UserEdit,
                 _ENME,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
@@ -79,7 +81,7 @@ define([
                 // moment replace by ENME.fromNow
                 var _date = moment(data.lastTimeLogged || "never").fromNow();
                 this.createColumn(_date, true);
-                this.createColumn(data.followers == null ? 0 : data.followers, true);
+                this.createColumn(data.followers === null ? 0 : data.followers, true);
             },
 
             /**
