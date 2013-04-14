@@ -1,0 +1,209 @@
+@media screen {
+  /* force vertical scrollbar */
+  /* line 18, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  body {
+    overflow-y: scroll;
+  }
+
+  /* Layout Module Configuration & fallback for unsupported media queries */
+  /* line 23, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-wrapper {
+    min-width: 760px;
+    max-width: 80em;
+    margin: 0 auto;
+  }
+
+  /* line 29, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-wbox {
+    padding: 10px;
+  }
+
+  /* Basic Element Styling */
+  /* line 32, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  header {
+    background: #444;
+    color: #ccc;
+    padding: 1.5em;
+  }
+  /* line 37, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  header h1 {
+    background: transparent;
+    color: #fff;
+  }
+
+  /* line 43, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  nav {
+    background: #222222;
+  }
+
+  /* line 47, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  footer {
+    margin: 1.5em 0 0 0;
+    background: #eee;
+    color: #444;
+    padding: 1.5em;
+  }
+  /* line 53, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  footer p {
+    margin: 0;
+  }
+
+  /* Column-Set Configuration: 1-3 (sidebar right) */
+  /* line 59, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-column {
+    display: block;
+    overflow: hidden;
+    padding-right: 340px;
+    width: auto;
+  }
+
+  /* line 66, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-col1 {
+    /* content */
+    float: left;
+    width: 100%;
+  }
+
+  /* line 71, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-col3 {
+    /* sidebar */
+    position: relative;
+    float: left;
+    width: 340px;
+    margin-left: 0;
+    margin-right: -340px;
+  }
+
+  /* line 79, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-col1 .ym-cbox {
+    padding: 0 0.75em 0 1.5em;
+  }
+
+  /* line 80, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-col3 .ym-cbox {
+    padding: 0 20px 0 12px;
+  }
+
+  /* line 82, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-gbox {
+    padding: 0 1.5em 0 0;
+  }
+
+  /* skip links styling */
+  /* line 87, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-skiplinks a.ym-skip:focus,
+  .ym-skiplinks a.ym-skip:active {
+    color: #fff;
+    background: #333;
+    border-bottom: 1px #000 solid;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+  }
+}
+/* reset fallback values in modern browsers */
+@media screen and (min-width: 0px) {
+  /* line 100, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-wrapper {
+    min-width: 0px;
+  }
+}
+@media screen and (max-width: 740px) {
+  /* Linearisation for Grid- and Column-Module, based on CSS class .linearize-level-1 */
+  /* line 72, ../../../../../../css/resource/sass/yaml/mixins/_yaml_mixins_core.scss */
+  .linearize-level-1, .linearize-level-1 > [class*="ym-c"], .linearize-level-1 > [class*="ym-g"] {
+    /* linearization for grids and columns module */
+    display: block;
+    float: none;
+    padding: 0;
+    margin: 0;
+    width: 100% !important;
+  }
+  /* line 82, ../../../../../../css/resource/sass/yaml/mixins/_yaml_mixins_core.scss */
+  .linearize-level-1 > [class*="ym-c"] > [class*="ym-cbox"], .linearize-level-1 > [class*="ym-g"] > [class*="ym-gbox"] {
+    /* reset defined gutter values */
+    margin: 0;
+    padding: 0;
+    /* optional for containing floats */
+    overflow: hidden;
+  }
+
+  /* line 112, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  nav .ym-hlist ul {
+    padding-right: 10px;
+  }
+
+  /* line 116, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-searchform {
+    display: block;
+    float: none;
+    width: auto;
+    padding-right: 10px;
+    text-align: right;
+  }
+
+  /* line 124, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-searchform input[type="search"] {
+    width: 14%;
+  }
+}
+@media screen and (max-width: 480px) {
+  /* line 131, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-wbox {
+    padding: 0;
+  }
+
+  /* line 135, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  header {
+    padding: 0.75em 10px;
+  }
+  /* line 138, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  header h1 {
+    font-size: 1.5em;
+    line-height: 1em;
+    margin: 0;
+  }
+
+  /* line 148, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  footer,
+  #main,
+  .ym-searchform,
+  nav .ym-hlist ul {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  /* Linearisation for Grid- and Column-Module, based on CSS class .linearize-level-2 */
+  /* line 72, ../../../../../../css/resource/sass/yaml/mixins/_yaml_mixins_core.scss */
+  .linearize-level-2, .linearize-level-2 > [class*="ym-c"], .linearize-level-2 > [class*="ym-g"] {
+    /* linearization for grids and columns module */
+    display: block;
+    float: none;
+    padding: 0;
+    margin: 0;
+    width: 100% !important;
+  }
+  /* line 82, ../../../../../../css/resource/sass/yaml/mixins/_yaml_mixins_core.scss */
+  .linearize-level-2 > [class*="ym-c"] > [class*="ym-cbox"], .linearize-level-2 > [class*="ym-g"] > [class*="ym-gbox"] {
+    /* reset defined gutter values */
+    margin: 0;
+    padding: 0;
+    /* optional for containing floats */
+    overflow: hidden;
+  }
+
+  /* line 160, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-searchform,
+  nav .ym-hlist ul,
+  nav .ym-hlist li {
+    display: block;
+    float: none;
+    width: auto;
+    text-align: left;
+  }
+
+  /* line 167, ../../../../../../css/resource/sass/yaml/screen/screen-PAGE-layout.scss */
+  .ym-searchform input[type="search"] {
+    width: 75%;
+  }
+}

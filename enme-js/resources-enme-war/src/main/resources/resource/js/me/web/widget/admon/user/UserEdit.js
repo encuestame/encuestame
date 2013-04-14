@@ -28,6 +28,8 @@ define([
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "dijit/form/ToggleButton",
+         "dijit/form/Button",
+         "me/web/widget/admon/user/UserPermissions",
          "me/core/enme",
          "dojo/text!me/web/widget/admon/user/template/UserEdit.html" ],
         function(
@@ -37,6 +39,8 @@ define([
                 _WidgetsInTemplateMixin,
                 main_widget,
                 ToggleButton,
+                Button,
+                UserPermissions,
                 _ENME,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
@@ -50,7 +54,19 @@ define([
 
             widgetPermissions : [],
 
+
             postCreate: function() {
+                var widget = new UserPermissions({
+                    user : this.user
+                })
+                this._permissions.appendChild(widget.domNode);
+            },
+
+            /**
+             *
+             * @method
+             */
+            _close : function () {
 
             }
     });

@@ -1,0 +1,28 @@
+@media print {
+  /**
+  * @section basic layout preparation
+  */
+  /* (en) change font size unit to [pt] - avoids problems with [px] in Gecko based browsers  	*/
+  /* (de) Wechsel der der Schriftgrößen-Maßheinheit zu [pt] - Probleme mit [px] in Gecko-Browsern vermeiden */
+  /* line 22, ../../../../../../css/resource/sass/yaml/print/print.scss */
+  body {
+    font-size: 10pt;
+    padding: 0 5px;
+  }
+
+  /* (en) Hide unneeded container of the screenlayout in print layout */
+  /* (de) Für den Druck nicht benötigte Container des Layouts abschalten */
+  /* line 30, ../../../../../../css/resource/sass/yaml/print/print.scss */
+  nav,
+  .ym-searchform {
+    display: none;
+  }
+
+  /*------------------------------------------------------------------------------------------------------*/
+  /* (en) Avoid page breaks right after headings */
+  /* (de) Vermeidung von Seitenumbrüchen direkt nach einer Überschrift */
+  /* line 38, ../../../../../../css/resource/sass/yaml/print/print.scss */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+}

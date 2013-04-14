@@ -139,21 +139,29 @@ define([
              */
             getUserInfo : function(id ) {
                 var load = dojo.hitch(this, function(response) {
-                    registry.byId("userEdit").show();
-                    var data = response.success.user;
-                    registry.byId("userEdit").title = data.username;
-                    var name = registry.byId("name");
-                    name.setValue(data.username);
-                    var email = registry.byId("email");
-                    email.setValue(data.email);
-                    var realName = registry.byId("realName");
-                    realName.setValue(data.name);
-                    //set widgets
-                    if (registry.byId("widgetPermission")) {
-                        registry.byId("widgetPermission").user = data;
-                        registry.byId("widgetPermission").initialize();
-                    } else {
-                        console.info("Permission Widget not found");
+                    if("success" in response) {
+                        var data = response.success.user;
+                        var userEditWidget = new UserEdit({
+                            user : data
+                        });
+                        // display the
+                        var edit = registry.byId("userEdit");
+                        edit.set('content', userEditWidget.domNode);
+                        edit.show();
+                        // registry.byId("userEdit").title = data.username;
+                        // var name = registry.byId("name");
+                        // name.setValue(data.username);
+                        // var email = registry.byId("email");
+                        // email.setValue(data.email);
+                        // var realName = registry.byId("realName");
+                        // realName.setValue(data.name);
+                        // //set widgets
+                        // if (registry.byId("widgetPermission")) {
+                        //     registry.byId("widgetPermission").user = data;
+                        //     registry.byId("widgetPermission").initialize();
+                        // } else {
+                        //     console.info("Permission Widget not found");
+                        // }
                     }
                 });
                 var error = function(error) {

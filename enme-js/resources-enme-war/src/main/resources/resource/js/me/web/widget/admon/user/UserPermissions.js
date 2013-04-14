@@ -41,68 +41,93 @@ define([
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-          // template string.
+             // template string.
             templateString : template,
 
-            user: null,
+            /**
+             *
+             * @property
+             */
+            user: {},
 
+            /**
+             *
+             * @property
+             */
             permissions: [],
 
+            /**
+             * All default permissions.
+             * @property all_permissions
+             */
+            all_permissions : [
+                    {"id":1,"permission":"ENCUESTAME_ADMIN","description":"ENCUESTAME_ADMIN"},
+                    {"id":2,"permission":"ENCUESTAME_OWNER","description":"ENCUESTAME_OWNER"},
+                    {"id":3,"permission":"ENCUESTAME_PUBLISHER","description":"ENCUESTAME_PUBLISHER"},
+                    {"id":4,"permission":"ENCUESTAME_EDITOR","description":"ENCUESTAME_EDITOR"},
+                    {"id":5,"permission":"ENCUESTAME_USER","description":"ENCUESTAME_USER"}
+            ],
+
+            /**
+             * Store all permissions widget.
+             * @property widgetPermissions
+             */
             widgetPermissions : [],
 
+            /**
+             *
+             * @method postCreate
+             */
             postCreate: function() {
                 this.loadPermisions();
             },
 
+
+            /**
+             * Load all permissions and build the permissions buttons
+             * @method loadPermisions
+             */
             loadPermisions : function() {
-                 var load = dojo.hitch(this, function(response){
-                     this.permissions = response.success.permissions;
-                     dojo.forEach(this.permissions,
+                    dojo.forEach(this.all_permissions,
                          dojo.hitch(this, function(data, index) {
                              this.buildPermission(data);
-                         }));
-                 });
-                 var error = function(error) {
-                     console.debug("error", error);
-                 };
-                 this.getURLService().get('encuestame.service.list.listPermissions', {}, load, error , dojo.hitch(this, function() {
-
-                 }));
+                    }));
             },
 
-            resetWidgets : function(){
+            /**
+             * Reset all widgets.
+             * @method resetWidgets resetWidgets
+             */
+            resetWidgets : function() {
                  dojo.forEach(this.widgetPermissions,
                          dojo.hitch(this, function(data, index) {
                              data.checked = false;
-                         }));
+                 }));
             },
 
-            initialize: function(){
-                var load = dojo.hitch(this, function(response){
-                    this.resetWidgets();
-                    dojo.forEach(this.widgetPermissions,
-                            dojo.hitch(this, function(data, index) {
-                                dojo.forEach(response.success.userPermissions,
-                                        dojo.hitch(this, function(permission, index) {
-                                        if(data.permission == permission.permission){
-                                            data.checked = true;
-                                            data.postCreate();
-                                        }
-                                }));
-                            }));
-                });
-                var error = function(error) {
-                    console.debug("error", error);
-                };
-               this.getURLService().get('encuestame.service.list.listUserPermissions', {id: this.user.id}, load, error , dojo.hitch(this, function() {
-
+            /**
+             * Check if the permission is assiged to the user.
+             * @method checkPermission
+             */
+            checkPermission : function (data) {
+                var isAssigned = false;
+                 dojo.forEach(this.user.listPermission, dojo.hitch(this, function(permission, index) {
+                        if (data.permission == permission.permission) {
+                           isAssigned = true;
+                        }
                 }));
+                return isAssigned;
             },
 
-            buildPermission : function(response){
+            /**
+             * Build a Permission Widget.
+             * @param response
+             * @method buildPermission
+             */
+            buildPermission : function(response) {
                  var widget = new ToggleButton({
                      showLabel: true,
-                     checked: false,
+                     checked: this.checkPermission(response),
                      layoutAlign : "left",
                      value : response.permission,
                      iconClass : "dijitCheckBoxIcon",

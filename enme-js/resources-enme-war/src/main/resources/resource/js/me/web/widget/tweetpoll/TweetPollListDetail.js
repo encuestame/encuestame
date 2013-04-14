@@ -90,7 +90,7 @@ define([
            * Update Detail.
            */
           updateDetail : function(data) {
-              if(data != null){
+              if (data !== null) {
                   this.loadContent(data);
               } else {
                   this.error();

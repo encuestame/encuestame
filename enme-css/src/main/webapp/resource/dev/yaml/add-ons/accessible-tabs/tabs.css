@@ -1,0 +1,121 @@
+@media screen, projection {
+  /* line 13, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs {
+    margin: 1.5em 0 0;
+  }
+  /* line 16, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs ul.tabs-list {
+    font-size: 1em;
+    line-height: 1.5em;
+    display: table;
+    list-style-type: none;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+  /* line 26, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs ul.tabs-list li {
+    margin: 0 4px 0 0;
+    border: 0 none;
+    display: inline;
+    float: left;
+    padding: 0;
+  }
+  /* line 33, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs ul.tabs-list li a {
+    font-size: 1em;
+    line-height: 1.5;
+    padding: 0.75em;
+    background: transparent;
+    display: block;
+    float: left;
+    font-weight: normal;
+    margin: 0;
+  }
+  /* line 44, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs ul.tabs-list li a:focus, .jquery_tabs ul.tabs-list li a:hover, .jquery_tabs ul.tabs-list li a:active {
+    background: #eee;
+    border-radius: 0.2em 0.2em 0 0;
+    color: #000;
+    font-weight: normal;
+    outline: 0 none;
+    text-decoration: none;
+  }
+  /* line 56, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs ul.tabs-list li.current a, .jquery_tabs ul.tabs-list li.current a:focus, .jquery_tabs ul.tabs-list li.current a:hover, .jquery_tabs ul.tabs-list li.current a:active {
+    background: #fff;
+    border: 1px #ccc solid;
+    border-radius: 0.2em 0.2em 0 0;
+    color: #000;
+    border-bottom: 0 none;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  /* line 70, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs .content {
+    border-top: 1px #ccc solid;
+    clear: both;
+    padding: 0;
+    position: relative;
+    top: -1px;
+    margin-bottom: -1px;
+  }
+
+  /* line 82, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs .tabhead {
+    position: absolute;
+    left: -32768px;
+  }
+
+  /* line 87, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs .current-info,
+  .jquery_tabs .accessibletabsanchor {
+    left: -999em;
+    position: absolute;
+  }
+
+  /* line 99, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs .tab-content {
+    border-bottom: 1px transparent solid;
+    border-top: 1px transparent solid;
+    *overflow: hidden;
+  }
+
+  /* line 111, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  * html .jquery_tabs {
+    zoom: 1;
+    width: auto;
+    position: relative;
+  }
+  /* line 117, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  * html .jquery_tabs .tab-content {
+    border-bottom: 1px #fff solid;
+    border-top: 1px #fff solid;
+  }
+  /* line 122, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  * html .jquery_tabs .content {
+    z-index: -1;
+  }
+
+  /* line 127, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  * + html .jquery_tabs {
+    zoom: 1;
+    width: auto;
+  }
+
+  /* line 128, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs * {
+    zoom: 1;
+  }
+}
+@media print {
+  /* line 134, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs .tabs-list {
+    display: none !important;
+  }
+  /* line 138, ../../../../../../../css/resource/sass/yaml/add-ons/accessible-tabs/tabs.scss */
+  .jquery_tabs .tabbody,
+  .jquery_tabs .tabhead {
+    display: block !important;
+  }
+}

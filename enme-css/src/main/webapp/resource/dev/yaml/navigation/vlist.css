@@ -1,0 +1,175 @@
+@media all {
+  /* title */
+  /* line 17, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vtitle {
+    font-weight: bold;
+    font-size: 100%;
+    width: 90%;
+    padding: 3px 0px 3px 10%;
+    /* LTR */
+    margin: 0;
+    color: #444;
+    background-color: #fff;
+    border-top: 2px #ddd solid;
+  }
+  /* line 27, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vtitle + ul {
+    border-top: 4px #888 solid;
+  }
+
+  /* line 32, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist {
+    margin: 0 0 1.5em 0;
+    list-style-type: none;
+    background: transparent;
+    border: 0 none;
+    /* active list element */
+    /* Level 1 */
+    /* Level 2 */
+    /* Level 3 */
+    /* Level 4 */
+  }
+  /* line 38, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+    border-top: 2px #ddd solid;
+    border-bottom: 2px #ddd solid;
+  }
+  /* line 48, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist ul ul {
+    border: 0 none;
+  }
+  /* line 52, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li {
+    float: left;
+    /* LTR */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+  }
+  /* line 62, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist a,
+  .ym-vlist strong,
+  .ym-vlist span {
+    display: block;
+    padding: 3px 0px 3px 10%;
+    text-decoration: none;
+    border-bottom: 1px #ddd solid;
+  }
+  /* line 70, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist a,
+  .ym-vlist a:visited {
+    color: #444;
+  }
+  /* line 74, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li span {
+    display: block;
+    font-weight: bold;
+    border-bottom: 1px #ddd solid;
+  }
+  /* line 81, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li.active {
+    color: #fff;
+    background-color: #444;
+  }
+  /* line 84, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li.active strong {
+    font-weight: bold;
+  }
+  /* line 90, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li {
+    /* LTR */
+  }
+  /* line 93, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li a,
+  .ym-vlist li strong,
+  .ym-vlist li span {
+    width: 90%;
+    padding-left: 10%;
+  }
+  /* line 97, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li a:focus,
+  .ym-vlist li a:hover,
+  .ym-vlist li a:active {
+    background-color: #888;
+    color: #fff;
+    outline: 0 none;
+  }
+  /* line 101, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li ul li {
+    /* LTR */
+  }
+  /* line 104, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li ul li a,
+  .ym-vlist li ul li strong,
+  .ym-vlist li ul li span {
+    width: 80%;
+    padding-left: 20%;
+  }
+  /* line 107, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li ul li a,
+  .ym-vlist li ul li a:visited {
+    background-color: #f8f8f8;
+    color: #333;
+  }
+  /* line 110, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li ul li a:focus,
+  .ym-vlist li ul li a:hover,
+  .ym-vlist li ul li a:active {
+    background-color: #888;
+    color: #fff;
+  }
+  /* line 114, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li ul li ul li {
+    /* LTR */
+  }
+  /* line 117, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li ul li ul li a,
+  .ym-vlist li ul li ul li strong,
+  .ym-vlist li ul li ul li span {
+    width: 70%;
+    padding-left: 30%;
+  }
+  /* line 120, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li ul li ul li a,
+  .ym-vlist li ul li ul li a:visited {
+    background-color: #f0f0f0;
+    color: #222;
+  }
+  /* line 123, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li ul li ul li a:focus,
+  .ym-vlist li ul li ul li a:hover,
+  .ym-vlist li ul li ul li a:active {
+    background-color: #888;
+    color: #fff;
+  }
+  /* line 127, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li ul li ul li ul li {
+    /* LTR */
+  }
+  /* line 130, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li ul li ul li ul li a,
+  .ym-vlist li ul li ul li ul li strong,
+  .ym-vlist li ul li ul li ul li span {
+    width: 60%;
+    padding-left: 40%;
+  }
+  /* line 133, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li ul li ul li ul li a,
+  .ym-vlist li ul li ul li ul li a:visited {
+    background-color: #e8e8e8;
+    color: #111;
+  }
+  /* line 136, ../../../../../../css/resource/sass/yaml/navigation/vlist.scss */
+  .ym-vlist li ul li ul li ul li a:focus,
+  .ym-vlist li ul li ul li ul li a:hover,
+  .ym-vlist li ul li ul li ul li a:active {
+    background-color: #888;
+    color: #fff;
+  }
+}
