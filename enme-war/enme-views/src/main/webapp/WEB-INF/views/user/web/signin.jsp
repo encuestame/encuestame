@@ -13,10 +13,10 @@
                     <fieldset class="textbox">
                         <div class="section">
                             <c:if test="${not empty message}">
-                                <div class="${message.infoType.css}">${message.message}</div>
+                                <p class="box ${message.infoType.css}">${message.message}</p>
                             </c:if>
                             <c:if test="${signinError}">
-                                <div class="error">
+                                <p class="box error">
                                     <spring:message code="signin.error" />
                                     <br />
                                     <spring:message code="signin.error.description" />
@@ -24,7 +24,7 @@
                                             code="signin.error.signup" /> <spring:message
                                             code="signin.error.free" />
                                     </a>
-                                </div>
+                                </p>
                             </c:if>
                         </div>
                         <div class="section">

@@ -325,7 +325,10 @@ a.point {
   font-size: $df_font_size + 1;
   line-height: 15px;
   @extend .non-margin;
+}
 
+.home-header-color {
+  background-color: $header_info_main_color;
 }
 
 .panel-header p {

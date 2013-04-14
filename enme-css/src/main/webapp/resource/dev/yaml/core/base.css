@@ -7,28 +7,28 @@
   /*
    *  @section Normalisation Module
    */
-  /* line 8, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 8, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   * {
     margin: 0;
     padding: 0;
   }
 
-  /* line 12, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 12, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   option {
     padding-left: 0.4em;
   }
 
-  /* line 13, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 13, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   select {
     padding: 1px;
   }
 
-  /* line 23, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 23, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   * html body * {
     overflow: visible;
   }
 
-  /* line 25, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 25, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   body {
     font-size: 100%;
     background: #fff;
@@ -36,88 +36,88 @@
     text-align: left;
   }
 
-  /* line 39, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 39, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   div:target {
     outline: 0 none;
   }
 
-  /* line 44, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 44, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   article, aside, details, figcaption, figure,
   footer, header, hgroup, nav, section {
     display: block;
   }
 
-  /* line 52, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 52, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   audio,
   canvas,
   video {
     display: inline-block;
   }
 
-  /* line 58, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 58, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   audio:not([controls]) {
     display: none;
   }
 
-  /* line 64, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 64, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   [hidden] {
     display: none;
   }
 
-  /* line 70, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 70, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   input[type="search"] {
     -webkit-appearance: textfield;
   }
 
-  /* line 73, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 73, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   input[type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
   }
 
-  /* line 79, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 79, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   fieldset, img {
     border: 0 solid;
   }
 
-  /* line 83, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 83, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   ul, ol, dl {
     margin: 0 0 1em 1em;
   }
 
-  /* line 84, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 84, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   li {
     line-height: 1.5em;
     margin-left: 0.8em;
   }
 
-  /* line 89, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 89, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   dt {
     font-weight: bold;
   }
 
-  /* line 90, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 90, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   dd {
     margin: 0 0 1em 0.8em;
   }
 
-  /* line 92, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 92, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   blockquote {
     margin: 0 0 1em 0.8em;
   }
 
-  /* line 93, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 93, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   q {
     quotes: none;
   }
 
-  /* line 96, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 96, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   blockquote:before, blockquote:after,
   q:before, q:after {
     content: '';
     content: none;
   }
 
-  /* line 98, ../../../../../../css/resource/sass/yaml/core/base-modules/_normalization.scss */
+  /* line 98, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_normalization.scss */
   table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -126,13 +126,13 @@
   /**
   * @section Float Handling Module
   */
-  /* line 8, ../../../../../../css/resource/sass/yaml/core/base-modules/_float-handling.scss */
+  /* line 8, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_float-handling.scss */
   .ym-clearfix:before {
     content: "";
     display: table;
   }
 
-  /* line 12, ../../../../../../css/resource/sass/yaml/core/base-modules/_float-handling.scss */
+  /* line 12, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_float-handling.scss */
   .ym-clearfix:after {
     clear: both;
     content: ".";
@@ -142,21 +142,21 @@
     visibility: hidden;
   }
 
-  /* line 23, ../../../../../../css/resource/sass/yaml/core/base-modules/_float-handling.scss */
+  /* line 23, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_float-handling.scss */
   .ym-contain-dt {
     display: table;
     width: 100%;
     overflow: visible;
   }
 
-  /* line 24, ../../../../../../css/resource/sass/yaml/core/base-modules/_float-handling.scss */
+  /* line 24, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_float-handling.scss */
   .ym-contain-oh {
     overflow: hidden;
     width: 100%;
     display: block;
   }
 
-  /* line 25, ../../../../../../css/resource/sass/yaml/core/base-modules/_float-handling.scss */
+  /* line 25, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_float-handling.scss */
   .ym-contain-fl {
     float: left;
     width: 100%;
@@ -165,46 +165,46 @@
   /**
   * @section Column Module
   */
-  /* line 12, ../../../../../../css/resource/sass/yaml/core/base-modules/_columns.scss */
+  /* line 12, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_columns.scss */
   .ym-column {
     display: table;
     width: 100%;
   }
 
-  /* line 14, ../../../../../../css/resource/sass/yaml/core/base-modules/_columns.scss */
+  /* line 14, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_columns.scss */
   .ym-col1 {
     float: left;
     width: 20%;
   }
 
-  /* line 15, ../../../../../../css/resource/sass/yaml/core/base-modules/_columns.scss */
+  /* line 15, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_columns.scss */
   .ym-col2 {
     float: right;
     width: 20%;
   }
 
-  /* line 16, ../../../../../../css/resource/sass/yaml/core/base-modules/_columns.scss */
+  /* line 16, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_columns.scss */
   .ym-col3 {
     width: auto;
     margin: 0 20%;
   }
 
-  /* line 18, ../../../../../../css/resource/sass/yaml/core/base-modules/_columns.scss */
+  /* line 18, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_columns.scss */
   .ym-cbox {
     padding: 0 10px;
   }
 
-  /* line 19, ../../../../../../css/resource/sass/yaml/core/base-modules/_columns.scss */
+  /* line 19, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_columns.scss */
   .ym-cbox-left {
     padding: 0 10px 0 0;
   }
 
-  /* line 20, ../../../../../../css/resource/sass/yaml/core/base-modules/_columns.scss */
+  /* line 20, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_columns.scss */
   .ym-cbox-right {
     padding: 0 0 0 10px;
   }
 
-  /* line 24, ../../../../../../css/resource/sass/yaml/core/base-modules/_columns.scss */
+  /* line 24, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_columns.scss */
   .ym-ie-clearing {
     display: none;
   }
@@ -212,7 +212,7 @@
   /**
   * @section Grid Module
   */
-  /* line 7, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 7, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-grid {
     display: table;
     width: 100%;
@@ -224,94 +224,94 @@
     margin-right: 0;
   }
 
-  /* line 18, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 18, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-gl {
     float: left;
     margin: 0;
   }
 
-  /* line 19, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 19, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-gr {
     float: right;
     margin: 0 0 0 -5px;
   }
 
-  /* line 21, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 21, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-g20 {
     width: 20%;
   }
 
-  /* line 22, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 22, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-g40 {
     width: 40%;
   }
 
-  /* line 23, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 23, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-g60 {
     width: 60%;
   }
 
-  /* line 24, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 24, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-g80 {
     width: 80%;
   }
 
-  /* line 25, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 25, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-g25 {
     width: 25%;
   }
 
-  /* line 26, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 26, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-g33 {
     width: 33.333%;
   }
 
-  /* line 27, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 27, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-g50 {
     width: 50%;
   }
 
-  /* line 28, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 28, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-g66 {
     width: 66.666%;
   }
 
-  /* line 29, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 29, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-g75 {
     width: 75%;
   }
 
-  /* line 30, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 30, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-g38 {
     width: 38.2%;
   }
 
-  /* line 31, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 31, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-g62 {
     width: 61.8%;
   }
 
-  /* line 33, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 33, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-gbox {
     padding: 0 10px;
   }
 
-  /* line 34, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 34, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-gbox-left {
     padding: 0 10px 0 0;
   }
 
-  /* line 35, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 35, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-gbox-right {
     padding: 0 0 0 10px;
   }
 
-  /* line 37, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 37, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-equalize {
     overflow: hidden;
   }
 
-  /* line 39, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 39, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-equalize > [class*="ym-g"] {
     display: table-cell;
     float: none;
@@ -319,7 +319,7 @@
     vertical-align: top;
   }
 
-  /* line 46, ../../../../../../css/resource/sass/yaml/core/base-modules/_grids-core.scss */
+  /* line 46, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_grids-core.scss */
   .ym-equalize > [class*="ym-g"] > [class*="ym-gbox"] {
     padding-bottom: 10000px;
     margin-bottom: -10000px;
@@ -328,47 +328,47 @@
   /**
   * @section Form Module
   */
-  /* line 21, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 21, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form,
   .ym-form fieldset {
     overflow: hidden;
   }
 
-  /* line 24, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 24, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form div {
     position: relative;
   }
-  /* line 27, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 27, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form label,
   .ym-form .ym-message {
     position: relative;
     display: block;
   }
-  /* line 32, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 32, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form .ym-fbox-check label {
     display: inline;
   }
-  /* line 37, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 37, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form input,
   .ym-form textarea {
     cursor: text;
   }
-  /* line 42, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 42, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form input[type="checkbox"],
   .ym-form input[type="radio"],
   .ym-form select,
   .ym-form label {
     cursor: pointer;
   }
-  /* line 47, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 47, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form textarea {
     overflow: auto;
   }
-  /* line 51, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 51, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form input[type=hidden] {
     display: none !important;
   }
-  /* line 58, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 58, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form .ym-fbox-text:before,
   .ym-form .ym-fbox-select:before,
   .ym-form .ym-fbox-check:before,
@@ -376,7 +376,7 @@
     content: "";
     display: table;
   }
-  /* line 66, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 66, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form .ym-fbox-text:after,
   .ym-form .ym-fbox-select:after,
   .ym-form .ym-fbox-check:after,
@@ -388,7 +388,7 @@
     height: 0;
     visibility: hidden;
   }
-  /* line 79, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 79, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form select,
   .ym-form input,
   .ym-form textarea {
@@ -396,25 +396,25 @@
     position: relative;
     width: 58.5%;
   }
-  /* line 85, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 85, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form .ym-fbox-check input {
     display: inline;
     width: auto;
   }
-  /* line 92, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 92, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form .ym-fbox-button input {
     display: inline;
     overflow: visible;
     width: auto;
   }
-  /* line 101, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 101, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-form .ym-fbox-check input:focus,
   .ym-form .ym-fbox-check input:hover,
   .ym-form .ym-fbox-check input:active {
     border: 0 none;
   }
 
-  /* line 112, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 112, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-full .ym-fbox-select select,
   .ym-full .ym-fbox-text input,
   .ym-full .ym-fbox-text textarea {
@@ -422,14 +422,14 @@
     margin-right: -3px;
   }
 
-  /* line 137, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 137, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-columnar .ym-fbox-text label,
   .ym-columnar .ym-fbox-select label {
     display: inline;
     float: left;
     width: 30%;
   }
-  /* line 145, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 145, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-columnar .ym-fbox-select select,
   .ym-columnar .ym-fbox-text input,
   .ym-columnar .ym-fbox-text textarea {
@@ -437,43 +437,43 @@
     width: 67.2%;
     margin-right: -3px;
   }
-  /* line 151, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 151, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-columnar .ym-fbox-check {
     position: relative;
   }
-  /* line 153, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 153, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-columnar .ym-fbox-check .ym-label {
     position: absolute;
     top: 0;
   }
-  /* line 162, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 162, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-columnar .ym-fbox-check input,
   .ym-columnar .ym-error .ym-message {
     margin-left: 30%;
   }
 
-  /* line 167, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 167, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-label {
     display: block;
   }
 
-  /* line 171, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 171, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-columnar fieldset .ym-fbox-button,
   fieldset.ym-columnar .ym-fbox-button {
     padding-left: 30%;
   }
 
-  /* line 176, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 176, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-fbox-select select {
     width: 60%;
   }
 
-  /* line 177, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 177, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-full .ym-fbox-select select {
     width: 94.8%;
   }
 
-  /* line 178, ../../../../../../css/resource/sass/yaml/core/base-modules/_forms-core.scss */
+  /* line 178, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_forms-core.scss */
   .ym-columnar .ym-fbox-select select {
     width: 68.8%;
   }
@@ -481,7 +481,7 @@
   /**
   * @section Accessibility Module
   */
-  /* line 13, ../../../../../../css/resource/sass/yaml/core/base-modules/_accessibility.scss */
+  /* line 13, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_accessibility.scss */
   .ym-skip,
   .ym-hideme,
   .ym-print {
@@ -490,7 +490,7 @@
     left: -32768px;
   }
 
-  /* line 22, ../../../../../../css/resource/sass/yaml/core/base-modules/_accessibility.scss */
+  /* line 22, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_accessibility.scss */
   .ym-skip:focus,
   .ym-skip:active {
     position: static;
@@ -498,7 +498,7 @@
     left: 0;
   }
 
-  /* line 29, ../../../../../../css/resource/sass/yaml/core/base-modules/_accessibility.scss */
+  /* line 29, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_accessibility.scss */
   .ym-skiplinks {
     position: absolute;
     top: 0px;
@@ -509,7 +509,7 @@
     padding: 0;
     list-style-type: none;
   }
-  /* line 40, ../../../../../../css/resource/sass/yaml/core/base-modules/_accessibility.scss */
+  /* line 40, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_accessibility.scss */
   .ym-skiplinks .ym-skip:focus,
   .ym-skiplinks .ym-skip:active {
     left: 32768px;
@@ -525,20 +525,20 @@
   * (en) float clearing for subtemplates. Uses display:table to avoid bugs in FF & IE
   * (de) Float Clearing für die Subtemplates. Verwendet display:table, um Darstellungsprobleme im FF & IE zu vermeiden
   */
-  /* line 17, ../../../../../../css/resource/sass/yaml/core/base-modules/_print-core.scss */
+  /* line 17, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_print-core.scss */
   .ym-grid > .ym-gl,
   .ym-grid > .ym-gr {
     overflow: visible;
     display: table;
   }
 
-  /* line 24, ../../../../../../css/resource/sass/yaml/core/base-modules/_print-core.scss */
+  /* line 24, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_print-core.scss */
   .ym-print {
     position: static;
     left: 0;
   }
 
-  /* line 31, ../../../../../../css/resource/sass/yaml/core/base-modules/_print-core.scss */
+  /* line 31, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/mobile/../../yaml/core/base-modules/_print-core.scss */
   .ym-noprint {
     display: none !important;
   }

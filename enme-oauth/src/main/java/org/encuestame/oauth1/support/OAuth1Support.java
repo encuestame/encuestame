@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.encuestame.oauth.AbstractOAuthSupport;
+import org.encuestame.persistence.exception.EnMeBadCredentialsException;
 import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.http.HttpEntity;
@@ -30,6 +31,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.util.UriTemplate;
 
@@ -121,6 +123,15 @@ public class OAuth1Support extends AbstractOAuthSupport implements OAuth1RestOpe
 
     // internal helpers
 
+    /**
+     *
+     * @param tokenUrl
+     * @param tokenRequestParameters
+     * @param additionalParameters
+     * @param tokenSecret
+     * @return
+     * @throws EnMeOAuthSecurityException
+     */
     protected OAuth1Token getTokenFromProvider(String tokenUrl, Map<String, String> tokenRequestParameters, Map<String, String> additionalParameters, String tokenSecret) throws EnMeOAuthSecurityException {
         log.debug("getTokenFromProvider TOKEN "+tokenUrl);
         log.debug("getTokenFromProvider TOKEN "+tokenRequestParameters);
@@ -140,6 +151,13 @@ public class OAuth1Support extends AbstractOAuthSupport implements OAuth1RestOpe
             responseMap = parseResponse(response.getBody());
         } catch (HttpServerErrorException e) {
             throw new EnMeOAuthSecurityException(e);
+        } catch (HttpClientErrorException e) {
+            // normally if the social credentials are wrong
+            throw new EnMeBadCredentialsException(e.getMessage());
+        } catch (Exception e) {
+            // another kind of error, possible wrong configuration
+            //TODO : only happends with twitter
+            throw new EnMeBadCredentialsException(e.getMessage());
         }
 
         return new OAuth1Token(responseMap.get("oauth_token"), responseMap.get("oauth_token_secret"));

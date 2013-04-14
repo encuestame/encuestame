@@ -81,10 +81,11 @@ public class FacebookConnectSocialAccount extends AbstractAccountConnect{
     @RequestMapping(value="/connect/facebook", method = RequestMethod.POST)
     public String connectFacebookPost(
             @RequestParam(required=false) String scope,
-            HttpServletRequest httpRequest){
+            HttpServletRequest httpRequest) {
            log.debug("CONNECT POST FACEBOOK");
            return this.auth2RequestProvider.buildOAuth2AuthorizeUrl(SocialUtils.FACEBOOK_SCOPE,
                   httpRequest, true);
+
     }
 
 

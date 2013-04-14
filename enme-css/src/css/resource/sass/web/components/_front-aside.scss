@@ -40,10 +40,6 @@
     color: white;
 }
 
-.home-header-color {
-  background-color: $header_info_main_color;
-}
-
 #web-main-public-line .web-left-wrapper .section .sectionTitle {
   @extend .home-header-color;
   border-bottom: 1px solid #717171;

@@ -33,7 +33,7 @@ import org.springframework.web.context.request.WebRequest;
  * @since August 01, 2011
  */
 @Controller
-public class GoogleBuzzConnectSocialAccount extends AbstractAccountConnect{
+public class GooglePlusConnectSocialAccount extends AbstractAccountConnect{
 
     /**
      * Log.
@@ -49,7 +49,7 @@ public class GoogleBuzzConnectSocialAccount extends AbstractAccountConnect{
      * @param clientId
      */
     @Inject
-    public GoogleBuzzConnectSocialAccount(
+    public GooglePlusConnectSocialAccount(
             @Value("${google.api.key}") String keyId,
             @Value("${google.accesToken}") String accessTokenUrl,
             @Value("${google.authorizeURl}") String authorizeUrl,

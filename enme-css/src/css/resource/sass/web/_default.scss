@@ -37,35 +37,35 @@
 
 /** common classes **/
 
-.error{
-    background-image: linear-gradient(bottom, rgb(188,26,5) 41%, rgb(226,52,31) 71%, rgb(219,87,75) 97%);
-    background-image: -o-linear-gradient(bottom, rgb(188,26,5) 41%, rgb(226,52,31) 71%, rgb(219,87,75) 97%);
-    background-image: -moz-linear-gradient(bottom, rgb(188,26,5) 41%, rgb(226,52,31) 71%, rgb(219,87,75) 97%);
-    background-image: -webkit-linear-gradient(bottom, rgb(188,26,5) 41%, rgb(226,52,31) 71%, rgb(219,87,75) 97%);
-    background-image: -ms-linear-gradient(bottom, rgb(188,26,5) 41%, rgb(226,52,31) 71%, rgb(219,87,75) 97%);
+// .error{
+//     background-image: linear-gradient(bottom, rgb(188,26,5) 41%, rgb(226,52,31) 71%, rgb(219,87,75) 97%);
+//     background-image: -o-linear-gradient(bottom, rgb(188,26,5) 41%, rgb(226,52,31) 71%, rgb(219,87,75) 97%);
+//     background-image: -moz-linear-gradient(bottom, rgb(188,26,5) 41%, rgb(226,52,31) 71%, rgb(219,87,75) 97%);
+//     background-image: -webkit-linear-gradient(bottom, rgb(188,26,5) 41%, rgb(226,52,31) 71%, rgb(219,87,75) 97%);
+//     background-image: -ms-linear-gradient(bottom, rgb(188,26,5) 41%, rgb(226,52,31) 71%, rgb(219,87,75) 97%);
 
-    background-image: -webkit-gradient(
-        linear,
-        left bottom,
-        left top,
-        color-stop(0.41, rgb(188,26,5)),
-        color-stop(0.71, rgb(226,52,31)),
-        color-stop(0.97, rgb(219,87,75))
-    );
-    @extend .default-rd;
-    color: #FFF;
-    font-weight: bold;
-    padding: 6px;
-    margin-top: 5px;
-    margin-bottom: 3px;
-}
+//     background-image: -webkit-gradient(
+//         linear,
+//         left bottom,
+//         left top,
+//         color-stop(0.41, rgb(188,26,5)),
+//         color-stop(0.71, rgb(226,52,31)),
+//         color-stop(0.97, rgb(219,87,75))
+//     );
+//     @extend .default-rd;
+//     color: #FFF;
+//     font-weight: bold;
+//     padding: 6px;
+//     margin-top: 5px;
+//     margin-bottom: 3px;
+// }
 
-.error a {
-    color: #FFFFFF !important;
-    font-weight: normal;
-    text-shadow: none !important;
-    text-decoration: underline !important;
-}
+// .error a {
+//     color: #FFFFFF !important;
+//     font-weight: normal;
+//     text-shadow: none !important;
+//     text-decoration: underline !important;
+// }
 
 .mainError {
     background-color: #F4A1A1;

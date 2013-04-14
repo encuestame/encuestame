@@ -79,8 +79,10 @@ public class TwitterConnectSocialAccount extends AbstractAccountConnect {
         try {
             return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
         } catch (EnMeOAuthSecurityException e) {
-           log.error(e);
-           return null;
+              log.error(e);
+              log.fatal("OAuth Exception:{"+e.getMessage());
+              RequestSessionMap.setErrorMessage(getMessage("social.bad.credentials", httpRequest, null));
+              return "redirect:/settings/social";
         }
     }
 

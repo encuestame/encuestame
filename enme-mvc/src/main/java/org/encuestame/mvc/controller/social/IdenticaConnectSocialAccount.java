@@ -20,7 +20,6 @@ import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
-import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.social.SocialProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -79,8 +78,10 @@ public class IdenticaConnectSocialAccount extends AbstractAccountConnect {
         try {
             return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
         } catch (EnMeOAuthSecurityException e) {
-            log.error(e);
-            return null;
+              log.error(e);
+              log.fatal("OAuth Exception:{"+e.getMessage());
+              RequestSessionMap.setErrorMessage(getMessage("social.bad.credentials", httpRequest, null));
+              return "redirect:/settings/social";
         }
     }
 

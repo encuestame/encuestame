@@ -64,7 +64,8 @@ $highlight-error-color		: #c88;
 $link-text-color			: #4d87c7;
 $link-bg-color				: transparent;
 $link-focus-text-color		: #fff;
-$link-focus-bg-color		: #4d87c7;
+// ENME : override;
+$link-focus-bg-color		: none;
 
 // special colors
 $hr-color					: #eee;

@@ -14,14 +14,16 @@
    <div class="sectionTitle ">
            <spring:message code="home.aside.rated.comments" />
    </div>
-   <div data-dojo-type="me/web/widget/rated/Comments" comments="5" class="web-aside-section"></div>
+   <div data-dojo-type="me/web/widget/rated/Comments"
+        comments="<%=EnMePlaceHolderConfigurer.getProperty("front.comments.items")%>"
+        class="web-aside-section"></div>
 </section>
-<section class="section emne-box">
+<!-- <section class="section emne-box">
    <div class="sectionTitle ">
            <spring:message code="home.aside.rated.hashtag" />
        </div>
 
-</section>
+</section> -->
 <section class="section emne-box">
     <div class="sectionTitle ">
          <spring:message code="home.aside.rated.users" />

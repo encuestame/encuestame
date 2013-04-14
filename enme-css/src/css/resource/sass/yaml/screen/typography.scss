@@ -259,12 +259,12 @@
 
 	/* (en) maximum constrast for tab focus - change with great care */
 	/* (en) Maximaler Kontrast für Tab Focus - Ändern Sie diese Regel mit Bedacht */
-	a:hover,
-	a:focus {
-		background-color: $link-focus-bg-color;
-		color:$link-focus-text-color;
-		text-decoration:none;
-	}
+	// a:hover,
+	// a:focus {
+	// 	background-color: $link-focus-bg-color;
+	// 	color:$link-focus-text-color;
+	// 	text-decoration:none;
+	// }
 
 	/* --- images ------------------ */
 
