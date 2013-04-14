@@ -7,24 +7,25 @@
 	@extend .o-auto;
 }
 
-.settingsWrapper div.settingsGroup {
+.settingsWrapper .settingsGroup {
 	@extend .non-margin;
 	@extend .o-hidden;
     @extend .width-max;
 }
 
-.settingsWrapper div.settingsGroup div.listSettings {
+.settingsWrapper .settingsGroup div.listSettings {
 	@extend .col-left;
 	min-height: 400px;
 	min-width: 200px;
 	@extend .settings-shadow;
 	background-color: $gray_lite;
-}
-
-.settingsWrapper div.settingsGroup div.socialCommunitieItem {
-	@extend .padding;
 	@extend .bold;
 	@extend .text-white;
+
+}
+
+.settingsWrapper .settingsGroup .socialCommunitieItem {
+	@extend .padding;
 	@extend .pointer;
 	@extend .settings-shadow;
 }
@@ -33,34 +34,34 @@
 	@include box-shadow($black_light 0 1px 3px inset);
 };
 
-.settingsWrapper div.settingsGroup .selected {
-	@extend .settings-shadow;
+.settingsGroup .selected {
 	background-color: $white;
 	color: $black_light !important;
+	@extend .settings-shadow;
 }
 
-.settingsWrapper div.settingsGroup div.settingsListDetail {
+.settingsWrapper .settingsGroup .settingsListDetail {
 	margin-left: 200px;
 	padding: 15px;
 }
 
-.settingsWrapper div.settingsGroup div.settingsListDetail h2{
+.settingsWrapper .settingsGroup .settingsListDetail h2 {
     @extend .non-margin;
     font-size: 18px;
     font-weight: bold;
     line-height: 20px;
 }
 
-.settingsWrapper div.settingsGroup div.settingsListDetail p{
+.settingsWrapper .settingsGroup .settingsListDetail p {
     margin-top: 2px;
 }
 
-.settingsWrapper div.settingsGroup div.settingsListDetail .toolBox {
+.settingsWrapper .settingsGroup .settingsListDetail .toolBox {
 	 @extend .o-auto;
 	 padding: 7px;
 }
 
-.settingsWrapper div.settingsGroup div.settingsListDetail .account-list-container .socialWrapperRow:first-child {
+.settingsWrapper .settingsGroup .settingsListDetail .account-list-container .socialWrapperRow:first-child {
 	@extend .top-m;
 }
 

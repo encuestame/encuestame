@@ -385,88 +385,88 @@
 	* @section content-tables
 	*/
 
-	table {
-		width:100%;
-		border-collapse:collapse;
-		color:$text-color;
-		border-top: 1px #ccc solid;
-		border-bottom: 1px #ccc solid;
-		margin: ($base-line-height - 2 ) / $base-line-height * $line-height * 1em 0 0 0;
+	// table {
+	// 	width:100%;
+	// 	border-collapse:collapse;
+	// 	color:$text-color;
+	// 	border-top: 1px #ccc solid;
+	// 	border-bottom: 1px #ccc solid;
+	// 	margin: ($base-line-height - 2 ) / $base-line-height * $line-height * 1em 0 0 0;
 
-		&.narrow {
-			margin: ($base-line-height - 1 ) / $base-line-height * $line-height * 1em 0 0 0;
+	// 	&.narrow {
+	// 		margin: ($base-line-height - 1 ) / $base-line-height * $line-height * 1em 0 0 0;
 
-			th, td {
-				padding: 0 0.5em;
-				line-height: ($base-line-height - 1 ) / $base-line-height * $line-height;
-			}
-		}
+	// 		th, td {
+	// 			padding: 0 0.5em;
+	// 			line-height: ($base-line-height - 1 ) / $base-line-height * $line-height;
+	// 		}
+	// 	}
 
-		&.bordertable {
-			border:1px #ccc solid;
+	// 	&.bordertable {
+	// 		border:1px #ccc solid;
 
-			thead th {
-				background:#e0e0e0;
-				border-right:1px #ccc solid;
-				border-bottom:1px #ccc solid;
-			}
+	// 		thead th {
+	// 			background:#e0e0e0;
+	// 			border-right:1px #ccc solid;
+	// 			border-bottom:1px #ccc solid;
+	// 		}
 
-			tbody {
-				th[scope="row"] {
-					background:#f0f0f0;
-				}
-				th {
-					border-right:1px solid #ccc;
-				}
-				td {
-					border-right:1px solid #ccc;
-				}
-			}
-		}
-	}
+	// 		tbody {
+	// 			th[scope="row"] {
+	// 				background:#f0f0f0;
+	// 			}
+	// 			th {
+	// 				border-right:1px solid #ccc;
+	// 			}
+	// 			td {
+	// 				border-right:1px solid #ccc;
+	// 			}
+	// 		}
+	// 	}
+	// }
 
-	table caption {
-		font-variant:small-caps;
-	}
+	// table caption {
+	// 	font-variant:small-caps;
+	// }
 
-	th, td {
-		line-height: $line-height * 1em;
-		vertical-align: top;
-		padding: ($base-line-height - 1 ) / $base-line-height * $line-height / 2 * 1em 0.5em;
-	}
+	// th, td {
+	// 	line-height: $line-height * 1em;
+	// 	vertical-align: top;
+	// 	padding: ($base-line-height - 1 ) / $base-line-height * $line-height / 2 * 1em 0.5em;
+	// }
 
-	th *:first-child,
-	td *:first-child {
-		margin-top: 0;
-	}
+	// th *:first-child,
+	// td *:first-child {
+	// 	margin-top: 0;
+	// }
 
-	th.nowrap,
-	td.nowrap {
-		white-space: nowrap;
-	}
+	// th.nowrap,
+	// td.nowrap {
+	// 	white-space: nowrap;
+	// }
 
-	thead th {
-		text-align: left;
-		color:#000;
-		border-bottom:2px #000 solid;
-	}
+	// thead th {
+	// 	text-align: left;
+	// 	color:#000;
+	// 	border-bottom:2px #000 solid;
+	// }
 
-	tbody {
-		th {
-			text-align: left;
-			border-top:1px solid #ccc;
-			text-align:left;
-		}
+	// tbody {
+	// 	th {
+	// 		text-align: left;
+	// 		border-top:1px solid #ccc;
+	// 		text-align:left;
+	// 	}
 
-		td {
-			text-align: left;
-			border-top:1px solid #ccc;
-		}
+	// 	td {
+	// 		text-align: left;
+	// 		border-top:1px solid #ccc;
+	// 	}
 
-		/* highlight row on mouse over */
-		tr:hover th,
-		tr:hover td {
-			background:#f8f8f8;
-		}
-	}
+	// 	/* highlight row on mouse over */
+	// 	tr:hover th,
+	// 	tr:hover td {
+	// 		background:#f8f8f8;
+	// 	}
+	// }
 }

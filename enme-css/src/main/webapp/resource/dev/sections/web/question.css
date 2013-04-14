@@ -4565,14 +4565,6 @@ button.button {
 
   /* (en) maximum constrast for tab focus - change with great care */
   /* (en) Maximaler Kontrast für Tab Focus - Ändern Sie diese Regel mit Bedacht */
-  /* line 263, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  a:hover,
-  a:focus {
-    background-color: none;
-    color: white;
-    text-decoration: none;
-  }
-
   /* --- images ------------------ */
   /* line 272, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
   img,
@@ -4709,98 +4701,6 @@ button.button {
   *
   * @section content-tables
   */
-  /* line 388, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    color: #444444;
-    border-top: 1px #ccc solid;
-    border-bottom: 1px #ccc solid;
-    margin: 1.35714em 0 0 0;
-  }
-  /* line 396, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.narrow {
-    margin: 1.42857em 0 0 0;
-  }
-  /* line 399, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.narrow th, table.narrow td {
-    padding: 0 0.5em;
-    line-height: 1.42857;
-  }
-  /* line 405, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.bordertable {
-    border: 1px #ccc solid;
-  }
-  /* line 408, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.bordertable thead th {
-    background: #e0e0e0;
-    border-right: 1px #ccc solid;
-    border-bottom: 1px #ccc solid;
-  }
-  /* line 415, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.bordertable tbody th[scope="row"] {
-    background: #f0f0f0;
-  }
-  /* line 418, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.bordertable tbody th {
-    border-right: 1px solid #ccc;
-  }
-  /* line 421, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.bordertable tbody td {
-    border-right: 1px solid #ccc;
-  }
-
-  /* line 428, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table caption {
-    font-variant: small-caps;
-  }
-
-  /* line 432, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  th, td {
-    line-height: 1.5em;
-    vertical-align: top;
-    padding: 0.71429em 0.5em;
-  }
-
-  /* line 439, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  th *:first-child,
-  td *:first-child {
-    margin-top: 0;
-  }
-
-  /* line 444, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  th.nowrap,
-  td.nowrap {
-    white-space: nowrap;
-  }
-
-  /* line 448, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  thead th {
-    text-align: left;
-    color: #000;
-    border-bottom: 2px #000 solid;
-  }
-
-  /* line 454, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  tbody {
-    /* highlight row on mouse over */
-  }
-  /* line 455, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  tbody th {
-    text-align: left;
-    border-top: 1px solid #ccc;
-    text-align: left;
-  }
-  /* line 461, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  tbody td {
-    text-align: left;
-    border-top: 1px solid #ccc;
-  }
-  /* line 468, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  tbody tr:hover th,
-  tbody tr:hover td {
-    background: #f8f8f8;
-  }
 }
 /* line 17, /Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
@@ -9369,14 +9269,6 @@ button.button {
 
   /* (en) maximum constrast for tab focus - change with great care */
   /* (en) Maximaler Kontrast für Tab Focus - Ändern Sie diese Regel mit Bedacht */
-  /* line 263, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  a:hover,
-  a:focus {
-    background-color: none;
-    color: white;
-    text-decoration: none;
-  }
-
   /* --- images ------------------ */
   /* line 272, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
   img,
@@ -9513,98 +9405,6 @@ button.button {
   *
   * @section content-tables
   */
-  /* line 388, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    color: #444444;
-    border-top: 1px #ccc solid;
-    border-bottom: 1px #ccc solid;
-    margin: 1.35714em 0 0 0;
-  }
-  /* line 396, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.narrow {
-    margin: 1.42857em 0 0 0;
-  }
-  /* line 399, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.narrow th, table.narrow td {
-    padding: 0 0.5em;
-    line-height: 1.42857;
-  }
-  /* line 405, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.bordertable {
-    border: 1px #ccc solid;
-  }
-  /* line 408, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.bordertable thead th {
-    background: #e0e0e0;
-    border-right: 1px #ccc solid;
-    border-bottom: 1px #ccc solid;
-  }
-  /* line 415, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.bordertable tbody th[scope="row"] {
-    background: #f0f0f0;
-  }
-  /* line 418, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.bordertable tbody th {
-    border-right: 1px solid #ccc;
-  }
-  /* line 421, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table.bordertable tbody td {
-    border-right: 1px solid #ccc;
-  }
-
-  /* line 428, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  table caption {
-    font-variant: small-caps;
-  }
-
-  /* line 432, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  th, td {
-    line-height: 1.5em;
-    vertical-align: top;
-    padding: 0.71429em 0.5em;
-  }
-
-  /* line 439, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  th *:first-child,
-  td *:first-child {
-    margin-top: 0;
-  }
-
-  /* line 444, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  th.nowrap,
-  td.nowrap {
-    white-space: nowrap;
-  }
-
-  /* line 448, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  thead th {
-    text-align: left;
-    color: #000;
-    border-bottom: 2px #000 solid;
-  }
-
-  /* line 454, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  tbody {
-    /* highlight row on mouse over */
-  }
-  /* line 455, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  tbody th {
-    text-align: left;
-    border-top: 1px solid #ccc;
-    text-align: left;
-  }
-  /* line 461, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  tbody td {
-    text-align: left;
-    border-top: 1px solid #ccc;
-  }
-  /* line 468, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  tbody tr:hover th,
-  tbody tr:hover td {
-    background: #f8f8f8;
-  }
 }
 /* line 3, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_front-aside.scss */
 #web-main-public-line .web-left-wrapper {
