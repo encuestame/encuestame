@@ -79,6 +79,9 @@ define([
              * @method postCreate
              */
             postCreate: function() {
+                //
+                this.i18n.permission_title = "Permissions";
+                //
                 this.loadPermisions();
             },
 

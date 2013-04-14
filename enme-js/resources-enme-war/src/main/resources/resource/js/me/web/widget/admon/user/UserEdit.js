@@ -25,6 +25,7 @@ define([
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
+         "dijit/registry",
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "dijit/form/ToggleButton",
@@ -36,6 +37,7 @@ define([
                 declare,
                 _WidgetBase,
                 _TemplatedMixin,
+                registry,
                 _WidgetsInTemplateMixin,
                 main_widget,
                 ToggleButton,
@@ -54,7 +56,6 @@ define([
 
             widgetPermissions : [],
 
-
             postCreate: function() {
                 var widget = new UserPermissions({
                     user : this.user
@@ -67,7 +68,8 @@ define([
              * @method
              */
             _close : function () {
-
+                var edit = registry.byId("userEdit");
+                    edit.hide();
             }
     });
 });
