@@ -4634,22 +4634,6 @@ button.button {
     margin-top: 0;
   }
 
-  /* line 328, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .label {
-    font-family: Verdana, Geneva, sans-serif;
-    padding: 1px 6px 2px;
-    display: inline-block;
-    vertical-align: middle;
-    letter-spacing: normal;
-    white-space: nowrap;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    background: #06C;
-    color: #fff;
-    font-size: 10px;
-    line-height: 12px;
-  }
-
   /* line 343, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
   .info {
     background: #f4f4f4;
@@ -9336,22 +9320,6 @@ button.button {
   /* line 323, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
   .box > *:first-child {
     margin-top: 0;
-  }
-
-  /* line 328, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .label {
-    font-family: Verdana, Geneva, sans-serif;
-    padding: 1px 6px 2px;
-    display: inline-block;
-    vertical-align: middle;
-    letter-spacing: normal;
-    white-space: nowrap;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    background: #06C;
-    color: #fff;
-    font-size: 10px;
-    line-height: 12px;
   }
 
   /* line 343, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */

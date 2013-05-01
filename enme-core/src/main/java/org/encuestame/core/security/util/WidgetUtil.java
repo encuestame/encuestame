@@ -21,6 +21,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.util.SocialUtils;
@@ -28,7 +30,6 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.ShortUrlProvider;
-import org.jfree.util.Log;
 import org.springframework.core.io.ClassPathResource;
 
 /**
@@ -43,6 +44,8 @@ public class WidgetUtil {
 
     private static final Integer REQUEST_SERVER_PORT = 80;
 
+    private static Log log = LogFactory.getLog(EnMePlaceHolderConfigurer.class);
+
     /**
      *
      * @param request
@@ -52,6 +55,24 @@ public class WidgetUtil {
         final StringBuilder domain = new StringBuilder(WidgetUtil.getDomain(request));
         domain.append(PathUtil.profileUserImage);
         return domain.toString();
+    }
+
+    /**
+     *
+     * @param menu
+     * @param request
+     * @return
+     */
+    public static String menuSelected(final String menu, final String realPath, final String contextPath) {
+            final StringBuffer stringBuffer = new StringBuffer(contextPath);
+            stringBuffer.append(menu);
+            log.debug("menuSelected realPath " +stringBuffer.toString());
+            log.debug("menuSelected contextPath " + contextPath);
+            if (stringBuffer.toString() == menu) {
+                return "current";
+            } else {
+                return "";
+            }
     }
 
     /**
@@ -117,7 +138,7 @@ public class WidgetUtil {
             url.append("&period=");
             url.append(period);
         }
-        Log.debug("getHomeFilterPeriodParameter "+url.toString());
+        log.debug("getHomeFilterPeriodParameter "+url.toString());
         return url.toString();
     }
 
@@ -219,13 +240,13 @@ public class WidgetUtil {
             String ipLine;
             while(true) {
                 ipLine = reader.readLine();
-                Log.debug("IP readed ---> "+ ipLine);
+                log.debug("IP readed ---> "+ ipLine);
             if (ipLine == null) break;
             blackList.add(ipLine);
             }
             reader.close();
         } catch (IOException e) {
-            Log.debug(e);
+            log.debug(e);
         }
         return blackList;
     }

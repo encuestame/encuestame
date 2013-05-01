@@ -57,12 +57,20 @@
   background-color: white;
 }
 
+.menuWrapper .current {
+
+}
+
+.menuWrapper .current > a {
+  font-weight: bold;
+}
+
 .menuWrapper .item:first-child {
     border-radius : 0 0 0 5px;
 }
 
-.menuWrapper .item:hover a{
-      color: #888 !important;
+.menuWrapper .item:hover a {
+    color: #888 !important;
 }
 
 .menuWrapper a:hover {
@@ -76,12 +84,8 @@
     font-weight: normal;
 }
 
-div .menuWrapper .item a:hover,.menuWrapper .item .current {
+.menuWrapper .item a:hover {
     color: #444444;
-    background-color: #E8E8E8;
-    -moz-box-shadow: 0px 2px 2px #888;
-    -webkit-box-shadow: 0px 2px 2px #888;
-    box-shadow: 0px 0px 2px #888;
 }
 
 #profile_menu {

@@ -4634,22 +4634,6 @@ button.button {
     margin-top: 0;
   }
 
-  /* line 328, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .label {
-    font-family: Verdana, Geneva, sans-serif;
-    padding: 1px 6px 2px;
-    display: inline-block;
-    vertical-align: middle;
-    letter-spacing: normal;
-    white-space: nowrap;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    background: #06C;
-    color: #fff;
-    font-size: 10px;
-    line-height: 12px;
-  }
-
   /* line 343, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
   .info {
     background: #f4f4f4;
@@ -4761,7 +4745,7 @@ button.button {
 }
 
 /* line 56, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
-.menuWrapper .item:hover {
+.menuWrapper .item:hover, .menuWrapper .current {
   background-color: white;
 }
 
@@ -4784,15 +4768,11 @@ button.button {
 }
 
 /* line 79, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
-div .menuWrapper .item a:hover, .menuWrapper .item .current {
+.menuWrapper .item a:hover, .menuWrapper .current > a {
   color: #444444;
-  background-color: #E8E8E8;
-  -moz-box-shadow: 0px 2px 2px #888;
-  -webkit-box-shadow: 0px 2px 2px #888;
-  box-shadow: 0px 0px 2px #888;
 }
 
-/* line 87, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 83, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 #profile_menu {
   background-color: #AAAAAA;
   border: solid 1px #666666;
@@ -4812,13 +4792,13 @@ div .menuWrapper .item a:hover, .menuWrapper .item .current {
   top: 37px;
 }
 
-/* line 106, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 102, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 #profile_menu li {
   padding-bottom: 6px;
   text-align: right;
 }
 
-/* line 111, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 107, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 #detail_profile {
   padding-right: 10px;
   border-right: 1px #DEDEDE solid;
@@ -4828,7 +4808,7 @@ div .menuWrapper .item a:hover, .menuWrapper .item .current {
   line-height: 12px;
 }
 
-/* line 120, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 116, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 #options_profile {
   padding-left: 20px;
   height: 120px;
@@ -4838,20 +4818,20 @@ div .menuWrapper .item a:hover, .menuWrapper .item .current {
   text-align: right;
 }
 
-/* line 129, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 125, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 #profile_menu label {
   font-size: 11px;
   font-weight: normal;
 }
 
-/* line 134, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 130, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 #profile_menu input {
   font-size: 11px;
   color: #333333;
   margin-left: 10px;
 }
 
-/* line 140, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 136, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 #profile_menu button {
   line-height: 24px;
   float: right;
@@ -4862,44 +4842,44 @@ div .menuWrapper .item a:hover, .menuWrapper .item .current {
   cursor: pointer;
 }
 
-/* line 150, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 146, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 .menuWrapper div.leftSide {
   float: left;
   height: 33px;
 }
 
 /** menu right side */
-/* line 157, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 153, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 .menuWrapper div.rightSide {
   float: right;
   text-align: left;
   width: 25%;
 }
 
-/* line 163, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 159, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 .menuWrapper div.rightSide > div {
   float: left;
   position: relative;
 }
 
-/* line 168, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 164, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 .menuWrapper div.rightSide .web-notification {
   width: 15%;
 }
 
-/* line 172, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 168, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 .menuWrapper div.rightSide .web-profile {
   width: 80%;
   padding: 3px;
 }
 
-/* line 177, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 173, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 .menuWrapper div.rightSide .web-profile:hover {
   background-color: #444;
   color: #222;
 }
 
-/* line 182, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
+/* line 178, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 .menuWrapper div.rightSide span:hover {
   background-color: white;
 }

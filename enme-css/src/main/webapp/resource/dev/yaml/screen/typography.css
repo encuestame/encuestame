@@ -372,22 +372,6 @@
     margin-top: 0;
   }
 
-  /* line 328, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
-  .label {
-    font-family: Verdana, Geneva, sans-serif;
-    padding: 1px 6px 2px;
-    display: inline-block;
-    vertical-align: middle;
-    letter-spacing: normal;
-    white-space: nowrap;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    background: #06C;
-    color: #fff;
-    font-size: 10px;
-    line-height: 12px;
-  }
-
   /* line 343, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
   .info {
     background: #f4f4f4;

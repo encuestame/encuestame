@@ -61,17 +61,22 @@
   background-color: white;
 }
 
-/* line 60, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 64, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+.menuWrapper .current > a {
+  font-weight: bold;
+}
+
+/* line 68, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 .menuWrapper .item:first-child {
   border-radius: 0 0 0 5px;
 }
 
-/* line 64, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 72, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 .menuWrapper .item:hover a {
   color: #888 !important;
 }
 
-/* line 72, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 80, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 .menuWrapper .item a {
   float: left;
   text-decoration: none;
@@ -79,16 +84,12 @@
   font-weight: normal;
 }
 
-/* line 79, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-div .menuWrapper .item a:hover, .menuWrapper .item .current {
+/* line 87, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+.menuWrapper .item a:hover {
   color: #444444;
-  background-color: #E8E8E8;
-  -moz-box-shadow: 0px 2px 2px #888;
-  -webkit-box-shadow: 0px 2px 2px #888;
-  box-shadow: 0px 0px 2px #888;
 }
 
-/* line 87, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 91, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 #profile_menu {
   background-color: #AAAAAA;
   border: solid 1px #666666;
@@ -108,13 +109,13 @@ div .menuWrapper .item a:hover, .menuWrapper .item .current {
   top: 37px;
 }
 
-/* line 106, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 110, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 #profile_menu li {
   padding-bottom: 6px;
   text-align: right;
 }
 
-/* line 111, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 115, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 #detail_profile {
   padding-right: 10px;
   border-right: 1px #DEDEDE solid;
@@ -124,7 +125,7 @@ div .menuWrapper .item a:hover, .menuWrapper .item .current {
   line-height: 12px;
 }
 
-/* line 120, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 124, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 #options_profile {
   padding-left: 20px;
   height: 120px;
@@ -134,20 +135,20 @@ div .menuWrapper .item a:hover, .menuWrapper .item .current {
   text-align: right;
 }
 
-/* line 129, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 133, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 #profile_menu label {
   font-size: 11px;
   font-weight: normal;
 }
 
-/* line 134, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 138, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 #profile_menu input {
   font-size: 11px;
   color: #333333;
   margin-left: 10px;
 }
 
-/* line 140, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 144, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 #profile_menu button {
   line-height: 24px;
   float: right;
@@ -158,44 +159,44 @@ div .menuWrapper .item a:hover, .menuWrapper .item .current {
   cursor: pointer;
 }
 
-/* line 150, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 154, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 .menuWrapper div.leftSide {
   float: left;
   height: 33px;
 }
 
 /** menu right side */
-/* line 157, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 161, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 .menuWrapper div.rightSide {
   float: right;
   text-align: left;
   width: 25%;
 }
 
-/* line 163, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 167, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 .menuWrapper div.rightSide > div {
   float: left;
   position: relative;
 }
 
-/* line 168, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 172, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 .menuWrapper div.rightSide .web-notification {
   width: 15%;
 }
 
-/* line 172, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 176, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 .menuWrapper div.rightSide .web-profile {
   width: 80%;
   padding: 3px;
 }
 
-/* line 177, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 181, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 .menuWrapper div.rightSide .web-profile:hover {
   background-color: #444;
   color: #222;
 }
 
-/* line 182, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
+/* line 186, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
 .menuWrapper div.rightSide span:hover {
   background-color: white;
 }

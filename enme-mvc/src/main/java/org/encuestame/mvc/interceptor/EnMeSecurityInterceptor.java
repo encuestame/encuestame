@@ -68,7 +68,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
     /**
      * Return customized logo path or default is customized is not defined.
      */
-    private String getCustomizedHeaderLogo(){
+    private String getCustomizedHeaderLogo() {
         String customizedLogo = EnMePlaceHolderConfigurer.getProperty("application.logo.small");
         if (customizedLogo == null) {
             customizedLogo = this.DEFAULT_LOGO;
@@ -112,6 +112,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
         //customized logo
         request.setAttribute("logo", this.getCustomizedHeaderLogo());
         request.setAttribute("domain", WidgetUtil.getDomain(request));
+        request.setAttribute("realPath", request.getRequestURI());
         return true;
     }
 

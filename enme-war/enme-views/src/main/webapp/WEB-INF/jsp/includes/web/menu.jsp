@@ -6,7 +6,7 @@
                 <div class="web-notification">
                     <a data-dojo-type="me/web/widget/notifications/Notification"></a>
                 </div>
-                <div class=" web-profile">
+                <div class="web-profile">
                         <div data-dojo-type="me/web/widget/profile/ProfileMenu"
                              username="${account.username}"
                              completeName="${account.email}">
@@ -27,10 +27,10 @@
             </c:if>
         </div>
         <div class="leftSide clearfix">
-            <span class="item">
-                <a
-                href="<%=request.getContextPath()%>/admon/members"> <spring:message
-                        code="menu.members" /> </a>
+            <span class="item <%=WidgetUtil.menuSelected("/admon/members", "${realPath}", "${pageContext.request.contextPath}")%>">
+                <a href="<%=request.getContextPath()%>/admon/members">
+                  <spring:message code="menu.members" />
+                </a>
             </span>
     <!--         <span class="item"> -->
     <!--             <a -->
@@ -42,12 +42,12 @@
     <%--             href="<%=request.getContextPath()%>/admon/project"> <spring:message --%>
     <!--                     code="menu.project" /> </a> -->
     <!--         </span> -->
-             <span class="item">
+             <span class="item <%=WidgetUtil.menuSelected("/user/tweetpoll/list", "${realPath}", "")%>">
                 <a href="<%=request.getContextPath()%>/user/tweetpoll/list">
                     <spring:message code="menu.tweetpoll" />
                 </a>
             </span>
-             <span class="item">
+             <span class="item <%=WidgetUtil.menuSelected("/user/poll", "${realPath}", "${pageContext.request.contextPath}")%>">
                 <a href="<%=request.getContextPath()%>/user/poll">
                     <spring:message code="menu.poll" />
                 </a>
