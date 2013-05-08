@@ -137,9 +137,9 @@ define([
                    id : graph,
                    valuesx : valuesx,
                    valuesy : valuesy,
-                   width : 430,
+                   width : 630,
                    radius : 1,
-                   height : 280
+                   height : 290
                };
                //create a line graph
                this.line(option);
