@@ -6,16 +6,19 @@
     <definition name="404" extends="page">
         <put-attribute name="title" value="Page not Found | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/error/${detectedDevice ? 'mobile/' : 'web/'}404.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/error/${detectedDevice ? 'mobile/' : 'web/'}css.jsp" />
     </definition>
 
      <definition name="error" extends="errorPage">
         <put-attribute name="title" value="Error | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/error/${detectedDevice ? 'mobile/' : 'web/'}error.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/error/${detectedDevice ? 'mobile/' : 'web/'}css.jsp" />
     </definition>
 
      <definition name="error/denied" extends="errorPage">
         <put-attribute name="title" value="Error | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/error/${detectedDevice ? 'mobile/' : 'web/'}denied.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/error/${detectedDevice ? 'mobile/' : 'web/'}css.jsp" />
     </definition>
 
 </tiles-definitions>
