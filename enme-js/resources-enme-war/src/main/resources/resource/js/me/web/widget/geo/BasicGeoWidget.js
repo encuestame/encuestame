@@ -53,11 +53,25 @@ define([
        * @method postCreate
        */
       postCreate : function () {
-         var geolocationSupport = new GeolocationSupport();
-         console.log("geo", geolocationSupport);
-         if (geolocationSupport.isLocated()) {
-             console.log("geolocationSupport", geolocationSupport.getLocation());
-         }
+         var geo = new GeolocationSupport({
+
+          /**
+           *
+           * @method
+           */
+          success: function(p) {
+            console.log("success", arguments);
+            alert(p.coords.latitude);
+          },
+
+          /**
+           *
+           * @method
+           */
+          error: function(){
+            console.log("error", arguments);
+          }
+         });
       }
   });
 });

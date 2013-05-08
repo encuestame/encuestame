@@ -42,28 +42,21 @@ define([
    * Geolocation support
    * @method
    */
-  var GeoLocationSupport = function() {
+  var GeoLocationSupport = function(options) {
        var parent = this;
        this.location = null;
        try {
           if (Modernizr.geolocation) {
-              var geo_success = function(position) {
-                  console.info("dddd", position.coords.latitude, position.coords.longitude);
-              };
-
-              var geo_error = function() {
-                  console.error("Sorry, no position available.");
-              };
-
-              var geo_options = {
-                enableHighAccuracy: true,
-                maximumAge        : 30000,
-                timeout           : 27000
-              };
-
-              var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+              navigator.geolocation.getCurrentPosition(
+                      function(){
+                        options.success.apply(parent, arguments);
+                      },
+                      options.error , {
+                        timeout: 10000
+              });
           } else {
               parent.location = new Location();
+              options.error();
           }
        } catch(error) {
           console.info("error geo object", error);
