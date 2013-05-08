@@ -14,6 +14,7 @@
                     <spring:message code="tweetpoll.votes.link" />
                 </a>
             </div>
+            <!-- <div data-dojo-type="me/web/widget/geo/BasicGeoWidget"> </div> -->
         </div>
 
     </section>
