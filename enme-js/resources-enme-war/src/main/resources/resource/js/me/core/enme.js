@@ -482,14 +482,14 @@ define(["dojo",
       /**
        *
        */
-      include : function(url) {
-        if (!this.contains(included, url)) {
-          included.push(url);
-          var s = document.createElement("script");
-          s.src = url;
-          query("body").append(s);
-        }
-      },
+      // include : function(url) {
+      //   if (!this.contains(included, url)) {
+      //     included.push(url);
+      //     var s = document.createElement("script");
+      //     s.src = url;
+      //     query("body").append(s);
+      //   }
+      // },
 
 
       toggleClassName : function(element, className) {
@@ -588,18 +588,18 @@ define(["dojo",
        * @method firebug
        * @usage Type in addressbar "javascript:alert(ENME.firebug());"
        */
-      firebug : function() {
-        var script = this.$(document.createElement("script"));
-        script.attr("src", "http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js");
-        this.$("head").append(script);
-        (function() {
-          if (window.firebug) {
-            firebug.init();
-          } else {
-            setTimeout(arguments.callee, 0);
-          }
-        })();
-      },
+      // firebug : function() {
+      //   var script = this.$(document.createElement("script"));
+      //   script.attr("src", "http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js");
+      //   this.$("head").append(script);
+      //   (function() {
+      //     if (window.firebug) {
+      //       firebug.init();
+      //     } else {
+      //       setTimeout(arguments.callee, 0);
+      //     }
+      //   })();
+      // },
 
       /**
        * Check if the url is valid.

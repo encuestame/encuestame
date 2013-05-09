@@ -12,7 +12,7 @@
   <name>Encuestame Resources :: JavaScript</name>
   <profiles>
     <profile>
-      <id>production</id>
+      <id>dojo-test</id>
       <build>
         <plugins>
           <plugin>
@@ -21,6 +21,83 @@
             <version>${maven-antrun-plugin}</version>
             <executions>
               <execution>
+                <id>test</id>
+                <phase>compile</phase>
+                <configuration>
+                  <classpath>
+                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar" />
+                  </classpath>
+                  <target>
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$ ENCUESTAME UNIT TESTS $$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$ DOJO IS THE ROCK !!! $$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <java fork="true" failonerror="true" dir="${basedir}" classname="org.mozilla.javascript.tools.shell.Main">
+                      <classpath>
+                        <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/js.jar" />
+                      </classpath>
+                      <jvmarg value="-Xmx512M" />
+                      <arg value="${basedir}/src/main/resources/resource/js/dojo/dojo.js" />
+                      <arg value="baseUrl=${basedir}/src/main/resources/resource/js/dojo" />
+                      <arg value="load=doh" />
+                      <arg value="test=me/tests/module" />
+                    </java>
+                    <echo message="ENCUESTAME :: Dojo Test Successfully ::" />
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>production</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>${maven-antrun-plugin}</version>
+            <executions>
+ <!--              <execution>
+                <id>test</id>
+                <phase>compile</phase>
+                <configuration>
+                  <classpath>
+                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar" />
+                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/shrinksafe.jar" />
+                    <pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar" />
+                  </classpath>
+                  <target>
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$ ENCUESTAME UNIT TESTS $$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$ DOJO IS THE ROCK !!! $$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <java fork="true" failonerror="true" dir="${basedir}" classname="org.mozilla.javascript.tools.shell.Main">
+                      <classpath>
+                        <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/js.jar" />
+                      </classpath>
+                      <jvmarg value="-Xmx512M" />
+                      <arg value="${basedir}/src/main/resources/resource/js/dojo/dojo.js" />
+                      <arg value="baseUrl=${basedir}/src/main/resources/resource/js/dojo" />
+                      <arg value="load=doh" />
+                      <arg value="test=me/tests/module" />
+                    </java>
+                    <echo message="ENCUESTAME :: Dojo Test Successfully ::" />
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution> -->
+              <execution>
+                <id>js</id>
                 <phase>compile</phase>
                 <configuration>
                   <classpath>
