@@ -1,5 +1,5 @@
 define([
-	"./core/module"
+//	"./core/module"
 ], 1);
 
 
