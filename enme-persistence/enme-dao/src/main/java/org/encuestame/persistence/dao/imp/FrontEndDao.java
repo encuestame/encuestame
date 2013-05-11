@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IHashTagDao;
@@ -498,12 +499,18 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             final Integer max) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPollSavedPublishedStatus.class);
+        // define if is necessary execute a query, if not exist filters it's not necessary run a query
+        boolean queryRequired = false;
+        List<TweetPollSavedPublishedStatus> tweetPollSavedPublishedStatus = ListUtils.EMPTY_LIST;
         if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
             criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+            queryRequired = true;
         } else if (itemType.equals(TypeSearchResult.POLL)) {
             criteria.add(Restrictions.eq("survey", survey));
+            queryRequired = true;
         } else if (itemType.equals(TypeSearchResult.SURVEY)) {
             criteria.add(Restrictions.eq("poll", poll));
+            queryRequired = true;
         } else if (itemType.equals(TypeSearchResult.HASHTAG)) {
             //social links by hashtag
             final List<TweetPoll> d = getTweetPoll().getTweetpollByHashTagName(hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG,
@@ -513,15 +520,18 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             // include on the query all published items by tweetpoll
             if (d.size() != 0) {
                 criteria.add(Restrictions.in("tweetPoll", d));
+                queryRequired = true;
             }
             // include on the query all published items by poll
             if (polls.size() != 0) {
                 criteria.add(Restrictions.in("poll", polls));
+                queryRequired = true;
             }
             //BUG: We have a serial problem here, if poll and tweetpoll are null the criteria retrieve ALL items. ENCUESTAME-490
         } else if (itemType.equals(TypeSearchResult.PROFILE)) {
             //TODO: future
             //return ListUtils.EMPTY_LIST;
+            //queryRequired = true;
         } else {
             log.error("Item type not valid: " + itemType);
         }
@@ -530,6 +540,10 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         //criteria.add(Restrictions.isNotNull("apiType"));
         //criteria.add(Restrictions.isNotNull("tweetId"));
         criteria.add(Restrictions.eq("status", Status.SUCCESS));
-        return (List<TweetPollSavedPublishedStatus>) getHibernateTemplate().findByCriteria(criteria, start, max);
+        // if exist filters, we execute a query
+        if (queryRequired) {
+            tweetPollSavedPublishedStatus = (List<TweetPollSavedPublishedStatus>) getHibernateTemplate().findByCriteria(criteria, start, max);
+        }
+        return tweetPollSavedPublishedStatus;
     }
 }
