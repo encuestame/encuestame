@@ -207,7 +207,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             userBean.setPassword(newPassword);
             //if notification is suspended we need retrieve password
             if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-                getMailService().sendRenewPasswordEmail(userBean);
+                try {
+                    getMailService().sendRenewPasswordEmail(userBean);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             //} else {
                 //log.warn("Notifications Email are suspendend");
             }
@@ -382,8 +387,18 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             singUpBean.setPassword(password);
             final String inviteCode =  UUID.randomUUID().toString();
             userAccount.setInviteCode(inviteCode);
-            getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
-            getMailService().sendPasswordConfirmationEmail(singUpBean);
+            try {
+                getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            try {
+                getMailService().sendPasswordConfirmationEmail(singUpBean);
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
             // save user
             getAccountDao().saveOrUpdate(userAccount);
             // assing first default group to user
@@ -700,7 +715,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             //send new password
             if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
                 //send confirmation account request
-                getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
+                try {
+                    getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -764,7 +784,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      */
     public void inviteUser(String email, String code) {
         if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-            getMailService().sendInvitation(email, code);
+            try {
+                getMailService().sendInvitation(email, code);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
     }
 
@@ -809,7 +834,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final String password)
             throws MailSendException {
         if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-            getMailService().send(email, getMessageProperties("NewPassWordMail"), password);
+            try {
+                getMailService().send(email, getMessageProperties("NewPassWordMail"), password);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
     }
 
@@ -1090,7 +1120,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         }
         singUp = ConvertDomainBean.convertUserAccountToSignUpBean(userAcc);
         if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-            getMailService().welcomeNotificationAccount(userAcc);
+            try {
+                getMailService().welcomeNotificationAccount(userAcc);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
     }
@@ -1109,7 +1144,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 final String inviteCode = UUID.randomUUID().toString();
                 userAccount.setInviteCode(inviteCode);
                 getAccountDao().saveOrUpdate(userAccount);
-                getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
+                try {
+                    getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             } else {
                 log.warn("invite code requested by " + userAccount.getUsername() + " it's null");
             }
@@ -1128,7 +1168,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         singUp.setUsername(userAccBean.getUsername());
         getAccountDao().saveOrUpdate(singUp);
         if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-            getMailService().sendNotificationStatusAccount(singUp, "Change user status");
+            try {
+                getMailService().sendNotificationStatusAccount(singUp, "Change user status");
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
     }
 

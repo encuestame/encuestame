@@ -35,38 +35,38 @@ public interface MailServiceOperations extends ServiceOperations {
      *  @throws MailSendException exception
      */
     void send(final String to, final String subject, final String text)
-    throws MailSendException;
+    throws Exception;
 
     /**
      * Send a welcome notification after validate the account
      * @param user
      * @param message
      */
-    void welcomeNotificationAccount(final UserAccount user);
+    void welcomeNotificationAccount(final UserAccount user) throws Exception;
 
     /**
      * Send Password Confirmation Email.
      * @param user
      */
-    void sendPasswordConfirmationEmail(final SignUpBean user);
+    void sendPasswordConfirmationEmail(final SignUpBean user) throws Exception;
 
     /**
      * Send Renew Password Email.
      * @param unitUserBean {@link UserAccountBean}.
      */
-    void sendRenewPasswordEmail(final UserAccountBean unitUserBean);
+    void sendRenewPasswordEmail(final UserAccountBean unitUserBean) throws Exception;
 
     /**
      *
      * @param invitation
      */
-    void sendEmailInvitation(final InvitationBean invitation);
+    void sendEmailInvitation(final InvitationBean invitation) throws Exception;
 
     /**
      *
      * @param notification
      */
-    void sendEmailNotification(final NotificationBean notification);
+    void sendEmailNotification(final NotificationBean notification) throws Exception;
 
     /**
      * Send start up email notification.
@@ -83,14 +83,14 @@ public interface MailServiceOperations extends ServiceOperations {
      */
     void sendInvitation(
             final String to,
-            final String code) throws MailSendException;
+            final String code) throws Exception;
 
 
     /**
      * Sent email to confirm user account by email.
      * @param user
      */
-    void sendConfirmYourAccountEmail(final SignUpBean user, final String inviteCode);
+    void sendConfirmYourAccountEmail(final SignUpBean user, final String inviteCode) throws Exception;
 
     /**
      * Delete notification.
@@ -107,11 +107,11 @@ public interface MailServiceOperations extends ServiceOperations {
      * @param user
      * @param message
      */
-    void sendNotificationStatusAccount(final SignUpBean user, final String message);
+    void sendNotificationStatusAccount(final SignUpBean user, final String message) throws Exception;
 
     /**
      * Send Email Invitation.
      * @param invitation {@link InvitationBean}
      */
-    void sendEmailJoinInvitation(final String email, final String username);
+    void sendEmailJoinInvitation(final String email, final String username) throws Exception;
 }

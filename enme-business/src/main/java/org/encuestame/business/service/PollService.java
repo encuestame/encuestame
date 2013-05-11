@@ -474,7 +474,12 @@ public class PollService extends AbstractSurveyService implements IPollService{
         if(emailList !=null){
                  for (Email emails : emailsList) {
                     if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.disabled")) {
-                            getMailService().send(emails.getEmail(),"New Poll", urlPoll);
+                            try {
+								getMailService().send(emails.getEmail(),"New Poll", urlPoll);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
                     }
                  }
          }
