@@ -34,14 +34,17 @@
 
     </header>
     <tiles:insertAttribute name="menu" ignore="true" />
-    <div id="content-container" class="enme-auto-center">
+    <div id="content-container" class="enme-auto-center setup">
       <div id="enme-content" class="enme-auto-center">
         <tiles:insertAttribute name="content" />
       </div>
-      <footer id="footer">
-        <tiles:insertAttribute name="footer" />
-      </footer>
     </div>
+    <footer id="footer" class="">
+
+    </footer>
+  </div>
+  <div id="footer-f">
+     <tiles:insertAttribute name="footer" />
   </div>
 </body>
 

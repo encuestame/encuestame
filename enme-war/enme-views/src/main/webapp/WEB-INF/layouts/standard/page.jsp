@@ -42,7 +42,7 @@
     <footer id="footer" class="">
 
     </footer>
-  </div>s
+  </div>
   <div id="footer-f">
      <tiles:insertAttribute name="footer" />
   </div>
