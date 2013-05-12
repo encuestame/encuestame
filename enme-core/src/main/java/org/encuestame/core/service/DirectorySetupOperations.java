@@ -52,8 +52,12 @@ public class DirectorySetupOperations {
      * @return if the directoy exist or not.
      * @throws EnmeFailOperation exception if exist issues on create directory.
      */
-    public static boolean isHomeDirectoryValid() throws EnmeFailOperation {
-        final File rootDir = new File(DirectorySetupOperations.getHomeDirectory());
+    public static boolean isHomeDirectoryValid() {
+        final String directory = DirectorySetupOperations.getHomeDirectory();
+        if (directory == null) {
+            return false;
+        }
+        final File rootDir = new File(directory);
         log.debug("EnMe: Home directory: " + rootDir);
         return rootDir.exists();
     }
@@ -148,18 +152,25 @@ public class DirectorySetupOperations {
      * @return real path of home directory.
      * @throws EnmeFailOperation
      */
-    public static String getHomeDirectory() throws EnmeFailOperation {
+    public static String getHomeDirectory() {
         String root = EnMePlaceHolderConfigurer.getProperty("encuestame.home");
+        boolean system_home = EnMePlaceHolderConfigurer.getBooleanProperty("encuestame.system.home");
         log.debug("getRootDirectory "+root);
+        if (root == null && system_home) {
+            root = System.getProperty("catalina.base");
+            log.debug("catalina home " + root);
+            root = (root == null ? (root + "/encuestame-store") : null);
+            log.debug("catalina home complete: " + root);
+        }
         if (root == null) {
-            throw new EnmeFailOperation("home directory not found");
+          return null;
+        } else {
+            if (!root.endsWith("/")) {
+                root = root + "/";
+            }
+            log.debug("getRootFolder:{" + root);
+           return root;
         }
-
-        if (!root.endsWith("/")) {
-            root = root + "/";
-        }
-        log.debug("getRootFolder:{" + root);
-        return root;
     }
 
     /**

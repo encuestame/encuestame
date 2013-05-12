@@ -68,7 +68,7 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
         //get form system property enviroment out file path.
         final String enviromentPropertyFile = System.getProperty(overwriteJvmParam);
         File customEncuestameFile;
-        if(enviromentPropertyFile != null && enviromentPropertyFile.length() > 0) {
+        if (enviromentPropertyFile != null && enviromentPropertyFile.length() > 0) {
             customEncuestameFile = new File(enviromentPropertyFile);
             // make sure the file exists, then try and load it
             if(customEncuestameFile != null && customEncuestameFile.exists()) {
@@ -97,21 +97,27 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
         super.processProperties(beanFactory, props);
         propertiesMap = new HashMap<String, String>();
         for (Object key : props.keySet()) {
-            String keyStr = key.toString();
-            log.debug("Property--->"+keyStr+ " value="+props.getProperty(keyStr));
-            propertiesMap.put(
-                    keyStr,
-                    parseStringValue(props.getProperty(keyStr), props,
-                            new HashSet()));
+            final String keyStr = key.toString();
+            String valueStr = props.getProperty(keyStr);
+            // resolve possible properties embebed the values
+            if (valueStr.contains("${")) {
+                int start = valueStr.indexOf("${");
+                int end = valueStr.indexOf("}");
+                String keyToSearch = valueStr.substring(start + 2, end);
+                String valueToGet = props.getProperty(keyToSearch);
+                valueStr = valueStr.replace("${" +  keyToSearch+ "}", valueToGet);
+            }
+            log.debug("Property--->"+keyStr+ " value="+valueStr);
+            propertiesMap.put(keyStr,parseStringValue(valueStr, props,new HashSet()));
         }
         //TODO: xml configuration file should be outside this context.
         try {
             EnMePlaceHolderConfigurer.configurationManager = new XMLConfigurationFileSupport();
         } catch (ConfigurationException e) {
-            // TODO Auto-generated catch block
+            log.error(e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            log.error(e.getMessage());
             e.printStackTrace();
         }
     }

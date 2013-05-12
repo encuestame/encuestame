@@ -15,10 +15,14 @@ package org.encuestame.mvc.listener;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.setup.StartupProcess;
+import org.encuestame.core.service.DirectorySetupOperations;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeStartupException;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -55,19 +59,29 @@ public class EnMeContext extends ContextLoaderListener implements ServletContext
     public void contextInitialized(final ServletContextEvent sce) {
         EnMeContext.servletContext = sce.getServletContext();
         super.contextInitialized(sce);
-        WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-        final StartupProcess startup = (StartupProcess) ctx.getBean("applicationStartup");
-        try {
-           startup.startProcess();
-        } catch (EnMeStartupException e) {
-           //e.printStackTrace();
-           log.fatal("EnMe: Error on stat encuestame context "+e.getMessage());
-           throw new IllegalStateException("EnMe: Error on stat encuestame context : "+e.getMessage());
+        boolean existHomeDirectory = DirectorySetupOperations.isHomeDirectoryValid();
+        if (!existHomeDirectory) {
+            log.fatal("**********************************************");
+            log.fatal("*    		 ENCUESTAME HOME IS MISSING");
+            log.fatal("*    		 Troubles ?? Visit the wiki a get your answer.");
+            log.fatal("*  http://www.encuestame.org/wiki/display/DOC/Troubleshooting+Guides");
+            log.fatal("**********************************************");
+            throw new IllegalStateException("home not valid, please set a home property in the configuration file");
+        } else {
+            WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+            final StartupProcess startup = (StartupProcess) ctx.getBean("applicationStartup");
+            try {
+               startup.startProcess();
+               log.info("**********************************************");
+               log.info("*     ENCUESTAME IS RUNNING SUCCESSFULLY      *");
+               log.info("*        http://www.encuestame.org           *");
+               log.info("**********************************************");
+            } catch (Exception e) {
+               log.fatal("EnMe: Error on start encuestame context: "+e.getMessage());
+               this.closeWebApplicationContext(servletContext);
+               throw new IllegalStateException("EnMe: Error on stat encuestame context : "+e.getMessage());
+            }
         }
-        log.info("**********************************************");
-        log.info("*     ENCUESTAME IS RUNNING SUCCESSFULLY      *");
-        log.info("*        http://www.encuestame.org           *");
-        log.info("**********************************************");
     }
 
     @Override

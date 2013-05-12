@@ -43,8 +43,7 @@ public class ApplicationStartup implements StartupProcess {
     /**
      * Constructor.
      */
-    public ApplicationStartup() {
-    }
+    public ApplicationStartup() {}
 
     /**
      * Check if app started.
@@ -62,14 +61,10 @@ public class ApplicationStartup implements StartupProcess {
     public void startProcess() throws EnMeStartupException {
         // check if root directory exist
         try {
-            if (!DirectorySetupOperations.isHomeDirectoryValid()) {
-                throw new EnMeStartupException("home folder is missing");
-            }
             DirectorySetupOperations.validateInternalStructureDirectory(true);
             DirectorySetupOperations.createConfileFile();
             // if email notification is enabled.
-            if (EnMePlaceHolderConfigurer.getBooleanProperty(
-                    "setup.email.notification").booleanValue()) {
+            if (EnMePlaceHolderConfigurer.getBooleanProperty("setup.email.notification").booleanValue()) {
                 final StringBuilder startupMessage = new StringBuilder();
                 startupMessage.append("startup date [");
                 startupMessage.append(DateUtil.getCurrentFormatedDate());

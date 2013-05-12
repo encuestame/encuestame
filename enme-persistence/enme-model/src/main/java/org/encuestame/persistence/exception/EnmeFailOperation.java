@@ -14,32 +14,29 @@ package org.encuestame.persistence.exception;
 
 /**
  * EnMe Fail Operation.
+ *
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since December 8, 2010
- * @version $Id:$
  */
-public class EnmeFailOperation extends EnMeExpcetion{
+public class EnmeFailOperation extends EnMeExpcetion {
     /**
      * Serial.
      */
-       private static final long serialVersionUID = -120650589333637899L;
+    private static final long serialVersionUID = -120650589333637899L;
 
-       public EnmeFailOperation() {
-        // TODO Auto-generated constructor stub
-           super();
-        }
+    public EnmeFailOperation() {
+        super();
+    }
 
-       public EnmeFailOperation(String message, Throwable cause) {
-           super(message, cause);
-           // TODO Auto-generated constructor stub
-       }
+    public EnmeFailOperation(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-       public EnmeFailOperation(String message) {
-           super(message);
-       }
+    public EnmeFailOperation(String message) {
+        super(message);
+    }
 
-       public EnmeFailOperation(Throwable cause) {
-           super(cause);
-       }
-   }
-
+    public EnmeFailOperation(Throwable cause) {
+        super(cause);
+    }
+}
