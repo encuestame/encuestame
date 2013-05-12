@@ -2,7 +2,7 @@
 <article class="web-wrapper-detail web-poll-wrapper-vote">
     <form action="<%=request.getContextPath()%>/poll/vote/post" method="post">
        <header>
-           <h1>${poll.questionBean.questionName}</h1>
+           <h5>${poll.questionBean.questionName}</h5>
        </header>
 
        <div class="web-poll-vote">

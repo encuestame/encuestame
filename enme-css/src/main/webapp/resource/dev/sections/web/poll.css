@@ -180,7 +180,7 @@ img {
 }
 
 /* line 97, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../_common.scss */
-.o-auto, .web-detail-header, #web-main-public-line, div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper, div.socialAccountPicker div.account, .stats-button, div.web-gadget .gad-content, div.web-dasboard-wrapper div.web-dash-menu, div.web-directory, .section-botton-wrapper, .search-items-wrapper, .search-items-wrapper .search-hashtag, .search-items-wrapper .search-profiles, .web-folder-wrapper .web-folder-wrapper-item, .web-folder-wrapper .web-folder-item, .web-item-row .web-list-detail-more .web-poll-item-detail, .web-item-row .web-list-detail-more .web-poll-info, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer > div, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row, div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel, .web-tweetpoll-wrapper div.tweetPollSecondQuestion, .web-tweetpoll-wrapper div.previewWrapperContent, .answerAddForm .web-answer-form-wrapper, .addAnswers .answerItem, .web-filters-search, .web-social-filter-items, .web-social-filter-items .web-social-filter-item, .web-poll-question .web-poll-section .space {
+.o-auto, .web-detail-header, #web-main-public-line, div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper, div.socialAccountPicker div.account, .stats-button, div.web-gadget .gad-content, div.web-dasboard-wrapper div.web-dash-menu, div.web-directory, .section-botton-wrapper, .search-items-wrapper, .search-items-wrapper .search-hashtag, .search-items-wrapper .search-profiles, .web-folder-wrapper .web-folder-wrapper-item, .web-folder-wrapper .web-folder-item, .web-item-row .web-list-detail-more .web-poll-item-detail, .web-item-row .web-list-detail-more .web-poll-info, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer > div, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row, div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel, .web-tweetpoll-wrapper div.tweetPollSecondQuestion, .web-tweetpoll-wrapper div.previewWrapperContent, .answerAddForm .web-answer-form-wrapper, .addAnswers .answerItem, .web-filters-search, .web-social-filter-items, .web-social-filter-items .web-social-filter-item, .web-poll-question .web-poll-section .space, .web-social-links {
   overflow: auto;
 }
 
@@ -220,7 +220,7 @@ img {
 }
 
 /* line 129, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../_common.scss */
-.df-border, .web-pup-wrapper {
+.df-border, .web-pup-wrapper, .web-social-links {
   border-left: 1px dotted #cdcdcd;
   border-right: 1px dotted #cdcdcd;
 }
@@ -251,7 +251,7 @@ img {
 }
 
 /* line 156, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../_common.scss */
-.default-rd, .main-shadow-box, #web-main-public-line, .web-tweetpoll-detail, .web-poll-results, #web-tweetpoll-wrapper, #enme-content input, #enme-content textarea, #enme-content select, .css-input input, #content-container #enme-content div.errorWrapper div.extra, .roundTable, .defaultInputClass, .enme-text .dijitTextBox, .enme-web-context .dijitDialog, div.socialAccountPicker div.account, button.emne-menu, button.button, .enme-ui-button, .dijitButton .dijitButtonNode, .addAnswers .answerItem, .web-filters-options nav a, .web-filters-options nav a:link, .web-filters-options nav a:visited, .web-filters-wrapper, .web-social-filter-items .selected {
+.default-rd, .main-shadow-box, #web-main-public-line, .web-tweetpoll-detail, .web-poll-results, #web-tweetpoll-wrapper, #enme-content input, #enme-content textarea, #enme-content select, .css-input input, #content-container #enme-content div.errorWrapper div.extra, .roundTable, .defaultInputClass, .enme-text .dijitTextBox, .enme-web-context .dijitDialog, div.socialAccountPicker div.account, button.emne-menu, button.button, .enme-ui-button, .dijitButton .dijitButtonNode, .addAnswers .answerItem, .web-filters-options nav a, .web-filters-options nav a:link, .web-filters-options nav a:visited, .web-filters-wrapper, .web-social-filter-items .selected, .comments .comment-wrapper .comment .comment-data:hover {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -906,6 +906,432 @@ input, textarea, select .dijitInputField {
   background-image: none !important;
 }
 
+/**
+ * "Yet Another Multicolumn Layout" - YAML CSS Framework
+ * (en) Uniform design of standard content elements
+ * (de) Einheitliche Standardformatierungen für die wichtigten Inhalts-Elemente
+ */
+@media all {
+  /*
+  * @section global typography settings
+  *
+  * vertical rhythm settings (based on em-unit)
+  * -------------------------------------------
+  * basefont-size:  14px (87.5%)
+  * line-height  :  21px (factor: 1.5) */
+  /* (en) reset font size for all elements to standard (16 Pixel) */
+  /* (de) Alle Schriftgrößen auf Standardgröße (16 Pixel) zurücksetzen */
+  /* line 27, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  html * {
+    font-size: 100%;
+  }
+
+  /**
+  * (en) reset monospaced elements to font size 16px in all browsers
+  * (de) Schriftgröße von monospaced Elemente in allen Browsern auf 16 Pixel setzen
+  *
+  * @see: http://webkit.org/blog/67/strange-medium/
+  */
+  /* line 42, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  textarea,
+  pre,
+  code,
+  kbd,
+  samp,
+  var,
+  tt {
+    font-family: Consolas, "Lucida Console", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier;
+  }
+
+  /* line 46, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  body {
+    font-family: "Droid Serif", Georgia, "Times New Roman", Times, serif;
+    /* font-size: 14px; */
+    font-size: 87.5%;
+    color: #444444;
+    /* (en) Prevent auto-scaling of text in mobile webkit browsers */
+    /* (de) Automatische Schriftvergrößerung in mobilen Webkit-Browsern vermeiden */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /*--- Headings | Überschriften ------------------------------------------------------------------------*/
+  /* line 64, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Droid Sans", Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    color: #161e21;
+    margin: 0;
+  }
+
+  /* line 71, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  h1 {
+    /* font-size: 49px; */
+    font-size: 350%;
+    line-height: 0.85714;
+    margin: 0.42857em 0 0;
+  }
+
+  /* line 78, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  h2 {
+    /* font-size: 35px; */
+    font-size: 250%;
+    line-height: 1.2;
+    margin: 0.6em 0 0;
+  }
+
+  /* line 85, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  h3 {
+    /* font-size: 24px; */
+    font-size: 171.42857%;
+    line-height: 0.875;
+    margin: 0.875em 0 0;
+  }
+
+  /* line 92, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  h4 {
+    /* font-size: 21px; */
+    font-size: 150%;
+    line-height: 1;
+    margin: 1em 0 0;
+  }
+
+  /* line 99, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  h5 {
+    /* font-size: 18px; */
+    font-size: 128.57143%;
+    line-height: 1.16667;
+    margin: 1.16667em 0 0;
+  }
+
+  /* line 106, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  h6 {
+    font-weight: bold;
+    /* font-size: 14px; */
+    font-size: 100%;
+    line-height: 1.5;
+    margin: 1.5em 0 0;
+  }
+
+  /* --- Lists | Listen  -------------------------------------------------------------------------------- */
+  /* line 118, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  ul,
+  ol,
+  dl {
+    font-size: 100%;
+    line-height: 1.5;
+    margin: 1.5em 0 1em;
+  }
+
+  /* line 124, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  ul {
+    list-style-type: disc;
+  }
+
+  /* line 128, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  ol {
+    list-style-type: decimal;
+  }
+
+  /* line 132, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  ul ul {
+    list-style-type: circle;
+    margin-top: 0;
+  }
+
+  /* line 137, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  ol ol {
+    list-style-type: lower-latin;
+    margin-top: 0;
+  }
+
+  /* line 142, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  ol ul {
+    list-style-type: circle;
+    margin-top: 0;
+  }
+
+  /* line 147, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  li {
+    font-size: 100%;
+    line-height: 1.5;
+    margin-left: 0.8em;
+  }
+
+  /* line 153, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  dt {
+    font-weight: bold;
+  }
+
+  /* line 155, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  dd {
+    margin: 1.5em 0 0 0.8em;
+  }
+
+  /* --- general text formatting | Allgemeine Textauszeichnung ------------------------------------------ */
+  /* line 159, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  p {
+    font-size: 100%;
+    line-height: 1.5;
+    margin: 1.5em 0 0;
+  }
+
+  /* line 165, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  blockquote, cite, q {
+    font-family: "Droid Serif", Georgia, "Times New Roman", Times, serif;
+    font-style: italic;
+  }
+
+  /* line 170, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  blockquote {
+    background: transparent;
+    color: #666666;
+    margin: 1.5em 0 0 1.5em;
+  }
+
+  /* line 176, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  strong, b {
+    font-weight: bold;
+  }
+
+  /* line 178, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  em, i {
+    font-style: italic;
+  }
+
+  /* line 180, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  big {
+    /* font-size: 16px; */
+    font-size: 114.28571%;
+    line-height: 1.3125;
+  }
+
+  /* line 186, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  small {
+    /* font-size: 12px; */
+    font-size: 85.71429%;
+    line-height: 1.75;
+  }
+
+  /* line 197, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  pre,
+  code,
+  kbd,
+  tt,
+  samp,
+  var {
+    font-size: 100%;
+  }
+
+  /* line 201, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  pre {
+    font-size: 100%;
+    line-height: 1.5;
+    margin: 1.5em 0 0;
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* line 209, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  pre, code {
+    color: #880000;
+  }
+
+  /* line 211, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  kbd, samp, var, tt {
+    color: #666666;
+    font-weight: bold;
+  }
+
+  /* line 216, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  var, dfn {
+    font-style: italic;
+  }
+
+  /* line 218, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  acronym, abbr {
+    border-bottom: 1px #aaa dotted;
+    font-variant: small-caps;
+    letter-spacing: .07em;
+    cursor: help;
+  }
+
+  /* line 226, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  sub,
+  sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+
+  /* line 233, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  sup {
+    top: -0.5em;
+  }
+
+  /* line 234, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  sub {
+    bottom: -0.25em;
+  }
+
+  /* line 236, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  mark {
+    background: yellow;
+    color: black;
+  }
+
+  /* line 241, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  hr {
+    color: #fff;
+    background: transparent;
+    margin: 0 0 0.75em 0;
+    padding: 0 0 0.67857em 0;
+    border: 0;
+    border-bottom: 1px #eeeeee solid;
+  }
+
+  /*--- Links ----------------------------------------------------------------------------------------- */
+  /* line 252, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  a {
+    color: #4d87c7;
+    background: transparent;
+    text-decoration: none;
+  }
+
+  /* line 258, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  a:active {
+    outline: none;
+  }
+
+  /* (en) maximum constrast for tab focus - change with great care */
+  /* (en) Maximaler Kontrast für Tab Focus - Ändern Sie diese Regel mit Bedacht */
+  /* --- images ------------------ */
+  /* line 272, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  img,
+  figure {
+    margin: 0;
+  }
+
+  /* line 276, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .flexible {
+    margin-top: 1.5em;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* line 282, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  * html .flexible {
+    /* IE6 support */
+    width: 98%;
+    /* 2% space for borders */
+  }
+
+  /* line 286, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .bordered {
+    margin-top: 1.5em;
+    border: 2px #eee solid;
+    border: 2px white solid;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  }
+
+  /**
+  * ----------------------------------------------------------------------- #
+  *
+  * Generic Content Classes
+  *
+  * (en) standard classes for positioning and highlighting
+  * (de) Standardklassen zur Positionierung und Hervorhebung
+  *
+  * @section content-generic-classes
+  */
+  /* line 303, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .highlight {
+    color: #cc3300;
+  }
+
+  /* line 307, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .dimmed {
+    color: #888888;
+  }
+
+  /* line 311, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .box {
+    border-radius: 0.3em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #888;
+    border-color: rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
+    color: #444;
+    color: rgba(0, 0, 0, 0.8);
+    padding: 1.42857em;
+    margin: 1.5em 0 0 0;
+  }
+  /* line 323, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .box > *:first-child {
+    margin-top: 0;
+  }
+
+  /* line 343, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .info {
+    background: #f4f4f4;
+  }
+
+  /* line 347, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .success {
+    background: #88cc88;
+  }
+
+  /* line 351, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .warning {
+    background: #cccc88;
+  }
+
+  /* line 355, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .error {
+    background: #cc8888;
+  }
+
+  /* line 359, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .float-left {
+    float: left;
+    display: inline;
+    margin: 1.5em 1em 0 0;
+  }
+
+  /* line 365, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .float-right {
+    float: right;
+    display: inline;
+    margin: 1.5em 0 0 1em;
+  }
+
+  /* line 371, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
+  .center, .likeRate, .enme-dropdown-menu-wrapper .enme-dropdown-menu, .enme-ui-loading-search, div.updateProfile .pictureProfileNew, .pagination, .web-list-more, .web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail .no_results, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results, .web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail {
+    display: block;
+    text-align: center;
+    margin: 1.5em auto 0 auto;
+  }
+
+  /**
+  * ------------------------------------------------------------------------------------------------- #
+  *
+  * Tables | Tabellen
+  *
+  * (en) Generic classes for table-width and design definition
+  * (de) Generische Klassen für die Tabellenbreite und Gestaltungsvorschriften für Tabellen
+  *
+  * @section content-tables
+  */
+}
 /**
  *  "Yet Another Multicolumn Layout" - YAML CSS Framework
  *  (en) YAML core stylesheet
@@ -4239,6 +4665,642 @@ button.button {
   background-color: none !important;
 }
 
+/* line 3, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.spaceOptionColumn {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* line 8, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+#content-container #enme-content div.errorWrapper {
+  font-size: 120%;
+  font-weight: bold;
+  margin: 110px 135px auto;
+}
+
+/* line 14, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+#content-container #enme-content div.errorWrapper div.extra {
+  background-color: #EFEFEF;
+  margin: 22px;
+  padding: 10px;
+}
+
+/* line 21, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+#content-container #enme-content div.errorWrapper div.extra .title {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+/* line 26, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+#content-container #enme-content div.errorWrapper div.extra a {
+  padding: 5px;
+}
+
+/* line 30, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.message {
+  font-size: 14px;
+}
+
+/* line 34, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.textShadow {
+  text-shadow: 0 1px #FFFFFF;
+}
+
+/** common classes **/
+/* line 70, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.mainError {
+  background-color: #F4A1A1;
+  color: #FEFEFE;
+  font-size: 120%;
+  margin-top: 15px;
+  padding: 10px;
+  -webkit-box-shadow: rgba(50, 50, 48, 0.7) 3px 3px 7px;
+  -moz-box-shadow: rgba(50, 50, 48, 0.7) 3px 3px 7px;
+  box-shadow: rgba(50, 50, 48, 0.7) 3px 3px 7px;
+}
+
+/* line 79, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.info-messages-common, .success-message, .error-message {
+  padding: 2px;
+}
+
+/* line 83, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.success-message {
+  color: #55986d;
+}
+
+/* line 88, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.error-message {
+  color: #ba3b3b;
+}
+
+/* line 93, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.success .rich-messages-label {
+  padding-left: 13px;
+  font-size: 12px;
+}
+
+/* line 98, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.roundTable {
+  border-collapse: separate;
+}
+
+/* line 103, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.defaultButton {
+  margin-left: 8px;
+  border: 1px solid #C1C1C1;
+  min-width: 100px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+/* line 111, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.defaultInputClass {
+  padding: 5px;
+  border: 1px solid #BCBCBC;
+  color: #808080;
+  font-size: 12px;
+}
+
+/* line 119, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.defaultSectionTitle {
+  color: #FFFFFF;
+  font-size: 120%;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+/* line 126, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.gradient-gray {
+  background: #eeeeee;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #eeeeee 0%, #cccccc 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, #cccccc));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #eeeeee 0%, #cccccc 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #eeeeee 0%, #cccccc 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #eeeeee 0%, #cccccc 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #eeeeee 0%, #cccccc 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 );
+  /* IE6-9 */
+}
+
+/* line 137, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.gradient-yellow {
+  background: #ffffff;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, white 0%, #d0d67c 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #d0d67c));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, white 0%, #d0d67c 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, white 0%, #d0d67c 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, white 0%, #d0d67c 100%);
+  /* IE10+ */
+  background: linear-gradient(top, #ffffff 0%, #d0d67c 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#D0D67C',GradientType=0 );
+  /* IE6-9 */
+}
+
+/* line 148, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.gradient-green {
+  background: #ffffff;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, white 0%, #d0d67c 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #d0d67c));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, white 0%, #d0d67c 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, white 0%, #d0d67c 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, white 0%, #d0d67c 100%);
+  /* IE10+ */
+  background: linear-gradient(top, #ffffff 0%, #d0d67c 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#D0D67C',GradientType=0 );
+  /* IE6-9 */
+}
+
+/* line 159, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.gradient-red {
+  background: #ffffff;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #923f3f 0%, #e67862 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #923f3f), color-stop(100%, #e67862));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #923f3f 0%, #e67862 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #923f3f 0%, #e67862 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #923f3f 0%, #e67862 100%);
+  /* IE10+ */
+  background: linear-gradient(top, #923f3f 0%, #e67862 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#923F3F', endColorstr='#E67862',GradientType=0 );
+  /* IE6-9 */
+}
+
+/* line 170, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.gradient-black {
+  background: #110b0b;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #110b0b 0%, #767676 98%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #110b0b), color-stop(98%, #767676));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #110b0b 0%, #767676 98%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #110b0b 0%, #767676 98%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #110b0b 0%, #767676 98%);
+  /* IE10+ */
+  background: linear-gradient(top, #110b0b 0%, #767676 98%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#110b0b', endColorstr='#767676',GradientType=0 );
+  /* IE6-9 */
+}
+
+/** content container **/
+/* line 183, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+#content-container #enme-content .publicMarginWrapper {
+  width: 100%;
+  margin-top: 29px;
+}
+
+/* line 188, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+#content-container #enme-content .defaultMarginWrapper {
+  margin-top: 29px;
+  margin: 0 auto;
+}
+
+/* line 193, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+#content-container #enme-content .defaultMarginWrapper > h1 {
+  margin-left: 6px;
+}
+
+/* line 197, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+#content-container #enme-content div.votes {
+  margin: 0 auto;
+  width: 50%;
+  margin-top: 3em;
+  padding: 25px;
+}
+
+/* line 204, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.default-background-color {
+  background-color: #F8F8F8;
+}
+
+/* line 208, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.default-background-dark-color {
+  background-color: #444444 !important;
+  /** #A6B4BF 8EA5B7 **/
+  /** #737373 D7D7D7 #8EA5B7  */
+}
+
+/* line 212, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.default-dark-color {
+  color: #A6B4BF !important;
+  /** #A6B4BF 8EA5B7 **/
+  /** #737373 D7D7D7 #8EA5B7  */
+}
+
+/* line 216, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.default-background-dark-color-sub {
+  background-color: #666666;
+  /**A6A5A5 **/
+}
+
+/* line 220, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.default-top-menu {
+  font-size: 100%;
+  padding: 5px;
+  color: #FFF;
+  width: auto;
+}
+
+/* line 227, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.default-sidebar-menu {
+  font-size: 100%;
+  font-weight: bold;
+  padding: 5px;
+}
+
+/* line 234, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.default-sidebar-menu-sub {
+  background-color: #595959;
+  font-size: 100%;
+  min-height: 21px;
+  padding: 9px 0 0 7px;
+}
+
+/** Suggest. **/
+/* line 244, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.suggestBox {
+  position: absolute;
+  border: 1px solid black;
+  background-color: white;
+}
+
+/* line 250, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.suggestBox .suggesItem {
+  padding: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* line 258, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.suggestBox .suggesItem:hover {
+  background-color: #939397;
+}
+
+/* line 263, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.yesNoWrapper {
+  padding: 1px;
+}
+
+/* line 268, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.yesNoWrapper div.label {
+  color: #BC870D;
+}
+
+/* line 272, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.empty-common, .emptyFavourite, .selectedFavourite {
+  background-repeat: no-repeat;
+  min-height: 16px;
+  display: inline-block;
+  width: 16px;
+}
+
+/* line 279, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.emptyFavourite {
+  background-image: url(data:image/gif;base64,R0lGODlhEAAQAMYAAP////j4+Pv7+/f39/n5+fr6+vb29vLy8vT09PPz8/7+/vz8/N3d3c3Nze/v762trevr6/39/efn5+zs7O3t7bi4uNDQ0PHx8dXV1ejo6MnJyeXl5dzc3KioqN7e3sfHx9LS0r6+vrq6utnZ2fDw8MzMzOrq6sXFxbm5ueTk5OPj4+Li4tHR0bCwsMHBwbW1tdvb28vLy+7u7sPDw/X19crKytjY2Le3t6SkpKurq7S0tOHh4ebm5tbW1qenp56enunp6aysrK6urtra2sLCws/Pz8DAwL29vby8vN/f37Ozs9PT09fX1////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////yH5BAEAAH8ALAAAAAAQABAAAAeagH+Cg38lAYSIhDUADImJFB4Ah46EkQAADZR/NBABlwAbGYgvBZ8ACgqmAA4af0IDC5cREQsRqQALBx9/Bjc8AQUCwsIEARcPK4JGLzTABc8FAw4NKoQEHAMB2toDFRuJDAEDBuQDAyKOFAgJCQfsCBYQiAoyBw4qMTAHBxggiDArLLQoUcBGhxkYHiDK0CHIhEEYdOAIoaliIAA7);
+}
+
+/* line 284, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.selectedFavourite {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oMCQUHOdEG60YAAAIrSURBVDjLnZPPS5RhEMc/8/5Sdzd3dVvL2kyj1KRDHcSkQ0FEv+51DA9Cf0CX7JoGQUdPeegQJBJUIHULvES3sPJH6lopaWq4irn77r77vtNhRY3VogaGZ56B+cw8X+aBXUxfxY/oy+pBHYwn+YMZJYUDiWJQMHppaLqKW3j8TwC5toT2J04ikUuEapTyqlZ9Ut38V4AO1G5ls4Ve6hphzRNq60ME5p3dAKJ9+0I4JFA/DJIEOU042sWx5jI8HxxTSY0La+kOAiYQWUYkS0aW5OZCRvTpoVFc5wCJeIRIpYmv4FRAoKCAYSjqge8JlsDycp6llSxO7iN77csWvqSpSR6nLKZ4wcYTAKQIEASxQWzIAaGkTX3M4ftEgXSQN8gbF5n/+o6lb0LOVFwD8hvubZw5AzICrgnrq8LM52dgX5DrMznZFLG34Q2Vh9upjBW7/6YUEKiy8kNwZ4fI7DlPPOPLjWksfXgU6ZyCNFeYmR6mra2OwC+V2/WEybkP3P1yTmSrgSWdU8VoVR08HAoGeAqq2yYQUBt8u2578eYeaFcTZPwoVTVR3ADcAMorlP0xsMuVnIJagBXV+y3hEoD0fIK8JAjHK/BNiJTB+PAqr4fekhr5iSWAreQEFrwzO69ydbiViAWzk/B++AFuoUV6ptpZz51ibOQRc9PCwThY5tmdAWK+IJXqJ5tvlO7RW6g5DyDdYym5N9ZBeq2JxcXnGFZf6de9feK/778AUbfZ0CaDxH4AAAAASUVORK5CYII=);
+}
+
+/* line 289, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.updateProfile .pictureWrapper {
+  min-height: 128px;
+  min-width: 95px;
+}
+
+/* line 294, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.updateProfile .pictureProfileNew {
+  padding: 10px;
+  width: 400px;
+}
+
+/* line 300, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.updateProfile .profileItem {
+  padding: 5px;
+}
+
+/* line 304, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.updateProfile .profileItem label {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* line 309, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.defaultMarginWrapper .dijitTabContainerTop-container {
+  border: 0 none !important;
+}
+
+/* line 313, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.header {
+  font-size: 1.6em;
+  padding: 4px;
+  margin: 1px;
+  color: #FFF;
+}
+
+/* line 320, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.subHeader {
+  font-size: 1em;
+  padding: 4px;
+  margin: 1px;
+}
+
+/* line 327, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.web-default-menu {
+  background: none repeat scroll 0 0 #EFEFEF;
+  border: 1px solid #FFFFFF;
+  -webkit-box-shadow: #cccccc 0 0 2px inset;
+  -moz-box-shadow: #cccccc 0 0 2px inset;
+  box-shadow: #cccccc 0 0 2px inset;
+  height: 44px;
+}
+
+/* line 334, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.web-default-menu ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 339, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.web-default-menu li {
+  background: none repeat scroll 0 0 transparent;
+  height: 44px;
+  list-style: none outside none;
+}
+
+/* line 346, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+div.web-default-menu li.first {
+  padding: 0px 2px 0px 5px;
+}
+
+/**
+  This class to increase size on dijitTextBox
+  poll - single response widget.
+*/
+/* line 354, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.input-d .dijitTextBox {
+  padding: 3px;
+  font-size: 130%;
+  width: 850px;
+}
+
+/* line 364, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.enme-text .dijitTextBox {
+  background-color: #FFFFFF;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.075) 0 1px 1px inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.075) 0 1px 1px inset;
+  box-shadow: rgba(0, 0, 0, 0.075) 0 1px 1px inset;
+}
+
+/* line 370, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.enme-text .dijitTextBox .dijitInputField {
+  padding: 1px 2px;
+}
+
+/* line 374, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.enme-text-large .dijitTextBox {
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+  border-radius: 7px;
+  padding: 2px;
+  /*width: 250px;*/
+}
+
+/* line 380, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.enme-text-large .dijitTextBox .dijitInputContainer {
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  -ms-border-radius: 14px;
+  -o-border-radius: 14px;
+  border-radius: 14px;
+  padding: 1px;
+}
+
+/* line 385, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.enme-text-large .dijitTextBox .dijitInputInner {
+  color: #A6A6A6;
+  font-size: 13px !important;
+}
+
+/* line 390, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.enme-text-large .dijitTextBox .dijitPlaceHolder {
+  color: #DDDDDC;
+  font-size: 13px !important;
+  line-height: 15px;
+  padding-left: 8px;
+}
+
+/* line 397, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.enme-web-context .dijitDialog {
+  border: 1px solid #676767 !important;
+  -webkit-box-shadow: rgba(9, 9, 9, 0.25) 1px 2px 2px 1px;
+  -moz-box-shadow: rgba(9, 9, 9, 0.25) 1px 2px 2px 1px;
+  box-shadow: rgba(9, 9, 9, 0.25) 1px 2px 2px 1px;
+}
+
+/* line 411, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.enme-web-context .dijitDialog .dijitDialogPaneContent {
+  background: none repeat scroll 0 0 #F9F9F9 !important;
+  border-top: 1px solid #FEFEFE !important;
+  padding: 0 !important;
+  position: relative !important;
+}
+
+/** emne-box **/
+/* line 420, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.emne-box a:link, .emne-box a:visited {
+  color: #444444;
+  text-decoration: none;
+}
+
+/* line 425, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.emne-box-gray {
+  background-color: white;
+  background-image: linear-gradient(bottom, #ffffff 4%, #f2f2f2 100%);
+  background-image: -o-linear-gradient(bottom, white 4%, #f2f2f2 100%);
+  background-image: -moz-linear-gradient(bottom, white 4%, #f2f2f2 100%);
+  background-image: -webkit-linear-gradient(bottom, white 4%, #f2f2f2 100%);
+  background-image: -ms-linear-gradient(bottom, white 4%, #f2f2f2 100%);
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.04, white), color-stop(1, #f2f2f2));
+}
+
+/* line 442, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.emne-box > header {
+  border-bottom: 1px solid #CFCFCF;
+  font-size: 14px;
+  font-weight: bold;
+  min-height: 18px;
+  text-shadow: #b3b3b4 1px 1px 1px;
+}
+
+/* line 456, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-wrapper-detail .emne-box > header {
+  border-bottom: 1px solid #B7B7B7;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-shadow: #888888 0px -1px 0px;
+}
+
+/* line 467, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.emne-box h1 {
+  color: #6D6D6D;
+  font-size: 2em;
+  font-weight: 500;
+  margin: 12px;
+}
+
+/* line 475, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.emne-box > header .rss {
+  position: relative;
+  right: 10px;
+  top: 2px;
+}
+
+/* line 482, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.emne-box h3.no-results {
+  color: #CCCCCC;
+  font-size: 1.2em;
+  padding: 20px;
+}
+
+/** default detail **/
+/* line 494, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-wrapper-detail header h1 {
+  font-weight: bold;
+  margin: 10px 5px;
+}
+
+/** agrupa el grafico y preguntas **/
+/* line 500, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-wrapper-detail .web-wrapper-detail-wrapper {
+  background-color: white;
+  min-height: 300px;
+}
+
+/** agrupa el grafico **/
+/* line 507, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-chart {
+  min-height: 180px;
+  width: 395px;
+}
+
+/** agrupa preguntas **/
+/* line 514, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-generic-detail-answer-wrapper, .web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper {
+  background-color: #F7F7F7;
+  box-shadow: 3px 1px 3px 0 #CBCBCB inset;
+  min-height: 315px;
+  width: 573px;
+}
+
+/* line 526, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-wrapper-detail .web-button-wrapper {
+  min-height: 30px;
+  background-color: #8E8E8E;
+}
+
+/* line 531, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-wrapper-detail .web-button-wrapper > div {
+  margin: 5px 7px;
+}
+
+/* line 538, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-wrapper-detail .web-chart {
+  min-height: 320px;
+  width: 400px;
+}
+
+/* line 544, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-wrapper-detail .web-detail {
+  margin-left: 390px;
+  min-height: 210px;
+}
+
+/** dialog **/
+/* line 553, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-generic-dialog-content {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* line 559, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-generic-dialog-content .button {
+  text-align: right;
+  padding-right: 10px;
+}
+
+/* line 564, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+#web-background-overlay {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 9999;
+  border: 0;
+  background-color: black!important;
+}
+
+/* line 576, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-detail-header {
+  background-color: #333333;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #333333), color-stop(100%, #000000));
+  background-image: -webkit-linear-gradient(#333333 0%, #000000 100%);
+  background-image: -moz-linear-gradient(#333333 0%, #000000 100%);
+  background-image: -o-linear-gradient(#333333 0%, #000000 100%);
+  background-image: linear-gradient(#333333 0%, #000000 100%);
+  -webkit-box-shadow: #cdcdcd 0 1px 2px 1px;
+  -moz-box-shadow: #cdcdcd 0 1px 2px 1px;
+  box-shadow: #cdcdcd 0 1px 2px 1px;
+  padding: 10px 0;
+}
+
+/* line 585, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-detail-header .title {
+  font-size: 150%;
+}
+
+/* line 591, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/_default.scss */
+.web-detail-header .title h2 {
+  font-size: 1em;
+  font-weight: 500;
+  margin: 0 10px;
+}
+
 /* line 1, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_dialog.scss */
 .enme-dialog-support {
   min-height: 300px;
@@ -4260,432 +5322,6 @@ button.button {
   padding: 10px;
 }
 
-/**
- * "Yet Another Multicolumn Layout" - YAML CSS Framework
- * (en) Uniform design of standard content elements
- * (de) Einheitliche Standardformatierungen für die wichtigten Inhalts-Elemente
- */
-@media all {
-  /*
-  * @section global typography settings
-  *
-  * vertical rhythm settings (based on em-unit)
-  * -------------------------------------------
-  * basefont-size:  14px (87.5%)
-  * line-height  :  21px (factor: 1.5) */
-  /* (en) reset font size for all elements to standard (16 Pixel) */
-  /* (de) Alle Schriftgrößen auf Standardgröße (16 Pixel) zurücksetzen */
-  /* line 27, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  html * {
-    font-size: 100%;
-  }
-
-  /**
-  * (en) reset monospaced elements to font size 16px in all browsers
-  * (de) Schriftgröße von monospaced Elemente in allen Browsern auf 16 Pixel setzen
-  *
-  * @see: http://webkit.org/blog/67/strange-medium/
-  */
-  /* line 42, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  textarea,
-  pre,
-  code,
-  kbd,
-  samp,
-  var,
-  tt {
-    font-family: Consolas, "Lucida Console", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier;
-  }
-
-  /* line 46, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  body {
-    font-family: "Droid Serif", Georgia, "Times New Roman", Times, serif;
-    /* font-size: 14px; */
-    font-size: 87.5%;
-    color: #444444;
-    /* (en) Prevent auto-scaling of text in mobile webkit browsers */
-    /* (de) Automatische Schriftvergrößerung in mobilen Webkit-Browsern vermeiden */
-    -webkit-text-size-adjust: 100%;
-  }
-
-  /*--- Headings | Überschriften ------------------------------------------------------------------------*/
-  /* line 64, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Droid Sans", Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    color: #161e21;
-    margin: 0;
-  }
-
-  /* line 71, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  h1 {
-    /* font-size: 49px; */
-    font-size: 350%;
-    line-height: 0.85714;
-    margin: 0.42857em 0 0;
-  }
-
-  /* line 78, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  h2 {
-    /* font-size: 35px; */
-    font-size: 250%;
-    line-height: 1.2;
-    margin: 0.6em 0 0;
-  }
-
-  /* line 85, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  h3 {
-    /* font-size: 24px; */
-    font-size: 171.42857%;
-    line-height: 0.875;
-    margin: 0.875em 0 0;
-  }
-
-  /* line 92, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  h4 {
-    /* font-size: 21px; */
-    font-size: 150%;
-    line-height: 1;
-    margin: 1em 0 0;
-  }
-
-  /* line 99, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  h5 {
-    /* font-size: 18px; */
-    font-size: 128.57143%;
-    line-height: 1.16667;
-    margin: 1.16667em 0 0;
-  }
-
-  /* line 106, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  h6 {
-    font-weight: bold;
-    /* font-size: 14px; */
-    font-size: 100%;
-    line-height: 1.5;
-    margin: 1.5em 0 0;
-  }
-
-  /* --- Lists | Listen  -------------------------------------------------------------------------------- */
-  /* line 118, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  ul,
-  ol,
-  dl {
-    font-size: 100%;
-    line-height: 1.5;
-    margin: 1.5em 0 1em;
-  }
-
-  /* line 124, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  ul {
-    list-style-type: disc;
-  }
-
-  /* line 128, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  ol {
-    list-style-type: decimal;
-  }
-
-  /* line 132, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  ul ul {
-    list-style-type: circle;
-    margin-top: 0;
-  }
-
-  /* line 137, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  ol ol {
-    list-style-type: lower-latin;
-    margin-top: 0;
-  }
-
-  /* line 142, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  ol ul {
-    list-style-type: circle;
-    margin-top: 0;
-  }
-
-  /* line 147, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  li {
-    font-size: 100%;
-    line-height: 1.5;
-    margin-left: 0.8em;
-  }
-
-  /* line 153, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  dt {
-    font-weight: bold;
-  }
-
-  /* line 155, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  dd {
-    margin: 1.5em 0 0 0.8em;
-  }
-
-  /* --- general text formatting | Allgemeine Textauszeichnung ------------------------------------------ */
-  /* line 159, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  p {
-    font-size: 100%;
-    line-height: 1.5;
-    margin: 1.5em 0 0;
-  }
-
-  /* line 165, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  blockquote, cite, q {
-    font-family: "Droid Serif", Georgia, "Times New Roman", Times, serif;
-    font-style: italic;
-  }
-
-  /* line 170, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  blockquote {
-    background: transparent;
-    color: #666666;
-    margin: 1.5em 0 0 1.5em;
-  }
-
-  /* line 176, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  strong, b {
-    font-weight: bold;
-  }
-
-  /* line 178, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  em, i {
-    font-style: italic;
-  }
-
-  /* line 180, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  big {
-    /* font-size: 16px; */
-    font-size: 114.28571%;
-    line-height: 1.3125;
-  }
-
-  /* line 186, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  small {
-    /* font-size: 12px; */
-    font-size: 85.71429%;
-    line-height: 1.75;
-  }
-
-  /* line 197, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  pre,
-  code,
-  kbd,
-  tt,
-  samp,
-  var {
-    font-size: 100%;
-  }
-
-  /* line 201, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  pre {
-    font-size: 100%;
-    line-height: 1.5;
-    margin: 1.5em 0 0;
-    white-space: pre;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-
-  /* line 209, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  pre, code {
-    color: #880000;
-  }
-
-  /* line 211, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  kbd, samp, var, tt {
-    color: #666666;
-    font-weight: bold;
-  }
-
-  /* line 216, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  var, dfn {
-    font-style: italic;
-  }
-
-  /* line 218, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  acronym, abbr {
-    border-bottom: 1px #aaa dotted;
-    font-variant: small-caps;
-    letter-spacing: .07em;
-    cursor: help;
-  }
-
-  /* line 226, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  sub,
-  sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-  }
-
-  /* line 233, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  sup {
-    top: -0.5em;
-  }
-
-  /* line 234, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  sub {
-    bottom: -0.25em;
-  }
-
-  /* line 236, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  mark {
-    background: yellow;
-    color: black;
-  }
-
-  /* line 241, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  hr {
-    color: #fff;
-    background: transparent;
-    margin: 0 0 0.75em 0;
-    padding: 0 0 0.67857em 0;
-    border: 0;
-    border-bottom: 1px #eeeeee solid;
-  }
-
-  /*--- Links ----------------------------------------------------------------------------------------- */
-  /* line 252, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  a {
-    color: #4d87c7;
-    background: transparent;
-    text-decoration: none;
-  }
-
-  /* line 258, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  a:active {
-    outline: none;
-  }
-
-  /* (en) maximum constrast for tab focus - change with great care */
-  /* (en) Maximaler Kontrast für Tab Focus - Ändern Sie diese Regel mit Bedacht */
-  /* --- images ------------------ */
-  /* line 272, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  img,
-  figure {
-    margin: 0;
-  }
-
-  /* line 276, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .flexible {
-    margin-top: 1.5em;
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* line 282, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  * html .flexible {
-    /* IE6 support */
-    width: 98%;
-    /* 2% space for borders */
-  }
-
-  /* line 286, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .bordered {
-    margin-top: 1.5em;
-    border: 2px #eee solid;
-    border: 2px white solid;
-    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-  }
-
-  /**
-  * ----------------------------------------------------------------------- #
-  *
-  * Generic Content Classes
-  *
-  * (en) standard classes for positioning and highlighting
-  * (de) Standardklassen zur Positionierung und Hervorhebung
-  *
-  * @section content-generic-classes
-  */
-  /* line 303, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .highlight {
-    color: #cc3300;
-  }
-
-  /* line 307, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .dimmed {
-    color: #888888;
-  }
-
-  /* line 311, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .box {
-    border-radius: 0.3em;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #888;
-    border-color: rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
-    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
-    color: #444;
-    color: rgba(0, 0, 0, 0.8);
-    padding: 1.42857em;
-    margin: 1.5em 0 0 0;
-  }
-  /* line 323, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .box > *:first-child {
-    margin-top: 0;
-  }
-
-  /* line 343, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .info {
-    background: #f4f4f4;
-  }
-
-  /* line 347, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .success {
-    background: #88cc88;
-  }
-
-  /* line 351, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .warning {
-    background: #cccc88;
-  }
-
-  /* line 355, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .error {
-    background: #cc8888;
-  }
-
-  /* line 359, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .float-left {
-    float: left;
-    display: inline;
-    margin: 1.5em 1em 0 0;
-  }
-
-  /* line 365, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .float-right {
-    float: right;
-    display: inline;
-    margin: 1.5em 0 0 1em;
-  }
-
-  /* line 371, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../yaml/screen/typography.scss */
-  .center, .likeRate, .enme-dropdown-menu-wrapper .enme-dropdown-menu, .enme-ui-loading-search, div.updateProfile .pictureProfileNew, .pagination, .web-list-more, .web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail .no_results, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results, .web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail {
-    display: block;
-    text-align: center;
-    margin: 1.5em auto 0 auto;
-  }
-
-  /**
-  * ------------------------------------------------------------------------------------------------- #
-  *
-  * Tables | Tabellen
-  *
-  * (en) Generic classes for table-width and design definition
-  * (de) Generische Klassen für die Tabellenbreite und Gestaltungsvorschriften für Tabellen
-  *
-  * @section content-tables
-  */
-}
 /** Menu **/
 /* line 4, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-logged.scss */
 .menuWrapper {
@@ -8099,30 +8735,35 @@ div.web-support-embebed textarea {
 }
 
 /* line 21, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
+.web-poll-wrapper-vote header h5 {
+  margin: 0;
+}
+
+/* line 25, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
 .web-poll-wrapper-vote .emne-box {
   background-color: white;
   border: 0 none;
   margin: 0;
 }
 
-/* line 27, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
+/* line 31, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
 .web-poll-wrapper-vote .votex-box {
   background: none !important;
 }
 
-/* line 35, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
+/* line 39, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
 .poll-vote-container section {
   padding: 8px;
 }
 
-/* line 39, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
+/* line 43, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
 .poll-vote-container section label {
   color: #7E7E7E;
   font-size: 14px;
   font-weight: bold;
 }
 
-/* line 45, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
+/* line 49, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
 .web-poll-wrapper-vote footer {
   background-color: #676767;
   border-radius: 0 0 6px 6px;
@@ -8134,13 +8775,13 @@ div.web-support-embebed textarea {
   text-align: right;
 }
 
-/* line 60, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
+/* line 64, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
 .web-poll-wrapper-vote article .web-vote {
   margin: 0 auto;
   width: 90%;
 }
 
-/* line 65, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
+/* line 69, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
 .web-poll-wrapper-vote article .web-vote input[type="radio"] {
   background-color: #C5C5C5;
   cursor: pointer;
@@ -8148,7 +8789,7 @@ div.web-support-embebed textarea {
   padding: 3px;
 }
 
-/* line 72, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
+/* line 76, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
 .web-poll-wrapper-vote .final {
   background-color: #ADE195;
   box-shadow: 1px 0 4px 0 #BEBCBC;
@@ -8158,17 +8799,17 @@ div.web-support-embebed textarea {
   padding: 30px;
 }
 
-/* line 81, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
+/* line 85, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
 .web-poll-wrapper-vote .repeated {
   background-color: #EEE78B;
 }
 
-/* line 85, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
+/* line 89, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
 .web-poll-wrapper-vote .bad {
   background-color: red;
 }
 
-/* line 89, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
+/* line 93, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_poll-vote.scss */
 .web-poll-wrapper-vote .final .link {
   color: black;
   font-size: 15px;
@@ -8177,3 +8818,174 @@ div.web-support-embebed textarea {
 }
 
 /** poll vote **/
+/** social links references **/
+/* line 4, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_social-links.scss */
+.web-social-links {
+  background-color: white;
+}
+
+/* line 10, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_social-links.scss */
+.web-social-links h2 {
+  color: #CBCBCB;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  padding: 15px;
+}
+
+/* line 18, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_social-links.scss */
+.web-social-links .links .item {
+  font-size: 15px;
+  padding: 10px 20px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* line 25, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_social-links.scss */
+.web-social-links .item .link a {
+  text-decoration: none;
+}
+
+/* line 29, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_social-links.scss */
+.web-social-links .item {
+  font-size: 14px;
+  overflow: auto;
+  padding: 13px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+/* line 37, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_social-links.scss */
+.web-social-links .item:hover {
+  background-color: #E8E8E8;
+  box-shadow: 0 1px 2px #CCC;
+  -webkit-box-shadow: 0 1px 2px #CCC;
+  -ms-box-shadow: 0 1px 2px #ccc;
+  -moz-box-shadow: 0 1px 2px #ccc;
+}
+
+/* line 46, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_social-links.scss */
+.web-social-links .item .img {
+  float: left;
+  overflow: hidden;
+}
+
+/* line 51, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_social-links.scss */
+.web-social-links .item .link {
+  float: left;
+  margin-left: 16px;
+  width: 85%;
+  font-size: 14px;
+}
+
+/* line 58, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_social-links.scss */
+.web-social-links .item .social-date {
+  float: right;
+  margin-right: 10px;
+  font-size: 10px;
+}
+
+/* line 3, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments {
+  overflow: auto;
+  background-color: white;
+}
+
+/* line 8, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper {
+  margin: 3px;
+}
+
+/* line 12, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper .comment {
+  clear: both;
+  overflow: auto;
+  padding: 5px;
+  position: relative;
+}
+
+/* line 19, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper .comment .comment-image {
+  float: left;
+  width: 45px;
+}
+
+/* line 24, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper .comments-no-content {
+  clear: both;
+  color: #A09F9D;
+  font-size: 18px;
+  padding: 25px;
+  text-align: center;
+  width: auto;
+}
+
+/* line 33, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-form {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+/* line 38, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper .comment .comment-data {
+  float: left;
+  height: auto;
+  line-height: normal;
+  padding: 10px;
+  width: auto;
+}
+
+/* line 47, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper .comment .comment-data:hover {
+  box-shadow: 0 1px 2px #CCC;
+  background-color: #F8F8F8;
+  border: 1px solid #EFEFEF;
+  cursor: pointer;
+}
+
+/* line 55, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper .comment .comment-data .comment-info-data {
+  font-size: 0.9em;
+  font-weight: bold;
+  padding: 1px;
+}
+
+/* line 61, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper .comment .comment-data .comment-info-data .date {
+  margin-left: 10px;
+}
+
+/* line 65, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper .comment .comment-data .comment-info-data .date a {
+  color: black;
+  text-decoration: none;
+}
+
+/* line 70, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper .comment a {
+  color: #070691;
+  font-weight: 500;
+}
+
+/*
+.comments .comment-wrapper .comment .comment-data .comment-date {
+  padding: 1px;
+  position: absolute;
+  right: 2.5em;
+  top: 1.2em;
+} */
+/* line 84, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper .comment .comment-data .comment-date a {
+  color: #A3A3A3;
+  font-size: 10px;
+}
+
+/* line 90, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper .comment .comment-data .comment-body {
+  padding: 3px;
+}
+
+/* line 94, /Users/jpicado/Documents/workspace-enme/encuestame.git/enme-css/src/css/resource/sass/sections/web/../shared-components/_detail-comments.scss */
+.comments .comment-wrapper .comment .comment-data .comment-body p {
+  margin: 5px 0;
+}

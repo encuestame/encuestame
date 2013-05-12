@@ -105,6 +105,10 @@
         <level value="warn" />
     </logger>
 
+    <logger name="org.springframework.aop.framework.Cglib2AopProxy">
+         <level value="error" />
+    </logger>
+
     <!-- Root Logger -->
     <root>
         <priority value="warn" />

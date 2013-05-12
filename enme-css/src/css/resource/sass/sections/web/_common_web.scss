@@ -2,23 +2,20 @@
 // html reset process
 @import "compass/reset";
 //@import "html5/reset";
-
 // commons enme css libs
 @import "../../common";
 @import "../../resources";
 @import "../../required";
 @import "../../input";
 @import "../../dojo-fixes";
+@import "../../yaml/screen/typography";
 @import "../../layout";
-
-@import "../../web/default";
+//@import "../../web/default";
 @import "../../web/suggest";
 @import "../../web/menu";
 @import "../../web/public";
-
 @import "../../web/components/button";
-
 @import "../shared-components/dialog";
-
-@import "../../yaml/screen/typography";
+//TODO: review ;
+@import "../../web/default";
 
