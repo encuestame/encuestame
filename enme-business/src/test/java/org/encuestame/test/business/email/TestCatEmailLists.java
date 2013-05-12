@@ -67,7 +67,7 @@ public class TestCatEmailLists extends AbstractServiceBase {
 
 
     @Test(timeout = 80000)
-    public void testSendEmail(){
+    public void testSendEmail() throws Exception{
         createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
         createDefaultEmails(getProperty("mail.test.email3"), this.emailList);
         final List<Email> emailList = getCatEmailDao().findEmailsByListId(
@@ -79,7 +79,7 @@ public class TestCatEmailLists extends AbstractServiceBase {
     }
 
     @Test(timeout = 80000)
-    public void testSendInvitation(){
+    public void testSendInvitation() throws Exception{
           createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
           final List<Email> emailList = getCatEmailDao().findEmailsByListId(
                   this.emailList.getIdList());
@@ -97,9 +97,10 @@ public class TestCatEmailLists extends AbstractServiceBase {
     /**
      * Test Send email notification
      * template:notification.vm
+     * @throws Exception
      */
     @Test(timeout = 80000)
-    public void testSendNotificationEmail(){
+    public void testSendNotificationEmail() throws Exception{
           final List<Email> emailList = getCatEmailDao().findEmailsByListId(
                   this.emailList.getIdList());
           for (Email emails : emailList) {
@@ -116,9 +117,10 @@ public class TestCatEmailLists extends AbstractServiceBase {
     /**
      * Test Renew password email
      * template: renew-password.vm
+     * @throws Exception
      */
     @Test(timeout = 80000)
-    public void testSendRenewPasswordEmail(){
+    public void testSendRenewPasswordEmail() throws Exception{
           final List<Email> emailList = getCatEmailDao().findEmailsByListId(
                   this.emailList.getIdList());
           for (Email emails : emailList) {
@@ -134,9 +136,10 @@ public class TestCatEmailLists extends AbstractServiceBase {
     /**
      * Test Notification status account email.
      * template: notification-account.vm
+     * @throws Exception
      */
     @Test(timeout = 80000)
-    public void testSendNotificationStatusAccountEmail(){
+    public void testSendNotificationStatusAccountEmail() throws Exception{
           final List<Email> emailList = getCatEmailDao().findEmailsByListId(
                   this.emailList.getIdList());
           for (Email emails : emailList) {
@@ -154,9 +157,10 @@ public class TestCatEmailLists extends AbstractServiceBase {
     /**
      * Test Confirm your account email.
      * template: confirm-your-account.vm
+     * @throws Exception
      */
     @Test(timeout = 80000)
-    public void testSendConfirmYourAccountEmail(){
+    public void testSendConfirmYourAccountEmail() throws Exception{
           final List<Email> emailList = getCatEmailDao().findEmailsByListId(
                   this.emailList.getIdList());
           for (Email emails : emailList) {
@@ -174,9 +178,10 @@ public class TestCatEmailLists extends AbstractServiceBase {
     /**
      * Test password confirmation
      * template: password-confirmation.vm
+     * @throws Exception
      */
     @Test(timeout = 80000)
-    public void testSendPasswordConfirmationEmail(){
+    public void testSendPasswordConfirmationEmail() throws Exception{
         final List<Email> emailList = getCatEmailDao().findEmailsByListId(
                 this.emailList.getIdList());
         for (Email emails : emailList) {

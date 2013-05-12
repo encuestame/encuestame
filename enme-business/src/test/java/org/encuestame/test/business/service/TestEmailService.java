@@ -17,7 +17,7 @@ import java.util.UUID;
 import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.categories.test.InternetTest;
-import org.encuestame.utils.security.SignUpBean; 
+import org.encuestame.utils.security.SignUpBean;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,7 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Email Services Test.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 12, 2010 10:02:41 AM
- */ 
+ */
 @Category(InternetTest.class)
 public class TestEmailService extends AbstractServiceBase {
 
@@ -39,14 +39,15 @@ public class TestEmailService extends AbstractServiceBase {
 
     /**
      * Test Send Email.
+     * @throws Exception
      */
     @Test(timeout = 30000)
-    public void testSendEmail(){
+    public void testSendEmail() throws Exception{
         this.serviceMail.sendInvitation(getProperty("mail.test.email"), "12355");
     }
 
     @Test(timeout = 30000)
-    public void testSendConfirmYourAccountEmail(){
+    public void testSendConfirmYourAccountEmail() throws Exception{
         final String inviteCode = UUID.randomUUID().toString();
         final String captcha = "CaPtCHa";
         final String email = "dianmorales@gmail.com";
