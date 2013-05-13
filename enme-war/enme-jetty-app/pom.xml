@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame-war</artifactId>
-        <version>1.147-M1</version>
+        <version>1.147-SNAPSHOT</version>
     </parent>
     <artifactId>enme-jetty-app</artifactId>
     <packaging>war</packaging>
@@ -438,25 +438,25 @@
         <dependency>
           <groupId>org.encuestame</groupId>
           <artifactId>resources-enme-war</artifactId>
-          <version>1.147-M1</version>
+          <version>1.147-SNAPSHOT</version>
           <type>war</type>
         </dependency>
         <dependency>
           <groupId>org.encuestame</groupId>
           <artifactId>enme-config</artifactId>
-          <version>1.147-M1</version>
+          <version>1.147-SNAPSHOT</version>
           <type>war</type>
         </dependency>
         <dependency>
           <groupId>org.encuestame</groupId>
           <artifactId>enme-spring</artifactId>
-          <version>1.147-M1</version>
+          <version>1.147-SNAPSHOT</version>
           <type>war</type>
         </dependency>
         <dependency>
           <groupId>org.encuestame</groupId>
           <artifactId>enme-views</artifactId>
-          <version>1.147-M1</version>
+          <version>1.147-SNAPSHOT</version>
           <type>war</type>
         </dependency>
      </dependencies>
