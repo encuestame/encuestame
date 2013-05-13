@@ -2,3 +2,81 @@
 @import "menu_logged";
 // modules
 //@import "../../web/admon";
+
+
+.web-dasboard-wrapper .web-dash-menu {
+    background-color: #A6A5A5;
+    clear: both;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    @extend .o-auto;
+    padding: 4px;
+    width: 99%;
+}
+
+.web-dash-list {
+    @extend .col-left;
+}
+
+.web-dash-actions {
+    @extend .col-right;
+    padding: 3px;
+}
+
+.web-dash-actions .action {
+    color: $white;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: underline;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 1px;
+}
+
+.web-directory {
+    @extend .o-auto;
+    padding: 5px;
+}
+
+.web-directory-item {
+    border-bottom: 1px dotted #D7D7D7;
+    min-height: 38px;
+    padding: 2px;
+}
+
+.web-directory-item .web-directory-item-title {
+    font-weight: bold;
+}
+
+.web-directory-item .web-directory-item-description,.web-directory-item .web-directory-item-description p
+    {
+    margin: 0px;
+}
+
+.web-directory-item .web-directory-item-actions {
+    @extend .right;
+}
+
+.web-directory-item .web-directory-item-actions a {
+    cursor: pointer;
+}
+
+.web-dashboard-create {
+    padding: 6px;
+    width: 255px;
+}
+
+.web-dashboard-create .web-dashboard-create-row {
+    padding: 2px;
+}
+
+.web-dashboard-create .web-dashboard-create-row label {
+    display: inline-block;
+    max-width: 62px;
+    min-width: 60px;
+}
+
+.web-dashboard-create .web-dashboard-create-actions {
+    padding: 4px;
+    @extend .right;
+}

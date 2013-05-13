@@ -81,7 +81,7 @@ define(["dojo",
      */
     var _appendContext = function(service) {
        var url = this.config['contextPath'];
-       this.log("_appendContext-->", url);
+       //this.log("_appendContext-->", url);
        url = url.concat(service);
        return url;
     };
@@ -184,8 +184,8 @@ define(["dojo",
      * @method
      */
     var _service = function(key, params) {
-        this.log("_service key-->", key);
-        this.log("_service params-->", params);
+        //this.log("_service key-->", key);
+        //this.log("_service params-->", params);
         var _service_store = SERVICES,
         _parent = this;
           if (!params) {
@@ -271,8 +271,8 @@ define(["dojo",
              }
              if (_service_url !== null ) {
                   // make the request
-                  this.log("url to call -->", _service_url);
-                  this.log("URL ---->", _service_url);
+                  //this.log("url to call -->", _service_url);
+                  //this.log("URL ---->", _service_url);
                   request(_service_url, _params).then(_load, _error,
                            function(evt) {});
              }

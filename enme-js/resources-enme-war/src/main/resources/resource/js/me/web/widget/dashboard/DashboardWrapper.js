@@ -148,7 +148,7 @@ define(["dojo/_base/declare",
            * @returns {encuestame.org.core.commons.dialog.Info}
            */
           _createDialog : function(content){
-              console.info("open dialog content", content);
+              //console.info("open dialog content", content);
               var dialog = new Info({content:content});
               return dialog;
           },
@@ -165,7 +165,7 @@ define(["dojo/_base/declare",
                           data: store
                       });
                       if (this._addComboWidget === null) {
-                          this._buildCombo();
+                          //this._buildCombo();
                           //load favorite dashboard by default.
                           this._displayFavouriteDashboard();
                       } else {
@@ -174,7 +174,7 @@ define(["dojo/_base/declare",
                   }
               });
               var error = function(error) {
-                  console.debug("error", error);
+                  //console.debug("error", error);
               };
               this.getURLService().get('encuestame.service.dashboard.list', {}, load, error , dojo.hitch(this, function() {
 
@@ -208,10 +208,10 @@ define(["dojo/_base/declare",
            */
           _markAsSelected : function(id){
               var load = dojo.hitch(this, function(data) {
-                 console.debug(data);
+                 //console.debug(data);
               });
               var error = function(error) {
-                  console.error("error", error);
+                  //console.error("error", error);
               };
               this.getURLService().get('encuestame.service.dashboard.select', {id : id}, load, error , dojo.hitch(this, function() {
 
@@ -261,7 +261,7 @@ define(["dojo/_base/declare",
                   dijit.byId("createDashBoard").reset();
               });
               var error = function(error) {
-                  console.debug("error", error);
+                  //console.debug("error", error);
               };
               encuestame.service.xhrPost(this.getURLService().service('encuestame.service.dashboard.create'), form, load, error);
           },
@@ -270,7 +270,7 @@ define(["dojo/_base/declare",
            * create new dashboard.
            */
           _createDashBoard : function(/** dashboard id **/ dashboardId) {
-              console.debug("_createDashBoard", dashboardId);
+              //console.debug("_createDashBoard", dashboardId);
               if (this.dashboardWidget == null) {
                   this.clean();
                   this.dashboardWidget = new encuestame.org.core.commons.dashboard.DashboardGridContainer(this._dasboard, dashboardId, 3);
@@ -303,7 +303,7 @@ define(["dojo/_base/declare",
            *
            */
           insert : function(node) {
-              console.debug("insert new dashboard node", node);
+              //console.debug("insert new dashboard node", node);
               this._dasboard.appendChild(node);
           }
     });

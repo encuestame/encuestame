@@ -88,7 +88,7 @@ img {
 }
 
 /* line 23, ../../../../../../css/resource/sass/_common.scss */
-.text-right, .default-rigth-aling, .center-alg, .right, .df-label, .dialog-close-button, div.socialAccountPicker div.resume, div.web-directory-item .web-directory-item-actions, div.web-dashboard-create div.web-dashboard-create-actions {
+.text-right, .default-rigth-aling, .center-alg, .right, .df-label, .dialog-close-button, div.socialAccountPicker div.resume, .web-directory-item .web-directory-item-actions, .web-dashboard-create .web-dashboard-create-actions {
   text-align: right;
 }
 
@@ -180,7 +180,7 @@ img {
 }
 
 /* line 97, ../../../../../../css/resource/sass/_common.scss */
-.o-auto, #web-main-public-line, div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper, div.socialAccountPicker div.account, .stats-button, div.web-gadget .gad-content, div.web-dasboard-wrapper div.web-dash-menu, div.web-directory, .section-botton-wrapper, .search-items-wrapper, .search-items-wrapper .search-hashtag, .search-items-wrapper .search-profiles, .web-detail-header {
+.o-auto, #web-main-public-line, div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper, div.socialAccountPicker div.account, .stats-button, div.web-gadget .gad-content, .section-botton-wrapper, .search-items-wrapper, .search-items-wrapper .search-hashtag, .search-items-wrapper .search-profiles, .web-detail-header, .web-dasboard-wrapper .web-dash-menu, .web-directory {
   overflow: auto;
 }
 
@@ -265,12 +265,12 @@ img {
 }
 
 /* line 168, ../../../../../../css/resource/sass/_common.scss */
-.col-left, .df-label, .panel-header header, .ui-image-wrapper, .ui-hits, .ui-comments, .ui-likes, .ui-dislike, #web-main-public-line .categoryMenu .nav-left, #web-main-public-line .web-item-wrapper, div.survey-status, div.countdown, div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite, .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-list-item-title, div.socialAccountPicker div.account div.image, div.socialAccountPicker div.account div.detail, div.web-dash-list, .single-response .single-response-handle, div.folder-selection div.folder-selection-label, .section-botton-wrapper .sub-option, .section-option-wrapper .section-default, .search-items-wrapper .search-items, #content-container #enme-content .web-generic-result div.votes, div.web-default-menu li, .web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-chart, .web-generic-detail-answer-wrapper, .web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper, .web-wrapper-detail .web-button-wrapper > div, .web-wrapper-detail .web-chart, .web-detail-header .title {
+.col-left, .df-label, .panel-header header, .ui-image-wrapper, .ui-hits, .ui-comments, .ui-likes, .ui-dislike, #web-main-public-line .categoryMenu .nav-left, #web-main-public-line .web-item-wrapper, div.survey-status, div.countdown, div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite, .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-list-item-title, div.socialAccountPicker div.account div.image, div.socialAccountPicker div.account div.detail, .single-response .single-response-handle, div.folder-selection div.folder-selection-label, .section-botton-wrapper .sub-option, .section-option-wrapper .section-default, .search-items-wrapper .search-items, #content-container #enme-content .web-generic-result div.votes, div.web-default-menu li, .web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-chart, .web-generic-detail-answer-wrapper, .web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper, .web-wrapper-detail .web-button-wrapper > div, .web-wrapper-detail .web-chart, .web-detail-header .title, .web-dash-list {
   float: left;
 }
 
 /* line 172, ../../../../../../css/resource/sass/_common.scss */
-.col-right, #web-main-public-line .categoryMenu .nav-right, div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel, div.socialAccountPicker div.account div.icon, div.web-dash-actions, .emne-box > header .rss {
+.col-right, #web-main-public-line .categoryMenu .nav-right, div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel, div.socialAccountPicker div.account div.icon, .emne-box > header .rss, .web-dash-actions {
   float: right;
 }
 
@@ -3463,134 +3463,58 @@ div.web-layout ul.column {
   /* padding: 0 0 -1.2em 1%; */
 }
 
-/* line 412, ../../../../../../css/resource/sass/web/_public.scss */
-div.web-dasboard-wrapper div.web-dash-menu {
-  background-color: #A6A5A5;
-  clear: both;
-  margin-bottom: 5px;
-  margin-top: 15px;
-  padding: 4px;
-  width: 99%;
-}
-
-/* line 426, ../../../../../../css/resource/sass/web/_public.scss */
-div.web-dash-actions {
-  padding: 3px;
-}
-
-/* line 431, ../../../../../../css/resource/sass/web/_public.scss */
-div.web-dash-actions .action {
-  color: white;
-  cursor: pointer;
-  display: inline-block;
-  text-decoration: underline;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding: 1px;
-}
-
-/* line 441, ../../../../../../css/resource/sass/web/_public.scss */
-div.web-directory {
-  padding: 5px;
-}
-
-/* line 446, ../../../../../../css/resource/sass/web/_public.scss */
-div.web-directory-item {
-  border-bottom: 1px dotted #D7D7D7;
-  min-height: 38px;
-  padding: 2px;
-}
-
-/* line 452, ../../../../../../css/resource/sass/web/_public.scss */
-div.web-directory-item .web-directory-item-title {
-  font-weight: bold;
-}
-
-/* line 457, ../../../../../../css/resource/sass/web/_public.scss */
-div.web-directory-item .web-directory-item-description, div.web-directory-item .web-directory-item-description p {
-  margin: 0px;
-}
-
-/* line 465, ../../../../../../css/resource/sass/web/_public.scss */
-div.web-directory-item .web-directory-item-actions a {
-  cursor: pointer;
-}
-
-/* line 469, ../../../../../../css/resource/sass/web/_public.scss */
-div.web-dashboard-create {
-  padding: 6px;
-  width: 255px;
-}
-
-/* line 474, ../../../../../../css/resource/sass/web/_public.scss */
-div.web-dashboard-create div.web-dashboard-create-row {
-  padding: 2px;
-}
-
-/* line 478, ../../../../../../css/resource/sass/web/_public.scss */
-div.web-dashboard-create div.web-dashboard-create-row label {
-  display: inline-block;
-  max-width: 62px;
-  min-width: 60px;
-}
-
-/* line 484, ../../../../../../css/resource/sass/web/_public.scss */
-div.web-dashboard-create div.web-dashboard-create-actions {
-  padding: 4px;
-}
-
 /** settings **/
 /** list of paterns **/
 /*
  * - Single Response
  * - Options
  */
-/* line 500, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 419, ../../../../../../css/resource/sass/web/_public.scss */
 .pattern-options-label {
   padding: 2px;
 }
 
-/* line 508, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 427, ../../../../../../css/resource/sass/web/_public.scss */
 .web-pattern label.pattern-label {
   margin-left: 5px;
   font-size: 12px;
   font-stretch: ultra-expanded;
 }
 
-/* line 515, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 434, ../../../../../../css/resource/sass/web/_public.scss */
 li.over {
   border: 2px dashed black;
 }
 
-/* line 519, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 438, ../../../../../../css/resource/sass/web/_public.scss */
 .me_opa {
   opacity: 5;
 }
 
-/* line 523, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 442, ../../../../../../css/resource/sass/web/_public.scss */
 .all_opa {
   opacity: 1;
 }
 
-/* line 527, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 446, ../../../../../../css/resource/sass/web/_public.scss */
 .single-response .single-response-handle {
   margin-right: 10px;
   margin-top: 7px;
 }
 
-/* line 533, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 452, ../../../../../../css/resource/sass/web/_public.scss */
 .single-response .single-response-input {
   margin-left: 10px;
 }
 
 /** end list of paterns **/
 /* folder selection */
-/* line 540, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 459, ../../../../../../css/resource/sass/web/_public.scss */
 div.folder-selection {
   padding: 0px;
 }
 
-/* line 544, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 463, ../../../../../../css/resource/sass/web/_public.scss */
 div.folder-selection div.folder-selection-label {
   color: #848282;
   font-size: 120%;
@@ -3599,34 +3523,34 @@ div.folder-selection div.folder-selection-label {
   margin-top: 2px;
 }
 
-/* line 553, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 472, ../../../../../../css/resource/sass/web/_public.scss */
 div.folder-selection div.folder-selection-combo {
   margin-left: 85px;
 }
 
-/* line 557, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 476, ../../../../../../css/resource/sass/web/_public.scss */
 .section-botton-wrapper {
   margin-left: 50px;
   padding: 5px;
 }
 
-/* line 563, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 482, ../../../../../../css/resource/sass/web/_public.scss */
 .section-botton-wrapper a {
   text-decoration: none;
   font-weight: bold;
 }
 
-/* line 568, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 487, ../../../../../../css/resource/sass/web/_public.scss */
 .section-botton-wrapper .sub-option {
   margin: 15px;
 }
 
-/* line 573, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 492, ../../../../../../css/resource/sass/web/_public.scss */
 .section-option-wrapper {
   width: auto;
 }
 
-/* line 577, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 496, ../../../../../../css/resource/sass/web/_public.scss */
 .section-option-wrapper .section-default {
   border-right: 1px solid #D6D6D6;
   margin: 16px;
@@ -3635,57 +3559,57 @@ div.folder-selection div.folder-selection-combo {
   width: 250px;
 }
 
-/* line 586, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 505, ../../../../../../css/resource/sass/web/_public.scss */
 .section-option-wrapper .section-default h2 {
   margin-bottom: 3px;
   font-size: 14px;
 }
 
-/* line 591, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 510, ../../../../../../css/resource/sass/web/_public.scss */
 .section-option-wrapper .section-default .space {
   margin: 2px;
 }
 
-/* line 595, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 514, ../../../../../../css/resource/sass/web/_public.scss */
 .section-option-wrapper .section-default .space-option {
   margin-bottom: 15px;
   margin-top: 15px;
 }
 
-/* line 600, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 519, ../../../../../../css/resource/sass/web/_public.scss */
 div.link-published-space {
   padding: 5px;
 }
 
 /** rated **/
 /*** search page ***/
-/* line 608, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 527, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper {
   padding: 5px;
   background-color: #FFF;
 }
 
-/* line 614, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 533, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper h4 {
   margin: 0;
 }
 
-/* line 618, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 537, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper .no-results {
   color: #989898;
 }
 
-/* line 622, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 541, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper > aside {
   margin-left: 65%;
 }
 
-/* line 626, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 545, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper > aside .no-results {
   margin-left: 5px;
 }
 
-/* line 630, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 549, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper header {
   border-bottom: 1px solid #F0EFF1;
   color: #D9D9D9;
@@ -3694,13 +3618,13 @@ div.link-published-space {
   padding-left: 5px;
 }
 
-/* line 638, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 557, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper .search-items {
   min-height: 500px;
   width: 60%;
 }
 
-/* line 644, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 563, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper .search-items .search-item {
   margin-left: 5px;
   padding: 5px 0;
@@ -3708,28 +3632,28 @@ div.link-published-space {
   margin-top: 10px;
 }
 
-/* line 651, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 570, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper .search-items .search-item:last-child {
   border: 0;
 }
 
-/* line 655, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 574, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper .search-items .search-item h3 {
   margin: 0;
 }
 
-/* line 659, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 578, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper .search-items .search-item .post-title {
   font-size: 80%;
   color: #bbbbbb;
 }
 
-/* line 668, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 587, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper .search-hashtag > div {
   padding: 10px 0;
 }
 
-/* line 672, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 591, ../../../../../../css/resource/sass/web/_public.scss */
 .search-items-wrapper .search-hashtag > div > section {
   float: left;
   padding: 6px 2px;
@@ -3737,7 +3661,7 @@ div.link-published-space {
 
 /*** search page end ***/
 /** modalbox */
-/* line 687, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 606, ../../../../../../css/resource/sass/web/_public.scss */
 .modalBoxBackground {
   position: fixed;
   top: 0px;
@@ -3749,7 +3673,7 @@ div.link-published-space {
   height: 2859px;
 }
 
-/* line 698, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 617, ../../../../../../css/resource/sass/web/_public.scss */
 .modal-box {
   width: 420px;
   height: auto;
@@ -3768,26 +3692,26 @@ div.link-published-space {
   display: block;
 }
 
-/* line 710, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 629, ../../../../../../css/resource/sass/web/_public.scss */
 .modal-box-im {
   font-style: normal;
   padding-bottom: 55px;
 }
 
-/* line 715, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 634, ../../../../../../css/resource/sass/web/_public.scss */
 .modal-box .wrapper {
   padding: 20px 20px 20px 20px;
   height: auto;
   min-height: 80px;
 }
 
-/* line 721, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 640, ../../../../../../css/resource/sass/web/_public.scss */
 .modal-box .wrapper a {
   cursor: pointer;
   text-decoration: none;
 }
 
-/* line 726, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 645, ../../../../../../css/resource/sass/web/_public.scss */
 .modal-box .msgbox-buttons {
   padding: 15px;
   text-align: right;
@@ -3796,14 +3720,14 @@ div.link-published-space {
   right: 0;
 }
 
-/* line 734, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 653, ../../../../../../css/resource/sass/web/_public.scss */
 #content-container #enme-content .web-generic-result div.votes {
   margin: 0 !important;
   padding: 8px;
   width: 100px !important;
 }
 
-/* line 741, ../../../../../../css/resource/sass/web/_public.scss */
+/* line 660, ../../../../../../css/resource/sass/web/_public.scss */
 .web-generic-result .percent {
   float: left;
   font-weight: bold;
@@ -5281,4 +5205,80 @@ div.notificationWrapper div.new {
 .drop-down-menu-select-title .sub-menu li:hover a {
   color: white !important;
   text-decoration: none;
+}
+
+/* line 7, ../../../../../../css/resource/sass/sections/web/dashboard.scss */
+.web-dasboard-wrapper .web-dash-menu {
+  background-color: #A6A5A5;
+  clear: both;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  padding: 4px;
+  width: 99%;
+}
+
+/* line 21, ../../../../../../css/resource/sass/sections/web/dashboard.scss */
+.web-dash-actions {
+  padding: 3px;
+}
+
+/* line 26, ../../../../../../css/resource/sass/sections/web/dashboard.scss */
+.web-dash-actions .action {
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: underline;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 1px;
+}
+
+/* line 36, ../../../../../../css/resource/sass/sections/web/dashboard.scss */
+.web-directory {
+  padding: 5px;
+}
+
+/* line 41, ../../../../../../css/resource/sass/sections/web/dashboard.scss */
+.web-directory-item {
+  border-bottom: 1px dotted #D7D7D7;
+  min-height: 38px;
+  padding: 2px;
+}
+
+/* line 47, ../../../../../../css/resource/sass/sections/web/dashboard.scss */
+.web-directory-item .web-directory-item-title {
+  font-weight: bold;
+}
+
+/* line 52, ../../../../../../css/resource/sass/sections/web/dashboard.scss */
+.web-directory-item .web-directory-item-description, .web-directory-item .web-directory-item-description p {
+  margin: 0px;
+}
+
+/* line 60, ../../../../../../css/resource/sass/sections/web/dashboard.scss */
+.web-directory-item .web-directory-item-actions a {
+  cursor: pointer;
+}
+
+/* line 64, ../../../../../../css/resource/sass/sections/web/dashboard.scss */
+.web-dashboard-create {
+  padding: 6px;
+  width: 255px;
+}
+
+/* line 69, ../../../../../../css/resource/sass/sections/web/dashboard.scss */
+.web-dashboard-create .web-dashboard-create-row {
+  padding: 2px;
+}
+
+/* line 73, ../../../../../../css/resource/sass/sections/web/dashboard.scss */
+.web-dashboard-create .web-dashboard-create-row label {
+  display: inline-block;
+  max-width: 62px;
+  min-width: 60px;
+}
+
+/* line 79, ../../../../../../css/resource/sass/sections/web/dashboard.scss */
+.web-dashboard-create .web-dashboard-create-actions {
+  padding: 4px;
 }

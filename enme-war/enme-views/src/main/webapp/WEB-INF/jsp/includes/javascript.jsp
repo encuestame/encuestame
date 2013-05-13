@@ -28,7 +28,6 @@
 var config = {
     contextPath: '${pageContext.request.contextPath}'
 };
-console.log("Moderninz", Modernizr.svg);
 require([
     "dojo",
     "dojo/_base/declare",
