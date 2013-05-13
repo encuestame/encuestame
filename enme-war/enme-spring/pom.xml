@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame-war</artifactId>
-        <version>1.147-SNAPSHOT</version>
+        <version>1.147-M1</version>
     </parent>
     <artifactId>enme-spring</artifactId>
     <packaging>war</packaging>
