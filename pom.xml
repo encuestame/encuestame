@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
     <packaging>pom</packaging>
-    <version>1.146</version>
+    <version>1.147-M2-SNAPSHOT</version>
     <name>encuestame</name>
     <description>
-     Encuestame is an open source project based on Java 6 technology. You can use to create different 
-     types of surveys. Encuestame provides a full featured Survey Managed System. 
-     It's integrated with the most popular social networks (Facebook, Twitter, etc) and 
+     Encuestame is an open source project based on Java 6 technology. You can use to create different
+     types of surveys. Encuestame provides a full featured Survey Managed System.
+     It's integrated with the most popular social networks (Facebook, Twitter, etc) and
      the capable to distribute your content with diferent ways.
   </description>
     <url>http://www.encuestame.org</url>
@@ -30,17 +29,17 @@
         <!-- Java version -->
         <java-version>1.6</java-version>
         <!-- encuestame version -->
-        <encuestame.version>${project.version}</encuestame.version>
+        <encuestame.version>1.147-M2-SNAPSHOT</encuestame.version>
         <!-- Spring Version <spring.version>3.1.0.BUILD-SNAPSHOT</spring.version> -->
-        <spring.version>3.1.1.RELEASE</spring.version>
+        <spring.version>3.2.0.RELEASE</spring.version>
         <env>development</env>
         <javascript.minimize>false</javascript.minimize>
-        <spring.webflow.version>2.3.0.RELEASE</spring.webflow.version>
+        <spring.webflow.version>2.3.1.RELEASE</spring.webflow.version>
         <spring.security.version>3.1.0.RELEASE</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-integration-core>2.1.0.RELEASE</spring-integration-core>
         <spring-oauth.version>1.0.0.M6</spring-oauth.version>
-        <spring.mobile.version>1.0.0.RELEASE</spring.mobile.version>
+        <spring.mobile.version>1.1.0.M1</spring.mobile.version>
         <spring.ldap>1.3.1.RELEASE</spring.ldap>
         <spring.orm>3.0.3.RELEASE</spring.orm>
         <spring.support>2.0.8</spring.support>
@@ -134,11 +133,11 @@
         <dojo.version>1.6.1</dojo.version>
         <webresources.javascript.location>encuestame-war/src/main/webapp/js</webresources.javascript.location>
         <!--CometD -->
-        <comet.version>2.3.1</comet.version>
+        <comet.version>2.5.1</comet.version>
         <!-- Plugin Version -->
-        <surefire.version>2.12</surefire.version>
-        <!-- 
-        	Clover 2 Needed install on local host 
+        <surefire.version>2.12.4</surefire.version>
+        <!--
+        	Clover 2 Needed install on local host
         	http://confluence.atlassian.com/display/CLOVER/Clover+for+Maven+2+and+3+Developer+Guide
         -->
         <maven-clover2-plugin>3.0.5</maven-clover2-plugin>
@@ -157,24 +156,27 @@
         <taglist-maven-plugin>2.4</taglist-maven-plugin>
         <maven-checkstyle-plugin>2.5</maven-checkstyle-plugin>
         <site.version>2.3</site.version>
-        <jetty7.version>7.2.2.v20101205</jetty7.version>
+        <jetty7.version>8.1.0.RC5</jetty7.version>
         <jetty-plugin-version>${jetty7.version}</jetty-plugin-version>
         <jetty.ssl>7.0.0.pre5</jetty.ssl>
         <keytool.maven.plugin>1.0</keytool.maven.plugin>
         <maven.war.plugin>2.1.1</maven.war.plugin>
         <wro4j.plugin>1.4.6</wro4j.plugin>
         <maven-eclipse-plugin>2.9</maven-eclipse-plugin>
+        <dojo.version>1.8.0</dojo.version>
     </properties>
 
     <modules>
-        <module>encuestame-utils</module>
-        <module>encuestame-core</module>
-        <module>encuestame-social</module>
-        <module>encuestame-oauth</module>
-        <module>encuestame-persistence</module>
-        <module>encuestame-business</module>
-        <module>encuestame-mvc</module>
-        <module>encuestame-war</module>
+        <module>enme-css</module>
+        <module>enme-js</module>
+        <module>enme-utils</module>
+        <module>enme-core</module>
+        <module>enme-social</module>
+        <module>enme-oauth</module>
+        <module>enme-persistence</module>
+        <module>enme-business</module>
+        <module>enme-mvc</module>
+        <module>enme-war</module>
     </modules>
 
     <licenses>
@@ -216,16 +218,19 @@
         </mailingList>
     </mailingLists>
 
-    <scm>
-        <url>https://github.com/encuestame/encuestame.git</url>
-    </scm>
+     <scm>
+        <connection>scm:git:git@github.com:encuestame/encuestame.git</connection>
+        <developerConnection>scm:git:git@github.com:encuestame/encuestame.git</developerConnection>
+        <url>scm:git:git@github.com:encuestame/encuestame.git</url>
+       <tag>HEAD</tag>
+  </scm>
 
     <distributionManagement>
         <site>
             <id>www.encuestame.org</id>
             <url>${apache}</url>
         </site>
-         <repository>
+<!--          <repository>
             <id>archiva.internal</id>
             <name>Encuestame Release Repository</name>
             <url>http://archive.encuestame.org/repository/internal</url>
@@ -234,7 +239,7 @@
             <id>archiva.snapshots</id>
             <name>Internal Snapshot Repository</name>
             <url>http://archive.encuestame.org/repository/snapshots</url>
-        </snapshotRepository>
+        </snapshotRepository> -->
     </distributionManagement>
 
     <organization>
@@ -244,7 +249,7 @@
 
     <!-- Repositories -->
     <repositories>
-        <repository>
+        <!-- <repository>
             <id>internal</id>
             <name>Encuestame Internal Repository</name>
             <url>http://archive.encuestame.org/repository/internal/</url>
@@ -265,7 +270,7 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
+        </repository> -->
         <repository>
             <id>repository.jboss.com</id>
             <name>Jboss Repository for Maven</name>
@@ -430,6 +435,19 @@
 					<generateHtml>true</generateHtml>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.3.2</version>
+                <executions>
+                    <execution>
+                    <id>default</id>
+                    <goals>
+                        <goal>perform</goal>
+                    </goals>
+                </execution>
+          </executions>
+        </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -485,7 +503,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
                         <testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-                        <argLine>-Xmx1024m</argLine> 
+                        <argLine>-Xmx1024m</argLine>
                         <groups>org.encuestame.utils.categories.test.DefaultTest</groups>
                     </configuration>
                     <version>${surefire.version}</version>
@@ -579,6 +597,15 @@
     </build>
 
 	<profiles>
+        <profile>
+            <id>production</id>
+            <properties>
+                <env>development</env>
+            </properties>
+             <activation>
+                <activeByDefault>true</activeByDefault>
+           </activation>
+        </profile>
 		<profile>
 			<id>development</id>
 			<properties>
@@ -838,23 +865,23 @@
     <developers>
         <developer>
             <id>juanpicado</id>
-            <name>Juan Picado</name>
-            <email>juan AT encuestame.org</email>
+            <name>Juan Carlos Picado</name>
+            <email>juanpicado19@gmail.com</email>
             <organization>encuestame.org</organization>
             <organizationUrl>http://www.encuestame.org</organizationUrl>
             <roles>
-                <role>Lead Developer (Project founder)</role>
+                <role>Lead Developer, Senior Front-End Engineer</role>
             </roles>
             <timezone>1</timezone>
         </developer>
         <developer>
             <id>dianmorales</id>
             <name>Diana Paola Morales</name>
-            <email>paola AT encuestame.org</email>
+            <email>dianmorales@gmail.com</email>
             <organization>encuestame.org</organization>
             <organizationUrl>http://www.encuestame.org</organizationUrl>
             <roles>
-                <role>Lead Developer (Project founder)</role>
+                <role>Lead Developer, Java Software Engineer</role>
             </roles>
             <timezone>1</timezone>
         </developer>
@@ -902,17 +929,21 @@
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
-
-            <dependency>
+             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-persistence</artifactId>
+                <artifactId>enme-model</artifactId>
                 <version>${encuestame.version}</version>
                 <type>jar</type>
-                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>enme-dao</artifactId>
+                <version>${encuestame.version}</version>
+                <type>jar</type>
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-core! -->
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-persistence</artifactId>
+                <artifactId>enme-dao</artifactId>
                 <version>${encuestame.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
@@ -1670,6 +1701,17 @@
                 <artifactId>cometd-java-annotations</artifactId>
                 <version>${comet.version}</version>
             </dependency>
+             <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-websocket-jetty</artifactId>
+            <version>${comet.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.cometd.java</groupId>
+                    <artifactId>cometd-java-client</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
             <dependency>
                 <groupId>org.cometd.java</groupId>
                 <artifactId>cometd-java-oort</artifactId>
@@ -1725,12 +1767,18 @@
 				<groupId>net.sf.opencsv</groupId>
 				<artifactId>opencsv</artifactId>
 				<version>${opencsv.version}</version>
-			</dependency>            
+			</dependency>
        <!-- <dependency>
                 <groupId>org.apache.cactus</groupId>
                 <artifactId>cactus.core.framework</artifactId>
                 <version>${cactus.version}</version>
             </dependency> -->
+            <dependency>
+                <groupId>org.dojotoolkit</groupId>
+                <artifactId>dojo-war</artifactId>
+                <version>${dojo.version}</version>
+                <type>war</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

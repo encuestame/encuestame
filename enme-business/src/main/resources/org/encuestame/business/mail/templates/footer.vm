@@ -1,0 +1,35 @@
+ <div id="extras" style="font-size:12px;font-weight:normal; color:#ffffff; width:560;border:0;margin-left: auto ;margin-right: auto ; padding:9px 18px 0 18px;font-family:lucida grande,helvetica,arial;">
+
+        <div style="font-size:12px;font-weight:normal;font-family:lucida grande,helvetica,arial;">
+            <span style="margin-right:30px" class="sp2">
+                 <a style="color:#616679" href="${domain}/user/signin" target="_blank">
+                    Login
+                 </a>
+            </span>
+            <span style="margin-right:40px" class="sp1">
+                <a style="color:#616679" href="http://www.encuestame.org/demo" target="_blank">
+                     Site Demo
+                </a>
+            </span>
+            <span style="margin-right:30px" class="sp11">
+                 <a style="color:#616679" href="http://blog.encuestame.org/" target="_blank">
+                    Official Blog
+                 </a>
+            </span>
+            <span style="margin-right:30px" class="sp12">
+                <a style="color:#616679" href="http://twitter.com/encuestame" target="_blank">
+                    Twitter
+                </a>
+            </span>
+            <span style="margin-right:30px"class="sp13">
+                <a style="color:#616679" href="http://www.facebook.com/pages/encuestame/" target="_blank">
+                    Facebook
+                </a>
+            </span>
+            <span style="margin-right:30px" class="sp3">
+                <a style="color:#616679" href="http://www.encuestame.org/wiki" target="_blank">
+                    Documentation
+                </a>
+            </span>
+        </div>
+</div>

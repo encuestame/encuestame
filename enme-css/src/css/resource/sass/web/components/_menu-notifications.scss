@@ -1,0 +1,126 @@
+@import "_base_web";
+
+/** notifications **/
+.notificationWrapper {
+  height: 33px;
+  min-width: 25px;
+  padding: 0 4px;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.not-menu-not-selected {
+    background-color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.livePanel {
+    display: none;
+    position: absolute;
+    min-height: 5px;
+    width: 400px;
+    background-color: #FFF;
+    right: 0px;
+    top: 33px;
+    box-shadow: 2px 2px 5px #888888;
+    border-radius: 0px 0px 5px 5px;
+    -moz-box-shadow: 2px 2px 5px #888888;
+    -webkit-box-shadow: 2px 2px 5px #888888;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+    min-width: 345px;
+    max-width: 345px;
+    z-index: 20;
+}
+
+.livePanel .panelItems {
+    min-height: 100%;
+}
+
+.livePanel .final {
+    padding: 8px;
+    text-align: right;
+    font-weight: bold;
+    background-color: #222;
+}
+
+.livePanel .web-not-item-removed {
+    background-color: #DFDFDF !important;
+    color: #EC9191 !important;
+    -moz-opacity: 0.50;
+    opacity: 0.50;
+    // -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=50);
+
+}
+
+.livePanel .final a:link, .livePanel .final a:visited, .livePanel .final a {
+    color: #FFF;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.openLivePanel {
+    display: block;
+}
+
+.notificationItem {
+    padding: 5px;
+    min-height: 30px;
+    text-align: left;
+    border-top: solid 1px #E9E9E9;
+    border-bottom: solid 1px #E9E9E9;
+    color: #333;
+    display: block;
+    text-decoration: none;
+    margin-bottom: -1px;
+    z-index: 2;
+    zoom: 1;
+    line-height: 15px;
+}
+
+.notificationItem .not-item-description {
+    margin-left: 60px;
+}
+
+.notificationItem:hover {
+    cursor: pointer;
+    background-color: #F0F0F0;
+}
+
+.livePanel .notificationItem .left {
+    float: left;
+    min-height: 30px;
+    margin-left: 10px;
+    width: 50px;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+.livePanel .notificationItem .not-item-description {
+
+}
+
+.livePanel .notificationItem .not-item-description .title {
+    font-weight: bold;
+}
+
+.livePanel .notificationItem .not-item-description .description {
+    font-size: 10px;
+    color: grey;
+    font-weight: normal;
+    padding: 5px 0;
+}
+
+.counter {
+  color: #696868;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  width: 28px;
+}
+
+div.notificationWrapper div.new {
+    color: red !important;
+}

@@ -1,3 +1,0 @@
-<div>
- Question View
-</div>

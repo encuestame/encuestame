@@ -1,0 +1,20 @@
+/* TEAM */
+	Lead:Juan Carlos Picado
+	Contact: juan [at] encuestame.org
+	Twitter: @jotadeveloper
+	From:Madrid, Madrid, Spain
+
+	Lead Backend Developer: Diana Paola Morales
+	Twitter: @dianmora
+	From:Managua, Managua, Nicaragua
+
+/* THANKS */
+
+	 Atlassian Open Source Program: http://www.atlassian.com/
+
+
+/* SITE */
+	Last update:2013/03/31
+	Language: English / Castellano
+	Doctype:HTML5
+	IDE: Sublime Text, Eclipse

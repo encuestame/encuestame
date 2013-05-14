@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<encuestame-configuration>
+    <version>${project.version}</version>
+    <database>
+        <version>1</version>
+        <last-update></last-update>
+    </database>
+    <updates>
+        <remote-check>false</remote-check>
+        <security-updates>true</security-updates>
+    </updates>
+    <install>
+        <date></date>
+        <path></path>
+    </install>
+    <information>
+        <metatags>
+        <keywords>survey, twitter, social, open source, etc, etc</keywords>
+        <description>encuestame survey system</description>
+    </metatags>
+</information>
+<administration>
+    <users>
+        <user>admin</user>
+    </users>
+</administration>
+<social>
+    <accounts></accounts>
+</social>
+</encuestame-configuration>

@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.encuestame</groupId>
+    <artifactId>encuestame</artifactId>
+    <version>1.147-M2-SNAPSHOT</version>
+  </parent>
+
+  <version>1.147-M2-SNAPSHOT</version>
+  <artifactId>encuestame-css</artifactId>
+  <packaging>war</packaging>
+  <name>Encuestame :: CSS :: WAR</name>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <skipTests>true</skipTests>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>${maven-antrun-plugin}</version>
+            <executions>
+                <!-- WEB CSS Optimization -->
+                <execution>
+                    <id>admon.web</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+                            <echo message="CSS Web optimized Initialized" />
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=admon.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/admon.min.web.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>dashboard</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=dashboard.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/dashboard.min.web.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>home.web</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=home.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/home.min.web.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>notifications</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=notifications.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/notifications.min.web.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>poll</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=poll.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/poll.min.web.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>question</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=question.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/question.min.web.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>settings</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=settings.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/settings.min.web.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>setup</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=setup.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/setup.min.web.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>survey</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=survey.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/survey.min.web.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>tweetpoll</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=tweetpoll.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/tweetpoll.min.web.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>user</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=user.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/user.min.web.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>vote</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/web" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=vote.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/vote.min.web.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+
+                <!-- MOBILE CSS OPTIMIZATION -->
+
+                <execution>
+                    <id>admon.mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+                            <echo message="CSS Web optimized Initialized" />
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=admon.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/admon.min.mobile.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>dashboard.mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=dashboard.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/dashboard.min.mobile.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>home.mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=home.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/home.min.mobile.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>notifications.mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=notifications.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/notifications.min.mobile.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>poll.mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=poll.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/poll.min.mobile.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>question.mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=question.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/question.min.mobile.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>settings.mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=settings.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/settings.min.mobile.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>setup.mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=setup.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/setup.min.mobile.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>survey.mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=survey.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/survey.min.mobile.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>tweetpoll.mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=tweetpoll.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/tweetpoll.min.mobile.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>user.mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=user.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/user.min.mobile.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>vote.mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
+                        </classpath>
+                        <target>
+
+                            <java fork="true" failonerror="true" dir="${basedir}/src/main/webapp/resource/dev/sections/mobile" classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
+                            </classpath>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=vote.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/vote.min.mobile.css" />
+                          </java>
+
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+  </build>
+</project>

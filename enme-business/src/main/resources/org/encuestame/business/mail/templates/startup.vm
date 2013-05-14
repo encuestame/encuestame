@@ -1,0 +1,25 @@
+<html>
+<body>
+<div id="containerBody" style="padding:20px 20px 40px 20px;background-color:#f9940e">
+
+<div style="background-color:#ffffff;width:560;cellspacing:0;cellpadding:0;border:0;margin-left: auto ;margin-right: auto ">
+   #parse("/org/encuestame/business/mail/templates/header.vm")
+    <div>
+        Hi <span style="color:#0101DF; font-size:medium;">${user.username}</span>
+    </div>
+
+    <div style="font-weight: bold; margin-bottom: 2px; font-size: 11px;">
+        To complete this process, follow this  <span><a href="#">here !!</span>
+    </div>
+    <div>
+        Your new password  is <span style="color:#0101DF; font-size:small;">${user.password}</span>
+        <div style="margin-bottom: 2px; margin-top:2px; color:#BDBDBD; font-size: 11px;">
+         If you didn't request this change, please let us know!<a href="#"> click here. </a>
+        </div>
+    </div>
+
+  </div>
+    #parse("/org/encuestame/business/mail/templates/footer.vm")
+</div>
+</body>
+</html>

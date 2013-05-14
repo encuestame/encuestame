@@ -1,0 +1,426 @@
+/**
+ * "Yet Another Multicolumn Layout" - YAML CSS Framework
+ * (en) Uniform design of standard content elements
+ * (de) Einheitliche Standardformatierungen für die wichtigten Inhalts-Elemente
+ */
+@media all {
+  /*
+  * @section global typography settings
+  *
+  * vertical rhythm settings (based on em-unit)
+  * -------------------------------------------
+  * basefont-size:  14px (87.5%)
+  * line-height  :  21px (factor: 1.5) */
+  /* (en) reset font size for all elements to standard (16 Pixel) */
+  /* (de) Alle Schriftgrößen auf Standardgröße (16 Pixel) zurücksetzen */
+  /* line 27, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  html * {
+    font-size: 100%;
+  }
+
+  /**
+  * (en) reset monospaced elements to font size 16px in all browsers
+  * (de) Schriftgröße von monospaced Elemente in allen Browsern auf 16 Pixel setzen
+  *
+  * @see: http://webkit.org/blog/67/strange-medium/
+  */
+  /* line 42, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  textarea,
+  pre,
+  code,
+  kbd,
+  samp,
+  var,
+  tt {
+    font-family: Consolas, "Lucida Console", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier;
+  }
+
+  /* line 46, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  body {
+    font-family: "Droid Serif", Georgia, "Times New Roman", Times, serif;
+    /* font-size: 14px; */
+    font-size: 87.5%;
+    color: #444444;
+    /* (en) Prevent auto-scaling of text in mobile webkit browsers */
+    /* (de) Automatische Schriftvergrößerung in mobilen Webkit-Browsern vermeiden */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /*--- Headings | Überschriften ------------------------------------------------------------------------*/
+  /* line 64, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Droid Sans", Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    color: #161e21;
+    margin: 0;
+  }
+
+  /* line 71, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  h1 {
+    /* font-size: 49px; */
+    font-size: 350%;
+    line-height: 0.85714;
+    margin: 0.42857em 0 0;
+  }
+
+  /* line 78, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  h2 {
+    /* font-size: 35px; */
+    font-size: 250%;
+    line-height: 1.2;
+    margin: 0.6em 0 0;
+  }
+
+  /* line 85, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  h3 {
+    /* font-size: 24px; */
+    font-size: 171.42857%;
+    line-height: 0.875;
+    margin: 0.875em 0 0;
+  }
+
+  /* line 92, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  h4 {
+    /* font-size: 21px; */
+    font-size: 150%;
+    line-height: 1;
+    margin: 1em 0 0;
+  }
+
+  /* line 99, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  h5 {
+    /* font-size: 18px; */
+    font-size: 128.57143%;
+    line-height: 1.16667;
+    margin: 1.16667em 0 0;
+  }
+
+  /* line 106, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  h6 {
+    font-weight: bold;
+    /* font-size: 14px; */
+    font-size: 100%;
+    line-height: 1.5;
+    margin: 1.5em 0 0;
+  }
+
+  /* --- Lists | Listen  -------------------------------------------------------------------------------- */
+  /* line 118, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  ul,
+  ol,
+  dl {
+    font-size: 100%;
+    line-height: 1.5;
+    margin: 1.5em 0 1em;
+  }
+
+  /* line 124, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  ul {
+    list-style-type: disc;
+  }
+
+  /* line 128, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  ol {
+    list-style-type: decimal;
+  }
+
+  /* line 132, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  ul ul {
+    list-style-type: circle;
+    margin-top: 0;
+  }
+
+  /* line 137, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  ol ol {
+    list-style-type: lower-latin;
+    margin-top: 0;
+  }
+
+  /* line 142, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  ol ul {
+    list-style-type: circle;
+    margin-top: 0;
+  }
+
+  /* line 147, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  li {
+    font-size: 100%;
+    line-height: 1.5;
+    margin-left: 0.8em;
+  }
+
+  /* line 153, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  dt {
+    font-weight: bold;
+  }
+
+  /* line 155, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  dd {
+    margin: 1.5em 0 0 0.8em;
+  }
+
+  /* --- general text formatting | Allgemeine Textauszeichnung ------------------------------------------ */
+  /* line 159, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  p {
+    font-size: 100%;
+    line-height: 1.5;
+    margin: 1.5em 0 0;
+  }
+
+  /* line 165, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  blockquote, cite, q {
+    font-family: "Droid Serif", Georgia, "Times New Roman", Times, serif;
+    font-style: italic;
+  }
+
+  /* line 170, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  blockquote {
+    background: transparent;
+    color: #666666;
+    margin: 1.5em 0 0 1.5em;
+  }
+
+  /* line 176, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  strong, b {
+    font-weight: bold;
+  }
+
+  /* line 178, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  em, i {
+    font-style: italic;
+  }
+
+  /* line 180, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  big {
+    /* font-size: 16px; */
+    font-size: 114.28571%;
+    line-height: 1.3125;
+  }
+
+  /* line 186, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  small {
+    /* font-size: 12px; */
+    font-size: 85.71429%;
+    line-height: 1.75;
+  }
+
+  /* line 197, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  pre,
+  code,
+  kbd,
+  tt,
+  samp,
+  var {
+    font-size: 100%;
+  }
+
+  /* line 201, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  pre {
+    font-size: 100%;
+    line-height: 1.5;
+    margin: 1.5em 0 0;
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* line 209, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  pre, code {
+    color: #880000;
+  }
+
+  /* line 211, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  kbd, samp, var, tt {
+    color: #666666;
+    font-weight: bold;
+  }
+
+  /* line 216, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  var, dfn {
+    font-style: italic;
+  }
+
+  /* line 218, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  acronym, abbr {
+    border-bottom: 1px #aaa dotted;
+    font-variant: small-caps;
+    letter-spacing: .07em;
+    cursor: help;
+  }
+
+  /* line 226, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  sub,
+  sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+
+  /* line 233, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  sup {
+    top: -0.5em;
+  }
+
+  /* line 234, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  sub {
+    bottom: -0.25em;
+  }
+
+  /* line 236, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  mark {
+    background: yellow;
+    color: black;
+  }
+
+  /* line 241, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  hr {
+    color: #fff;
+    background: transparent;
+    margin: 0 0 0.75em 0;
+    padding: 0 0 0.67857em 0;
+    border: 0;
+    border-bottom: 1px #eeeeee solid;
+  }
+
+  /*--- Links ----------------------------------------------------------------------------------------- */
+  /* line 252, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  a {
+    color: #4d87c7;
+    background: transparent;
+    text-decoration: none;
+  }
+
+  /* line 258, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  a:active {
+    outline: none;
+  }
+
+  /* (en) maximum constrast for tab focus - change with great care */
+  /* (en) Maximaler Kontrast für Tab Focus - Ändern Sie diese Regel mit Bedacht */
+  /* --- images ------------------ */
+  /* line 272, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  img,
+  figure {
+    margin: 0;
+  }
+
+  /* line 276, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .flexible {
+    margin-top: 1.5em;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* line 282, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  * html .flexible {
+    /* IE6 support */
+    width: 98%;
+    /* 2% space for borders */
+  }
+
+  /* line 286, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .bordered {
+    margin-top: 1.5em;
+    border: 2px #eee solid;
+    border: 2px white solid;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  }
+
+  /**
+  * ----------------------------------------------------------------------- #
+  *
+  * Generic Content Classes
+  *
+  * (en) standard classes for positioning and highlighting
+  * (de) Standardklassen zur Positionierung und Hervorhebung
+  *
+  * @section content-generic-classes
+  */
+  /* line 303, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .highlight {
+    color: #cc3300;
+  }
+
+  /* line 307, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .dimmed {
+    color: #888888;
+  }
+
+  /* line 311, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .box {
+    border-radius: 0.3em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #888;
+    border-color: rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
+    color: #444;
+    color: rgba(0, 0, 0, 0.8);
+    padding: 1.42857em;
+    margin: 1.5em 0 0 0;
+  }
+  /* line 323, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .box > *:first-child {
+    margin-top: 0;
+  }
+
+  /* line 343, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .info {
+    background: #f4f4f4;
+  }
+
+  /* line 347, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .success {
+    background: #88cc88;
+  }
+
+  /* line 351, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .warning {
+    background: #cccc88;
+  }
+
+  /* line 355, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .error {
+    background: #cc8888;
+  }
+
+  /* line 359, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .float-left {
+    float: left;
+    display: inline;
+    margin: 1.5em 1em 0 0;
+  }
+
+  /* line 365, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .float-right {
+    float: right;
+    display: inline;
+    margin: 1.5em 0 0 1em;
+  }
+
+  /* line 371, ../../../../../../css/resource/sass/yaml/screen/typography.scss */
+  .center {
+    display: block;
+    text-align: center;
+    margin: 1.5em auto 0 auto;
+  }
+
+  /**
+  * ------------------------------------------------------------------------------------------------- #
+  *
+  * Tables | Tabellen
+  *
+  * (en) Generic classes for table-width and design definition
+  * (de) Generische Klassen für die Tabellenbreite und Gestaltungsvorschriften für Tabellen
+  *
+  * @section content-tables
+  */
+}

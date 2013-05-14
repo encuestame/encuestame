@@ -1,0 +1,81 @@
+@import "_base_web";
+
+/** poll */
+.web-poll-wrapper {
+    @extend .padding;
+    @extend .centered-block;
+    padding: 35px 0;
+    width: auto;
+}
+
+.web-poll-wrapper .web-poll-question .web-question .dijitTextBox {
+    font-size: 130%;
+    padding: 3px;
+    width: $_poll_create_question_width;
+}
+
+/* input:focus, textarea:focus { */
+/*   border-color: rgba(82, 168, 236, 0.8); */
+/*   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6); */
+/*   outline: 0 none; */
+/* } */
+.web-poll-wrapper .web-poll-question .web-question {
+    @extend .col-left;
+    width: 100px;
+}
+
+.web-poll-wrapper .web-poll-question-folder {
+    @extend .col-right;
+    left: 0;
+    margin-right: 35px;
+    position: relative;
+}
+
+.web-poll-wrapper ul.web-poll-answers li {
+    list-style: none;
+    padding: 5px;
+}
+
+.web-poll-question .web-poll-section .space {
+  @extend .o-auto;
+  padding: 20px 10px;
+}
+
+.web-poll-wrapper .web-poll-question .web-question .dijitInputField {
+    padding: 0px;
+}
+
+.web-poll-wrapper .web-poll-question .web-question .dijitInputField  > input, .web-poll-answers .dijitInputField  > input{
+    font-size: $df_font_size ;
+    padding: 5px;
+}
+
+.web-poll-wrapper .dijitPlaceHolder {
+  font-size: $df_font_size ;
+  line-height: 20px;
+}
+
+.web-poll-question .web-poll-section .section-option-wrapper .section-default  > div {
+    padding : 5px;
+}
+
+.web-poll-question .web-poll-section .section-option-wrapper .dijitSpinner .dijitSpinnerButtonInner {
+    width: 13px;
+}
+
+.web-poll-question .web-poll-section .section-option-wrapper .section-default .dijitTextBox, .web-poll-wrapper .web-poll-question .web-question .dijitTextBox {
+  border-radius: 0px !important;
+}
+
+.dijitValidationContainer > input {
+    width: 15px;
+}
+
+.repeated-votes .section, .date-to-close .section {
+    padding: 5px 0;
+    margin-top: 1px;
+}
+
+.botton-button-publish {
+  margin-top: 5px;
+}

@@ -1,0 +1,32 @@
+/** profile rated **/
+.web-rated-profile-item {
+    clear: both;
+    min-height: 20px;
+    padding: 2px;
+}
+
+.web-rated-profile-item .web-rated-profile-picture {
+    float: left;
+    margin: 0px 10px 0px 2px;
+}
+
+.web-rated-profile-item  .web-rated-profile-item-detail {
+    color: #919191;
+    font-size: 12px;
+}
+
+.web-rated-profile-item .web-rated-profile-item-detail a {
+  color: #fff;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.web-rated-profile-item .web-rated-profile-item-detail h2 {
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.web-top-profile {
+    padding: 10px;
+}

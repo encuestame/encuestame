@@ -1,0 +1,31 @@
+.enme-dialog-support {
+	min-height: 300px;
+}
+
+.dialog-padding {
+	padding: 10px;
+}
+
+.dialog-background {
+	background-color : $black_medium;
+	color : $white;
+}
+
+.enme-dialog-support section {
+	padding: 10px;
+}
+
+.enme-dialog-support header {
+   @extend .dialog-background;
+   @extend .dialog-padding;
+}
+
+.enme-dialog-support h2 {
+	@extend .non-margin;
+}
+
+.enme-dialog-support footer {
+   @extend .non-margin;
+   @extend .dialog-padding;
+   @extend .dialog-background;
+}
