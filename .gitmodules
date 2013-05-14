@@ -21,4 +21,4 @@
 	url = git://github.com/encuestame/g.raphael.git
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/me"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/me
-	url = git@github.com:encuestame/me.git
+	url = git://github.com/encuestame/me.git
