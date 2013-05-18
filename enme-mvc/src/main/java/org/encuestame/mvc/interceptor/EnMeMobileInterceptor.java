@@ -83,7 +83,7 @@ public class EnMeMobileInterceptor extends HandlerInterceptorAdapter {
             log.trace(" forceMobileDevice => 2");
         // if is a tablet and is not forced to be mobile
         } else if (!forceMobileDevice && device.isTablet()) {
-            request.setAttribute(mobil, Boolean.FALSE);
+            request.setAttribute(mobil, Boolean.TRUE);
             log.trace(" forceMobileDevice => 3");
         // if is normal (NO MOBILE AND TABLE) and is not force to be a mobile device
         } else if (!forceMobileDevice && device.isNormal()) {

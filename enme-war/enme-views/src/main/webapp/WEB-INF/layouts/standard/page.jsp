@@ -16,18 +16,20 @@
 <%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
 <tiles:insertAttribute name="rss" ignore="true" />
 </head>
-<body class="claro enme-web-context">
-  <div id="mainWrapper" class="page ">
-    <header id="header" class="header_input_hidden">
-            <c:forEach items="${i18n}" var="entry">
-                  <input type="hidden" name="${entry.key}" value="${entry.value}"/>
-            </c:forEach>
-            <input type="hidden" name="not_view_all" value="<spring:message code="not_view_all" />"/>
+<body class="enme-web-context">
+  <div class="container">
       <tiles:insertAttribute name="header" ignore="true" />
+  </div>
+  <div id="mainWrapper" class="page">
+    <header id="header" class="header_input_hidden">
+          <c:forEach items="${i18n}" var="entry">
+                <input type="hidden" name="${entry.key}" value="${entry.value}"/>
+          </c:forEach>
+          <input type="hidden" name="not_view_all" value="<spring:message code="not_view_all" />"/>
     </header>
     <tiles:insertAttribute name="menu" ignore="true" />
-    <div id="content-container" class="enme-auto-center ">
-      <div id="enme-content" class="enme-auto-center">
+    <div id="content-container">
+      <div id="enme-content">
          <c:if test="${logged}">
              <div data-dojo-type="me/web/widget/ui/Toaster"
                duration="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.duration")%>"

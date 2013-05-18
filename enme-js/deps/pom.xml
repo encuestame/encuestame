@@ -12,7 +12,9 @@
     <name>Encuestame Dependencies JavaScript</name>
 
     <properties>
+        <commonsSourceDir>${project.build.directory}/compress/commons</commonsSourceDir>
         <jsSourceDir>${project.build.directory}/compress/req</jsSourceDir>
+        <mobileSourceDir>${project.build.directory}/compress/mobile</mobileSourceDir>
     </properties>
 
     <build>
@@ -42,6 +44,41 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <id>ie-js</id>
+                        <goals>
+                            <goal>compress</goal>
+                        </goals>
+                        <configuration>
+                            <aggregations>
+                                <aggregation>
+                                    <output>${project.build.directory}/${project.build.finalName}/resource/js/ie.js</output>
+                                    <insertNewLine>true</insertNewLine>
+                                    <includes>
+                                        <include>${mobileSourceDir}/json2/json2.js</include>
+                                    </includes>
+                                </aggregation>
+                            </aggregations>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>init-js</id>
+                        <goals>
+                            <goal>compress</goal>
+                        </goals>
+                        <configuration>
+                            <aggregations>
+                                <aggregation>
+                                    <output>${project.build.directory}/${project.build.finalName}/resource/js/init.js</output>
+                                    <insertNewLine>true</insertNewLine>
+                                    <includes>
+                                        <include>${commonsSourceDir}/modernizr.js</include>
+                                        <include>${jsSourceDir}/json_services.js</include>
+                                    </includes>
+                                </aggregation>
+                            </aggregations>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>aggregate-js</id>
                         <goals>
                             <goal>compress</goal>
@@ -52,9 +89,33 @@
                                     <output>${project.build.directory}/${project.build.finalName}/resource/js/commons.js</output>
                                     <insertNewLine>true</insertNewLine>
                                     <includes>
-                                        <include>${jsSourceDir}/modernizr.js</include>
-                                        <include>${jsSourceDir}/json_services.js</include>
-                                        <include>${jsSourceDir}/moment.js</include>
+                                        <include>${commonsSourceDir}/moment.js</include>
+                                        <include>${commonsSourceDir}/d3.v3.min.js</include>
+                                        <include>${commonsSourceDir}/underscore.js</include>
+                                    </includes>
+                                </aggregation>
+                            </aggregations>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>mobile-js</id>
+                        <goals>
+                            <goal>compress</goal>
+                        </goals>
+                        <configuration>
+                            <aggregations>
+                                <aggregation>
+                                    <output>${project.build.directory}/${project.build.finalName}/resource/js/commons-mobile.js</output>
+                                    <insertNewLine>true</insertNewLine>
+                                    <includes>
+                                        <include>${commonsSourceDir}/moment.js</include>
+                                        <include>${commonsSourceDir}/d3.v3.min.js</include>
+                                        <include>${mobileSourceDir}/jquery/jquery.js</include>
+                                        <include>${commonsSourceDir}/bootstrap.js</include>
+                                        <include>${mobileSourceDir}/custom/jquery.pageslide.js</include>
+                                        <include>${commonsSourceDir}/underscore.js</include>
+                                        <include>${mobileSourceDir}/backbone/backbone.js</include>
+                                        <include>${mobileSourceDir}/backbone.marionette/lib/backbone.marionette.js</include>
                                     </includes>
                                 </aggregation>
                             </aggregations>

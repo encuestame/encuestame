@@ -1,32 +1,66 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<div class="web-header">
-    <div class="web-header-wrapper enme-auto-center">
-        <%@ include file="/WEB-INF/layouts/logo.jsp"%>
-        <div class="web-header-options">
-            <c:if test="${!logged}">
-                <span class="link"> <a
-                    href="<%=request.getContextPath()%>/user/signin"> <spring:message
-                            code="header.signin" /> </a>
-                </span>
+<div class="navbar navbar-fixed-top navbar-inverse" style="position: absolute;">
+  <div class="navbar-inner">
+    <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar">a</span>
+            <span class="icon-bar">d</span>
+            <span class="icon-bar">v</span>
+        </a>
+      <a class="brand" href="#">
+            <%@ include file="/WEB-INF/layouts/logo.jsp"%>
+      </a>
+      <div class="nav-collapse collapse">
+<!--           <ul class="nav">
+            <li class="active">
+                <a href="<%=request.getContextPath()%>/user/signin"> <spring:message
+                                code="header.signin" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    Link
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    Link
+                </a>
+            </li>
+          </ul> -->
+          <ul class="nav pull-right">
+            <c:if test="${logged}">
+               <li>
+                <a href="<%=request.getContextPath()%>/home">
+                    <spring:message code="header.public.line" /> </a>
+               </li>
             </c:if>
             <c:if test="${logged}">
-                <span class="link"> <a
-                    href="<%=request.getContextPath()%>/home"> <spring:message
-                            code="header.public.line" /> </a>
-                </span>
+               <li>
+                    <a data-dojo-type="me/web/widget/menu/DashBoardMenu"
+                       contextPath="<%=request.getContextPath()%>">
+                    </a>
+               </li>
             </c:if>
-            <c:if test="${logged}">
-                <span class="link">
-                    <div data-dojo-type="me/web/widget/menu/DashBoardMenu"
-                         contextPath="<%=request.getContextPath()%>"></div>
-                </span> -
-            </c:if>
-             <span class="link web-search-wrapper">
-                    <div data-dojo-type="me/web/widget/menu/SearchMenu"></div>
-            </span>
+              <c:if test="${!logged}">
+                  <li class="">
+                        <a href="<%=request.getContextPath()%>/user/signin">
+                            <spring:message code="header.signin" />
+                        </a>
+                  </li>
+              </c:if>
+              <form class="navbar-search pull-left" action="">
+                         <div data-dojo-type="me/web/widget/menu/SearchMenu"></div>
+              </form>
+            </ul>
         </div>
     </div>
-    <c:if test="${logged}">
+  </div>
+</div>
+
+<!-- TODO: check the style -->
+
+<c:if test="${logged}">
     <div data-dojo-type="dojox/widget/UpgradeBar" id="upgradeBar2" data-dojo-props="noRemindButton:''" style="display:none;">
         <div validate="${!isActivated}">
             <span>
@@ -37,5 +71,4 @@
             </a>
         </div>
     </div>
-    </c:if>
-</div>
+</c:if>

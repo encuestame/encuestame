@@ -3,12 +3,13 @@
 @import "compass/reset";
 //@import "html5/reset";
 // commons enme css libs
-@import "../../common";
+
+
+
 @import "../../resources";
 @import "../../required";
 @import "../../input";
 @import "../../dojo-fixes";
-@import "../../yaml/screen/typography";
 @import "../../layout";
 //@import "../../web/default";
 @import "../../web/suggest";
@@ -18,4 +19,6 @@
 @import "../shared-components/dialog";
 //TODO: review ;
 @import "../../web/default";
-
+@import "../../mobile/bootstrap/bootstrap";
+@import "../../mobile/bootstrap/bootstrap-responsive";
+@import "../../common";

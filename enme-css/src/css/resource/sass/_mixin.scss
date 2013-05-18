@@ -10,8 +10,12 @@
 @import "compass/css3/transition";
 @import "compass/support";
 @import "compass/css3/box-sizing";
+@import "mobile/bootstrap/compass_twitter_bootstrap/variables";
+@import "mobile/bootstrap/compass_twitter_bootstrap/mixins";
+
 
 // Encuestame doesn't support IE6, IE7 and IE8
+
 $legacy-support-for-ie6 : false;
 $legacy-support-for-ie7 : false;
 $legacy-support-for-ie8 : false;
@@ -25,13 +29,21 @@ $footer_height : 40px;
 $white : #FFFFFF;
 $default_background_color : $white;
 $black : #000000;
-$black_hight : #222222;
-$black_medium : #444444;
-$black_semi_medium : #666666;
+$black_hight : #111111 !default;
+$black_medium : #222222 !default;
+$black_semi_medium : #252525;
+
+// $navbarInverseBackground:                #111111 !default;
+// $navbarInverseBackgroundHighlight:       #222222 !default;
+// $navbarInverseBorder:                    #252525 !default;
+// $navbarBackgroundHighlight:       #ffffff !default;
+
+
+
 $black_light : #888888;
 $gray_dark : #918F8F;
 $gray_lite : #e5e5e5;
-$gray_normal : #CDCDCD;
+$gray_normal : #616161;
 $yellow_light : #F9F9C2;
 $green_light : #C9F5C8;
 $red_light : #FEBEB2;

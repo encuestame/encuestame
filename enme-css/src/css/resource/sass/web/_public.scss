@@ -28,10 +28,6 @@ body.public-body {
     position: relative;
     @extend .text-left;
     @extend .o-auto;
-    background: $black_medium;
-    @include background-image(linear-gradient($black_medium, $black_hight));
-    @extend .main-shadow-box;
-
 }
 
 #web-main-public-line .categoryMenu span {

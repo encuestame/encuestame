@@ -19,6 +19,38 @@ img {
  text-align: center;
 }
 
+h4.enme {
+  color : $gray_normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 25px;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.enme-rating {
+
+    .vote {
+        border-radius: 50px;
+        background-color: $orange_light;
+        font-size: 10px;
+        padding: 15px;
+        width: 40px;
+        text-align: center;
+        color: $white;
+    }
+
+    .count {
+       font-size: 22px;
+    }
+
+    .count-sub {
+      color: #B3B3B3;
+      font-size: 10px;
+      text-align: center;
+      padding: 5px;
+    }
+}
 
 .text-right, .right {
  text-align: right;
@@ -142,7 +174,7 @@ img {
 
 .main-shadow-box {
   @extend .default-rd;
-  box-shadow: 0px 2px 7px 0px rgb(126, 126, 126) !important;
+  //box-shadow: 0px 2px 7px 0px rgb(126, 126, 126) !important;
 }
 
 .chart-detail {
@@ -178,7 +210,7 @@ img {
 }
 
 .border-main-box {
-    border: 1px solid $gray_lite;
+    // border: 1px solid $gray_lite;
     margin-top: 2em;
     background-color: $white;
 }
@@ -327,8 +359,19 @@ a.point {
   @extend .non-margin;
 }
 
+@mixin ctb-gradient-vertical($startColor: #555, $endColor: #333) {
+  background-color: mix($startColor, $endColor, 62.5%);
+  background-image: -moz-linear-gradient(top, $startColor, $endColor); // FF 3.6+
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($startColor), to($endColor)); // Safari 4+, Chrome 2+
+  background-image: -webkit-linear-gradient(top, $startColor, $endColor); // Safari 5.1+, Chrome 10+
+  background-image: -o-linear-gradient(top, $startColor, $endColor); // Opera 11.10
+  background-image: linear-gradient(to bottom, $startColor, $endColor); // Standard, IE10
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{darken($startColor, 1%)}', endColorstr='#{darken($endColor, 1%)}', GradientType=0); // IE9 and down
+}
+
 .home-header-color {
-  background-color: $header_info_main_color;
+    @include ctb-gradient-vertical($navbarInverseBackgroundHighlight, $navbarInverseBackground);
 }
 
 .panel-header p {

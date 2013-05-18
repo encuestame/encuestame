@@ -1,14 +1,12 @@
 @import "mixin";
-@import "yaml/core/base";
-@import "yaml/core/iehacks";
-@import "yaml/navigation/hlist";
-@import "yaml/navigation/vlist";
+
 
 html,body {
     height: 100%;
-    font-family: Verdana;
+    font-family: "museo-sans", "Museo Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 12px;
 }
+
 
 .main_header_colors {
   background: $black;

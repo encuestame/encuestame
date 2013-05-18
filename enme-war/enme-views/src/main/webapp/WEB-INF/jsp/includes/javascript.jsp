@@ -22,8 +22,13 @@
             async : true
             };
 </script>
+<script src="<%=request.getContextPath()%>/resources/js/commons.js"></script>
 <script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/me/run.js"></script>
+
+
+<script src="<%=request.getContextPath()%>/resources/js/enme.chart.js"></script>
+
 <script>
 var config = {
     contextPath: '${pageContext.request.contextPath}'

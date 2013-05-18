@@ -2,126 +2,32 @@
 <!--[if lt IE 9]>
      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-<script>
-         var dojoConfig= {
-            baseUrl: '<%=request.getContextPath()%>/resources/js/',
-            packages: [
-                       { name: "dojo", location: "dojo" },
-                       { name: "dijit", location: "dijit" },
-                       { name: "dojox", location: "dojox" },
-                       { name: "me", location: "me" }
-            ],
-            has: {
-                    'dojo-firebug': false,
-                    'dojo-debug-messages': false
-                },
-            // useCommentedJson : false,
-            parseOnLoad : false,
-            isDebug : 0,
-            tlmSiblingOfDojo : false,
-            async : true
-            };
-</script>
-<script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/me/run.js"></script>
+<!--[if lt IE 8]>
+     <script src="<%=request.getContextPath()%>/resources/js/ie.js"></script>
+<![endif]-->
+<script  src="<%=request.getContextPath()%>/resources/js/init.js"></script>
+<script  src="<%=request.getContextPath()%>/resources/js/commons-mobile.js"></script>
 <script>
 var config = {
     contextPath: '${pageContext.request.contextPath}'
 };
-console.log("Moderninz", Modernizr.svg);
-require([
-    "dojo",
-    "dojo/_base/declare",
-    "dojo/parser",
-    "dojo/ready",
-    'me/activity/Activity',
-    "me/core/enme",
-], function(dojo, declare, parser, ready, Activity, _ENME) {
-    ready(function(){
-        // Call the parser manually so it runs after our widget is defined, and page has finished loading
-        _ENME.init({
-            contextPath: '<%=request.getContextPath()%>',
-            domain : '<%=WidgetUtil.getDomain(request)%>',
-            suggest_limit : 10,
-            delay : 1800000,
-            debug : <%=EnMePlaceHolderConfigurer.getProperty("application.debug.mode")%>,
-            message_delay : 5000,
-            activity : {
-                url : "<%=WidgetUtil.getDomain(request)%>/activity",
-                logLevel : "<%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.levelDebug")%>",
-                maxConnections : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxConnections")%>,
-                maxNetworkDelay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxNetworkDelay")%>,
-                delay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.delay")%>,
-                limit : <%=EnMePlaceHolderConfigurer.getProperty("not.main.limit")%>
-            },
-            tp_a : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.allowed")%>,
-            tp_hr : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.hr")%>,
-            tp_minsoa : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.minsoa")%>
+ $(window).load(function(){
+        changeContent = function(key) {
+          html = textHash[key];
+          $('#content').html(html);
+        }
+
+        $("#menu a").click(function(e) {
+          $('#menu').collapse('hide');
+          changeContent(e.target.innerText);
         });
-        //parse all widgets.
-        parser.parse();
-    });
-});
 
-require(["dojo", "dojo/request/notify", "me/core/enme"],
-    function(dojo, notify, _ENME) {
-
-    notify("start", function(){
-    // Do something when the request queue has started
-    // This event won't fire again until "stop" has fired
-      //console.log("NOTIFYYYY start", arguments);
-      dojo.subscribe("/encuestame/status/start", this, dojo.hitch(this, function(_f) {
-          _f();
-      }));
-    });
-
-    notify("send", function(response, cancel) {
-    // Do something before a request has been sent
-    // Calling cancel() will prevent the request from
-    // being sent
-      //console.log("NOTIFYYYY send", arguments);
-      dojo.subscribe("/encuestame/status/sent", this, dojo.hitch(this, function(_f) {
-          _f();
-      }));
-    });
-
-    notify("load", function(response) {
-    // Do something when a request has succeeded
-      //console.log("NOTIFYYYY load", arguments);
-      dojo.subscribe("/encuestame/status/load", this, dojo.hitch(this, function(_f) {
-          _f();
-      }));
-    });
-
-    notify("error", function(error){
-    // Do something when a request has failed
-      //console.log("NOTIFYYYY error", arguments);
-      dojo.subscribe("/encuestame/status/error", this, dojo.hitch(this, function(_f) {
-          _f();
-      }));
-    });
-
-    notify("done", function(responseOrError) {
-    // Do something whether a request has succeeded or failed
-      //console.log("NOTIFYYYY done", arguments);
-      dojo.subscribe("/encuestame/status/done", this, dojo.hitch(this, function(_f) {
-          _f();
-      }));
-    // if (responseOrError instanceof Error) {
-    //   // Do something when a request has failed
-    // } else {
-    //   // Do something when a request has succeeded
-    // }
-    });
-
-    notify("stop", function() {
-     // console.log("NOTIFYYYY stop", arguments);
-      dojo.subscribe("/encuestame/status/stop", this, dojo.hitch(this, function(_f) {
-          _f();
-      }));
-    // Do something when all in-flight requests have finished
-    });
-});
+        textHash = {
+          "Futurama": "<h1>Bendin' in the Wind</h1><p>Oh, but you can. But you may have to metaphorically make a deal with the devil.  And by \"devil\", I mean Robot Devil.  And by \"metaphorically\", I mean get your coat. Say what? Ok, we'll go deliver this crate like professionals, and then we'll go ride the bumper cars. Yep, I remember. They came in last at the Olympics, then retired to promote alcoholic beverages! Michelle, I don't regret this, but I both rue and lament it.</p>",
+          "Star Wars": "<h1>The Empire Strikes Back</h1><p>Remember, a Jedi can feel the Force flowing through him. Look, I can take you as far as Anchorhead. You can get a transport there to Mos Eisley or wherever you're going. She must have hidden the plans in the escape pod. Send a detachment down to retrieve them, and see to it personally, Commander. There'll be no one to stop us this time!</p>",
+          "Doctor Who": "<h1>The Poison Sky</h1><p>Stop talking, brain thinking. Hush. You hit me with a cricket bat. You've swallowed a planet! Stop talking, brain thinking. Hush. It's a fez. I wear a fez now. Fezes are cool. Annihilate? No. No violence. I won't stand for it. Not now, not ever, do you understand me?! I'm the Doctor, the Oncoming Storm - and you basically meant beat them in a football match, didn't you?</p>"
+        };
+      });//]]>
 
 </script>
 <!--
