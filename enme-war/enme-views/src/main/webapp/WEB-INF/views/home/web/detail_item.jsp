@@ -7,6 +7,7 @@
             title="${item.questionBean.questionName}"
             itemId="${item.id}"
             comments="${item.totalComments}"
+            displayImage="false"
             submited="<spring:message code="submited_by" />"
             added="<spring:message code="added" />"
             relativeTime="${item.relativeTime}"

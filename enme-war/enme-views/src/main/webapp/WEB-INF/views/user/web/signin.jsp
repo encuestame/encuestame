@@ -16,7 +16,7 @@
                                 <p class="box ${message.infoType.css}">${message.message}</p>
                             </c:if>
                             <c:if test="${signinError}">
-                                <p class="box error">
+                                <div class="alert alert-error">
                                     <spring:message code="signin.error" />
                                     <br />
                                     <spring:message code="signin.error.description" />
@@ -24,7 +24,7 @@
                                             code="signin.error.signup" /> <spring:message
                                             code="signin.error.free" />
                                     </a>
-                                </p>
+                                </div>
                             </c:if>
                         </div>
                         <div class="section">
@@ -68,9 +68,9 @@
         </form>
         <div class="section-signup"  title="<spring:message code="signup.social.signup" />" collapsed="false">
             <div class="web-social-signin">
-                <h3>
+                <h5>
                     <spring:message code="signup.social.signup" />
-                </h3>
+                </h5>
                 <%@ include file="/WEB-INF/jsp/includes/web/social.jsp"%>
             </div>
         </div>

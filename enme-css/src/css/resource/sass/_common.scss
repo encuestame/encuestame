@@ -533,6 +533,11 @@ input:focus {
    position: relative;
 }
 
+.enme-dropdown-menu .caret {
+  margin-top: 8px;
+  margin-left: 0;
+}
+
 .enme-dropdown-menu-wrapper ul {
   background-color: #767676;
   border: 1px solid #9A9A9A;

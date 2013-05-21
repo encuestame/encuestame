@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
+<%@ include file="/WEB-INF/jsp/includes/css-common.jsp"%>
 <!-- <link rel="stylesheet"  href="<c:url value="/resources/js/me/resources/core.css"/>" /> -->
 <!-- <link rel="stylesheet"  href="<c:url value="/resources/js/me/resources/app.css"/>" /> -->
 <!-- <link rel="stylesheet"  href="<c:url value="/resources/dev/mobile//bootstrap/bootstrap.css" />" />

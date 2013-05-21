@@ -55,9 +55,9 @@
                     <div class="section-signup" title="Sign up with your favourite social network"
                             collapsed="false">
                             <div class="web-social-signin">
-                                <h3>
+                                <h5>
                                    <spring:message code="signup.social.signup" />
-                                </h3>
+                                </h5>
                                 <%@ include file="/WEB-INF/jsp/includes/web/social.jsp" %>
                               </div>
                     </div>

@@ -1,5 +1,18 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<div class="navbar navbar-fixed-top navbar-inverse" style="position: absolute;">
+<!-- TODO: check the style -->
+<c:if test="${logged}">
+    <div data-dojo-type="me/web/widget/ui/UpgradeBar" validate="${isActivated}">
+        <div class="up-message">
+            <span>
+                <spring:message code="singup.account.not.validated" />
+            </span>
+            <a data-href="<%=request.getContextPath()%>/user/confirm/email/refresh/code">
+                   <spring:message code="singup.account.send.code" />
+            </a>
+        </div>
+    </div>
+</c:if>
+<div class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -7,7 +20,7 @@
             <span class="icon-bar">d</span>
             <span class="icon-bar">v</span>
         </a>
-      <a class="brand" href="#">
+      <a class="brand" href="<%=request.getContextPath()%>/">
             <%@ include file="/WEB-INF/layouts/logo.jsp"%>
       </a>
       <div class="nav-collapse collapse">
@@ -58,17 +71,4 @@
   </div>
 </div>
 
-<!-- TODO: check the style -->
 
-<c:if test="${logged}">
-    <div data-dojo-type="dojox/widget/UpgradeBar" id="upgradeBar2" data-dojo-props="noRemindButton:''" style="display:none;">
-        <div validate="${!isActivated}">
-            <span>
-                <spring:message code="singup.account.not.validated" />
-            </span>
-            <a href="<%=request.getContextPath()%>/user/confirm/email/refresh/code">
-                   <spring:message code="singup.account.send.code" />
-            </a>
-        </div>
-    </div>
-</c:if>
