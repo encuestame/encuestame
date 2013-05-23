@@ -372,6 +372,15 @@ public class DateUtil {
     }
 
     /**
+     * Get Miliseconds date.
+     * @param currentDate
+     * @return
+     */
+    public static Long getDateMiliseconds(final Date currentDate) {
+        return currentDate.getTime();
+    }
+
+    /**
      * Check if date is within allowed range.
      * @param period
      * @param itemDate

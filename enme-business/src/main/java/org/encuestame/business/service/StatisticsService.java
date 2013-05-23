@@ -38,6 +38,7 @@ import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.ItemStatDetail;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
 /**
@@ -284,6 +285,13 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         // Gets the tweetpolls by hashtag
         tweetPollsByHashTag = getTweetPollDao().getTweetPollsbyHashTagNameAndDateRange(tagName, period);
         // Gets the stats detail of hashtags by tweetpoll.
+        return tweetPollsByHashTag;
+    }
+
+    private List<Object[]> getTweetPollsRangeStats(
+            final String tagName,
+            final SearchPeriods period) {
+    	List<Object[]> tweetPollsByHashTag = getTweetPollDao().getTweetPollsRangeStats(tagName, period);
         return tweetPollsByHashTag;
     }
 
@@ -626,5 +634,109 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
                 request, new Object[] {}));
 
         return tagDetails;
+    }
+
+  /**
+   *
+   */
+    public List<HashTagDetailStats> getTotalUsagebyHashtagAndDateRangeGraph(
+            final String hashTagName,
+            final SearchPeriods period,
+            final HttpServletRequest request)
+            throws EnMeNoResultsFoundException, EnMeSearchException {
+        // Check if the hashtag exists
+        final HashTag tag = this.getHashTag(hashTagName, true);
+        List<Object[]> tweetPollsByDateRange = new ArrayList<Object[]>();
+
+        List<ItemStatDetail> itemStatDetailByUsage = new ArrayList<ItemStatDetail>();
+        // If the tag exists then obtains the total
+        List<HashTagDetailStats> tagDetailStatsByTagName = new ArrayList<HashTagDetailStats>();
+            tweetPollsByDateRange = this.getTweetPollsRangeStats(tag.getHashTag(),
+                            period);
+
+       // itemStatDetailByUsage.addAll(ConvertDomainBean.convertTweetPollListToItemDetailBean(tweetPollsByDateRange));
+            itemStatDetailByUsage.addAll(ConvertDomainBean.convertTweetPollObjectListToItemDetailBean(tweetPollsByDateRange));
+        tagDetailStatsByTagName = this.compareHashtagListGraph(itemStatDetailByUsage,
+                period, request);
+        return tagDetailStatsByTagName;
+    }
+
+    /**
+     *
+     * @param itemList
+     * @param period
+     * @param request
+     * @return
+     * @throws EnMeSearchException
+     */
+    public List<HashTagDetailStats> compareHashtagListGraph(
+            final List<ItemStatDetail> itemList,
+            final SearchPeriods period,
+            final HttpServletRequest request) throws EnMeSearchException {
+        Integer month = 0;
+        Integer monthB;
+        Integer dayA=0;
+        Integer dayB=0;
+
+        Integer yearA=0;
+        Integer yearB=0;
+
+        boolean existItemStatDetailLabel = false;
+        List<HashTagDetailStats> tagDetailStatsCompare = new ArrayList<HashTagDetailStats>();
+        //FIXME: It's limited only for dates in the same year, upgrade to accept dates for different year.
+
+        for (int i = 0; i < itemList.size(); i++) {
+            Long countItems = 0L;
+           // Get the date values.
+            monthB = DateUtil.getValueCurrentMonthOfTheYear(itemList.get(i).getDate());
+            dayB = DateUtil.getValueCurrentDateOfTheMonths(itemList.get(i).getDate());
+            yearB = DateUtil.getValueCurrentYear(itemList.get(i).getDate());
+
+            for (int j = 0; j < itemList.size(); j++) {
+                month = DateUtil.getValueCurrentMonthOfTheYear(itemList.get(j).getDate());
+                dayA = DateUtil.getValueCurrentDateOfTheMonths(itemList.get(j).getDate());
+                yearA = DateUtil.getValueCurrentYear(itemList.get(j).getDate());
+                if ((monthB.equals(month)) && (dayB.equals(dayA))  && (yearB.equals(yearA)) ) {
+                    countItems++;
+                }
+            }
+            //check if the label exist previously
+
+            final DateTime myDate = new DateTime(itemList.get(i).getDate());
+            existItemStatDetailLabel = checkLabelExistsHashTagDetailStatGraph(
+                    tagDetailStatsCompare,
+                    myDate);
+            if (!existItemStatDetailLabel) {
+
+                tagDetailStatsCompare.add(this.createHastagItemDetailGraph(monthB.toString(),
+                        countItems, "Compare", myDate.getMillis(), myDate  ));
+            }// createTagDetailsStats2
+        }
+
+        return tagDetailStatsCompare;
+    }
+
+    /**
+     *
+     * @param detail
+     * @param dayLabel
+     * @return
+     */
+	private boolean checkLabelExistsHashTagDetailStatGraph(
+			final List<HashTagDetailStats> detail,
+			final DateTime dayLabel) {
+        boolean existLabel = false;
+
+        if (detail.size() > 0) {
+            for (HashTagDetailStats hashTagDetailStats : detail) {
+
+            	final int detailStat = hashTagDetailStats.getDateValue().toLocalDate().compareTo(dayLabel.toLocalDate());
+            	// Values:  0 = Exist 1 = No exists
+            	if(detailStat ==0){
+                    existLabel = true;
+                }
+            }
+        }
+        return existLabel;
     }
 }
