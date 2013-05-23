@@ -45,9 +45,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.Type;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
@@ -709,7 +713,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
         criteria.addOrder(Order.desc("tweetPoll.createDate"));
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
-
+        ProjectionList projList = Projections.projectionList();
+        projList.add(Projections.groupProperty("createDate"));
+        projList.add(Projections.rowCount());
+        criteria.setProjection(projList);
        // calculateSearchPeriodsDates(period, criteria, "createDate");
 
         return getHibernateTemplate().findByCriteria(criteria);
@@ -1030,5 +1037,36 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
+    @SuppressWarnings("unchecked")
+    public List<Object[]> getTweetPollsRangeStats(
+            final String tagName,
+            final SearchPeriods period) {
+        final DetachedCriteria detached = DetachedCriteria
+                .forClass(TweetPoll.class)
+                 .createAlias("hashTags", "hashTags")
+                .setProjection(Projections.id())
+                .add(Subqueries.propertyIn(
+                        "hashTags.hashTagId",
+                        DetachedCriteria
+                                .forClass(HashTag.class, "hash")
+                                .setProjection(Projections.id())
+                                .add(Restrictions.in("hash.hashTag",
+                                        new String[] { tagName }))));
+        final DetachedCriteria criteria = DetachedCriteria.forClass(
+                TweetPoll.class, "tweetPoll");
+        criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
 
+        criteria.addOrder(Order.desc("tweetPoll.createDate"));
+        criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
+        ProjectionList projList = Projections.projectionList();
+         projList.add(Projections.groupProperty("createDate"));
+       //  projList.add(Projections.sqlGroupProjection("DATE({alias}.create_date) as fecha", "fecha", new String[] { "fecha" }, new Type[] { StandardBasicTypes.DATE }));
+
+        projList.add(Projections.rowCount());
+        criteria.setProjection(projList);
+        //projectionList.add(Projections.sqlGroupProjection("date(dateCreated) as createdDate", "createdDate", new String[] { "createdDate" }, new Type[] { StandardBasicTypes.DATE }));
+       // calculateSearchPeriodsDates(period, criteria, "createDate");
+
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
 }

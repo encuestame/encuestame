@@ -500,4 +500,8 @@ public interface ITweetPoll extends IBaseDao{
     List<TweetPollSavedPublishedStatus> getSocialLinksByTweetPollSearch(
             final TweetPoll tweetPoll, final TypeSearchResult itemType,
             final List<SocialProvider> splist, final List<SocialAccount> socialAccounts);
+
+      List<Object[]> getTweetPollsRangeStats(
+            final String tagName,
+            final SearchPeriods period);
 }
