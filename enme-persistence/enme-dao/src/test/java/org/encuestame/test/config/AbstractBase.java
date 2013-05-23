@@ -107,6 +107,7 @@ import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.social.SocialProvider;
+import org.encuestame.utils.web.stats.ItemStatDetail;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -2360,5 +2361,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             getTweetPoll().saveOrUpdate(tpSaved);
             assertNotNull(tpSaved);
         }
+    }
+
+    public ItemStatDetail createItemStatDetail(final Long itemId, final Date creationDate, final Long miliDate){
+    	final ItemStatDetail isd = new ItemStatDetail();
+    	isd.setDate(creationDate);
+    	isd.setItemId(itemId);
+    	isd.setMilisecondsDate(miliDate);
+    	return isd;
     }
 }

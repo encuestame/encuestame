@@ -43,6 +43,8 @@ import org.encuestame.utils.enums.RelativeTimeEnum;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
+import org.encuestame.utils.web.stats.HashTagDetailStats;
+import org.encuestame.utils.web.stats.ItemStatDetail;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
@@ -310,10 +312,10 @@ public class TestTweetPollDao extends AbstractBase {
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
         final Long userId = this.secondary.getAccount().getUid();
-        //final List<TweetPoll> tweets = getTweetPoll().retrieveTweetsByUserId(
-        //		userId, 10, 0, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE,
-        //		Boolean.FALSE, 7);
-        //assertEquals("Should be equals", 1, tweets.size());
+        final String peri = "7";
+         final List<TweetPoll> tweets = getTweetPoll().retrieveTweetsByUserId(" ", userId, 10, 0,  Boolean.TRUE,  Boolean.TRUE,  Boolean.TRUE,  Boolean.TRUE, peri);
+        System.out.println("Should be equals ---> " +tweets.size());
+        assertEquals("Should be equals", 1, tweets.size());
     }
 
     /**
@@ -1188,5 +1190,126 @@ public class TestTweetPollDao extends AbstractBase {
                 .getSocialLinksByTweetPollSearch(tweetPoll,
                         TypeSearchResult.TWEETPOLL, enums, socials);
 
+    }
+
+    @Test
+    public void testTpollsByHashTagNameAndDateRange() {
+        final HashTag myHashTag = createHashTag("preferences");
+        final Calendar releaseDate = Calendar.getInstance();
+
+        final Question myFirstQuestion = createQuestion(
+                "What is your favorite kind of movie?", secondary.getAccount());
+        final Question mySecondQuestion = createQuestion(
+                "What is your favorite kind of song?", secondary.getAccount());
+      // FIRST TP
+        final TweetPoll tweetPoll = createPublishedTweetPoll(
+                this.secondary.getAccount(), myFirstQuestion,
+                releaseDate.getTime());
+        tweetPoll.getHashTags().add(myHashTag);
+        getTweetPoll().saveOrUpdate(tweetPoll);
+        assertNotNull(tweetPoll);
+
+
+        releaseDate.add(Calendar.HOUR, -1);
+
+        // SECOND TP
+        final TweetPoll tweetPoll2 = createPublishedTweetPoll(
+                this.secondary.getAccount(), mySecondQuestion,
+                releaseDate.getTime());
+        tweetPoll2.getHashTags().add(myHashTag);
+        getTweetPoll().saveOrUpdate(tweetPoll2);
+        assertNotNull(tweetPoll2);
+
+        // THIRD TP
+        final TweetPoll tweetPoll3 = createPublishedTweetPoll(
+                this.secondary.getAccount(), mySecondQuestion,
+                releaseDate.getTime());
+        tweetPoll3.getHashTags().add(myHashTag);
+        getTweetPoll().saveOrUpdate(tweetPoll3);
+        assertNotNull(tweetPoll3);
+
+        // FOURTH TP
+        releaseDate.add(Calendar.DATE, -1);
+        releaseDate.add(Calendar.HOUR, -5);
+        final TweetPoll tweetPoll4 = createPublishedTweetPoll(
+                this.secondary.getAccount(), mySecondQuestion,
+                releaseDate.getTime());
+        tweetPoll4.getHashTags().add(myHashTag);
+        getTweetPoll().saveOrUpdate(tweetPoll4);
+        assertNotNull(tweetPoll4);
+
+        // FIFTH
+        final TweetPoll tweetPoll5 = createPublishedTweetPoll(
+                this.secondary.getAccount(), mySecondQuestion,
+                releaseDate.getTime());
+        tweetPoll5.getHashTags().add(myHashTag);
+        getTweetPoll().saveOrUpdate(tweetPoll5);
+        assertNotNull(tweetPoll5);
+
+        // SIXTH
+        releaseDate.add(Calendar.HOUR, -1);
+        final TweetPoll tweetPoll6 = createPublishedTweetPoll(
+                this.secondary.getAccount(), mySecondQuestion,
+                releaseDate.getTime());
+        tweetPoll6.getHashTags().add(myHashTag);
+        getTweetPoll().saveOrUpdate(tweetPoll6);
+        assertNotNull(tweetPoll6);
+
+        // SEVENTH
+        final TweetPoll tweetPoll7 = createPublishedTweetPoll(
+                this.secondary.getAccount(), mySecondQuestion,
+                releaseDate.getTime());
+        tweetPoll7.getHashTags().add(myHashTag);
+        getTweetPoll().saveOrUpdate(tweetPoll7);
+        assertNotNull(tweetPoll7);
+
+        final List<Object[]> tweetPollsbyHashTag = getTweetPoll()
+                .getTweetPollsRangeStats(myHashTag.getHashTag(),
+                        SearchPeriods.SEVENDAYS);
+      for (Object[] object : tweetPollsbyHashTag) {
+    		System.out.println("TEST --" + object[0]);
+    		System.out.println("TEST --" + object[1]);
+    	//	System.out.println("TEST --" + object[2]);
+	}
+
+       // Assert.assertEquals("Should be", 2, tweetPollsbyHashTag.size());
+    }
+
+    @Test
+    public void ttestConvertiraMilisegundos() {
+    		// Fecha Original
+    	   final Calendar releaseDate = Calendar.getInstance();
+    	   System.out.println("FECHA Original-->" + releaseDate.getTime());
+
+    	   // Fecha 1
+    	   releaseDate.add(Calendar.HOUR, -1);
+    	   System.out.println("FECHA Hora -1 -->" + releaseDate.getTime());
+
+    	   // Fecha 2
+    	   releaseDate.add(Calendar.HOUR, -1);
+    	   System.out.println("FECHA 2 -->" + releaseDate.getTime());
+
+    	   // Fecha 3
+    	   releaseDate.add(Calendar.DATE, -1);
+           releaseDate.add(Calendar.HOUR, -5);
+           System.out.println("FECHA 3 -->" + releaseDate.getTime());
+
+           releaseDate.add(Calendar.HOUR, -1);
+           System.out.println("FECHA 4 -->" + releaseDate.getTime());
+    }
+
+    @Test
+    public void testFecha(){
+    	 final Calendar releaseDate = Calendar.getInstance();
+    	 releaseDate.add(Calendar.HOUR, -5);
+    	 final Long mili = releaseDate.getTime().getTime();
+    	 System.out.println("FECHA Original-->" + mili);
+
+
+  	   // Fecha 1
+
+    	final DateTime dtime = new DateTime(releaseDate.getTime());
+    	 System.out.println("FECHA DATETIME-->" + releaseDate.getTime());
+    	System.out.println("FECHA DATETIME MILIS-->" + releaseDate.getTimeInMillis());
     }
 }
