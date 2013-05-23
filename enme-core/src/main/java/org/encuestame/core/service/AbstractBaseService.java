@@ -62,6 +62,7 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.hibernate.HibernateException;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -826,5 +827,17 @@ public abstract class AbstractBaseService extends AbstractDataSource {
         }
         return poll;
     }
+
+    public HashTagDetailStats createHastagItemDetailGraph(final String label,
+			final Long value, final String subLabel, final Long milisec, final DateTime dateTimeLabel) {
+		final HashTagDetailStats tagDetails = new HashTagDetailStats();
+		tagDetails.setLabel(label);
+		tagDetails.setValue(value);
+		tagDetails.setSubLabel(subLabel);
+		tagDetails.setMilisecondsDate(milisec);
+		tagDetails.setDateValue(dateTimeLabel);
+		return tagDetails;
+	}
+
 
 }

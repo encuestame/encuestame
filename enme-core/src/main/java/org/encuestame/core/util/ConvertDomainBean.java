@@ -16,6 +16,7 @@ package org.encuestame.core.util;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -1624,6 +1625,7 @@ public class ConvertDomainBean {
         final ItemStatDetail itemDetail = new ItemStatDetail();
         itemDetail.setItemId(tweetPoll.getTweetPollId());
         itemDetail.setDate(tweetPoll.getCreateDate());
+      //  itemDetail.setMilisecondsDate(DateUtil.getDateMiliseconds(tweetPoll.getCreateDate()));
         return itemDetail;
     }
 
@@ -1639,6 +1641,26 @@ public class ConvertDomainBean {
             itemStatDetail.add(ConvertDomainBean
                     .convertTweetPollToItemDetailBean(tweetPoll));
         }
+        return itemStatDetail;
+    }
+
+    /**
+     *
+     * @param tpolls
+     * @return
+     */
+    public static final List<ItemStatDetail> convertTweetPollObjectListToItemDetailBean(
+            final List<Object[]> tpolls) {
+    	 final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+
+       for (Object[] objects : tpolls) {
+    	   final ItemStatDetail itemDetail = new ItemStatDetail();
+    	   final Long inte1 = (Long) objects[1];
+    	   final Date date1 = (Date) objects[0];
+    	   itemDetail.setDate(date1	);
+    	   itemDetail.setItemId(inte1);
+    	   itemStatDetail.add(itemDetail);
+       }
         return itemStatDetail;
     }
 
