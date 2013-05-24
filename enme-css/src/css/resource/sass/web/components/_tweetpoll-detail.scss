@@ -36,8 +36,6 @@
 }
 
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper {
-  background-color: $white;
-  min-height: 300px;
   @extend .o-hidden;
 }
 
@@ -243,10 +241,6 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
     font-size: 110%;
     font-weight: bold;
     padding: 5px;
-}
-
-.web-tweetpoll-detail .extraMargin {
-    margin-bottom: 15px;
 }
 
 .web-tweetpoll-detail .web-tweetpoll-social-links .title {

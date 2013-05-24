@@ -217,7 +217,8 @@ h4.enme {
 
 .home-main-colors {
     background-color: $header_info_main_color;
-    @include background-image(linear-gradient(color-stops($header_info_main_color  0%, $header_info_main_color_dark 100%)));
+    // @include background-image(linear-gradient(color-stops($header_info_main_color  0%, $header_info_main_color_dark 100%)));
+    @extend .home-header-color;
 }
 
 .enme-main-section {
@@ -237,24 +238,24 @@ h4.enme {
 }
 
 
-.tag {
-    border-color: #C9C8C8 #BEBABA #888888;
-    @include background-image(linear-gradient(color-stops($web_tag_color  20%, $web_tag_high_color 100%)));
-    @include border-radius(3px);
-    @extend .unselectable;
-    border-style: solid;
-    border-width: 1px;
-    margin: 2px 2px 2px 0;
-    padding: 3px 4px;
-    @extend .white-space;
-    background: $web_tag_color;
-    color: white !important;
-    &:hover{
-          color: #F7FBFF;
-          background-color: #3E6D8E;
-          text-decoration: none;
-    }
-}
+// .tag {
+//     border-color: #C9C8C8 #BEBABA #888888;
+//     @include background-image(linear-gradient(color-stops($web_tag_color  20%, $web_tag_high_color 100%)));
+//     @include border-radius(3px);
+//     @extend .unselectable;
+//     border-style: solid;
+//     border-width: 1px;
+//     margin: 2px 2px 2px 0;
+//     padding: 3px 4px;
+//     @extend .white-space;
+//     background: $web_tag_color;
+//     color: white !important;
+//     &:hover{
+//           color: #F7FBFF;
+//           background-color: #3E6D8E;
+//           text-decoration: none;
+//     }
+// }
 
 .col {
   margin-bottom: -99999em;
@@ -515,27 +516,11 @@ input:focus {
 
 .enme-dropdown-menu-wrapper {
     width: 120px;
+    position: relative;
 }
 
 .enme-dropdown-menu-wrapper .menu-expand {
-    @include box-shadow(454343  0 2px 3px -1px inset);
-}
-
-.enme-dropdown-menu-wrapper .enme-dropdown-menu {
-   border: 1px solid #D4D4D4;
-   @include border-radius(5px);
-   cursor: pointer;
-   font-weight: bold;
-   min-width: 95px;
-   padding: 5px;
-   color: #222;
-   @extend .center;
-   position: relative;
-}
-
-.enme-dropdown-menu .caret {
-  margin-top: 8px;
-  margin-left: 0;
+    @include box-shadow(#454343  0 2px 3px -1px inset);
 }
 
 .enme-dropdown-menu-wrapper ul {
@@ -545,7 +530,7 @@ input:focus {
   box-shadow: 0 1px 1px 0 #373535;
   margin: 0 0 0 2px;
   position: absolute;
-  top: 33px;
+  top: 30px;
   width: 115px;
 }
 

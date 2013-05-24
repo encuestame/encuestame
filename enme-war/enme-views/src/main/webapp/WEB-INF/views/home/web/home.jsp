@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div id="web-main-public-line">
         <div class="">
-            <div class="global-header">
+            <div class="g-nav">
                 <%@ include file="nav.jsp"%>
             </div>
         </div>

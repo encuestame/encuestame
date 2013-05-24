@@ -5,11 +5,11 @@
 **/
 .web-pup-wrapper {
     //box-shadow: 0 1px 1px 0 #C8C8C8 inset;
-     @extend .df-border;
+    //@extend .df-border;
 }
 
 .web-pup-wrapper h2 {
-    color: #CBCBCB;
+    color: $gray_normal;
     font-size: 14px;
     font-weight: normal;
     margin: 0;
@@ -17,11 +17,15 @@
 }
 
 .web-pup-wrapper .web-pup-item {
-   background: none repeat scroll 0 0 white;
+    background: none repeat scroll 0 0 white;
     border-bottom: 1px dotted #EEEBEB;
     clear: both;
     overflow: auto;
     padding: 15px;
+}
+
+.web-pup-wrapper .web-pup-item:last-child {
+    border-bottom: 0;
 }
 
 .web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper {
@@ -30,18 +34,14 @@
 
 .web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-image {
     float: left;
-    height: 48px;
     margin-top: 3px;
     overflow: hidden;
-    width: 48px;
 }
 
-.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content
-    {
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content {
     float: left;
     margin-left: 16px;
     min-height: 48px;
-    width: 400px;
 }
 
 .web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content-custom {

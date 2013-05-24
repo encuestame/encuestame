@@ -190,33 +190,6 @@
     margin: 0 auto;
 }
 
-#content-container #enme-content .defaultMarginWrapper > h1{
-    margin-left: 6px;
-}
-
-#content-container #enme-content div.votes{
-    margin: 0 auto;
-    width: 50%;
-    margin-top: 3em;
-    padding: 25px;
-}
-
-.default-background-color{
-    background-color: #F8F8F8;
-}
-
-.default-background-dark-color {
-    background-color: $black_medium !important; /** #A6B4BF 8EA5B7 **/  /** #737373 D7D7D7 #8EA5B7  */
-}
-
-.default-dark-color {
-    color: #A6B4BF !important; /** #A6B4BF 8EA5B7 **/  /** #737373 D7D7D7 #8EA5B7  */
-}
-
-.default-background-dark-color-sub {
-    background-color: $black_semi_medium; /**A6A5A5 **/
-}
-
 .default-top-menu{
     font-size: 100%;
     padding: 5px;
@@ -422,54 +395,11 @@ div.web-default-menu  li.first {
     text-decoration: none;
 }
 
-.emne-box-gray {
-    background-color: $white;
-    background-image: linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
-    background-image: -o-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
-    background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
-    background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
-    background-image: -ms-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
 
-    background-image: -webkit-gradient(
-        linear,
-        left bottom,
-        left top,
-        color-stop(0.04, rgb(255,255,255)),
-        color-stop(1, rgb(242,242,242))
-    );
-}
-
-.emne-box > header {
-  @extend .home-header-color;
-  border-bottom: 1px solid #CFCFCF;
-  font-size: 14px;
-  font-weight: bold;
-  min-height: 18px;
-  @extend .padding;
-  @include text-shadow(#B3B3B4 1px 1px 1px);
-}
-
-.web-wrapper-detail .emne-box {
-     @extend .transparent;
-}
-
-.web-wrapper-detail .emne-box > header {
-   @extend .home-header-color;
-   border-bottom: 1px solid #B7B7B7;
-   @extend .text-white;
-   font-size: 14px;
-   font-weight: 500;
-   line-height: 20px;
-   @extend .padding;
-   @include text-shadow($black_light 0px -1px 0px);
-}
-
-.emne-box h1 {
-  color: #6D6D6D;
-  font-size: 2em;
-  font-weight: 500;
-  margin: 12px;
-  @extend .df-txt-shadow;
+.emne-box {
+    h1, h2, h3 {
+        border-bottom: 1px solid #E2DFDF;
+    }
 }
 
 .emne-box > header .rss {
@@ -504,49 +434,20 @@ div.web-default-menu  li.first {
     @extend .o-hidden;
 }
 /** agrupa el grafico **/
-.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-chart{
-    @extend .col-left;
+.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-chart {
     min-height: 180px;
-    width: 395px;
 }
 
 /** agrupa preguntas **/
 .web-generic-detail-answer-wrapper {
   background-color: #F7F7F7;
   box-shadow: 3px 1px 3px 0 #CBCBCB inset;
-  @extend .col-left;
   min-height: 315px;
-  width: 573px;
 }
 
 .web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper {
   @extend .web-generic-detail-answer-wrapper;
 }
-
-.web-wrapper-detail .web-button-wrapper{
-    min-height: 30px;
-    background-color: #8E8E8E;
-}
-
-.web-wrapper-detail .web-button-wrapper > div{
-    @extend .col-left;
-    margin: 5px 7px;
-    @extend .pointer;
-}
-
-
-.web-wrapper-detail .web-chart {
-   @extend .col-left;
-    min-height: 320px;
-    width: 400px;
-}
-
-.web-wrapper-detail .web-detail {
-  margin-left: 390px;
-  min-height: 210px;
-  @extend .padding;
-}
-
 
 /** dialog **/
 
@@ -571,26 +472,4 @@ div.web-default-menu  li.first {
     z-index: 9999;
     border: 0;
     background-color: black!important;
-}
-
-.web-detail-header {
-    background-color: $header_info_main_color;
-    @include background-image(linear-gradient(color-stops($header_info_main_color  0%, darken($header_info_main_color, 20%) 100%)));
-    // /@include border-radius(3px 3px 0 0);
-    @include box-shadow($gray_normal 0 1px 2px 1px);
-    @extend .o-auto;
-    padding: 10px 0;
-}
-
-.web-detail-header .title {
-    @extend .col-left;
-    @extend .text-black;
-    font-size: 150%;
-}
-
-.web-detail-header .title h2 {
-    @extend .text-white;
-    font-size: 1em;
-    font-weight: 500;
-    margin: 0 10px;
 }

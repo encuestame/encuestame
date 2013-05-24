@@ -3,6 +3,26 @@
 /** HASHTAGS */
 .web-hashtag-wrapper {
 
+      h1,h2,h3,h4,h5 {
+        color: $gray_normal;
+        font-weight: normal;
+      }
+
+      aside > article {
+        padding: 10px;
+      }
+
+
+      img {
+          @include border-radius(40px);
+          height: 50px;
+          width: 50px;
+      }
+
+      aside > article > h3{
+        margin: 0;
+      }
+
       .web-rated-profile-item .web-rated-profile-item-detail a {
           color: $black_light;
       }
@@ -28,7 +48,6 @@
        .web-ht-wrapper-top {
         border: 0 none !important;
         @include non_borders();
-        margin-left: 75%;
         overflow: hidden;
       }
 
@@ -47,7 +66,7 @@
 }
 
 .web-hashtag-header .web-hashtagName h2 {
-  color: white;
+  color: $white;
   margin: 0 10px;
   width: 500px;
 }
@@ -76,6 +95,6 @@
 .web-ht-button-wrapper .web-ht-button-item {
     border-bottom: 1px solid #E5E5E5;
     border-left: 1px solid #E5E5E5;
-    min-height: 55px;
-    color: #676767;
+    min-height: 70px;
+    color: $gray_normal;
 }
