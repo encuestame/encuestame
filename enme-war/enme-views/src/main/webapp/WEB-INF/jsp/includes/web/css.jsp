@@ -4,6 +4,12 @@
 <!-- <link rel="stylesheet"  href="<c:url value="/resources/js/me/resources/app.css"/>" /> -->
 <!-- <link rel="stylesheet"  href="<c:url value="/resources/dev/mobile//bootstrap/bootstrap.css" />" />
 <link rel="stylesheet"  href="<c:url value="/resources/dev/mobile//bootstrap/bootstrap-responsive.css" />" /> -->
+
+<!-- <c:if test="${development}">
+	<link rel="stylesheet"  href="<c:url value="/resources/dev/vendor/bootstrap.css" />" />
+	<link rel="stylesheet"  href="<c:url value="/resources/dev/vendor/bootstrap-responsive.css" />" />
+</c:if>
+ -->
 <tiles:insertAttribute name="css_module" ignore="true" />
 <c:if test="${development}">
 	<link rel="stylesheet"  href="<c:url value="/resources/dev/resources.css" />" />

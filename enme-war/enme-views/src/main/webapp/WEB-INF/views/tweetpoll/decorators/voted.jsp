@@ -3,12 +3,12 @@
     <section class="web-tweetpoll-vote-options">
 
         <div class="web-permatlink">
-            <h1>
-                <spring:message code="tweetpoll.votes.acepted" />
-            </h1>
             <h2>
-               ${tp_switch.tweetPoll.question.question}
+                <spring:message code="tweetpoll.votes.acepted" />
             </h2>
+            <h3>
+               ${tp_switch.tweetPoll.question.question}
+            </h3>
             <h3>
                 <spring:message code="tweetpoll.votes.selection" />: <b>${tp_switch.answers.answer}</b>
             </h3>

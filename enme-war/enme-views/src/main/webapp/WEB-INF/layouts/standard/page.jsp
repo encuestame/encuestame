@@ -17,6 +17,18 @@
 <tiles:insertAttribute name="rss" ignore="true" />
 </head>
 <body class="enme-web-context">
+  <c:if test="${logged}">
+      <div data-dojo-type="me/web/widget/ui/UpgradeBar" validate="${isActivated}">
+          <div class="up-message">
+              <span>
+                  <spring:message code="singup.account.not.validated" />
+              </span>
+              <a href="<%=request.getContextPath()%>/user/confirm/email/refresh/code">
+                     <spring:message code="singup.account.send.code" />
+              </a>
+          </div>
+      </div>
+  </c:if>
   <div class="container">
       <tiles:insertAttribute name="header" ignore="true" />
   </div>
