@@ -9,12 +9,14 @@
             <h3>
                ${tp_switch.tweetPoll.question.question}
             </h3>
-            <h3>
+            <h4>
                 <spring:message code="tweetpoll.votes.selection" />: <b>${tp_switch.answers.answer}</b>
-            </h3>
+            </h4>
             <div class="web-tweetpoll-info">
                 <a href="<%=request.getContextPath()%>/tweetpoll/${tp_switch.tweetPoll.tweetPollId}/${tp_switch.tweetPoll.question.slugQuestion}">
-                    <spring:message code="tweetpoll.votes.link" />
+                   <button class="btn btn-warning">
+                        <spring:message code="tweetpoll.votes.link" />
+                   </button>
                 </a>
             </div>
         </div>

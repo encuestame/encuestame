@@ -58,7 +58,7 @@
                             </a>
                         </div>
                         <div class="web-section-button right">
-                            <button type="submit" class="submit button" name="submit">
+                            <button type="submit" class=" btn submit btn-warning" name="submit">
                                 <spring:message code="signin.button" />
                             </button>
                         </div>

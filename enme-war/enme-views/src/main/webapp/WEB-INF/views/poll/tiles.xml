@@ -3,7 +3,7 @@
 
 <tiles-definitions>
 
-    <definition name="poll/detail" extends="page">
+    <definition name="poll/detail" extends="page-logged">
         <put-attribute name="title" value="Poll | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/${detectedDevice ? 'mobile/' : 'web/'}poll.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/${detectedDevice ? 'mobile/' : 'web/'}poll_css.jsp" />
@@ -40,14 +40,14 @@
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/${detectedDevice ? 'mobile/' : 'web/'}poll_css.jsp" />
     </definition>
 
-    <definition name="poll/list" extends="page">
+    <definition name="poll/list" extends="page-logged">
         <put-attribute name="title" value="Poll | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/${detectedDevice ? 'mobile/' : 'web/'}poll-list.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/${detectedDevice ? 'mobile/' : 'web/'}poll_css.jsp" />
     </definition>
 
-     <definition name="poll/new" extends="page">
+     <definition name="poll/new" extends="page-logged">
         <put-attribute name="title" value="New Poll | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/${detectedDevice ? 'mobile/' : 'web/'}new.jsp" />

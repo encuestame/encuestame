@@ -3,27 +3,27 @@
 
 <tiles-definitions>
 
-    <definition name="tweetpoll" extends="page">
+    <definition name="tweetpoll" extends="page-logged">
         <put-attribute name="title" value="TweetPoll | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}list-tweetpoll.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}tp_css.jsp" />
     </definition>
 
-    <definition name="tweetpoll/new" extends="page">
+    <definition name="tweetpoll/new" extends="page-logged">
         <put-attribute name="title" value="TweetPoll | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}new.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}tp_css.jsp" />
     </definition>
 
-     <definition name="tweetpoll/detail" extends="page">
+     <definition name="tweetpoll/detail" extends="page-logged">
         <put-attribute name="title" value="TweetPoll Detail" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}detail.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}tp_css.jsp" />
     </definition>
 
-     <definition name="tweetpoll/social" extends="page">
+     <definition name="tweetpoll/social" extends="page-logged">
         <put-attribute name="title" value="TweetPoll Social Networks Accounts" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}social.jsp" />

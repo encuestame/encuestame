@@ -38,7 +38,7 @@
                         </div>
 
                      <div class="right">
-                         <button type="submit" class="submit button" name="submit">
+                         <button type="submit" class="submit btn-warning btn" name="submit">
                               <spring:message code="forgot.submit" />
                          </button>
                      </div>
