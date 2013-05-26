@@ -20,10 +20,13 @@
     <tiles:insertAttribute name="menu" ignore="true" />
     <div id="content-container">
       <div id="enme-content">
+         <%@ include file="decorators/toaster.jsp"%>
         <tiles:insertAttribute name="content" />
       </div>
     </div>
-    <footer id="footer"></footer>
+    <footer id="footer" class="">
+
+    </footer>
   </div>
   <div id="footer-f">
      <tiles:insertAttribute name="footer" />
