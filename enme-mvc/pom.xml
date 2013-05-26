@@ -385,6 +385,10 @@
             <version>${jetty7.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.sf.uadetector</groupId>
+            <artifactId>uadetector-resources</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <filters>

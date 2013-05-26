@@ -129,6 +129,7 @@
         <javassist>3.12.1.GA</javassist>
         <javax.inject>1</javax.inject>
         <javax.persistence>1.0</javax.persistence>
+        <uadetector.version>2013.02</uadetector.version>
         <!-- Dojo http://www.mahieu.org/?p=3 -->
         <dojo.version>1.6.1</dojo.version>
         <webresources.javascript.location>encuestame-war/src/main/webapp/js</webresources.javascript.location>
@@ -1768,6 +1769,11 @@
 				<artifactId>opencsv</artifactId>
 				<version>${opencsv.version}</version>
 			</dependency>
+            <dependency>
+                <groupId>net.sf.uadetector</groupId>
+                <artifactId>uadetector-resources</artifactId>
+            <version>${uadetector.version}</version>
+            </dependency>
        <!-- <dependency>
                 <groupId>org.apache.cactus</groupId>
                 <artifactId>cactus.core.framework</artifactId>
