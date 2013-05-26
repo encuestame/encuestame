@@ -1,14 +1,12 @@
 /**
-    sign ip
+  sign up
  **/
 #web-user-actions-form-wrapper {
     @extend .default-rd;
     @include box-shadow(rgba(0, 0, 0, .1) 0 1px 0);
-    color : $float_background_pry_color;
     @extend .centered-block;
     padding: 30px;
     @extend .z-level-1;
-    background: $float_background_pry_color;
     @include background-image(linear-gradient(color-stops($float_background_pry_color 0%, $float_background_sec_color 100%)));
     border-left: solid 1px $float_background_border;
     border-right: solid 1px $float_background_border;

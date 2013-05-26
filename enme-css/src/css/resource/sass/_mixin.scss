@@ -18,7 +18,7 @@
 
 $legacy-support-for-ie6 : false;
 $legacy-support-for-ie7 : false;
-$legacy-support-for-ie8 : true;
+$legacy-support-for-ie8 : false;
 
 //LAYOUT
 $layout_width : 970px;
@@ -45,6 +45,7 @@ $gray_dark : #918F8F;
 $gray_lite : #e5e5e5;
 $gray_normal : #616161;
 $yellow_light : #F9F9C2;
+$red_light:  #9d261d;
 $green_light : #C9F5C8;
 $red_light : #FEBEB2;
 
