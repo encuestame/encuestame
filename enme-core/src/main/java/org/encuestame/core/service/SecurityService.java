@@ -1147,11 +1147,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 try {
                     getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
+                    log.fatal("not able to send new invite code");
                     e.printStackTrace();
                 }
             } else {
-                log.warn("invite code requested by " + userAccount.getUsername() + " it's null");
+                log.info("invite code requested by " + userAccount.getUsername() + " it's null, nothing to do");
             }
     }
 
