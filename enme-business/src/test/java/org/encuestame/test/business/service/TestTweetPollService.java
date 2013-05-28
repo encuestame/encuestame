@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -28,12 +29,16 @@ import org.encuestame.business.service.TweetPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
@@ -49,6 +54,7 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.social.SocialProvider;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.search.TweetPollSearchBean;
@@ -57,6 +63,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * Test for {@link TweetPollService}.
@@ -99,12 +106,21 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     private DateTime creationDate;
 
     /**
+     * Mock HttpServletRequest.
+     */
+    MockHttpServletRequest request;
+
+    /** {@link PollFolder}. **/
+    private TweetPollFolder folder;
+
+
+    /**
     * Before.
     */
    @Before
    public void serviceInit(){
         this.user = createUser("testEncuesta", "testEncuesta123");
-        this.userAccount = createUserAccount("jhon", user);
+        this.userAccount = getSpringSecurityLoggedUserAccount();
         this.question = createQuestion("Why the sky is blue?","html");
         createQuestionAnswer("Yes", this.question,"SSSA");
         //this.questionBean = createUnitQuestionBean("", 1L, 1L, listAnswers, pattern)
@@ -116,6 +132,10 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         this.tweetText = RandomStringUtils.randomAlphabetic(5);
         this.socialBeans = this.createSocialAccounts();
         this.creationDate = new DateTime();
+        request = new MockHttpServletRequest();
+		request.addPreferredLocale(Locale.ENGLISH);
+
+		 this.folder = createTweetPollFolder("Folder 1", getSpringSecurityLoggedUserAccount());
    }
 
 
@@ -423,9 +443,9 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         final TweetPoll tp3 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q1);
 
         // Published - Completed - Favourite - Scheduled
-        final TweetPollSearchBean tpSearch = createTweetpollSearchBean(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, "name", "24", 10, 0, TypeSearch.LASTWEEK);
-        final List<TweetPollBean> tpoll = getTweetPollService().filterTweetPollByItemsByType(tpSearch, null);
-
+        final TweetPollSearchBean tpSearch = createTweetpollSearchBean(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, "your", "24", 10, 0, TypeSearch.LASTWEEK);
+        final List<TweetPollBean> tpoll = getTweetPollService().filterTweetPollByItemsByType(tpSearch, this.request);
+        assertEquals("Should be equals", 2, tpoll.size());
     }
 
     /**
@@ -516,7 +536,13 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 
     }
 
-    // Test Filter tweetpolls by owner.
+    /**
+    *
+    * @throws NoSuchAlgorithmException
+    * @throws UnsupportedEncodingException
+    * @throws EnMeNoResultsFoundException
+    * @throws EnMeExpcetion
+    */
     @Test
     public void testFilterTweetpollByOwner() throws NoSuchAlgorithmException,
             UnsupportedEncodingException, EnMeNoResultsFoundException,
@@ -540,8 +566,165 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
                 Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE,
                 "What", "24", 10, 0, TypeSearch.BYOWNER);
         final List<TweetPollBean> tpollsByOwner = getTweetPollService()
-                .filterTweetPollByItemsByType(tpSearch, null);
+                .filterTweetPollByItemsByType(tpSearch, this.request);
         assertEquals("Should be equals", 3, tpollsByOwner.size());
+    }
+
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testSearchTweetPollsByFolder() throws EnMeNoResultsFoundException{
+		final Question question1 = createQuestion("Why the sea is salad?",
+				"html");
+		final TweetPoll tp = createTweetPollPublicated(true, true, new Date(),
+				this.userAccount, question1);
+		tp.setTweetPollFolder(this.folder);
+		getTweetPoll().saveOrUpdate(tp);
+
+		final TweetPoll tp2 = createTweetPollPublicated(true, true, new Date(),
+				this.userAccount, question1);
+		tp2.setTweetPollFolder(this.folder);
+		getTweetPoll().saveOrUpdate(tp2);
+
+
+		final List<TweetPollBean> tpollsfolders = getTweetPollService()
+				.searchTweetPollsByFolder(this.folder.getId(),
+						getSpringSecurityLoggedUserAccount().getUsername());
+		assertEquals("Should be equals", 2, tpollsfolders.size());
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testGetTweetPollsbyRange(){
+    	final DateTime cale = new DateTime().minusDays(1);
+    	final Question question1 = createQuestion("Why the sea is salad?",
+				"html");
+		final TweetPoll tp = createTweetPollPublicated(true, true, cale.toDate(),
+				this.userAccount, question1);
+		final DateTime cale2 = new DateTime().minusDays(1);
+		// No encuentra nada porque el metodo no tiene riteria de rango de fecha
+		final List<TweetPoll> tweetPollsbyRange = getTweetPollService().getTweetPollsbyRange(10, 0, cale2.toDate());
+		assertEquals("Should be equals", 1, tweetPollsbyRange.size());
+
+    }
+
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testAddHashtagToTweetPoll() throws EnMeNoResultsFoundException{
+    	final HashTag ht = createHashTag("xx");
+    	final HashTagBean tagBean= this.createHashTagBean("Hashtag bean", 20L, ht.getSize().intValue());
+    	final Question question1 = createQuestion("Why the sea is salad?",
+				"html");
+		final TweetPoll tp = createTweetPollPublicated(true, true, new Date(),
+				this.userAccount, question1);
+		final HashTag ht2 = getTweetPollService().addHashtagToTweetPoll(tp, tagBean);
+		assertEquals("Should be equals", tagBean.getHashTagName(), ht2.getHashTag());
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testgetTweetPollSwitch(){
+
+    	final Question question1 = createQuestion("Why the sea is salad?",
+				"html");
+		final TweetPoll tp = createTweetPollPublicated(true, true, new Date(),
+				this.userAccount, question1);
+		final QuestionAnswer qA = createQuestionAnswer("string", question1, "JDKSLD");
+		final QuestionAnswer qB = createQuestionAnswer("string", question1, "JDKSELD");
+		final QuestionAnswer qC = createQuestionAnswer("string", question1, "JDFSELD");
+		final TweetPollSwitch tpswith =   createTweetPollSwitch(qA, tp);
+		final TweetPollSwitch tpswith2 =   createTweetPollSwitch(qB, tp);
+		final TweetPollSwitch tpswith3 =   createTweetPollSwitch(qC, tp);
+		List<TweetPollSwitch> tpSwitch = getTweetPollService().getTweetPollSwitch(tp);
+		assertEquals("Should be equals", 3, tpSwitch.size());
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testGetTweetPollTotalVotes(){
+    	final Question question1 = createQuestion("Why the sea is salad?",
+				"html");
+		final TweetPoll tp = createTweetPollPublicated(true, true, new Date(),
+				this.userAccount, question1);
+		final QuestionAnswer qA = createQuestionAnswer("YES", question1, "JDKSLD");
+		final QuestionAnswer qB = createQuestionAnswer("NO", question1, "JDKSSLD");
+		final QuestionAnswer qC = createQuestionAnswer("NO", question1, "JDKSZLD");
+		final TweetPollSwitch tps1 = createTweetPollSwitch(qA, tp);
+		final TweetPollSwitch tps2 = createTweetPollSwitch(qB, tp);
+		final TweetPollSwitch tps3 = createTweetPollSwitch(qC, tp);
+		createTweetPollResult(tps1, "192.1.1.1");
+		createTweetPollResult(tps2, "192.1.1.2");
+		createTweetPollResult(tps2, "192.1.1.3");
+
+		final Long totalTweetPollVotes = getTweetPollService().getTweetPollTotalVotes(tp);
+		assertEquals("Should be equals", 3, totalTweetPollVotes.intValue());
+    }
+
+
+    public void testCheckTweetPollCompleteStatus(){
+
+    }
+
+    public void testGetTweetPollFolderbyId(){
+
+    }
+
+    public void testValidateIpVote(){
+
+    }
+
+    public void testGetTweetPollByIdSlugName(){
+
+    }
+
+    public void testCreateTweetPollNotification(){
+
+    }
+
+    public void testgenerateTweetPollContent(){
+
+    }
+
+
+
+    public void testremoveQuestionAnswer(){
+
+    }
+
+    public void testUpdateTweetPoll(){
+
+    }
+
+    public void testSearchTweetsPollScheduled(){
+
+    }
+
+    public void testSearchTweetsPollFavourites(){
+
+    }
+
+    public void testsearchTweetsPollsLastWeek(){
+
+    }
+
+    @Test
+    public void testsearchTweetsPollsToday(){
+		final Question q1 = createDefaultQuestion("What is your favourite movie");
+		final TweetPoll tp1 = createPublishedTweetPoll(
+				getSpringSecurityLoggedUserAccount().getAccount(), q1);
+		getTweetPoll().saveOrUpdate(tp1);
+
     }
 
     /**
@@ -555,6 +738,21 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         searchproviders.add(provider1);
         searchproviders.add(provider2);
         return searchproviders;
+    }
+
+    /**
+     * Create {@link HashTagBean}
+     * @param tagName
+     * @param hits
+     * @param size
+     * @return
+     */
+    private HashTagBean createHashTagBean(final String tagName, final Long hits, final Integer size){
+    	final HashTagBean hashTagBean = new HashTagBean();
+    	hashTagBean.setHashTagName(tagName);
+    	hashTagBean.setHits(hits);
+    	hashTagBean.setSize(size);
+    	return hashTagBean;
     }
 
 }
