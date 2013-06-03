@@ -799,7 +799,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     @Test
     public void testSearchTweetsPollScheduled() throws EnMeExpcetion{
 
-    	final Question question1 = createQuestion("Why the sea is salad? 3",
+    	final Question question1 = createQuestion("Why the sky is blue ?",
 				"html");
 		final DateTime dt = new DateTime();
 		final TweetPoll tp = createTweetPollPublicated(true, true, dt.toDate(),
@@ -816,4 +816,104 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 						this.request, tpbean22);
      }
 
+
+    @Test
+    public void testSearchTweetsPollFavourites() throws EnMeExpcetion{
+
+		final Question question1 = createQuestion("Why the sea is big? ",
+				"html");
+		final DateTime dt = new DateTime();
+		final TweetPoll tp = createTweetPollPublicated(true, true, dt.toDate(),
+				this.userAccount, question1);
+
+		tp.setScheduleTweetPoll(Boolean.TRUE);
+		tp.setFavourites(Boolean.TRUE);
+		getTweetPoll().saveOrUpdate(tp);
+
+		final TweetPollSearchBean tpbean22 = createTweetpollSearchBean(
+				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, " ",
+				"7", 10, 0, TypeSearch.FAVOURITES);
+		final List<TweetPollBean> tpLastWeek = getTweetPollService()
+				.searchTweetsPollFavourites(this.userAccount.getUsername(),
+						this.request, tpbean22);
+    }
+
+    /**
+     *
+     * @throws EnMeExpcetion
+     */
+    @Test
+	public void testsearchTweetsPollsLastWeek() throws EnMeExpcetion {
+
+		final Question question1 = createQuestion("Why the sea is salad?",
+				"html");
+		final DateTime dt = new DateTime();
+		final TweetPoll tp = createTweetPollPublicated(true, true, dt
+				.minusDays(3).toDate(), this.userAccount, question1);
+		tp.setTweetPollFolder(this.folder);
+		tp.setScheduleTweetPoll(Boolean.TRUE);
+		getTweetPoll().saveOrUpdate(tp);
+		final TweetPollSearchBean tpbean = createTweetpollSearchBean(
+				Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, " ",
+				"7", 10, 0, TypeSearch.LASTDAY);
+		final List<TweetPollBean> tpLastWeek = getTweetPollService()
+				.searchTweetsPollsLastWeek(this.userAccount.getUsername(),
+						this.request, tpbean);
+	 }
+
+    /**
+     *
+     * @throws EnMeExpcetion
+     */
+    @Test
+	public void testSearchTweetsPollsToday() throws EnMeExpcetion {
+		final Question question1 = createQuestion("Why the sea is saltz?",
+				"html");
+
+		final Question question2 = createQuestion("Why the sea is blue ?",
+				"html");
+		final DateTime dt = new DateTime();
+		final TweetPoll tp = createTweetPollPublicated(true, true, dt.toDate(),
+				this.userAccount, question1);
+		tp.setScheduleTweetPoll(Boolean.TRUE);
+		getTweetPoll().saveOrUpdate(tp);
+		final TweetPoll tp2 = createTweetPollPublicated(true, true,
+				dt.toDate(), this.userAccount, question2);
+		tp2.setScheduleTweetPoll(Boolean.TRUE);
+		getTweetPoll().saveOrUpdate(tp2);
+		final TweetPollSearchBean tpbean = createTweetpollSearchBean(
+				Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, " ",
+				"7", 10, 0, TypeSearch.LASTWEEK);
+		final List<TweetPollBean> tpLastWeek = getTweetPollService()
+				.searchTweetsPollsToday(this.userAccount.getUsername(),
+						this.request, tpbean);
+	}
+
+    /**
+     *
+     * @param provider1
+     * @param provider2
+     * @return
+     */
+    private List<SocialProvider> socialProvider (final SocialProvider provider1, final SocialProvider provider2){
+        final List<SocialProvider> searchproviders = new ArrayList<SocialProvider>();
+        searchproviders.add(provider1);
+        searchproviders.add(provider2);
+        return searchproviders;
+    }
+
+    /**
+     * Create {@link HashTagBean}
+     * @param tagName
+     * @param hits
+     * @param size
+     * @return
+     */
+    private HashTagBean createHashTagBean(final String tagName, final Long hits, final Integer size){
+    	final HashTagBean hashTagBean = new HashTagBean();
+    	hashTagBean.setHashTagName(tagName);
+    	hashTagBean.setHits(hits);
+    	hashTagBean.setSize(size);
+    	return hashTagBean;
+    }
 }
