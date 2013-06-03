@@ -1,5 +1,5 @@
 /** profile menu **/
-div.profilePanel {
+.profilePanel {
     display: none;
     position: absolute;
     min-height: 120px;
@@ -11,31 +11,27 @@ div.profilePanel {
     background: -moz-linear-gradient(#444, #222);
     background: -o-linear-gradient(#444, #222);
     background: linear-gradient(#444, #222);
+    @include ctb-gradient-vertical(#444, #222);
     right: 0px;
     left: 0px;
-    top: 32px;
+    top: 43px;
     zoom: 1;
-    -moz-box-shadow: 1px 2px 3px #888888;
-    -webkit-box-shadow: 1px 2px 3px #888888;
-    box-shadow: 1px 2px 3px #888888;
-    -webkit-border-radius: 0px 0px 5px 5px;
-    -moz-border-radius: 0px 0px 5px 5px;
-    border-radius: 0px 0px 5px 5px;
+    @include box-shadow(#888888 1px 2px 3px);
+    @include border-radius(0px 0px 5px 5px);
     z-index: 99999;
 }
 
-div.profileOpenPanel {
+.profileOpenPanel {
     display: block;
 }
 
-/** web-profile-menu **/
-div.profilePanel ul {
+.profilePanel ul {
     max-height: 350px;
     max-width: 100%;
     overflow: hidden;
 }
 
-div.profilePanel li {
+.profilePanel li {
     background-image: none;
     clear: both;
     display: block;
@@ -47,44 +43,45 @@ div.profilePanel li {
     padding: 6px 15px;
 }
 
-div.profilePanel li:hover {
+.profilePanel li:hover {
     background-color: #FFF;
 }
 
-div.profilePanel li:hover a:link,
-div.profilePanel li:hover a:visited {
+.profilePanel li:hover a:link,
+.profilePanel li:hover a:visited {
     color: #444 !important;
 }
 
-div.profilePanel li a:link {
+.profilePanel li a:link {
     color: #BABABA !important;
     font-weight: normal;
     text-decoration: none !important;
 }
 
-div.profilePanel li a:hover {
+.profilePanel li a:hover {
     color: white !important;
     text-decoration: none;
 }
 
-div.profilePanel li a {
+.profilePanel li a {
     padding: 10px;
     color: #BABABA !important;
     font-weight: normal;
 }
 
-div.web-profile-menu {
-    color: #FFFFFF;
+.web-profile-menu {
+    color: $white;
     cursor: pointer;
     height: 25px;
     vertical-align: middle;
+    padding: 11px 0px 7px 0px;
 }
 
-div.web-profile-menu .image {
+.web-profile-menu .image {
     float: left;
 }
 
-div.web-profile-menu .real-name {
+.web-profile-menu .real-name {
     line-height: 22px;
     margin-left: 20px;
     min-width: 119px;

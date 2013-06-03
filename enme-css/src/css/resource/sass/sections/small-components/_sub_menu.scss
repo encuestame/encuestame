@@ -1,6 +1,21 @@
 .nav-home-menu {
-    overflow: hidden;
     margin-top: 20px;
+}
+
+.nav-admon {
+  .nav-home-menu {
+    //BUG: reduce to 20px;
+    margin-top: 30px;
+  }
+
+  .nav .nav-link {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+  }
+
+  .nav-link-not {
+    display: block;
+  }
 }
 
 .g-nav {
@@ -45,12 +60,6 @@
 
    .nav a:visited, #footer a:visited {
     color: #999999;
-  }
-
-   .nav .nav-item {
-    float: left;
-    line-height: 13px;
-    position: relative;
   }
 
 }

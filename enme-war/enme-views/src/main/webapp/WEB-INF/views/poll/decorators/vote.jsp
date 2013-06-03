@@ -7,7 +7,7 @@
       <form action="<%=request.getContextPath()%>/poll/vote/post" method="post">
          <div class="web-poll-vote">
             <c:if test="${votePollError}">
-               <div class="error">
+               <div class="alert alert-error">
                   <spring:message code="poll.error"/>
                </div>
              </c:if>

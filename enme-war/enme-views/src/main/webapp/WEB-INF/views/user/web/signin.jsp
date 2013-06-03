@@ -29,22 +29,18 @@
                         </div>
                         <div class="section">
                             <div class="validator-wrapper" id="rm">
-                                <fieldset>
                                     <input type="text"
                                         placeholder="<spring:message code="signin.username" />"
                                         name="j_username" id="j_username" autocomplete="off"
                                         autocorrect="off" autocapitalize="off" autofocus="autofocus" />
-                                </fieldset>
                             </div>
                         </div>
                         <div class="section">
                             <div class="validator-wrapper" id="rm">
-                                <fieldset>
                                     <input placeholder="<spring:message code="signin.password" />"
                                         type="password" name="j_password" id="j_password"
                                         autocorrect="off" autocapitalize="off" autocomplete="off"
                                         autofocus="autofocus" />
-                                </fieldset>
                             </div>
                         </div>
                         <div class="web-section-option">

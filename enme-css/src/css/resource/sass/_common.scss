@@ -327,11 +327,6 @@ a.point {
     background: -webkit-linear-gradient(0% 0%, 0% 100%, from(white), to(#e8e8e8));
     background: -moz-linear-gradient(center top, white, #e8e8e8);
     background: linear-gradient(#ffffff, #e8e8e8);
-    // -webkit-box-sizing: border-box;
-    // -moz-box-sizing: border-box;
-    // box-sizing: border-box;
-    //By default, box-sizing is set to content-box.
-    //http://www.css3.info/preview/box-sizing/
     @extend .box-real-size;
     @extend .width-max;
 }
@@ -348,40 +343,8 @@ a.point {
   @extend .clearfix
 }
 
-.panel-header header {
-  @extend .col-left;
-}
-
-.panel-header h3 {
-  @extend .bold;
-  font-size: $df_font_size + 1;
-  line-height: 15px;
-  @extend .non-margin;
-}
-
-@mixin ctb-gradient-vertical($startColor: #555, $endColor: #333) {
-  background-color: mix($startColor, $endColor, 62.5%);
-  background-image: -moz-linear-gradient(top, $startColor, $endColor); // FF 3.6+
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($startColor), to($endColor)); // Safari 4+, Chrome 2+
-  background-image: -webkit-linear-gradient(top, $startColor, $endColor); // Safari 5.1+, Chrome 10+
-  background-image: -o-linear-gradient(top, $startColor, $endColor); // Opera 11.10
-  background-image: linear-gradient(to bottom, $startColor, $endColor); // Standard, IE10
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{darken($startColor, 1%)}', endColorstr='#{darken($endColor, 1%)}', GradientType=0); // IE9 and down
-}
-
 .home-header-color {
     @include ctb-gradient-vertical($navbarInverseBackgroundHighlight, $navbarInverseBackground);
-}
-
-.panel-header p {
-  @extend .non-margin;
-}
-
-.panel-header .header-text {
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 44px;
 }
 
 .category_color {
@@ -484,9 +447,9 @@ input:focus {
     background-color: white !important;
 }
 
-.dijitTextBoxFocused {
-    outline: none !important;
-}
+// .dijitTextBoxFocused {
+//     outline: none !important;
+// }
 
 .emne-box .onLive{
     font-size: 10px;

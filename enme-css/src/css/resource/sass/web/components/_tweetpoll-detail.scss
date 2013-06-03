@@ -173,48 +173,59 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
   @extend .col-right;
 }
 
-.web-tweetpoll-list-item .web-tweetpoll-answer-table > div > div {
-  background: none repeat scroll 0 0 #F7F7F7;
-  border-bottom: 1px dotted #E7E6E6;
-  overflow: hidden;
-  padding: 10px 0;
-  @extend .width-max;
+// .web-tweetpoll-list-item .web-tweetpoll-answer-table > div > div {
+//   background: none repeat scroll 0 0 #F7F7F7;
+//   border-bottom: 1px dotted #E7E6E6;
+//   overflow: hidden;
+//   padding: 10px 0;
+
+// }
+
+// .web-tweetpoll-list-item .web-tweetpoll-answer-table > div > div > div {
+//   float: left;
+//   line-height: 20px;
+// }
+
+.web-tweetpoll-answer-table {
+
+    .span3 {
+      width: 170px
+    }
+
+    .answer-header {
+      background-color: black;
+      color: $white;
+    }
+
+    .header-table-answer {}
+
+    .row {
+      padding: 5px 15px;
+    }
 }
 
-.web-tweetpoll-list-item .web-tweetpoll-answer-table > div > div > div {
-  float: left;
-  line-height: 20px;
-}
-
-.web-tweetpoll-answer-table > div > div .answer-color {
+.web-tweetpoll-answer-table .answer-color {
   margin-left: 10px;
-  width: 155px;
 }
 
-.web-tweetpoll-answer-table > div > div .answer-color > div {
-  border-radius: 5px 5px 5px 5px;
+.web-tweetpoll-answer-table .answer-color div {
+  @include border-radius(5px);
   float: left;
   height: 20px;
   width: 20px;
 }
 
-.web-tweetpoll-answer-table > div > div .answer-color > span {
+.web-tweetpoll-answer-table .answer-color > span {
   float: left;
   margin-left: 10px;
 }
 
-.web-tweetpoll-answer-table > div > div .answer-color > span a {
+.web-tweetpoll-answer-table .answer-color > span a {
   text-decoration: none;
 }
 
-.web-tweetpoll-answer-table > div > div .answer-votes {
+.web-tweetpoll-answer-table .answer-votes, .web-tweetpoll-answer-table .answer-percent {
   text-align: center;
-  width: 100px;
-}
-
-.web-tweetpoll-answer-table > div > div .answer-percent {
-  text-align: center;
-  width: 110px;
 }
 
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer h2 {

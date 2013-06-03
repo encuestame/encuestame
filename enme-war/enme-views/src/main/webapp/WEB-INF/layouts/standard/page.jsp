@@ -9,7 +9,7 @@
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
 <tiles:insertAttribute name="rss" ignore="true" />
 </head>
-<body class="enme-web-context">
+<body class="enme-web-context dbootstrap">
   <div class="container">
       <tiles:insertAttribute name="header" ignore="true" />
   </div>
@@ -19,7 +19,7 @@
     </header>
     <tiles:insertAttribute name="menu" ignore="true" />
     <div id="content-container">
-      <div id="enme-content">
+      <div id="enme-content" class="container">
         <tiles:insertAttribute name="content" />
       </div>
     </div>
