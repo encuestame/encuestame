@@ -1012,9 +1012,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      *
      * @param folderId
      * @return
+     * @throws EnMeNoResultsFoundException
      */
-    public TweetPollFolder getTweetPollFolderbyId(final Long folderId){
-         return this.getTweetPollDao().getTweetPollFolderByIdandUser(folderId, getUserAccountonSecurityContext().getAccount());
+    public TweetPollFolder getTweetPollFolderbyId(final Long folderId) throws EnMeNoResultsFoundException{
+         return this.getTweetPollDao().getTweetPollFolderByIdandUser(folderId, getAccount(getUserPrincipalUsername()));
     }
 
     /**

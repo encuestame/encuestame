@@ -30,6 +30,7 @@ import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
@@ -418,6 +419,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * @throws EnMeExpcetion
      */
     @Test
+    @Category(DefaultTest.class)
     public void testFilterTweetPollByItemsByType() throws EnMeNoResultsFoundException, EnMeExpcetion{
         final DateTime date1 = new DateTime();
         DateTime dt2 = date1.minusDays(5);
@@ -439,12 +441,13 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 
         getTweetPoll().saveOrUpdate(tp2);
 
-        // publish : true - Sheduled: true - Completed: false - Favourite: true
-        final TweetPoll tp3 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q1);
 
-        // Published - Completed - Favourite - Scheduled
-        final TweetPollSearchBean tpSearch = createTweetpollSearchBean(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, "your", "24", 10, 0, TypeSearch.LASTWEEK);
+        final TweetPoll tp3 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q3);
+		final TweetPollSearchBean tpSearch = createTweetpollSearchBean(
+				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, "your",
+				"24", 10, 0, TypeSearch.LASTWEEK);
         final List<TweetPollBean> tpoll = getTweetPollService().filterTweetPollByItemsByType(tpSearch, this.request);
+
         assertEquals("Should be equals", 2, tpoll.size());
     }
 
@@ -672,87 +675,145 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     }
 
 
-    public void testCheckTweetPollCompleteStatus(){
-
-    }
-
-    public void testGetTweetPollFolderbyId(){
-
-    }
-
-    public void testValidateIpVote(){
-
-    }
-
-    public void testGetTweetPollByIdSlugName(){
-
-    }
-
-    public void testCreateTweetPollNotification(){
-
-    }
-
-    public void testgenerateTweetPollContent(){
-
-    }
-
-
-
-    public void testremoveQuestionAnswer(){
-
-    }
-
-    public void testUpdateTweetPoll(){
-
-    }
-
-    public void testSearchTweetsPollScheduled(){
-
-    }
-
-    public void testSearchTweetsPollFavourites(){
-
-    }
-
-    public void testsearchTweetsPollsLastWeek(){
-
-    }
-
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     */
     @Test
-    public void testsearchTweetsPollsToday(){
-		final Question q1 = createDefaultQuestion("What is your favourite movie");
-		final TweetPoll tp1 = createPublishedTweetPoll(
-				getSpringSecurityLoggedUserAccount().getAccount(), q1);
-		getTweetPoll().saveOrUpdate(tp1);
+    public void testCheckTweetPollCompleteStatus() throws EnMeNoResultsFoundException{
+
+    	final Question myQuestion = createQuestion("Why the sea is salad? 3",
+				"html");
+		final DateTime dt = new DateTime();
+		final TweetPoll myTweetPoll = createTweetPollPublicated(true, false, dt.toDate(),
+				this.userAccount, myQuestion);
+		myTweetPoll.setLimitVotesEnabled(Boolean.TRUE);
+		myTweetPoll.setLimitVotes(2);
+		getTweetPoll().saveOrUpdate(myTweetPoll);
+
+	    final QuestionAnswerBean qAnswerBean = createAnswersBean("26354",
+                "Yes", myQuestion.getQid());
+        final QuestionAnswerBean qAnswerBean2 = createAnswersBean("26355",
+                "No", myQuestion.getQid());
+
+        final TweetPollSwitch pollSwitch = tweetPollService
+                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll, null);
+        final TweetPollSwitch pollSwitch2 = tweetPollService
+                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll, null);
+
+        tweetPollService.tweetPollVote(pollSwitch, "192.1.1.1", Calendar.getInstance().getTime());
+        tweetPollService.tweetPollVote(pollSwitch2, "192.1.1.2", Calendar.getInstance().getTime());
+    	this.getTweetPollService().checkTweetPollCompleteStatus(myTweetPoll);
 
     }
 
     /**
      *
-     * @param provider1
-     * @param provider2
-     * @return
+     * @throws EnMeNoResultsFoundException
      */
-    private List<SocialProvider> socialProvider (final SocialProvider provider1, final SocialProvider provider2){
-        final List<SocialProvider> searchproviders = new ArrayList<SocialProvider>();
-        searchproviders.add(provider1);
-        searchproviders.add(provider2);
-        return searchproviders;
+    @Test
+    public void testGetTweetPollFolderbyId() throws EnMeNoResultsFoundException{
+    	final TweetPollFolder tpollFolder = createTweetPollFolder("My fOlder22", this.userAccount);
+    	final TweetPollFolder myFolder = this.getTweetPollService().getTweetPollFolderbyId(tpollFolder.getId());
+    }
+
+
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testGetTweetPollByIdSlugName() throws EnMeNoResultsFoundException{
+    	final Question question1 = createQuestion("Why the sea is salt? 6",
+				"html");
+
+		final TweetPoll tp = createTweetPollPublicated(true, true, new Date(),
+				this.userAccount, question1);
+		final TweetPoll tpollSlug = getTweetPollService().getTweetPollByIdSlugName(tp.getTweetPollId(), "Why-the-sea-is-salt%3F-6");
+
     }
 
     /**
-     * Create {@link HashTagBean}
-     * @param tagName
-     * @param hits
-     * @param size
-     * @return
+     *
+     * @throws EnMeNoResultsFoundException
      */
-    private HashTagBean createHashTagBean(final String tagName, final Long hits, final Integer size){
-    	final HashTagBean hashTagBean = new HashTagBean();
-    	hashTagBean.setHashTagName(tagName);
-    	hashTagBean.setHits(hits);
-    	hashTagBean.setSize(size);
-    	return hashTagBean;
+    @Test
+    public void testCreateTweetPollNotification() throws EnMeNoResultsFoundException{
+    	final Question question1 = createQuestion("Why the sea is salt? 6",
+				"html");
+
+		final TweetPoll tp = createTweetPollPublicated(true, true, new Date(),
+				this.userAccount, question1);
+
+		getTweetPollService().createTweetPollNotification(tp);
+		final List<Notification> noti = getNotification()
+				.loadNotificationByUserAndLimit(this.userAccount.getAccount(),
+						10, 0, Boolean.TRUE);
+	}
+
+    /**
+     *
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testgenerateTweetPollContent() throws EnMeExpcetion{
+    	final Question question1 = createQuestion("Why the sea is salt? 6",
+				"html");
+
+		final TweetPoll tp = createTweetPollPublicated(true, true, new Date(),
+				this.userAccount, question1);
+		final String tweetcontent = getTweetPollService().generateTweetPollContent(tp);
+	}
+
+
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testremoveQuestionAnswer() throws EnMeNoResultsFoundException{
+    	final Question question1 = createQuestion("Why the sea is salt? 6",
+				"html");
+
+		final TweetPoll myTweetPoll = createTweetPollPublicated(true, true, new Date(),
+				this.userAccount, question1);
+
+
+	    final QuestionAnswerBean qAnswerBean = createAnswersBean("26354",
+                "Yes", question1.getQid());
+        final QuestionAnswerBean qAnswerBean2 = createAnswersBean("26355",
+                "No", question1.getQid());
+
+        final List<QuestionAnswer> qAnswer = getQuestionDaoImp().getAnswersByQuestionId(question1.getQid());
+		         final TweetPollSwitch pollSwitch = tweetPollService
+                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll, null);
+        final TweetPollSwitch pollSwitch2 = tweetPollService
+                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll, null);
+
     }
+
+    /**
+     *
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testSearchTweetsPollScheduled() throws EnMeExpcetion{
+
+    	final Question question1 = createQuestion("Why the sea is salad? 3",
+				"html");
+		final DateTime dt = new DateTime();
+		final TweetPoll tp = createTweetPollPublicated(true, true, dt.toDate(),
+				this.userAccount, question1);
+
+  		tp.setScheduleTweetPoll(Boolean.TRUE);
+  		tp.setFavourites(Boolean.TRUE);
+		getTweetPoll().saveOrUpdate(tp);
+		final TweetPollSearchBean tpbean22 = createTweetpollSearchBean(
+				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, " ",
+				"7", 10, 0, TypeSearch.SCHEDULED);
+		final List<TweetPollBean> tpLastWeek = getTweetPollService()
+				.searchTweetsPollScheduled(this.userAccount.getUsername(),
+						this.request, tpbean22);
+     }
 
 }

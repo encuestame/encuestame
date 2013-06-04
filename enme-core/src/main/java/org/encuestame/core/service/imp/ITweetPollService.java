@@ -501,7 +501,7 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @param folderId
       * @return
       */
-     TweetPollFolder getTweetPollFolderbyId(final Long folderId);
+     TweetPollFolder getTweetPollFolderbyId(final Long folderId) throws EnMeNoResultsFoundException;
 
      /**
       * Search tweetpolls by folder.
