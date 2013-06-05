@@ -115,6 +115,8 @@ CREATE TABLE comments (
     pollid bigint,
     sid bigint,
     tweetpollid bigint,
+    is_published boolean,
+    is_spam boolean,
     uid bigint NOT NULL
 );
 

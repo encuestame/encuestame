@@ -116,6 +116,8 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `sid` bigint(20) DEFAULT NULL,
   `tweetPollId` bigint(20) DEFAULT NULL,
   `uid` bigint(20) NOT NULL,
+  `is_published` bit(1) DEFAULT NULL,
+  `is_spam` bit(1) DEFAULT NULL,
   PRIMARY KEY (`commentId`),
   UNIQUE KEY `commentId` (`commentId`),
   KEY `FKDC17DDF4F44558E9` (`uid`),
