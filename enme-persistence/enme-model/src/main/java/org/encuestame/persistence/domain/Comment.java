@@ -74,6 +74,12 @@ public class Comment{
     /** {@link Survey} **/
     private Survey survey;
 
+    /**   **/
+    private Boolean isSpam;
+
+    /** **/
+    private Boolean isPublished;
+
     /**
      * @return the commentId
      */
@@ -232,4 +238,34 @@ public class Comment{
     public void setSurvey(final Survey survey) {
         this.survey = survey;
     }
+
+	/**
+	 * @return the isSpam
+	 */
+    @Column(name = "is_spam")
+	public Boolean getIsSpam() {
+		return isSpam;
+	}
+
+	/**
+	 * @param isSpam the isSpam to set
+	 */
+	public void setIsSpam(final Boolean isSpam) {
+		this.isSpam = isSpam;
+	}
+
+	/**
+	 * @return the isPublished
+	 */
+	@Column(name = "is_published")
+	public Boolean getIsPublished() {
+		return isPublished;
+	}
+
+	/**
+	 * @param isPublished the isPublished to set
+	 */
+	public void setIsPublished(final Boolean isPublished) {
+		this.isPublished = isPublished;
+	}
 }
