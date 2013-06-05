@@ -889,6 +889,33 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 						this.request, tpbean);
 	}
 
+
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+	public void testUpdateTweetPoll() throws EnMeNoResultsFoundException {
+
+		final Question question1 = createQuestion("Why the sea is salad? 3",
+				"html");
+		final DateTime dt = new DateTime();
+		final TweetPoll tp = createTweetPollPublicated(true, true, dt.toDate(),
+				this.userAccount, question1);
+
+		final QuestionBean questionBean = createUnitQuestionBean(
+				" Mi nueva pregunta", null, null, null);
+		final TweetPollBean tpBeanToUpdate = createTweetPoll(Boolean.FALSE,
+				Boolean.FALSE, Boolean.FALSE, new Date(), Boolean.FALSE,
+				Boolean.FALSE, Boolean.FALSE, new Date(), " ",
+				this.userAccount.getUid(), questionBean, "twitterAccoint",
+				tp.getTweetPollId());
+
+		final TweetPoll tpupdate = getTweetPollService().updateTweetPoll(
+				tpBeanToUpdate);
+
+	}
+
     /**
      *
      * @param provider1

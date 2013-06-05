@@ -408,7 +408,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 	 * Test
 	 * @throws EnMeSearchException
 	 */
-	//@Test
+	@Test
 	public void testGetTotalSocialLinksbyHashTagUsageByYearDateRange() throws EnMeSearchException {
 		final String tweetContent = "Tweet content text";
 		final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
@@ -1346,7 +1346,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		itemStatDetail.add(isd8);
 
 		final List<HashTagDetailStats> compareHashtagListGraph = getStatisticsService()
-				.compareList2(itemStatDetail, SearchPeriods.ALLTIME,
+				.compareHashtagListGraph(itemStatDetail, SearchPeriods.ALLTIME,
 						this.request);
 
 
