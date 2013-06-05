@@ -18,6 +18,7 @@ import java.util.Date;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.encuestame.utils.enums.TypeSearchResult;
 
 /**
  * Unit Comment bean.
@@ -57,7 +58,7 @@ public class CommentBean implements Serializable{
 
     /** Type of Comment */
     @JsonProperty(value = "type")
-    private String type;
+    private TypeSearchResult type;
 
     /** **/
     @JsonIgnore
@@ -210,14 +211,14 @@ public class CommentBean implements Serializable{
      * @return the type
      */
     @JsonIgnore
-    public String getType() {
+    public TypeSearchResult getType() {
         return type;
     }
 
     /**
      * @param type the type to set
      */
-    public void setType(final String type) {
+    public void setType(final TypeSearchResult type) {
         this.type = type;
     }
 

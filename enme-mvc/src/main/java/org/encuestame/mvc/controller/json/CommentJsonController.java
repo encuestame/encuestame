@@ -168,18 +168,23 @@ public class CommentJsonController extends AbstractJsonController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/api/common/comment/create.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/common/comment/{type}/create.json", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     public @ResponseBody ModelMap createComment(
             @RequestParam(value = "comment", required = true) String mycomment,
             @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
+            @RequestParam(value = "commentId", required = false) Long relatedCommentId,
+            @PathVariable String type,
             HttpServletRequest request,
             HttpServletResponse response){
          try {
              final CommentBean bean = new CommentBean();
+             final TypeSearchResult typeResult = TypeSearchResult.getTypeSearchResult(type);
              bean.setComment(mycomment);
              bean.setCreatedAt(new Date());
+             bean.setParentId(relatedCommentId);
              bean.setId(tweetPollId);
+             bean.setType(typeResult);
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
              final Comment comment = getCommentService().createComment(bean);
              jsonResponse.put("comment", comment);
