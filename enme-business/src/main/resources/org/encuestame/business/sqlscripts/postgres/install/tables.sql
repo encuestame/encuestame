@@ -910,7 +910,8 @@ CREATE TABLE tweetpoll (
     editor bigint,
     qid bigint NOT NULL,
     uid bigint NOT NULL,
-    tweetpollfolderid bigint
+    tweetpollfolderid bigint,
+    comment_option integer
 );
 
 

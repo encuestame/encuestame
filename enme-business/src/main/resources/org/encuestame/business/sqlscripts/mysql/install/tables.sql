@@ -923,6 +923,7 @@ CREATE TABLE IF NOT EXISTS `tweetPoll` (
   `editor` bigint(20) DEFAULT NULL,
   `qid` bigint(20) NOT NULL,
   `uid` bigint(20) NOT NULL,
+  `comment_option` int(11) DEFAULT NULL,
   `tweetPollFolderId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`tweet_poll_id`),
   UNIQUE KEY `tweet_poll_id` (`tweet_poll_id`),
