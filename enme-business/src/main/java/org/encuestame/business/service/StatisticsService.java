@@ -739,12 +739,4 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         }
         return existLabel;
     }
-
-//	@Override
-//	public List<HashTagDetailStats> compareList2(List<ItemStatDetail> itemList,
-//			SearchPeriods period, HttpServletRequest request)
-//			throws EnMeSearchException {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 }

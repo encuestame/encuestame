@@ -164,9 +164,8 @@ public interface IStatisticsService extends ServiceOperations{
                 final SearchPeriods period,
                 final HttpServletRequest request) throws EnMeNoResultsFoundException, EnMeSearchException;
 
-//	 List<HashTagDetailStats> compareList2(
-//            final List<ItemStatDetail> itemList,
-//            final SearchPeriods period,
-//            final HttpServletRequest request) throws EnMeSearchException;
+	List<HashTagDetailStats> compareHashtagListGraph(
+			final List<ItemStatDetail> itemList, final SearchPeriods period,
+			final HttpServletRequest request) throws EnMeSearchException;
 
 }
