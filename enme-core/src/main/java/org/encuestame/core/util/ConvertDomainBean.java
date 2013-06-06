@@ -1214,21 +1214,21 @@ public class ConvertDomainBean {
         if (commentDomain.getPoll() != null && !set) {
             type = TypeSearchResult.POLL;
             id = commentDomain.getPoll().getPollId();
-            commentBean.setType(TypeSearchResult.POLL.toString());
+            commentBean.setType(TypeSearchResult.POLL);
             set = true;
             slug = commentDomain.getPoll().getQuestion().getSlugQuestion();
         }
         if (commentDomain.getTweetPoll() != null && !set) {
             type = TypeSearchResult.TWEETPOLL;
             id = commentDomain.getTweetPoll().getTweetPollId();
-            commentBean.setType(TypeSearchResult.TWEETPOLL.toString());
+            commentBean.setType(TypeSearchResult.TWEETPOLL);
             set = true;
             slug = commentDomain.getTweetPoll().getQuestion().getSlugQuestion();
         }
         if (commentDomain.getSurvey() != null && !set) {
             type = TypeSearchResult.SURVEY;
             id = commentDomain.getSurvey().getSid();
-            commentBean.setType(TypeSearchResult.SURVEY.toString());
+            commentBean.setType(TypeSearchResult.SURVEY);
             set = true;
             // slug =
             // commentDomain.getTweetPoll().getQuestion().getSlugQuestion();
