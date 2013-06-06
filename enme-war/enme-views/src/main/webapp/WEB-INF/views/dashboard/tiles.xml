@@ -3,7 +3,7 @@
 
 <tiles-definitions>
 
-    <definition name="dashboard" extends="page">
+    <definition name="dashboard" extends="page-logged">
         <put-attribute name="title" value="DashBoard" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/dashboard/${detectedDevice ? 'mobile/' : 'web/'}dashboard.jsp" />

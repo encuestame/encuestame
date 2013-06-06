@@ -3,18 +3,20 @@
     <section class="web-tweetpoll-vote-options">
 
         <div class="web-permatlink yellow">
-            <h1>
-                <spring:message code="tweetpoll.votes.repeated" />
-            </h1>
             <h2>
-               ${tp_switch.tweetPoll.question.question}
+                <spring:message code="tweetpoll.votes.repeated" />
             </h2>
             <h3>
-                <spring:message code="tweetpoll.votes.selection" />: <b>${tp_switch.answers.answer}</b>
+               ${tp_switch.tweetPoll.question.question}
             </h3>
+            <h4>
+                <spring:message code="tweetpoll.votes.selection" />: <b>${tp_switch.answers.answer}</b>
+            </h4>
             <div class="web-tweetpoll-info">
                 <a href="<%=request.getContextPath()%>/tweetpoll/${tp_switch.tweetPoll.tweetPollId}/${tp_switch.tweetPoll.question.slugQuestion}">
-                    <spring:message code="tweetpoll.votes.link" />
+                   <button class="btn btn-warning">
+                        <spring:message code="tweetpoll.votes.link" />
+                   </button>
                 </a>
             </div>
         </div>

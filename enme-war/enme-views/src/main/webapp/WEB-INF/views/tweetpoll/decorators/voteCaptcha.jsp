@@ -3,9 +3,9 @@
     <section class="web-tweetpoll-vote-options">
 
         <div class="web-permatlink gradient-gray">
-            <h1>
+            <h2>
                 ${tp_switch.tweetPoll.question.question}
-            </h1>
+            </h2>
             <h3>
                 <spring:message code="tweetpoll.votes.captcha" />
             </h3>

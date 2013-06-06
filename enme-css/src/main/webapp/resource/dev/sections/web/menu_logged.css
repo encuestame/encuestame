@@ -1,596 +1,90 @@
-/** Menu **/
-/* line 4, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper {
-  background-color: #222222;
-  -moz-box-shadow: 0px 2px 2px #888;
-  -webkit-box-shadow: 0px 2px 2px #888;
-  box-shadow: 0px 0px 2px #888;
-  -webkit-border-radius: 0px 0px 5px 5px;
-  -moz-border-radius: 0px 0px 5px 5px;
-  border-radius: 0px 0px 5px 5px;
-  position: relative;
-}
-
-@media only screen and (max-width: 980px) {
-  /* line 17, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-  .menuWrapper {
-    border-radius: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    width: 100%;
-    padding: 5px;
-    height: 32px;
-  }
-
-  /* line 25, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-  .menuWrapper div.rightSide {
-    float: right;
-    text-align: left;
-    width: 25%;
-  }
-
-  /* line 31, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-  .menuWrapper div.leftSide {
-    float: left;
-    height: 33px;
-  }
-
-  /* line 36, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-  .menuWrapper .item a {
-    float: left;
-    text-decoration: none;
-    color: white;
-    font-weight: normal;
-    font-size: 14px;
-  }
-}
-/* line 46, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper > .clearfix {
-  width: 100%;
-  display: block;
-}
-
-/* line 51, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper .item {
-  display: inline-block;
-  padding: 10px;
-}
-
-/* line 56, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper .item:hover {
-  background-color: white;
-}
-
-/* line 64, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper .current > a {
-  font-weight: bold;
-}
-
-/* line 68, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper .item:first-child {
-  border-radius: 0 0 0 5px;
-}
-
-/* line 72, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper .item:hover a {
-  color: #888 !important;
-}
-
-/* line 80, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper .item a {
-  float: left;
-  text-decoration: none;
-  color: white;
-  font-weight: normal;
-}
-
-/* line 87, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper .item a:hover {
-  color: #444444;
-}
-
-/* line 91, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-#profile_menu {
-  background-color: #AAAAAA;
-  border: solid 1px #666666;
-  width: 400px;
-  padding: 10px;
-  color: #FFFFFF;
-  position: absolute;
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 18px;
-  min-height: 160px;
-  z-index: 500;
-  -webkit-border-radius: 0px 0px 10px 10px;
-  -moz-border-radius: 0px 0px 10px 10px;
-  border-radius: 0px 0px 10px 10px;
-  right: 120px !important;
-  top: 37px;
-}
-
-/* line 110, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-#profile_menu li {
-  padding-bottom: 6px;
-  text-align: right;
-}
-
-/* line 115, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-#detail_profile {
-  padding-right: 10px;
-  border-right: 1px #DEDEDE solid;
-  height: 120px;
-  width: 230px;
-  float: left;
-  line-height: 12px;
-}
-
-/* line 124, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-#options_profile {
-  padding-left: 20px;
-  height: 120px;
-  width: 135px;
-  float: left;
-  line-height: 12px;
-  text-align: right;
-}
-
-/* line 133, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-#profile_menu label {
-  font-size: 11px;
-  font-weight: normal;
-}
-
-/* line 138, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-#profile_menu input {
-  font-size: 11px;
-  color: #333333;
-  margin-left: 10px;
-}
-
-/* line 144, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-#profile_menu button {
-  line-height: 24px;
-  float: right;
-  color: #FFFFFF;
-  font-size: 11px;
-  font-weight: bold;
-  text-align: center;
-  cursor: pointer;
-}
-
-/* line 154, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper div.leftSide {
-  float: left;
-  height: 33px;
-}
-
-/** menu right side */
-/* line 161, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper div.rightSide {
-  float: right;
-  text-align: left;
-  width: 25%;
-}
-
-/* line 167, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper div.rightSide > div {
-  float: left;
-  position: relative;
-}
-
-/* line 172, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper div.rightSide .web-notification {
-  width: 15%;
-}
-
-/* line 176, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper div.rightSide .web-profile {
-  width: 80%;
-  padding: 3px;
-}
-
-/* line 181, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper div.rightSide .web-profile:hover {
-  background-color: #444;
-  color: #222;
-}
-
-/* line 186, ../../../../../../css/resource/sass/web/components/_menu-logged.scss */
-.menuWrapper div.rightSide span:hover {
-  background-color: white;
-}
-
-/** profile menu **/
-/* line 4, ../../../../../../css/resource/sass/web/components/_menu-profile.scss */
-div.profilePanel {
-  display: none;
-  position: absolute;
-  min-height: 120px;
-  min-width: 202px;
-  background: #222;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444444), color-stop(100%, #222222));
-  background: -webkit-linear-gradient(#444444, #222222);
-  background: -moz-linear-gradient(#444444, #222222);
-  background: -o-linear-gradient(#444444, #222222);
-  background: linear-gradient(#444444, #222222);
-  right: 0px;
-  left: 0px;
-  top: 32px;
-  zoom: 1;
-  -moz-box-shadow: 1px 2px 3px #888888;
-  -webkit-box-shadow: 1px 2px 3px #888888;
-  box-shadow: 1px 2px 3px #888888;
-  -webkit-border-radius: 0px 0px 5px 5px;
-  -moz-border-radius: 0px 0px 5px 5px;
-  border-radius: 0px 0px 5px 5px;
-  z-index: 99999;
-}
-
-/* line 29, ../../../../../../css/resource/sass/web/components/_menu-profile.scss */
-div.profileOpenPanel {
-  display: block;
-}
-
-/** web-profile-menu **/
-/* line 34, ../../../../../../css/resource/sass/web/components/_menu-profile.scss */
-div.profilePanel ul {
-  max-height: 350px;
-  max-width: 100%;
-  overflow: hidden;
-}
-
-/* line 40, ../../../../../../css/resource/sass/web/components/_menu-profile.scss */
-div.profilePanel li {
-  background-image: none;
-  clear: both;
-  display: block;
-  width: 85%;
-  float: left;
-  text-align: left;
-  list-style: none;
-  margin: 0px;
-  padding: 6px 15px;
-}
-
-/* line 52, ../../../../../../css/resource/sass/web/components/_menu-profile.scss */
-div.profilePanel li:hover {
-  background-color: #FFF;
-}
-
-/* line 57, ../../../../../../css/resource/sass/web/components/_menu-profile.scss */
-div.profilePanel li:hover a:link,
-div.profilePanel li:hover a:visited {
-  color: #444 !important;
-}
-
-/* line 61, ../../../../../../css/resource/sass/web/components/_menu-profile.scss */
-div.profilePanel li a:link {
-  color: #BABABA !important;
-  font-weight: normal;
-  text-decoration: none !important;
-}
-
-/* line 67, ../../../../../../css/resource/sass/web/components/_menu-profile.scss */
-div.profilePanel li a:hover {
-  color: white !important;
-  text-decoration: none;
-}
-
-/* line 72, ../../../../../../css/resource/sass/web/components/_menu-profile.scss */
-div.profilePanel li a {
-  padding: 10px;
-  color: #BABABA !important;
-  font-weight: normal;
-}
-
-/* line 78, ../../../../../../css/resource/sass/web/components/_menu-profile.scss */
-div.web-profile-menu {
-  color: #FFFFFF;
-  cursor: pointer;
-  height: 25px;
-  vertical-align: middle;
-}
-
-/* line 85, ../../../../../../css/resource/sass/web/components/_menu-profile.scss */
-div.web-profile-menu .image {
-  float: left;
-}
-
-/* line 89, ../../../../../../css/resource/sass/web/components/_menu-profile.scss */
-div.web-profile-menu .real-name {
-  line-height: 22px;
-  margin-left: 20px;
-  min-width: 119px;
-  padding-right: 4px;
-  text-align: center;
-  vertical-align: middle;
-}
-
-/** notifications **/
-/* line 4, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.notificationWrapper {
-  height: 33px;
-  min-width: 25px;
-  padding: 0 4px;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
-}
-
-/* line 13, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.not-menu-not-selected {
-  background-color: white;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* line 19, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.livePanel {
-  display: none;
-  position: absolute;
-  min-height: 5px;
-  width: 400px;
-  background-color: #FFF;
-  right: 0px;
-  top: 33px;
-  box-shadow: 2px 2px 5px #888888;
-  border-radius: 0px 0px 5px 5px;
-  -moz-box-shadow: 2px 2px 5px #888888;
-  -webkit-box-shadow: 2px 2px 5px #888888;
-  -webkit-border-radius: 0px 0px 5px 5px;
-  -moz-border-radius: 0px 0px 5px 5px;
-  min-width: 345px;
-  max-width: 345px;
-  z-index: 20;
-}
-
-/* line 38, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.livePanel .panelItems {
-  min-height: 100%;
-}
-
-/* line 42, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.livePanel .final {
-  padding: 8px;
-  text-align: right;
-  font-weight: bold;
-  background-color: #222;
-}
-
-/* line 49, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.livePanel .web-not-item-removed {
-  background-color: #DFDFDF !important;
-  color: #EC9191 !important;
-  -moz-opacity: 0.50;
-  opacity: 0.50;
-}
-
-/* line 58, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.livePanel .final a:link, .livePanel .final a:visited, .livePanel .final a {
-  color: #FFF;
-  text-decoration: none;
-  font-weight: normal;
-}
-
-/* line 64, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.openLivePanel {
-  display: block;
-}
-
-/* line 68, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.notificationItem {
-  padding: 5px;
-  min-height: 30px;
-  text-align: left;
-  border-top: solid 1px #E9E9E9;
-  border-bottom: solid 1px #E9E9E9;
-  color: #333;
-  display: block;
-  text-decoration: none;
-  margin-bottom: -1px;
-  z-index: 2;
-  zoom: 1;
-  line-height: 15px;
-}
-
-/* line 83, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.notificationItem .not-item-description {
-  margin-left: 60px;
-}
-
-/* line 87, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.notificationItem:hover {
-  cursor: pointer;
-  background-color: #F0F0F0;
-}
-
-/* line 92, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.livePanel .notificationItem .left {
-  float: left;
-  min-height: 30px;
-  margin-left: 10px;
-  width: 50px;
-  background-position: left;
-  background-repeat: no-repeat;
-}
-
-/* line 105, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.livePanel .notificationItem .not-item-description .title {
-  font-weight: bold;
-}
-
-/* line 109, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.livePanel .notificationItem .not-item-description .description {
-  font-size: 10px;
-  color: grey;
-  font-weight: normal;
-  padding: 5px 0;
-}
-
-/* line 116, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-.counter {
-  color: #696868;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  width: 28px;
-}
-
-/* line 124, ../../../../../../css/resource/sass/web/components/_menu-notifications.scss */
-div.notificationWrapper div.new {
-  color: red !important;
-}
-
-/** search items **/
-/* line 8, ../../../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-wrapper .suggest {
-  position: relative;
-  width: auto;
-}
-
-/* line 13, ../../../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-wrapper .suggestBox {
-  box-shadow: 0 0 2px 1px #444444;
-  border-radius: 2px 2px 2px 2px;
-  -webkit-border-radius: 2px 2px 2px 2px;
-  -moz-border-radius: 2px 2px 2px 2px;
-  -moz-box-shadow: 0 0 2px 1px #444444;
-  -webkit-box-shadow: 0 0 2px 1px #444444;
-  min-height: 20px;
-  right: 0;
-  z-index: 9999;
-  top: 25px;
-}
-
-/* line 26, ../../../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-wrapper .web-suggest-noresults {
-  background-color: #444444;
-  color: white;
-  font-weight: bold;
-  line-height: 19px;
-  min-height: 20px;
-  padding: 3px;
-  right: 15px;
-  width: 245px;
-  z-index: 600;
-}
-
-/* line 38, ../../../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-wrapper .web-suggest-noresults > span {
-  color: gray;
-}
-
-/* line 42, ../../../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-container-wrapper {
-  width: 290px;
-}
-
-/* line 50, ../../../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-container-wrapper .web-search-section {
-  clear: both;
-  display: inline-block;
-  padding: 0;
-  width: 100%;
-}
-
-/* line 57, ../../../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-container-wrapper .web-search-section-label {
-  color: #FFFFFF;
-  float: left;
-  font-weight: bold;
-  line-height: 5px;
-  padding: 7px 4px;
-  width: 66px;
-}
-
-/* line 66, ../../../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-container-wrapper .web-search-section-container {
-  background-color: white;
-  margin-left: 75px;
-}
-
-/* line 71, ../../../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-container-wrapper .web-search-section-container .selected {
-  background-color: #B7B7B7;
-  color: white;
-}
-
-/* line 76, ../../../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-container-wrapper .web-search-section-container .web-search-item {
-  border-bottom: 1px dotted #EBEBEB;
-  cursor: pointer;
-  display: inline-block;
-  padding: 5px;
-  width: 95.5%;
-}
-
-/* line 88, ../../../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-container-wrapper .web-search-section-container .web-search-item h4 {
-  font-weight: 500;
-  margin: 0;
-}
-
-/** drop down menu **/
-/* line 8, ../../../../../../css/resource/sass/web/components/_dropdown-menu.scss */
-.drop-down-menu-select-title {
-  background: none repeat scroll 0 0 #6C6D6F;
-  border-radius: 13px 13px 13px 13px;
-  color: white;
-  font-size: 13px;
-  font-weight: bold;
-  line-height: 20px;
-  padding: 0 15px 2px;
-  text-shadow: #002537 0 1px 1px;
-  cursor: pointer;
-}
-
-/* line 20, ../../../../../../css/resource/sass/web/components/_dropdown-menu.scss */
-.drop-down-menu-select-title:hover .sub-menu {
-  display: inline-block;
-  position: absolute;
-}
-
-/* line 25, ../../../../../../css/resource/sass/web/components/_dropdown-menu.scss */
-.drop-down-menu-select-title .sub-menu {
-  background: none repeat scroll 0 0 #FFFFFF;
-  border: 1px solid #C4C4C4;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 4px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 4px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 4px;
-  display: none;
-  margin-left: -15px;
-  margin-top: 0;
-  text-shadow: none;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-}
-
-/* line 36, ../../../../../../css/resource/sass/web/components/_dropdown-menu.scss */
-.drop-down-menu-select-title .sub-menu li {
-  display: block;
-  height: 22px;
-  list-style-type: none;
-  padding: 5px 0px 0px 10px;
-  width: 110px;
-  font-size: 90%;
-}
-
-/* line 45, ../../../../../../css/resource/sass/web/components/_dropdown-menu.scss */
-.drop-down-menu-select-title .sub-menu li img {
-  margin-right: .5em;
-}
-
-/* line 49, ../../../../../../css/resource/sass/web/components/_dropdown-menu.scss */
-.drop-down-menu-select-title .sub-menu li:hover {
-  background-color: #8C8C8C;
-}
-
-/* line 53, ../../../../../../css/resource/sass/web/components/_dropdown-menu.scss */
-.drop-down-menu-select-title .sub-menu li:hover a {
-  color: white !important;
-  text-decoration: none;
-}
+/*
+Syntax error: Undefined variable: "$white".
+        on line 9 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_dropdown-menu.scss
+        from line 6 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/menu_logged.scss
+
+Backtrace:
+/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_dropdown-menu.scss:9
+/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/menu_logged.scss:6
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/script/variable.rb:49:in `_perform'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/script/node.rb:40:in `perform'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:298:in `visit_prop'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:100:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:109:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:121:in `with_environment'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:108:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:320:in `visit_rule'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:100:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:227:in `visit_import'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:227:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:227:in `visit_import'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:100:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:109:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:121:in `with_environment'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:108:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:128:in `visit_root'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:100:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:7:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:7:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/root_node.rb:20:in `render'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/engine.rb:315:in `_render'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/engine.rb:262:in `render'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:140:in `compile'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:126:in `timed'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:139:in `compile'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/logger.rb:45:in `red'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:138:in `compile'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:118:in `compile_if_required'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:103:in `run'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:101:in `each'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:101:in `run'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:126:in `timed'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:100:in `run'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/commands/watch_project.rb:147:in `recompile'
+/Library/Ruby/Site/1.8/rubygems/custom_require.rb:36:in `to_proc'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/path.rb:73:in `call'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/path.rb:73:in `run_callback'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/path.rb:55:in `callback_action'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/path.rb:35:in `update'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/state/directory.rb:39:in `modified'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/state/directory.rb:37:in `each'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/state/directory.rb:37:in `modified'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/state/directory.rb:18:in `refresh'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:17:in `run'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:17:in `each'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:17:in `run'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:15:in `loop'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:15:in `run'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm/monitor.rb:26:in `run'
+/Library/Ruby/Gems/1.8/gems/fssm-0.2.10/lib/fssm.rb:70:in `monitor'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/commands/watch_project.rb:87:in `perform'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/commands/base.rb:18:in `execute'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/commands/project_base.rb:19:in `execute'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/exec/sub_command_ui.rb:15:in `run!'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/bin/compass:30
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/bin/compass:44:in `call'
+/Library/Ruby/Gems/1.8/gems/compass-0.12.2/bin/compass:44
+/usr/bin/compass:23:in `load'
+/usr/bin/compass:23
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined variable: \"$white\".\A         on line 9 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_dropdown-menu.scss\A         from line 6 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/menu_logged.scss"; }

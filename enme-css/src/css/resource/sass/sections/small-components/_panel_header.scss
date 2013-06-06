@@ -1,0 +1,35 @@
+
+// default panel header for each admon view
+
+.panel-header {
+
+	overflow: auto;
+	padding: 15px;
+
+	header {
+  		@extend .col-left;
+	}
+
+	h3 {
+	  @extend .non-margin;
+	}
+
+	p {
+	  @extend .non-margin;
+	}
+
+	.header-text {
+		font-weight: bold;
+		font-size: 13px;
+		line-height: 44px;
+	}
+
+	.tb-left{
+	    float: left;
+	}
+
+	.tb-right{
+	    float: right;
+	    padding: 15px;
+	}
+}

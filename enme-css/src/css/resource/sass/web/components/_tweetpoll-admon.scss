@@ -1,5 +1,3 @@
-@import "_base_web";
-
 /** TweetPoll **/
 #web-tweetpoll-wrapper {
   @extend .main-shadow-box;
@@ -58,7 +56,6 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.opt
     {
     clear: both;
     @extend .col-left;
-    font-size: $df_font_size;
     padding: 7px;
     width: 171px;
 }
@@ -104,7 +101,6 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu {
     padding: 5px;
     position: relative;
-    width: 101%;
 }
 
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu .web-list-filter-clean{

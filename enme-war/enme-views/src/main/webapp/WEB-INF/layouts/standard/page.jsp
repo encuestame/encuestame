@@ -1,11 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<!DOCTYPE html>
-<!--[if IE 8]>     <html class="ie ie8 lte9 lte8"> <![endif]-->
-<!--[if IE 9]>     <html class="ie ie9 lte9"> <![endif]-->
-<!--[if gt IE 9]>  <html> <![endif]-->
-<!--[if !IE]><!-->
-<html>
-<!--<![endif]-->
+<%@ include file="decorators/html.jsp"%>
 <head>
     <title>
         <tiles:insertAttribute name="title" defaultValue="encuestame" />
@@ -13,37 +7,23 @@
 <%@ include file="decorators/web-meta.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/web/css.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
-<%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
 <tiles:insertAttribute name="rss" ignore="true" />
 </head>
-<body class="enme-web-context">
+<body class="enme-web-context dbootstrap">
   <div class="container">
       <tiles:insertAttribute name="header" ignore="true" />
   </div>
   <div id="mainWrapper" class="page">
     <header id="header" class="header_input_hidden">
-          <c:forEach items="${i18n}" var="entry">
-                <input type="hidden" name="${entry.key}" value="${entry.value}"/>
-          </c:forEach>
-          <input type="hidden" name="not_view_all" value="<spring:message code="not_view_all" />"/>
+          <%@ include file="decorators/i18n-input.jsp"%>
     </header>
     <tiles:insertAttribute name="menu" ignore="true" />
     <div id="content-container">
-      <div id="enme-content">
-         <c:if test="${logged}">
-             <div data-dojo-type="me/web/widget/ui/Toaster"
-               duration="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.duration")%>"
-               messageTopic="/encuestame/message/publish"
-               positionDirection="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.position")%>"
-               id="toasted_message">
-            </div>
-        </c:if>
+      <div id="enme-content" class="container">
         <tiles:insertAttribute name="content" />
       </div>
     </div>
-    <footer id="footer" class="">
-
-    </footer>
+    <footer id="footer"></footer>
   </div>
   <div id="footer-f">
      <tiles:insertAttribute name="footer" />
@@ -54,6 +34,8 @@
      <div id="modal-box"></div>
      <div id="loading"></div>
   </c:if>
+  <%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
+  <%@ include file="decorators/ui_bar.jsp"%>
 </body>
 
 </html>

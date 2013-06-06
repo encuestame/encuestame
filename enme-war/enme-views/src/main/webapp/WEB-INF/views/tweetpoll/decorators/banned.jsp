@@ -3,9 +3,9 @@
     <section class="web-tweetpoll-vote-options">
 
         <div class="web-permatlink red">
-            <h1>
+            <h2>
                <spring:message code="tweetpoll.votes.banned" />.
-            </h1>
+            </h2>
         </div>
 
     </section>

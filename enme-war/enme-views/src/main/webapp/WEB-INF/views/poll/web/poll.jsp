@@ -81,7 +81,7 @@
                      </c:forEach>
                      <div class="web-poll-options-button">
                        <a href="<%=request.getContextPath()%>/poll/vote/${poll.id}/${poll.questionBean.slugName}">
-                         <button class=" btn enme-ui-button vote">
+                         <button class=" btn btn-info btn-block">
                            <spring:message code="options.vote" />
                          </button>
                        </a>

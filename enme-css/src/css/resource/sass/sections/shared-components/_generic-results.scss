@@ -5,13 +5,7 @@
 
 .web-detail-answer-wrapper > header .answer-label {
   display: inline-block;
-  float: left;
   padding-left: 30px;
-  width: 260px;
-}
-
-.web-detail-answer-wrapper > header > div {
-
 }
 
 .web-detail-answer-wrapper > header > div {
@@ -19,18 +13,12 @@
   box-shadow: 0 1px 0 0 #919191 inset;
   color: #444444;
   font-size: 1.2em;
-     line-height: 20px;
-     padding: 10px;
+  line-height: 20px;
+  padding: 10px;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
 }
 
-.web-detail-answer-wrapper > header .answer-votes {
-  float: left;
-  width: 89px;
-}
-
 .web-detail-answer-wrapper > header .answer-percent {
-  float: right;
   padding-right: 15px;
 }
 
@@ -50,16 +38,10 @@
 }
 
 .web-generic-result .color span {
-  border-radius: 10px 10px 10px 10px;
+  @include border-radius(20px);
   display: inline-block;
   height: 20px;
   width: 30px;
-}
-
-.web-generic-result .label {
-  float: left;
-  padding: 8px;
-  width: 225px;
 }
 
 .web-generic-result .votes{

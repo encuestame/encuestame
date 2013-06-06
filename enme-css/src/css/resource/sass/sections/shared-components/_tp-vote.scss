@@ -1,26 +1,45 @@
 /** tweetpoll vote options **/
 .web-tweetpoll-vote-options {
-    margin: 0 auto;
-    padding-top: 60px;
-    width: 1000px;
+  margin-top: 10%;
 }
 
-.web-tweetpoll-vote-options h1 {
-  color: #565656;
-  font-weight: bold;
-  margin: 0;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+.web-tweetpoll-vote-options .yellow {
+      h1, h2{
+        color : #FAA000;
+      }
 }
 
-.web-tweetpoll-vote-options h3 {
-    font-size: 15px;
-    font-weight: normal;
-    margin: 10px 0 0 0;
+.web-tweetpoll-vote-options .red {
+      h1, h2{
+        color : $black;
+      }
 }
 
-.web-tweetpoll-vote-options h3 b{
-    color: #565656;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+.web-tweetpoll-vote-options .green {
+      h1, h2 {
+        color : green;
+      }
+}
+
+.web-tweetpoll-vote-options {
+      h1, h2, h3 {
+        color : $black_medium;
+        font-weight: 100;
+      }
+
+      h1,h2 {
+          text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+          color: #565656;
+      }
+
+      h4, h5 {
+        font-weight: 100;
+        color: $white;
+         b {
+              color: #565656;
+              text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+          }
+      }
 }
 
 .web-tweetpoll-vote-options .web-permatlink {
@@ -29,10 +48,8 @@
   border-radius: 10px 10px 10px 10px;
   box-shadow: 0 1px 6px rgba(72, 72, 72, 0.46);
   color: white;
-  margin: 0 auto;
   min-height: 180px;
   padding: 20px;
-  width: 50%;
 }
 
 .web-tweetpoll-vote-options .yellow{
@@ -43,10 +60,6 @@
     background-color: #F58165;
 }
 
-.web-tweetpoll-vote-options .gradient-red h1 {
-    color: #FFF;
-    margin: 55px;
-}
 
 .web-tweetpoll-vote-options .web-permatlink .captcha {
     margin: 2px;

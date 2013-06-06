@@ -6,7 +6,12 @@
     <definition name="page" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}page.jsp">
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}header.jsp" />
         <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
-        <put-attribute name="profile" value="/WEB-INF/jsp/includes/profile.jsp" />
+    </definition>
+
+    <definition name="page-logged" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}page.jsp">
+        <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}header.jsp" />
+        <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
+
     </definition>
 
     <definition name="setup-page" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup-page.jsp">
@@ -16,11 +21,10 @@
     <definition name="login-page" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}page.jsp">
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}header.jsp" />
         <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
-        <put-attribute name="profile" value="/WEB-INF/jsp/includes/profile.jsp" />
     </definition>
 
     <definition name="main-vote" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}vote.jsp">
-         <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
+         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}header.jsp" />
     </definition>
 
     <definition name="setupPage" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup.jsp">

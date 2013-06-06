@@ -1,5 +1,3 @@
-@import "_base_web";
-
 body.public-body {
     margin: 0;
     padding: 0;
@@ -646,7 +644,9 @@ div.link-published-space {
     right: 0;
 }
 
-#content-container #enme-content .web-generic-result div.votes {
+
+/** generic results **/
+.web-generic-result div.votes {
   @extend .col-left;
   margin: 0 !important;
   padding: 8px;
@@ -657,4 +657,20 @@ div.link-published-space {
   float: left;
   font-weight: bold;
   padding: 8px;
+}
+
+.web-generic-stats {
+   margin-top: 35px;
+}
+
+.web-generic-stats h2 {
+   float: left;
+}
+
+.web-generic-stats .badge {
+   margin: 22px 13px;
+}
+
+.web-generic-stats .enme-dropdown-menu-wrapper {
+  margin: 22px 13px;
 }

@@ -3,14 +3,14 @@
 
 <tiles-definitions>
 
-    <definition name="settings/account" extends="page">
+    <definition name="settings/account" extends="page-logged">
         <put-attribute name="title" value="Configuration | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/settings/${detectedDevice ? 'mobile/' : 'web/'}profile-settings.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/settings/${detectedDevice ? 'mobile/' : 'web/'}settings_css.jsp" />
     </definition>
 
-    <definition name="settings/social" extends="page">
+    <definition name="settings/social" extends="page-logged">
         <put-attribute name="title" value="Settings | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/settings/${detectedDevice ? 'mobile/' : 'web/'}social-settings.jsp" />

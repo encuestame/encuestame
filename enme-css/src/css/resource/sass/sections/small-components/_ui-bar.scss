@@ -1,0 +1,37 @@
+.ui-upgrade-bar {
+
+	position: absolute;
+	width: 100%;
+	top: 0;
+	z-index: 99999;
+
+	.ui-bar-wrapper {
+
+		position: relative;
+
+			.ui-up-close {
+					position: absolute;
+					top: 10px;
+					right: 30px;
+					font-size: 20px;
+					cursor: pointer;
+			}
+	}
+
+	.ui-up-content {
+
+			padding: 15px;
+			@include ctb-gradient-vertical($orange_light, darken($orange_light, 5%));
+
+			.up-message {
+					position: relative;
+					span {
+						padding: 10px;
+						font-weight: bold;
+					}
+					a {
+						cursor: pointer;
+					}
+			}
+	}
+}

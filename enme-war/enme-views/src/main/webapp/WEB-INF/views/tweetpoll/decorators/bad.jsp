@@ -1,12 +1,12 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<article class="defaultMarginWrapper">
+<div class="container">
     <section class="web-tweetpoll-vote-options">
 
         <div class="web-permatlink red">
-            <h1>
+            <h2>
                <spring:message code="tweetpoll.votes.error" />.
-            </h1>
+            </h2>
         </div>
 
     </section>
-</article>
+</div>

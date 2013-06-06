@@ -1,10 +1,6 @@
-@import "_base_web";
-
 /** notifications **/
 .notificationWrapper {
-  height: 33px;
   min-width: 25px;
-  padding: 0 4px;
   position: relative;
   text-align: center;
   vertical-align: middle;
@@ -23,13 +19,8 @@
     width: 400px;
     background-color: #FFF;
     right: 0px;
-    top: 33px;
-    box-shadow: 2px 2px 5px #888888;
-    border-radius: 0px 0px 5px 5px;
-    -moz-box-shadow: 2px 2px 5px #888888;
-    -webkit-box-shadow: 2px 2px 5px #888888;
-    -webkit-border-radius: 0px 0px 5px 5px;
-    -moz-border-radius: 0px 0px 5px 5px;
+    top: 43px;
+    @include box-shadow(#888888  2px 2px 5px);
     min-width: 345px;
     max-width: 345px;
     z-index: 20;
@@ -49,10 +40,7 @@
 .livePanel .web-not-item-removed {
     background-color: #DFDFDF !important;
     color: #EC9191 !important;
-    -moz-opacity: 0.50;
-    opacity: 0.50;
-    // -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=50);
-
+    @include opacity(0.5);
 }
 
 .livePanel .final a:link, .livePanel .final a:visited, .livePanel .final a {
@@ -98,10 +86,6 @@
     background-repeat: no-repeat;
 }
 
-.livePanel .notificationItem .not-item-description {
-
-}
-
 .livePanel .notificationItem .not-item-description .title {
     font-weight: bold;
 }
@@ -115,12 +99,12 @@
 
 .counter {
   color: #696868;
+  padding-bottom: 15px;
+  padding-top: 15px;
   cursor: pointer;
-  position: absolute;
-  top: 10px;
-  width: 28px;
+  width: 40px;
 }
 
-div.notificationWrapper div.new {
+.notificationWrapper .new {
     color: red !important;
 }

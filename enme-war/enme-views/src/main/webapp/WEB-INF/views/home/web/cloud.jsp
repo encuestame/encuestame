@@ -1,13 +1,15 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<article class="web-cloud">
+<div class="container">
+
+  <article class="web-cloud">
      <article class="emne-box">
-        <h1>
+        <h2>
             <spring:message code="cloud.title" />
-        </h1>
+        </h2>
         <section class="cloudItems">
             <c:forEach items="${hashtags}" var="cloud">
                   <c:if test="${not empty cloud.hashTagName}">
-                      <span class="item" style="font-size: ${cloud.size}px;" data-dojo-type="me/web/widget/stream/HashTagInfo"
+                      <span class="item" size="${cloud.size}" data-dojo-type="me/web/widget/stream/HashTagInfo"
                             url="<%=request.getContextPath()%>/tag/${cloud.hashTagName}/"
                             hashTagName="${cloud.hashTagName}">
                       </span>
@@ -15,4 +17,6 @@
             </c:forEach>
         </section>
     </article>
-</article>
+  </article>
+
+</div>
