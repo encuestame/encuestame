@@ -187,7 +187,7 @@ public class CommentJsonController extends AbstractJsonController {
              bean.setType(typeResult);
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
              final Comment comment = getCommentService().createComment(bean);
-             jsonResponse.put("comment", comment);
+             jsonResponse.put("comment", ConvertDomainBean.convertCommentDomainToBean(comment));
              setItemResponse(jsonResponse);
          } catch (Exception e) {
               log.error(e);
