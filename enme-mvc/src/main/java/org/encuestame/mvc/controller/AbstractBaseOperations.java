@@ -717,8 +717,11 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
        addi18nProperty(model, "detail_manage_filters_advanced_type_to_search", getMessage("detail_manage_filters_advanced_type_to_search"));
        addi18nProperty(model, "detail_manage_filters_advanced_all_results", getMessage("detail_manage_filters_advanced_all_results"));
        addi18nProperty(model, "detail_manage_filters_advanced_range_days", getMessage("detail_manage_filters_advanced_range_days"));
-
+       // commons
        addi18nProperty(model, "commons_filter", getMessage("commons_filter"));
+       addi18nProperty(model, "commons_confirm");
+       addi18nProperty(model, "commons_yes");
+       addi18nProperty(model, "commons_no");
        addSocialPickerWidgetMessages(model);
    }
 }
