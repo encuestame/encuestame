@@ -16,6 +16,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,6 +30,8 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.CommentOptions;
+import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -79,6 +83,9 @@ public class Comment{
 
     /** **/
     private Boolean isPublished;
+
+    /** **/
+    private CommentOptions commentStatus;
 
     /**
      * @return the commentId
@@ -267,5 +274,21 @@ public class Comment{
 	 */
 	public void setIsPublished(final Boolean isPublished) {
 		this.isPublished = isPublished;
+	}
+
+	/**
+	 * @return the commentStatus
+	 */
+	@Column(name = "comment_status")
+    @Enumerated(EnumType.ORDINAL)
+	public CommentOptions getCommentStatus() {
+		return commentStatus;
+	}
+
+	/**
+	 * @param commentStatus the commentStatus to set
+	 */
+	public void setCommentStatus(final CommentOptions commentStatus) {
+		this.commentStatus = commentStatus;
 	}
 }
