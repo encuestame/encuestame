@@ -18,7 +18,9 @@ import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
@@ -95,7 +97,7 @@ public interface CommentsOperations extends IBaseDao {
     List<Comment> getTopRatedComments(
             final CommentsSocialOptions socialOption, final Integer timeRange,
             final Integer maxResults, final Integer startResults);
-    
+
     /**
      * Retrieve a list of comments for a poll.
      * @param poll
@@ -104,4 +106,17 @@ public interface CommentsOperations extends IBaseDao {
      * @return
      */
     List<Comment> getCommentsbPoll(final Poll poll, final Integer maxResults, final Integer start);
+
+    /**
+     *
+     * @param tpoll
+     * @param maxResults
+     * @param start
+     * @param commentStatus
+     * @param isApproved
+     * @return
+     */
+    List<Comment> getCommentsbyTypeAndStatus(final Long id,
+			final TypeSearchResult typeSearch, final Integer maxResults,
+			final Integer start, final CommentOptions commentStatus, final SearchPeriods period);
 }

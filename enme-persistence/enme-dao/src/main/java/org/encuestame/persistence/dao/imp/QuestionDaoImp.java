@@ -218,9 +218,15 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      */
     @SuppressWarnings("unchecked")
     public final List<QuestionAnswer> getAnswersByQuestionId(final Long questionId) throws HibernateException {
-        return getHibernateTemplate().findByNamedParam("from QuestionAnswer where questions.id =:questionId ",
-                                                       "questionId", questionId);
-    }
+     /*   return getHibernateTemplate().findByNamedParam("from QuestionAnswer where questions.id =:questionId ",
+                                                       "questionId", questionId);*/
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(QuestionAnswer.class);
+		criteria.createAlias("questions", "questions");
+		criteria.add(Restrictions.eq("questions.qid", questionId));
+		return getHibernateTemplate().findByCriteria(criteria);
+
+	}
 
 
 	@SuppressWarnings("unchecked")

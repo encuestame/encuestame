@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,8 +23,11 @@ import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -94,6 +98,35 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
         criteria.addOrder(Order.desc("likeVote"));
         return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
     }
+
+	@SuppressWarnings("unchecked")
+	public List<Comment> getCommentsbyTypeAndStatus(final Long id,
+			final TypeSearchResult typeSearch, final Integer maxResults,
+			final Integer start, final CommentOptions commentStatus, final SearchPeriods period) {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(Comment.class);
+		if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+			criteria.createAlias("tweetPoll", "tweetPoll");
+			criteria.add(Restrictions.eq("tweetPoll.tweetPollId", id));
+		} else if (typeSearch.equals(TypeSearchResult.POLL)) {
+			criteria.createAlias("poll", "poll");
+			criteria.add(Restrictions.eq("poll.pollId", id));
+		} else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+			criteria.createAlias("survey", "survey");
+			criteria.add(Restrictions.eq("survey.sid", id));
+		} else {
+			log.error(" Search result type undefined " + typeSearch.toString());
+		}
+
+		criteria.addOrder(Order.desc("likeVote"));
+		criteria.add(Restrictions.eq("commentStatus", commentStatus));
+		if(period!=null){
+			calculateSearchPeriodsDates(period, criteria, "createdAt");
+		}
+		return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
+	}
+
+
 
     /*
      * (non-Javadoc)
