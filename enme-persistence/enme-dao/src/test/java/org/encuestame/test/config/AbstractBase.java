@@ -2157,6 +2157,26 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create a default {@link Comment} with status.
+     * @param comment
+     * @param tpoll
+     * @param userAcc
+     * @param commentStatus
+     * @return
+     */
+    public Comment createDefaultTweetPollCommentWithStatus(
+            final String comment,
+            final TweetPoll tpoll,
+            final UserAccount userAcc,
+            final CommentOptions commentStatus,
+            final Date creationDate){
+    	final Comment tweetPollComment = this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L , creationDate);
+    	tweetPollComment.setCommentStatus(commentStatus);
+    	getCommentsOperations().saveOrUpdate(tweetPollComment);
+    	return tweetPollComment;
+    }
+
+    /**
      *
      * @param comment
      * @param tpoll
@@ -2188,6 +2208,24 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create a default {@link Poll} {@link Comment} with status
+     * @param comment
+     * @param poll
+     * @param userAcc
+     * @param commentStatus
+     * @return
+     */
+	public Comment createDefaultPollCommentWithStatus(final String comment,
+			final Poll poll, final UserAccount userAcc,
+			final CommentOptions commentStatus, final Date creationDate) {
+		final Comment pollComment = this.createComment(comment, 0L, null, null,
+				poll, userAcc, 0L, creationDate);
+		pollComment.setCommentStatus(commentStatus);
+		getCommentsOperations().saveOrUpdate(pollComment);
+		return pollComment;
+	}
+
+    /**
      * Create default survey comment.
      * @param survey
      * @return
@@ -2198,6 +2236,25 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final UserAccount userAcc){
         return this.createComment(comment, 0L, null, survey, null, userAcc, 0L, new Date());
     }
+
+    /**
+     * Create survey comment with status.
+     * @param comment
+     * @param survey
+     * @param userAcc
+     * @param commentStatus
+     * @return
+     */
+	public Comment createDefaultSurveyCommentWithStatus(final String comment,
+			final Survey survey, final UserAccount userAcc,
+			final CommentOptions commentStatus, final Date creationdate) {
+
+		final Comment surveyComment = this.createComment(comment, 0L, null,
+				survey, null, userAcc, 0L, creationdate);
+		surveyComment.setCommentStatus(commentStatus);
+		getCommentsOperations().saveOrUpdate(surveyComment);
+		return surveyComment;
+	}
 
     /**
      * Create access rate item.
@@ -2367,7 +2424,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     	final ItemStatDetail isd = new ItemStatDetail();
     	isd.setDate(creationDate);
     	isd.setItemId(itemId);
-    	isd.setMilisecondsDate(miliDate);
+    	//isd.setMilisecondsDate(miliDate);
     	return isd;
     }
 }
