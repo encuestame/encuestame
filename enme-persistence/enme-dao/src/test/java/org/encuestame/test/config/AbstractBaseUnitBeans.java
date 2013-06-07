@@ -23,6 +23,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -505,6 +506,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          commentBean.setCreatedAt(createdAt);
          commentBean.setUserAccountId(userId);
          commentBean.setId(tweetPollId);
+         commentBean.setType(TypeSearchResult.TWEETPOLL);
          return commentBean;
      }
 

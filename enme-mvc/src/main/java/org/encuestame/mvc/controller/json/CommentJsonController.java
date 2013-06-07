@@ -13,6 +13,7 @@
 package org.encuestame.mvc.controller.json;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.Comment;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnmeNotAllowedException;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.CommentBean;
@@ -168,22 +171,75 @@ public class CommentJsonController extends AbstractJsonController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/api/common/comment/create.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/common/comment/{type}/create.json", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     public @ResponseBody ModelMap createComment(
             @RequestParam(value = "comment", required = true) String mycomment,
             @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
+            @RequestParam(value = "commentId", required = false) Long relatedCommentId,
+            @PathVariable String type,
             HttpServletRequest request,
             HttpServletResponse response){
          try {
-             final CommentBean bean = new CommentBean();
-             bean.setComment(mycomment);
-             bean.setCreatedAt(new Date());
-             bean.setId(tweetPollId);
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-             final Comment comment = getCommentService().createComment(bean);
-             jsonResponse.put("comment", comment);
+             jsonResponse.put("comment", createComment(mycomment, tweetPollId, type, relatedCommentId, false));
              setItemResponse(jsonResponse);
+         } catch (Exception e) {
+              log.error(e);
+              setError(e.getMessage(), response);
+         }
+         return returnData();
+     }
+
+    /**
+     *
+     * @param mycomment
+     * @param tweetPollId
+     * @param type
+     * @param relatedCommentId
+     * @param published
+     * @return
+     * @throws EnmeNotAllowedException
+     * @throws EnMeNoResultsFoundException
+     */
+    private CommentBean createComment(
+            final String mycomment,
+            final Long tweetPollId,
+            final String type,
+            final Long relatedCommentId , boolean published) throws EnMeNoResultsFoundException, EnmeNotAllowedException {
+        final CommentBean bean = new CommentBean();
+         final TypeSearchResult typeResult = TypeSearchResult.getTypeSearchResult(filterValue(type));
+         bean.setComment(filterValue(mycomment));
+         bean.setCreatedAt(Calendar.getInstance().getTime());
+         bean.setParentId(relatedCommentId);
+         bean.setId(tweetPollId);
+         bean.setType(typeResult);
+         final Comment comment = getCommentService().createComment(bean);
+         return ConvertDomainBean.convertCommentDomainToBean(comment);
+    }
+
+    /**
+     *
+     * @param mycomment
+     * @param tweetPollId
+     * @param relatedCommentId
+     * @param type
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/api/admon/comment/{type}/create.json", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ENCUESTAME_EDITOR')")
+    public @ResponseBody ModelMap createEditorComment(
+            @RequestParam(value = "comment", required = true) String mycomment,
+            @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
+            @RequestParam(value = "commentId", required = false) Long relatedCommentId,
+            @PathVariable String type,
+            HttpServletRequest request,
+            HttpServletResponse response){
+         try {
+             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+             jsonResponse.put("comment", createComment(mycomment, tweetPollId, type, relatedCommentId, true));
          } catch (Exception e) {
               log.error(e);
               setError(e.getMessage(), response);

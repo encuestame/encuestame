@@ -30,6 +30,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnmeNotAllowedException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.CommentOptions;
@@ -137,15 +138,20 @@ public class TestCommentService extends AbstractSpringSecurityContext {
     /**
      * Test create comment
      * @throws EnMeNoResultsFoundException
+     * @throws EnmeNotAllowedException
      */
     @Test
-    public void testCreateComment() throws EnMeNoResultsFoundException{
+    public void testCreateComment() throws EnMeNoResultsFoundException, EnmeNotAllowedException{
         final CommentBean commentBean = createCommentBean("totally Agree", new Date(),
                 getSpringSecurityLoggedUserAccount().getUid(), this.tweetPoll.getTweetPollId(), null);
         final Comment comment = getCommentsOperationsService().createComment(commentBean);
         assertNotNull(comment);
     }
 
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     */
     @Test
     public void testGetCommentsbyTweetPoll() throws EnMeNoResultsFoundException{
         final List<Comment> comments = getCommentsOperationsService().getCommentsbyTweetPoll(

@@ -32,7 +32,7 @@ import org.encuestame.persistence.exception.EnMeCommentNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.utils.enums.CommentOptions;
+import org.encuestame.persistence.exception.EnmeNotAllowedException;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -158,11 +158,25 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ICommentService#createComment(org.encuestame.utils.web.CommentBean)
      */
-    public Comment createComment(final CommentBean commentBean) throws EnMeNoResultsFoundException{
+    public Comment createComment(final CommentBean commentBean) throws EnMeNoResultsFoundException, EnmeNotAllowedException{
         final Comment comment = new Comment();
         comment.setComment(commentBean.getComment());
         comment.setCreatedAt(commentBean.getCreatedAt());
+        comment.setParentId(commentBean.getParentId());
+        comment.setDislikeVote(0L);
+        comment.setLikeVote(0L);
         comment.setUser(getUserAccount(getUserPrincipalUsername()));
+        if (TypeSearchResult.TWEETPOLL.equals(commentBean.getType())) {
+            final TweetPoll tweetPoll = getTweetPollById(commentBean.getId());
+            comment.setTweetPoll(tweetPoll);
+        } else if (TypeSearchResult.POLL.equals(commentBean.getType())) {
+            final Poll poll = getPollById(commentBean.getId());
+            comment.setPoll(poll);
+        } else if (TypeSearchResult.SURVEY.equals(commentBean.getType())) {
+            //TODO: survey get imp
+        } else {
+            throw new EnmeNotAllowedException("type not allowed");
+        }
         getCommentsOperations().saveOrUpdate(comment);
         return comment;
     }

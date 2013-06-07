@@ -19,7 +19,9 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+
 import org.encuestame.utils.enums.CommentOptions;
+import org.encuestame.persistence.exception.EnmeNotAllowedException;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -85,8 +87,9 @@ public interface ICommentService {
      * @param commentBean
      * @return
      * @throws EnMeNoResultsFoundException
+     * @throws EnmeNotAllowedException
      */
-    Comment createComment(final CommentBean commentBean) throws EnMeNoResultsFoundException;
+    Comment createComment(final CommentBean commentBean) throws EnMeNoResultsFoundException, EnmeNotAllowedException;
 
     /***
      * Get comments by TweetPoll.

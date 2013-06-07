@@ -139,7 +139,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      */
     @Test
      public void testCreateComment() throws ServletException, IOException{
-         initService("/api/common/comment/create.json", MethodJson.POST);
+         initService("/api/common/comment/tweetpoll/create.json", MethodJson.POST);
          setParameter("comment", "My Comment");
          setParameter("tweetPollId", this.tweetPoll.getTweetPollId().toString());
          final JSONObject response = callJsonService();
