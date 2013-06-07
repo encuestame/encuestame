@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.InternetTest;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.LinksSocialBean;
@@ -795,7 +796,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
         myCommentBean.setDislikeVote(10L);
         myCommentBean.setLikeVote(50L);
         myCommentBean.setParentId(0L);
-        myCommentBean.setType("TWEETPOLL");
+        myCommentBean.setType(TypeSearchResult.TWEETPOLL);
         myCommentBean.setUserAccountId(1L);
         assertNotNull(myCommentBean);
         assertNotNull(myCommentBean.getCommentId());
@@ -965,9 +966,9 @@ public class TestUnitBeans extends AbstractBaseUtils {
      */
     @Test
     public void testHashTagRankingBean(){
-        final HashTagRankingBean tagRankingBean = new HashTagRankingBean(); 
+        final HashTagRankingBean tagRankingBean = new HashTagRankingBean();
         tagRankingBean.setPosition(3);
-        tagRankingBean.setTagName("Spain"); 
+        tagRankingBean.setTagName("Spain");
         tagRankingBean.setLastPosition(10);
         assertNotNull(tagRankingBean.getPosition());
         assertNotNull(tagRankingBean.getTagName());
@@ -1125,25 +1126,25 @@ public class TestUnitBeans extends AbstractBaseUtils {
     /**
      * Test {@link ProfileRatedTopBean}.
      */
-	@Test
-	public void testProfileRatedTopBean() {
-		final ProfileRatedTopBean profileRatedTop = new ProfileRatedTopBean();
-		profileRatedTop.setCurrentPos(0);
-		profileRatedTop.setDisLikeVotes(1L);
-		profileRatedTop.setLastPos(3);
-		profileRatedTop.setLikeVotes(2L);
-		profileRatedTop.setTopValue(5L);
-		profileRatedTop.setTotalbyItems(15L);
-		profileRatedTop.setUrl("url");
-		profileRatedTop.setUsername("admin");
+    @Test
+    public void testProfileRatedTopBean() {
+        final ProfileRatedTopBean profileRatedTop = new ProfileRatedTopBean();
+        profileRatedTop.setCurrentPos(0);
+        profileRatedTop.setDisLikeVotes(1L);
+        profileRatedTop.setLastPos(3);
+        profileRatedTop.setLikeVotes(2L);
+        profileRatedTop.setTopValue(5L);
+        profileRatedTop.setTotalbyItems(15L);
+        profileRatedTop.setUrl("url");
+        profileRatedTop.setUsername("admin");
 
-		assertNotNull(profileRatedTop.getCurrentPos());
-		assertNotNull(profileRatedTop.getDisLikeVotes());
-		assertNotNull(profileRatedTop.getLastPos());
-		assertNotNull(profileRatedTop.getLikeVotes());
-		assertNotNull(profileRatedTop.getTopValue());
-		assertNotNull(profileRatedTop.getTotalbyItems());
-		assertNotNull(profileRatedTop.getUrl());
-		assertNotNull(profileRatedTop.getUsername());
-	}
+        assertNotNull(profileRatedTop.getCurrentPos());
+        assertNotNull(profileRatedTop.getDisLikeVotes());
+        assertNotNull(profileRatedTop.getLastPos());
+        assertNotNull(profileRatedTop.getLikeVotes());
+        assertNotNull(profileRatedTop.getTopValue());
+        assertNotNull(profileRatedTop.getTotalbyItems());
+        assertNotNull(profileRatedTop.getUrl());
+        assertNotNull(profileRatedTop.getUsername());
+    }
 }
