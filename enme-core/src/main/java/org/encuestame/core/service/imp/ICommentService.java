@@ -19,7 +19,9 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
@@ -118,4 +120,17 @@ public interface ICommentService {
       */
      List<CommentBean> getTopRatedComments(final CommentsSocialOptions socialCommentOption, final Integer maxResults,
              final Integer start);
+
+     /**
+      * Retrieve {@link Comment} by Status and Comment type.
+      * @param id
+      * @param typeSearch
+      * @param maxResults
+      * @param start
+      * @param commentStatus
+      * @return
+      */
+     List<Comment> retrieveCommentsByTypeAndStatus(final Long id,
+ 			final TypeSearchResult typeSearch, final Integer maxResults,
+ 			final Integer start, final CommentOptions commentStatus, final SearchPeriods period);
 }

@@ -32,7 +32,9 @@ import org.encuestame.persistence.exception.EnMeCommentNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
@@ -176,7 +178,7 @@ public class CommentService extends AbstractBaseService implements ICommentServi
         tweetPollComments = getCommentsOperations().getCommentsbyTweetPoll(tweetPoll, maxResults, start);
         return tweetPollComments;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ICommentService#getTopRatedComments(org.encuestame.utils.enums.CommentsSocialOptions, java.lang.Integer, java.lang.Integer)
@@ -218,6 +220,25 @@ public class CommentService extends AbstractBaseService implements ICommentServi
         }
 
     }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.encuestame.core.service.imp.ICommentService#
+	 * retrieveCommentsByTypeAndStatus(java.lang.Long,
+	 * org.encuestame.utils.enums.TypeSearchResult, java.lang.Integer,
+	 * java.lang.Integer, org.encuestame.utils.enums.CommentOptions)
+	 */
+	public List<Comment> retrieveCommentsByTypeAndStatus(final Long id,
+			final TypeSearchResult typeSearch, final Integer maxResults,
+			final Integer start, final CommentOptions commentStatus, final SearchPeriods period) {
+		List<Comment> commentsByStatus = new ArrayList<Comment>();
+
+		commentsByStatus = getCommentsOperations().getCommentsbyTypeAndStatus(
+				id, typeSearch, maxResults, start, commentStatus, period);
+
+		return commentsByStatus;
+	}
 
     /**
      * Vote dislike comment option.
