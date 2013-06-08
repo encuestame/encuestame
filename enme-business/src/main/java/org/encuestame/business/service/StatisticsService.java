@@ -291,7 +291,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
     private List<Object[]> getTweetPollsRangeStats(
             final String tagName,
             final SearchPeriods period) {
-    	List<Object[]> tweetPollsByHashTag = getTweetPollDao().getTweetPollsRangeStats(tagName, period);
+        List<Object[]> tweetPollsByHashTag = getTweetPollDao().getTweetPollsRangeStats(tagName, period);
         return tweetPollsByHashTag;
     }
 
@@ -722,21 +722,29 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
      * @param dayLabel
      * @return
      */
-	private boolean checkLabelExistsHashTagDetailStatGraph(
-			final List<HashTagDetailStats> detail,
-			final DateTime dayLabel) {
+    private boolean checkLabelExistsHashTagDetailStatGraph(
+            final List<HashTagDetailStats> detail,
+            final DateTime dayLabel) {
         boolean existLabel = false;
 
         if (detail.size() > 0) {
             for (HashTagDetailStats hashTagDetailStats : detail) {
 
-            	final int detailStat = hashTagDetailStats.getDateValue().toLocalDate().compareTo(dayLabel.toLocalDate());
-            	// Values:  0 = Exist 1 = No exists
-            	if(detailStat ==0){
+                final int detailStat = hashTagDetailStats.getDateValue().toLocalDate().compareTo(dayLabel.toLocalDate());
+                // Values:  0 = Exist 1 = No exists
+                if(detailStat ==0){
                     existLabel = true;
                 }
             }
         }
         return existLabel;
     }
+
+//	@Override
+//	public List<HashTagDetailStats> compareList2(List<ItemStatDetail> itemList,
+//			SearchPeriods period, HttpServletRequest request)
+//			throws EnMeSearchException {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }
