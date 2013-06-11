@@ -23,6 +23,7 @@ import org.encuestame.persistence.dao.imp.CommentDao;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
@@ -56,6 +57,9 @@ public class TestCommentDao extends AbstractBase {
     /** {@link TweetPoll} **/
     private TweetPoll tpoll;
 
+    /** {@link Poll} **/
+    private Poll poll;
+
     /** Max results**/
     private Integer MAX_RESULTS = 10;
 
@@ -71,7 +75,7 @@ public class TestCommentDao extends AbstractBase {
         this.question = createQuestion("When did you go last weekend", "");
         this.tpoll = createPublishedTweetPoll(user.getAccount(), this.question);
         this.comment = createDefaultTweetPollCommentVoted("I was working", this.tpoll, user, 150L, 985L, new Date());
-
+        this.poll = createDefaultPoll(this.question, this.user);
     }
 
     /**
@@ -131,9 +135,101 @@ public class TestCommentDao extends AbstractBase {
         assertEquals("Should be equals", 2, commentbyTweetPoll.size());
         final Long totalComment = getCommentsOperations()
                 .getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
-                        TypeSearchResult.TWEETPOLL);
+                        TypeSearchResult.TWEETPOLL, null);
         assertEquals("Should be equals", 2, totalComment.intValue());
     }
+
+    /**
+     *
+     */
+    @Test
+    public void testRetrieveTweetPollCommentsbyStatus(){
+	    createDefaultTweetPollCommentWithStatus("first comments", tpoll, this.user, CommentOptions.APPROVE, this.creationDate.toDate());
+	    createDefaultTweetPollCommentWithStatus("second comments", tpoll, this.user, CommentOptions.MODERATE, this.creationDate.toDate());
+	    createDefaultTweetPollCommentWithStatus("third comments", tpoll, this.user, CommentOptions.RESTRICT, this.creationDate.toDate());
+	    createDefaultTweetPollCommentWithStatus("third comments", tpoll, this.user, CommentOptions.APPROVE, this.creationDate.toDate());
+	    createDefaultTweetPollCommentWithStatus("third comments", tpoll, this.user, CommentOptions.MODERATE, this.creationDate.toDate());
+	    createDefaultTweetPollCommentWithStatus("third comments", tpoll, this.user, CommentOptions.APPROVE, this.creationDate.toDate());
+
+		final Long tweetpollCommentsApproved = getCommentsOperations()
+				.getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, CommentOptions.APPROVE);
+		assertEquals("Comments approved should be equals", 3, tweetpollCommentsApproved.intValue());
+
+		final Long tweetpollCommentsModerate = getCommentsOperations()
+				.getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, CommentOptions.MODERATE);
+
+		assertEquals("Comments moderate should be equals", 2, tweetpollCommentsModerate.intValue());
+
+
+		final Long tweetpollCommentsRestrict = getCommentsOperations()
+				.getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, CommentOptions.RESTRICT);
+
+		assertEquals("Comments Restrict should be equals", 1, tweetpollCommentsRestrict.intValue());
+    }
+
+    /**
+     * Retrieve all {@link Comment} by status
+     */
+	@Test
+    public void testRetrieveAllCommentsbyStatus(){
+		createDefaultTweetPollCommentWithStatus("aaa comments", tpoll,
+				this.user, CommentOptions.APPROVE, this.creationDate.toDate());
+		createDefaultTweetPollCommentWithStatus("bbb comments", tpoll,
+				this.user, CommentOptions.MODERATE, this.creationDate.toDate());
+
+		createDefaultTweetPollCommentWithStatus("ccc comments", tpoll,
+				this.user, CommentOptions.MODERATE, this.creationDate.toDate());
+
+		createDefaultPollCommentWithStatus("ggg comments", poll, this.user,
+				CommentOptions.APPROVE, creationDate.toDate());
+		createDefaultPollCommentWithStatus("hhh comments", poll, this.user,
+				CommentOptions.MODERATE, creationDate.toDate());
+
+
+
+	    final Long totalPollCommentsApproved = getCommentsOperations().getTotalCommentsbyTypeAndStatus(TypeSearchResult.POLL, CommentOptions.MODERATE);
+	    assertEquals("Comments Moderate should be equals", 1, totalPollCommentsApproved.intValue());
+
+
+	    final Long totalTweetPollCommentsApproved = getCommentsOperations()
+				.getTotalCommentsbyTypeAndStatus(TypeSearchResult.TWEETPOLL,
+						CommentOptions.APPROVE);
+	    assertEquals("Comments Approve should be equals", 1, totalTweetPollCommentsApproved.intValue());
+
+    }
+
+	/**
+	 *
+	 */
+	@Test
+	public void testRetrieveAllPollCommentsbyStatus() {
+		createDefaultPollCommentWithStatus("aaa comments", this.poll,
+				this.user, CommentOptions.APPROVE, this.creationDate.toDate());
+		createDefaultPollCommentWithStatus("bbb comments", this.poll,
+				this.user, CommentOptions.MODERATE, this.creationDate.toDate());
+		createDefaultPollCommentWithStatus("ccc comments", this.poll,
+				this.user, CommentOptions.RESTRICT, this.creationDate.toDate());
+		createDefaultPollCommentWithStatus("ddd comments", this.poll,
+				this.user, CommentOptions.APPROVE, this.creationDate.toDate());
+		createDefaultPollCommentWithStatus("eee comments", this.poll,
+				this.user, CommentOptions.MODERATE, this.creationDate.toDate());
+		createDefaultPollCommentWithStatus("fff comments", this.poll,
+				this.user, CommentOptions.APPROVE, this.creationDate.toDate());
+
+		createDefaultPollCommentWithStatus("ggg comments", this.poll, this.user,
+				CommentOptions.APPROVE, creationDate.toDate());
+		createDefaultPollCommentWithStatus("hhh comments", this.poll, this.user,
+				CommentOptions.MODERATE, creationDate.toDate());
+
+		final Long totalPollCommentsApproved = getCommentsOperations()
+				.getTotalCommentsbyTypeAndStatus(TypeSearchResult.POLL,
+						CommentOptions.APPROVE);
+		  assertEquals("Comments Approve should be equals", 4, totalPollCommentsApproved.intValue());
+	}
+
 
     /**
      * Test get top rated comments.
