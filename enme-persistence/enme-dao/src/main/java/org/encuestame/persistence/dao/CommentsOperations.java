@@ -86,7 +86,7 @@ public interface CommentsOperations extends IBaseDao {
      * @param commentStatus
      * @return
      */
-    Long getTotalCommentsbyItem(final Long id, final TypeSearchResult itemType, final CommentOptions commentStatus);
+    Long getTotalCommentsbyItem(final Long id, final TypeSearchResult itemType, final CommentOptions commentStatus, final SearchPeriods period);
 
     /**
      * Get top rated comments.
@@ -129,6 +129,6 @@ public interface CommentsOperations extends IBaseDao {
      * @return
      */
     Long getTotalCommentsbyTypeAndStatus(
-			final TypeSearchResult itemType, final CommentOptions commentStatus);
+			final TypeSearchResult itemType, final CommentOptions commentStatus, final SearchPeriods period);
 
 }

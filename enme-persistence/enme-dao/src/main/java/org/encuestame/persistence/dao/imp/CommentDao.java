@@ -149,7 +149,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 	 * (java.lang.Long, org.encuestame.utils.enums.TypeSearchResult,
 	 * org.encuestame.utils.enums.CommentOptions)
 	 */
-    public Long getTotalCommentsbyItem(final Long id, final TypeSearchResult itemType, final CommentOptions commentStatus){
+    public Long getTotalCommentsbyItem(final Long id, final TypeSearchResult itemType, final CommentOptions commentStatus, final SearchPeriods period){
           final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
           criteria.setProjection(Projections.rowCount());
           if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
@@ -167,6 +167,9 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
           if(commentStatus!=null){
       		criteria.add(Restrictions.eq("commentStatus", commentStatus));
           }
+          if(period!=null){
+  				calculateSearchPeriodsDates(period, criteria, "createdAt");
+            }
           @SuppressWarnings("unchecked")
           List<Long> results = getHibernateTemplate().findByCriteria(criteria);
           log.trace("Retrieve total comments by  " + itemType + "--->"
@@ -183,7 +186,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 	 * org.encuestame.utils.enums.CommentOptions)
 	 */
 	public Long getTotalCommentsbyTypeAndStatus(
-			final TypeSearchResult itemType, final CommentOptions commentStatus) {
+			final TypeSearchResult itemType, final CommentOptions commentStatus, final SearchPeriods period) {
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(Comment.class);
 		criteria.setProjection(Projections.rowCount());
@@ -202,6 +205,9 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 		if (commentStatus != null) {
 			criteria.add(Restrictions.eq("commentStatus", commentStatus));
 		}
+		 if(period!=null){
+				calculateSearchPeriodsDates(period, criteria, "createdAt");
+         }
 		@SuppressWarnings("unchecked")
 		List<Long> results = getHibernateTemplate().findByCriteria(criteria);
 		log.trace("Retrieve total comments by  " + itemType + "--->"
