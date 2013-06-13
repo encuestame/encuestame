@@ -135,7 +135,7 @@ public interface ICommentService {
       * @param commentStatus
       * @return
       */
-     List<Comment> retrieveCommentsByTypeAndStatus(final Long id,
+     List<CommentBean> retrieveCommentsByTypeAndStatus(final Long id,
  			final TypeSearchResult typeSearch, final Integer maxResults,
  			final Integer start, final CommentOptions commentStatus, final SearchPeriods period);
 

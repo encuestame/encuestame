@@ -313,7 +313,7 @@ public class CommentJsonController extends AbstractJsonController {
 					.getPeriodString(period);
 
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-			final List<Comment> commentsByStatus = getCommentService()
+			final List<CommentBean> commentsByStatus = getCommentService()
 					.retrieveCommentsByTypeAndStatus(id, type, maxResults,
 							start, statusComm, searchPeriod);
 

@@ -112,7 +112,7 @@ public class TestCommentService extends AbstractSpringSecurityContext {
     @Test
     public void testGetCommentsbyUser() throws EnMeNoResultsFoundException{
         assertNotNull(this.comment);
-        final List<CommentBean> commentsbyUser = getCommentsOperationsService().getCommentsbyUser(this.MAX_RESULTS, this.START);
+        final List<CommentBean> commentsbyUser = getCommentsOperationsService().getCommentsbyUser(this.MAX_RESULTS, this.START, null);
         assertEquals("Should be equals", 4, commentsbyUser.size());
     }
 
@@ -215,21 +215,21 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 					CommentOptions.RESTRICT, this.creationDate.toDate());
 		}
 
-		final List<Comment> tweetPollCommentsApproved = getCommentsOperationsService()
+		final List<CommentBean> tweetPollCommentsApproved = getCommentsOperationsService()
 				.retrieveCommentsByTypeAndStatus(
 						this.tweetPoll.getTweetPollId(),
 						 TypeSearchResult.TWEETPOLL, 20, 0,
 						CommentOptions.APPROVE, null);
 		assertEquals("Should be equals", 10, tweetPollCommentsApproved.size());
 
-		final List<Comment> tweetPollCommentsSpam = getCommentsOperationsService()
+		final List<CommentBean> tweetPollCommentsSpam = getCommentsOperationsService()
 				.retrieveCommentsByTypeAndStatus(
 						this.tweetPoll.getTweetPollId(),
 						TypeSearchResult.TWEETPOLL, 20, 0,
 						CommentOptions.SPAM, null);
 		assertEquals("Should be equals", 5, tweetPollCommentsSpam.size());
 
-		final List<Comment> tweetPollCommentsRestricted = getCommentsOperationsService()
+		final List<CommentBean> tweetPollCommentsRestricted = getCommentsOperationsService()
 				.retrieveCommentsByTypeAndStatus(
 						this.tweetPoll.getTweetPollId(),
 						 TypeSearchResult.TWEETPOLL, 20, 0,
@@ -251,7 +251,7 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 					this.creationDate.toDate());
 		}
 
-		final List<Comment> tweetPollCommentsApproved = getCommentsOperationsService()
+		final List<CommentBean> tweetPollCommentsApproved = getCommentsOperationsService()
 				.retrieveCommentsByTypeAndStatus(this.poll.getPollId(),
 						TypeSearchResult.POLL, 20, 0, CommentOptions.SPAM,
 						SearchPeriods.TWENTYFOURHOURS);

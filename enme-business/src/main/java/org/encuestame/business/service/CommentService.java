@@ -244,15 +244,19 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * org.encuestame.utils.enums.TypeSearchResult, java.lang.Integer,
      * java.lang.Integer, org.encuestame.utils.enums.CommentOptions)
      */
-    public List<Comment> retrieveCommentsByTypeAndStatus(final Long id,
+    public List<CommentBean> retrieveCommentsByTypeAndStatus(final Long id,
             final TypeSearchResult typeSearch, final Integer maxResults,
             final Integer start, final CommentOptions commentStatus, final SearchPeriods period) {
         List<Comment> commentsByStatus = new ArrayList<Comment>();
+        final List<CommentBean> commentBean = new ArrayList<CommentBean>();
 
         commentsByStatus = getCommentsOperations().getCommentsbyTypeAndStatus(
                 id, typeSearch, maxResults, start, commentStatus, period);
 
-        return commentsByStatus;
+
+        commentBean.addAll(ConvertDomainBean
+                .convertListCommentDomainToBean(commentsByStatus));
+        return commentBean;
     }
 
 	/*

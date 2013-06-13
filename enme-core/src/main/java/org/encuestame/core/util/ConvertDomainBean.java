@@ -1242,6 +1242,7 @@ public class ConvertDomainBean {
         commentBean.setCommentedBy(commentDomain.getUser().getCompleteName());
         commentBean.setCommentedByUsername(commentDomain.getUser()
                 .getUsername());
+        commentBean.setStatus(commentDomain.getCommentStatus());
         // url
         // tweetpoll/4/do-you-like-summer-season%3F
         if (type != null) {
