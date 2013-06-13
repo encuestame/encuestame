@@ -15,6 +15,8 @@ package org.encuestame.core.service.imp;
 import java.util.List;
 
 import org.encuestame.persistence.domain.Comment;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -67,7 +69,7 @@ public interface ICommentService {
      * @throws EnMeNoResultsFoundException
      */
     List<CommentBean> getCommentsbyUser(final Integer maxResults,
-            final Integer start) throws EnMeNoResultsFoundException;
+            final Integer start, final CommentOptions commentStatus) throws EnMeNoResultsFoundException;
 
     /**
      * Get comments by keyword.
@@ -136,4 +138,30 @@ public interface ICommentService {
      List<Comment> retrieveCommentsByTypeAndStatus(final Long id,
  			final TypeSearchResult typeSearch, final Integer maxResults,
  			final Integer start, final CommentOptions commentStatus, final SearchPeriods period);
+
+     /**
+      * Retrieve total comments by type: {@link TweetPoll} {@link Poll} {@link Survey}
+      * @param id
+      * @param itemType
+      * @param commentStatus
+      * @param period
+      * @return
+      * @throws EnMeNoResultsFoundException
+      */
+     Long totalCommentsbyType(final Long id,
+ 			final TypeSearchResult itemType,
+ 			final CommentOptions commentStatus, final SearchPeriods period) throws EnMeNoResultsFoundException;
+
+
+     /**
+      * Retrieve total comments by type: {@link TweetPoll}, {@link Poll} or Survey and Status : CommentOptions.
+      * @param itemType
+      * @param commentStatus
+      * @param period
+      * @return
+      * @throws EnMeNoResultsFoundException
+      */
+     Long totalCommentsbyTypeAndStatus(final TypeSearchResult itemType,
+ 			final CommentOptions commentStatus, final SearchPeriods period)
+ 			throws EnMeNoResultsFoundException;
 }
