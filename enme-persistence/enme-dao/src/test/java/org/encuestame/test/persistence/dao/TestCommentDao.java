@@ -118,7 +118,7 @@ public class TestCommentDao extends AbstractBase {
         final Question question2 = createQuestion("Who will win the supercopa", "");
         final TweetPoll tpoll2 = createPublishedTweetPoll(user.getAccount(), question2);
         createDefaultTweetPollComment("I was playing pc games", tpoll2, user);
-        final List<Comment> commentList = getCommentsOperations().getCommentsbyUser(this.user, this.MAX_RESULTS, this.START);
+        final List<Comment> commentList = getCommentsOperations().getCommentsbyUser(this.user, this.MAX_RESULTS, this.START, null);
         assertEquals("Should be equals", 2, commentList.size());
     }
 

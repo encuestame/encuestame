@@ -13,7 +13,6 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +22,6 @@ import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
@@ -74,16 +72,25 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
         return (Comment) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.CommentsOperations#getCommentsbyUser(org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
-     */
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.CommentsOperations#getCommentsbyUser(org
+	 * .encuestame.persistence.domain.security.UserAccount, java.lang.Integer,
+	 * java.lang.Integer, org.encuestame.utils.enums.CommentOptions)
+	 */
     @SuppressWarnings("unchecked")
-    public List<Comment> getCommentsbyUser(final UserAccount userAcc, final Integer maxResults, final Integer start){
+	public List<Comment> getCommentsbyUser(final UserAccount userAcc,
+			final Integer maxResults, final Integer start,
+			final CommentOptions commentStatus) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
         criteria.add(Restrictions.eq("user", userAcc));
         criteria.addOrder(Order.desc("createdAt"));
         criteria.addOrder(Order.desc("likeVote"));
+        if(commentStatus!=null){
+        	 criteria.add(Restrictions.eq("commentStatus", commentStatus));
+        }
         return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
     }
 

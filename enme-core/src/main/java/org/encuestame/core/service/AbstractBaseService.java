@@ -775,7 +775,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return
      */
     protected Long getTotalCommentsbyType(final Long itemId, final TypeSearchResult itemType){
-        final Long totalComments = getCommentsOperations().getTotalCommentsbyItem(itemId, itemType, null);
+        final Long totalComments = getCommentsOperations().getTotalCommentsbyItem(itemId, itemType, null , null);
         return totalComments;
     }
 
