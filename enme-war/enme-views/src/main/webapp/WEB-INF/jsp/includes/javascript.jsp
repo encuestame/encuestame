@@ -36,7 +36,7 @@ require([
     "dojo/parser",
     "dojo/ready",
     'me/activity/Activity',
-    "me/core/enme",
+    "me/core/enme"
 ], function(dojo, declare, parser, ready, Activity, _ENME) {
     ready(function(){
         // Call the parser manually so it runs after our widget is defined, and page has finished loading
