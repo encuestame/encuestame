@@ -127,7 +127,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
     public void testAddGadgetOnDashboard() throws ServletException, IOException{
         final Dashboard myBoard = createDashboard("My Third board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
         final Gadget myGadget = createGadgetDefault(myBoard);
-        initService("/api/common/gadgets/add.json", MethodJson.GET);
+        initService("/api/common/gadgets/add.json", MethodJson.POST);
         setParameter("boardId", myBoard.getBoardId().toString());
         setParameter("gadgetId", myGadget.getGadgetId().toString());
         final JSONObject response = callJsonService();
@@ -145,7 +145,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
     public void testMoveGadgetOnDashboard() throws ServletException, IOException{
         final Dashboard myBoard = createDashboard("My Surveys board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
         final Gadget myGadget = createGadgetDefault(myBoard);
-        initService("/api/common/dashboard/move-gadget.json", MethodJson.GET);
+        initService("/api/common/dashboard/move-gadget.json", MethodJson.PUT);
         setParameter("gadgetId", myGadget.getGadgetId().toString() );
         setParameter("position", "3" );
         setParameter("column",  "2");
@@ -163,7 +163,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
     public void testRemoveGadgetOnDashboard() throws ServletException, IOException{
         final Dashboard tpBoard = createDashboard("My TweetPoll board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
         final Gadget myGadget = createGadgetDefault(tpBoard);
-        initService("/api/common/dashboard/gadget/remove.json", MethodJson.GET);
+        initService("/api/common/dashboard/gadget/remove.json", MethodJson.DELETE);
         setParameter("gadgetId", myGadget.getGadgetId().toString() );
         setParameter("dashboardId", tpBoard.getBoardId().toString());
         final JSONObject response = callJsonService();

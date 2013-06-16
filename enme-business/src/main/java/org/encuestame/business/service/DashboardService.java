@@ -132,7 +132,7 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.IDashboardService#getGadgetById(java.lang.Long)
      */
-    public Gadget getGadgetById(final Long gadgetId){
+    public Gadget getGadgetById(final Long gadgetId) {
         final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
         return gadget;
     }
@@ -184,7 +184,6 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * @see org.encuestame.business.service.imp.IDashboardService#addGadgetOnDashboard(java.lang.Long, java.lang.Long)
      */
     public Gadget addGadgetOnDashboard(final Long boardId, final String gadgetId) throws EnMeNoResultsFoundException{
-        log.debug("addGadgetOnDashboard "+gadgetId);
         final Properties gProperties = GadgetsLoader.getDirectoy(gadgetId);
         if (gProperties != null) {
             final Dashboard dashboard = getDashboardDao().getDashboardbyId(boardId);
@@ -224,16 +223,16 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * @param gProperties
      * @return
      */
-    private Gadget createNewGadget(final Properties gProperties, final Dashboard dashboard){
+    private Gadget createNewGadget(final Properties gProperties, final Dashboard dashboard) {
         final Gadget gadget = new Gadget();
         gadget.setGadgetColumn(1);
         gadget.setGadgetName(gProperties.getProperty("name"));
         log.debug("widget "+gProperties.getProperty("name"));
         GadgetType d = GadgetType.getGadgetType(gProperties.getProperty("name"));
-        log.debug("gadget type: "+d);
+        log.debug("gadget type: " + d);
         gadget.setGadgetType(d);
         gadget.setGadgetColor(PictureUtils.getRandomHexColor());
-        gadget.setStatus(true);
+        gadget.setStatus(Boolean.TRUE);
         gadget.setGadgetPosition(1);
         gadget.setDashboard(dashboard);
         getDashboardDao().saveOrUpdate(gadget);
@@ -298,10 +297,9 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
     public List<GadgetProperties> getPropertiesbyGadget(final Long gadgetId) throws EnMeGadgetNotFoundException{
         final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
         List<GadgetProperties> properties = new ArrayList<GadgetProperties>();
-        if(gadget==null){
+        if (gadget == null) {
             throw new EnMeGadgetNotFoundException("gadget not found");
-        }
-        else{
+        } else{
             properties = getDashboardDao().retrievePropertiesbyGadget(gadgetId);
         }
         return properties;
