@@ -115,27 +115,6 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         Assert.assertEquals(items.get("dashboard_name"), "dasboard 1");
     }
 
-
-    /**
-     *
-     * @throws ServletException
-     * @throws IOException
-     */
-    //@Test
-    public void testmoveGadget() throws ServletException, IOException {
-        final Dashboard db = createDashboard("dashboard 1", true, getSpringSecurityLoggedUserAccount());
-        initService("/api/common/dashboard/move-gadget.json", MethodJson.GET);
-        setParameter("gadgetId", "stream");
-        setParameter("position", "1");
-        setParameter("column", "1");
-        setParameter("dashboardId", db.getBoardId().toString());
-        final JSONObject response = callJsonService();
-        final JSONObject success = getSucess(response);
-        //final JSONObject items = (JONObject) success.get("dashboard");
-        //Assert.assertNotNull(items);
-        //Assert.assertEquals(items.get("dashboard_name"), "dasboard 1");
-    }
-
     /**
      * Test Get frontend items.
      * @throws IOException

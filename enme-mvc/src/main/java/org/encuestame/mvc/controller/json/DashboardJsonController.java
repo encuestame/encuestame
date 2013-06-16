@@ -243,9 +243,8 @@ public class DashboardJsonController extends AbstractJsonController {
            HttpServletRequest request,
            HttpServletResponse response){
        try {
-            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             getDashboardService().removeGadget(gadgetId, dashboardId);
-            setItemResponse(jsonResponse);
+            setSuccesResponse();
        } catch (Exception e) {
            log.error(e);
            setError(e.getMessage(), response);
