@@ -44,7 +44,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
      */
     @Test
     public void testCreateDashboard() throws ServletException, IOException{
-        initService("/api/common/dashboard/create-dashboard.json", MethodJson.POST);
+        initService("/api/common/dashboard/create.json", MethodJson.POST);
         setParameter("name", "test");
         setParameter("desc", "test");
         setParameter("favorite", "true");
@@ -145,8 +145,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
     public void testMoveGadgetOnDashboard() throws ServletException, IOException{
         final Dashboard myBoard = createDashboard("My Surveys board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
         final Gadget myGadget = createGadgetDefault(myBoard);
-        initService("/api/common/dashboard/move-gadget.json", MethodJson.PUT);
-        setParameter("gadgetId", myGadget.getGadgetId().toString() );
+        initService("/api/common/" + myGadget.getGadgetId().toString() + "/gadget.json", MethodJson.PUT);
         setParameter("position", "3" );
         setParameter("column",  "2");
         setParameter("dashboardId", myBoard.getBoardId().toString());

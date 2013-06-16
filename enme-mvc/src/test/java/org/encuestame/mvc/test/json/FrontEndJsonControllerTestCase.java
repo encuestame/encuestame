@@ -103,7 +103,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      */
     @Test
     public void testcreateDashBoard() throws ServletException, IOException {
-        initService("/api/common/dashboard/create-dashboard.json", MethodJson.POST);
+        initService("/api/common/dashboard/create.json", MethodJson.POST);
         setParameter("name", "dasboard 1");
         setParameter("desc", "description of my dashboard");
         setParameter("favourite", "true");
