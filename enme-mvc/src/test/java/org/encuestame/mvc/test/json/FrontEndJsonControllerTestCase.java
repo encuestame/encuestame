@@ -103,7 +103,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      */
     @Test
     public void testcreateDashBoard() throws ServletException, IOException {
-        initService("/api/common/dashboard/create-dashboard.json", MethodJson.POST);
+        initService("/api/common/dashboard/create.json", MethodJson.POST);
         setParameter("name", "dasboard 1");
         setParameter("desc", "description of my dashboard");
         setParameter("favourite", "true");
@@ -113,27 +113,6 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject items = (JSONObject) success.get("dashboard");
         Assert.assertNotNull(items);
         Assert.assertEquals(items.get("dashboard_name"), "dasboard 1");
-    }
-
-
-    /**
-     *
-     * @throws ServletException
-     * @throws IOException
-     */
-    //@Test
-    public void testmoveGadget() throws ServletException, IOException {
-        final Dashboard db = createDashboard("dashboard 1", true, getSpringSecurityLoggedUserAccount());
-        initService("/api/common/dashboard/move-gadget.json", MethodJson.GET);
-        setParameter("gadgetId", "stream");
-        setParameter("position", "1");
-        setParameter("column", "1");
-        setParameter("dashboardId", db.getBoardId().toString());
-        final JSONObject response = callJsonService();
-        final JSONObject success = getSucess(response);
-        //final JSONObject items = (JONObject) success.get("dashboard");
-        //Assert.assertNotNull(items);
-        //Assert.assertEquals(items.get("dashboard_name"), "dasboard 1");
     }
 
     /**

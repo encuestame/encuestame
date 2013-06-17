@@ -44,7 +44,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
      */
     @Test
     public void testCreateDashboard() throws ServletException, IOException{
-        initService("/api/common/dashboard/create-dashboard.json", MethodJson.POST);
+        initService("/api/common/dashboard/create.json", MethodJson.POST);
         setParameter("name", "test");
         setParameter("desc", "test");
         setParameter("favorite", "true");
@@ -84,16 +84,6 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
         Assert.assertEquals(gadgets2.size(), 2);
     }
 
-    /*@Test
-    public void testMoveGadgets() throws ServletException, IOException{
-        initService("/api/common/move-gadgets.json", MethodJson.GET);
-        setParameter("gadgetId", "gadgetId");
-        setParameter("position", "position");
-        setParameter("column", "column");
-        final JSONObject response = callJsonService();
-        final JSONObject success = getSucess(response);
-    }*/
-
     /**
      * Test Get my dashboards json service.
      * @throws ServletException
@@ -121,19 +111,26 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
      * @throws IOException
      * @throws ServletException
      */
-    //@Test
-    //estAddGadgetOnDashboard(org.encuestame.mvc.test.json.DashboardJsonControllerTestCase): Could not resolve view with name 'api/common/gadgets/add' in servlet with name ''
-    //FIXME
+    @Test
     public void testAddGadgetOnDashboard() throws ServletException, IOException{
         final Dashboard myBoard = createDashboard("My Third board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
-        final Gadget myGadget = createGadgetDefault(myBoard);
-        initService("/api/common/gadgets/add.json", MethodJson.GET);
-        setParameter("boardId", myBoard.getBoardId().toString());
-        setParameter("gadgetId", myGadget.getGadgetId().toString());
+        //final Gadget myGadget = createGadgetDefault(myBoard);
+        initService("/api/common/stream/gadget.json", MethodJson.POST);
+        setParameter("id", myBoard.getBoardId().toString());
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
+        //gadget move--------->{"error":{},"success":{"gadget":{"id":4,"gadget_position":1,"gadget_column":1,"gadget_status":true,"gadget_name":"stream","gadget_color":"#78FCF2"}}}
         final JSONObject gadget = (JSONObject) success.get("gadget");
-
+        final String message = (String) gadget.get("gadget_name");
+        Assert.assertEquals(message, "stream");
+        // invalid gadget
+        initService("/api/common/notvalid/gadget.json", MethodJson.POST);
+        setParameter("id", myBoard.getBoardId().toString());
+        final JSONObject response_error = callJsonService();
+        final JSONObject error = getErrors(response_error);
+        final String message_error = (String) error.get("message");
+        Assert.assertEquals(message_error, "gadget invalid");
+        //{"error":{"message":"gadget invalid"},"success":{}}
     }
 
     /**
@@ -145,8 +142,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
     public void testMoveGadgetOnDashboard() throws ServletException, IOException{
         final Dashboard myBoard = createDashboard("My Surveys board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
         final Gadget myGadget = createGadgetDefault(myBoard);
-        initService("/api/common/dashboard/move-gadget.json", MethodJson.GET);
-        setParameter("gadgetId", myGadget.getGadgetId().toString() );
+        initService("/api/common/" + myGadget.getGadgetId().toString() + "/gadget.json", MethodJson.PUT);
         setParameter("position", "3" );
         setParameter("column",  "2");
         setParameter("dashboardId", myBoard.getBoardId().toString());
@@ -163,10 +159,10 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
     public void testRemoveGadgetOnDashboard() throws ServletException, IOException{
         final Dashboard tpBoard = createDashboard("My TweetPoll board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
         final Gadget myGadget = createGadgetDefault(tpBoard);
-        initService("/api/common/dashboard/gadget/remove.json", MethodJson.GET);
+        initService("/api/common/" + myGadget.getGadgetId().toString() + "/gadget.json", MethodJson.DELETE);
         setParameter("gadgetId", myGadget.getGadgetId().toString() );
         setParameter("dashboardId", tpBoard.getBoardId().toString());
         final JSONObject response = callJsonService();
-        //assertSuccessResponse(response);
+        assertSuccessResponse(response);
     }
 }

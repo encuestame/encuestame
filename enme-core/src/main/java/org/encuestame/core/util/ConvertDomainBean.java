@@ -1133,7 +1133,7 @@ public class ConvertDomainBean {
         gadgetBean.setGadgetName(gadget.getGadgetName());
         gadgetBean.setGadgetColor(gadget.getGadgetColor());
         gadgetBean.setGadgetColumn(gadget.getGadgetColumn());
-        gadgetBean.setGadgetPosition(gadget.getGadgetColumn());
+        gadgetBean.setGadgetPosition(gadget.getGadgetPosition());
         gadgetBean.setStatus(gadget.getStatus());
         return gadgetBean;
     }
@@ -1652,15 +1652,15 @@ public class ConvertDomainBean {
      */
     public static final List<ItemStatDetail> convertTweetPollObjectListToItemDetailBean(
             final List<Object[]> tpolls) {
-    	 final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+         final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
 
        for (Object[] objects : tpolls) {
-    	   final ItemStatDetail itemDetail = new ItemStatDetail();
-    	   final Long inte1 = (Long) objects[1];
-    	   final Date date1 = (Date) objects[0];
-    	   itemDetail.setDate(date1	);
-    	   itemDetail.setItemId(inte1);
-    	   itemStatDetail.add(itemDetail);
+           final ItemStatDetail itemDetail = new ItemStatDetail();
+           final Long inte1 = (Long) objects[1];
+           final Date date1 = (Date) objects[0];
+           itemDetail.setDate(date1	);
+           itemDetail.setItemId(inte1);
+           itemStatDetail.add(itemDetail);
        }
         return itemStatDetail;
     }
