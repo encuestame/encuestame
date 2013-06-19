@@ -287,4 +287,13 @@ public interface IPoll extends IBaseDao {
 	 */
 	List<Object[]> retrieveResultPollsbyAnswer(final Long pollId,
 	           final Long answerId);
+
+	/**
+	 * Retrieve {@link Poll} stats
+	 * @param tagName
+	 * @param period
+	 * @return
+	 */
+	List<Object[]> getPollsRangeStats(
+	            final String tagName, final SearchPeriods period);
 }

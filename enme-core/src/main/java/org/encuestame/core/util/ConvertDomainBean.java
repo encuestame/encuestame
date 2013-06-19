@@ -1650,7 +1650,7 @@ public class ConvertDomainBean {
      * @param tpolls
      * @return
      */
-    public static final List<ItemStatDetail> convertTweetPollObjectListToItemDetailBean(
+    public static final List<ItemStatDetail> convertObjectListToItemDetailBean(
             final List<Object[]> tpolls) {
          final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
 

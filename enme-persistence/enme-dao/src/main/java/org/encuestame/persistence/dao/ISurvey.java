@@ -267,7 +267,7 @@ public interface ISurvey extends IBaseDao{
      * @return
      */
     List<SurveySection> getSurveySection(final Survey survey);
-    
+
     /**
      * Get total polls by hashtag.
      * @param tagName
@@ -278,13 +278,22 @@ public interface ISurvey extends IBaseDao{
      */
     List<Survey> getSurveysByHashTagName(final String tagName, final Integer startResults,
             final Integer limitResults, final TypeSearchResult filterby, final SearchPeriods searchPeriods);
-    
+
     /**
      * Get total surveys by hashtag and date range.
      * @param tagName
-     * @param period 
+     * @param period
      * @return
      */
 	List<Survey> getSurveysbyHashTagNameAndDateRange(
    			final String tagName, final SearchPeriods period);
+
+	/**
+	 * Retrieve {@link Survey} stats
+	 * @param tagName
+	 * @param period
+	 * @return
+	 */
+	List<Object[]> getSurveysRangeStats(final String tagName,
+			final SearchPeriods period);
 }

@@ -35,6 +35,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
@@ -431,7 +432,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.encuestame.persistence.dao.ISurvey#getSurveysbyHashTagNameAndDateRange
 	 * (java.lang.String, java.lang.Integer)
@@ -459,4 +460,28 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
        }
 
 
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getSurveysRangeStats(final String tagName,
+			final SearchPeriods period) {
+		final DetachedCriteria detached = DetachedCriteria
+				.forClass(Survey.class)
+				.createAlias("hashTags", "hashTags")
+				.setProjection(Projections.id())
+				.add(Subqueries.propertyIn(
+						"hashTags.hashTagId",
+						DetachedCriteria
+								.forClass(HashTag.class, "hash")
+								.setProjection(Projections.id())
+								.add(Restrictions.in("hash.hashTag",
+										new String[] { tagName }))));
+		final DetachedCriteria criteria = DetachedCriteria.forClass(
+				Survey.class, "survey");
+		criteria.add(Subqueries.propertyIn("survey.sid", detached));
+		criteria.addOrder(Order.desc("survey.createdAt"));
+		ProjectionList projList = Projections.projectionList();
+		projList.add(Projections.groupProperty("createdAt"));
+		projList.add(Projections.rowCount());
+		criteria.setProjection(projList);
+		return getHibernateTemplate().findByCriteria(criteria);
+	}
 }

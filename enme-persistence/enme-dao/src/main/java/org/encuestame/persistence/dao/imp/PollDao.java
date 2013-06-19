@@ -35,6 +35,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
@@ -190,6 +191,42 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.addOrder(Order.desc("poll.createdAt"));
         calculateSearchPeriodsDates(period, criteria, "createdAt");
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.IPoll#getPollsRangeStats(java.lang.String,
+	 * org.encuestame.utils.enums.SearchPeriods)
+	 */
+    @SuppressWarnings("unchecked")
+    public List<Object[]> getPollsRangeStats(
+            final String tagName, final SearchPeriods period) {
+        final DetachedCriteria detached = DetachedCriteria
+                .forClass(Poll.class)
+                .createAlias("hashTags", "hashTags")
+                .setProjection(Projections.id())
+                .add(Subqueries.propertyIn(
+                        "hashTags.hashTagId",
+                        DetachedCriteria
+                                .forClass(HashTag.class, "hash")
+                                .setProjection(Projections.id())
+                                .add(Restrictions.in("hash.hashTag",
+                                        new String[] { tagName }))));
+        final DetachedCriteria criteria = DetachedCriteria.forClass(
+                Poll.class, "poll");
+        criteria.add(Subqueries.propertyIn("poll.pollId", detached));
+        criteria.addOrder(Order.desc("poll.createdAt"));
+        //calculateSearchPeriodsDates(period, criteria, "createdAt");
+        criteria.add(Restrictions.eq("publish", Boolean.TRUE));
+
+        ProjectionList projList = Projections.projectionList();
+        projList.add(Projections.groupProperty("createdAt"));
+        projList.add(Projections.rowCount());
+        criteria.setProjection(projList);
+
         return getHibernateTemplate().findByCriteria(criteria);
     }
 

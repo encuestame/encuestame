@@ -1037,6 +1037,13 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.ITweetPoll#getTweetPollsRangeStats(java
+	 * .lang.String, org.encuestame.utils.enums.SearchPeriods)
+	 */
     @SuppressWarnings("unchecked")
     public List<Object[]> getTweetPollsRangeStats(
             final String tagName,
