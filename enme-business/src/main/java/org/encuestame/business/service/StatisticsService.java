@@ -159,6 +159,50 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         return tagDetailStatsByVotes;
     }
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.encuestame.core.service.imp.IStatisticsService#
+	 * getTotalVotesbyHashTagUsageAndDateRangeGraph(java.lang.String,
+	 * org.encuestame.utils.enums.SearchPeriods,
+	 * javax.servlet.http.HttpServletRequest)
+	 */
+    public List<HashTagDetailStats> getTotalVotesbyHashTagUsageAndDateRangeGraph(
+            final String tagName, final SearchPeriods period,
+            final HttpServletRequest request) throws EnMeSearchException {
+        List<ItemStatDetail> tpResultsBean = new ArrayList<ItemStatDetail>();
+        List<TweetPollResult> tpollResults = new ArrayList<TweetPollResult>();
+        List<TweetPollSwitch> tpollsSwitch = new ArrayList<TweetPollSwitch>();
+        List<HashTagDetailStats> tagDetailStatsByVotes = new ArrayList<HashTagDetailStats>();
+        if (period == null) {
+            throw new EnMeSearchException("search params required.");
+        } else {
+
+            final List<TweetPoll> tpolls = getTweetPollsByHashTag(tagName, null, null, TypeSearchResult.HASHTAG, period);
+            log.debug("Total Tweetpolls by hashtagName" + tpolls.size());
+            for (TweetPoll tweetPoll : tpolls) {
+                tpollsSwitch = getTweetPollDao()
+                        .getListAnswersByTweetPollAndDateRange(tweetPoll);
+                log.trace("Total TweetpollSwitch by tweetPoll -->"
+                        + tpollsSwitch.size());
+                for (TweetPollSwitch tweetPollSwitch : tpollsSwitch) {
+                    tpollResults = getTweetPollDao()
+                            .getTweetPollResultsByTweetPollSwitch(
+                                    tweetPollSwitch);
+                    log.trace("Total TweetPollResults by tweetPollSwitch -->"
+                            + tpollResults.size());
+                    tpResultsBean
+                            .addAll(ConvertDomainBean
+                                    .convertTweetPollResultListToItemDetailBean(tpollResults));
+                }
+            }
+
+        }
+        this.removeDuplicatleItemOutOfRange(tpResultsBean, period.toDays());
+        tagDetailStatsByVotes = this.compareHashtagListGraph(tpResultsBean, period, request);
+        return tagDetailStatsByVotes;
+    }
+
     /**
      * Remove duplicate item  from {@link TweetPollResult} vote.
      * @param itemList
