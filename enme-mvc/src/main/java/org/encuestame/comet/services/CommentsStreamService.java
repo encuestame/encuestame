@@ -52,7 +52,7 @@ public class CommentsStreamService extends AbstractCometService {
         final Map<String, Object> output = new HashMap<String, Object>();
         try {
             log.debug("CommentsStreamService............");
-            List<CommentBean> comments = getCommentService().getCommentsbyUser(20, 0);
+            List<CommentBean> comments = getCommentService().getCommentsbyUser(20, 0, null);
             log.debug("CommentsStreamService.comments size .."+comments.size());
             output.put("comments", JSONUtils.convertObjectToJsonString(comments));
         } catch (Exception e) {

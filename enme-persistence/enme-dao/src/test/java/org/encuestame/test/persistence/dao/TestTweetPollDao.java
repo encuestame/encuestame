@@ -1266,50 +1266,8 @@ public class TestTweetPollDao extends AbstractBase {
         final List<Object[]> tweetPollsbyHashTag = getTweetPoll()
                 .getTweetPollsRangeStats(myHashTag.getHashTag(),
                         SearchPeriods.SEVENDAYS);
-      for (Object[] object : tweetPollsbyHashTag) {
-    		System.out.println("TEST --" + object[0]);
-    		System.out.println("TEST --" + object[1]);
-    	//	System.out.println("TEST --" + object[2]);
-	}
+
 
        // Assert.assertEquals("Should be", 2, tweetPollsbyHashTag.size());
-    }
-
-    @Test
-    public void ttestConvertiraMilisegundos() {
-    		// Fecha Original
-    	   final Calendar releaseDate = Calendar.getInstance();
-    	   System.out.println("FECHA Original-->" + releaseDate.getTime());
-
-    	   // Fecha 1
-    	   releaseDate.add(Calendar.HOUR, -1);
-    	   System.out.println("FECHA Hora -1 -->" + releaseDate.getTime());
-
-    	   // Fecha 2
-    	   releaseDate.add(Calendar.HOUR, -1);
-    	   System.out.println("FECHA 2 -->" + releaseDate.getTime());
-
-    	   // Fecha 3
-    	   releaseDate.add(Calendar.DATE, -1);
-           releaseDate.add(Calendar.HOUR, -5);
-           System.out.println("FECHA 3 -->" + releaseDate.getTime());
-
-           releaseDate.add(Calendar.HOUR, -1);
-           System.out.println("FECHA 4 -->" + releaseDate.getTime());
-    }
-
-    @Test
-    public void testFecha(){
-    	 final Calendar releaseDate = Calendar.getInstance();
-    	 releaseDate.add(Calendar.HOUR, -5);
-    	 final Long mili = releaseDate.getTime().getTime();
-    	 System.out.println("FECHA Original-->" + mili);
-
-
-  	   // Fecha 1
-
-    	final DateTime dtime = new DateTime(releaseDate.getTime());
-    	 System.out.println("FECHA DATETIME-->" + releaseDate.getTime());
-    	System.out.println("FECHA DATETIME MILIS-->" + releaseDate.getTimeInMillis());
     }
 }
