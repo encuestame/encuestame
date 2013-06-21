@@ -12,7 +12,11 @@
  */
 package org.encuestame.business.cron;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.ICommentService;
+import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Remove Spam comments Job.
@@ -22,7 +26,35 @@ import org.encuestame.core.service.imp.ICommentService;
 public class RemoveSpamCommentsJob {
 
 	/** **/
+	@Autowired
 	private ICommentService commentService;
+
+
+	  /**
+     * Log.
+     */
+    private static final Log log = LogFactory.getLog(RemoveSpamCommentsJob.class);
+
+    /**
+     *
+     */
+    public RemoveSpamCommentsJob() throws EnMeExpcetion {    	//
+
+    }
+
+    /**
+	 * Remove unconfirmed accounts.
+	 */
+	public void RemoveSpamComments() {
+		try {
+   		 log.debug("Remove Spam Comments");
+		} catch (Exception e) {
+			// TODO: handle exception
+			 log.error(e);
+		}
+
+	}
+
 
 	/**
 	 * @return the commentService

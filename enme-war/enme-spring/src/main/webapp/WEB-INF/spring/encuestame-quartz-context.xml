@@ -13,7 +13,7 @@
     <bean id="calculateHashTagSize" class="org.encuestame.core.cron.CalculateHashTagSize"/>
     <bean id="calculateRelevance" class="org.encuestame.core.cron.CalculateRelevance"/>
     <bean id="removeAccountJob" class="org.encuestame.business.cron.RemoveUnconfirmedAccountJob"/>
-	<bean id="removeSpamCommentsJob" class="org.encuestame.business.cron.RemoveSpamCommentsJob"/>
+	<bean id="removeSpamCommentJob" class="org.encuestame.business.cron.RemoveSpamCommentsJob"/>
 
     <bean id="calculateInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="calculateHashTagSize"/>
@@ -58,8 +58,8 @@
     </bean>
 
     <!-- Remove unconfirmed Account job -->
-    <bean id="removeSpamCommentsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject" ref="removeSpamCommentsJob"/>
+    <bean id="removingSpamCommentsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="removeSpamCommentJob"/>
         <property name="targetMethod" value="removeSpamComments"/>
         <property name="concurrent">
             <value>false</value>
@@ -102,11 +102,11 @@
                     <!--    Fire at 12pm (noon) every day -->
                 </bean>
                  <!-- Remove unconfirmed expired accounts -->
-                <bean id="removeSpamComments" class="org.springframework.scheduling.quartz.CronTriggerBean">
-                    <property name="jobDetail" ref="removeSpamCommentsJobDetail" />
-                    <property name="cronExpression" value="0 0 12 * * ?" />
-                    <!--    Fire at 12pm (noon) every day -->
-                </bean>
+                 <!-- <bean id="removeSpamComments" class="org.springframework.scheduling.quartz.CronTriggerBean">
+                    <property name="jobDetail" ref="removingSpamCommentsJobDetail" />
+                    <property name="cronExpression" value="0 0 12 * * ?" />-->
+                    <!--    Fire at 12pm (noon) every day
+                </bean>-->
             </list>
         </property>
     </bean>
