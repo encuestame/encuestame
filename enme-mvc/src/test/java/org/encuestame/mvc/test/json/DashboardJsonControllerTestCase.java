@@ -160,7 +160,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
         final Dashboard tpBoard = createDashboard("My TweetPoll board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
         final Gadget myGadget = createGadgetDefault(tpBoard);
         initService("/api/common/" + myGadget.getGadgetId().toString() + "/gadget.json", MethodJson.DELETE);
-        setParameter("gadgetId", myGadget.getGadgetId().toString() );
+        //setParameter("gadgetId", myGadget.getGadgetId().toString() );
         setParameter("dashboardId", tpBoard.getBoardId().toString());
         final JSONObject response = callJsonService();
         assertSuccessResponse(response);

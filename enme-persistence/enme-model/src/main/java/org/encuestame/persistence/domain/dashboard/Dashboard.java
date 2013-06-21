@@ -49,7 +49,7 @@ public class Dashboard {
     private Boolean favorite;
 
     /** Page Layout. **/
-    private LayoutEnum pageLayout = LayoutEnum.AAA_COLUMNS;
+    private LayoutEnum pageLayout = LayoutEnum.BA_BLOCK_COLUMN;
 
     /** Dashboard sequence. **/
     private Integer boardSequence;
