@@ -87,6 +87,35 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         }
     }
 
+
+	public List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRangeGraph(
+			final String tagName, final SearchPeriods period,
+			final HttpServletRequest request) throws EnMeSearchException {
+		List<HashTagDetailStats> tagDetailStatsBySocial = new ArrayList<HashTagDetailStats>();
+		List<ItemStatDetail> tpSocialSavePublishedDetail = new ArrayList<ItemStatDetail>();
+		List<TweetPollSavedPublishedStatus> tpSavedPublished = new ArrayList<TweetPollSavedPublishedStatus>();
+		if (period == null) {
+			throw new EnMeSearchException("search params required.");
+		} else {
+			// Retrieve all tweetpolls by period
+			final List<TweetPoll> tpolls = getTweetPollsByHashTag(tagName,
+					null, null, TypeSearchResult.HASHTAG, period);
+			for (TweetPoll tweetPoll : tpolls) {
+				tpSavedPublished = getTweetPollDao()
+						.getSocialLinksByTypeAndDateRange(tweetPoll, null,
+								null, TypeSearchResult.TWEETPOLL);
+				tpSocialSavePublishedDetail
+						.addAll(ConvertDomainBean
+								.convertTweetPollSavedPublishedStatusListToItemDetailBean(tpSavedPublished));
+			}
+			this.removeDuplicatleItemOutOfRange(tpSocialSavePublishedDetail,
+					period.toDays());
+			tagDetailStatsBySocial = this.compareHashtagListGraph(
+					tpSocialSavePublishedDetail, period, request);
+			return tagDetailStatsBySocial;
+		}
+	}
+
     /*
      * (non-Javadoc)
      *

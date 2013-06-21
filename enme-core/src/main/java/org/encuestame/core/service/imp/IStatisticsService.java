@@ -158,14 +158,35 @@ public interface IStatisticsService extends ServiceOperations{
             final Integer initResults, final Integer max,
             final HttpServletRequest request,
             final SearchPeriods periods);
-
+    /**
+     *
+     * @param hashTagName
+     * @param period
+     * @param request
+     * @return
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeSearchException
+     */
     List<HashTagDetailStats> getTotalUsagebyHashtagAndDateRangeGraph(
                 final String hashTagName,
                 final SearchPeriods period,
                 final HttpServletRequest request) throws EnMeNoResultsFoundException, EnMeSearchException;
 
+
 	List<HashTagDetailStats> compareHashtagListGraph(
 			final List<ItemStatDetail> itemList, final SearchPeriods period,
 			final HttpServletRequest request) throws EnMeSearchException;
+
+	/**
+	 * Retrieve all social links by range.
+	 * @param tagName
+	 * @param period
+	 * @param request
+	 * @return
+	 * @throws EnMeSearchException
+	 */
+	List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRangeGraph(
+	           final String tagName, final SearchPeriods period, final HttpServletRequest request)
+	           throws EnMeSearchException;
 
 }
