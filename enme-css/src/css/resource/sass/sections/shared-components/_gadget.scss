@@ -1,0 +1,41 @@
+.web-gadget {
+
+    background-color: #F1F1F1;
+    border: 1px solid #DEDEDE;
+    margin: 10px 0px 10px 0px;
+    min-height: 250px;
+
+	.options {
+		@extend .main-nav;
+		color: #FFF;
+		padding: 2px;
+		cursor: move;
+		overflow: auto;
+		position: relative;
+		height: 20px;
+
+		ul {
+			position: absolute;
+			right: 10px;
+		}
+
+		li {
+			list-style: none;
+			float: left;
+			font-weight: bold;
+			cursor: pointer;
+		}
+	}
+
+	.gad-title {
+
+
+
+	    //font-size: 120%;
+	}
+
+	.gad-content {
+    	@extend .o-auto;
+    	padding: 5px;
+	}
+}
