@@ -117,6 +117,6 @@ public interface CommentsOperations extends IBaseDao {
      * @return
      */
     List<Comment> getCommentsbyTypeAndStatus(final Long id,
-			final TypeSearchResult typeSearch, final Integer maxResults,
-			final Integer start, final CommentOptions commentStatus, final SearchPeriods period);
+            final TypeSearchResult typeSearch, final Integer maxResults,
+            final Integer start, final CommentOptions commentStatus, final SearchPeriods period);
 }
