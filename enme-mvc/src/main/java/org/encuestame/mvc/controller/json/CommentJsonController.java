@@ -145,6 +145,7 @@ public class CommentJsonController extends AbstractJsonController {
      * @throws JsonMappingException
      * @throws IOException
      */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/comments", method = RequestMethod.GET)
     public @ResponseBody ModelMap getComments(
             @RequestParam(value = "limit", required = false) Integer limit,
