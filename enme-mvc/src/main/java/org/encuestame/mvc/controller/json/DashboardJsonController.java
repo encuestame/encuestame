@@ -161,7 +161,7 @@ public class DashboardJsonController extends AbstractJsonController {
              bean.setDashboardName(boardName);
              bean.setDashboardDesc(boardDesc);
              bean.setFavorite(favorite);
-             bean.setLayout(layout == null ? "AAA" : layout);
+             bean.setLayout(layout == null ? "AA" : layout);
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
              final Dashboard dashboard = getDashboardService().createDashboard(bean);
              jsonResponse.put("dashboard", ConvertDomainBean.convertDashboardDomaintoBean(dashboard));

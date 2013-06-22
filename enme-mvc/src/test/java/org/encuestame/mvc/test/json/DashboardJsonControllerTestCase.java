@@ -42,20 +42,20 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
      * @throws ServletException
      *
      */
-    @Test
+    //@Test
     public void testCreateDashboard() throws ServletException, IOException{
         initService("/api/common/dashboard/create.json", MethodJson.POST);
-        setParameter("name", "test");
+        setParameter("name", "stream");
         setParameter("desc", "test");
         setParameter("favorite", "true");
-        setParameter("layout", "AAA");
+        setParameter("layout", "AA");
         final JSONObject response = callJsonService();
         //{"error":{},"success":{"dashboard":{"dashboard_name":"test","id":7608,"sequence":null,
         //"layout":"AAA","favorite":true,"favorite_counter":null,"dashboard_description":"test"}}}
         final JSONObject success = getSucess(response);
         final JSONObject dashboard = (JSONObject) success.get("dashboard");
-        Assert.assertEquals(dashboard.get("dashboard_name").toString(), "test");
-        Assert.assertEquals(dashboard.get("layout").toString(), "AAA");
+        Assert.assertEquals(dashboard.get("dashboard_name").toString(), "stream");
+        Assert.assertEquals(dashboard.get("layout").toString(), "AA");
         Assert.assertEquals(dashboard.get("favorite").toString(), "true");
         Assert.assertEquals(dashboard.get("dashboard_description").toString(), "test");
     }
