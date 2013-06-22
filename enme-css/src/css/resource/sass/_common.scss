@@ -422,6 +422,7 @@ a.point {
    @include border-radius(2px);
    border: 1px solid #B4B4B4;
    min-width : 25px;
+   font-size: 11px;
 }
 
 .likeRate .positive{
@@ -430,6 +431,10 @@ a.point {
 
 .likeRate .negative{
     background-color: #CD6969;
+}
+
+.t-light {
+    font-weight: 100;
 }
 
 .wrap{
@@ -573,4 +578,8 @@ input:focus {
       h2 {
         color: darken($red_light, 50%)
       }
+}
+
+.ui-dragged {
+  border: 2px dotted gray;
 }

@@ -1,13 +1,14 @@
 .web-filters-options nav {
   line-height: 20px;
+  @extend .t-light;
   @extend .o-hidden;
+  a:hover, a.selected {
+      text-decoration: none !important;
+      // color: $gray_middle !important;
+      text-shadow: 2px 1px 3px white;
+  }
 }
 
-.web-filters-options nav  a.selected, .web-filters-options nav  a:hover {
-    background-color: $gray_lite;
-    color: $black_hight;
-    text-decoration: none;
-}
 
 .web-filters-options nav a, .web-filters-options nav a:link, .web-filters-options nav a:visited {
     @extend .default-rd;
