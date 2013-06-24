@@ -201,4 +201,15 @@ public interface IStatisticsService extends ServiceOperations{
             final String tagName, final SearchPeriods period,
             final HttpServletRequest request) throws EnMeSearchException;
 
+	/**
+	 *
+	 * @param hashTagName
+	 * @param period
+	 * @param request
+	 * @return
+	 * @throws EnMeSearchException
+	 */
+	List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRangeGraph(
+			final String hashTagName, final SearchPeriods period,
+			final HttpServletRequest request) throws EnMeNoResultsFoundException, EnMeSearchException ;
 }

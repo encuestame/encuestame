@@ -786,6 +786,14 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	}
 
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.encuestame.core.service.imp.IStatisticsService#
+	 * getTotalHitsUsagebyHashTagAndDateRangeGraph(java.lang.String,
+	 * org.encuestame.utils.enums.SearchPeriods,
+	 * javax.servlet.http.HttpServletRequest)
+	 */
    public List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRangeGraph(
            final String hashTagName, final SearchPeriods period, final HttpServletRequest request)
            throws EnMeNoResultsFoundException, EnMeSearchException {
@@ -801,7 +809,6 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
                .convertHitListToItemDetailBean(hashTagHits));
        tagDetailStatsByHits = this.compareList(itemStatDetailByHits, period, request);
        return tagDetailStatsByHits;
-       //return null;
    }
 
 
