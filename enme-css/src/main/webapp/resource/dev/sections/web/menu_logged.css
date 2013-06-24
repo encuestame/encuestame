@@ -1,50 +1,50 @@
 /*
-Syntax error: Undefined variable: "$white".
-        on line 9 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_dropdown-menu.scss
-        from line 6 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/menu_logged.scss
+Syntax error: Undefined mixin 'ctb-gradient-vertical'.
+        on line 14 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-profile.scss, in `ctb-gradient-vertical'
+        from line 14 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-profile.scss
+        from line 2 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/menu_logged.scss
 
 Backtrace:
-/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_dropdown-menu.scss:9
-/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/menu_logged.scss:6
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/script/variable.rb:49:in `_perform'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/script/node.rb:40:in `perform'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:298:in `visit_prop'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:100:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:109:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:121:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:108:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:320:in `visit_rule'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:100:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:227:in `visit_import'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:227:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:227:in `visit_import'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:100:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:109:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:121:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:108:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:128:in `visit_root'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:100:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:7:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/visitors/perform.rb:7:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/tree/root_node.rb:20:in `render'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/engine.rb:315:in `_render'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.9/lib/sass/../sass/engine.rb:262:in `render'
+/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-profile.scss:14:in `ctb-gradient-vertical'
+/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-profile.scss:14
+/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/menu_logged.scss:2
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:170:in `visit_mixin'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:238:in `visit_rule'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:146:in `visit_import'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:146:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:146:in `visit_import'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:47:in `visit_root'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:7:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/visitors/perform.rb:7:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/tree/root_node.rb:20:in `render'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/engine.rb:300:in `_render'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.20/lib/sass/../sass/engine.rb:247:in `render'
 /Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:140:in `compile'
 /Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:126:in `timed'
 /Library/Ruby/Gems/1.8/gems/compass-0.12.2/lib/compass/compiler.rb:139:in `compile'
@@ -87,4 +87,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$white\".\A         on line 9 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_dropdown-menu.scss\A         from line 6 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/menu_logged.scss"; }
+  content: "Syntax error: Undefined mixin 'ctb-gradient-vertical'.\A         on line 14 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-profile.scss, in `ctb-gradient-vertical'\A         from line 14 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/../../web/components/_menu-profile.scss\A         from line 2 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/sections/web/menu_logged.scss"; }
