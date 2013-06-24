@@ -1,0 +1,18 @@
+@import "common_web";
+@import "menu_logged";
+
+@import "shared-components/gadget";
+
+
+.ui-dash-grid {
+	padding: 10px;
+
+	.span5 {
+		width: 434px;
+	}
+}
+
+.ui-dasboard-column {
+    min-height: 400px;
+    padding: 5px;
+}

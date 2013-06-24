@@ -1,0 +1,135 @@
+.web-gadget {
+
+	h4 {
+		font-weight: 100;
+		margin-bottom: 0;
+	}
+
+	p, .p {
+		@extend .t-light;
+	}
+
+
+    background-color: $white;
+    // border: 1px solid #DEDEDE;
+    margin: 10px 0px 10px 0px;
+    min-height: 250px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 5px 0px #C7C6C6;
+
+	.options {
+		@extend .main-nav;
+		color: #FFF;
+		padding: 2px;
+		cursor: move;
+		overflow: auto;
+		position: relative;
+		height: 20px;
+
+		> span {
+			margin: 5px;
+			padding-left: 10px;
+		}
+
+		ul {
+			position: absolute;
+			right: 10px;
+			top: 3px;
+		}
+
+		li {
+			list-style: none;
+			float: left;
+			font-weight: bold;
+			cursor: pointer;
+		}
+	}
+
+	.gad-title {}
+
+	.gad-content {
+    	@extend .o-auto;
+    	padding: 5px;
+
+    	.web-list-more {
+			padding: 10px;
+			cursor: pointer;
+			text-align: center;
+			@extend .t-light;
+			font-size: 15px;
+		}
+	}
+}
+
+// $linkColor:             #08c !default;
+// $linkColorHover:        darken($linkColor, 15%) !default;
+
+.gadgetRowItem {
+	position: relative;
+	border-bottom: 1px solid $gray_lite;
+	overflow: auto;
+	margin-bottom: 5px;
+	padding: 5px;
+	color : $black;
+
+	.description, .link {
+		@extend .t-light;
+	}
+
+	.buttons-group {
+		position: relative;
+		display: none;
+    	-webkit-transition: opacity 1s ease-out;
+    	opacity: 0;
+	}
+
+	div.active {
+		opacity: 1;
+		display: block;
+	}
+
+	.link {
+		color: $linkColor;
+		cursor: pointer;
+	}
+
+	.rating {
+		position: absolute;
+		top: 0;
+		right: 0;
+		> div {
+			float: left;
+			width: 50px;
+		}
+	}
+
+	.dijitButtonNode {
+		padding: 2px 15px !important;
+	}
+
+	.link:hover {
+		color: $linkColorHover;
+		text-decoration: underline;
+	}
+}
+
+.gadgetRowItem:last-child {
+		border: 0;
+}
+
+/** tweetpoll votes **/
+
+.ga-tp-votes {
+	text-align: center;
+
+	.tools {
+		position: relative;
+
+		i {
+			cursor: pointer;
+		}
+	}
+}
+
+
+
