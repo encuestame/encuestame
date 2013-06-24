@@ -194,6 +194,8 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
                 createProperty(gadget, "permissions", gProperties.getProperty("permissions"));
             } else if (gadget.getGadgetType().equals(GadgetType.TWEETPOLLS_VOTES)) {
                 createProperty(gadget, "permissions", gProperties.getProperty("permissions"));
+            } else {
+                throw new EnMeNoResultsFoundException("gadget not found");
             }
             return gadget;
         } else {
