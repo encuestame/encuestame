@@ -13,7 +13,7 @@
     <bean id="calculateHashTagSize" class="org.encuestame.core.cron.CalculateHashTagSize"/>
     <bean id="calculateRelevance" class="org.encuestame.core.cron.CalculateRelevance"/>
     <bean id="removeAccountJob" class="org.encuestame.business.cron.RemoveUnconfirmedAccountJob"/>
-	<bean id="removeSpamCommentJob" class="org.encuestame.business.cron.RemoveSpamCommentsJob"/>
+	<!-- <bean id="removeSpamCommentJob" class="org.encuestame.business.cron.RemoveSpamCommentsJob"/>  -->
 
     <bean id="calculateInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="calculateHashTagSize"/>
@@ -58,13 +58,13 @@
     </bean>
 
     <!-- Remove unconfirmed Account job -->
-    <bean id="removingSpamCommentsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+   <!--  <bean id="removingSpamCommentsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="removeSpamCommentJob"/>
         <property name="targetMethod" value="removeSpamComments"/>
         <property name="concurrent">
             <value>false</value>
         </property>
-    </bean>
+    </bean>  -->
 
 
      <!-- Every 5 minutes 0 0/5 * * * ? -->
