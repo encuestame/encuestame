@@ -118,6 +118,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `uid` bigint(20) NOT NULL,
   `is_published` bit(1) DEFAULT NULL,
   `is_spam` bit(1) DEFAULT NULL,
+  `comment_status` int(11) DEFAULT NULL,
   PRIMARY KEY (`commentId`),
   UNIQUE KEY `commentId` (`commentId`),
   KEY `FKDC17DDF4F44558E9` (`uid`),
@@ -947,7 +948,7 @@ CREATE TABLE IF NOT EXISTS `tweetPoll_Folder` (
   `createdBy_uid` bigint(20) DEFAULT NULL,
   `uid` bigint(20) NOT NULL,
   PRIMARY KEY (`tweetPollFolderId`),
-  UNIQUE KEY `tweetPollFolderId` (`tweetPollFolderId`),
+  UNIQUE KEY `tweetTFolderId` (`tweetPollFolderId`),
   KEY `FKA027A9DD2B2A6AB4` (`uid`),
   KEY `FKA027A9DD6EF241E9` (`createdBy_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
