@@ -1128,7 +1128,7 @@ public class TestTweetPollDao extends AbstractBase {
                 this.secondary.getAccount(), 0, 10, 30, "b");
         Assert.assertEquals("Should be", 1, search2.size());
 
-        System.out.println("\n");
+    //    System.out.println("\n");
 
         final List<TweetPoll> search3 = getTweetPoll().advancedSearch(
                 Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE,
@@ -1269,5 +1269,42 @@ public class TestTweetPollDao extends AbstractBase {
 
 
        // Assert.assertEquals("Should be", 2, tweetPollsbyHashTag.size());
+    }
+
+    @Test
+    public void testTweetRemove(){
+
+		final Question myFirstQuestion = createQuestion(
+				"What is your favorite kind of movie?", secondary.getAccount());
+		final Question mySecondQuestion = createQuestion(
+				"What is your favorite kind of song?", secondary.getAccount());
+
+		final TweetPollFolder tpFolder = createTweetPollFolder("My Tp1 folder", this.secondary);
+		// FIRST TP
+		final TweetPoll tweetPoll = createPublishedTweetPoll(
+				this.secondary.getAccount(), myFirstQuestion,
+				new Date());
+		tweetPoll.setTweetPollFolder(tpFolder);
+		getTweetPoll().saveOrUpdate(tweetPoll);
+
+		getTweetPoll().delete(tweetPoll);
+		final TweetPoll tp = getTweetPoll().getTweetPollById(
+				tweetPoll.getTweetPollId());
+		final Question quest = getQuestionDaoImp().retrieveQuestionById(
+				myFirstQuestion.getQid());
+		final Question quest2 = getQuestionDaoImp().retrieveQuestionById(
+				mySecondQuestion.getQid());
+		final List<TweetPoll> tpollsbyFolder = getTweetPoll()
+				.retrieveTweetPollByFolder(this.secondary.getUid(),
+						tpFolder.getId());
+
+		final TweetPollFolder folders = getTweetPoll().getTweetPollFolderById(
+				tpFolder.getId());
+
+
+	//	System.out.println(" \n Tweetpoll Folder  " + tpollsbyFolder.size());
+	//	System.out.println(" \n  Folder  " + folders.getId());
+	//	System.out.println(" \n Question After " + quest.getQuestion());
+
     }
 }
