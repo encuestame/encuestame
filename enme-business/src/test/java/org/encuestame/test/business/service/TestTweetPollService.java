@@ -916,6 +916,85 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 
 	}
 
+    @Test
+	public void testRemoveTweetpolls() {
+		final Question myFirstQuestion = createQuestion(
+				"What is your favorite kind of movie?",
+				this.userAccount.getAccount());
+
+		final Question mySecondQuestion = createQuestion(
+				"What is your favorite kind of song?",
+				this.userAccount.getAccount());
+
+		final TweetPollFolder tpFolder = createTweetPollFolder("My Tp1 folder",
+				this.userAccount);
+
+		// FIRST TP
+		final TweetPoll tweetPoll1 = createPublishedTweetPoll(
+				this.userAccount.getAccount(), myFirstQuestion, new Date());
+		tweetPoll1.setTweetPollFolder(tpFolder);
+		getTweetPoll().saveOrUpdate(tweetPoll1);
+		// Create QuestionsAnswers
+
+		 final QuestionAnswer questAns1 = createQuestionAnswer("yes", myFirstQuestion, "1234555");
+		 final QuestionAnswer questAns2 = createQuestionAnswer("no", myFirstQuestion, "12346666");
+		 final QuestionAnswer questAns3 = createQuestionAnswer("no", myFirstQuestion, "123466667");
+
+		 // Tweetpoll switch
+		 final TweetPollSwitch tps1 = createTweetPollSwitch(questAns1, tweetPoll1);
+		 final TweetPollSwitch tps2 = createTweetPollSwitch(questAns2, tweetPoll1);
+
+		 // TweetPoll Result
+		 createTweetPollResult(tps1, "192.168.0.1");
+		 createTweetPollResult(tps1, "192.168.0.2");
+		 createTweetPollResult(tps2, "192.168.0.3");
+
+		 // Social Accounts & Providers
+		 final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.userAccount);
+
+         final List<SocialProvider> providers = new ArrayList<SocialProvider>();
+         providers.add(SocialProvider.FACEBOOK);
+         providers.add(SocialProvider.LINKEDIN);
+
+         // Create TweetPollSavedPublished - Social Links
+		 createTweetPollSavedPublishStatus(tweetPoll1, socialAccount, SocialProvider.FACEBOOK);
+		 createTweetPollSavedPublishStatus(tweetPoll1, socialAccount, SocialProvider.TWITTER);
+
+		 /* *********************************** RETRIEVE *************************** */
+
+		 // final TweetPollFolder tpFolder = getTweetPoll().
+
+
+		 final List<TweetPollSwitch> tpSwitchs = getTweetPoll().getListAnswersByTweetPollAndDateRange(tweetPoll1);
+
+
+		 for (TweetPollSwitch tweetPollSwitch : tpSwitchs) {
+			 final List<TweetPollResult> tpollsResult = getTweetPoll().getTweetPollResultsByTweetPollSwitch(tweetPollSwitch);
+
+		}
+
+		 final List<TweetPollSavedPublishedStatus> TpollSaved  = getTweetPoll().getLinksByTweetPoll(tweetPoll1, null, null,
+							TypeSearchResult.TWEETPOLL);
+
+		 final TweetPoll myTweetpoll = tweetPoll1;
+
+		 /* **************************** REMOVE ************************************ */
+		 this.getTweetPollService().removeTweetPoll(tweetPoll1);
+
+		 List<TweetPollSwitch> tpSwitchsAfter = getTweetPoll().getListAnswersByTweetPollAndDateRange(myTweetpoll);
+
+
+
+		 for (TweetPollSwitch tweetPollSwitch : tpSwitchsAfter) {
+			 final List<TweetPollResult> tpollsResult = getTweetPoll().getTweetPollResultsByTweetPollSwitch(tweetPollSwitch);
+
+		}
+
+
+		 final List<TweetPollSavedPublishedStatus> TpollSavedAfter  = getTweetPoll().getLinksByTweetPoll(myTweetpoll, null, null,
+					TypeSearchResult.TWEETPOLL);
+    }
+
     /**
      *
      * @param provider1

@@ -1371,4 +1371,38 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         return socialAccountList;
     }
 
+
+	public void removeTweetPoll(final TweetPoll tpoll) {
+
+		// Retrieve all TweetpollSwitch.
+  		final List<TweetPollSwitch> tpollSwitch = getTweetPollDao()
+				.getListAnswersByTweetPollAndDateRange(tpoll);
+
+		for (TweetPollSwitch tweetPollSwitch : tpollSwitch) {
+			// Retrieve all TweetpollResult by switch
+			final List<TweetPollResult> tpollResult = getTweetPollDao()
+					.getTweetPollResultsByTweetPollSwitch(tweetPollSwitch);
+
+			for (TweetPollResult tweetPollResult : tpollResult) {
+				// Remove all  TweetpollResult,
+				getTweetPollDao().delete(tweetPollResult);
+			}
+			// Remove all TweetpollSwith
+			getTweetPollDao().delete(tweetPollSwitch);
+
+		}
+		// Retrieve all Tweetpolls saved published.
+		final List<TweetPollSavedPublishedStatus> tpollSaved = getTweetPollDao()
+				.getLinksByTweetPoll(tpoll, null, null,
+						TypeSearchResult.TWEETPOLL);
+		for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : tpollSaved) {
+			// Remove TweetpOllSavePublished
+				getTweetPollDao().delete(tweetPollSavedPublishedStatus);
+		}
+
+
+    	// Remover Tweetpoll hashtags by id.
+
+    }
+
 }

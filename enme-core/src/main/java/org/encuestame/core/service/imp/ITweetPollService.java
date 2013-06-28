@@ -523,4 +523,6 @@ public interface ITweetPollService extends IMasterSurveyService{
       List<TweetPollResult> validateIpVote(final String ipVote, final TweetPoll tweetPoll)
             throws EnmeFailOperation;
 
+      void removeTweetPoll(final TweetPoll tpoll);
+
 }
