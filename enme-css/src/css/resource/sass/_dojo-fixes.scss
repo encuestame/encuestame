@@ -5,3 +5,7 @@
 	border: none;
 	padding: 0;
 }
+
+.dbootstrap .dijitDialogTitleBar {
+  @extend .t-light;
+}

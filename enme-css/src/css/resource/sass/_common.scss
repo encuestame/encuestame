@@ -335,6 +335,10 @@ a.point {
     display: none !important;
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .defaultDisplayBlock , .block{
     display: block;
 }

@@ -122,8 +122,22 @@
 .ga-tp-votes {
 	text-align: center;
 
+	.graph-wrapper {
+		min-height: 380px;
+	}
+
 	.tools {
 		position: relative;
+
+		.arrows span{
+			width: 30px;
+			height: 50px;
+		}
+
+		label {
+			display: inline;
+			clear: both;
+		}
 
 		i {
 			cursor: pointer;
@@ -131,5 +145,41 @@
 	}
 }
 
+.web-directory {
+	.web-directory-item {
+			border-bottom: 1px solid #DDD;
+			padding-bottom: 25px;
+			margin-left: 10px;
+			margin-right: 10px;
 
+			&:last-child {
+				border-bottom: 0;
+			}
+
+			.web-directory-item-title {
+				margin: 0;
+				@extend .t-light;
+
+				>div {
+					font-size: 22px;
+					margin: 20px 0px 5px;
+				}
+				img {
+					padding: 5px 0px 0px 0px;
+					width: 70px;
+					height: 70px;
+				}
+			}
+
+			.web-directory-item-description {
+				@extend .t-light;
+				font-size: 16px;
+				padding-top: 20px;
+			}
+
+			.web-directory-item-actions {
+				padding-top: 20px;
+			}
+	}
+}
 
