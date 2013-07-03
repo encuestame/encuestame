@@ -20,8 +20,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+
+import junit.framework.Assert;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -29,10 +33,12 @@ import org.encuestame.business.service.TweetPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionSection;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -48,6 +54,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.InternetTest;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.LinksSocialBean;
@@ -916,8 +923,12 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 
 	}
 
+    /**
+     * @throws EnMeNoResultsFoundException
+     *
+     */
     @Test
-	public void testRemoveTweetpolls() {
+	public void testRemoveTweetpolls() throws EnMeNoResultsFoundException {
 		final Question myFirstQuestion = createQuestion(
 				"What is your favorite kind of movie?",
 				this.userAccount.getAccount());
@@ -926,73 +937,127 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 				"What is your favorite kind of song?",
 				this.userAccount.getAccount());
 
-		final TweetPollFolder tpFolder = createTweetPollFolder("My Tp1 folder",
+		final TweetPollFolder tpFolder = createTweetPollFolder("My Tp1111 folder",
 				this.userAccount);
+
+
+		final HashTag tag1 = createHashTag("romantic");
+		final HashTag tag2 = createHashTag("suspense");
+		final String tagName = tag1.getHashTag();
+		final Long questionId = myFirstQuestion.getQid();
 
 		// FIRST TP
 		final TweetPoll tweetPoll1 = createPublishedTweetPoll(
 				this.userAccount.getAccount(), myFirstQuestion, new Date());
 		tweetPoll1.setTweetPollFolder(tpFolder);
+		tweetPoll1.getHashTags().add(tag1);
+		tweetPoll1.getHashTags().add(tag2);
+
 		getTweetPoll().saveOrUpdate(tweetPoll1);
+
 		// Create QuestionsAnswers
+		final TweetPoll myTweetpoll = tweetPoll1;
 
-		 final QuestionAnswer questAns1 = createQuestionAnswer("yes", myFirstQuestion, "1234555");
-		 final QuestionAnswer questAns2 = createQuestionAnswer("no", myFirstQuestion, "12346666");
-		 final QuestionAnswer questAns3 = createQuestionAnswer("no", myFirstQuestion, "123466667");
+		final QuestionAnswer questAns1 = createQuestionAnswer("yes",
+				myFirstQuestion, "1234555");
+		final QuestionAnswer questAns2 = createQuestionAnswer("no",
+				myFirstQuestion, "12346666");
+		final QuestionAnswer questAns3 = createQuestionAnswer("no",
+				myFirstQuestion, "123466667");
 
-		 // Tweetpoll switch
-		 final TweetPollSwitch tps1 = createTweetPollSwitch(questAns1, tweetPoll1);
-		 final TweetPollSwitch tps2 = createTweetPollSwitch(questAns2, tweetPoll1);
+		// Tweetpoll switch
+		final TweetPollSwitch tps1 = createTweetPollSwitch(questAns1,
+				tweetPoll1);
+		final TweetPollSwitch tps2 = createTweetPollSwitch(questAns2,
+				tweetPoll1);
 
-		 // TweetPoll Result
-		 createTweetPollResult(tps1, "192.168.0.1");
-		 createTweetPollResult(tps1, "192.168.0.2");
-		 createTweetPollResult(tps2, "192.168.0.3");
+		// TweetPoll Result
+		createTweetPollResult(tps1, "192.168.0.1");
+		createTweetPollResult(tps1, "192.168.0.2");
+		createTweetPollResult(tps2, "192.168.0.3");
 
-		 // Social Accounts & Providers
-		 final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.userAccount);
+		// Social Accounts & Providers
+		final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.userAccount);
 
-         final List<SocialProvider> providers = new ArrayList<SocialProvider>();
-         providers.add(SocialProvider.FACEBOOK);
-         providers.add(SocialProvider.LINKEDIN);
+		final List<SocialProvider> providers = new ArrayList<SocialProvider>();
+		providers.add(SocialProvider.FACEBOOK);
+		providers.add(SocialProvider.LINKEDIN);
 
-         // Create TweetPollSavedPublished - Social Links
-		 createTweetPollSavedPublishStatus(tweetPoll1, socialAccount, SocialProvider.FACEBOOK);
-		 createTweetPollSavedPublishStatus(tweetPoll1, socialAccount, SocialProvider.TWITTER);
+		// Create TweetPollSavedPublished - Social Links
+		createTweetPollSavedPublishStatus(tweetPoll1, socialAccount,
+				SocialProvider.FACEBOOK);
+		createTweetPollSavedPublishStatus(tweetPoll1, socialAccount,
+				SocialProvider.TWITTER);
 
-		 /* *********************************** RETRIEVE *************************** */
+		/* ***** BEFORE  ******/
 
-		 // final TweetPollFolder tpFolder = getTweetPoll().
+		// Retrieve all TwweetpollSwitch associated
+		final List<TweetPollSwitch> tpSwitchs = getTweetPoll()
+				.getListAnswersByTweetPollAndDateRange(tweetPoll1);
 
-
-		 final List<TweetPollSwitch> tpSwitchs = getTweetPoll().getListAnswersByTweetPollAndDateRange(tweetPoll1);
-
-
-		 for (TweetPollSwitch tweetPollSwitch : tpSwitchs) {
-			 final List<TweetPollResult> tpollsResult = getTweetPoll().getTweetPollResultsByTweetPollSwitch(tweetPollSwitch);
+		for (TweetPollSwitch tweetPollSwitch : tpSwitchs) {
+			final List<TweetPollResult> tpollsResult = getTweetPoll()
+					.getTweetPollResultsByTweetPollSwitch(tweetPollSwitch);
 
 		}
 
-		 final List<TweetPollSavedPublishedStatus> TpollSaved  = getTweetPoll().getLinksByTweetPoll(tweetPoll1, null, null,
-							TypeSearchResult.TWEETPOLL);
+		final List<TweetPollSavedPublishedStatus> TpollSaved = getTweetPoll()
+				.getLinksByTweetPoll(tweetPoll1, null, null,
+						TypeSearchResult.TWEETPOLL);
 
-		 final TweetPoll myTweetpoll = tweetPoll1;
+		 /*Retrieve Tweetpolls folders by Folder ID  */
+		Assert.assertEquals(tweetPoll1.getHashTags().size(), 2);
+
+		 /* Retrieve Question Answers **/
+		Assert.assertEquals(tweetPoll1.getHashTags().size(), 2);
+
+		// Check total Answers
+		final List<QuestionAnswer> totalAnswers = getQuestionDaoImp()
+				.getAnswersByQuestionId(tweetPoll1.getQuestion().getQid());
+
+		 Assert.assertEquals(totalAnswers.size(), 3);
+
+		 // Check if exist TweetPoll
+  		 Assert.assertNotNull( getTweetPoll().getTweetPollById(myTweetpoll.getTweetPollId()));
+
+  		 Assert.assertNotNull(getQuestionDaoImp().retrieveQuestionById(myTweetpoll.getQuestion().getQid()));
+
 
 		 /* **************************** REMOVE ************************************ */
 		 this.getTweetPollService().removeTweetPoll(tweetPoll1);
 
 		 List<TweetPollSwitch> tpSwitchsAfter = getTweetPoll().getListAnswersByTweetPollAndDateRange(myTweetpoll);
+		 Assert.assertEquals(tpSwitchsAfter.size(), 0);
 
-
-
+		 // Check Tweetpollresult
 		 for (TweetPollSwitch tweetPollSwitch : tpSwitchsAfter) {
 			 final List<TweetPollResult> tpollsResult = getTweetPoll().getTweetPollResultsByTweetPollSwitch(tweetPollSwitch);
+		 }
 
-		}
-
-
+		 // Check TweetpollSaved
 		 final List<TweetPollSavedPublishedStatus> TpollSavedAfter  = getTweetPoll().getLinksByTweetPoll(myTweetpoll, null, null,
 					TypeSearchResult.TWEETPOLL);
+		 Assert.assertEquals(TpollSavedAfter.size(), 0);
+
+		 // Check Hashtag
+		final List<TweetPoll> tpollsbyHashtag = getTweetPoll().getTweetpollByHashTagName(tagName, 0, 10, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
+		Assert.assertEquals(tpollsbyHashtag.size(), 0);
+
+		// Check QuestionAnswer
+		final List<QuestionAnswer> totalAnswersAfter = getQuestionDaoImp().getAnswersByQuestionId(
+				tweetPoll1.getQuestion().getQid());
+		Assert.assertEquals(totalAnswersAfter.size(), 0);
+
+		// Check TweetPoll
+		final TweetPoll tpollAfter = getTweetPoll().getTweetPollById(myTweetpoll.getTweetPollId());
+ 		Assert.assertNull(tpollAfter);
+
+		// Check Question
+		final Question questionAfter = getQuestionDaoImp().retrieveQuestionById(myTweetpoll.getQuestion().getQid());
+
+		Assert.assertNull(questionAfter);
+
+
     }
 
     /**
