@@ -175,8 +175,6 @@ public class TweetPoll extends AbstractGeoPoint{
       */
      private CommentOptions showComments;
 
-     private TweetPollSwitch tpollSwitch;
-
 
     /**
      * @return the tweetPollId
@@ -476,7 +474,7 @@ public class TweetPoll extends AbstractGeoPoint{
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "tweetPollFolderId", nullable = true)
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+
     public TweetPollFolder getTweetPollFolder() {
         return tweetPollFolder;
     }
@@ -672,20 +670,6 @@ public class TweetPoll extends AbstractGeoPoint{
     public void setShowComments(final CommentOptions showComments) {
         this.showComments = showComments;
     }
-
-    /**
-	 * @return the tpollSwitch
-	 */
-	public TweetPollSwitch getTpollSwitch() {
-		return tpollSwitch;
-	}
-
-	/**
-	 * @param tpollSwitch the tpollSwitch to set
-	 */
-	public void setTpollSwitch(TweetPollSwitch tpollSwitch) {
-		this.tpollSwitch = tpollSwitch;
-	}
 
 
     /* (non-Javadoc)
