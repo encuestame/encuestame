@@ -55,7 +55,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      */
     @Test
     public void testGetMyDashBoards() throws ServletException, IOException {
-        initService("/api/common/dashboard/list.json", MethodJson.GET);
+        initService("/api/common/dashboard", MethodJson.GET);
         final JSONObject response = callJsonService();
         // {"error":{},"success":{"cloud":[]}}
         final JSONObject success = getSucess(response);
@@ -103,7 +103,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      */
     @Test
     public void testcreateDashBoard() throws ServletException, IOException {
-        initService("/api/common/dashboard/create.json", MethodJson.POST);
+        initService("/api/common/dashboard", MethodJson.POST);
         setParameter("name", "dasboard 1");
         setParameter("desc", "description of my dashboard");
         setParameter("favourite", "true");

@@ -93,7 +93,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
     public void testGetMyDashboards() throws ServletException, IOException {
         createDashboardDefault(getSpringSecurityLoggedUserAccount());
         createDashboard("My second board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
-        initService("/api/common/dashboard/list.json", MethodJson.GET);
+        initService("/api/common/dashboard", MethodJson.GET);
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         // {"error":{},"success":{"items":[],"label":"hashTagName","identifier":"id"}}
