@@ -463,16 +463,9 @@
           <version>1.147-M2-SNAPSHOT</version>
           <type>war</type>
         </dependency>
-        <!-- Uses Castor for XML -->
         <dependency>
-            <groupId>org.codehaus.castor</groupId>
-            <artifactId>castor</artifactId>
-        </dependency>
-
-        <!-- Castor need this -->
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
+            <groupId>com.googlecode.webutilities</groupId>
+            <artifactId>webutilities</artifactId>
         </dependency>
      </dependencies>
 

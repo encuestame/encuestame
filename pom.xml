@@ -47,6 +47,7 @@
         <org.slf4j-version>1.5.8</org.slf4j-version>
         <google.guava>r07</google.guava>
         <scribe>1.0.9</scribe>
+        <webutilities.version>0.0.5</webutilities.version>
         <wurfl>1.2</wurfl>
         <log4j>1.2.14</log4j>
         <jstl>1.2</jstl>
@@ -1779,7 +1780,17 @@
                 <artifactId>uadetector-resources</artifactId>
             <version>${uadetector.version}</version>
             </dependency>
-       <!-- <dependency>
+
+            <dependency>
+                <groupId>com.googlecode.webutilities</groupId>
+                <artifactId>webutilities</artifactId>
+                <version>${webutilities.version}</version>
+            </dependency>
+
+
+            <!-- REMOVE -->
+
+            <!-- <dependency>
                 <groupId>org.apache.cactus</groupId>
                 <artifactId>cactus.core.framework</artifactId>
                 <version>${cactus.version}</version>
