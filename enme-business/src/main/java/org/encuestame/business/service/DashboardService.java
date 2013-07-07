@@ -240,21 +240,6 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
 
     /*
      * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.IDashboardService#updateDasbboard(org.encuestame.utils.web.DashboardBean)
-     */
-    public DashboardBean updateDasbboard(final DashboardBean dashboardBean) throws EnMeNoResultsFoundException {
-        final Dashboard board = this.getDashboardById(dashboardBean.getDashboardId());
-        board.setFavorite(dashboardBean.getFavorite() == null ? false : dashboardBean.getFavorite());
-        board.setDescription(dashboardBean.getDashboardDesc());
-        board.setPageLayout(LayoutEnum.getDashboardLayout(dashboardBean.getLayout()));
-        board.setPageBoardName(dashboardBean.getDashboardName());
-        board.setSelectedByDefault(dashboardBean.getSelected());
-        getDashboardDao().saveOrUpdate(board);
-        return ConvertDomainBean.convertDashboardDomaintoBean(board);
-    }
-
-    /*
-     * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IDashboardService#deleteDasbboard(org.encuestame.utils.web.DashboardBean)
      */
     public void deleteDasbboard(final DashboardBean dashboardBean) throws EnMeNoResultsFoundException {
@@ -412,6 +397,9 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
        board.setBoardSequence(boardBean.getSequence());
        board.setPageLayout(LayoutEnum.getDashboardLayout(boardBean.getLayout()) == null ? LayoutEnum.BB_BLOCK : LayoutEnum.getDashboardLayout(boardBean.getLayout()));
        board.setDescription(boardBean.getDashboardDesc());
+       if (boardBean.getSelected()){
+           this.markAsSelectedDasboard(board.getBoardId());
+       }
        board.setFavorite(boardBean.getFavorite());
        getDashboardDao().saveOrUpdate(board);
        return board;
