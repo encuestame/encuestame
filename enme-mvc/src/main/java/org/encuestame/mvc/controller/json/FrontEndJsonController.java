@@ -33,6 +33,13 @@ import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,7 +56,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class FrontEndJsonController extends AbstractJsonController{
-
 
     /** Log. **/
     private Log log = LogFactory.getLog(this.getClass());

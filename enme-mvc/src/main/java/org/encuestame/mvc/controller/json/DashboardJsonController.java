@@ -318,21 +318,22 @@ public class DashboardJsonController extends AbstractJsonController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/api/common/dashboard/select.json", method = RequestMethod.PUT)
-    public @ResponseBody ModelMap moveGadget(
-            @RequestParam(value = "id", required = true) Long dashBoardId,
-            HttpServletRequest request,
-            HttpServletResponse response){
-        try {
-            getDashboardService().markAsSelectedDasboard(dashBoardId);
-            setSuccesResponse();
-        } catch (Exception e) {
-            log.error(e);
-            e.printStackTrace();
-            setError(e.getMessage(), response);
-        }
-        return returnData();
-    }
+//    @Deprecated
+//    @RequestMapping(value = "/api/common/dashboard/select.json", method = RequestMethod.GET)
+//    public @ResponseBody ModelMap selectedDashboard(
+//            @RequestParam(value = "id", required = true) Long dashBoardId,
+//            HttpServletRequest request,
+//            HttpServletResponse response){
+//        try {
+//            getDashboardService().markAsSelectedDasboard(dashBoardId);
+//            setSuccesResponse();
+//        } catch (Exception e) {
+//            log.error(e);
+//            e.printStackTrace();
+//            setError(e.getMessage(), response);
+//        }
+//        return returnData();
+//    }
 
     /**
      *

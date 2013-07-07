@@ -22,8 +22,6 @@
 <script src="<%=request.getContextPath()%>/resources/js/commons.js"></script>
 <script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/me/run.js"></script>
-
-
 <script src="<%=request.getContextPath()%>/resources/js/enme.chart.js"></script>
 
 <script>
@@ -36,8 +34,9 @@ require([
     "dojo/parser",
     "dojo/ready",
     'me/activity/Activity',
+    "me/web/widget/signup/LoginDialog",
     "me/core/enme"
-], function(dojo, declare, parser, ready, Activity, _ENME) {
+], function(dojo, declare, parser, ready, Activity, LoginDialog, _ENME) {
     ready(function(){
         // Call the parser manually so it runs after our widget is defined, and page has finished loading
         _ENME.init({
@@ -59,6 +58,12 @@ require([
             tp_hr : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.hr")%>,
             tp_minsoa : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.minsoa")%>
         });
+        dojo.subscribe('/encuestame/login/show', this, dojo.hitch(this, function(expired_session) {
+            var login = new LoginDialog({
+                expired_session: expired_session,
+                action_url : '<%=request.getContextPath()%>/user/signin/authenticate'
+            });
+        }));
         //parse all widgets.
         parser.parse();
         <c:if test="${!detectedDevice}">
@@ -69,10 +74,6 @@ require([
             activity.connect();
             _ENME.setActivity(activity);
         </c:if>
-        // reference, it' not possible add to the build.
-        //dojo.require("dojox.fx");
-        //dojo.require( "dojo.date.locale" );
-        //dojo.require('dojox.timing');
     });
 });
 
