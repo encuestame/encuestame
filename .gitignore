@@ -30,6 +30,7 @@ enme-persistence/enme-dao/.settings
 */buildNumber.properties
 buildNumber.properties
 */.project
+node_modules
 .project
 .classpath
 */.buildpath/*

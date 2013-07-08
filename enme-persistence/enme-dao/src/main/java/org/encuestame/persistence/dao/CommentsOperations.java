@@ -120,16 +120,6 @@ public interface CommentsOperations extends IBaseDao {
      * @return
      */
     List<Comment> getCommentsbyTypeAndStatus(final Long id,
-			final TypeSearchResult typeSearch, final Integer maxResults,
-			final Integer start, final CommentOptions commentStatus, final SearchPeriods period);
-
-    /**
-     * Retrieve All Comments by {@link TweetPoll}, {@link Poll} or {@link Survey} and {@link CommentOptions}.
-     * @param itemType
-     * @param commentStatus
-     * @return
-     */
-    Long getTotalCommentsbyTypeAndStatus(
-			final TypeSearchResult itemType, final CommentOptions commentStatus, final SearchPeriods period);
-
+            final TypeSearchResult typeSearch, final Integer maxResults,
+            final Integer start, final CommentOptions commentStatus, final SearchPeriods period);
 }

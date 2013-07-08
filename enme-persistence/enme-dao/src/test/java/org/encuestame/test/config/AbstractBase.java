@@ -676,7 +676,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
           board.setDescription("");
           board.setFavorite(favorite);
           board.setFavoriteCounter(1);
-          board.setPageLayout(LayoutEnum.AAA_COLUMNS);
+          board.setPageLayout(LayoutEnum.BA_BLOCK_COLUMN);
           board.setBoardSequence(1);
           board.setUserBoard(userAcc);
           getDashboardDao().saveOrUpdate(board);
@@ -2170,10 +2170,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final UserAccount userAcc,
             final CommentOptions commentStatus,
             final Date creationDate){
-    	final Comment tweetPollComment = this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L , creationDate);
-    	tweetPollComment.setCommentStatus(commentStatus);
-    	getCommentsOperations().saveOrUpdate(tweetPollComment);
-    	return tweetPollComment;
+        final Comment tweetPollComment = this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L , creationDate);
+        tweetPollComment.setCommentStatus(commentStatus);
+        getCommentsOperations().saveOrUpdate(tweetPollComment);
+        return tweetPollComment;
     }
 
     /**
@@ -2215,15 +2215,15 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param commentStatus
      * @return
      */
-	public Comment createDefaultPollCommentWithStatus(final String comment,
-			final Poll poll, final UserAccount userAcc,
-			final CommentOptions commentStatus, final Date creationDate) {
-		final Comment pollComment = this.createComment(comment, 0L, null, null,
-				poll, userAcc, 0L, creationDate);
-		pollComment.setCommentStatus(commentStatus);
-		getCommentsOperations().saveOrUpdate(pollComment);
-		return pollComment;
-	}
+    public Comment createDefaultPollCommentWithStatus(final String comment,
+            final Poll poll, final UserAccount userAcc,
+            final CommentOptions commentStatus, final Date creationDate) {
+        final Comment pollComment = this.createComment(comment, 0L, null, null,
+                poll, userAcc, 0L, creationDate);
+        pollComment.setCommentStatus(commentStatus);
+        getCommentsOperations().saveOrUpdate(pollComment);
+        return pollComment;
+    }
 
     /**
      * Create default survey comment.
@@ -2245,16 +2245,16 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param commentStatus
      * @return
      */
-	public Comment createDefaultSurveyCommentWithStatus(final String comment,
-			final Survey survey, final UserAccount userAcc,
-			final CommentOptions commentStatus, final Date creationdate) {
+    public Comment createDefaultSurveyCommentWithStatus(final String comment,
+            final Survey survey, final UserAccount userAcc,
+            final CommentOptions commentStatus, final Date creationdate) {
 
-		final Comment surveyComment = this.createComment(comment, 0L, null,
-				survey, null, userAcc, 0L, creationdate);
-		surveyComment.setCommentStatus(commentStatus);
-		getCommentsOperations().saveOrUpdate(surveyComment);
-		return surveyComment;
-	}
+        final Comment surveyComment = this.createComment(comment, 0L, null,
+                survey, null, userAcc, 0L, creationdate);
+        surveyComment.setCommentStatus(commentStatus);
+        getCommentsOperations().saveOrUpdate(surveyComment);
+        return surveyComment;
+    }
 
     /**
      * Create access rate item.
@@ -2421,10 +2421,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     public ItemStatDetail createItemStatDetail(final Long itemId, final Date creationDate, final Long miliDate){
-    	final ItemStatDetail isd = new ItemStatDetail();
-    	isd.setDate(creationDate);
-    	isd.setItemId(itemId);
-    	//isd.setMilisecondsDate(miliDate);
-    	return isd;
+        final ItemStatDetail isd = new ItemStatDetail();
+        isd.setDate(creationDate);
+        isd.setItemId(itemId);
+        //isd.setMilisecondsDate(miliDate);
+        return isd;
     }
 }

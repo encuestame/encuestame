@@ -253,6 +253,10 @@
             <artifactId>rome-fetcher</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.opensymphony.quartz</groupId>
             <artifactId>quartz</artifactId>
         </dependency>
@@ -482,6 +486,17 @@
             <artifactId>enme-views</artifactId>
             <version>1.147-M2-SNAPSHOT</version>
             <type>war</type>
+        </dependency>
+        <!-- Uses Castor for XML -->
+        <dependency>
+            <groupId>org.codehaus.castor</groupId>
+            <artifactId>castor</artifactId>
+        </dependency>
+
+        <!-- Castor need this -->
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
         </dependency>
     </dependencies>
 </project>

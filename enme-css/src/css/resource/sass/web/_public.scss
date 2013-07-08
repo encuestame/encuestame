@@ -168,10 +168,11 @@ div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper {
 }
 
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-list-item-title {
-    color: #8F8F8F;
+    color: $gray_dark;
     @extend .col-left;
     font-size: 14px;
     line-height: 25px;
+    @extend .t-light;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.listItemTweetSeleted {
@@ -356,29 +357,6 @@ div.web-tweetpolls {
 /** profile update wrapper **/
 div.accountUpdateWrapper {
     padding: 10px;
-}
-
-/** gadget **/
-div.web-gadget {
-    background-color: #F1F1F1;
-    border: 1px solid #DEDEDE;
-    margin: 10px 0px 10px 0px;
-    min-height: 200px;
-    min-width: 330px;
-    width: 320px;
-}
-
-div.web-gadget .gad-title {
-    padding: 2px;
-    background-color: $black_light;
-    cursor: move;
-    color: #FFF;
-    font-size: 120%;
-}
-
-div.web-gadget .gad-content {
-    max-height: 200px;
-    @extend .o-auto;
 }
 
 div.web-layout .empty-text {

@@ -14,7 +14,6 @@ package org.encuestame.mvc.controller.json;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,9 +79,9 @@ public class CommentJsonController extends AbstractJsonController {
             HttpServletRequest request, HttpServletResponse response) {
         try {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-            log.debug("/api/common/comment/comments/{type}.json itemId "+itemId);
-            log.debug("/api/common/comment/comments/{type}.json max "+max);
-            log.debug("/api/common/comment/comments/{type}.json start "+start);
+//            log.trace("/api/common/comment/comments/{type}.json itemId "+itemId);
+//            log.debug("/api/common/comment/comments/{type}.json max "+max);
+//            log.debug("/api/common/comment/comments/{type}.json start "+start);
             final List<Comment> comments = getCommentService().getComments(
                     TypeSearchResult.getTypeSearchResult(type), itemId, limitTotalMax(max),
                     start);
@@ -120,9 +119,9 @@ public class CommentJsonController extends AbstractJsonController {
                 if(limit == null){
                     limit = LIMIT_DEFAULT;
                 }
-                log.debug("Limit "+limit);
-                log.debug("Keyword "+keyword);
-                log.debug("excludes "+excludes);
+//                log.debug("Limit "+limit);
+//                log.debug("Keyword "+keyword);
+//                log.debug("excludes "+excludes);
                 if(keyword == null || keyword.isEmpty()){
                     jsonResponse.put("comments", ListUtils.EMPTY_LIST);
                     setItemResponse(jsonResponse);
@@ -137,6 +136,37 @@ public class CommentJsonController extends AbstractJsonController {
             }
             return returnData();
         }
+
+    /**
+     * Get all comments by user
+     * @param limit
+     * @param start
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/common/comments", method = RequestMethod.GET)
+    public @ResponseBody ModelMap getComments(
+            @RequestParam(value = "limit", required = false) Integer limit,
+            @RequestParam(value = "start", required = false) Integer start,
+            HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            List<CommentBean> comments = getCommentService().getCommentsbyUser(
+                    limit, start);
+            jsonResponse.put("comments", comments);
+            setItemResponse(jsonResponse);
+        } catch (Exception e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 
     /**
      * Like or dislike vote on comment.
@@ -195,7 +225,7 @@ public class CommentJsonController extends AbstractJsonController {
      }
 
     /**
-     *
+     * Create a comment.
      * @param mycomment
      * @param tweetPollId
      * @param type
@@ -222,7 +252,7 @@ public class CommentJsonController extends AbstractJsonController {
     }
 
     /**
-     *
+     * JSON Service to create a comment.
      * @param mycomment
      * @param tweetPollId
      * @param relatedCommentId
@@ -251,7 +281,7 @@ public class CommentJsonController extends AbstractJsonController {
      }
 
     /**
-     *
+     * JSON Service to retrieve the top comments.
      * @param commentOption
      * @param max
      * @param start

@@ -30,12 +30,14 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,20 +78,21 @@ public class DashboardJsonController extends AbstractJsonController {
             setItemResponse(jsonResponse);
          } catch (Exception e) {
               log.error(e);
+              e.printStackTrace();
               setError(e.getMessage(), response);
          }
          return returnData();
      }
 
     /**
-     *
+     * Retrieve all available dashboard as a list
      * @param dashboardId
      * @param request
      * @param response
      * @return
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/common/dashboard/list.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/common/dashboard", method = RequestMethod.GET)
     public @ResponseBody ModelMap getMyDashboards(
             HttpServletRequest request,
             HttpServletResponse response){
@@ -98,6 +101,7 @@ public class DashboardJsonController extends AbstractJsonController {
             setItemReadStoreResponse("dashboard_name", "id", dashboards);
          } catch (Exception e) {
               log.error(e);
+              e.printStackTrace();
               setError(e.getMessage(), response);
          }
          return returnData();
@@ -131,6 +135,7 @@ public class DashboardJsonController extends AbstractJsonController {
              setItemResponse(jsonResponse);
          } catch (Exception e) {
               log.error(e);
+              e.printStackTrace();
               setError(e.getMessage(), response);
          }
          return returnData();
@@ -148,7 +153,7 @@ public class DashboardJsonController extends AbstractJsonController {
      * @return
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/common/dashboard/create.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/common/dashboard", method = RequestMethod.POST)
     public @ResponseBody ModelMap createtDashboard(
             @RequestParam(value = "name", required = true) String boardName,
             @RequestParam(value = "desc", required = true) String boardDesc,
@@ -161,13 +166,64 @@ public class DashboardJsonController extends AbstractJsonController {
              bean.setDashboardName(boardName);
              bean.setDashboardDesc(boardDesc);
              bean.setFavorite(favorite);
-             bean.setLayout(layout == null ? "AAA" : layout);
+             bean.setLayout(layout == null ? LayoutEnum.BB_BLOCK.toString() : layout);
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
              final Dashboard dashboard = getDashboardService().createDashboard(bean);
              jsonResponse.put("dashboard", ConvertDomainBean.convertDashboardDomaintoBean(dashboard));
              setItemResponse(jsonResponse);
          } catch (Exception e) {
               log.error(e);
+              e.printStackTrace();
+              setError(e.getMessage(), response);
+         }
+         return returnData();
+     }
+
+    /**
+     * Update a Dasboard.
+     * @param bean
+     * @param request
+     * @param response
+     * @return
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/common/dashboard", method = RequestMethod.PUT)
+    public @ResponseBody ModelMap updateDashboard(
+            @RequestBody DashboardBean bean,
+            HttpServletRequest request,
+            HttpServletResponse response){
+         try {
+             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+             final Dashboard dashboard = getDashboardService().updateDashboard(bean);
+             jsonResponse.put("dashboard", ConvertDomainBean.convertDashboardDomaintoBean(dashboard));
+             setItemResponse(jsonResponse);
+         } catch (Exception e) {
+              log.error(e);
+              e.printStackTrace();
+              setError(e.getMessage(), response);
+         }
+         return returnData();
+     }
+
+    /**
+     * Remove a dashboard panel.
+     * @param bean
+     * @param request
+     * @param response
+     * @return
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/common/dashboard", method = RequestMethod.DELETE)
+    public @ResponseBody ModelMap deleteDashboard(
+            @RequestBody DashboardBean bean,
+            HttpServletRequest request,
+            HttpServletResponse response){
+         try {
+             getDashboardService().deleteDasbboard(bean);
+             setSuccesResponse();
+         } catch (Exception e) {
+              log.error(e);
+              e.printStackTrace();
               setError(e.getMessage(), response);
          }
          return returnData();
@@ -223,6 +279,7 @@ public class DashboardJsonController extends AbstractJsonController {
             setSuccesResponse();
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -247,6 +304,7 @@ public class DashboardJsonController extends AbstractJsonController {
             setSuccesResponse();
        } catch (Exception e) {
            log.error(e);
+           e.printStackTrace();
            setError(e.getMessage(), response);
        }
        return returnData();
@@ -270,6 +328,7 @@ public class DashboardJsonController extends AbstractJsonController {
             setSuccesResponse();
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -293,6 +352,7 @@ public class DashboardJsonController extends AbstractJsonController {
              setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

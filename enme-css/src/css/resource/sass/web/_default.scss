@@ -171,11 +171,15 @@
 }
 
 .default-sidebar-menu-sub {
-  background-color: #595959;
+  background-color: $gray_middle;
   @extend .text-white;
   font-size: 100%;
   min-height: 21px;
-  padding: 9px 0 0 7px;
+  padding: 5px 10px;
+
+  span {
+    @extend .t-light;
+  }
 }
 
 /** Suggest. **/

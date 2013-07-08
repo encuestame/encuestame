@@ -145,6 +145,10 @@ public class TestDashboardService extends AbstractSpringSecurityContext{
         assertNotNull(board.getBoardId());
     }
 
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     */
     @Test
     public void removeGadgetFromDashboard() throws EnMeNoResultsFoundException{
         final List<Gadget> gadgets = dashboardService.getGadgetsbyDashboard(this.dashboard.getBoardId());
@@ -154,11 +158,16 @@ public class TestDashboardService extends AbstractSpringSecurityContext{
         assertEquals("Should be equals", 2, gadgets2.size());
     }
 
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     */
     @Test
     public void testUpdateDashboard() throws EnMeNoResultsFoundException{
         final String newName = "Notifications2";
         this.boardBean.setDashboardName(newName);
-        final Dashboard boardUpdate = getDashboardService().updateDashboard(this.dashboard.getBoardId() , boardBean);
+        final Dashboard boardUpdate = getDashboardService().updateDashboard(boardBean);
+        assertEquals("Should be equals", newName, boardUpdate.getPageBoardName());
     }
 
     /**

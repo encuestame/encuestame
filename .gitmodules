@@ -29,3 +29,6 @@
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/bootstrap"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/bootstrap
 	url = git://github.com/juanpicado/Dojo-Bootstrap.git
+[submodule "doc"]
+	path = doc
+	url = git://github.com/encuestame/doc.git

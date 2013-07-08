@@ -1,4 +1,4 @@
-![Example](http://api.encuestame.org/mail.png)
+![Example](http://encuestame.org/blog/wp-content/uploads/2013/06/logo_encuestame.png)
 
 Encuestame Open Source Social Survey
 =====================================
