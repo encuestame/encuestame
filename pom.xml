@@ -34,7 +34,7 @@
         <spring.version>3.2.0.RELEASE</spring.version>
         <env>development</env>
         <javascript.minimize>false</javascript.minimize>
-        <spring.webflow.version>2.3.1.RELEASE</spring.webflow.version>
+        <spring.webflow.version>2.3.0.RELEASE</spring.webflow.version>
         <spring.security.version>3.1.0.RELEASE</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-integration-core>2.1.0.RELEASE</spring-integration-core>
@@ -47,7 +47,7 @@
         <org.slf4j-version>1.5.8</org.slf4j-version>
         <google.guava>r07</google.guava>
         <scribe>1.0.9</scribe>
-        <webutilities.version>0.0.5</webutilities.version>
+        <webutilities.version>0.0.6</webutilities.version>
         <wurfl>1.2</wurfl>
         <log4j>1.2.14</log4j>
         <jstl>1.2</jstl>
@@ -1453,7 +1453,6 @@
                 <groupId>javax.servlet.jsp</groupId>
                 <artifactId>jsp-api</artifactId>
                 <version>${jsp-api}</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.aspectj</groupId>
@@ -1785,6 +1784,12 @@
                 <groupId>com.googlecode.webutilities</groupId>
                 <artifactId>webutilities</artifactId>
                 <version>${webutilities.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>javax.servlet</artifactId>
+                        <groupId>jsp-api</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
 

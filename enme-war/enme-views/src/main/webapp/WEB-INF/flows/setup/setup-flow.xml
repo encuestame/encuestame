@@ -95,7 +95,7 @@
     </view-state>
 
     <view-state id="review-admon">
-        <transition on="valid-user" to="finish-state">
+        <transition on="finish" to="finish-state">
             <evaluate expression="setupService.validateInstall()"></evaluate>
         </transition>
         <!-- <transition on="edit-user" to="editAdmon" /> TODO: wish list. -->

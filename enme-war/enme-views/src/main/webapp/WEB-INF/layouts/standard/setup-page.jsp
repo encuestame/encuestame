@@ -20,7 +20,7 @@
   }
 </script>
 </head>
-<body class="enme-web-context">
+<body class="enme-web-context setup">
   <div id="mainWrapper" class="page">
     <header>
 
