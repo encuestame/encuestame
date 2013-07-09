@@ -23,7 +23,6 @@ import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
@@ -79,12 +78,12 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 	 * @see
 	 * org.encuestame.persistence.dao.CommentsOperations#getCommentsbyUser(org
 	 * .encuestame.persistence.domain.security.UserAccount, java.lang.Integer,
-	 * java.lang.Integer, org.encuestame.utils.enums.CommentOptions)
+	 * java.lang.Integer, org.encuestame.utils.enums.CommentStatus)
 	 */
     @SuppressWarnings("unchecked")
 	public List<Comment> getCommentsbyUser(final UserAccount userAcc,
 			final Integer maxResults, final Integer start,
-			final CommentOptions commentStatus) {
+			final CommentStatus commentStatus) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
         criteria.add(Restrictions.eq("user", userAcc));
         criteria.addOrder(Order.desc("createdAt"));
@@ -110,7 +109,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 	@SuppressWarnings("unchecked")
 	public List<Comment> getCommentsbyTypeAndStatus(final Long id,
 			final TypeSearchResult typeSearch, final Integer maxResults,
-			final Integer start, final CommentOptions commentStatus, final SearchPeriods period) {
+			final Integer start, final CommentStatus commentStatus, final SearchPeriods period) {
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(Comment.class);
 		if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
@@ -155,9 +154,9 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 	 * @see
 	 * org.encuestame.persistence.dao.CommentsOperations#getTotalCommentsbyItem
 	 * (java.lang.Long, org.encuestame.utils.enums.TypeSearchResult,
-	 * org.encuestame.utils.enums.CommentOptions)
+	 * org.encuestame.utils.enums.CommentStatus)
 	 */
-    public Long getTotalCommentsbyItem(final Long id, final TypeSearchResult itemType, final CommentOptions commentStatus, final SearchPeriods period){
+    public Long getTotalCommentsbyItem(final Long id, final TypeSearchResult itemType, final CommentStatus commentStatus, final SearchPeriods period){
           final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
           criteria.setProjection(Projections.rowCount());
           if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
@@ -191,10 +190,10 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 	 * @see org.encuestame.persistence.dao.CommentsOperations#
 	 * getTotalCommentsbyTypeAndStatus
 	 * (org.encuestame.utils.enums.TypeSearchResult,
-	 * org.encuestame.utils.enums.CommentOptions)
+	 * org.encuestame.utils.enums.CommentStatus)
 	 */
 	public Long getTotalCommentsbyTypeAndStatus(
-			final TypeSearchResult itemType, final CommentOptions commentStatus, final SearchPeriods period) {
+			final TypeSearchResult itemType, final CommentStatus commentStatus, final SearchPeriods period) {
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(Comment.class);
 		criteria.setProjection(Projections.rowCount());
