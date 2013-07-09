@@ -31,6 +31,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.CommentOptions;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
@@ -85,7 +86,7 @@ public class Comment{
     private Boolean isPublished;
 
     /** **/
-    private CommentOptions commentStatus;
+    private CommentStatus commentStatus;
 
     /**
      * @return the commentId
@@ -281,14 +282,14 @@ public class Comment{
 	 */
 	@Column(name = "comment_status")
     @Enumerated(EnumType.ORDINAL)
-	public CommentOptions getCommentStatus() {
+	public CommentStatus getCommentStatus() {
 		return commentStatus;
 	}
 
 	/**
 	 * @param commentStatus the commentStatus to set
 	 */
-	public void setCommentStatus(final CommentOptions commentStatus) {
+	public void setCommentStatus(final CommentStatus commentStatus) {
 		this.commentStatus = commentStatus;
 	}
 }
