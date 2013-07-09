@@ -1,6 +1,6 @@
 ![Example](http://encuestame.org/blog/wp-content/uploads/2013/06/logo_encuestame.png)
 
-Encuestame Open Source Social Survey
+#Encuestame Open Source Social Survey
 =====================================
 
 For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).

@@ -6,7 +6,8 @@
 	}
 
 	p, .p {
-		@extend .t-light;
+		font-weight: 400;
+		color: $gray_normal;
 	}
 
 
@@ -73,7 +74,8 @@
 	color : $black;
 
 	.description, .link {
-		@extend .t-light;
+		font-weight: 400;
+		color: $gray_normal;
 	}
 
 	.buttons-group {
@@ -159,8 +161,8 @@
 			.web-directory-item-title {
 				margin: 0;
 				@extend .t-light;
-
 				>div {
+
 					font-size: 22px;
 					margin: 20px 0px 5px;
 				}
@@ -172,9 +174,10 @@
 			}
 
 			.web-directory-item-description {
-				@extend .t-light;
-				font-size: 16px;
+				font-weight: 400px;
+				font-size: 14px;
 				padding-top: 20px;
+				color: $gray_normal;
 			}
 
 			.web-directory-item-actions {

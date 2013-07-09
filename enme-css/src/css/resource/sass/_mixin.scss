@@ -30,7 +30,10 @@ $footer_height : 40px;
 // Default Variables
 $white : #FFFFFF;
 $default_background_color : $white;
+
+// black scala
 $black : #000000;
+$black_light : #888888;
 $black_hight : #111111 !default;
 $black_medium : #222222 !default;
 $black_semi_medium : #252525;
@@ -40,17 +43,23 @@ $black_semi_medium : #252525;
 // $navbarInverseBorder:                    #252525 !default;
 // $navbarBackgroundHighlight:       #ffffff !default;
 
-
-
-$black_light : #888888;
+// gray scala
 $gray_middle : #999;
-$gray_dark : #918F8F;
 $gray_lite : #e5e5e5;
 $gray_normal : #616161;
+$gray_dark : #918F8F;
+
+// others colors
 $yellow_light : #F9F9C2;
 $red_light:  #9d261d;
 $green_light : #C9F5C8;
 $red_light : #FEBEB2;
+
+// oragen scala
+$orange : #E7A441;
+$orange_middle : #E7A441;
+$orange_light : #FFB952;
+$orange_gradient_over : #BC870D;
 
 // Info Messages
 $success_color : #55986D;
@@ -62,10 +71,6 @@ $error_border_color : darken(#BA3B3B, 30%);
 $warn_color : #55986D;
 $warn_border_color : darken(#55986D, 30%);
 
-$orange : #E7A441;
-$orange_middle : #E7A441;
-$orange_light : #FFB952;
-$orange_gradient_over : #BC870D;
 $button_font_size : 12px;
 $none : none;
 $web_tag_color : #606060;

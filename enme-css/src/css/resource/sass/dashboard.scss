@@ -2,6 +2,7 @@
 @import "menu_logged";
 
 @import "shared-components/gadget";
+@import "shared-components/layout_dashboard";
 
 
 .ui-dash-grid {
@@ -9,6 +10,19 @@
 
 	.span5 {
 		width: 434px;
+	}
+
+	.AB, .BA {
+		.span3 {
+			width: 340px;
+			margin-left: 10px;
+		}
+	}
+
+	.B {
+		.span12 {
+			width: 900px;
+		}
 	}
 }
 
