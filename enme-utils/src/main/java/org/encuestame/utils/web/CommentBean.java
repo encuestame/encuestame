@@ -19,6 +19,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.encuestame.utils.enums.CommentOptions;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.TypeSearchResult;
 
 /**
@@ -89,7 +90,7 @@ public class CommentBean implements Serializable{
     private Long parentId;
 
     @JsonProperty(value = "comment_status")
-    private CommentOptions status;
+    private CommentStatus status;
 
     /**
      * @return the commentId
@@ -275,14 +276,14 @@ public class CommentBean implements Serializable{
 	/**
 	 * @return the status
 	 */
-	public CommentOptions getStatus() {
+	public CommentStatus getStatus() {
 		return status;
 	}
 
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(CommentOptions status) {
+	public void setStatus(CommentStatus status) {
 		this.status = status;
 	}
 }

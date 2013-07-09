@@ -21,9 +21,8 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
-
-import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.persistence.exception.EnmeNotAllowedException;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -69,7 +68,7 @@ public interface ICommentService {
      * @throws EnMeNoResultsFoundException
      */
     List<CommentBean> getCommentsbyUser(final Integer maxResults,
-            final Integer start, final CommentOptions commentStatus) throws EnMeNoResultsFoundException;
+            final Integer start, final CommentStatus commentStatus) throws EnMeNoResultsFoundException;
 
     /**
      * Get comments by keyword.
@@ -137,7 +136,7 @@ public interface ICommentService {
       */
      List<CommentBean> retrieveCommentsByTypeAndStatus(final Long id,
  			final TypeSearchResult typeSearch, final Integer maxResults,
- 			final Integer start, final CommentOptions commentStatus, final SearchPeriods period);
+ 			final Integer start, final CommentStatus commentStatus, final SearchPeriods period);
 
      /**
       * Retrieve total comments by type: {@link TweetPoll} {@link Poll} {@link Survey}
@@ -150,11 +149,11 @@ public interface ICommentService {
       */
      Long totalCommentsbyType(final Long id,
  			final TypeSearchResult itemType,
- 			final CommentOptions commentStatus, final SearchPeriods period) throws EnMeNoResultsFoundException;
+ 			final CommentStatus commentStatus, final SearchPeriods period) throws EnMeNoResultsFoundException;
 
 
      /**
-      * Retrieve total comments by type: {@link TweetPoll}, {@link Poll} or Survey and Status : CommentOptions.
+      * Retrieve total comments by type: {@link TweetPoll}, {@link Poll} or Survey and Status : CommentStatus.
       * @param itemType
       * @param commentStatus
       * @param period
@@ -162,6 +161,6 @@ public interface ICommentService {
       * @throws EnMeNoResultsFoundException
       */
      Long totalCommentsbyTypeAndStatus(final TypeSearchResult itemType,
- 			final CommentOptions commentStatus, final SearchPeriods period)
+ 			final CommentStatus commentStatus, final SearchPeriods period)
  			throws EnMeNoResultsFoundException;
 }

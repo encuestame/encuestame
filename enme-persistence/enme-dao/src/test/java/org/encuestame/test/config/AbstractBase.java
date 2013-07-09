@@ -100,6 +100,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.enums.CommentOptions;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.GadgetType;
 import org.encuestame.utils.enums.HitCategory;
@@ -2168,7 +2169,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String comment,
             final TweetPoll tpoll,
             final UserAccount userAcc,
-            final CommentOptions commentStatus,
+            final CommentStatus commentStatus,
             final Date creationDate){
         final Comment tweetPollComment = this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L , creationDate);
         tweetPollComment.setCommentStatus(commentStatus);
@@ -2217,7 +2218,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Comment createDefaultPollCommentWithStatus(final String comment,
             final Poll poll, final UserAccount userAcc,
-            final CommentOptions commentStatus, final Date creationDate) {
+            final CommentStatus commentStatus, final Date creationDate) {
         final Comment pollComment = this.createComment(comment, 0L, null, null,
                 poll, userAcc, 0L, creationDate);
         pollComment.setCommentStatus(commentStatus);
@@ -2247,7 +2248,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Comment createDefaultSurveyCommentWithStatus(final String comment,
             final Survey survey, final UserAccount userAcc,
-            final CommentOptions commentStatus, final Date creationdate) {
+            final CommentStatus commentStatus, final Date creationdate) {
 
         final Comment surveyComment = this.createComment(comment, 0L, null,
                 survey, null, userAcc, 0L, creationdate);

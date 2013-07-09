@@ -34,6 +34,7 @@ import org.encuestame.persistence.exception.EnmeNotAllowedException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.CommentOptions;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -200,41 +201,41 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 		for (int i = 0; i < totalCommentsApprove; i++) {
 			createDefaultTweetPollCommentWithStatus("Comment" + i,
 					this.tweetPoll, getSpringSecurityLoggedUserAccount(),
-					CommentOptions.APPROVE, this.creationDate.toDate());
+					CommentStatus.APPROVE, this.creationDate.toDate());
 		}
 
 		for (int i = 0; i < totalCommentsSpam; i++) {
 			createDefaultTweetPollCommentWithStatus(
 						"Comment" + i, this.tweetPoll, getSpringSecurityLoggedUserAccount(),
-						CommentOptions.SPAM, this.creationDate.toDate());
+						CommentStatus.SPAM, this.creationDate.toDate());
 		}
 
-		for (int i = 0; i < totalCommentsRestricted; i++) {
-			createDefaultTweetPollCommentWithStatus("Comment" + i,
-					this.tweetPoll, getSpringSecurityLoggedUserAccount(),
-					CommentOptions.RESTRICT, this.creationDate.toDate());
-		}
+//		for (int i = 0; i < totalCommentsRestricted; i++) {
+//			createDefaultTweetPollCommentWithStatus("Comment" + i,
+//					this.tweetPoll, getSpringSecurityLoggedUserAccount(),
+//					CommentOptions.RESTRICT, this.creationDate.toDate());
+//		}
 
 		final List<CommentBean> tweetPollCommentsApproved = getCommentsOperationsService()
 				.retrieveCommentsByTypeAndStatus(
 						this.tweetPoll.getTweetPollId(),
 						 TypeSearchResult.TWEETPOLL, 20, 0,
-						CommentOptions.APPROVE, null);
+						 CommentStatus.APPROVE, null);
 		assertEquals("Should be equals", 10, tweetPollCommentsApproved.size());
 
 		final List<CommentBean> tweetPollCommentsSpam = getCommentsOperationsService()
 				.retrieveCommentsByTypeAndStatus(
 						this.tweetPoll.getTweetPollId(),
 						TypeSearchResult.TWEETPOLL, 20, 0,
-						CommentOptions.SPAM, null);
+						CommentStatus.SPAM, null);
 		assertEquals("Should be equals", 5, tweetPollCommentsSpam.size());
 
-		final List<CommentBean> tweetPollCommentsRestricted = getCommentsOperationsService()
-				.retrieveCommentsByTypeAndStatus(
-						this.tweetPoll.getTweetPollId(),
-						 TypeSearchResult.TWEETPOLL, 20, 0,
-						CommentOptions.RESTRICT, null);
-		assertEquals("Should be equals", 15, tweetPollCommentsRestricted.size());
+//		final List<CommentBean> tweetPollCommentsRestricted = getCommentsOperationsService()
+//				.retrieveCommentsByTypeAndStatus(
+//						this.tweetPoll.getTweetPollId(),
+//						 TypeSearchResult.TWEETPOLL, 20, 0,
+//						CommentOptions.RESTRICT, null);
+//		assertEquals("Should be equals", 15, tweetPollCommentsRestricted.size());
 
 	}
 
@@ -247,13 +248,13 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 		System.out.println("fecha --> " + this.creationDate.toDate());
 		for (int i = 0; i < totalCommentsSpam; i++) {
 			createDefaultPollCommentWithStatus("Comment" + i, this.poll,
-					getSpringSecurityLoggedUserAccount(), CommentOptions.SPAM,
+					getSpringSecurityLoggedUserAccount(), CommentStatus.SPAM,
 					this.creationDate.toDate());
 		}
 
 		final List<CommentBean> tweetPollCommentsApproved = getCommentsOperationsService()
 				.retrieveCommentsByTypeAndStatus(this.poll.getPollId(),
-						TypeSearchResult.POLL, 20, 0, CommentOptions.SPAM,
+						TypeSearchResult.POLL, 20, 0, CommentStatus.SPAM,
 						SearchPeriods.TWENTYFOURHOURS);
 
 		assertEquals("Should be equals", 5, tweetPollCommentsApproved.size());
