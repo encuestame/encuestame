@@ -1242,6 +1242,7 @@ public class ConvertDomainBean {
         commentBean.setCommentedBy(commentDomain.getUser().getCompleteName());
         commentBean.setCommentedByUsername(commentDomain.getUser()
                 .getUsername());
+        commentBean.setStatus(commentDomain.getCommentStatus());
         // url
         // tweetpoll/4/do-you-like-summer-season%3F
         if (type != null) {
@@ -1649,7 +1650,7 @@ public class ConvertDomainBean {
      * @param tpolls
      * @return
      */
-    public static final List<ItemStatDetail> convertTweetPollObjectListToItemDetailBean(
+    public static final List<ItemStatDetail> convertObjectListToItemDetailBean(
             final List<Object[]> tpolls) {
          final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
 

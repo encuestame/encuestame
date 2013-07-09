@@ -17,7 +17,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -1369,6 +1371,57 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             }
         }
         return socialAccountList;
+    }
+
+    /**
+     * Remove Tweetpoll
+     */
+	public void removeTweetPoll(final TweetPoll tpoll) throws EnMeNoResultsFoundException {
+		final Set<HashTag> hashTagSet = new HashSet<HashTag>();
+
+		// Retrieve all TweetpollSwitch.
+  		final List<TweetPollSwitch> tpollSwitch = getTweetPollDao()
+				.getListAnswersByTweetPollAndDateRange(tpoll);
+
+		for (TweetPollSwitch tweetPollSwitch : tpollSwitch) {
+			// Retrieve all TweetpollResult by switch
+			final List<TweetPollResult> tpollResult = getTweetPollDao()
+					.getTweetPollResultsByTweetPollSwitch(tweetPollSwitch);
+
+			for (TweetPollResult tweetPollResult : tpollResult) {
+				// Remove all  TweetpollResult,
+				getTweetPollDao().delete(tweetPollResult);
+			}
+			// Remove all TweetpollSwith
+			getTweetPollDao().delete(tweetPollSwitch);
+
+		}
+
+		// Retrieve all Tweetpolls saved published.
+		final List<TweetPollSavedPublishedStatus> tpollSaved = getTweetPollDao()
+				.getLinksByTweetPoll(tpoll, null, null,
+						TypeSearchResult.TWEETPOLL);
+		for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : tpollSaved) {
+			// Remove TweetpOllSavePublished
+				getTweetPollDao().delete(tweetPollSavedPublishedStatus);
+		}
+
+		// Remove all hashtags by Tweetpoll.
+		tpoll.setHashTags(hashTagSet);
+		getTweetPollDao().saveOrUpdate(tpoll);
+
+
+		// Remove Question Answers
+		final List<QuestionAnswer> answers = getQuestionDao().getAnswersByQuestionId(tpoll.getQuestion().getQid());
+		for (QuestionAnswer questionAnswer : answers) {
+			getQuestionDao().delete(questionAnswer);
+		}
+
+		// Remove Tweetpoll
+
+		getTweetPollDao().delete(tpoll);
+
+
     }
 
 }

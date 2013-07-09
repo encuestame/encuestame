@@ -117,6 +117,7 @@ CREATE TABLE comments (
     tweetpollid bigint,
     is_published boolean,
     is_spam boolean,
+	comment_status integer,
     uid bigint NOT NULL
 );
 

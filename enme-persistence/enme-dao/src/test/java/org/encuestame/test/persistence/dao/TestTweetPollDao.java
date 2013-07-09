@@ -1128,7 +1128,7 @@ public class TestTweetPollDao extends AbstractBase {
                 this.secondary.getAccount(), 0, 10, 30, "b");
         Assert.assertEquals("Should be", 1, search2.size());
 
-        System.out.println("\n");
+    //    System.out.println("\n");
 
         final List<TweetPoll> search3 = getTweetPoll().advancedSearch(
                 Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE,
@@ -1266,50 +1266,45 @@ public class TestTweetPollDao extends AbstractBase {
         final List<Object[]> tweetPollsbyHashTag = getTweetPoll()
                 .getTweetPollsRangeStats(myHashTag.getHashTag(),
                         SearchPeriods.SEVENDAYS);
-      for (Object[] object : tweetPollsbyHashTag) {
-    		System.out.println("TEST --" + object[0]);
-    		System.out.println("TEST --" + object[1]);
-    	//	System.out.println("TEST --" + object[2]);
-	}
+
 
        // Assert.assertEquals("Should be", 2, tweetPollsbyHashTag.size());
     }
 
     @Test
-    public void ttestConvertiraMilisegundos() {
-    		// Fecha Original
-    	   final Calendar releaseDate = Calendar.getInstance();
-    	   System.out.println("FECHA Original-->" + releaseDate.getTime());
+    public void testTweetRemove(){
 
-    	   // Fecha 1
-    	   releaseDate.add(Calendar.HOUR, -1);
-    	   System.out.println("FECHA Hora -1 -->" + releaseDate.getTime());
+		final Question myFirstQuestion = createQuestion(
+				"What is your favorite kind of movie?", secondary.getAccount());
+		final Question mySecondQuestion = createQuestion(
+				"What is your favorite kind of song?", secondary.getAccount());
 
-    	   // Fecha 2
-    	   releaseDate.add(Calendar.HOUR, -1);
-    	   System.out.println("FECHA 2 -->" + releaseDate.getTime());
+		final TweetPollFolder tpFolder = createTweetPollFolder("My Tp1 folder", this.secondary);
+		// FIRST TP
+		final TweetPoll tweetPoll = createPublishedTweetPoll(
+				this.secondary.getAccount(), myFirstQuestion,
+				new Date());
+		tweetPoll.setTweetPollFolder(tpFolder);
+		getTweetPoll().saveOrUpdate(tweetPoll);
 
-    	   // Fecha 3
-    	   releaseDate.add(Calendar.DATE, -1);
-           releaseDate.add(Calendar.HOUR, -5);
-           System.out.println("FECHA 3 -->" + releaseDate.getTime());
+		getTweetPoll().delete(tweetPoll);
+		final TweetPoll tp = getTweetPoll().getTweetPollById(
+				tweetPoll.getTweetPollId());
+		final Question quest = getQuestionDaoImp().retrieveQuestionById(
+				myFirstQuestion.getQid());
+		final Question quest2 = getQuestionDaoImp().retrieveQuestionById(
+				mySecondQuestion.getQid());
+		final List<TweetPoll> tpollsbyFolder = getTweetPoll()
+				.retrieveTweetPollByFolder(this.secondary.getUid(),
+						tpFolder.getId());
 
-           releaseDate.add(Calendar.HOUR, -1);
-           System.out.println("FECHA 4 -->" + releaseDate.getTime());
-    }
-
-    @Test
-    public void testFecha(){
-    	 final Calendar releaseDate = Calendar.getInstance();
-    	 releaseDate.add(Calendar.HOUR, -5);
-    	 final Long mili = releaseDate.getTime().getTime();
-    	 System.out.println("FECHA Original-->" + mili);
+		final TweetPollFolder folders = getTweetPoll().getTweetPollFolderById(
+				tpFolder.getId());
 
 
-  	   // Fecha 1
+	//	System.out.println(" \n Tweetpoll Folder  " + tpollsbyFolder.size());
+	//	System.out.println(" \n  Folder  " + folders.getId());
+	//	System.out.println(" \n Question After " + quest.getQuestion());
 
-    	final DateTime dtime = new DateTime(releaseDate.getTime());
-    	 System.out.println("FECHA DATETIME-->" + releaseDate.getTime());
-    	System.out.println("FECHA DATETIME MILIS-->" + releaseDate.getTimeInMillis());
     }
 }

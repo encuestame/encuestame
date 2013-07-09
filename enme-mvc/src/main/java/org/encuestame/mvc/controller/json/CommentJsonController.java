@@ -30,7 +30,10 @@ import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeNotAllowedException;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
+import org.encuestame.utils.enums.SearchPeriods;
+import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.CommentBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -150,12 +153,13 @@ public class CommentJsonController extends AbstractJsonController {
     public @ResponseBody ModelMap getComments(
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "start", required = false) Integer start,
+            @RequestParam(value = "option", required = false) String commentOption,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             List<CommentBean> comments = getCommentService().getCommentsbyUser(
-                    limit, start);
+                    limit, start, CommentOptions.getCommentOption(commentOption));
             jsonResponse.put("comments", comments);
             setItemResponse(jsonResponse);
         } catch (Exception e) {
@@ -307,4 +311,49 @@ public class CommentJsonController extends AbstractJsonController {
         }
         return returnData();
     }
+
+    /**
+     * Retrieve {@link Comment} by {@link CommentOptions}
+     * @param id
+     * @param start
+     * @param maxResults
+     * @param period
+     * @param typeSearch
+     * @param status
+     * @param request
+     * @param response
+     * @return
+     */
+	@RequestMapping(value = "/api/common/comment/search/{typeSearch}/{status}/comments.json", method = RequestMethod.GET)
+	public @ResponseBody ModelMap retrieveCommentsByTypeAndStatus(
+			@RequestParam(value = "id", required = true) Long id,
+			@RequestParam(value = "start", required = true) Integer start,
+			@RequestParam(value = "max", required = true) Integer maxResults,
+			@RequestParam(value = "period", required = true) String period,
+			@PathVariable final String typeSearch,
+			@PathVariable final String status, HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			final TypeSearchResult type = TypeSearchResult
+					.getTypeSearchResult(typeSearch);
+
+			final CommentOptions statusComm = CommentOptions
+					.getCommentOption(status);
+
+			final SearchPeriods searchPeriod = SearchPeriods
+					.getPeriodString(period);
+
+			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+			final List<CommentBean> commentsByStatus = getCommentService()
+					.retrieveCommentsByTypeAndStatus(id, type, maxResults,
+							start, statusComm, searchPeriod);
+
+			jsonResponse.put("commentsbyStatus", commentsByStatus);
+			setItemResponse(jsonResponse);
+		} catch (Exception e) {
+			log.error(e);
+			setError(e.getMessage(), response);
+		}
+		return returnData();
+	}
 }

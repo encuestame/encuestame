@@ -13,7 +13,6 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,9 +22,9 @@ import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.CommentOptions;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -74,16 +73,25 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
         return (Comment) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.CommentsOperations#getCommentsbyUser(org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
-     */
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.CommentsOperations#getCommentsbyUser(org
+	 * .encuestame.persistence.domain.security.UserAccount, java.lang.Integer,
+	 * java.lang.Integer, org.encuestame.utils.enums.CommentOptions)
+	 */
     @SuppressWarnings("unchecked")
-    public List<Comment> getCommentsbyUser(final UserAccount userAcc, final Integer maxResults, final Integer start){
+	public List<Comment> getCommentsbyUser(final UserAccount userAcc,
+			final Integer maxResults, final Integer start,
+			final CommentOptions commentStatus) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
         criteria.add(Restrictions.eq("user", userAcc));
         criteria.addOrder(Order.desc("createdAt"));
         criteria.addOrder(Order.desc("likeVote"));
+        if(commentStatus!=null){
+        	 criteria.add(Restrictions.eq("commentStatus", commentStatus));
+        }
         return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -140,11 +148,16 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
         return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
     }
 
+
     /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.CommentsOperations#getTotalCommentsbyItem(java.lang.Long, org.encuestame.utils.enums.TypeSearchResult)
-     */
-    public Long getTotalCommentsbyItem(final Long id, final TypeSearchResult itemType){
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.CommentsOperations#getTotalCommentsbyItem
+	 * (java.lang.Long, org.encuestame.utils.enums.TypeSearchResult,
+	 * org.encuestame.utils.enums.CommentOptions)
+	 */
+    public Long getTotalCommentsbyItem(final Long id, final TypeSearchResult itemType, final CommentOptions commentStatus, final SearchPeriods period){
           final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
           criteria.setProjection(Projections.rowCount());
           if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
@@ -159,12 +172,57 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
           } else {
               log.error(" Search result type undefined " + itemType);
           }
+          if(commentStatus!=null){
+      		criteria.add(Restrictions.eq("commentStatus", commentStatus));
+          }
+          if(period!=null){
+  				calculateSearchPeriodsDates(period, criteria, "createdAt");
+            }
           @SuppressWarnings("unchecked")
           List<Long> results = getHibernateTemplate().findByCriteria(criteria);
           log.trace("Retrieve total comments by  " + itemType + "--->"
                   + results.size());
           return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.encuestame.persistence.dao.CommentsOperations#
+	 * getTotalCommentsbyTypeAndStatus
+	 * (org.encuestame.utils.enums.TypeSearchResult,
+	 * org.encuestame.utils.enums.CommentOptions)
+	 */
+	public Long getTotalCommentsbyTypeAndStatus(
+			final TypeSearchResult itemType, final CommentOptions commentStatus, final SearchPeriods period) {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(Comment.class);
+		criteria.setProjection(Projections.rowCount());
+		if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
+			criteria.createAlias("tweetPoll", "tweetPoll");
+			criteria.add(Restrictions.isNotNull("tweetPoll"));
+		} else if (itemType.equals(TypeSearchResult.POLL)) {
+			criteria.createAlias("poll", "poll");
+			criteria.add(Restrictions.isNotNull("poll"));
+		} else if (itemType.equals(TypeSearchResult.SURVEY)) {
+			criteria.createAlias("survey", "survey");
+			criteria.add(Restrictions.isNotNull("survey"));
+		} else {
+			log.error(" Search result type undefined " + itemType);
+		}
+		if (commentStatus != null) {
+			criteria.add(Restrictions.eq("commentStatus", commentStatus));
+		}
+		 if(period!=null){
+				calculateSearchPeriodsDates(period, criteria, "createdAt");
+         }
+		@SuppressWarnings("unchecked")
+		List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+		log.trace("Retrieve total comments by  " + itemType + "--->"
+				+ results.size());
+		return (Long) (results.get(0) == null ? 0 : results.get(0));
+	}
+
 
     /*
      * (non-Javadoc)
