@@ -20,6 +20,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.CommentOptions;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -122,4 +123,14 @@ public interface CommentsOperations extends IBaseDao {
     List<Comment> getCommentsbyTypeAndStatus(final Long id,
             final TypeSearchResult typeSearch, final Integer maxResults,
             final Integer start, final CommentOptions commentStatus, final SearchPeriods period);
+
+    /**
+     *
+     * @param itemType
+     * @param commentStatus
+     * @param period
+     * @return
+     */
+	Long getTotalCommentsbyTypeAndStatus(
+			final TypeSearchResult itemType, final CommentOptions commentStatus, final SearchPeriods period);
 }

@@ -153,12 +153,13 @@ public class CommentJsonController extends AbstractJsonController {
     public @ResponseBody ModelMap getComments(
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "start", required = false) Integer start,
+            @RequestParam(value = "option", required = false) String commentOption,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             List<CommentBean> comments = getCommentService().getCommentsbyUser(
-                    limit, start);
+                    limit, start, CommentOptions.getCommentOption(commentOption));
             jsonResponse.put("comments", comments);
             setItemResponse(jsonResponse);
         } catch (Exception e) {
