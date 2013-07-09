@@ -2,12 +2,7 @@ package org.encuestame.mvc.test.comet;
 
 import javax.annotation.Resource;
 
-import junit.framework.Assert;
-
 import org.cometd.annotation.AnnotationCometdServlet;
-import org.cometd.bayeux.server.ServerChannel;
-import org.cometd.server.BayeuxServerImpl;
-import org.cometd.server.ServerChannelImpl;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -21,7 +16,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Category(DefaultTest.class)
+//@Category(DefaultTest.class)
 public class TweetPollCometServiceTestCase extends AbstractCometBeans{
 
     @Resource(name = "tweetPollCometService")
