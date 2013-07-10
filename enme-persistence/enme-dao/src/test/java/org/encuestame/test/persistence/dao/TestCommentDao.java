@@ -357,12 +357,19 @@ public class TestCommentDao extends AbstractBase {
 
     	createDefaultTweetPollCommentWithStatus("First comment", tpoll, this.user, CommentStatus.APPROVE, this.creationDate.toDate());
     	createDefaultTweetPollCommentWithStatus("Second comment", tpoll, this.user, CommentStatus.APPROVE, this.creationDate.toDate());
+    	createDefaultTweetPollCommentWithStatus("Third comment", tpoll, this.user, CommentStatus.SPAM, this.creationDate.toDate());
 
 		final List<Comment> approvedComments = getCommentsOperations()
 				.getCommentsbyTypeAndStatus(this.tpoll.getTweetPollId(),
 						TypeSearchResult.TWEETPOLL, 10, 0,
 						CommentStatus.APPROVE, null);
 		assertEquals("Should be equals", 2, approvedComments.size());
+
+		final List<Comment> allComments = getCommentsOperations()
+				.getCommentsbyTypeAndStatus(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, 10, 0,
+						CommentStatus.ALL, null);
+		assertEquals("Should be equals", 4, allComments.size());
     }
 
 

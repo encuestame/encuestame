@@ -88,7 +88,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
         criteria.add(Restrictions.eq("user", userAcc));
         criteria.addOrder(Order.desc("createdAt"));
         criteria.addOrder(Order.desc("likeVote"));
-        if(commentStatus!=null){
+        if(!commentStatus.equals(CommentStatus.ALL)){
         	 criteria.add(Restrictions.eq("commentStatus", commentStatus));
         }
         return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
@@ -126,7 +126,10 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 		}
 
 		criteria.addOrder(Order.desc("likeVote"));
-		criteria.add(Restrictions.eq("commentStatus", commentStatus));
+		if (!commentStatus.equals(CommentStatus.ALL)) {
+			criteria.add(Restrictions.eq("commentStatus", commentStatus));
+		}
+
 		if(period!=null){
 			calculateSearchPeriodsDates(period, criteria, "createdAt");
 		}
@@ -171,7 +174,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
           } else {
               log.error(" Search result type undefined " + itemType);
           }
-          if(commentStatus!=null){
+          if(!commentStatus.equals(CommentStatus.ALL)){
       		criteria.add(Restrictions.eq("commentStatus", commentStatus));
           }
           if(period!=null){
@@ -209,7 +212,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 		} else {
 			log.error(" Search result type undefined " + itemType);
 		}
-		if (commentStatus != null) {
+		if (!commentStatus.equals(CommentStatus.ALL)) {
 			criteria.add(Restrictions.eq("commentStatus", commentStatus));
 		}
 		 if(period!=null){
