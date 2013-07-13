@@ -180,7 +180,7 @@ public class PollJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/poll/remove.json", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/survey/poll", method = RequestMethod.DELETE)
     public @ResponseBody ModelMap deletePoll(
             @RequestParam(value = "pollId", required = true) Long pollId,
             HttpServletRequest request,
@@ -299,7 +299,7 @@ public class PollJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/poll/create.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/survey/poll", method = RequestMethod.POST)
     public @ResponseBody ModelMap createGroup(
             @RequestParam(value = "questionName", required = true) String questionName,
             @RequestParam(value = "listAnswers", required = true) String[] answers,
