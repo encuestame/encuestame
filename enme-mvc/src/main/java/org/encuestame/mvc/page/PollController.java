@@ -227,6 +227,14 @@ public class PollController extends AbstractViewController {
         addi18nProperty(model, "commons_no");
         addi18nProperty(model, "commons_yes");
         addi18nProperty(model, "detail_manage_today");
+        
+        addi18nProperty(model, "publish_social");
+        addi18nProperty(model, "loading_message");
+        addi18nProperty(model, "counter_zero");
+        addi18nProperty(model, "pubication_failure_status");
+        addi18nProperty(model, "button_try_later");
+        addi18nProperty(model, "button_ignore");
+        addi18nProperty(model, "button_try_again");
         return "poll/list";
     }
 

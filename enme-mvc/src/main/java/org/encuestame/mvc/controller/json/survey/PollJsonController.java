@@ -13,6 +13,7 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +67,7 @@ public class PollJsonController extends AbstractJsonController{
      *
      */
     private final Integer POLL_PUBLISH_STRING_LIMIT = 100;
+      
 
     /**
      * Search polls.
