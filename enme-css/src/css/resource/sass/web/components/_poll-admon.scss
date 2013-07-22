@@ -7,6 +7,17 @@
 	background-color: $white;
 }
 
+.web-item-row {
+
+	.vote {
+		padding: 10px;
+	}
+
+	.count-sub {
+		display: none;
+	}
+}
+
 /**
  * expand zone of detail of list POLL
  **/
@@ -64,7 +75,7 @@
 }
 
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results {
-	border: 1px solid #EBEBEB;
+	border: 1px solid $gray_lite ;
 	@include border-radius(6px);
 	color: #E6E5E3;
 	font-size: 15px;
@@ -74,27 +85,26 @@
 	@extend .center;
 }
 
-.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row
-	{
-	border-bottom: 1px dotted #DED8D8;
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row {
+	border-bottom: 1px dotted $gray_lite ;
 	@extend .o-auto;
 	padding: 4px;
+
+	&:last-child{
+		border-bottom: none;
+	}
 }
 
 .web-items-no-results {
-	background-color: rgb(247, 247, 247);
-	border: 1px solid rgb(231, 230, 230);
-	@include border-radius(10px);
-	color: #D6D6D6;
+	color: $gray_dark;
+	font-weight: 100;
+	width: 60%;
 	font-size: 24px;
-	margin: 18px;
-	min-height: 40px;
-	padding: 120px;
-	height: 100%;
+	margin: 0 auto;
+	padding: 75px;
 }
 
-.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color
-	{
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color {
 	@include border-radius(11px);
 	@extend .col-left;
 	margin-bottom: 1px;
@@ -102,21 +112,22 @@
 	margin-top: 1px;
 	padding: 1px;
 	width: 20px;
+
 }
 
-.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label
-	{
-	color: #9C9B99;
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label {
 	@extend .col-left;
-	font-weight: bold;
+	// font-weight: bold;
 	line-height: 15px;
-	width: 165px;
+	width: 250px;
 }
 
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent {
-	color: #70706F;
+	color: $gray_normal;
 	font-weight: bold;
     @extend .col-left;
+   	width: 40px;
+	margin-left: 25px;
 }
 
 .web-item-row .web-list-detail-more .web-poll-info h2 {
@@ -125,14 +136,31 @@
 }
 
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail {
-	border-bottom: 1px dotted #E0E0E0;
+	border-bottom: 1px dotted $gray_lite;
 	padding: 5px;
 	overflow: hidden;
 	@extend .text-left;
+
+	>div:first-child {
+		@extend .col-left;
+		width: 250px;
+
+		label {
+			@extend .t-light;
+		}
+	}
+
+	.data {
+		@extend .col-left;
+	}
+
+	&:last-child{
+		border-bottom: none;
+	}
 }
 
 .web-item-row .web-poll-switch {
-  background-color: #EDEDED;
+  background-color: $gray_lite;
   @include border-radius(5px);
   position: absolute;
   right: 0;

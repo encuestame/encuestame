@@ -38,13 +38,45 @@
     padding: 2px 0 0;
 }
 
+.web-tweetpoll-list-item-title, .web-poll-list-item-title  {
+    color: $gray_dark;
+    @extend .col-left;
+    font-size: 14px;
+    line-height: 25px;
+    @extend .t-light;
+}
+
+div.web-sub-menu {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite {
+    margin: 3px 10px 3px 3px;
+    @extend .col-left;
+}
+
+.title-wrapper {
+    @extend .o-auto;
+    padding: 5px;
+    background: $gray_lite; /* Old browsers */
+    @include background-image(linear-gradient(color-stops($white  0%, $gray_lite 100%)));
+}
+
+.web-list-tweet div.web-tweetpoll-list-item .web-tweetpoll-list-panel {
+    @include box-shadow(gray 0 7px 5px -6px);
+}
+
+
 .web-item-row .nav-menu > a {
   color: #747474;
   font-weight: normal;
+  font-size: 12px;
 }
 
 .web-item-row .web-item-row-section-input {
-    padding: 0 0 8px 6px;
+
 }
 
 .web-item-row .web-item-row-section-title {
@@ -52,7 +84,7 @@
     max-width: 500px;
 }
 
-.web-item-row .web-item-row-section-title>div {
+.web-item-row .web-item-row-section-title > div {
     clear: both;
     color: #222;
     position: relative;
@@ -69,11 +101,11 @@
     text-align: center;
 }
 
-.web-item-row .web-item-row-section-votes .web-item-row-section-votes-title
-    {
+.web-item-row .web-item-row-section-votes .web-item-row-section-votes-title {
     color: #989898;
     text-align: center;
 }
+
 
 .web-item-row .web-item-row-section-date {
     color: #989898;

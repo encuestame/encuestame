@@ -1,0 +1,17 @@
+<div class="widget poll-form">
+    <h3>
+        $title
+    </h3>
+    <form action="$action" method="POST">
+        <ul>
+        #foreach( $answer in $detailBean.listAnswers )
+            <li>
+                $answer
+            </li>
+        #end
+        </ul>
+        <button>
+            $vote_title
+        </button>
+    </form>
+</div>

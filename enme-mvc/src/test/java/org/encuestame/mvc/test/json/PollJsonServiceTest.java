@@ -262,7 +262,7 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
      * @throws IOException
      */
     private JSONObject createPoll(final String question, final String[] answers) throws ServletException, IOException{
-         initService("/api/survey/poll/create.json", MethodJson.POST);
+         initService("/api/survey/poll", MethodJson.POST);
          setParameter("questionName",question);
          for (int i = 0; i < answers.length; i++) {
              setParameter("listAnswers", answers[i]);
@@ -418,7 +418,7 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
      * @throws IOException
      */
     private JSONObject deletePoll(final Long pollId) throws ServletException, IOException  {
-        initService("/api/survey/poll/remove.json", MethodJson.GET);
+        initService("/api/survey/poll", MethodJson.DELETE);
         setParameter("pollId", pollId.toString());
         final JSONObject response = callJsonService();
         return response;

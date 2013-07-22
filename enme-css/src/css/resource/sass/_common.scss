@@ -1,4 +1,4 @@
-a{
+a {
    text-decoration: none;
    &:hover {
     text-decoration: none;
@@ -586,4 +586,12 @@ input:focus {
 
 .ui-dragged {
   border: 2px dotted gray;
+}
+
+.widgets, .code {
+  width: 450px;
+  margin-top: 20px;
+  color: #666;
+  white-space: nowrap;
+  resize: none;
 }
