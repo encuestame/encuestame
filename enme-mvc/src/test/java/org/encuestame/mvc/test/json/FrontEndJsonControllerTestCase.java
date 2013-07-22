@@ -128,6 +128,8 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final Poll poll = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
         tp.setRelevance(50L);
         poll.setRelevance(30L);
+        getTweetPoll().saveOrUpdate(tp);
+        getPollDao().saveOrUpdate(poll);
         initService("/api/common/frontend/stream.json", MethodJson.GET);
         setParameter("period", "all");
         setParameter("maxResults", "10");
