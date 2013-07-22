@@ -8,17 +8,19 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.lucene.util.UnicodeUtil;
 import org.apache.velocity.app.VelocityEngine;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
+import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.controller.jsonp.beans.JavascriptEmbebedBody;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.enums.EmbeddedType;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.web.PollDetailBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.velocity.VelocityEngineUtils;
@@ -30,8 +32,78 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class EmbebedJsonServices extends AbstractJsonController {
 	
+	/**
+	 * 
+	 */
     @Autowired
-    private VelocityEngine velocityEngine;	
+    private VelocityEngine velocityEngine;
+    
+    /**
+     * 
+     */
+    private final String CODE_TEMPLATES = "/org/encuestame/business/widget/code/templates/";
+    
+    /**
+     * 
+     */
+    private final String HTML_TEMPLATES = "/org/encuestame/business/widget/templates/";
+    
+    
+	/**
+	 * Generate the body of selected item.
+	 * @param pollId
+	 * @param callback
+	 * @param request
+	 * @param response
+	 * @throws JsonGenerationException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/api/jsonp/generate/code/{type}/embedded", method = RequestMethod.GET)
+	public void embedded(
+			@RequestParam(value = "id", required = true) Long pollId,
+			@PathVariable final String type,
+			@RequestParam(value = "callback", required = true) String callback,
+			@RequestParam(value = "embedded_type", required = false) String embedded,
+			HttpServletRequest request, HttpServletResponse response)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		PrintWriter out = response.getWriter();
+		String text = "";
+		try {
+	        @SuppressWarnings("rawtypes")
+	        final Map model = new HashMap();	       
+			final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
+			final EmbeddedType embeddedType = EmbeddedType.getEmbeddedType(embedded);
+			final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();			
+			final ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+			response.setContentType("text/javascript; charset=UTF-8");			
+			model.put("domain", WidgetUtil.getDomain(request));			
+			if (TypeSearchResult.TWEETPOLL.equals(typeItem)) {
+			text = VelocityEngineUtils.mergeTemplateIntoString(
+					velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
+			+ typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);
+			} else if (TypeSearchResult.POLL.equals(typeItem)) {
+				text = VelocityEngineUtils.mergeTemplateIntoString(
+						velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
+						+ typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);
+			} else if (TypeSearchResult.HASHTAG.equals(typeItem)) {
+				text = VelocityEngineUtils.mergeTemplateIntoString(
+						velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
+						+ typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);				
+			} else if (TypeSearchResult.PROFILE.equals(typeItem)) {
+				text = VelocityEngineUtils.mergeTemplateIntoString(
+						velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
+						+ typeItem.toString().toLowerCase() +"_code.vm", "utf-8", model);
+			}
+			String string = new String(text.getBytes("UTF-8"));
+	        embebedBody.setBody(string);
+			final String json = ow.writeValueAsString(embebedBody);			
+			out.print(callback + "(" + json + ")");
+		} catch (Exception e) {
+			e.printStackTrace();
+			out.print(callback + "(" + Boolean.FALSE + ")");
+		}
+	}	    
 	
 	/**
 	 * Generate the body of selected item.
@@ -43,7 +115,7 @@ public class EmbebedJsonServices extends AbstractJsonController {
 	 * @throws JsonMappingException
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/api/jsonp/{type}/embebed", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/jsonp/{type}/embedded", method = RequestMethod.GET)
 	public void typeJavascriptJSONP(
 			@RequestParam(value = "id", required = true) Long pollId,
 			@PathVariable final String type,
@@ -63,21 +135,26 @@ public class EmbebedJsonServices extends AbstractJsonController {
 				// generate tweetpoll body
 				model.put("hellow", "world");
 				text = VelocityEngineUtils.mergeTemplateIntoString(
-						velocityEngine, "/org/encuestame/business/widget/templates/tweetpoll_form.vm", "utf-8", model);
+						velocityEngine, HTML_TEMPLATES + "tweetpoll_form.vm", "utf-8", model);
 				 
 			} else if (TypeSearchResult.POLL.equals(typeItem)) {
 				// generate poll body
-				model.put("hellow", "world");
-				 text = VelocityEngineUtils.mergeTemplateIntoString(
-						 velocityEngine, "/org/encuestame/business/widget/templates/poll_form.vm", "utf-8", model);
+				final Poll poll = getPollService().getPollById(pollId);
+				final PollDetailBean detailBean = getPollService().getPollDetailInfo(poll.getPollId());
+				model.put("title", poll.getQuestion().getQuestion());
+				model.put("poll", poll);
+				model.put("detailBean", detailBean);
+				model.put("vote_title", "Vote");
+				text = VelocityEngineUtils.mergeTemplateIntoString(
+						 velocityEngine,HTML_TEMPLATES + "poll_form.vm", "utf-8", model);
 			} else if (TypeSearchResult.HASHTAG.equals(typeItem)) {
 				// generate hashtag body 
 				model.put("hellow", "world");
 				text = VelocityEngineUtils.mergeTemplateIntoString(
-						velocityEngine, "/org/encuestame/business/widget/templates/hashtag.vm", "utf-8", model);
+						velocityEngine, HTML_TEMPLATES + "hashtag.vm", "utf-8", model);
 			}				
 			//final String d = new String(text.toString(), "UTF-8");
-			String string = new String(text.getBytes("UTF-16"));
+			String string = new String(text.getBytes("UTF-8"));
 	        embebedBody.setBody(string);
 			final String json = ow.writeValueAsString(embebedBody);			
 			out.print(callback + "(" + json + ")");
