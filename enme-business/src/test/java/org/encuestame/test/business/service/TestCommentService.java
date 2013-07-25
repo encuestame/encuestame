@@ -203,7 +203,6 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 	public void testTweetPollCommentsByStatusAndType() {
 		final int totalCommentsApprove = 10;
 		final int totalCommentsSpam = 5;
-		final int totalCommentsRestricted = 15;
 
 		for (int i = 0; i < totalCommentsApprove; i++) {
 			createDefaultTweetPollCommentWithStatus("Comment" + i,
@@ -216,12 +215,6 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 						"Comment" + i, this.tweetPoll, getSpringSecurityLoggedUserAccount(),
 						CommentStatus.SPAM, this.creationDate.toDate());
 		}
-
-//		for (int i = 0; i < totalCommentsRestricted; i++) {
-//			createDefaultTweetPollCommentWithStatus("Comment" + i,
-//					this.tweetPoll, getSpringSecurityLoggedUserAccount(),
-//					CommentOptions.RESTRICT, this.creationDate.toDate());
-//		}
 
 		final List<CommentBean> tweetPollCommentsApproved = getCommentsOperationsService()
 				.retrieveCommentsByTypeAndStatus(
@@ -237,12 +230,12 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 						CommentStatus.SPAM, null);
 		assertEquals("Should be equals", 5, tweetPollCommentsSpam.size());
 
-//		final List<CommentBean> tweetPollCommentsRestricted = getCommentsOperationsService()
-//				.retrieveCommentsByTypeAndStatus(
-//						this.tweetPoll.getTweetPollId(),
-//						 TypeSearchResult.TWEETPOLL, 20, 0,
-//						CommentOptions.RESTRICT, null);
-//		assertEquals("Should be equals", 15, tweetPollCommentsRestricted.size());
+		final List<CommentBean> alltweetPollComments = getCommentsOperationsService()
+				.retrieveCommentsByTypeAndStatus(
+						this.tweetPoll.getTweetPollId(),
+						 TypeSearchResult.TWEETPOLL, 20, 0,
+						CommentStatus.ALL, null);
+		assertEquals("Should be equals", 19, alltweetPollComments.size());
 
 	}
 

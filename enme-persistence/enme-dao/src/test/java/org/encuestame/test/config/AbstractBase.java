@@ -1967,6 +1967,35 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
          return tweetPoll;
      }
 
+     /**
+      * Create Default {@link TweetPoll}
+      * @param publishTweetPoll
+      * @param completed
+      * @param favourites
+      * @param tweetOwner
+      * @param question
+      * @param creationDate
+      * @return
+      */
+     public TweetPoll createDefaultTweetPollPublicated(
+             final Boolean publishTweetPoll,
+             final Boolean completed,
+             final Boolean favourites,
+             final UserAccount tweetOwner,
+             final Question question,
+             final Date creationDate ){
+        final TweetPoll tweetPoll = new TweetPoll();
+        tweetPoll.setPublishTweetPoll(publishTweetPoll);
+        tweetPoll.setCompleted(completed);
+        tweetPoll.setCreateDate(creationDate);
+        tweetPoll.setFavourites(favourites);
+        tweetPoll.setQuestion(question);
+        tweetPoll.setTweetOwner(tweetOwner.getAccount());
+        tweetPoll.setEditorOwner(tweetOwner);
+        getTweetPoll().saveOrUpdate(tweetPoll);
+        return tweetPoll;
+    }
+
       /**
        *  Create TweetPoll social links.
        * @param tweetPoll
