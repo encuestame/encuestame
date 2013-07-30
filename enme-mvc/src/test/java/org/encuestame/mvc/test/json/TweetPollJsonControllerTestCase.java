@@ -33,6 +33,7 @@ import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Test for {@link TweetPollJsonController}.
@@ -239,6 +240,83 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject responseRemove = callJsonService();
         assertSuccessResponse(responseRemove);
     }
+
+    /**
+     * Test get short url.
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testGetShortUrl() throws ServletException, IOException{
+    	 initService("/api/short/url/tinyurl.json", MethodJson.GET);
+         setParameter("url", "http://www.youtube.com/watch?v=sdhB6pw8D5s&list=PL00D397F3E6417B34");
+         final JSONObject response = callJsonService();
+         final JSONObject sucess = getSucess(response);
+         final JSONObject items = (JSONObject) sucess.get("url");
+    }
+
+	/**
+	 * Test publish tweetpoll.
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+    @Test
+	public void testPublishTweetPoll() throws ServletException, IOException {
+		final Long tPollId = this.tp1.getTweetPollId();
+		this.tp1.setPublishTweetPoll(Boolean.FALSE);
+		getTweetPoll().saveOrUpdate(tp1);
+
+		initService("/api/survey/tweetpoll/publish.json", MethodJson.POST);
+		setParameter("id", tPollId.toString());
+		setParameter("twitterAccounts", tPollId.toString());
+		setParameter("ip", tPollId.toString());
+		setParameter("limitNumbers", tPollId.toString());
+		setParameter("limitVotes", tPollId.toString());
+		setParameter("repeatedNumbers", tPollId.toString());
+		setParameter("scheduled", tPollId.toString());
+		setParameter("scheduledDate", tPollId.toString());
+		setParameter("scheduledTime", tPollId.toString());
+
+		final JSONObject response = callJsonService();
+		final JSONObject sucess = getSucess(response);
+
+		final JSONObject items = (JSONObject) sucess.get("socialPublish");
+		final JSONObject itemsAnswer = (JSONObject) items.get("textTweeted");
+	}
+
+    /**
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+   	public void testTweetPollAutosave() throws ServletException, IOException {
+   		final Long tPollId = this.tp1.getTweetPollId();
+   		this.tp1.setPublishTweetPoll(Boolean.FALSE);
+   		getTweetPoll().saveOrUpdate(tp1);
+   		initService("/api/survey/tweetpoll/autosave.json", MethodJson.POST);
+
+
+   		setParameter("tweetPollId", tPollId.toString());
+   		setParameter("question", tPollId.toString());
+   		setParameter("scheduled", tPollId.toString());
+   		setParameter("liveResults", tPollId.toString());
+   		setParameter("scheduledTime", tPollId.toString());
+   		setParameter("scheduledDate", tPollId.toString());
+   		setParameter("captcha", tPollId.toString());
+   		setParameter("limitVotes", tPollId.toString());
+   		setParameter("followDashBoard", tPollId.toString());
+   		setParameter("repeatedVotes", tPollId.toString());
+   		setParameter("maxLimitVotes", tPollId.toString());
+   		setParameter("maxRepeatedVotes", tPollId.toString());
+   		setParameter("resumeLiveResults", tPollId.toString());
+
+		final JSONObject response = callJsonService();
+		final JSONObject sucess = getSucess(response);
+
+		final JSONObject items = (JSONObject) sucess.get("tweetPoll");
+		final JSONObject itemsAnswer = (JSONObject) items.get("publishPoll");
+	}
 
 
     /**
