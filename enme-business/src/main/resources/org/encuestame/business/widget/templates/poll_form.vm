@@ -6,12 +6,19 @@
         <ul>
         #foreach( $answer in $detailBean.listAnswers )
             <li>
-                $answer
+                <label> 
+                    $answer.answers
+                    <input type="radio" name="poll" value="$answer.answerId" class="web-radio-button" id="_input_$answer.answerId">
+                </label>
             </li>
         #end
         </ul>
         <button>
             $vote_title
         </button>
+        <input name="itemId" type="hidden" value="$poll.pollId">
+        <input name="type" type="hidden" value="$poll.question.questionPattern">
+        <input name="type_form" type="hidden" value="embebbed">
+        <input name="slugName" type="hidden" value="$poll.question.slugQuestion">
     </form>
 </div>

@@ -46,7 +46,7 @@ public class EmbebedJsonServices extends AbstractJsonController {
     /**
      * 
      */
-    private final String HTML_TEMPLATES = "/org/encuestame/business/widget/templates/";
+    private final String HTML_TEMPLATES = "/org/encuestame/business/widget/templates";
     
     
 	/**
@@ -135,7 +135,7 @@ public class EmbebedJsonServices extends AbstractJsonController {
 				// generate tweetpoll body
 				model.put("hellow", "world");
 				text = VelocityEngineUtils.mergeTemplateIntoString(
-						velocityEngine, HTML_TEMPLATES + "tweetpoll_form.vm", "utf-8", model);
+						velocityEngine, HTML_TEMPLATES + "/tweetpoll_form.vm", "utf-8", model);
 				 
 			} else if (TypeSearchResult.POLL.equals(typeItem)) {
 				// generate poll body
@@ -143,15 +143,16 @@ public class EmbebedJsonServices extends AbstractJsonController {
 				final PollDetailBean detailBean = getPollService().getPollDetailInfo(poll.getPollId());
 				model.put("title", poll.getQuestion().getQuestion());
 				model.put("poll", poll);
+				model.put("action", WidgetUtil.getDomain(request) + "/poll/vote/post");
 				model.put("detailBean", detailBean);
 				model.put("vote_title", "Vote");
 				text = VelocityEngineUtils.mergeTemplateIntoString(
-						 velocityEngine,HTML_TEMPLATES + "poll_form.vm", "utf-8", model);
+						velocityEngine, HTML_TEMPLATES + "/poll_form.vm", "utf-8", model);
 			} else if (TypeSearchResult.HASHTAG.equals(typeItem)) {
 				// generate hashtag body 
 				model.put("hellow", "world");
 				text = VelocityEngineUtils.mergeTemplateIntoString(
-						velocityEngine, HTML_TEMPLATES + "hashtag.vm", "utf-8", model);
+						velocityEngine, HTML_TEMPLATES + "/hashtag.vm", "utf-8", model);
 			}				
 			//final String d = new String(text.toString(), "UTF-8");
 			String string = new String(text.getBytes("UTF-8"));
