@@ -24,7 +24,6 @@ import org.encuestame.business.service.CommentService;
 import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -113,8 +112,16 @@ public class TestCommentService extends AbstractSpringSecurityContext {
     @Test
     public void testGetCommentsbyUser() throws EnMeNoResultsFoundException{
         assertNotNull(this.comment);
-        final List<CommentBean> commentsbyUser = getCommentsOperationsService().getCommentsbyUser(this.MAX_RESULTS, this.START, null);
-        assertEquals("Should be equals", 4, commentsbyUser.size());
+        // comment on Tweetpoll
+		createDefaultTweetPollCommentWithStatus("dumb tweetPoll question",
+				tweetPoll, getSpringSecurityLoggedUserAccount(),
+				CommentStatus.APPROVE, this.creationDate.toDate());
+
+        createDefaultTweetPollComment("dumb tweetPoll question", tweetPoll, getSpringSecurityLoggedUserAccount());
+
+        final List<CommentBean> commentsbyUser = getCommentsOperationsService().getCommentsbyUser(this.MAX_RESULTS, this.START, CommentStatus.ALL);
+        assertEquals("Should be equals", 6, commentsbyUser.size());
+
     }
 
     /**

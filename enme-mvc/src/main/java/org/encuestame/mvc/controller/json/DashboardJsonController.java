@@ -72,13 +72,12 @@ public class DashboardJsonController extends AbstractJsonController {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                  final List<GadgetBean> gadgets = getDashboardService().getAllGadgetsAvailable(dashboardId);
                  jsonResponse.put("gadgets", gadgets);
-                 jsonResponse.put("dashboard", ConvertDomainBean
+                  jsonResponse.put("dashboard", ConvertDomainBean
                         .convertDashboardDomaintoBean(getDashboardService()
-                                .getDashboardbyId(dashboardId)));
+                                 .getDashboardbyId(dashboardId)));
             setItemResponse(jsonResponse);
          } catch (Exception e) {
               log.error(e);
-              e.printStackTrace();
               setError(e.getMessage(), response);
          }
          return returnData();
@@ -250,7 +249,6 @@ public class DashboardJsonController extends AbstractJsonController {
              jsonResponse.put("gadget", ConvertDomainBean.convertGadgetDomaintoBean(gadget));
              setItemResponse(jsonResponse);
         } catch (Exception e) {
-             e.printStackTrace();
              log.error(e);
              setError(e.getMessage(), response);
         }

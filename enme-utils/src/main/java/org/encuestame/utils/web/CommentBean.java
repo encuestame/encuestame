@@ -18,7 +18,6 @@ import java.util.Date;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.TypeSearchResult;
 

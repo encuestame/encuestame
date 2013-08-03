@@ -159,6 +159,25 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
 
     /**
      *
+     * @throws ServletException
+     * @throws IOException
+     */
+	@Test
+	public void testRemoveTweetPollJsonService() throws ServletException,
+			IOException {
+		final TweetPoll tpollBefore = this.tp1;
+		initService("/api/survey/tweetpoll/remove", MethodJson.DELETE);
+		setParameter("id", this.tp1.getTweetPollId().toString());
+
+		final JSONObject response = callJsonService();
+		assertSuccessResponse(response);
+		final TweetPoll tpollAfter = getTweetPoll().getTweetPollById(
+				tpollBefore.getTweetPollId());
+		Assert.assertNull(tpollAfter);
+	}
+
+    /**
+     *
      * @param type
      * @throws IOException
      * @throws ServletException

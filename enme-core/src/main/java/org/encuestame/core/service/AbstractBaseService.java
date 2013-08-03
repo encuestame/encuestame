@@ -50,6 +50,7 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.ValidationUtils;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.HashTagRate;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.RelativeTimeEnum;
@@ -775,7 +776,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return
      */
     protected Long getTotalCommentsbyType(final Long itemId, final TypeSearchResult itemType){
-        final Long totalComments = getCommentsOperations().getTotalCommentsbyItem(itemId, itemType, null , null);
+        final Long totalComments = getCommentsOperations().getTotalCommentsbyItem(itemId, itemType, CommentStatus.ALL , null);
         return totalComments;
     }
 

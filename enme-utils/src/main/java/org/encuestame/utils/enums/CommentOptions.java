@@ -28,10 +28,6 @@ public enum CommentOptions {
     /** Moderate Comments. **/
     MODERATE,
 
-    PUBLISHED,
-
-    SPAM,
-
     showComments(){
 
     };
@@ -44,8 +40,6 @@ public enum CommentOptions {
         if (this == RESTRICT) { comment = "RESTRICT"; }
         else if (this == APPROVE) { comment = "APPROVE"; }
         else if (this == MODERATE) { comment = "MODERATE"; }
-        else if (this == PUBLISHED) { comment = "PUBLISHED"; }
-        else if (this == SPAM) { comment = "SPAM"; }
         return comment;
     }
 
@@ -59,8 +53,6 @@ public enum CommentOptions {
         else if (option.equalsIgnoreCase("RESTRICT")) { return RESTRICT; }
         else if (option.equalsIgnoreCase("APPROVE")) { return APPROVE; }
         else if (option.equalsIgnoreCase("MODERATE")) { return MODERATE; }
-        else if (option.equalsIgnoreCase("PUBLISHED")) { return PUBLISHED; }
-        else if (option.equalsIgnoreCase("SPAM")) { return SPAM; }
         else return null;
     }
 }

@@ -118,7 +118,7 @@ public class TestCommentDao extends AbstractBase {
         final Question question2 = createQuestion("Who will win the supercopa", "");
         final TweetPoll tpoll2 = createPublishedTweetPoll(user.getAccount(), question2);
         createDefaultTweetPollComment("I was playing pc games", tpoll2, user);
-        final List<Comment> commentList = getCommentsOperations().getCommentsbyUser(this.user, this.MAX_RESULTS, this.START, null);
+        final List<Comment> commentList = getCommentsOperations().getCommentsbyUser(this.user, this.MAX_RESULTS, this.START, CommentStatus.ALL);
         assertEquals("Should be equals", 2, commentList.size());
     }
 
@@ -135,7 +135,7 @@ public class TestCommentDao extends AbstractBase {
         assertEquals("Should be equals", 2, commentbyTweetPoll.size());
         final Long totalComment = getCommentsOperations()
                 .getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
-                        TypeSearchResult.TWEETPOLL, null , null);
+                        TypeSearchResult.TWEETPOLL, CommentStatus.ALL, null);
         assertEquals("Should be equals", 2, totalComment.intValue());
     }
 
@@ -357,12 +357,19 @@ public class TestCommentDao extends AbstractBase {
 
     	createDefaultTweetPollCommentWithStatus("First comment", tpoll, this.user, CommentStatus.APPROVE, this.creationDate.toDate());
     	createDefaultTweetPollCommentWithStatus("Second comment", tpoll, this.user, CommentStatus.APPROVE, this.creationDate.toDate());
+    	createDefaultTweetPollCommentWithStatus("Third comment", tpoll, this.user, CommentStatus.SPAM, this.creationDate.toDate());
 
 		final List<Comment> approvedComments = getCommentsOperations()
 				.getCommentsbyTypeAndStatus(this.tpoll.getTweetPollId(),
 						TypeSearchResult.TWEETPOLL, 10, 0,
 						CommentStatus.APPROVE, null);
 		assertEquals("Should be equals", 2, approvedComments.size());
+
+		final List<Comment> allComments = getCommentsOperations()
+				.getCommentsbyTypeAndStatus(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, 10, 0,
+						CommentStatus.ALL, null);
+		assertEquals("Should be equals", 4, allComments.size());
     }
 
 

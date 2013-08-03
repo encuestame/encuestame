@@ -543,6 +543,25 @@ public class TweetPollJsonController extends AbstractJsonController {
         }
         return returnData();
     }
+
+
+	@RequestMapping(value = "/api/survey/tweetpoll/remove", method = RequestMethod.DELETE)
+	public @ResponseBody
+	ModelMap getRemoveTweet(
+			@RequestParam(value = "id", required = true) Long id,
+			HttpServletRequest request, HttpServletResponse response)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		try {
+		final TweetPoll tpoll = getTweetPollService().getTweetPollById(id);
+			getTweetPollService().removeTweetPoll(tpoll);
+			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+			setSuccesResponse();
+
+		} catch (Exception e) {
+			setError(e.getMessage(), response);
+		}
+		return returnData();
+	}
 }
 
 /**
