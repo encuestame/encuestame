@@ -27,6 +27,8 @@
          <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}header.jsp" />
     </definition>
 
+    <definition name="main-embedded" templateExpression="/WEB-INF/layouts/embedded-page.jsp"></definition>
+
     <definition name="setupPage" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup.jsp">
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}/setup/header.jsp" />
         <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />

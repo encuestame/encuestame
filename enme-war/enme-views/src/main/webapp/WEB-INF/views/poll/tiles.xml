@@ -54,4 +54,26 @@
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/${detectedDevice ? 'mobile/' : 'web/'}poll_css.jsp" />
     </definition>
 
+
+    <definition name="poll/embedded/vote" extends="main-embedded">
+        <put-attribute name="content" expression="/WEB-INF/views/poll/decorators/vote.jsp" />
+    </definition>
+
+    <definition name="poll/embedded/voted" extends="main-embedded">
+        <put-attribute name="content" expression="/WEB-INF/views/poll/decorators/voted.jsp" />
+    </definition>
+
+    <definition name="poll/embedded/bad" extends="main-embedded">
+        <put-attribute name="content" expression="/WEB-INF/views/poll/decorators/bad-voted.jsp" />
+    </definition>
+
+    <definition name="poll/embedded/banned" extends="main-embedded">
+        <put-attribute name="content" expression="/WEB-INF/views/poll/decorators/bad-voted.jsp" />
+    </definition>
+
+    <definition name="poll/embedded/repeated" extends="main-embedded">
+        <put-attribute name="content" expression="/WEB-INF/views/poll/decorators/repeated-voted.jsp" />
+    </definition>
+
+
 </tiles-definitions>

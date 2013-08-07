@@ -18,7 +18,7 @@
         </button>
         <input name="itemId" type="hidden" value="$poll.pollId">
         <input name="type" type="hidden" value="$poll.question.questionPattern">
-        <input name="type_form" type="hidden" value="embebbed">
+        <input name="type_form" type="hidden" value="embedded">
         <input name="slugName" type="hidden" value="$poll.question.slugQuestion">
     </form>
 </div>

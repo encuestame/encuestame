@@ -13,6 +13,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.controller.jsonp.beans.JavascriptEmbebedBody;
@@ -51,7 +52,7 @@ public class EmbebedJsonServices extends AbstractJsonController {
     
 	/**
 	 * Generate the body of selected item.
-	 * @param pollId
+	 * @param itemId
 	 * @param callback
 	 * @param request
 	 * @param response
@@ -61,7 +62,7 @@ public class EmbebedJsonServices extends AbstractJsonController {
 	 */
 	@RequestMapping(value = "/api/jsonp/generate/code/{type}/embedded", method = RequestMethod.GET)
 	public void embedded(
-			@RequestParam(value = "id", required = true) Long pollId,
+			@RequestParam(value = "id", required = true) Long itemId,
 			@PathVariable final String type,
 			@RequestParam(value = "callback", required = true) String callback,
 			@RequestParam(value = "embedded_type", required = false) String embedded,
@@ -77,12 +78,18 @@ public class EmbebedJsonServices extends AbstractJsonController {
 			final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();			
 			final ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 			response.setContentType("text/javascript; charset=UTF-8");			
-			model.put("domain", WidgetUtil.getDomain(request));			
+			model.put("domain", WidgetUtil.getDomain(request));
+			model.put("embedded_type", embeddedType.toString());
+			model.put("itemId", itemId);
+			model.put("domain_config", EnMePlaceHolderConfigurer.getProperty("application.domain"));
 			if (TypeSearchResult.TWEETPOLL.equals(typeItem)) {
 			text = VelocityEngineUtils.mergeTemplateIntoString(
 					velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
 			+ typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);
-			} else if (TypeSearchResult.POLL.equals(typeItem)) {
+			} else if (TypeSearchResult.POLL.equals(typeItem)) { 
+				final Poll poll = getPollService().getPollById(itemId);
+				model.put("url", EnMePlaceHolderConfigurer.getProperty("application.domain" ) +
+						 "poll/" + poll.getPollId() + "/" + poll.getQuestion().getSlugQuestion());
 				text = VelocityEngineUtils.mergeTemplateIntoString(
 						velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
 						+ typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);
