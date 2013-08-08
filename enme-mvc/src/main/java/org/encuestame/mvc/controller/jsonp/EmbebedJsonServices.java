@@ -78,18 +78,19 @@ public class EmbebedJsonServices extends AbstractJsonController {
 			final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();			
 			final ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 			response.setContentType("text/javascript; charset=UTF-8");			
-			model.put("domain", WidgetUtil.getDomain(request));
-			model.put("embedded_type", embeddedType.toString());
+			model.put("domain", WidgetUtil.getDomain(request, false));
+			model.put("embedded_type", embeddedType.toString().toLowerCase());
+			model.put("typeItem", typeItem.toString().toLowerCase());
 			model.put("itemId", itemId);
-			model.put("domain_config", EnMePlaceHolderConfigurer.getProperty("application.domain"));
+			model.put("domain_config", WidgetUtil.getDomain(request, true));
 			if (TypeSearchResult.TWEETPOLL.equals(typeItem)) {
 			text = VelocityEngineUtils.mergeTemplateIntoString(
 					velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
 			+ typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);
 			} else if (TypeSearchResult.POLL.equals(typeItem)) { 
 				final Poll poll = getPollService().getPollById(itemId);
-				model.put("url", EnMePlaceHolderConfigurer.getProperty("application.domain" ) +
-						 "poll/" + poll.getPollId() + "/" + poll.getQuestion().getSlugQuestion());
+				model.put("url_poll", WidgetUtil.getDomain(request, true) +
+						 "/poll/" + poll.getPollId() + "/" + poll.getQuestion().getSlugQuestion());
 				text = VelocityEngineUtils.mergeTemplateIntoString(
 						velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
 						+ typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);

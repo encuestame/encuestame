@@ -118,6 +118,24 @@ public class WidgetUtil {
         domain.append(request.getContextPath());
         return domain.toString();
     }
+    
+    /**
+     * 
+     * @param request
+     * @param addHttp
+     * @return
+     */
+    public static final String getDomain(final HttpServletRequest request, final Boolean addHttp) {
+        final StringBuffer domain = new StringBuffer(addHttp ? WidgetUtil.URL : "");
+        domain.append(request.getServerName());
+        if (request.getServerPort() != WidgetUtil.REQUEST_SERVER_PORT) {
+            domain.append(":");
+            domain.append(request.getServerPort());
+        }
+        // buffer.append("//");
+        domain.append(request.getContextPath());
+        return domain.toString();
+    }    
 
     /**
      * Build correctly period filter url.
