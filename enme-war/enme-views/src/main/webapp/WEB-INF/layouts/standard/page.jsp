@@ -13,7 +13,7 @@
   <div class="container">
       <tiles:insertAttribute name="header" ignore="true" />
   </div>
-  <div id="mainWrapper" class="page">
+  <div id="mainWrapper" class="page container">
     <header id="header" class="header_input_hidden">
           <%@ include file="decorators/i18n-input.jsp"%>
     </header>

@@ -12,12 +12,24 @@ body.public-body {
 /** main public line **/
 
 @media only screen and (max-width : 980px) {
-    #web-main-public-line .web-item-wrapper {
-        width: 100% !important;
-    }
 
-    #web-main-public-line .web-left-wrapper {
-        width: 100% !important;
+    #web-main-public-line {
+        margin: 0 auto;
+        position: relative;
+        //@extend .text-left;
+        //@extend .o-auto;
+        overflow: auto;
+        text-align: left;
+
+        .span8  {
+            margin: 0px;
+            width: 670px;
+        }
+
+        .span4 {
+            margin: 0;
+            width: 270px;
+        }
     }
 }
 
@@ -26,6 +38,16 @@ body.public-body {
     position: relative;
     @extend .text-left;
     @extend .o-auto;
+
+    .span8  {
+        margin: 0px;
+        width: 670px;
+    }
+
+    .span4 {
+        margin: 0;
+        width: 270px;
+    }
 }
 
 #web-main-public-line .categoryMenu span {

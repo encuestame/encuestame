@@ -1,9 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<!-- <div id="web-poll-wrapper">
-    <div data-dojo-type="me/web/widget/poll/PollNavigate"></div>
-</div> -->
 
-<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div id="web-tweetpoll-wrapper" class="enme-main-section web-wrapper-detail">
     <div class="admon-table-options panel-header">
        <div class="tb-left">

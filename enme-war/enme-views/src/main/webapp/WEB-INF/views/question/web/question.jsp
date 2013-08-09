@@ -2,14 +2,14 @@
 <article class="web-tweetpoll-detail web-wrapper-detail">
    <section class="web-hashtag-header web-detail-header">
         <div class="title">
-            <h2>
+            <h3>
                Question View
-            </h2>
+            </h3>
         </div>
     </section>
    <article class="emne-box">
-   			<h1>
+   			<p class="alert">
    				Nothing to display
-   			</h1>
+   			</p>
    </article>
 </article>

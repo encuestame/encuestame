@@ -1,6 +1,5 @@
 .settingsWrapper {
 	background-color: $white;
-	margin-top: 20px;
 	min-height: 396px;
 	@extend .o-auto;
 }
@@ -26,6 +25,8 @@
 	@extend .padding;
 	@extend .pointer;
 	@extend .settings-shadow;
+	background-color: $black_medium;
+	@extend .t-light;
 }
 
 .settings-shadow {
@@ -45,13 +46,19 @@
 
 .settingsWrapper .settingsGroup .settingsListDetail h2 {
     @extend .non-margin;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 20px;
 }
 
 .settingsWrapper .settingsGroup .settingsListDetail p {
     margin-top: 2px;
+}
+
+.settingsWrapper .settingsGroup .settingsListDetail .settings-image-selection {
+	.span1 {
+		width: 30px;
+	}
+	.span4 {
+		margin-right: 5px;
+	}
 }
 
 .settingsWrapper .settingsGroup .settingsListDetail .toolBox {

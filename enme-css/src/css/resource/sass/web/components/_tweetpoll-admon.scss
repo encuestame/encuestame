@@ -31,7 +31,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options {
     width: 185px;
     min-height: $_tp_filters_min-heigth;
     text-align: left;
-    background-color: $black_medium ;
+    background-color: $black_medium;
     margin-right: 0px;
     border-right: 1px solid darken($gray_normal , 10%);
     @include box-shadow($black -5px 0 5px -6px inset);

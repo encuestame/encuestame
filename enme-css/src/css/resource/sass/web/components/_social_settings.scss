@@ -4,13 +4,14 @@
 	@include box-shadow($black_light 1px 1px 3px inset);
 	@extend .pointer;
 	@extend .o-auto;
-	background-color: $white;
+	background-color: #E5E5E5;
 	@extend .bot-m;
 }
 
 .socialWrapperRow .sub-title-account {
 	@extend .o-auto;
 	position: relative;
+	@extend .padding;
 }
 
 .socialWrapperRow .sub-title-account .image {
@@ -31,7 +32,7 @@
 }
 
 .socialWrapperRow form {
-	@extend .padding;
+	padding: 0px;
 }
 
 .socialWrapperRow div.socialNewForm {
@@ -50,12 +51,13 @@
 }
 
 .socialWrapperRow .tokensWrapper div.tokenHideOptions table td {
- 	 padding: 5px;
+	width: 235px;
 }
 
 .socialWrapperRow .tokensWrapper div.tokenHideOptions table td label {
 	  color: $black_semi_medium;
-	  @include text-shadow($white 1px 2px 1px);
+	  padding-left: 5px;
+	  @extend .t-light;
 }
 
 .socialWrapperRow  div.option-button {
@@ -65,9 +67,4 @@
 
 .socialWrapperRow .tokensWrapper .dijitTextBox {
 	min-width: 250px;
-}
-
-.socialWrapperRow .tokensWrapper label {
-	@extend .bold;
-	font-size: $df_font_size - 1;
 }
