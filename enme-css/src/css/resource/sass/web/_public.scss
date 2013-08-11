@@ -603,11 +603,13 @@ div.link-published-space {
 
 
 /** generic results **/
-.web-generic-result div.votes {
+.web-generic-result .votes {
   @extend .col-left;
   margin: 0 !important;
   padding: 8px;
-  width: 100px !important;
+  width: 50px !important;
+  // previously 100, why?
+  // width: 100px !important;
 }
 
 .web-generic-result .percent {
@@ -622,6 +624,7 @@ div.link-published-space {
 
 .web-generic-stats h2 {
    float: left;
+   width: 90%;
 }
 
 .web-generic-stats .badge {

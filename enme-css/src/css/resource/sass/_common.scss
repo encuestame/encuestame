@@ -19,12 +19,11 @@ img {
 
 h4.enme {
   color : $gray_normal;
-  font-weight: 400;
   font-size: 20px;
   line-height: 25px;
   text-transform: capitalize;
   margin: 0;
-  font-weight: lighter;
+  font-weight: 100;
 }
 
 .enme-rating {
@@ -209,8 +208,7 @@ h4.enme {
 }
 
 .border-main-box {
-    // border: 1px solid $gray_lite;
-    margin-top: 2em;
+    margin-top: 1em;
     background-color: $white;
 }
 

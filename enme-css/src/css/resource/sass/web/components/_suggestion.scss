@@ -49,9 +49,8 @@
 }
 
 .web-search-container-wrapper .web-search-section-label {
-    color: #FFFFFF;
+    color: $white;
     float: left;
-    font-weight: bold;
     line-height: 5px;
     padding: 7px 4px;
     width: 66px;
@@ -73,6 +72,7 @@
     cursor: pointer;
     display: inline-block;
     padding: 0 5px;
+    width: 205px;
     h5 {
       @extend .t-light;
     }

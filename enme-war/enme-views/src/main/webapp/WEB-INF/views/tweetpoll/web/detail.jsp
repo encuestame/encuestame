@@ -6,7 +6,7 @@
    <div class="container">
 
     <div class="row web-generic-stats">
-        <div class="span10" id="generic" widgetid="generic">
+        <div class="span12" id="generic" widgetid="generic">
           <div class="row">
             <div class="span1">
               <div class="enme-rating">

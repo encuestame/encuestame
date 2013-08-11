@@ -52,7 +52,6 @@ var profile = {
   // smaller. We add it back here to avoid that extra HTTP request. There is also a "lite" selector available; if
   // you use that, you will need to set the `selectorEngine` property in `app/run.js`, too. (The "lite" engine is
   // only suitable if you are not supporting IE7 and earlier.)
-  // http://dojotoolkit.org/reference-guide/1.8/dojo/query.html
   selectorEngine: 'lite',
 
   packages:[{

@@ -1,10 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <style>
 
-body {
-  font: 10px sans-serif;
-}
-
 .axis path,
 .axis line {
   fill: none;
@@ -61,6 +57,7 @@ body {
       </div>
 
     <div class="row web-ht-detail">
+
          <div class="span9 web-wrapper-ddetail web-dht-detail-wrapper">
              <article class="emne-box">
                   <h3>
@@ -94,9 +91,10 @@ body {
               </article>
 
           </div>
-          <div class="span3">
+
+          <div class="span3 aside">
             <aside class="web-ht-wrapper-top web-wrapper-detail">
-                <article class="">
+                <article class="emne-box">
                      <h3>
                        <spring:message code="home.hashtag.position" />
                      </h3>
@@ -107,7 +105,7 @@ body {
                           id="position">
                      </section>
                 </article>
-                <article class="">
+                <article class="emne-box">
                      <h3>
                         <spring:message code="home.hashtag.profile" />
                      </h3>

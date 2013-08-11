@@ -4,3 +4,9 @@
      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 <script src="<%=request.getContextPath()%>/resources/js/init.js"></script>
+
+<script>
+	var config = {
+		contextPath: '${pageContext.request.contextPath}'
+	};
+</script>

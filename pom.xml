@@ -86,7 +86,7 @@
         <junit.version>4.11</junit.version>
         <cactus.version>1.8.1</cactus.version>
         <!-- Site Path -->
-        <apache>file:///var/www/encuestame</apache>
+        <apache>file:///tmp/encuestame</apache>
         <!-- Jetty -->
         <jetty.default.port>8080</jetty.default.port>
         <jetty.default.ssl.port>8443</jetty.default.ssl.port>
