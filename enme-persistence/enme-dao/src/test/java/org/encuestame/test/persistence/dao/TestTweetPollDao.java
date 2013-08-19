@@ -43,8 +43,6 @@ import org.encuestame.utils.enums.RelativeTimeEnum;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
-import org.encuestame.utils.web.stats.HashTagDetailStats;
-import org.encuestame.utils.web.stats.ItemStatDetail;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
@@ -450,19 +448,6 @@ public class TestTweetPollDao extends AbstractBase {
                         defaultFalseValue, defaultFalseValue, defaultFalseValue,
                         defaultFalseValue, null, "30", new Date());
         assertEquals("Should be equals", 1, tweetsByDate.size());
-    }
-
-    /**
-     * Test Retrieve TweetPoll Last Week
-     */
-    @Test
-    public void testRetrieveFavouritesTweetPoll() {
-        assertNotNull(this.secondary);
-        assertNotNull(tweetPoll);
-        // final List<TweetPoll> favouritesTweets =
-        // getTweetPoll().retrieveFavouritesTweetPoll(this.secondary.getAccount(),
-        // 5, 0);
-        // assertEquals("Should be equals", 1, favouritesTweets.size());
     }
 
     /**
@@ -974,11 +959,11 @@ public class TestTweetPollDao extends AbstractBase {
         tpSaved2.setPublicationDateTweet(myCalendarDate.getTime());
         getTweetPoll().saveOrUpdate(tpSaved2);
         assertNotNull(tpSaved2);
-        // final Long tweetPollSocialLinks = getTweetPoll()
-        // .getSocialLinksByTypeAndDateRange(tweetPoll, null, null,
-        // TypeSearchResult.TWEETPOLL, 365, 0, this.MAX_RESULTS);
-        // Assert.assertEquals("Should be", 2, tweetPollSocialLinks.intValue());
+        final List<TweetPollSavedPublishedStatus> tweetPollSocialLinks = getTweetPoll().getSocialLinksByTypeAndDateRange(tweetPoll, null, null,
+        		TypeSearchResult.TWEETPOLL);
+        Assert.assertEquals("Should be", 2, tweetPollSocialLinks.size());
     }
+
 
     /**
      * Test finding the distance between two coordinate points.
@@ -1059,7 +1044,7 @@ public class TestTweetPollDao extends AbstractBase {
      * Test Retrieve completed/incompleted tweetpolls.
      */
     @Test
-    @Ignore
+    //@Ignore
     public void testRetrieveCompletedTweetPolls() {
         createPublishedTweetPoll(secondary.getAccount(), this.question);
         final List<TweetPoll> completedTweetpolls = getTweetPoll()
@@ -1271,6 +1256,9 @@ public class TestTweetPollDao extends AbstractBase {
        // Assert.assertEquals("Should be", 2, tweetPollsbyHashTag.size());
     }
 
+    /**
+     * Test Remove {@link TweetPoll}.
+     */
     @Test
     public void testTweetRemove(){
 
@@ -1305,6 +1293,5 @@ public class TestTweetPollDao extends AbstractBase {
 	//	System.out.println(" \n Tweetpoll Folder  " + tpollsbyFolder.size());
 	//	System.out.println(" \n  Folder  " + folders.getId());
 	//	System.out.println(" \n Question After " + quest.getQuestion());
-
-    }
+     }
 }
