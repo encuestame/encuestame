@@ -2150,6 +2150,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return this.createHit(null, null, null, tag, ipAddress);
     }
 
+   /**
+    * Create HashTag hit.
+    * @param tag
+    * @param ipAddress
+    * @param hitDate
+    * @return
+    */
+    public Hit createHashTagHit(final HashTag tag, final String ipAddress, final Date hitDate){
+    	final Hit visit = this.createHit(null, null, null, tag, ipAddress);
+    	visit.setHitDate(hitDate);
+        return visit;
+    }
+
     /**
     * @return the dashboardDao
     */

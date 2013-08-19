@@ -69,9 +69,9 @@ public class TestFrontEndDao extends AbstractBase {
         this.hashTag = createHashTag("software");
         final String ipAddress2 = "192.168.1.2";
         final String ipAddress3 = "192.168.1.3";
-        this.hit = createHashTagHit(hashTag, ipAddress);
-        createHashTagHit(hashTag, ipAddress2);
-        createHashTagHit(hashTag, ipAddress3);
+        this.hit = createHashTagHit(hashTag, ipAddress, this.initDate.toDate());
+        createHashTagHit(hashTag, ipAddress2,  this.initDate.minusDays(3).toDate());
+        createHashTagHit(hashTag, ipAddress3, this.initDate.minusDays(4).toDate());
 
         this.initQuestion = createDefaultQuestion("Question example");
     }
@@ -333,4 +333,44 @@ public class TestFrontEndDao extends AbstractBase {
     	assertEquals("Should be equals", 3, last24HoursTweetPoll.size());
     }
 
+	/**
+	 * Test Retrieve HashTag hits by visit.
+	 */
+	@Test
+	public void testGetHashTagHitsRange() {
+		final List<Hit> tagHits = getFrontEndDao().getHashTagHitsRange(this.hashTag.getHashTagId(), SearchPeriods.ALLTIME);
+		assertEquals("Should be equals", 3, tagHits.size());
+	}
+
+
+	/**
+	 * Test Retrieve all {@link Hit} by type.
+	 */
+	@Test
+	public void testGetAllHitsByType() {
+		final TweetPoll tpoll1 = createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusHours(5).toDate());
+		final TweetPoll tpoll2 = createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(3).toDate());
+		final TweetPoll tpoll3 =createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(15).toDate());
+  		final TweetPoll tpoll4 = createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(35).toDate());
+
+		createTweetPollHit(tpoll1, ipAddress);
+		createTweetPollHit(tpoll1, "192.168.1.4");
+		createTweetPollHit(tpoll2, "192.168.1.4");
+		createTweetPollHit(tpoll3, "192.168.1.6");
+		createTweetPollHit(tpoll3, "192.168.1.7");
+		createTweetPollHit(tpoll3, "192.168.1.8");
+		createTweetPollHit(tpoll4, "192.168.1.9");
+		createTweetPollHit(tpoll4, "192.168.1.10");
+		createTweetPollHit(tpoll4, "192.168.1.11");
+		createTweetPollHit(tpoll4, "192.168.1.12");
+
+		final List<Hit> allHits = getFrontEndDao().getAllHitsByType(tpoll4, null, null);
+		assertEquals("Should be equals", 4, allHits.size());
+
+		final List<Hit> allHits2 = getFrontEndDao().getAllHitsByType(tpoll2, null, null);
+		assertEquals("Should be equals", 1, allHits2.size());
+
+		final List<Hit> allHits3 = getFrontEndDao().getAllHitsByType(tpoll1, null, null);
+		assertEquals("Should be equals", 2, allHits2.size());
+	}
 }
