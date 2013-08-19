@@ -181,7 +181,7 @@ public class TestDashboardDao extends AbstractBase {
     /**
      * Test retrieve gadget by type.
      */
-    //@Test
+    @Test
     public void testRetrieveGadgetsbyType(){
         final List<Gadget> gadget = getDashboardDao().retrieveGadgetsbyType(GadgetType.ACTIVITY_STREAM);
         assertEquals("Should be equals", 3, gadget.size());

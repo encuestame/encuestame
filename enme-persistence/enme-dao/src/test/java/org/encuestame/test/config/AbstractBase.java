@@ -1343,6 +1343,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create Default {@link GeoPointFolder}
+     * @param folderName
+     * @param secUsers
+     * @return
+     */
+	public GeoPointFolder createDefaultGeoPointFolder(final String folderName,
+			final Account secUsers) {
+		return this.createGeoPointFolder(GeoPointFolderType.POLYGON, secUsers,
+				folderName, null);
+
+	}
+
+    /**
      * Helper Create Survey Section.
      * @param catState
      * @param descSection

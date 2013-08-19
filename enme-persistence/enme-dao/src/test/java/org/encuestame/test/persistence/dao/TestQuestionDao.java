@@ -76,6 +76,15 @@ public class TestQuestionDao extends AbstractBase{
     }
 
     /**
+     * Test Retrieve Question by Id and User.
+     */
+    @Test
+    public void testRetrieveQuestionbyId(){
+    	final Question retrieveQ = getQuestionDaoImp().retrieveQuestionbyId(this.initQuestion.getQid(), this.user.getUid());
+    	System.out.println("RETRIEVE QUESTION --> "+ retrieveQ.getQid());
+    }
+
+    /**
      * Test retrieveQuestionsByName.
      */
     @Test

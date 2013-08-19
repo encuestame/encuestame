@@ -96,10 +96,10 @@ public class TestSecGroupDaoImp extends AbstractBase{
         getGroup().saveOrUpdate(group);
         final Group retrieveGroup = getGroupDaoImp().getGroupById(
                 Long.valueOf(group.getGroupId()));
-        /*sertEquals("New Name should be",newname,
-            retrieveGroup.getName());
-    assertEquals("New Description should be",newdescription,
-            retrieveGroup.getDesInfo());*/
+		assertEquals("New Name should be", newName,
+				retrieveGroup.getGroupName());
+		assertEquals("New Description should be", newDescription,
+				retrieveGroup.getGroupDescriptionInfo());
     }
 
     /**
