@@ -25,12 +25,15 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -54,6 +57,12 @@ public class TestFrontEndDao extends AbstractBase {
 
     final String ipAddress = "192.168.1.1";
 
+    /** **/
+	private DateTime initDate = new DateTime();
+
+	/** {@link Question} **/
+	private Question initQuestion;
+
     @Before
     public void initData(){
         this.secondary = createUserAccount("paola", createAccount());
@@ -63,6 +72,8 @@ public class TestFrontEndDao extends AbstractBase {
         this.hit = createHashTagHit(hashTag, ipAddress);
         createHashTagHit(hashTag, ipAddress2);
         createHashTagHit(hashTag, ipAddress3);
+
+        this.initQuestion = createDefaultQuestion("Question example");
     }
 
     /** Test Get hash tags by ip.**/
@@ -167,4 +178,159 @@ public class TestFrontEndDao extends AbstractBase {
         List<Hit> myHits = getFrontEndDao().getHashTagHitsbyDateRange( hashTag1.getHashTagId(), 7);
         assertEquals("Should be equals", 1, myHits.size());
     }
+
+    /**
+	 * Test Retrieve surveys the last 30 days.
+	 */
+	@Test
+	public void testGetSurveyFrontEndLast30Days() {
+		this.createSurveys();
+		final List<Survey> last30DaysSurveys = getFrontEndDao()
+				.getSurveyFrontEndLast30Days(0, 10);
+		assertEquals("Should be equals", 9, last30DaysSurveys.size());
+	}
+
+	/**
+	 * Test Retrieve surveys the last 7 days.
+	 */
+	@Test
+	public void testGetSurveyFrontEndLast7Days() {
+		this.createSurveys();
+		final List<Survey> last7DaysSurveys = getFrontEndDao().getSurveyFrontEndLast7Days(0, 10);
+		assertEquals("Should be equals", 6, last7DaysSurveys.size());
+	}
+
+	/**
+	 *  Test Retrieve surveys the last 24 hours.
+	 */
+	@Test
+	public void testGetSurveyFrontEndLast24() {
+		this.createSurveys();
+		final List<Survey> last24Surveys = getFrontEndDao().getSurveyFrontEndLast24(0, 10);
+		assertEquals("Should be equals", 2, last24Surveys.size());
+
+	}
+
+	/**
+	 * Create survey Helper.
+	 */
+	private void createSurveys(){
+		createDefaultSurvey(this.secondary.getAccount(), "First survey", this.initDate.minusHours(5).toDate());
+		createDefaultSurvey(this.secondary.getAccount(), "Second survey", this.initDate.minusHours(15).toDate());
+		createDefaultSurvey(this.secondary.getAccount(), "Third survey", this.initDate.minusHours(25).toDate());
+
+
+		createDefaultSurvey(this.secondary.getAccount(), "Fourth survey", this.initDate.minusDays(3).toDate());
+		createDefaultSurvey(this.secondary.getAccount(), "5 survey", this.initDate.minusDays(5).toDate());
+		createDefaultSurvey(this.secondary.getAccount(), "6 survey", this.initDate.minusDays(8).toDate());
+
+
+		createDefaultSurvey(this.secondary.getAccount(), "7 survey", this.initDate.minusDays(3).toDate());
+		createDefaultSurvey(this.secondary.getAccount(), "8 survey", this.initDate.minusDays(15).toDate());
+		createDefaultSurvey(this.secondary.getAccount(), "9 survey", this.initDate.minusDays(25).toDate());
+		createDefaultSurvey(this.secondary.getAccount(), "10 survey", this.initDate.minusDays(35).toDate());
+	}
+
+	/**
+	 *Create poll Helper.
+	 */
+	private void createPolls(){
+		createDefaultPoll(this.initQuestion, this.secondary, this.initDate.minusHours(5).toDate());
+
+		createDefaultPoll(this.initQuestion, this.secondary, this.initDate.minusHours(5).toDate());
+		createDefaultPoll(this.initQuestion, this.secondary, this.initDate.minusHours(15).toDate());
+		createDefaultPoll(this.initQuestion, this.secondary, this.initDate.minusHours(25).toDate());
+
+
+		createDefaultPoll(this.initQuestion, this.secondary, this.initDate.minusDays(3).toDate());
+		createDefaultPoll(this.initQuestion, this.secondary, this.initDate.minusDays(5).toDate());
+		createDefaultPoll(this.initQuestion, this.secondary, this.initDate.minusDays(8).toDate());
+
+
+		createDefaultPoll(this.initQuestion, this.secondary, this.initDate.minusDays(3).toDate());
+		createDefaultPoll(this.initQuestion, this.secondary, this.initDate.minusDays(15).toDate());
+		createDefaultPoll(this.initQuestion, this.secondary, this.initDate.minusDays(25).toDate());
+		createDefaultPoll(this.initQuestion, this.secondary, this.initDate.minusDays(35).toDate());
+  	}
+
+	/**
+	 *Create poll Helper.
+	 */
+	private void createTweetPolls(){
+		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusHours(5).toDate());
+		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusHours(5).toDate());
+		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusHours(15).toDate());
+		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusHours(25).toDate());
+
+		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(3).toDate());
+		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(5).toDate());
+		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(8).toDate());
+
+		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(3).toDate());
+		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(15).toDate());
+		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(25).toDate());
+		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(35).toDate());
+	}
+
+	/**
+	 * Test Retrieve poll the last 30 days.
+	 */
+	@Test
+    public void testGetPollFrontEndLast30Days(){
+    	this.createPolls();
+    	final List<Poll> last30DaysPoll = getFrontEndDao().getPollFrontEndLast30Days(0, 10);
+    	assertEquals("Should be equals", 10, last30DaysPoll.size());
+    }
+
+	/**
+	 * Test Retrieve poll the last 7 days.
+	 */
+	@Test
+    public void testGetPollFrontEndLast7Days(){
+    	this.createPolls();
+    	final List<Poll> last7DaysPoll = getFrontEndDao().getPollFrontEndLast7Days(0, 10);
+    	assertEquals("Should be equals", 7, last7DaysPoll.size());
+    }
+
+	/**
+	 * Test Retrieve poll the last 24 hours.
+	 */
+	@Test
+    public void testGetPollFrontEndLast24(){
+    	this.createPolls();
+    	final List<Poll> last24HoursPoll = getFrontEndDao().getPollFrontEndLast24(0, 10);
+    	assertEquals("Should be equals", 3, last24HoursPoll.size());
+	}
+
+	/**
+	 * Test Retrieve Tweetpoll the last 30 Days.
+	 */
+	@Test
+    public void testGetTweetPollFrontEndLast30Days(){
+    	this.createTweetPolls();
+    	final List<TweetPoll> last30DaysTweetPoll = getFrontEndDao().getTweetPollFrontEndLast30Days(0, 10);
+    	assertEquals("Should be equals", 10, last30DaysTweetPoll.size());
+    }
+
+	/**
+	 * Test Retrieve Tweetpoll the last 7 Days.
+	 */
+	@Test
+    public void testGetTweetPollFrontEndLast7Days(){
+    	this.createTweetPolls();
+    	final List<TweetPoll> last7DaysTweetPoll = getFrontEndDao().getTweetPollFrontEndLast7Days(0, 10);
+    	assertEquals("Should be equals", 7, last7DaysTweetPoll.size());
+
+    }
+
+	/**
+	 * Test Retrieve Tweetpoll the last 24 Hours.
+	 */
+	@Test
+    public void testGetTweetPollFrontEndLast24(){
+    	this.createTweetPolls();
+    	final List<TweetPoll> last24HoursTweetPoll = getFrontEndDao().getTweetPollFrontEndLast24(0, 10);
+    	assertEquals("Should be equals", 3, last24HoursTweetPoll.size());
+    }
+
 }

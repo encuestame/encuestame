@@ -459,6 +459,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(pollPublish);
         poll.setShowComments(CommentOptions.APPROVE);
+        poll.setRelevance(1L);
         getPollDao().saveOrUpdate(poll);
         return poll;
 
@@ -473,6 +474,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public Poll createDefaultPoll(final Question question,
             final UserAccount userAccount) {
         return this.createPoll(new Date(), question, userAccount, Boolean.TRUE,
+                Boolean.TRUE);
+    }
+
+    /**
+     * Helper create default poll.
+     * @param question
+     * @param userAccount
+     * @param createdAt
+     * @return
+     */
+    public Poll createDefaultPoll(final Question question,
+            final UserAccount userAccount, final Date createdAt) {
+        return this.createPoll(createdAt, question, userAccount, Boolean.TRUE,
                 Boolean.TRUE);
     }
 
@@ -1184,6 +1198,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         tweetPoll.setFavourites(Boolean.TRUE);
         tweetPoll.setTweetOwner(tweetOwner);
         tweetPoll.setEditorOwner(userAccount);
+        tweetPoll.setRelevance(1L);
         getTweetPoll().saveOrUpdate(tweetPoll);
         return tweetPoll;
     }
@@ -1219,6 +1234,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
 
+    /**
+     * Create published {@link TweetPoll}.
+     * @param id
+     * @param question
+     * @param user
+     * @return
+     */
     public TweetPoll createPublishedTweetPoll(final Long id, final Question question, final UserAccount user) {
         return createTweetPoll(id, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
@@ -1464,6 +1486,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        survey.setStartDate(startDate);
        survey.setTicket(3);
        survey.setCreatedAt(createdAt);
+       survey.setRelevance(1L);
        getSurveyDaoImp().saveOrUpdate(survey);
        return survey;
    }
