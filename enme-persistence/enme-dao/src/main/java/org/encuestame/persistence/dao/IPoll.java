@@ -159,7 +159,7 @@ public interface IPoll extends IBaseDao {
       * @return
       */
      List<Poll> getPolls(final Integer maxResults,
-             final Integer start, final Date range);
+             final Integer start, final SearchPeriods range);
 
      /**
       * Retrieve poll mark as favorites.
@@ -296,4 +296,15 @@ public interface IPoll extends IBaseDao {
 	 */
 	List<Object[]> getPollsRangeStats(
 	            final String tagName, final SearchPeriods period);
+
+	/**
+	 * Find all Polls by {@link Account}
+	 * @param account
+	 * @param maxResults
+	 * @param start
+	 * @return
+	 */
+	List<Poll> findAllPollByAccount(final Account account,
+			final Integer maxResults, final Integer start);
+
 }

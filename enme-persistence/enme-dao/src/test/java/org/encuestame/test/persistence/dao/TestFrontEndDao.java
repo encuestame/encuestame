@@ -353,7 +353,6 @@ public class TestFrontEndDao extends AbstractBase {
 		final TweetPoll tpoll3 =createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(15).toDate());
   		final TweetPoll tpoll4 = createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(35).toDate());
 
-		createTweetPollHit(tpoll1, ipAddress);
 		createTweetPollHit(tpoll1, "192.168.1.4");
 		createTweetPollHit(tpoll2, "192.168.1.4");
 		createTweetPollHit(tpoll3, "192.168.1.6");

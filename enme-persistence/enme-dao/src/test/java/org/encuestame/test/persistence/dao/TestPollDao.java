@@ -32,6 +32,7 @@ import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -73,6 +74,8 @@ public class TestPollDao extends AbstractBase {
     private Integer START = 0;
 
     private Calendar myDate = Calendar.getInstance();
+
+    private DateTime initDate = new DateTime();
 
      /** Before.
      * @throws EnMeNoResultsFoundException
@@ -348,4 +351,78 @@ public class TestPollDao extends AbstractBase {
         }
     }
 
+    /**
+     * Test find all {@link Poll}.
+     */
+	@Test
+	public void testFindAllPollByAccount() {
+		final Account acc2 = createUser("testEncuesta1", "testEncuesta1233");
+		final Account acc3 = createUser("testEncuesta3", "testEncuesta1235");
+
+		final UserAccount userAccount1 = createUserAccount("paola", acc2);
+		final UserAccount userAccount2 = createUserAccount("carlos", acc2);
+		final UserAccount userAccount3 = createUserAccount("isabella", acc3);
+		createDefaultPoll(question, userAccount1);
+		createDefaultPoll(question, userAccount1);
+		createDefaultPoll(question, userAccount2);
+		createDefaultPoll(question, userAccount2);
+		createDefaultPoll(question, userAccount2);
+		createDefaultPoll(question, userAccount3);
+
+		final List<Poll> allPolls = getPollDao().findAllPollByAccount(acc2, 10,
+				0);
+		assertEquals("Should be equals", 5, allPolls.size());
+
+	}
+
+	/**
+	 * Test Retrieve {@link Poll} by {@link Question}.
+	 */
+	@Test
+	public void testGetPollbyQuestion() {
+		final Poll pollByQuestion = getPollDao().getPollbyQuestion(
+				this.question.getQid());
+
+		assertEquals("Should be equals", this.poll.getPollId(),
+				pollByQuestion.getPollId());
+     }
+
+	/**
+	 *Create poll Helper.
+	 */
+	private void createPolls() {
+		createDefaultPoll(this.question, this.userAccount, this.initDate
+				.minusHours(5).toDate());
+		createDefaultPoll(this.question, this.userAccount, this.initDate
+				.minusHours(15).toDate());
+		createDefaultPoll(this.question, this.userAccount, this.initDate
+				.minusDays(6).toDate());
+		createDefaultPoll(this.question, this.userAccount, this.initDate
+				.minusDays(7).toDate());
+		createDefaultPoll(this.question, this.userAccount, this.initDate
+				.minusDays(25).toDate());
+	}
+
+	/**
+	 * Test Retrieve all {@link Poll} by type.
+	 */
+	@Test
+	public void testGetPolls() {
+		this.createPolls();
+		final List<Poll> pollsby24Hours = getPollDao().getPolls(10, 0,
+				SearchPeriods.TWENTYFOURHOURS);
+		assertEquals("Should be equals", 3,
+				pollsby24Hours.size());
+
+		final List<Poll> pollsby7Days = getPollDao().getPolls(10, 0,
+				SearchPeriods.SEVENDAYS);
+		assertEquals("Should be equals", 4,
+				pollsby7Days.size());
+
+		final List<Poll> pollsby30Days = getPollDao().getPolls(10, 0,
+				SearchPeriods.THIRTYDAYS);
+		assertEquals("Should be equals", 6,
+				pollsby30Days.size());
+
+	}
 }
