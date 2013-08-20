@@ -26,6 +26,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -209,7 +210,7 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeTweetPollNotFoundException
      * @throws EnMePollNotFoundException
      */
-    List<Poll> getPollsByRange(final Integer maxResults, final Integer start, final Date range);
+    List<Poll> getPollsByRange(final Integer maxResults, final Integer start, final SearchPeriods range);
 
     /**
      *

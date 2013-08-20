@@ -48,6 +48,7 @@ import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.QuestionPattern;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
@@ -718,7 +719,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
     public List<Poll> getPollsByRange(
             final Integer maxResults,
             final Integer start,
-            final Date range) {
+            final SearchPeriods range) {
         final List<Poll> polls = getPollDao().getPolls(
                 maxResults, start, range);
         return polls;
