@@ -577,6 +577,10 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                                 new Object[] { ip, poll }));
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPollbyQuestion(java.lang.Long)
+     */
     @SuppressWarnings("unchecked")
     public Poll getPollbyQuestion(final Long questionId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);

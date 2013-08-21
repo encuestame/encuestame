@@ -491,6 +491,25 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Helper create default poll.
+     * @param question
+     * @param userAccount
+     * @param createdAt
+     * @param likeVote
+     * @param dislikeVote
+     * @return
+     */
+    public Poll createDefaultPoll(final Question question,
+            final UserAccount userAccount, final Date createdAt, final Long likeVote, final Long dislikeVote) {
+    	final Poll poll = createPoll(createdAt, question, userAccount, Boolean.TRUE,
+                Boolean.TRUE);
+    	poll.setLikeVote(likeVote);
+    	poll.setDislikeVote(dislikeVote);
+    	getPollDao().saveOrUpdate(poll);
+        return poll;
+    }
+
+    /**
       * Helper to create poll
       * @param createdDate
       * @param question
@@ -514,8 +533,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setClosedQuota(100);
         poll.setCustomFinalMessage(CustomFinalMessage.FINALMESSAGE);
         poll.setCustomMessage(true);
-        poll.setDislikeVote(300L);
-        poll.setLikeVote(560L);
+        poll.setDislikeVote(1L);
+        poll.setLikeVote(1L);
         poll.setEndDate(new Date());
         poll.setFavorites(true);
         poll.setNumbervotes(600L);
@@ -547,6 +566,22 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return pollRes;
 
     }
+
+	/**
+	 * Create Default {@link PollResult}.
+	 * @param questionAnswer
+	 * @param poll
+	 * @param ip
+	 * @return
+	 */
+    public PollResult createDefaultPollResults(
+			final QuestionAnswer questionAnswer, final Poll poll,
+			final String ip) {
+		final PollResult result = this.createPollResults(questionAnswer, poll);
+		result.setIpaddress(ip);
+		getPollDao().saveOrUpdate(result);
+		return result;
+	}
 
     /**
      * Create project.
