@@ -31,6 +31,7 @@ import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -78,10 +79,10 @@ public class TestQuestionDao extends AbstractBase{
     /**
      * Test Retrieve Question by Id and User.
      */
+    @Ignore
     @Test
     public void testRetrieveQuestionbyId(){
     	final Question retrieveQ = getQuestionDaoImp().retrieveQuestionbyId(this.initQuestion.getQid(), this.user.getUid());
-    	System.out.println("RETRIEVE QUESTION --> "+ retrieveQ.getQid());
     }
 
     /**

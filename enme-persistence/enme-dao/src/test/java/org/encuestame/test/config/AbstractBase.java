@@ -2271,6 +2271,21 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     *
+     * @param comment
+     * @param tpoll
+     * @param userAcc
+     * @param status
+     * @return
+     */
+    public Comment createDefaultTweetPollCommentStatus(
+            final String comment,
+            final TweetPoll tpoll,
+            final UserAccount userAcc, final CommentStatus status){
+        return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L , new Date());
+    }
+
+    /**
      * Create a default {@link Comment} with status.
      * @param comment
      * @param tpoll

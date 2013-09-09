@@ -28,6 +28,7 @@ import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -94,11 +95,22 @@ public class TestTweetPollDao extends AbstractBase {
     private Boolean defaultFalseValue = Boolean.FALSE;
 
     /**
+     * {@link Account}
+     */
+    private Account account;
+
+    /**
+     *
+     */
+    private DateTime initDate = new DateTime();
+
+    /**
      * Before.
      */
     @Before
     public void initData() {
-        this.secondary = createUserAccount("jhonny", createAccount());
+    	this.account = createAccount();
+        this.secondary = createUserAccount("jhonny", account);
         this.question = createQuestion("Who I am?", "");
         this.questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
         this.questionsAnswers2 = createQuestionAnswer("no", question, "12346");
@@ -1044,7 +1056,7 @@ public class TestTweetPollDao extends AbstractBase {
      * Test Retrieve completed/incompleted tweetpolls.
      */
     @Test
-    //@Ignore
+	@Ignore
     public void testRetrieveCompletedTweetPolls() {
         createPublishedTweetPoll(secondary.getAccount(), this.question);
         final List<TweetPoll> completedTweetpolls = getTweetPoll()
@@ -1294,4 +1306,48 @@ public class TestTweetPollDao extends AbstractBase {
 	//	System.out.println(" \n  Folder  " + folders.getId());
 	//	System.out.println(" \n Question After " + quest.getQuestion());
      }
+
+    /**
+     * Test retrieve Favourites tweetpoll.
+     */
+    @Test
+    public void testRetrieveFavouritesTweetPoll(){
+    	createDefaultTweetPollPublicated(Boolean.TRUE,
+				Boolean.TRUE, Boolean.TRUE, this.secondary, this.question,
+				this.initDate.toDate());
+
+    	final Question newQuest = createQuestion("Favorite color?", this.account);
+
+    	createDefaultTweetPollPublicated(Boolean.TRUE,
+				Boolean.TRUE, Boolean.TRUE, this.secondary, newQuest,
+				this.initDate.minusDays(5).toDate());
+
+
+		final List<TweetPoll> tpolls = getTweetPoll()
+				.retrieveFavouritesTweetPoll(this.account, 10, 0, Boolean.TRUE,
+						Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, "", "24");
+
+
+		final List<TweetPoll> tpolls2 = getTweetPoll()
+				.retrieveFavouritesTweetPoll(this.account, 10, 0, Boolean.TRUE,
+						Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, "Who", " ");
+
+		final List<TweetPoll> tpolls3 = getTweetPoll()
+				.retrieveFavouritesTweetPoll(this.account, 10, 0, Boolean.TRUE,
+						Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, "col", " ");
+
+
+		Assert.assertEquals("Should be", 3, tpolls.size());
+		Assert.assertEquals("Should be", 2, tpolls2.size());
+		Assert.assertEquals("Should be", 1, tpolls3.size());
+     }
+
+    /**
+     * Test
+     */
+    public void testGetListAnswerTweetSwitch(){
+//    	final QuestionAnswer qAnsw =
+//    	final List<TweetPollSwitch> getListAnswers = getTweetPoll().getAnswerTweetSwitch(questionAnswer);
+    }
+
 }

@@ -22,6 +22,7 @@ import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
@@ -29,6 +30,7 @@ import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,8 @@ public class TestDashboardService extends AbstractSpringSecurityContext{
 
     /** {@link DashboardBean} **/
     private DashboardBean boardBean;
+
+    private UserAccount userAccount = getSpringSecurityLoggedUserAccount();
 
     @Before
     public void initService(){
@@ -169,6 +173,19 @@ public class TestDashboardService extends AbstractSpringSecurityContext{
         final Dashboard boardUpdate = getDashboardService().updateDashboard(boardBean);
         assertEquals("Should be equals", newName, boardUpdate.getPageBoardName());
     }
+
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     */
+    @Ignore
+    @Test
+    public void testMarkAsSelectedDasboard() throws EnMeNoResultsFoundException{
+    	final Dashboard board1 = createDashboard("Selected dashboard", Boolean.TRUE, this.userAccount);
+      	final List<DashboardBean> dashes = getDashboardService().getAllDashboards(this.MAX_RESULTS, this.START);
+      	final Dashboard board = getDashboardService().markAsSelectedDasboard(board1.getBoardId());
+    }
+
 
     /**
      * @return the dashboardService
