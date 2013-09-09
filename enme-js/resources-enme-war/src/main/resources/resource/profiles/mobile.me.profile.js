@@ -99,8 +99,8 @@ var profile = {
        "dojo/store/util/QueryResults",
        'dojo/domReady',
        'dojo/cache',
-       'me/main',
-       'me/run' ],
+       //'me/main',
+       'mobile/mobile-run' ],
 
       // By default, the build system will try to include `dojo/main` in the built `dojo/dojo` layer, which adds
       // a bunch of stuff we do not want or need. We want the initial script load to be as small and quick to
