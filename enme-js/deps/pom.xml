@@ -110,12 +110,7 @@
                                     <includes>
                                         <include>${commonsSourceDir}/moment.js</include>
                                         <include>${commonsSourceDir}/d3.v3.min.js</include>
-                                        <include>${mobileSourceDir}/jquery/jquery.js</include>
-                                        <include>${commonsSourceDir}/bootstrap.js</include>
-                                        <include>${mobileSourceDir}/custom/jquery.pageslide.js</include>
                                         <include>${commonsSourceDir}/underscore.js</include>
-                                        <include>${mobileSourceDir}/backbone/backbone.js</include>
-                                        <include>${mobileSourceDir}/backbone.marionette/lib/backbone.marionette.js</include>
                                     </includes>
                                 </aggregation>
                             </aggregations>

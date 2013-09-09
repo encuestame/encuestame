@@ -32,3 +32,6 @@
 [submodule "doc"]
 	path = doc
 	url = git://github.com/encuestame/doc.git
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/widget"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/widget
+	url = git://github.com/juanpicado/widget-enme

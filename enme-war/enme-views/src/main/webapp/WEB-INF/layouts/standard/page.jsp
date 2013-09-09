@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<%@ include file="decorators/html.jsp"%>
+<%@ include file="/WEB-INF/layouts/decorators/html.jsp"%>
 <head>
     <title>
         <tiles:insertAttribute name="title" defaultValue="encuestame" />
@@ -13,9 +13,9 @@
   <div class="container">
       <tiles:insertAttribute name="header" ignore="true" />
   </div>
-  <div id="mainWrapper" class="page">
+  <div id="mainWrapper" class="page container">
     <header id="header" class="header_input_hidden">
-          <%@ include file="decorators/i18n-input.jsp"%>
+          <%@ include file="/WEB-INF/layouts/decorators/i18n-input.jsp"%>
     </header>
     <tiles:insertAttribute name="menu" ignore="true" />
     <div id="content-container">

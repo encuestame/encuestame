@@ -37,7 +37,6 @@ var profile = {
   // Uses Closure Compiler as the JavaScript minifier. This can also be set to "shrinksafe" to use ShrinkSafe,
   // though ShrinkSafe is deprecated and not recommended.
   // This option defaults to "" (no compression) if not provided.
-  // FIXME: issues with inheritance with "closure"
   optimize: 'closure',
 
   // We're building layers, so we need to set the minifier to use for those, too.
@@ -53,6 +52,7 @@ var profile = {
   // smaller. We add it back here to avoid that extra HTTP request. There is also a "lite" selector available; if
   // you use that, you will need to set the `selectorEngine` property in `app/run.js`, too. (The "lite" engine is
   // only suitable if you are not supporting IE7 and earlier.)
+  // http://dojotoolkit.org/reference-guide/1.8/dojo/query.html
   selectorEngine: 'lite',
 
   packages:[{

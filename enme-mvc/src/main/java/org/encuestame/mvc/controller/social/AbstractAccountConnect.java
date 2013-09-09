@@ -14,16 +14,14 @@ package org.encuestame.mvc.controller.social;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
-import org.encuestame.oauth2.support.OAuth2Parameters;
-import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.oauth1.support.OAuth1RequestFlow;
+import org.encuestame.oauth2.support.OAuth2Parameters;
 import org.encuestame.oauth2.support.OAuth2RequestFlow;
-import org.encuestame.social.api.GoogleBuzzAPITemplate;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.social.api.FacebookAPITemplate;
 import org.encuestame.social.api.IdenticaAPITemplate;
 import org.encuestame.social.api.LinkedInAPITemplate;
 import org.encuestame.social.api.TwitterAPITemplate;
-import org.encuestame.social.api.support.BuzzAPIOperations;
 import org.encuestame.social.api.support.FacebookAPIOperations;
 import org.encuestame.social.api.support.IdentiCaProfile;
 import org.encuestame.social.api.support.IdenticaAPIOperations;

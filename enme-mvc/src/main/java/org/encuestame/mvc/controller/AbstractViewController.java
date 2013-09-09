@@ -122,6 +122,7 @@ public abstract class AbstractViewController extends AbstractBaseOperations{
         ModelAndView mav = new ModelAndView();
         mav.setViewName("tilesResolver");
         mav.setViewName("error");
+        ex.printStackTrace();
         WebMessage emptyError = new WebMessage(WebInfoType.ERROR, ex.getMessage(), ExceptionUtils.getFullStackTrace(ex),
                 EnMePlaceHolderConfigurer.getIntegerProperty("encuestame.error.level"),
                 EnMePlaceHolderConfigurer.getBooleanProperty("encuestame.error.display_bugtracking"));

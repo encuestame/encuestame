@@ -8,7 +8,7 @@
     <%@ include file="/WEB-INF/jsp/includes/web/css.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp" %>
 </head>
-<body>
+<body class="vote">
       <div class="container">
           <tiles:insertAttribute name="header" ignore="true" />
       </div>

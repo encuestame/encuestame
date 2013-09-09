@@ -1,11 +1,6 @@
 /** HASHTAGS */
 .web-hashtag-wrapper {
 
-      h1,h2,h3,h4,h5 {
-        color: $gray_normal;
-        font-weight: lighter;
-      }
-
       aside > article {
         padding: 10px;
       }
@@ -47,6 +42,7 @@
         border: 0 none !important;
         @include non_borders();
         overflow: hidden;
+        margin-top: 2em;
       }
 
        .web-ht-wrapper-mainline {

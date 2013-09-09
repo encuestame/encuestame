@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
+import org.encuestame.utils.enums.RequestSourceType;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -109,7 +110,8 @@ public class PollController extends AbstractViewController {
     public String submit(
             @RequestParam(value = "poll", required = false) Long responseId,
             @RequestParam(value = "itemId", required = false) Long itemId,
-            @RequestParam("type") String type,
+            @RequestParam(value = "type", required = false) String type,
+            @RequestParam(value = "type_form", required = false) String type_form,
             @RequestParam("slugName") String slugName,
             final HttpServletRequest req, final ModelMap model) {
         log.trace("*************************************************");
@@ -120,9 +122,13 @@ public class PollController extends AbstractViewController {
         log.trace("*************************************************");
         // default path
         String pathVote = "redirect:/poll/voted/";
+        final RequestSourceType requestSourceType = RequestSourceType.getSource(type_form);
+        final String isEmbedded = !requestSourceType.equals(RequestSourceType.EMBEDDED) ? "" : "embedded/";
+        log.debug("isEmbedded   * " + isEmbedded);
         try {
             type = filterValue(type);
-            slugName = filterValue(slugName);
+            type_form = filterValue(type_form);
+            slugName = filterValue(slugName);            
             if (itemId == null) {
                 throw new EnMePollNotFoundException("poll id has not been found");
             }
@@ -140,7 +146,7 @@ public class PollController extends AbstractViewController {
                 final Boolean checkBannedIp = checkIPinBlackList(IP);
                 if (checkBannedIp) {
                     // if banned send to banned view.
-                    pathVote = "poll/banned";
+                    pathVote = "poll/ "+ isEmbedded +"banned";
                 } else {
                     final Poll poll = getPollService().getPollByAnswerId(
                             itemId, responseId, null);
@@ -149,18 +155,18 @@ public class PollController extends AbstractViewController {
                     if (result == null) {
                         getPollService().vote(poll, slugName, IP, responseId);
                     } else {
-                        pathVote = "poll/repeated";
+                        pathVote = "poll/"+ isEmbedded +"repeated";
                     }
                 }
             }
         } catch (EnMeNoResultsFoundException e) {
             log.error("error poll vote 1" + e);
             e.printStackTrace();
-            pathVote = "poll/bad";
+            pathVote = "poll/"+ isEmbedded +"bad";
         } catch (UnknownHostException e) {
             log.error("error poll vote 2 " + e);
             e.printStackTrace();
-            pathVote = "poll/bad";
+            pathVote = "poll/"+ isEmbedded +"bad";
         }
         log.debug("poll vote path: " + pathVote);
         return pathVote;
