@@ -15,6 +15,7 @@ package org.encuestame.mvc.test.json;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -35,7 +36,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Test for {@link TweetPollJsonController}.
@@ -299,7 +299,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      * @throws ServletException
      * @throws IOException
      */
-    @Ignore
+	@Ignore
     @Test
    	public void testTweetPollAutosave() throws ServletException, IOException {
    		final Long tPollId = this.tp1.getTweetPollId();

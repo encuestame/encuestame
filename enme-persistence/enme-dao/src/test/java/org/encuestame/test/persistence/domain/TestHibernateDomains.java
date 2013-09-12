@@ -681,14 +681,13 @@ public class TestHibernateDomains extends AbstractBase{
     /**
      * Subscribe email.
      */
-    @Ignore
     @Test
 	public void testEmailSubscribe() {
 		final EmailSubscribe subscribe = new EmailSubscribe();
 		final EmailList emailList = createListEmails(this.initAccount, "VIP Email List", new Date());
 		final Email email = createEmails("juan@encuestame.org", emailList);
-		subscribe.setHashCode("CKDpka8834");
-		subscribe.setIdSubscribe(1L);
+		subscribe.setHashCode("CKDpka8834s");
+		//subscribe.setIdSubscribe(5L);
 		subscribe.setList(emailList);
 		subscribe.setEmail(email);
 		getCatEmailDao().saveOrUpdate(subscribe);
@@ -701,13 +700,13 @@ public class TestHibernateDomains extends AbstractBase{
 	/**
 	 * Create {@link TweetPollRate}
 	 */
-    @Ignore
+	@Ignore
 	@Test
 	public void TweetPollRate() {
 		final TweetPollRate tpollRate = new TweetPollRate();
 		tpollRate.setRate(Boolean.FALSE);
 		tpollRate.setTweetPoll(this.initTweetPoll);
-		tpollRate.setTweetPollRateId(2L);
+	//	tpollRate.setTweetPollRateId(2L);
 		tpollRate.setUser(this.initUser);
 		getTweetPoll().saveOrUpdate(tpollRate);
 		assertNotNull(tpollRate.getRate());
@@ -719,7 +718,6 @@ public class TestHibernateDomains extends AbstractBase{
     /**
      * Test {@link SurveyTemporalResult} domain.
      */
-	@Ignore
 	@Test
     public void testSurveyTemporalResult() {
         final SurveyTemporalResult result = new SurveyTemporalResult();
@@ -729,7 +727,7 @@ public class TestHibernateDomains extends AbstractBase{
         result.setQuestion(this.initQuestion);
         result.setSurvey(this.initSurvey);
         result.setTxtResponse("3 Cups");
-        result.setIdTempResult(1L);
+      //  result.setIdTempResult(1L);
         result.setHash("Jks193'5");
         getSurveyDaoImp().saveOrUpdate(result);
 		assertNotNull(result.getAnswer());
@@ -741,13 +739,12 @@ public class TestHibernateDomains extends AbstractBase{
 	/**
 	 * Test {@link TweetPollSavedPublishedStatus}.
 	 */
-	@Ignore
 	@Test
     public void testTweetPollSavedPublished() {
 		final TweetPollSavedPublishedStatus tpollSaved = new TweetPollSavedPublishedStatus();
 		tpollSaved.setApiType(SocialProvider.FACEBOOK);
 		tpollSaved.setDescriptionStatus("my first tweetpoll published");
-		tpollSaved.setId(2L);
+	//	tpollSaved.setId(2L);
 		tpollSaved.setPoll(null);
 		tpollSaved.setPublicationDateTweet(new Date());
 		tpollSaved.setSocialAccount(this.socialAccount);
@@ -773,7 +770,6 @@ public class TestHibernateDomains extends AbstractBase{
 	/**
 	 * Test {@link TweetPollSwitch}
 	 */
-	@Ignore
 	@Test
 	public void testTweetPollSwitch() {
 		final TweetPollSwitch tpollSwitch = new TweetPollSwitch();
@@ -784,7 +780,7 @@ public class TestHibernateDomains extends AbstractBase{
 		tpollSwitch.setDateUpdated(new Date());
 		tpollSwitch.setRelativeUrl("http://encuestame.org");
 		tpollSwitch.setShortUrl("http://enme.gl");
-		tpollSwitch.setSwitchId(2L);
+		//tpollSwitch.setSwitchId(2L);
 		tpollSwitch.setTweetPoll(this.initTweetPoll);
 		getSurveyDaoImp().saveOrUpdate(tpollSwitch);
 		assertNotNull(tpollSwitch.getAnswers());
@@ -801,11 +797,12 @@ public class TestHibernateDomains extends AbstractBase{
 	 */
 	@Ignore
 	@Test
+	@Deprecated
 	public void testQuestionSection(){
 		final QuestionSection qSection = new QuestionSection();
 		final SurveySection section = createSurveySection("Personal Information");
 		qSection.setQuestion(this.initQuestion);
-		qSection.setQuestionSectionId(1L);
+		//qSection.setQuestionSectionId(1L);
 		qSection.setSurveySection(section);
 		getSurveyDaoImp().saveOrUpdate(qSection);
 		assertNotNull(qSection.getQuestion());
