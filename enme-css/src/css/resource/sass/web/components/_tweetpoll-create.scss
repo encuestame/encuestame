@@ -105,8 +105,8 @@ div.tweetPollPublishButton .cancel-button {
   @extend .centered-block;
   @extend .padding;
   position: fixed;
-  top: 0;
-  width: 950px;
+  top: 44px;
+  width: 50.2%;
   z-index: 10;
 }
 
@@ -195,6 +195,10 @@ div.tweetPollPublishButton .cancel-button {
 .web-tweetpoll-wrapper .web-tweetpoll-preview-top {
     @extend .padding;
     width: auto;
+
+    > div {
+        line-height: 30px;
+    }
 }
 
 .web-tweetpoll-wrapper div.previewWrapperContent .hide {
