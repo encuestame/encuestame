@@ -74,7 +74,7 @@
         <!-- Apache POI Scratchpad Version -->
         <apache.poi.ooxml.version>3.5-FINAL</apache.poi.ooxml.version>
         <!-- Twitter4J Version -->
-        <twitter4j.version>2.1.9</twitter4j.version>
+        <twitter4j.version>[3.0,)</twitter4j.version>
         <!-- Apache PDF Box -->
         <apache.pdf.box>1.4.0</apache.pdf.box>
         <apache.tiles>2.2.2</apache.tiles>

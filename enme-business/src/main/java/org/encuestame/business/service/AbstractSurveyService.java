@@ -70,7 +70,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import twitter4j.TwitterException;
-import twitter4j.http.RequestToken;
+import twitter4j.auth.RequestToken;
 
 /**
  * Survey Service.
