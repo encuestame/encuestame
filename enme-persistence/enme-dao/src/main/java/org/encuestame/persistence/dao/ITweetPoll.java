@@ -509,4 +509,15 @@ public interface ITweetPoll extends IBaseDao{
      */
 	List<Object[]> getTweetPollsRangeStats(final String tagName,
 			final SearchPeriods period);
+	/**
+	 * Return all possible links related with one asset
+	 * @param tweetPoll
+	 * @param survey
+	 * @param poll
+	 * @param itemType
+	 * @return
+	 */
+	List<TweetPollSavedPublishedStatus> getAllLinks(
+            final TweetPoll tweetPoll, final Survey survey, final Poll poll,
+            final TypeSearchResult itemType);	
 }

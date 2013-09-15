@@ -30,7 +30,7 @@
 				<version>1.3.2</version>
 				<configuration>
 					<force>true</force>
-					<statistics>false</statistics>
+					<statistics>true</statistics>
 					<gzip>true</gzip>
 					<nosuffix>true</nosuffix>
 					<suffix>min</suffix>
@@ -46,7 +46,7 @@
 				<executions>
 					<execution>
 						<id>ie-js</id>
-						<phase>install</phase>
+						
 						<goals>
 							<goal>compress</goal>
 						</goals>
@@ -85,7 +85,7 @@
 						<goals>
 							<goal>compress</goal>
 						</goals>
-						<phase>install</phase>
+						
 						<configuration>
 							<aggregations>
 								<aggregation>
@@ -105,7 +105,7 @@
 						<goals>
 							<goal>compress</goal>
 						</goals>
-						<phase>install</phase>
+						
 						<configuration>
 							<aggregations>
 								<aggregation>
@@ -124,6 +124,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>
