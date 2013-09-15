@@ -18,12 +18,9 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 
-import junit.framework.Assert;
-
 import org.encuestame.mvc.controller.json.survey.TweetPollJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.categories.test.DefaultTest;
@@ -31,11 +28,11 @@ import org.encuestame.utils.enums.MethodJson;
 import org.joda.time.DateTime;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Test for {@link TweetPollJsonController}.
@@ -97,7 +94,8 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      * @throws ServletException
      * @throws IOException
      */
-    @Test
+    
+	@Test
     public void testTweetPollJsonService() throws ServletException, IOException{
         initService("/api/survey/tweetpoll/search.json", MethodJson.GET);
         setParameter("typeSearch", "ALL");
@@ -191,9 +189,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
 	public void testRemoveTweetPollJsonService() throws ServletException,
 			IOException {
 		final TweetPoll tpollBefore = this.tp1;
-		initService("/api/survey/tweetpoll/remove", MethodJson.DELETE);
-		setParameter("id", this.tp1.getTweetPollId().toString());
-
+		initService("/api/survey/tweetpoll/" + this.tp1.getTweetPollId(), MethodJson.DELETE);
 		final JSONObject response = callJsonService();
 		assertSuccessResponse(response);
 		final TweetPoll tpollAfter = getTweetPoll().getTweetPollById(
@@ -219,7 +215,8 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      * @throws ServletException
      * @throws IOException
      */
-    @Ignore
+    
+	@Ignore
     @Test
     public void testAddManagerAnswer() throws ServletException, IOException{
     	final Long tPollId = this.tp1.getTweetPollId();
@@ -254,7 +251,8 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      * @throws ServletException
      * @throws IOException
      */
-    @Test
+    
+	@Test
     public void testGetShortUrl() throws ServletException, IOException{
     	 initService("/api/short/url/tinyurl.json", MethodJson.GET);
          setParameter("url", "http://www.laprensa.com.ni/");

@@ -22,7 +22,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import junit.framework.Assert;
+
+
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.service.imp.IStatisticsService;
@@ -49,6 +50,7 @@ import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.ItemStatDetail;
 import org.joda.time.DateTime;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
