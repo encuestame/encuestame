@@ -85,7 +85,7 @@ div.tweetPollPublishButton .cancel-button {
     border-right: 1px solid #CCCBCA;
     @extend .col-left;
     min-height: 80px;
-    width: 170px;
+    width: 199px;
     margin-bottom: 10px;
 }
 
@@ -105,8 +105,8 @@ div.tweetPollPublishButton .cancel-button {
   @extend .centered-block;
   @extend .padding;
   position: fixed;
-  top: 0;
-  width: 950px;
+  top: 44px;
+  width: 50.2%;
   z-index: 10;
 }
 
@@ -146,10 +146,8 @@ div.tweetPollPublishButton .cancel-button {
 }
 
 .web-tweetpoll-wrapper div.web-tweetpoll-section .inputClass {
-    padding: 5px;
+    // padding: 5px;
     border: 1px solid #BCBCBC;
-    font-size: 120%;
-    @extend .bold;
     min-width: 90%;
 }
 
@@ -197,6 +195,10 @@ div.tweetPollPublishButton .cancel-button {
 .web-tweetpoll-wrapper .web-tweetpoll-preview-top {
     @extend .padding;
     width: auto;
+
+    > div {
+        line-height: 30px;
+    }
 }
 
 .web-tweetpoll-wrapper div.previewWrapperContent .hide {
@@ -255,117 +257,123 @@ div.tweetPollPublishButton .cancel-button {
     @extend .preview-box;
 }
 
-// input {
-//     -webkit-border-radius: 5px;
-//     -moz-border-radius: 5px;
-//     border-radius: 5px;
-// }
 
-.answerAddForm  .web-answer-form-wrapper {
-  @extend .o-auto;
+.addAnswers {
+
+
+    .answerAddForm {
+
+        .listAnswerWrapper {
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .web-answer-form-wrapper {
+          @extend .o-auto;
+          line-height: 25px;
+        }
+
+         .web-answer-form-wrapper > div {
+            @extend .col-left;
+        }
+
+        .labelQuestion .answer-loader {
+          padding-left: 5px;
+          position: absolute;
+          top: 7px;
+        }
+
+    }
+
+     .answerItem {
+        border: 1px solid $gray_lite;
+        @extend .default-rd;
+        @extend .text-black;
+        margin-top: 3px;
+        @extend .o-auto;
+        padding: 3px;
+    }
+
+    .answerItem .title {
+        color: $black;
+        @extend .col-left;
+        @extend .bold;
+        font-size: 14px;
+    }
+
+    .answerItem .title .answerItemTitle {
+      display: inline-block;
+      @extend .col-left;
+      line-height: 20px;
+      margin: 2px;
+      min-width: 200px;
+      padding: 1px 5px;
+      width: 200px;
+    }
+
+    .answerItem div.title .answerItemShortUrl {
+      color: red;
+      @extend .col-left;
+      line-height: 25px;
+      max-width: 300px;
+      overflow: auto;
+      padding: 0;
+      width: 209px;
+    }
+
+    // .addAnswers .answerItem .shortUrlEnter {
+    //     background-color: #AAADAC;
+    //     border: 1px solid #D5D1D1;
+    //     color: white !important;
+    // }
+
+     .answerItem div.title .answerItemShortUrl a:link,
+     .answerItem div.title .answerItemShortUrl a:visited,
+     .answerItem div.title .answerItemShortUrl a:hover {
+        text-decoration: none;
+        color: $black_hight;
+    }
+     .answerItem .answer {
+        background-repeat: no-repeat;
+        padding-left: 15px;
+        display: inline-block;
+        min-width: 150px;
+        max-width: 150px;
+        height: 25px;
+        padding-top: 3px;
+        font-size: 1.1em;
+        color: #3D4361;
+        font-weight: bold;
+        @extend .col-left;
+    }
+
+    .answerItem .answerItem-options {
+       @extend .col-right;
+    }
+
+    .answerItem .answerItem-options .option-menu {
+       // margin-right: 10px;
+       // margin-top: 5px;
+    }
+
+    /** hash tags **/
+    .addNewHashTag {
+        @extend .padding;
+        font-size: $df_font_size;
+        @extend .text-white;
+        @extend .col-right;
+        @extend .middle-witdh;
+    }
+
+     .addNewAnswer .label {
+        min-width: 100px;
+        margin: 10px;
+        color: $black;
+        @extend .bold;
+    }
+
 }
 
-.answerAddForm  .web-answer-form-wrapper > div {
-    @extend .col-left;
-}
-
-.answerAddForm div.labelQuestion .answer-loader {
-  padding-left: 5px;
-  position: absolute;
-  top: 7px;
-}
-
-.addAnswers .answerItem {
-    background-color : $gray_lite;
-    border: 1px solid $gray_normal;
-    @extend .default-rd;
-    @extend .text-black;
-    @extend .pointer;
-    margin-top: 3px;
-    max-width: 85%;
-    min-height: 25px;
-    @extend .o-auto;
-    padding: 3px;
-    vertical-align: top;
-}
-
-.addAnswers .answerItem .title {
-    color: $gray_lite;
-    @extend .col-left;
-    @extend .bold;
-    font-size: $df_font_size;
-}
-
-.addAnswers .answerItem .title .answerItemTitle {
-  display: inline-block;
-  @extend .col-left;
-  line-height: 20px;
-  margin: 2px;
-  min-width: 200px;
-  padding: 1px 5px;
-  width: 200px;
-}
-
-.addAnswers .answerItem div.title .answerItemShortUrl {
-  color: red;
-  @extend .col-left;
-  line-height: 25px;
-  max-width: 300px;
-  overflow: auto;
-  padding: 0;
-  width: 209px;
-}
-
-// .addAnswers .answerItem .shortUrlEnter {
-//     background-color: #AAADAC;
-//     border: 1px solid #D5D1D1;
-//     color: white !important;
-// }
-
-.addAnswers .answerItem div.title .answerItemShortUrl a:link,
-.addAnswers .answerItem div.title .answerItemShortUrl a:visited,
-.addAnswers .answerItem div.title .answerItemShortUrl a:hover {
-    text-decoration: none;
-    color: $black_hight;
-}
-.addAnswers .answerItem .answer {
-    background-repeat: no-repeat;
-    padding-left: 15px;
-    display: inline-block;
-    min-width: 150px;
-    max-width: 150px;
-    height: 25px;
-    padding-top: 3px;
-    font-size: 1.1em;
-    color: #3D4361;
-    font-weight: bold;
-    @extend .col-left;
-}
-
-.addAnswers .answerItem .answerItem-options {
-  @extend .col-right;
-}
-
-.addAnswers .answerItem .answerItem-options .option-menu {
-  margin-right: 10px;
-  margin-top: 5px;
-}
-
-/** hash tags **/
-.addAnswers div.addNewHashTag {
-    @extend .padding;
-    font-size: $df_font_size;
-    @extend .text-white;
-    @extend .col-right;
-    @extend .middle-witdh;
-}
-
-.addAnswers div.addNewAnswer .label {
-    min-width: 100px;
-    margin: 10px;
-    color: $black;
-    @extend .bold;
-}
 
 /** TweetPoll HELP **/
 

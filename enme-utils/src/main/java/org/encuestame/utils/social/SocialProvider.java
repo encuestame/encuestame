@@ -26,10 +26,17 @@ public enum SocialProvider {
      * Facebook provider.
      */
     FACEBOOK,
+    
     /**
      * Identica provider.
      */
+    @Deprecated
     IDENTICA,
+    
+    /**
+     * The new name of identi.ca
+     */
+    PUMPIO,
 
     /**
      * Linked In provider.
@@ -95,6 +102,7 @@ public enum SocialProvider {
         else if (this == FACEBOOK) { provider = "FACEBOOK"; }
         else if (this == IDENTICA) { provider = "IDENTICA"; }
         else if (this == LINKEDIN) { provider = "LINKEDIN"; }
+        else if (this == PUMPIO) { provider = "PUMPIO"; }
         else if (this == GOOGLE_BUZZ) { provider = "GOOGLEBUZZ"; }
         else if (this == GOOGLE_PLUS) { provider = "GOOGLEPLUS"; }
         else if (this == YAHOO) { provider = "YAHOO"; }
@@ -114,6 +122,7 @@ public enum SocialProvider {
         if (this == TWITTER) { provider = "TWITTER"; }
         else if (this == FACEBOOK) { provider = "FACEBOOK"; }
         else if (this == IDENTICA) { provider = "IDENTICA"; }
+        else if (this == PUMPIO) { provider = "PUMPIO"; }
         else if (this == LINKEDIN) { provider = "LINKEDIN"; }
         else if (this == GOOGLE_PLUS) { provider = "GOOGLEPLUS"; }
         else if (this == GOOGLE_BUZZ) { provider = "GOOGLEBUZZ"; }
@@ -133,6 +142,7 @@ public enum SocialProvider {
         else if (socialProvider.equalsIgnoreCase("ALL")) { return ALL; }
         else if (socialProvider.equalsIgnoreCase("FACEBOOK")) { return FACEBOOK; }
         else if (socialProvider.equalsIgnoreCase("IDENTICA")) { return IDENTICA; }
+        else if (socialProvider.equalsIgnoreCase("PUMPIO")) { return PUMPIO; }
         else if (socialProvider.equalsIgnoreCase("LINKEDIN")) { return LINKEDIN; }
         else if (socialProvider.equalsIgnoreCase("GOOGLEPLUS")) { return GOOGLE_PLUS; }
         else if (socialProvider.equalsIgnoreCase("GOOGLE_BUZZ")) { return GOOGLE_BUZZ; }
@@ -151,6 +161,7 @@ public enum SocialProvider {
                 || provider.equals(IDENTICA)
                 || provider.equals(ALL)
                 || provider.equals(LINKEDIN)
+                || provider.equals(PUMPIO)
                 || provider.equals(MYSPACE)
                 || provider.equals(YAHOO)){
             return TypeAuth.OAUTH1;

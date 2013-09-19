@@ -759,7 +759,35 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
-
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getAllLinks(org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.survey.Survey, org.encuestame.persistence.domain.survey.Poll, org.encuestame.utils.enums.TypeSearchResult)
+     */
+    public List<TweetPollSavedPublishedStatus> getAllLinks(
+            final TweetPoll tweetPoll, final Survey survey, final Poll poll,
+            final TypeSearchResult itemType) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPollSavedPublishedStatus.class);
+        if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
+            criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+            // criteria.addOrder(Order.desc("tweetPoll.createDate"));
+        } else if (itemType.equals(TypeSearchResult.POLL)) {
+            criteria.add(Restrictions.eq("poll", poll));
+            // criteria.addOrder(Order.desc("survey.createdAt"));
+        } else if (itemType.equals(TypeSearchResult.SURVEY)) {
+            criteria.add(Restrictions.eq("survey", survey));
+            // criteria.addOrder(Order.desc("poll.createdAt"));
+        } else {
+            log.error("Item type not valid: " + itemType);
+        }
+        criteria.addOrder(Order.desc("publicationDateTweet"));
+        return getHibernateTemplate().findByCriteria(criteria);
+    }    
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getSocialLinksByTweetPollSearch(org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.utils.enums.TypeSearchResult, java.util.List, java.util.List)
+     */
     @SuppressWarnings("unchecked")
     public List<TweetPollSavedPublishedStatus> getSocialLinksByTweetPollSearch(
             final TweetPoll tweetPoll, final TypeSearchResult itemType, final List<SocialProvider> splist, final List<SocialAccount> socialAccounts) {

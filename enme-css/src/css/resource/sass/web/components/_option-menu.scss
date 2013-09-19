@@ -3,41 +3,39 @@
 /** option-menu */
 .option-menu {
 
-}
+   .icon {
+      @include enme-gradient-custom($white, $gray_lite);
+      border: 1px solid $gray_lite;
+      @include border-radius(4px);
+      padding: 1px;
+      text-align: center;
+      width: 20px;
+      cursor: pointer;
+    }
 
-.option-menu .icon {
-  background-color: #B4B4B2;
-  border: 1px solid #9A9A9A;
-  border-radius: 4px 4px 4px 4px;
-  padding: 1px;
-  text-align: center;
-  width: 12px;
-}
+    .menu-items {
+      @include enme-gradient-custom($white, $gray_lite);
+      border: 1px solid $gray_lite;
+      @include border-radius(3px);
+      @include box-shadow(rgba(0, 0, 0, 0.2) 3px 3px 2px 0);
+      margin-top: 2px;
+      padding: 5px;
+      position: absolute;
+      width: 100px;
+      color: $black;
+      cursor: pointer;
+    }
 
-.option-menu .hidden {
-    display: none;
-}
+     .menu-items {
+        &:hover{
+           color: $gray_lite;
+        }
+    }
 
-.option-menu .menu-items {
-  background: none repeat scroll 0 0 #E3E3E3;
-  border: 1px solid #969696;
-  border-radius: 3px 3px 3px 3px;
-  box-shadow: 3px 3px 2px 0 rgba(0, 0, 0, 0.2);
-  margin-top: 2px;
-  padding: 5px;
-  position: absolute;
-  width: 100px;
-  color: #747474;
-}
-.option-menu .menu-items:hover{
-    background: none repeat scroll 0 0 #919191;
-    color: white !important;
-}
+     .menu-items .menu-item-wrap {
+        &:hover{
+         color: white;
+        }
+    }
 
-.option-menu .menu-items .menu-item-wrap {
-
-}
-
-.option-menu .menu-items .menu-item-wrap:hover{
-	 color: white;
 }

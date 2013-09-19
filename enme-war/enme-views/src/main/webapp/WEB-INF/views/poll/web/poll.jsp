@@ -69,16 +69,18 @@
                               <spring:message code="commons_detail_percent" />
                          </div>
                     </header>
-                    <c:forEach items="${answers}" var="item">
-                         <section data-dojo-type="me/web/widget/results/answers/GenericPercentResult"
-                           itemId="${item.answerBean.answerId}"
-                           color="${item.answerBean.color}"
-                           votes="${item.result}"
-                           percent="${item.percent}"
-                           questionId="${item.answerBean.questionId}"
-                           labelResponse="${item.answerBean.answers}">
-                         </section>
-                     </c:forEach>
+                    <div class="answer-wrapper">
+                      <c:forEach items="${answers}" var="item">
+                           <section data-dojo-type="me/web/widget/results/answers/GenericPercentResult"
+                             itemId="${item.answerBean.answerId}"
+                             color="${item.answerBean.color}"
+                             votes="${item.result}"
+                             percent="${item.percent}"
+                             questionId="${item.answerBean.questionId}"
+                             labelResponse="${item.answerBean.answers}">
+                           </section>
+                       </c:forEach>
+                    </div>
                      <div class="web-poll-options-button">
                        <a href="<%=request.getContextPath()%>/poll/vote/${poll.id}/${poll.questionBean.slugName}">
                          <button class=" btn btn-info btn-block">

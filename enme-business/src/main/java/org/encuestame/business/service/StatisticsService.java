@@ -87,9 +87,14 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         }
     }
 
-
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IStatisticsService#getTotalSocialLinksbyHashTagUsageAndDateRangeGraph(java.lang.String, org.encuestame.utils.enums.SearchPeriods, javax.servlet.http.HttpServletRequest)
+     */
 	public List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRangeGraph(
-			final String tagName, final SearchPeriods period,
+			final String tagName, 
+			final SearchPeriods period,
 			final HttpServletRequest request) throws EnMeSearchException {
 		List<HashTagDetailStats> tagDetailStatsBySocial = new ArrayList<HashTagDetailStats>();
 		List<ItemStatDetail> tpSocialSavePublishedDetail = new ArrayList<ItemStatDetail>();

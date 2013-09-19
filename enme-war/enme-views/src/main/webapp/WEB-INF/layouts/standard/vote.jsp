@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<%@ include file="decorators/html.jsp"%>
+<%@ include file="/WEB-INF/layouts/decorators/html.jsp"%>
 <head>
     <title>
         <tiles:insertAttribute name="title" defaultValue="encuestame" />

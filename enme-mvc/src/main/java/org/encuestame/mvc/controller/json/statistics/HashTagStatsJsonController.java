@@ -208,12 +208,11 @@ public class HashTagStatsJsonController extends AbstractJsonController {
                 setError("Period not valid", response);
             } else {
                 if (filterType.equals(TypeSearchResult.HASHTAG)) {
-                    tagStats = getStatisticsService()
-                            .getTotalUsagebyHashTagAndDateRange(tagName,
+                    tagStats = getStatisticsService().getTotalUsagebyHashtagAndDateRangeGraph(tagName,
                                     searchPeriods, request);
                 } else if (filterType.equals(TypeSearchResult.SOCIALNETWORK)) {
                     tagStats = getStatisticsService()
-                            .getTotalSocialLinksbyHashTagUsageAndDateRange(tagName,
+                            .getTotalSocialLinksbyHashTagUsageAndDateRangeGraph(tagName,
                                     searchPeriods, request);
                 } else if (filterType.equals(TypeSearchResult.HITS)) {
                     tagStats = getStatisticsService()
@@ -221,7 +220,7 @@ public class HashTagStatsJsonController extends AbstractJsonController {
                                     searchPeriods, request);
                 } else if (filterType.equals(TypeSearchResult.VOTES)) {
                     tagStats = getStatisticsService()
-                            .getTotalVotesbyHashTagUsageAndDateRange(tagName,
+                            .getTotalVotesbyHashTagUsageAndDateRangeGraph(tagName,
                                     searchPeriods, request);
                 }
                 jsonResponse.put("statsByRange", tagStats);

@@ -71,7 +71,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 
 /**
  * Service.

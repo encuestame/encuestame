@@ -95,15 +95,6 @@
 	}
 }
 
-.web-items-no-results {
-	color: $gray_dark;
-	font-weight: 100;
-	width: 60%;
-	font-size: 24px;
-	margin: 0 auto;
-	padding: 75px;
-}
-
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color {
 	@include border-radius(11px);
 	@extend .col-left;

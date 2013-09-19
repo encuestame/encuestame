@@ -121,7 +121,9 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
             log.trace("OAUTH1AccessToken "+accessToken.toString());
             log.trace("OAUTH1AccessToken Provider "+socialProvider);
             String actionToDo = "";
-            if (socialProvider.equals(SocialProvider.IDENTICA)) {
+            // https://github.com/e14n/pump.io
+            // on 2013 identi.ca changed  name to pump.io 
+            if (socialProvider.equals(SocialProvider.IDENTICA) || socialProvider.equals(SocialProvider.PUMPIO)) {
                 IdenticaAPIOperations apiOperations = new IdenticaAPITemplate(
                         apiKey, consumerSecret, accessToken.getValue(),
                         accessToken.getSecret());

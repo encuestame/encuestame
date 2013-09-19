@@ -1398,12 +1398,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 		}
 
 		// Retrieve all Tweetpolls saved published.
-		final List<TweetPollSavedPublishedStatus> tpollSaved = getTweetPollDao()
-				.getLinksByTweetPoll(tpoll, null, null,
-						TypeSearchResult.TWEETPOLL);
+		final List<TweetPollSavedPublishedStatus> tpollSaved = getTweetPollDao().getAllLinks(tpoll, null, null, TypeSearchResult.TWEETPOLL);
 		for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : tpollSaved) {
 			// Remove TweetpOllSavePublished
-				getTweetPollDao().delete(tweetPollSavedPublishedStatus);
+			getTweetPollDao().delete(tweetPollSavedPublishedStatus);
 		}
 
 		// Remove all hashtags by Tweetpoll.

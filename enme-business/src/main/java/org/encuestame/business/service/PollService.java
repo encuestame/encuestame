@@ -300,7 +300,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
                     }
                 }
                 // remove all social links and remove all of them
-                final List<TweetPollSavedPublishedStatus> list = getTweetPollDao().getLinksByTweetPoll(null, null, pollDomain, TypeSearchResult.POLL);
+                final List<TweetPollSavedPublishedStatus> list = getTweetPollDao().getAllLinks(null, null, pollDomain, TypeSearchResult.POLL);
                 for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : list) {
                      getQuestionDao().delete(tweetPollSavedPublishedStatus);
                 }
