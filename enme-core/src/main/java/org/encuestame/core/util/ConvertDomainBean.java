@@ -484,9 +484,7 @@ public class ConvertDomainBean {
      */
     public static final UnitGroupBean convertGroupDomainToBean(final Group groupDomain) {
         final UnitGroupBean groupBean = new UnitGroupBean();
-        System.out.println("convertGroupDomainToBean 1 --> "+groupDomain);
         if (groupDomain != null) {
-            System.out.println("convertGroupDomainToBean 2 --> "+groupDomain);
             groupBean.setId(groupDomain.getGroupId());
             groupBean.setGroupName(groupDomain.getGroupName());
             groupBean

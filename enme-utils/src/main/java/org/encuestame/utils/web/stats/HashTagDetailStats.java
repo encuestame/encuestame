@@ -13,7 +13,6 @@
 package org.encuestame.utils.web.stats;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -121,6 +120,7 @@ public class HashTagDetailStats implements Serializable, Comparable<Object> {
 	/**
 	 * @return the dateValue
 	 */
+	@JsonIgnore
 	public DateTime getDateValue() {
 		return dateValue;
 	}
@@ -136,6 +136,7 @@ public class HashTagDetailStats implements Serializable, Comparable<Object> {
 	/**
 	 * @return the milisecondsDate
 	 */
+	@JsonIgnore
 	public Long getMilisecondsDate() {
 		return milisecondsDate;
 	}

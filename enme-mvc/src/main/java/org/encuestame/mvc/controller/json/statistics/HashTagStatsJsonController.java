@@ -216,7 +216,7 @@ public class HashTagStatsJsonController extends AbstractJsonController {
                                     searchPeriods, request);
                 } else if (filterType.equals(TypeSearchResult.HITS)) {
                     tagStats = getStatisticsService()
-                            .getTotalHitsUsagebyHashTagAndDateRange(tagName,
+                            .getTotalHitsUsagebyHashTagAndDateRangeGraph(tagName,
                                     searchPeriods, request);
                 } else if (filterType.equals(TypeSearchResult.VOTES)) {
                     tagStats = getStatisticsService()

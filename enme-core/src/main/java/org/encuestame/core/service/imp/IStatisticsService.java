@@ -31,7 +31,6 @@ import org.encuestame.utils.web.stats.ItemStatDetail;
  * Interface to Statistics Service.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since April 25, 2012
- * @version $Id$
  */
 public interface IStatisticsService extends ServiceOperations{
 

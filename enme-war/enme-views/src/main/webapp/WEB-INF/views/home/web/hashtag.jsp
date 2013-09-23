@@ -1,21 +1,40 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <style>
 
-.axis path,
-.axis line {
+.web-ht-graph {
+  font: 10px sans-serif;
+  margin: 0;
+}
+
+path.line {
   fill: none;
-  stroke: #000;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+path.area {
+  fill: #e7e7e7;
+}
+
+.axis {
   shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: #fff;
+}
+
+.x.axis .minor {
+  stroke-opacity: .5;
 }
 
 .x.axis path {
   display: none;
 }
 
-.line {
+.y.axis line, .y.axis path {
   fill: none;
-  stroke: steelblue;
-  stroke-width: 1.2px;
+  stroke: #000;
 }
 
 </style>
@@ -52,7 +71,9 @@
           <button class="btn">
               Middle
           </button>
-          <button class="btn">Right</button>
+          <button class="btn">
+              Right
+          </button>
         </div>
       </div>
 
@@ -93,30 +114,30 @@
           </div>
 
           <div class="span3 aside">
-            <aside class="web-ht-wrapper-top web-wrapper-detail">
-                <article class="emne-box">
-                     <h3>
-                       <spring:message code="home.hashtag.position" />
-                     </h3>
-                     <section data-dojo-type="me/web/widget/stats/RatePosition"
-                          tagName="${tagName.hashTagName}"
-                          channel="/encuestame/hashtag/time/range/refresh/graph"
-                          class="web-rated-position"
-                          id="position">
-                     </section>
-                </article>
-                <article class="emne-box">
-                     <h3>
-                        <spring:message code="home.hashtag.profile" />
-                     </h3>
-                     <div data-dojo-type="me/web/widget/stats/TopProfiles"
-                          hasthag="${tagName.hashTagName}"
-                          channel="/encuestame/hashtag/time/range/refresh/graph"
-                          class="web-top-profile"
-                          key="HASHTAG" id="topprofiles">
-                     </div>
-                </article>
-            </aside>
+              <aside class="web-ht-wrapper-top web-wrapper-detail">
+                  <article class="emne-box">
+                       <h3>
+                         <spring:message code="home.hashtag.position" />
+                       </h3>
+                       <section data-dojo-type="me/web/widget/stats/RatePosition"
+                            tagName="${tagName.hashTagName}"
+                            channel="/encuestame/hashtag/time/range/refresh/graph"
+                            class="web-rated-position"
+                            id="position">
+                       </section>
+                  </article>
+                  <article class="emne-box">
+                       <h3>
+                          <spring:message code="home.hashtag.profile" />
+                       </h3>
+                       <div data-dojo-type="me/web/widget/stats/TopProfiles"
+                            hasthag="${tagName.hashTagName}"
+                            channel="/encuestame/hashtag/time/range/refresh/graph"
+                            class="web-top-profile"
+                            key="HASHTAG" id="topprofiles">
+                       </div>
+                  </article>
+              </aside>
           </div>
     </div>
      </div>

@@ -802,6 +802,10 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
    public List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRangeGraph(
            final String hashTagName, final SearchPeriods period, final HttpServletRequest request)
            throws EnMeNoResultsFoundException, EnMeSearchException {
+	   
+	   //TODO: This method should be updated
+	   //TODO: This method should be updated
+	   //TODO: This method should be updated
        List<Hit> hashTagHits = new ArrayList<Hit>();
        List<HashTagDetailStats> tagDetailStatsByHits = new ArrayList<HashTagDetailStats>();
        final HashTag tag = this.getHashTag(hashTagName, Boolean.TRUE);
