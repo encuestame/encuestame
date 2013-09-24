@@ -47,7 +47,6 @@ import org.encuestame.utils.social.SocialProvider;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -1056,22 +1055,19 @@ public class TestTweetPollDao extends AbstractBase {
      * Test Retrieve completed/incompleted tweetpolls.
      */
     @Test
-	@Ignore
     public void testRetrieveCompletedTweetPolls() {
         createPublishedTweetPoll(secondary.getAccount(), this.question);
-        final List<TweetPoll> completedTweetpolls = getTweetPoll()
+    	final List<TweetPoll> completedTweetpolls = getTweetPoll()
                 .retrieveCompletedTweetPoll(this.secondary.getAccount(), 10, 0,
                         Boolean.TRUE);
-        Assert.assertEquals("Should be", 2, completedTweetpolls.size());
+        Assert.assertEquals("Should be", 1, completedTweetpolls.size());
         final TweetPoll tpoll = createPublishedTweetPoll(
                 secondary.getAccount(), this.question);
-        tpoll.setCompleted(Boolean.FALSE);
-        getTweetPoll().saveOrUpdate(tpoll);
         final List<TweetPoll> inCompletedTweetpolls = getTweetPoll()
                 .retrieveCompletedTweetPoll(this.secondary.getAccount(), 10, 0,
                         Boolean.FALSE);
-        Assert.assertEquals("Should be", 1, inCompletedTweetpolls.size());
-    }
+        Assert.assertEquals("Should be", 2, inCompletedTweetpolls.size());
+	}
 
     /**
      * Test Advanced search tweetpolls.

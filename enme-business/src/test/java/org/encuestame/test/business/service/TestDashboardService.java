@@ -62,10 +62,11 @@ public class TestDashboardService extends AbstractSpringSecurityContext{
     /** {@link DashboardBean} **/
     private DashboardBean boardBean;
 
-    private UserAccount userAccount = getSpringSecurityLoggedUserAccount();
+    private UserAccount userAccount;
 
     @Before
     public void initService(){
+    	this.userAccount = getSpringSecurityLoggedUserAccount();
         this.dashboard = createDashboard("First board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
         createDashboard("Second board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
         createDashboard("Third board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
@@ -178,7 +179,6 @@ public class TestDashboardService extends AbstractSpringSecurityContext{
      *
      * @throws EnMeNoResultsFoundException
      */
-    @Ignore
     @Test
     public void testMarkAsSelectedDasboard() throws EnMeNoResultsFoundException{
     	final Dashboard board1 = createDashboard("Selected dashboard", Boolean.TRUE, this.userAccount);

@@ -36,7 +36,6 @@ import org.encuestame.utils.enums.TypeSearchResult;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -426,7 +425,6 @@ public class TestPollDao extends AbstractBase {
 	/**
 	 * Test Retrieve all {@link Poll} by type.
 	 */
-	@Ignore
 	@Test
 	public void testGetPolls() {
 		this.createPolls();
@@ -442,7 +440,7 @@ public class TestPollDao extends AbstractBase {
 
 		final List<Poll> pollsby30Days = getPollDao().getPolls(10, 0,
 				SearchPeriods.THIRTYDAYS);
-		assertEquals("Should be equals", 6,
+		assertEquals("Should be equals", 7,
 				pollsby30Days.size());
 
 	}

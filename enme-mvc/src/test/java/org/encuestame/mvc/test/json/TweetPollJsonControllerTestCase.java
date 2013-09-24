@@ -15,6 +15,7 @@ package org.encuestame.mvc.test.json;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -297,7 +298,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      * @throws ServletException
      * @throws IOException
      */
-    @Ignore
+	@Ignore
     @Test
    	public void testTweetPollAutosave() throws ServletException, IOException {
    		final Long tPollId = this.tp1.getTweetPollId();

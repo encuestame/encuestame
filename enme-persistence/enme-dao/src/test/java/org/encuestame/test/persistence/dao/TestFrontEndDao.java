@@ -35,7 +35,6 @@ import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.joda.time.DateTime;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -347,7 +346,6 @@ public class TestFrontEndDao extends AbstractBase {
 	/**
 	 * Test Retrieve all {@link Hit} by type.
 	 */
-	@Ignore
 	@Test
 	public void testGetAllHitsByType() {
 		final TweetPoll tpoll1 = createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusHours(5).toDate());
@@ -372,6 +370,6 @@ public class TestFrontEndDao extends AbstractBase {
 		assertEquals("Should be equals", 1, allHits2.size());
 
 		final List<Hit> allHits3 = getFrontEndDao().getAllHitsByType(tpoll1, null, null);
-		assertEquals("Should be equals", 2, allHits2.size());
+		assertEquals("Should be equals", 1, allHits3.size());
 	}
 }
