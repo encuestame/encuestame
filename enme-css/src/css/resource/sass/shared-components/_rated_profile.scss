@@ -1,25 +1,30 @@
 /** profile rated **/
 .web-rated-profile-item {
+
     clear: both;
     min-height: 20px;
     padding: 2px;
     width: 260px;
+
+    .web-rated-profile-picture {
+        float: left;
+        margin: 5px 10px 0 10px;
+        min-height: 48px;
+        min-width: 48px;
+    }
+
+    .web-rated-profile-item-detail {
+        color: #919191;
+        font-size: 12px;
+        a {
+          color: #fff;
+          font-size: 12px;
+          text-decoration: none;
+        }
+
+        .label-info, .badge-info {
+            padding: 0 4px;
+        }
+    }
 }
 
-.web-rated-profile-item .web-rated-profile-picture {
-    float: left;
-    margin: 5px 10px 0 10px;
-    min-height: 48px;
-    min-width: 48px;
-}
-
-.web-rated-profile-item  .web-rated-profile-item-detail {
-    color: #919191;
-    font-size: 12px;
-}
-
-.web-rated-profile-item .web-rated-profile-item-detail a {
-  color: #fff;
-  font-size: 12px;
-  text-decoration: none;
-}

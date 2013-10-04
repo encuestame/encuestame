@@ -1,5 +1,6 @@
 */target/*
 .svn*
+.idea
 obj/
 bin/
 *.suo

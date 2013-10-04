@@ -128,65 +128,61 @@ div.web-support-embebed textarea {
 }
 
 /** social status support */
+.web-support-panel-item {
 
-.web-support-panel-item .tweetPollPublishDialog  .item .detail{
-    margin-left: 5px;
+    .tweetPollPublishDialog  .item .detail{
+        margin-left: 5px;
+    }
+
+    .web-support-panel-item-content {
+
+    }
+
+    .social-account-wrapper .selected{
+        background-color: #FDDF63;
+        color: #F58A16;
+    }
+
+    .social-account-wrapper .social-acount-list-publish {
+      height: 300px;
+      overflow: auto;
+    }
+
+    .social-account-wrapper .publish-counter{
+        padding: 5px;
+        text-align: right;
+        font-weight: bold;
+        background-color: $gray_lite;
+    }
+
+     .publish-social-button {
+        padding: 15px;
+        text-align: right;
+    }
+
+    .web-support-panel-item-content .web-social-filter-item {
+        overflow: auto;
+        padding: 5px;
+        border-bottom: 1px solid lightGrey;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .web-support-panel-item-content .web-social-filter-item .web-social-filter-image {
+        float: left;
+        padding: 5px;
+    }
+
+    .social-account-wrapper .web-social-icon-image {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+    }
+
+    .web-support-panel-item-content .web-social-filter-item .web-social-filter-name {
+        line-height: 30px;
+        margin-left: 40px;
+    }
+
 }
-
-.web-support-panel-item .web-support-panel-item-content {
-
-}
-
-.web-support-panel-item .social-account-wrapper .selected{
-    background-color: #FDDF63;
-    color: #F58A16;
-}
-
-.web-support-panel-item .social-account-wrapper .social-acount-list-publish {
-  height: 300px;
-  overflow: auto;
-}
-
-.web-support-panel-item .social-account-wrapper .social-acount-list-publish-options {
-
-}
-
-.web-support-panel-item .social-account-wrapper .publish-counter{
-    padding: 5px;
-    text-align: right;
-    font-weight: bold;
-    background-color: $gray_lite;
-    color: white;
-}
-
-.web-support-panel-item  .publish-social-button {
-    padding: 15px 0px;
-    text-align: right;
-}
-
-.web-support-panel-item .web-support-panel-item-content .web-social-filter-item {
-    overflow: auto;
-    padding: 5px;
-    border-bottom: 1px solid lightGrey;
-    cursor: pointer;
-    position: relative;
-}
-
-.web-support-panel-item .web-support-panel-item-content .web-social-filter-item .web-social-filter-image {
-    float: left;
-    padding: 5px;
-}
-
-.web-support-panel-item .social-account-wrapper .web-social-icon-image {
-    position: absolute;
-    top: 15px;
-    right: 25px;
-}
-
-.web-support-panel-item .web-support-panel-item-content .web-social-filter-item .web-social-filter-name {
-    line-height: 30px;
-    margin-left: 40px;
-}
-
-
 

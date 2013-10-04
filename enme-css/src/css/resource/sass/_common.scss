@@ -13,6 +13,12 @@ img {
     border: 0px;
 }
 
+
+/**  override the dbootstrap dialog title **/
+.dbootstrap .dijitDialogTitle {
+  font-size: 20px;
+}
+
 .center {
  text-align: center;
 }
