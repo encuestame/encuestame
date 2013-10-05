@@ -4,7 +4,7 @@ _ENME.init({
         domain : '<%=WidgetUtil.getDomain(request)%>',
         suggest_limit : 10,
         delay : 1800000,
-        isMobile: '${detectedDevice}',
+        isMobile: ${detectedDevice},
         locale: '${user_locale}',
         debug : <%=EnMePlaceHolderConfigurer.getProperty("application.debug.mode")%>,
         message_delay : 5000,
