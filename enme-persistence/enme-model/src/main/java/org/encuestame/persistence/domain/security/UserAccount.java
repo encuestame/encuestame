@@ -111,6 +111,11 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
      * {@link Date} last time logged
      */
     private Date lastTimeLogged;
+    
+    /**
+     * store the default language selected by the user.
+     */
+    private String language = "en";
 
     /**
      * {@link String} Last ip registred in the last time logged
@@ -449,9 +454,23 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
         this.sharedProfile = sharedProfile;
     }
 
+    
+    /**
+	 * @return the language
+	 */
+    @Column(name = "user_language", nullable = true, length = 8)
+	public String getLanguage() {
+		return language;
+	}
 
+	/**
+	 * @param language the language to set
+	 */
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 
-    /* (non-Javadoc)
+	/* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -503,6 +522,8 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     public void setPictureSource(final PictureSource pictureSource) {
         this.pictureSource = pictureSource;
     }
+    
+    
 
     /* (non-Javadoc)
      * @see java.lang.Object#toString()

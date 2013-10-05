@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,12 +26,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.files.PathUtil;
+import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.ShortUrlProvider;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Dojo Widget Utils.
@@ -55,6 +59,15 @@ public class WidgetUtil {
         final StringBuilder domain = new StringBuilder(WidgetUtil.getDomain(request));
         domain.append(PathUtil.profileUserImage);
         return domain.toString();
+    }
+    
+    /**
+     * Get the current locale, get the language from the {@link UserDetails} if is missing get the locale from the context
+     * @param request {@link HttpServletRequest}
+     * @return
+     */
+    public static String getCurrentLocale(final HttpServletRequest request) {
+    	return request.getLocale().getLanguage();
     }
 
     /**

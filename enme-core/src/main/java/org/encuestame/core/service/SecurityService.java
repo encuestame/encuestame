@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
@@ -31,6 +32,7 @@ import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -969,13 +971,16 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final String username,
             final String email) throws EnMeNoResultsFoundException{
         final UserAccount account = getUserAccount(getUserPrincipalUsername());
-            log.debug("update Account user to update " + account.getUsername());
-            log.debug("update Account Profile bio " + bio);
-            log.debug("update Account Profile language " + language);
-            log.debug("update Account Profile language " + username);
+            if (log.isDebugEnabled()) {
+		    	log.debug("update Account user to update " + account.getUsername());
+		        log.debug("update Account Profile bio " + bio);
+		        log.debug("update Account Profile language " + language);
+		        log.debug("update Account Profile username " + username);
+            }
             account.setCompleteName(completeName);
             account.setUserEmail(email);
             account.setUsername(username);
+            account.setLanguage(language == null ? new Locale(EnMeUtils.DEFAULT_LANG).getLanguage() : new Locale(language).getLanguage());
             getAccountDao().saveOrUpdate(account);
             //clear the security context
             SecurityContextHolder.clearContext();
@@ -992,10 +997,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final String action) throws EnMeNoResultsFoundException, IllegalSocialActionException{
         final UserAccount userAccount = getUserAccount(getUserPrincipalUsername());
         final SocialAccount social = getAccountDao().getSocialAccount(accountId, userAccount.getAccount());
-        log.debug("changeStateSocialAccount account");
-        log.debug("changeStateSocialAccount account accountId "+accountId);
-        log.debug("changeStateSocialAccount account action "+action);
-        if(social == null){
+        if (log.isDebugEnabled()) {
+	        log.debug("changeStateSocialAccount account");
+	        log.debug("changeStateSocialAccount account accountId "+accountId);
+	        log.debug("changeStateSocialAccount account action "+action);
+        }
+        if (social == null) {
             throw new EnMeNoResultsFoundException("social accout not found");
         }
         if ("default".equals(action)) {

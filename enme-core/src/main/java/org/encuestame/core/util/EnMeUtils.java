@@ -60,6 +60,8 @@ public class EnMeUtils {
     public static final long HIT_DEFAULT = 1;
 
     public static final String HASH = "#";
+    
+    public static final String DEFAULT_LANG = "en";
 
     public static final String SPACE = " ";
 
