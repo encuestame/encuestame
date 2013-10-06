@@ -74,7 +74,7 @@
 									<insertNewLine>true</insertNewLine>
 									<includes>
 										<include>${commonsSourceDir}/modernizr.js</include>
-										<include>${jsSourceDir}/json_services.js</include>
+										<!-- <include>${jsSourceDir}/json_services.js</include> -->
 									</includes>
 								</aggregation>
 							</aggregations>
@@ -94,7 +94,10 @@
 									<includes>
 										<include>${commonsSourceDir}/moment.js</include>
 										<include>${commonsSourceDir}/d3.v3.min.js</include>
+										<include>${commonsSourceDir}/d3.layout.cloud.js</include>
 										<include>${commonsSourceDir}/underscore.js</include>
+										<include>${commonsSourceDir}/sockjs.js</include>
+										<include>${commonsSourceDir}/stomp.js</include>
 									</includes>
 								</aggregation>
 							</aggregations>
@@ -114,7 +117,10 @@
 									<includes>
 										<include>${commonsSourceDir}/moment.js</include>
 										<include>${commonsSourceDir}/d3.v3.min.js</include>
+										<include>${commonsSourceDir}/d3.layout.cloud.js</include>
 										<include>${commonsSourceDir}/underscore.js</include>
+										<include>${commonsSourceDir}/sockjs.js</include>
+										<include>${commonsSourceDir}/stomp.js</include>
 									</includes>
 								</aggregation>
 							</aggregations>

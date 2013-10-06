@@ -28,12 +28,16 @@ require([
         //parse all widgets.
         parser.parse();
         <c:if test="${!detectedDevice}">
-            // initialize the activity support
-            var _E = _ENME.config('activity');
-            //FUTURE: Modernizr.websockets
-            var  activity = new Activity(_E, false);
-            activity.connect();
-            _ENME.setActivity(activity);
+            var sock = new SockJS('<%=request.getContextPath()%>/portfolio');
+               sock.onopen = function() {
+                   console.log('open', arguments);
+               };
+               sock.onmessage = function(e) {
+                   console.log('message', e.data);
+               };
+               sock.onclose = function() {
+                   console.log('close', arguments);
+               };    
         </c:if>
     });
 });

@@ -346,11 +346,11 @@ public class TestPollDao extends AbstractBase {
         for (Object[] objects : pollsResultsbyAnswer) {
         	if (objects[0] ==  qansw.getQuestionAnswerId()) {
 				assertEquals("For answer1 should be equals",
-						objects[3], "7");
+						objects[3], 7L);
 			}
         	if (objects[0] ==  qansw2.getQuestionAnswerId()) {
 				assertEquals("For answer2 should be equals",
-						objects[3], "3");
+						objects[3], 3L);
 			}
         }
     }

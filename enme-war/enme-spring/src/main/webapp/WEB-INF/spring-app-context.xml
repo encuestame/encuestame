@@ -21,14 +21,17 @@
      <!-- MVC -->
      <!-- <import resource="spring/encuestame-upload-context.xml" /> -->
      <import resource="spring/encuestame-mvc-context.xml" />
+     <!--
+      TEMP: Disabled, last Mileston of webflow is not compatible with Spring 4
      <import resource="spring/encuestame-web-flow-context.xml" />
+     -->
      <!-- <import resource="spring/encuestame-controller-context.xml" /> -->
      <!-- <import resource="spring/encuestame-json-context.xml" /> -->
      <!-- <import resource="spring/encuestame-rss-context.xml" /> -->
 
      <!-- Integration
      <import resource="spring/encuestame-integration.xml" />-->
-     <import resource="spring/encuestame-comet-context.xml" />
+     <!-- <import resource="spring/encuestame-comet-context.xml" /> -->
 
      <!-- Task -->
      <import resource="spring/encuestame-task.xml" />

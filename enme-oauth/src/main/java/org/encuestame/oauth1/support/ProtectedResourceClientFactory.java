@@ -12,7 +12,7 @@
  */
 package org.encuestame.oauth1.support;
 
-import org.springframework.http.client.CommonsClientHttpRequestFactory;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -29,7 +29,7 @@ public class ProtectedResourceClientFactory {
      */
     public static RestTemplate create(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret) {
         //ENCUESTAME-407
-        final RestTemplate restTemplate = new RestTemplate(new CommonsClientHttpRequestFactory());
+        final RestTemplate restTemplate = new RestTemplate();
         restTemplate.setRequestFactory(new OAuth1RequestFactory(restTemplate.getRequestFactory(), consumerKey, consumerSecret, accessToken, accessTokenSecret));
         return restTemplate;
     }

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
 
     <definition name="user/survey" extends="page-logged">
         <put-attribute name="title" value="Survey | encuestame" />
-        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/survey/${detectedDevice ? 'mobile/' : 'web/'}surveyUser.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/survey/${detectedDevice ? 'mobile/' : 'web/'}survey_css.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/web/menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/survey/web/surveyUser.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/survey/web/survey_css.jsp" />
     </definition>
 
     <definition name="survey" extends="page-logged">
         <put-attribute name="title" value="Survey | encuestame" />
-        <put-attribute name="content" expression="/WEB-INF/views/survey/${detectedDevice ? 'mobile/' : 'web/'}survey.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/survey/${detectedDevice ? 'mobile/' : 'web/'}survey_css.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/survey/web/survey.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/survey/web/survey_css.jsp" />
     </definition>
 </tiles-definitions>

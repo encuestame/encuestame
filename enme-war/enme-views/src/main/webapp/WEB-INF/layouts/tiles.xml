@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
 
-    <definition name="page" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}page.jsp">
-        <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}header.jsp" />
-        <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
+    <definition name="page" templateExpression="/WEB-INF/layouts/standard/page.jsp">
+        <put-attribute name="header" expression="/WEB-INF/layouts/standard/header.jsp" />
+        <put-attribute name="footer" expression="/WEB-INF/layouts/standard/footer.jsp" />
     </definition>
 
-    <definition name="page-logged" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}page.jsp">
-        <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}header.jsp" />
-        <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
-
+    <definition name="page-logged" templateExpression="/WEB-INF/layouts/standard/page.jsp">
+        <put-attribute name="header" expression="/WEB-INF/layouts/standard/header.jsp" />
+        <put-attribute name="footer" expression="/WEB-INF/layouts/standard/footer.jsp" />
     </definition>
 
-    <definition name="setup-page" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup-page.jsp">
-        <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
+    <definition name="setup-page" templateExpression="/WEB-INF/layouts/standard/setup-page.jsp">
+        <put-attribute name="footer" expression="/WEB-INF/layouts/standard/footer.jsp" />
     </definition>
 
-    <definition name="login-page" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}page.jsp">
-        <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}header.jsp" />
-        <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
+    <definition name="login-page" templateExpression="/WEB-INF/layouts/standard/page.jsp">
+        <put-attribute name="header" expression="/WEB-INF/layouts/standard/header.jsp" />
+        <put-attribute name="footer" expression="/WEB-INF/layouts/standard/footer.jsp" />
     </definition>
 
-    <definition name="main-vote" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}vote.jsp">
-         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}header.jsp" />
+    <definition name="main-vote" templateExpression="/WEB-INF/layouts/standard/vote.jsp">
+         <put-attribute name="header" expression="/WEB-INF/layouts/standard/header.jsp" />
     </definition>
 
     <definition name="main-embedded" templateExpression="/WEB-INF/layouts/embedded-page.jsp"></definition>
 
-    <definition name="setupPage" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup.jsp">
-        <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}/setup/header.jsp" />
-        <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
+    <definition name="setupPage" templateExpression="/WEB-INF/layouts/standard/setup.jsp">
+        <put-attribute name="header" expression="/WEB-INF/layouts/standard//setup/header.jsp" />
+        <put-attribute name="footer" expression="/WEB-INF/layouts/standard/footer.jsp" />
     </definition>
 
-    <definition name="errorPage" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}errorPage.jsp">
-        <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}header-error.jsp" />
-        <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
+    <definition name="errorPage" templateExpression="/WEB-INF/layouts/standard/errorPage.jsp">
+        <put-attribute name="header" expression="/WEB-INF/layouts/standard/header-error.jsp" />
+        <put-attribute name="footer" expression="/WEB-INF/layouts/standard/footer.jsp" />
     </definition>
 
 </tiles-definitions>

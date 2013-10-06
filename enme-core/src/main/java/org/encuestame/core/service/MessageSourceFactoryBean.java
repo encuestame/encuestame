@@ -55,7 +55,7 @@ public class MessageSourceFactoryBean implements MessageSource {
     public String getMessage(final MessageSourceResolvable resolvable,
             final Locale locale)
             throws NoSuchMessageException {
-        log.debug("Message Source Factory Bean 1");
+        //log.debug("Message Source Factory Bean 1");
         return messageSource.getMessage(resolvable, getDefaultLocale(locale));
     }
 
@@ -67,7 +67,7 @@ public class MessageSourceFactoryBean implements MessageSource {
             final Object[] args,
             final Locale locale)
             throws NoSuchMessageException {
-        log.debug("Message Source Factory Bean 2");
+        //log.debug("Message Source Factory Bean 2");
         return messageSource.getMessage(
                 code,
                 args,
@@ -81,7 +81,7 @@ public class MessageSourceFactoryBean implements MessageSource {
      */
     public String getMessage(String code, Object[] args, String defaultMessage,
             Locale locale) {
-        log.debug("Message Source Factory Bean 3");
+        //log.debug("Message Source Factory Bean 3");
         return messageSource.getMessage(code, args, defaultMessage,
                 getDefaultLocale(locale));
     }
@@ -94,7 +94,7 @@ public class MessageSourceFactoryBean implements MessageSource {
      */
     protected Locale getDefaultLocale(Locale locale) {
         final Locale locales = locale ==  null  ? Locale.ENGLISH : locale;
-        log.debug("Message Source Factory Bean :::==> " + locales);
+        //log.debug("Message Source Factory Bean :::==> " + locales);
         return locales;
     }
 }

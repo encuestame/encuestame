@@ -175,38 +175,15 @@
      -->
     <bean id="tilesResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="order" value="3"/>
-        <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
     </bean>
 
-    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions">
             <value>/WEB-INF/layouts/tiles.xml,/WEB-INF/views/**/tiles.xml</value>
         </property>
-        <property name="checkRefresh" value="false" />
+        <property name="checkRefresh" value="false" />        
     </bean>
-
-
-
-   <!-- Tiles Configuration -->
-   <!-- <import resource="encuestame-tiles-context.xml"/> -->
-
-   <!-- Define url mappings to web flow controller.
-    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-       <property name="mappings">
-         <value>
-
-         </value>
-       </property>
-       <property name="defaultHandler" ref="urlFilenameViewController"/>
-       <property name="interceptors">
-        <list>
-             <ref bean="enMeInterceptor"/>
-             <ref bean="openSessionInViewInterceptor"/>
-             <ref bean="setupInterceptor"/>
-        </list>
-    </property>
-       <property name="order" value="1"/>
-    </bean>-->
 
   <!-- Maps request paths to @Controller classes;
        e.g. a path of /signup looks for a controller named SignUpController -->
@@ -240,14 +217,16 @@
   <mvc:resources mapping="/resources/**" location="/resource/" cache-period="31556926" order="0"/>
 
   <!--
-    Dispatches requests mapped to flows to FlowHandler implementations-->
+    Dispatches requests mapped to flows to FlowHandler implementations
+    TEMP: Disabled, last Mileston of webflow is not compatible with Spring 4
    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
     <property name="flowExecutor" ref="flowExecutor" />
   </bean>
+  -->
 
 
     <!-- Maps request paths to flows in the flowRegistry;
-        e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->
+        TEMP: Disabled, last Mileston of webflow is not compatible with Spring 4
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
         <property name="flowRegistry" ref="flowRegistry"/>
         <property name="order" value="0"/>
@@ -260,6 +239,7 @@
             </list>
         </property>
     </bean>
+    -->
 
 
     <!-- Create Cookie Default Locale-->
