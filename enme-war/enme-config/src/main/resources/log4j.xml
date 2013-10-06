@@ -89,7 +89,7 @@
     </logger>
 
     <logger name="org.springframework.web">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.web.socket">

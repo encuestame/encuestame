@@ -74,7 +74,7 @@
 									<insertNewLine>true</insertNewLine>
 									<includes>
 										<include>${commonsSourceDir}/modernizr.js</include>
-										<!-- <include>${jsSourceDir}/json_services.js</include> -->
+										<include>${jsSourceDir}/json_services.js</include>
 									</includes>
 								</aggregation>
 							</aggregations>

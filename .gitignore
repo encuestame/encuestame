@@ -14,6 +14,9 @@ log/
 .sass-cache
 release.properties
 *.settings/*
+enme-war/enme-tomcat-app/.settings
+enme-war/enme-views/.settings
+*.prefs
 enme-js/chart/*.settings/*
 enme-js/cometd/*.settings/*
 enme-js/resources-enme-war/*.settings/*
