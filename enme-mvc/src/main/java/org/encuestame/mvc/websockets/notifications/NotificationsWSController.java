@@ -87,8 +87,8 @@ public class NotificationsWSController extends AbstractBaseOperations {
 
 	@MessageMapping("/push-notification-ws")
 	public void executeTrade(Principal principal) {
-		trade.setUsername(principal.getName());
-		log.debug("Trade: " + trade);
+		//		trade.setUsername(principal.getName());
+		//		log.debug("Trade: " + trade);
 		//this.tradeService.executeTrade(trade);
 	}
 
