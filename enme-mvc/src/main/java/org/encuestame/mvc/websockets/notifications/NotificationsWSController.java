@@ -19,7 +19,6 @@ import java.security.Principal;
 
 import org.apache.log4j.Logger;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
-import org.encuestame.mvc.websockets.samples.portfolio.service.Trade;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -87,7 +86,7 @@ public class NotificationsWSController extends AbstractBaseOperations {
 	}
 
 	@MessageMapping("/push-notification-ws")
-	public void executeTrade(Trade trade, Principal principal) {
+	public void executeTrade(Principal principal) {
 		trade.setUsername(principal.getName());
 		log.debug("Trade: " + trade);
 		//this.tradeService.executeTrade(trade);
