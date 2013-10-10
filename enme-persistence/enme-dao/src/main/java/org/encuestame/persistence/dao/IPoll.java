@@ -307,4 +307,117 @@ public interface IPoll extends IBaseDao {
 	List<Poll> findAllPollByAccount(final Account account,
 			final Integer maxResults, final Integer start);
 
+	/**
+	 * Retrieve Polls by users.
+	 * @param keyword
+	 * @param userId
+	 * @param maxResults
+	 * @param start
+	 * @param isCompleted
+	 * @param isScheduled
+	 * @param isPublished
+	 * @param isFavourite
+	 * @param period
+	 * @return
+	 */
+	List<Poll> retrievePollsByUserId(final String keyword, final Long userId,
+	           final Integer maxResults, final Integer start,
+	           final Boolean isCompleted, final Boolean isScheduled,
+	           final Boolean isPublished, final Boolean isFavourite,
+	           final String period);
+
+	/**
+	 * Retrieve all {@link Poll} created today.
+	 * @param account
+	 * @param maxResults
+	 * @param start
+	 * @param isCompleted
+	 * @param isScheduled
+	 * @param isFavourite
+	 * @param isPublished
+	 * @param keyword
+	 * @param period
+	 * @return
+	 */
+	List<Poll> retrievePollsToday(final Account account,
+	           final Integer maxResults, final Integer start,
+	           final Boolean isCompleted, final Boolean isScheduled,
+	           final Boolean isFavourite, final Boolean isPublished, final String keyword, final String period);
+
+	/**
+	 * Retrieve the {@link Poll} created last week.
+	 * @param account
+	 * @param maxResults
+	 * @param start
+	 * @param isCompleted
+	 * @param isScheduled
+	 * @param isFavourite
+	 * @param isPublished
+	 * @param keyword
+	 * @param period
+	 * @return
+	 */
+	List<Poll> retrievePollsLastWeek(final Account account,
+	           final Integer maxResults, final Integer start,
+	           final Boolean isCompleted, final Boolean isScheduled,
+	           final Boolean isFavourite, final Boolean isPublished,
+	           final String keyword, final String period);
+
+	/**
+	 * Retrieve favourites {@link Poll}.
+	 * @param account
+	 * @param maxResults
+	 * @param start
+	 * @param isCompleted
+	 * @param isScheduled
+	 * @param isFavourite
+	 * @param isPublished
+	 * @param keyword
+	 * @param period
+	 * @return
+	 */
+	List<Poll> retrieveFavouritesPoll(final Account account,
+	           final Integer maxResults, final Integer start,
+	           final Boolean isCompleted, final Boolean isScheduled,
+	           final Boolean isFavourite, final Boolean isPublished,
+	           final String keyword, final String period);
+
+	/**
+	 * Retrieve scheduled {@link Poll}.
+	 * @param userId
+	 * @param maxResults
+	 * @param start
+	 * @param isCompleted
+	 * @param isScheduled
+	 * @param isFavourite
+	 * @param isPublished
+	 * @param keyword
+	 * @param period
+	 * @return
+	 */
+	List<Poll> retrieveScheduledPoll(final Long userId,
+	           final Integer maxResults, final Integer start,
+	           final Boolean isCompleted, final Boolean isScheduled,
+	           final Boolean isFavourite, final Boolean isPublished,
+	           final String keyword, final String period);
+
+	/**
+	 * Retrieve {@link Poll} by date.
+	 * @param account
+	 * @param maxResults
+	 * @param start
+	 * @param isCompleted
+	 * @param isScheduled
+	 * @param isFavourite
+	 * @param isPublished
+	 * @param keyword
+	 * @param period
+	 * @param initDate
+	 * @return
+	 */
+	List<Poll> retrievePollByDate(final Account account,
+	           final Integer maxResults, final Integer start,
+	           final Boolean isCompleted, final Boolean isScheduled,
+	           final Boolean isFavourite, final Boolean isPublished,
+	           final String keyword, final String period, final Date initDate);
 }

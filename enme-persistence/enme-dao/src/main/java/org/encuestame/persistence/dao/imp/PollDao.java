@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -604,4 +605,143 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
        final List<Object[]> myObject = getHibernateTemplate().findByNamedParam(pollResultsCounter, new String[] {"pollId", "answerId"}, new Long[] {pollId, answerId});
        return myObject;
 }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.IPoll#retrievePollsByUserId(java.lang.
+	 * String, java.lang.Long, java.lang.Integer, java.lang.Integer,
+	 * java.lang.Boolean, java.lang.Boolean, java.lang.Boolean,
+	 * java.lang.Boolean, java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Poll> retrievePollsByUserId(final String keyword,
+			final Long userId, final Integer maxResults, final Integer start,
+			final Boolean isCompleted, final Boolean isScheduled,
+			final Boolean isPublished, final Boolean isFavourite,
+			final String period) {
+		final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+		criteriaAdvancedSearch("owner", "uid", criteria, isCompleted,
+				isScheduled, isFavourite, isPublished, keyword, period);
+		return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.IPoll#retrievePollsToday(org.encuestame
+	 * .persistence.domain.security.Account, java.lang.Integer,
+	 * java.lang.Integer, java.lang.Boolean, java.lang.Boolean,
+	 * java.lang.Boolean, java.lang.Boolean, java.lang.String, java.lang.String)
+	 */
+	public List<Poll> retrievePollsToday(final Account account,
+			final Integer maxResults, final Integer start,
+			final Boolean isCompleted, final Boolean isScheduled,
+			final Boolean isFavourite, final Boolean isPublished,
+			final String keyword, final String period) {
+		final Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		return retrievePollByDate(account, maxResults, start, isCompleted,
+				isScheduled, isFavourite, isPublished, keyword, period,
+				cal.getTime());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.IPoll#retrievePollByDate(org.encuestame
+	 * .persistence.domain.security.Account, java.lang.Integer,
+	 * java.lang.Integer, java.lang.Boolean, java.lang.Boolean,
+	 * java.lang.Boolean, java.lang.Boolean, java.lang.String, java.lang.String,
+	 * java.util.Date)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Poll> retrievePollByDate(final Account account,
+			final Integer maxResults, final Integer start,
+			final Boolean isCompleted, final Boolean isScheduled,
+			final Boolean isFavourite, final Boolean isPublished,
+			final String keyword, final String period, final Date initDate) {
+		final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+		criteria.createAlias("owner", "owner");
+		criteria.add(Restrictions.eq("owner", account));
+		criteria.add(Restrictions.between("createdAt", initDate,
+				getNextDayMidnightDate()));
+		advancedSearchOptions(criteria, isCompleted, isScheduled, isFavourite,
+				isPublished, keyword, period);
+		return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.IPoll#retrievePollsLastWeek(org.encuestame
+	 * .persistence.domain.security.Account, java.lang.Integer,
+	 * java.lang.Integer, java.lang.Boolean, java.lang.Boolean,
+	 * java.lang.Boolean, java.lang.Boolean, java.lang.String, java.lang.String)
+	 */
+   public List<Poll> retrievePollsLastWeek(final Account account,
+           final Integer maxResults, final Integer start,
+           final Boolean isCompleted, final Boolean isScheduled,
+           final Boolean isFavourite, final Boolean isPublished,
+           final String keyword, final String period) {
+         final Date initDate = DateUtil.decreaseDateAsWeek(Calendar.getInstance().getTime());
+        return retrievePollByDate(account,
+               maxResults, start, isCompleted, isScheduled, isFavourite,
+               isPublished, keyword, period, initDate);
+   }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.IPoll#retrieveFavouritesPoll(org.encuestame
+	 * .persistence.domain.security.Account, java.lang.Integer,
+	 * java.lang.Integer, java.lang.Boolean, java.lang.Boolean,
+	 * java.lang.Boolean, java.lang.Boolean, java.lang.String, java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Poll> retrieveFavouritesPoll(final Account account,
+			final Integer maxResults, final Integer start,
+			final Boolean isCompleted, final Boolean isScheduled,
+			final Boolean isFavourite, final Boolean isPublished,
+			final String keyword, final String period) {
+		final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+		criteria.createAlias("owner", "owner");
+		criteria.add(Restrictions.eq("owner", account));
+		advancedSearchOptions(criteria, isCompleted, isScheduled, Boolean.TRUE,
+				isPublished, keyword, period);
+		return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.IPoll#retrieveScheduledPoll(java.lang.
+	 * Long, java.lang.Integer, java.lang.Integer, java.lang.Boolean,
+	 * java.lang.Boolean, java.lang.Boolean, java.lang.Boolean,
+	 * java.lang.String, java.lang.String)
+	 */
+   @SuppressWarnings("unchecked")
+   public List<Poll> retrieveScheduledPoll(final Long userId,
+           final Integer maxResults, final Integer start,
+           final Boolean isCompleted, final Boolean isScheduled,
+           final Boolean isFavourite, final Boolean isPublished,
+           final String keyword, final String period) {
+       final DetachedCriteria criteria = DetachedCriteria
+               .forClass(Poll.class);
+       criteria.createAlias("owner", "owner");
+       criteria.add(Restrictions.eq("owner.uid", userId));
+       // To retrieve all and only scheduled Tweetpoll period should be = ALLTIME
+       advancedSearchOptions(criteria, isCompleted, isScheduled, isFavourite,
+               isPublished, keyword, period);
+       return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
+   }
 }
