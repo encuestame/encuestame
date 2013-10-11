@@ -519,5 +519,8 @@ public interface ITweetPoll extends IBaseDao{
 	 */
 	List<TweetPollSavedPublishedStatus> getAllLinks(
             final TweetPoll tweetPoll, final Survey survey, final Poll poll,
-            final TypeSearchResult itemType);	
+            final TypeSearchResult itemType);
+
+	List<TweetPollSavedPublishedStatus> searchSocialLinksbyType(
+	            final TweetPoll tweetPoll,  final Poll poll, final TypeSearchResult itemType, final List<SocialProvider> splist, final List<SocialAccount> socialAccounts);
 }

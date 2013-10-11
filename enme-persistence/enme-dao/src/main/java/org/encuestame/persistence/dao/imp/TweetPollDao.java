@@ -782,8 +782,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         }
         criteria.addOrder(Order.desc("publicationDateTweet"));
         return getHibernateTemplate().findByCriteria(criteria);
-    }    
-    
+    }
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.ITweetPoll#getSocialLinksByTweetPollSearch(org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.utils.enums.TypeSearchResult, java.util.List, java.util.List)
@@ -805,6 +805,31 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         }
         return getHibernateTemplate().findByCriteria(criteria);
     }
+
+    @SuppressWarnings("unchecked")
+    public List<TweetPollSavedPublishedStatus> searchSocialLinksbyType(
+            final TweetPoll tweetPoll, final Poll poll, final TypeSearchResult itemType, final List<SocialProvider> splist, final List<SocialAccount> socialAccounts) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPollSavedPublishedStatus.class);
+        criteria.createAlias("socialAccount", "socialAccount");
+
+
+
+        if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
+      	  criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+      	  // Revisar bien estos valores porque sino encuentra nada va a evaluarlos y regresara valores
+      	  criteriaSearchSocialLinksByType(criteria, splist, socialAccounts);
+
+        }
+        else if (itemType.equals(TypeSearchResult.POLL)){
+			criteria.add(Restrictions.eq("poll", poll));
+			criteriaSearchSocialLinksByType(criteria, splist, socialAccounts);
+        }
+
+
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
 
     /*
      * (non-Javadoc)

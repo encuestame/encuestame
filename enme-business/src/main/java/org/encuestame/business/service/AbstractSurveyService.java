@@ -680,6 +680,49 @@ public class AbstractSurveyService extends AbstractChartService {
         }
     }
 
+
+    /**
+     * Retrieve {@link SocialAccount} by a list of id.
+     * @param socialId
+     * @param username
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public List<SocialAccount> retrieveSocialAccountsbyId(
+            final List<Long> socialId, final String username)
+            throws EnMeNoResultsFoundException {
+        final List<SocialAccount> socialAccountList = new ArrayList<SocialAccount>();
+        for (Long socialAccountId : socialId) {
+            final SocialAccount account = this.getSocialAccountsbyId(
+                    socialAccountId, username);
+            if (account != null) {
+                socialAccountList.add(account);
+
+            }
+        }
+        return socialAccountList;
+    }
+
+
+    /**
+     * Get Social account by ud and user.
+     * @param socialAccountId
+     * @param username
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    private SocialAccount getSocialAccountsbyId(
+            final Long socialAccountId, final String username)
+            throws EnMeNoResultsFoundException {
+        final SocialAccount socialAccount = getAccountDao().getSocialAccount(
+                socialAccountId, getAccount(username));
+        if (socialAccount == null) {
+            throw new EnMeNoResultsFoundException("Social Account id not valid");
+        }
+        return socialAccount;
+    }
+
+
     /**
      * @return the answerPollPath
      */

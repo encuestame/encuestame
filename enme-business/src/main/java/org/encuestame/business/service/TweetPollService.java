@@ -57,6 +57,7 @@ import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -107,6 +108,26 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         return this.setTweetPollListAnswers(tweetpollsSearchResult, Boolean.TRUE, httpServletRequest);
     }
 
+    public List<SearchBean> getTweetsPollsByUserNameSearch(
+            final String username,
+            final HttpServletRequest httpServletRequest,
+            final TweetPollSearchBean tpollSearch)
+            throws EnMeNoResultsFoundException {
+        log.debug("tweetPoll username: " + username);
+        List<TweetPoll> tweetpollsSearchResult = new ArrayList<TweetPoll>();
+        final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(tpollSearch.getKeyword(), getUserAccountId(username),
+                        tpollSearch.getMax(), tpollSearch.getStart(),
+                        tpollSearch.getIsComplete(),
+                        tpollSearch.getIsScheduled(),
+                        tpollSearch.getIsPublished(),
+                        tpollSearch.getIsFavourite(),
+                        tpollSearch.getPeriod());
+        tweetpollsSearchResult = this.getTweetPollSearchResult(tweetPolls, tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
+        log.info("tweetPoll size: " + tweetpollsSearchResult.size());
+        return this.setTweetPollListAnswersSearch(tweetpollsSearchResult, Boolean.TRUE, httpServletRequest);
+    }
+
+
     /*
      * (non-Javadoc)
      *
@@ -115,7 +136,46 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * (org.encuestame.utils.web.search.TweetPollSearchBean,
      * javax.servlet.http.HttpServletRequest)
      */
-    public List<TweetPollBean> filterTweetPollByItemsByType(
+//    public List<TweetPollBean> filterTweetPollByItemsByType(
+//            final TweetPollSearchBean tpollSearch,
+//            final HttpServletRequest httpServletRequest)
+//            throws EnMeNoResultsFoundException, EnMeExpcetion {
+//        log.info("filterTweetPollByItemsByType typeSearch: "+tpollSearch.getTypeSearch());
+//        log.info("filterTweetPollByItemsByType keyword: "+ tpollSearch.getKeyword());
+//        log.info("filterTweetPollByItemsByType max: "+ tpollSearch.getMax());
+//        log.info("filterTweetPollByItemsByType start: "+ tpollSearch.getStart());
+//        final List<TweetPollBean> list = new ArrayList<TweetPollBean>();
+////        if (TypeSearch.KEYWORD.equals(tpollSearch.getTypeSearch())) {
+////            list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(),
+////                    tpollSearch.getKeyword(), httpServletRequest, tpollSearch));
+////        } else
+//        if (TypeSearch.BYOWNER.equals(tpollSearch.getTypeSearch())) {
+//            list.addAll(this.getTweetsPollsByUserName(getUserPrincipalUsername(), httpServletRequest, tpollSearch));
+//        } else if (TypeSearch.ALL.equals(tpollSearch.getTypeSearch())) {
+//            //TODO: this method return only the tweetpoll by owner.
+//            list.addAll(this.getTweetsPollsByUserName(getUserPrincipalUsername(),
+//                            httpServletRequest, tpollSearch));
+//        } else if (TypeSearch.LASTDAY.equals(tpollSearch.getTypeSearch())) {
+//            list.addAll(this.searchTweetsPollsToday(getUserPrincipalUsername(),
+//                    httpServletRequest, tpollSearch));
+//        } else if (TypeSearch.LASTWEEK.equals(tpollSearch.getTypeSearch())) {
+//            list.addAll(this.searchTweetsPollsLastWeek(
+//                    getUserPrincipalUsername(), httpServletRequest, tpollSearch));
+//        } else if (TypeSearch.FAVOURITES.equals(tpollSearch.getTypeSearch())) {
+//            list.addAll(this.searchTweetsPollFavourites(
+//                    getUserPrincipalUsername(), httpServletRequest, tpollSearch));
+//        } else if (TypeSearch.SCHEDULED.equals(tpollSearch.getTypeSearch())) {
+//            list.addAll(this.searchTweetsPollScheduled(
+//                    getUserPrincipalUsername(), httpServletRequest, tpollSearch));
+//        } else {
+//            log.error("filterTweetPollByItemsByType no type");
+//            throw new EnMeExpcetion("filterTweetPollByItemsByType no type");
+//        }
+//        log.info("filterTweetPollByItemsByType list: "+list.size());
+//        return list;
+//    }
+
+    public List<SearchBean> filterTweetPollByItemsByTypeSearch(
             final TweetPollSearchBean tpollSearch,
             final HttpServletRequest httpServletRequest)
             throws EnMeNoResultsFoundException, EnMeExpcetion {
@@ -123,17 +183,17 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         log.info("filterTweetPollByItemsByType keyword: "+ tpollSearch.getKeyword());
         log.info("filterTweetPollByItemsByType max: "+ tpollSearch.getMax());
         log.info("filterTweetPollByItemsByType start: "+ tpollSearch.getStart());
-        final List<TweetPollBean> list = new ArrayList<TweetPollBean>();
+        final List<SearchBean> list = new ArrayList<SearchBean>();
 //        if (TypeSearch.KEYWORD.equals(tpollSearch.getTypeSearch())) {
 //            list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(),
 //                    tpollSearch.getKeyword(), httpServletRequest, tpollSearch));
 //        } else
         if (TypeSearch.BYOWNER.equals(tpollSearch.getTypeSearch())) {
-            list.addAll(this.getTweetsPollsByUserName(getUserPrincipalUsername(), httpServletRequest, tpollSearch));
+            list.addAll(this.getTweetsPollsByUserNameSearch(getUserPrincipalUsername(), httpServletRequest, tpollSearch));
         } else if (TypeSearch.ALL.equals(tpollSearch.getTypeSearch())) {
-            //TODO: this method return only the tweetpoll by owner.
-            list.addAll(this.getTweetsPollsByUserName(getUserPrincipalUsername(),
-                            httpServletRequest, tpollSearch));
+             //TODO: this method return only the tweetpoll by owner.
+             list.addAll(this.getTweetsPollsByUserNameSearch(getUserPrincipalUsername(),
+                             httpServletRequest, tpollSearch));
         } else if (TypeSearch.LASTDAY.equals(tpollSearch.getTypeSearch())) {
             list.addAll(this.searchTweetsPollsToday(getUserPrincipalUsername(),
                     httpServletRequest, tpollSearch));
@@ -147,12 +207,13 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             list.addAll(this.searchTweetsPollScheduled(
                     getUserPrincipalUsername(), httpServletRequest, tpollSearch));
         } else {
-            log.error("filterTweetPollByItemsByType no type");
-            throw new EnMeExpcetion("filterTweetPollByItemsByType no type");
+            log.error("filterTweetPollByItemsByTypeSEARCH no type");
+            throw new EnMeExpcetion("filterTweetPollByItemsByType SEARCH no type");
         }
         log.info("filterTweetPollByItemsByType list: "+list.size());
         return list;
     }
+
 
     /**
      * Set List Answer.
@@ -185,6 +246,35 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
         return tweetPollsBean;
     }
+
+    private List<SearchBean> setTweetPollListAnswersSearch(
+            final List<TweetPoll> listTweetPolls,
+            final Boolean results,
+            final HttpServletRequest httpServletRequest){
+        final List<SearchBean> tweetPollsBean = new ArrayList<SearchBean>();
+        for (TweetPoll tweetPoll : listTweetPolls) {
+             final List<TweetPollSwitch> answers = this.getTweetPollSwitch(tweetPoll);
+             // Convertir Tweetpoll a SearchTweetpollBean
+             final SearchBean unitTweetPoll = ConvertDomainBean.convertTweetPollToSearchBean(tweetPoll);
+             final List<TweetPollAnswerSwitchBean> listSwitchs = new ArrayList<TweetPollAnswerSwitchBean>();
+             if (results) {
+                 final List<TweetPollResultsBean> list = new ArrayList<TweetPollResultsBean>();
+                 for (TweetPollSwitch tweetPollSwitch : answers) {
+                     final TweetPollAnswerSwitchBean answerResults = ConvertDomainBean.convertTweetPollSwitchToBean(tweetPollSwitch, httpServletRequest);
+                     final TweetPollResultsBean rBean = this.getVotesByTweetPollAnswerId(tweetPoll.getTweetPollId(), tweetPollSwitch.getAnswers());
+                     answerResults.setResultsBean(rBean);
+                     list.add(rBean);
+                     listSwitchs.add(answerResults);
+                }
+                 this.calculatePercents(list);
+             }
+             unitTweetPoll.setAnswerSwitchBeans(listSwitchs);
+             // Aqui agregar un Searchbean
+             tweetPollsBean.add(null);
+        }
+        return tweetPollsBean;
+    }
+
 
     /*
      * (non-Javadoc)
@@ -260,7 +350,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * javax.servlet.http.HttpServletRequest,
      * org.encuestame.utils.web.search.TweetPollSearchBean)
      */
-    public List<TweetPollBean> searchTweetsPollsToday(
+    public List<SearchBean> searchTweetsPollsToday(
             final String username,
             final HttpServletRequest httpServletRequest, final TweetPollSearchBean tpollSearch) throws EnMeExpcetion{
         List<TweetPoll> tweetPollSearchResult = new ArrayList<TweetPoll>();
@@ -271,7 +361,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         tpollSearch.getIsFavourite(),
                         tpollSearch.getIsPublished(), tpollSearch.getKeyword(), tpollSearch.getPeriod());
         tweetPollSearchResult = this.getTweetPollSearchResult(tpolls, tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
-        return this.setTweetPollListAnswers(tweetPollSearchResult, Boolean.TRUE, httpServletRequest);
+        return this.setTweetPollListAnswersSearch(tweetPollSearchResult, Boolean.TRUE, httpServletRequest);
     }
 
     /*
@@ -283,7 +373,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * javax.servlet.http.HttpServletRequest,
      * org.encuestame.utils.web.search.TweetPollSearchBean)
      */
-    public List<TweetPollBean> searchTweetsPollsLastWeek(final String username,
+    public List<SearchBean> searchTweetsPollsLastWeek(final String username,
             final HttpServletRequest httpServletRequest,
             final TweetPollSearchBean tpollSearch) throws EnMeExpcetion {
         List<TweetPoll> tweetPollSearchResult = new ArrayList<TweetPoll>();
@@ -296,7 +386,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 						tpollSearch.getPeriod());
 		tweetPollSearchResult = this.getTweetPollSearchResult(tweetPolls,
 				tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
-        return this.setTweetPollListAnswers(tweetPollSearchResult, Boolean.TRUE,
+        return this.setTweetPollListAnswersSearch(tweetPollSearchResult, Boolean.TRUE,
                 httpServletRequest);
     }
 
@@ -309,7 +399,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * javax.servlet.http.HttpServletRequest,
      * org.encuestame.utils.web.search.TweetPollSearchBean)
      */
-    public List<TweetPollBean> searchTweetsPollFavourites(
+    public List<SearchBean> searchTweetsPollFavourites(
             final String username, final HttpServletRequest httpServletRequest,
             final TweetPollSearchBean tpollSearch) throws EnMeExpcetion {
         List<TweetPoll> tweetPollSearchResult = new ArrayList<TweetPoll>();
@@ -322,7 +412,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 		tweetPollSearchResult = this.getTweetPollSearchResult(
 				favouriteTweetPolls, tpollSearch.getProviders(),
 				tpollSearch.getSocialAccounts());
-        return this.setTweetPollListAnswers(tweetPollSearchResult, Boolean.TRUE, httpServletRequest);
+        return this.setTweetPollListAnswersSearch(tweetPollSearchResult, Boolean.TRUE, httpServletRequest);
     }
 
     /*
@@ -334,7 +424,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * javax.servlet.http.HttpServletRequest,
      * org.encuestame.utils.web.search.TweetPollSearchBean)
      */
-    public List<TweetPollBean> searchTweetsPollScheduled(final String username,
+    public List<SearchBean> searchTweetsPollScheduled(final String username,
             final HttpServletRequest httpServletRequest,
             final TweetPollSearchBean tpollSearch) throws EnMeExpcetion {
         List<TweetPoll> tweetPollSearchResult = new ArrayList<TweetPoll>();
@@ -346,7 +436,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         tpollSearch.getIsPublished(), tpollSearch.getKeyword(),
                         tpollSearch.getPeriod());
         tweetPollSearchResult = this.getTweetPollSearchResult(tweetPolls, tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
-        return this.setTweetPollListAnswers(tweetPollSearchResult, Boolean.TRUE,
+        return this.setTweetPollListAnswersSearch(tweetPollSearchResult, Boolean.TRUE,
                 httpServletRequest);
     }
 
@@ -1332,46 +1422,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         return tpollsPostedOnSocialNet;
     }
 
-    /**
-     * Get Social account by ud and user.
-     * @param socialAccountId
-     * @param username
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    private SocialAccount getSocialAccountsbyId(
-            final Long socialAccountId, final String username)
-            throws EnMeNoResultsFoundException {
-        final SocialAccount socialAccount = getAccountDao().getSocialAccount(
-                socialAccountId, getAccount(username));
-        if (socialAccount == null) {
-            throw new EnMeNoResultsFoundException("Social Account id not valid");
-        }
-        return socialAccount;
-    }
-
-
-    /**
-     * Retrieve {@link SocialAccount} by a list of id.
-     * @param socialId
-     * @param username
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    private List<SocialAccount> retrieveSocialAccountsbyId(
-            final List<Long> socialId, final String username)
-            throws EnMeNoResultsFoundException {
-        final List<SocialAccount> socialAccountList = new ArrayList<SocialAccount>();
-        for (Long socialAccountId : socialId) {
-            final SocialAccount account = this.getSocialAccountsbyId(
-                    socialAccountId, username);
-            if (account != null) {
-                socialAccountList.add(account);
-
-            }
-        }
-        return socialAccountList;
-    }
 
     /**
      * Remove Tweetpoll
@@ -1421,5 +1471,4 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
 
     }
-
 }
