@@ -66,6 +66,7 @@ import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -727,6 +728,73 @@ public class ConvertDomainBean {
                 .toLowerCase());
         return unitTweetPoll;
     }
+
+    public static final SearchBean convertTweetPollToSearchBean(
+            final TweetPoll tweetPoll) {
+        final SearchBean unitTweetPoll = new SearchBean();
+        unitTweetPoll.setId(tweetPoll.getTweetPollId());
+        unitTweetPoll.setScheduleDate(tweetPoll.getScheduleDate());
+        unitTweetPoll.setCreateDate(DateUtil.getFormatDate(tweetPoll
+                .getCreateDate()));
+        unitTweetPoll.setCreateDateComparable(tweetPoll.getCreateDate());
+        unitTweetPoll
+                .setAllowLiveResults(tweetPoll.getAllowLiveResults() == null ? false
+                        : tweetPoll.getAllowLiveResults());
+        unitTweetPoll
+                .setResumeLiveResults(tweetPoll.getResumeLiveResults() == null ? false
+                        : tweetPoll.getResumeLiveResults());
+        unitTweetPoll
+                .setSchedule(tweetPoll.getScheduleTweetPoll() == null ? false
+                        : tweetPoll.getScheduleTweetPoll());
+        unitTweetPoll
+                .setResultNotification(tweetPoll.getResultNotification() == null ? false
+                        : tweetPoll.getResultNotification());
+        unitTweetPoll.setUserId(tweetPoll.getTweetOwner().getUid());
+        unitTweetPoll
+                .setOwnerUsername(tweetPoll.getEditorOwner() == null ? null
+                        : tweetPoll.getEditorOwner().getUsername());
+        unitTweetPoll.setCaptcha(tweetPoll.getCaptcha() == null ? false
+                : tweetPoll.getCaptcha());
+        unitTweetPoll
+                .setCloseNotification(tweetPoll.getCloseNotification() == null ? false
+                        : tweetPoll.getCloseNotification());
+        unitTweetPoll.setFavourites(tweetPoll.getFavourites() == null ? false
+                : tweetPoll.getFavourites());
+        unitTweetPoll.setCompleted(tweetPoll.getCompleted() == null ? false
+                : tweetPoll.getCompleted());
+        unitTweetPoll.setQuestionBean(convertQuestionsToBean(tweetPoll
+                .getQuestion()));
+        unitTweetPoll.setHits(tweetPoll.getHits() == null ? EnMeUtils.VOTE_MIN
+                : tweetPoll.getHits());
+        unitTweetPoll
+                .setAllowRepeatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false
+                        : tweetPoll.getAllowRepatedVotes());
+        unitTweetPoll.setHashTags(ConvertDomainBean
+                .convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll
+                        .getHashTags())));
+        unitTweetPoll
+                .setTotalVotes(tweetPoll.getNumbervotes() == null ? EnMeUtils.VOTE_MIN
+                        : Long.valueOf(tweetPoll.getNumbervotes()));
+        unitTweetPoll.setCreatedDateAt(tweetPoll.getCreateDate());
+        unitTweetPoll
+                .setLimitVotesDate(tweetPoll.getDateLimit() == null ? false
+                        : tweetPoll.getDateLimit());
+        unitTweetPoll.setUpdateDate(tweetPoll.getUpdatedDate());
+        if (tweetPoll.getDateLimit() != null
+                && tweetPoll.getDateLimited() != null) {
+            unitTweetPoll
+                    .setDateToLimit(tweetPoll.getDateLimited() == null ? null
+                            : DateUtil.DOJO_DATE_FORMAT.format(tweetPoll
+                                    .getDateLimited()));
+        }
+        unitTweetPoll
+                .setRelevance(tweetPoll.getRelevance() == null ? EnMeUtils.RATE_DEFAULT
+                        : tweetPoll.getRelevance());
+        unitTweetPoll.setItemType(TypeSearchResult.TWEETPOLL.toString()
+                .toLowerCase());
+        return unitTweetPoll;
+    }
+
 
     /**
      * Convert TweetPoll List to TweetPoll Bean.
