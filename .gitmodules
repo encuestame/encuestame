@@ -35,3 +35,6 @@
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/widget"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/widget
 	url = git://github.com/juanpicado/widget-enme
+[submodule "enme-js/deps/src/main/resources/commons/alertify"]
+	path = enme-js/deps/src/main/resources/commons/alertify
+	url = git://github.com/fabien-d/alertify.js.git
