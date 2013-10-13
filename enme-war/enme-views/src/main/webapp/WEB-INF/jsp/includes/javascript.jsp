@@ -30,44 +30,37 @@ require([
         console.log("Websocket", Websocket);
         <c:if test="${!detectedDevice}">
             try {
-                var sock = new SockJS('<%=request.getContextPath()%>/enme-ws');            
-                var stompClient = Stomp.over(sock);
-                stompClient.connect('', '', function(frame) {
-                      console.warn('Connected ' + frame);
-                      var userName = frame.headers['user-name'],
-                      queueSuffix = frame.headers['queue-suffix'];                  
-                      //self.username("demo10");
-                      stompClient.subscribe("/app/notifications-ws", function(message) {
-                        //console.error("app/notificationsws", message);
-                        //self.portfolio().loadPositions(JSON.parse(message.body));
-                      });
 
-                      stompClient.subscribe("/topic/notification-updates.*", function(message) {
-                            console.log('updates', JSON.parse(message.body));
-                      });
-
-                      stompClient.send("/app/notifications-confirm", {}, {
-                        username: "demo10"
-                      });
-                      // stompClient.subscribe("/topic/price.stock.*", function(message) {
-                      //   console.log("ic/price.stock.*", message);
-                      //   self.portfolio().processQuote(JSON.parse(message.body));
-                      // });
-                      // stompClient.subscribe("/queue/position-updates" + queueSuffix, function(message) {
-                      //   self.pushNotification("Position update " + message.body);
-                      //   self.portfolio().updatePosition(JSON.parse(message.body));
-                      // });
-                      stompClient.subscribe("/notifications-ws/errors" + "/hola", function(message) {
-                        //self.pushNotification("Error " + message.body);
-                        console.error("message error", message);
-                      });
-                    }, function(error) {
-                        console.log("STOMP protocol error " + error);
+                socket = new Websocket({
+                  url : '<%=request.getContextPath()%>/enme-ws'
                 });
-                // stompClient.debug = function(str) {
-                //   // append the debug log to a #debug div somewhere in the page using JQuery:
-                //   console.log("debug", str);
-                // };                
+
+                socket.debug();
+
+                socket.connect({
+                  notifications_updates : {
+                    type : 'subscribe',
+                    suffix : false,
+                    callback : function(data) {
+                      console.log('updates 2', data);
+                      dojo.publish('/notifications/service/messages', data);
+                    },
+                    channel : '/topic/notification-updates.*'
+                  }               
+                });
+
+                _ENME.setActivity(socket);
+
+                // socket.subscribe({
+                //     type : 'subscribe',
+                //     suffix : false,
+                //     callback : function(data) {
+                //       console.error("app/notificationsws", data);
+                //     },
+                //     channel : '/app/notifications-ws'
+                // });
+
+                         
             } catch(error) {
                 console.log('error websocket', error);
             }
