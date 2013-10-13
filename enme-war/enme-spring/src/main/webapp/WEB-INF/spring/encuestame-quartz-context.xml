@@ -51,8 +51,8 @@
     
     <!-- Send notifications to channels to users subscribed -->    
     <bean id="sendNotificationsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject" ref="removeAccountJob"/>
-        <property name="targetMethod" value="removeUnconfirmedAccount"/>
+        <property name="targetObject" ref="sendNotificationsJob"/>
+        <property name="targetMethod" value="sendNotifications"/>        
         <property name="concurrent">
             <value>false</value>
         </property>
@@ -60,9 +60,9 @@
     
 
     <!-- Attachments process indexer -->
-    <bean id="reindexingAttachmentsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject" ref="sendNotificationsJob"/>
-        <property name="targetMethod" value="sendNotifications"/>
+    <bean id="reindexingAttachmentsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">        
+        <property name="targetObject" ref="reindexAttachmentJob"/>
+        <property name="targetMethod" value="reindexAttachments"/>
         <property name="concurrent">
             <value>false</value>
         </property>
@@ -116,7 +116,7 @@
                  <!-- Remove unconfirmed expired accounts -->
                 <bean id="sendNotifications" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="sendNotificationsJobDetail" />
-                    <property name="cronExpression" value="0 0/5 * * * ?" />
+                    <property name="cronExpression" value="*/5 * * * * ?" />
                     <!--   every 10 seconds -->
                 </bean>                
                  <!-- Remove unconfirmed expired accounts -->
