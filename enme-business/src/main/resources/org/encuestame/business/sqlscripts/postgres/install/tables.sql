@@ -1084,3 +1084,16 @@ CREATE TABLE hash_tags_ranking (
    average real,
    ranking_updated timestamp without time zone,
    hashTag_hash_tag_id bigint);
+
+
+CREATE TABLE scheduled (
+    scheduled_id bigint NOT NULL,
+    tweetpoll_tweet_poll_id bigint,
+    poll_poll_id bigint,
+    survey_sid bigint,
+    type character varying(255),
+    tweet_text character varying(255),
+    scheduled_date timestamp without time zone,
+    socialaccount_social_account_id bigint,
+    status integer
+);

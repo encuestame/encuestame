@@ -989,7 +989,7 @@ CREATE TABLE IF NOT EXISTS `tweetPoll_save_published_status` (
   `status_save_poll_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) DEFAULT NULL,
   `status_description` varchar(255) DEFAULT NULL,
-  `publication_date_tweet` datetime DEFAULT NULL,
+  `publication_date_tweet` datetime DEFAULT NULL,RT
   `status` int(11) DEFAULT NULL,
   `tweet_content` varchar(255) DEFAULT NULL,
   `tweet_id` varchar(255) DEFAULT NULL,
@@ -1145,3 +1145,21 @@ CREATE TABLE IF NOT EXISTS `survey_temporal_result` (
   KEY `FK7867CF5496009B4` (`answer_q_answer_id`),
   KEY `FK7867CF551153812` (`survey_sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+--
+-- Table structure for table `scheduled`
+--
+
+CREATE TABLE IF NOT EXISTS `scheduled` (
+	`scheduled_id` bigint(20) NOT NULL AUTO_INCREMENT,
+	`tweetPoll_tweet_poll_id` bigint(20) DEFAULT NULL,
+	`poll_poll_id` bigint(20) DEFAULT NULL,
+ 	`survey_sid` bigint(20) DEFAULT NULL,
+ 	`tweet_text` varchar(255) DEFAULT NULL,
+	`scheduled_date` datetime DEFAULT NULL,
+	`socialAccount_social_account_id` bigint(20) DEFAULT NULL,
+	`status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`scheduled_id`),
+  UNIQUE KEY `scheduled_id` (`scheduled_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
