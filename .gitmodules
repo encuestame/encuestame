@@ -35,3 +35,6 @@
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/widget"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/widget
 	url = git://github.com/juanpicado/widget-enme
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/tests"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/tests
+	url = git://github.com/encuestame/enme-intern-test.git
