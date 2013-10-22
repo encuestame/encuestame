@@ -1095,5 +1095,7 @@ CREATE TABLE scheduled (
     tweet_text character varying(255),
     scheduled_date timestamp without time zone,
     socialaccount_social_account_id bigint,
-    status integer
+    status integer,
+    attempts integer,
+    tweetPoll_save_published_status_status_save_poll_id bigint
 );

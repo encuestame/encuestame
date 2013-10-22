@@ -32,6 +32,7 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.utils.enums.Status;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -73,6 +74,12 @@ public class Schedule {
 
 	/** **/
 	private Status status;
+
+	/** **/
+	private Integer attempts;
+
+	/** **/
+	private TweetPollSavedPublishedStatus tpollSavedPublished;
 
 	/**
 	 * @return the id
@@ -197,5 +204,36 @@ public class Schedule {
 	 */
 	public void setStatus(final Status status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the attempts
+	 */
+	@Column(name = "attempts", nullable = true)
+	public Integer getAttempts() {
+		return attempts;
+	}
+
+	/**
+	 * @param attempts the attempts to set
+	 */
+	public void setAttempts(final Integer attempts) {
+		this.attempts = attempts;
+	}
+
+	/**
+	 * @return the tpollSavedPublished
+	 */
+	@ManyToOne(cascade = CascadeType.MERGE)
+	public TweetPollSavedPublishedStatus getTpollSavedPublished() {
+		return tpollSavedPublished;
+	}
+
+	/**
+	 * @param tpollSavedPublished the tpollSavedPublished to set
+	 */
+	public void setTpollSavedPublished(final
+			TweetPollSavedPublishedStatus tpollSavedPublished) {
+		this.tpollSavedPublished = tpollSavedPublished;
 	}
 }

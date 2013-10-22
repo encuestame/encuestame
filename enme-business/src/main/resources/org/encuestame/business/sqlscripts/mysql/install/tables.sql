@@ -1160,6 +1160,8 @@ CREATE TABLE IF NOT EXISTS `scheduled` (
 	`scheduled_date` datetime DEFAULT NULL,
 	`socialAccount_social_account_id` bigint(20) DEFAULT NULL,
 	`status` int(11) DEFAULT NULL,
+	`attempts` int(11) DEFAULT NULL,
+	`tweetPoll_save_published_status_status_save_poll_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`scheduled_id`),
   UNIQUE KEY `scheduled_id` (`scheduled_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;

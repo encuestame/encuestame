@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+ * Copyright (C) 2001-2013 encuestame: system online surveys Copyright (C) 2013
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,13 +12,26 @@
  */
 package org.encuestame.persistence.dao;
 
- import org.encuestame.persistence.dao.imp.ScheduleDao;
+import java.util.Date;
+import java.util.List;
+
+import org.encuestame.persistence.dao.imp.ScheduleDao;
+import org.encuestame.persistence.domain.Schedule;
+import org.encuestame.utils.enums.Status;
 
 /**
- * {@link ScheduleDao} Interface.
- * @author Morales, Diana Paola paolaATencuestame.org
- * @since  October 14, 2013
+ * Interface to {@link ScheduleDao}.
+ * @author Morales Urbina, Diana  paolaATencuestame.org
+ * @since October 18, 2013
  */
-public class ISchedule {
+public interface IScheduled  extends IBaseDao{
+
+	/**
+	 * Retrieve
+	 * @param publisdDate
+	 * @param status
+	 * @return
+	 */
+	List<Schedule> retrieveScheduledBefore(final Date publisdDate, final Status status);
 
 }
