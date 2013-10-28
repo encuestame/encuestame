@@ -48,7 +48,7 @@ public class SendNotificationsJob {
 		final NotificationResume notificationResume = new NotificationResume();
 		notificationResume.setTotalNewNot(RandomUtils.nextLong());
 		notificationResume.setTotalNot(RandomUtils.nextLong());
-		logger.debug("sendNotifications update: " + notificationResume.toString());
+		//logger.debug("sendNotifications update: " + notificationResume.toString());
 		// en vez del username, un key que se genera en cada login, queda guardado en la bd y se refresca cada x minss
 		this.messagingTemplate.convertAndSend("/topic/notification-updates." + username, notificationResume);
 	}

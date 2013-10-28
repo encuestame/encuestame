@@ -13,9 +13,10 @@ require([
     "dojo/parser",
     "dojo/ready",
     'me/support/Websocket',
+    'me/support/Offline',
     "me/web/widget/signup/LoginDialog",
     "me/core/enme"
-], function(dojo, declare, parser, ready, Websocket, LoginDialog, _ENME) {
+], function(dojo, declare, parser, ready, Websocket, Offline, LoginDialog, _ENME) {
     ready(function(){
         // Call the parser manually so it runs after our widget is defined, and page has finished loading
         <%@ include file="/WEB-INF/jsp/includes/decorators/enme-init.jsp"%>
@@ -27,7 +28,6 @@ require([
         }));
         //parse all widgets.
         parser.parse();
-        console.log("Websocket", Websocket);
         <c:if test="${!detectedDevice}">
             try {
 
@@ -42,7 +42,7 @@ require([
                     type : 'subscribe',
                     suffix : false,
                     callback : function(data) {
-                      console.log('updates 2', data);
+                      //console.log('updates 2', data);
                       dojo.publish('/notifications/service/messages', data);
                     },
                     channel : '/topic/notification-updates.*'
@@ -50,6 +50,20 @@ require([
                 });
 
                 _ENME.setActivity(socket);
+
+                var offline = new Offline({
+                    "up" : function() {
+                        socket.reconnect();
+                    },
+                    "down" : function () {
+                        socket.disconnect();
+                    },
+                    "confirmed-up" : function() {
+                        socket.reconnect();
+                    }
+                });
+        
+                _ENME.setOffline(offline); 
 
                 // socket.subscribe({
                 //     type : 'subscribe',
