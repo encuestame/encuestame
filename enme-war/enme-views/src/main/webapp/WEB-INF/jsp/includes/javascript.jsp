@@ -54,13 +54,12 @@ require([
                 var offline = new Offline({
                     "up" : function() {
                         socket.reconnect();
+                        console.log("1");
                     },
                     "down" : function () {
                         socket.disconnect();
-                    },
-                    "confirmed-up" : function() {
-                        socket.reconnect();
-                    }
+                        console.log("2");
+                    }                    
                 });
         
                 _ENME.setOffline(offline); 
