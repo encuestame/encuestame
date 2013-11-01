@@ -28,7 +28,7 @@ require([
         }));
         //parse all widgets.
         parser.parse();
-        <c:if test="${!detectedDevice}">
+
             try {
 
                 socket = new Websocket({
@@ -42,7 +42,6 @@ require([
                     type : 'subscribe',
                     suffix : false,
                     callback : function(data) {
-                      //console.log('updates 2', data);
                       dojo.publish('/notifications/service/messages', data);
                     },
                     channel : '/topic/notification-updates.*'
@@ -78,7 +77,7 @@ require([
                 console.log('error websocket', error);
             }
     
-        </c:if>
+       
     });
 });
 <%@ include file="/WEB-INF/jsp/includes/decorators/dojo-notify.jsp"%>

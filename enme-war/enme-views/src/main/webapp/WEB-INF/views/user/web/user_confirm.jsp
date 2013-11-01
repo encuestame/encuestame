@@ -3,13 +3,13 @@
     <div class="web-form-wrapper sign-in-form" id="web-form-wrapper">
         <article>
             <section class="web-user-confirm-message">
-                <h1>
+                <h2>
                     <spring:message code="signup.register.confirm.message" />.
                     <div>
                         <spring:message code="commons_goto" />  <div data-dojo-type="me/web/widget/menu/DashBoardMenu"
                            contextPath="<%=request.getContextPath()%>"></div>
                     </div>
-               </h1>
+               </h2>
             </section>
         </article>
     </div>

@@ -6,11 +6,11 @@
             <div class="section-signup" title="Sign Up with Username"
                 collapsed="false">
                 <div class="web-form-singup-container">
-                    <h1>
+                    <h2>
                         <spring:message code="forgot.username" />
-                    </h1>
+                    </h2>
                     <fieldset class="textbox">
-                        <div class="section name">
+                        <div class="section">
                             <div class="validator-wrapper" id="rm" widgetid="rm">
                                 <div id="_message_rm" class="sidetip">
                                     <p>
@@ -24,20 +24,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="section name">
+                        <div class="section captcha right">
                             <div class="validator-wrapper" id="rm" widgetid="rm">
                                 <div id="_message_rm" class="sidetip">
                                     <p>
                                         <form:errors path="captcha" cssClass="error-message" />
                                     </p>
                                 </div>
-                                <div class="captcha">
+                                <div>
                                      <c:out value="${forgotPasswordBean.captcha}" escapeXml="false" />
                                 </div>
                             </div>
                         </div>
 
-                     <div class="right">
+                     <div class="section right">
                          <button type="submit" class="submit btn-warning btn" name="submit">
                               <spring:message code="forgot.submit" />
                          </button>
