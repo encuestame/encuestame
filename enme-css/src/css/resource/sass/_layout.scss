@@ -338,18 +338,19 @@ and (orientation : portrait) {
         &:hover {  text-decoration: underline; }
         text-decoration: none;
       }
+
+      .footer {
+            height: 20px;
+            font-size: 10px;
+            line-height: 20px;
+            padding: 10px;
+            text-align: right;
+            white-space: nowrap;
+      }   
     }
 
     .text-color {
         @extend .text-white;
-    }
-
-    #footer-f .footer {
-      height: 20px;
-      line-height: 20px;
-      padding: 10px;
-      text-align: right;
-      white-space: nowrap;
     }
 
 /* Large screens  */
