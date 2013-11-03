@@ -15,7 +15,8 @@ div.web-tweetpoll-section, .web-poll-question .web-tweetpoll-section  {
 }
 
 
-div.web-tweetpoll-section div.web-tweetpoll-section-title, .web-poll-question .web-poll-section div.web-poll-section-title {
+div.web-tweetpoll-section div.web-tweetpoll-section-title, 
+.web-poll-question .web-poll-section div.web-poll-section-title {
     font-size: $df_font_size + 2;
     @extend .padding;
     color: $black_semi_medium;
@@ -23,6 +24,18 @@ div.web-tweetpoll-section div.web-tweetpoll-section-title, .web-poll-question .w
     border-bottom: 1px solid $black_light;
     background: $gray_lite;
     @include enme-gradient-custom($white, $gray_lite);
+}
+
+
+.web-poll-section {    
+    .web-poll-section-title {
+
+    }
+    .hashTagWrapper {
+        .left-button {
+            height: 30px;
+        }  
+    }
 }
 
 .web-tweetpoll-section .space {

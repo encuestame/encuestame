@@ -255,6 +255,7 @@ public class PollController extends AbstractViewController {
     public String newPollController(final ModelMap model) {
         log.debug("new poll render view");
         addi18nProperty(model, "leave_mesage");
+        addi18nProperty(model, "tp_add_hashtag", getMessage("tp_add_hashtag"));
         addi18nProperty(model, "poll_create_question_title");
         addi18nProperty(model, "poll_create_build_answers");
         addi18nProperty(model, "poll_create_add_new_answer");
