@@ -720,7 +720,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 try {
                     getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
+                    // ENCUESTAME-602 ????
                     e.printStackTrace();
                 }
             }
