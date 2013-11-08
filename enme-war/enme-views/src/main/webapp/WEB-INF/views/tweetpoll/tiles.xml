@@ -5,65 +5,65 @@
 
     <definition name="tweetpoll" extends="page-logged">
         <put-attribute name="title" value="TweetPoll | encuestame" />
-        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/web/menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/web/list-tweetpoll.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/web/tp_css.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/list-tweetpoll.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="tweetpoll/new" extends="page-logged">
         <put-attribute name="title" value="TweetPoll | encuestame" />
-        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/web/menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/web/new.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/web/tp_css.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/new.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
      <definition name="tweetpoll/detail" extends="page-logged">
         <put-attribute name="title" value="TweetPoll Detail" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/web/detail.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/web/tp_css.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/detail.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
      <definition name="tweetpoll/social" extends="page-logged">
         <put-attribute name="title" value="TweetPoll Social Networks Accounts" />
-        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/web/menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/web/social.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/web/tp_css.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/social.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="tweetVoted" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Vote" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/voted.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/web/tp_css.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="repeatedTweetVote" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Repeated Vote" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/repeated.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/web/tp_css.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="completeTweetVote" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Completed" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/completed.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/web/tp_css.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="voteCaptcha" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Captcha Vote" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/voteCaptcha.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/web/tp_css.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="badTweetVote" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Bad Vote" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/bad.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/web/tp_css.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="banned" extends="main-vote">
         <put-attribute name="title" value="banned IP" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/banned.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/web/tp_css.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
 </tiles-definitions>

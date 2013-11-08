@@ -4,41 +4,41 @@
 <tiles-definitions>
 
     <definition name="home" extends="page">
-        <put-attribute name="title" value="Home | ${pageContext.request} ${detectedDevice}" />
-        <put-attribute name="content" expression="/WEB-INF/views/home/web/home.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/home/web/css_home.jsp" />
+        <put-attribute name="title" value="Home | Encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/home/home.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/home/css_home.jsp" />
         <put-attribute name="rss" value="/WEB-INF/views/home/rss.jsp" />
     </definition>
 
     <definition name="search" extends="page">
         <put-attribute name="title" value="Search | encuestame" />
-        <put-attribute name="content" expression="/WEB-INF/views/home/web/search.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/home/web/css_home.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/home/search.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/home/css_home.jsp" />
     </definition>
 
     <definition name="cloud" extends="page">
         <put-attribute name="title" value="Cloud | encuestame" />
-        <put-attribute name="content" expression="/WEB-INF/views/home/web/cloud.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/home/web/css_home.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/home/cloud.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/home/css_home.jsp" />
     </definition>
 
     <definition name="user/help" extends="page">
         <put-attribute name="title" value="Help | encuestame" />
-        <put-attribute name="content" expression="/WEB-INF/views/home/web/help.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/home/web/css_home.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/home/help.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/home/css_home.jsp" />
     </definition>
 
    <definition name="profile/view" extends="page">
         <put-attribute name="title" value="Profile | encuestame" />
-        <put-attribute name="content" expression="/WEB-INF/views/home/web/profile.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/home/profile.jsp" />
         <put-attribute name="rss" value="/WEB-INF/views/home/user_name_rss.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/home/web/css_home.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/home/css_home.jsp" />
     </definition>
 
     <definition name="tag/detail" extends="page">
         <put-attribute name="title" value="HashTag Detail" />
-        <put-attribute name="content" expression="/WEB-INF/views/home/web/hashtag.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/home/web/css_home.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/home/hashtag.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/home/css_home.jsp" />
     </definition>
 
 </tiles-definitions>
