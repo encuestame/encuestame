@@ -1510,5 +1510,53 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 		getTweetPollDao().delete(tpoll);
 
 	}
-}
 
+	/**
+	 *
+	 */
+	public void publishScheduledItems(final Status status) {
+		Boolean publish = Boolean.FALSE;
+		// 1. Retrieve all records scheduled before currently date.
+		final List<Schedule> scheduledRecords = getScheduledDao()
+				.retrieveScheduled(status);
+		System.out.println("Schedule Records ---> " + scheduledRecords.size());
+		// 2. Iterate the results and for each try to publish again Call
+		// Service to publish Tweetpoll/ Poll or Survey.
+		// 3. If list > O - iterate list
+		if (scheduledRecords.size() > 0) {
+			for (Schedule schedule : scheduledRecords) {
+
+				// Retrieve attempt constant for properties file.
+				if (schedule.getPublishAttempts() < 5) {
+					final TweetPollSavedPublishedStatus tpollSaved = this
+							.publishTweetBySocialAccountId(schedule
+									.getSocialAccount().getId(), schedule
+									.getTpoll(), schedule.getTweetText(),
+									schedule.getTypeSearch(), schedule
+											.getPoll(), schedule.getSurvey());
+					// If tpollsavedpublished isnt null and Status is failed, is
+					// necessary re publish
+					if ((tpollSaved != null)
+							&& (tpollSaved.getStatus()).equals(Status.FAILED)) {
+						log.debug("******* Item not published *******");
+						// Update ScheduleRecord and set counter und Date
+						DateTime dt = new DateTime(schedule.getScheduleDate());
+						// Set a new value to republishing
+						schedule.setScheduleDate(dt.plusMinutes(3).toDate());
+						// Increment the counter of attempts
+						int counter = schedule.getPublishAttempts();
+						counter = counter + 1;
+						schedule.setPublishAttempts(counter);
+						getScheduledDao().saveOrUpdate(schedule);
+
+					} else  {
+						log.debug("******* Published *******");
+						schedule.setStatus(Status.SUCCESS);
+						getScheduledDao().saveOrUpdate(schedule);
+
+					}
+				}
+		}
+		}
+	}
+}
