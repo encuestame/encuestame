@@ -1087,15 +1087,16 @@ CREATE TABLE hash_tags_ranking (
 
 
 CREATE TABLE scheduled (
-    scheduled_id bigint NOT NULL,
-    tweetpoll_tweet_poll_id bigint,
-    poll_poll_id bigint,
-    survey_sid bigint,
-    type character varying(255),
-    tweet_text character varying(255),
-    scheduled_date timestamp without time zone,
-    socialaccount_social_account_id bigint,
-    status integer,
-    attempts integer,
-    tweetPoll_save_published_status_status_save_poll_id bigint
+	publish_scheduled_id bigint NOT NULL,
+	tweetpoll_tweet_poll_id bigint,
+	poll_poll_id bigint,
+	survey_sid bigint,
+	type character varying(255),
+	tweet_text character varying(255),
+	scheduled_date timestamp without time zone,
+	socialaccount_social_account_id bigint,
+	status integer,
+	publish_attempts integer,
+	tweetPoll_save_published_status_status_save_poll_id bigint,
+	type_search integer
 );

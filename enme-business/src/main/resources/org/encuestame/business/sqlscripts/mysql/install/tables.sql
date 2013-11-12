@@ -1152,7 +1152,7 @@ CREATE TABLE IF NOT EXISTS `survey_temporal_result` (
 --
 
 CREATE TABLE IF NOT EXISTS `scheduled` (
-	`scheduled_id` bigint(20) NOT NULL AUTO_INCREMENT,
+	`publish_scheduled_id` bigint(20) NOT NULL AUTO_INCREMENT,
 	`tweetPoll_tweet_poll_id` bigint(20) DEFAULT NULL,
 	`poll_poll_id` bigint(20) DEFAULT NULL,
  	`survey_sid` bigint(20) DEFAULT NULL,
@@ -1160,8 +1160,9 @@ CREATE TABLE IF NOT EXISTS `scheduled` (
 	`scheduled_date` datetime DEFAULT NULL,
 	`socialAccount_social_account_id` bigint(20) DEFAULT NULL,
 	`status` int(11) DEFAULT NULL,
-	`attempts` int(11) DEFAULT NULL,
+	`publish_attempts` int(11) DEFAULT NULL,
 	`tweetPoll_save_published_status_status_save_poll_id` bigint(20) DEFAULT NULL,
+	`type_search` int(11) DEFAULT NULL,
   PRIMARY KEY (`scheduled_id`),
   UNIQUE KEY `scheduled_id` (`scheduled_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
