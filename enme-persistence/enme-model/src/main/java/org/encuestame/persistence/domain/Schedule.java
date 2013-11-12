@@ -12,12 +12,13 @@
  */
 package org.encuestame.persistence.domain;
 
+
 import java.util.Date;
 
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -34,6 +35,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.utils.enums.Status;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
@@ -44,15 +46,14 @@ import org.hibernate.search.annotations.Indexed;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since October 14, 2013
  */
-@Indexed(index="Scheduled")
 @Entity
-@Table(name = "Scheduled")
-@Cacheable
+@Indexed(index="Scheduled")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Table(name = "scheduled")
 public class Schedule {
 
 	/** **/
-	private Long id;
+	private Long idpub;
 
 	/** **/
 	private TweetPoll tpoll;
@@ -67,7 +68,7 @@ public class Schedule {
 	private String tweetText;
 
 	/** **/
-	private Date schedule;
+	private Date scheduleDate;
 
 	/** **/
 	private SocialAccount socialAccount;
@@ -76,10 +77,14 @@ public class Schedule {
 	private Status status;
 
 	/** **/
-	private Integer attempts;
+	private Integer publishAttempts;
 
 	/** **/
 	private TweetPollSavedPublishedStatus tpollSavedPublished;
+
+	/** **/
+	private TypeSearchResult typeSearch;
+
 
 	/**
 	 * @return the id
@@ -87,16 +92,16 @@ public class Schedule {
     @Id
     @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "scheduled_id", unique = true, nullable = false)
-	public Long getId() {
-		return id;
+    @Column(name = "publish_scheduled_id", unique = true, nullable = false)
+	public Long getIdpub() {
+		return idpub;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(final Long id) {
-		this.id = id;
+	public void setIdpub(final Long idpub) {
+		this.idpub = idpub;
 	}
 
 	/**
@@ -164,15 +169,15 @@ public class Schedule {
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "scheduled_date", nullable = true)
-	public Date getSchedule() {
-		return schedule;
+	public Date getScheduleDate() {
+		return scheduleDate;
 	}
 
 	/**
 	 * @param schedule the schedule to set
 	 */
-	public void setSchedule(final Date schedule) {
-		this.schedule = schedule;
+	public void setScheduleDate(final Date scheduleDate) {
+		this.scheduleDate = scheduleDate;
 	}
 
 	/**
@@ -209,16 +214,16 @@ public class Schedule {
 	/**
 	 * @return the attempts
 	 */
-	@Column(name = "attempts", nullable = true)
-	public Integer getAttempts() {
-		return attempts;
+	@Column(name = "publish_attempts", nullable = true)
+	public Integer getPublishAttempts() {
+		return publishAttempts;
 	}
 
 	/**
 	 * @param attempts the attempts to set
 	 */
-	public void setAttempts(final Integer attempts) {
-		this.attempts = attempts;
+	public void setPublishAttempts(final Integer publishAttempts) {
+		this.publishAttempts = publishAttempts;
 	}
 
 	/**
@@ -235,5 +240,21 @@ public class Schedule {
 	public void setTpollSavedPublished(final
 			TweetPollSavedPublishedStatus tpollSavedPublished) {
 		this.tpollSavedPublished = tpollSavedPublished;
+	}
+
+	/**
+	 * @return the typeSearch
+	 */
+	@Column(name = "type_search")
+	@Enumerated(EnumType.ORDINAL)
+	public TypeSearchResult getTypeSearch() {
+		return typeSearch;
+	}
+
+	/**
+	 * @param typeSearch the typeSearch to set
+	 */
+	public void setTypeSearch(final TypeSearchResult typeSearch) {
+		this.typeSearch = typeSearch;
 	}
 }

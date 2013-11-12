@@ -27,11 +27,18 @@ import org.encuestame.utils.enums.Status;
 public interface IScheduled  extends IBaseDao{
 
 	/**
-	 * Retrieve
-	 * @param publisdDate
+	 *
 	 * @param status
 	 * @return
 	 */
-	List<Schedule> retrieveScheduledBefore(final Date publisdDate, final Status status);
+	Date retrieveMinimumScheduledDate(final Status status);
+
+	/**
+	 *
+	 * @param status
+	 * @return
+	 */
+	List<Schedule> retrieveScheduled(final Status status);
+
 
 }

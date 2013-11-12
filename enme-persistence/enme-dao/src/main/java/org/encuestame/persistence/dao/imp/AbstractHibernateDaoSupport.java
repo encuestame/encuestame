@@ -144,6 +144,14 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
     }
 
     /**
+     * Return before midnight date -1.
+     * @return
+     */
+    public Date getBefDayMidnightDate(){
+        return DateUtil.getBeforeDayMidnightDate();
+     }
+
+    /**
      * Return the current date midnight.
      * @return
      */
