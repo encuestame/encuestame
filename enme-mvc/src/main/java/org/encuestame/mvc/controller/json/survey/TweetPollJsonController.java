@@ -45,6 +45,7 @@ import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -125,7 +126,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             tpollSearchBean.setSocialAccounts(socialAccountNetworks == null ? ListUtils.EMPTY_LIST : socialAccountNetworks);
                     //socialNetworks.size() == 0 ? null : ConvertDomainBean.convertSocialProviderStringToProvider(socialNetworks));
 
-            final List<TweetPollBean> list = (List<TweetPollBean>) getTweetPollService().filterTweetPollByItemsByType(
+            final List<SearchBean> list = (List<SearchBean>) getTweetPollService().filterTweetPollByItemsByTypeSearch(
                     tpollSearchBean, request);
 
             //System.out.println("Json Controller --> " + list.size());
@@ -545,7 +546,7 @@ public class TweetPollJsonController extends AbstractJsonController {
     }
 
     /**
-     * 
+     *
      * @param id
      * @param request
      * @param response

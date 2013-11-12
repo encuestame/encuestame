@@ -14,19 +14,31 @@ package org.encuestame.mvc.controller.search.json;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.search.GlobalSearchItem;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.SearchBean;
+import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.search.TweetPollSearchBean;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -95,4 +107,69 @@ public class QuickSearchJsonController extends AbstractJsonController {
         }
         return returnData();
     }
+
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/{type}/search.json", method = RequestMethod.GET)
+    public @ResponseBody ModelMap advancedSearch(
+    		  @RequestParam(value = "typeSearch", required = true) String typeSearch,
+              @RequestParam(value = "keyword", required = false) String keyword,
+              @RequestParam(value = "max", required = true) Integer max,
+              @RequestParam(value = "start", required = true) Integer start,
+              @RequestParam(value = "social_networks", required = false)  List<String> socialNetworks,
+              @RequestParam(value = "social_account_networks", required = false) List<Long> socialAccountNetworks,
+              @RequestParam(value = "_published", required = false) Boolean isPublished,
+              @RequestParam(value = "_complete", required = false) Boolean isCompleted,
+              @RequestParam(value = "_favourite", required = false) Boolean isFavourite,
+              @RequestParam(value = "_scheduled", required = false) Boolean isScheduled,
+              @RequestParam(value = "period", required = false) String period,
+              @PathVariable final String type,
+              HttpServletRequest request, HttpServletResponse response)
+              throws JsonGenerationException, JsonMappingException, IOException {
+          final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+          final TweetPollSearchBean tpollSearchBean = new TweetPollSearchBean();
+          try {
+              log.debug("search.json" + typeSearch);
+              log.debug("search.json" + keyword);
+              log.debug("search.json" + max);
+              log.debug("search.json" + start);
+              log.debug("search.json socialNetworks" + socialNetworks);
+              log.debug("search.json socialAccountNetworks " + socialAccountNetworks);
+              log.debug("search.json isCompleted " + isPublished);
+              log.debug("search.json" + isCompleted);
+              log.debug("search.json favourite" + isFavourite);
+              // Create TweetpollSearchBean
+              tpollSearchBean.setIsComplete(isCompleted == null ? false : isCompleted);
+              tpollSearchBean.setIsFavourite(isFavourite == null ? false : isFavourite);
+              tpollSearchBean.setIsPublished(isPublished == null ? false : isPublished);
+              tpollSearchBean.setIsScheduled(isScheduled == null ? false : isScheduled);
+              tpollSearchBean.setKeyword(keyword == null ? null : keyword.isEmpty() ? null : keyword);
+              tpollSearchBean.setMax(max);
+              //tpollSearchBean.setPeriod(period); it's not used, will be removed in the future.
+              tpollSearchBean.setSearchResult(null);
+              tpollSearchBean.setStart(start);
+              tpollSearchBean.setTypeSearch(TypeSearch.getSearchString(typeSearch));
+              tpollSearchBean.setProviders(socialNetworks == null ? ListUtils.EMPTY_LIST : ConvertDomainBean.convertSocialProviderStringToProvider(socialNetworks));
+              tpollSearchBean.setSocialAccounts(socialAccountNetworks == null ? ListUtils.EMPTY_LIST : socialAccountNetworks);
+                      //socialNetworks.size() == 0 ? null : ConvertDomainBean.convertSocialProviderStringToProvider(socialNetworks));
+            final TypeSearchResult typeResult = TypeSearchResult.getTypeSearchResult(type);
+			if (typeResult.equals(TypeSearchResult.TWEETPOLL)) {
+				final List<SearchBean> list = (List<SearchBean>) getTweetPollService().filterTweetPollByItemsByTypeSearch(
+	                      tpollSearchBean, request);
+			    jsonResponse.put("tweetPolls", list);
+			    log.debug("/api/survey/tweetpoll/search.json---------------->  "
+						+ list.size());
+			 // Convert Tweetpoll or Survey to SearchBean
+			} else if (typeResult.equals(TypeSearchResult.POLL)) {
+				final List<PollBean> pollBeanList = getPollService().filterPollByItemsByType(null, keyword, max, start);
+
+			} else {
+				throw new EnmeFailOperation("operation not valid");
+			}
+			setItemResponse(jsonResponse);
+		} catch (EnMeExpcetion e) {
+			log.error(e);
+			setError(e.getMessage(), response);
+		}
+		return returnData();
+	}
 }

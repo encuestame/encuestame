@@ -108,8 +108,8 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
     public List<GeoPointFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPointFolder.class);
         criteria.add(Restrictions.eq("users.id", userId));
-        criteria.add(Restrictions.eq("subLocationFolder.locationFolderId", locationFolderId));
-        criteria.add(Restrictions.isNotNull("subLocationFolder"));
+      //  criteria.add(Restrictions.eq("subLocationFolder.locationFolderId", locationFolderId));
+      //  criteria.add(Restrictions.isNotNull("subLocationFolder"));
         return getHibernateTemplate().findByCriteria(criteria);
    }
 

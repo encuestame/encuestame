@@ -15,9 +15,13 @@ require([
     'me/support/Websocket',
     "me/web/widget/signup/LoginDialog",
     "me/core/enme"
-], function(dojo, declare, parser, ready, Websocket, LoginDialog, _ENME) {
-    ready(function(){
-        // Call the parser manually so it runs after our widget is defined, and page has finished loading
+// ], function(dojo, declare, parser, ready, Websocket, LoginDialog, _ENME)
+	'me/support/Offline',
+    "me/web/widget/signup/LoginDialog",
+    "me/core/enme"
+], function(dojo, declare, parser, ready, Websocket, Offline, LoginDialog, _ENME) {
+		ready(function(){
+//         Call the parser manually so it runs after our widget is defined, and page has finished loading
         <%@ include file="/WEB-INF/jsp/includes/decorators/enme-init.jsp"%>
         dojo.subscribe('/encuestame/login/show', this, dojo.hitch(this, function(expired_session) {
             var login = new LoginDialog({
@@ -27,11 +31,11 @@ require([
         }));
         //parse all widgets.
         parser.parse();
+
         console.log("Websocket", Websocket);
         <c:if test="${!detectedDevice}">
-            try {
-
-                socket = new Websocket({
+              try {
+                 socket = new Websocket({
                   url : '<%=request.getContextPath()%>/enme-ws'
                 });
 
@@ -42,16 +46,27 @@ require([
                     type : 'subscribe',
                     suffix : false,
                     callback : function(data) {
-                      console.log('updates 2', data);
-                      dojo.publish('/notifications/service/messages', data);
+                    console.log('updates 2', data);
+                    dojo.publish('/notifications/service/messages', data);
                     },
                     channel : '/topic/notification-updates.*'
-                  }               
+                  }
                 });
 
                 _ENME.setActivity(socket);
+                 var offline = new Offline({
+                    "up" : function() {
+                        socket.reconnect();
+                        console.log("1");
+                    },
+                    "down" : function () {
+                        socket.disconnect();
+                        console.log("2");
+                    }
+                });
 
-                // socket.subscribe({
+                _ENME.setOffline(offline);
+                 // socket.subscribe({
                 //     type : 'subscribe',
                 //     suffix : false,
                 //     callback : function(data) {
@@ -60,12 +75,12 @@ require([
                 //     channel : '/app/notifications-ws'
                 // });
 
-                         
+
             } catch(error) {
                 console.log('error websocket', error);
             }
-    
-        </c:if>
+
+            </c:if>
     });
 });
 <%@ include file="/WEB-INF/jsp/includes/decorators/dojo-notify.jsp"%>

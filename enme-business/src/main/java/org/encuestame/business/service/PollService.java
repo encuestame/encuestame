@@ -245,7 +245,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 			final PollSearchBean pollSearchBean) throws EnMeExpcetion {
 		List<Poll> pollSearchResult = new ArrayList<Poll>();
 		final List<Poll> polls = getPollDao().retrievePollsToday(
-				getUserAccountonSecurityContext(), pollSearchBean.getMax(),
+				getUserAccountonSecurityContext().getAccount(), pollSearchBean.getMax(),
 				pollSearchBean.getStart(), pollSearchBean.getIsComplete(),
 				pollSearchBean.getIsScheduled(),
 				pollSearchBean.getIsFavourite(),

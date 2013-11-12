@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollResult;
@@ -256,6 +255,7 @@ public class PollController extends AbstractViewController {
     public String newPollController(final ModelMap model) {
         log.debug("new poll render view");
         addi18nProperty(model, "leave_mesage");
+        addi18nProperty(model, "tp_add_hashtag", getMessage("tp_add_hashtag"));
         addi18nProperty(model, "poll_create_question_title");
         addi18nProperty(model, "poll_create_build_answers");
         addi18nProperty(model, "poll_create_add_new_answer");

@@ -14,6 +14,7 @@ package org.encuestame.business.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,10 +28,15 @@ import org.encuestame.business.search.IndexerFile;
 import org.encuestame.business.search.UtilConvertToSearchItems;
 import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.imp.SearchServiceOperations;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Attachment;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.SearchBean;
+import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitAttachment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -186,6 +192,49 @@ public class SearchService extends AbstractIndexService implements
         } catch (Exception e) {
             throw new EnMeExpcetion(e);
         }
+    }
+
+    public List<SearchBean> filterPollByItemsByType(
+            final TypeSearch typeSearch,
+            String keyword, Integer max, Integer start)
+            throws EnMeNoResultsFoundException, EnMeExpcetion {
+        log.trace("filterPollByItemsByType");
+        log.trace("--> "+typeSearch);
+        log.trace("--> "+keyword);
+        log.trace("--> "+max);
+        log.trace("--> "+start);
+        final List<PollBean> list = new ArrayList<PollBean>();
+        if (TypeSearch.KEYWORD.equals(typeSearch)) {
+          //  list.addAll(this.searchPollByKeyword(keyword, max, start));
+        } else if (TypeSearch.BYOWNER.equals(typeSearch)) {
+            list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao()
+                    .findAllPollByEditorOwner(
+                            getUserAccount(getUserPrincipalUsername()), max,
+                            start)));
+        } else if (TypeSearch.LASTDAY.equals(typeSearch)) {
+            list.addAll(ConvertDomainBean.convertListToPollBean(this
+                    .getPollDao().retrievePollToday(
+                            getUserAccount(getUserPrincipalUsername())
+                                    .getAccount(), max, start,
+                            DateUtil.getNextDayMidnightDate())));
+        } else if (TypeSearch.LASTWEEK.equals(typeSearch)) {
+            list.addAll(ConvertDomainBean.convertListToPollBean(this
+                    .getPollDao().retrievePollLastWeek(
+                            getUserAccount(getUserPrincipalUsername())
+                                    .getAccount(), max, start,
+                            DateUtil.getNextDayMidnightDate())));
+        } else if (TypeSearch.FAVOURITES.equals(typeSearch)) {
+            list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao()
+                    .retrieveFavouritesPoll(
+                            getUserAccount(getUserPrincipalUsername()), max,
+                            start)));
+        } else if (TypeSearch.ALL.equals(typeSearch)) {
+            list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao().retrievePollsByUserId(getUserAccountonSecurityContext(), max, start)));
+        } else {
+            throw new EnMeExpcetion("operation not valid");
+        }
+        log.debug("Poll Search Items : " + list.size());
+        return null;
     }
 
 }

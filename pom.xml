@@ -31,7 +31,7 @@
         <!-- encuestame version -->
         <encuestame.version>1.147-M3-SNAPSHOT</encuestame.version>
         <!-- Spring Version <spring.version>3.1.0.BUILD-SNAPSHOT</spring.version> -->
-        <spring.version>4.0.0.BUILD-SNAPSHOT</spring.version>
+        <spring.version>4.0.0.RC1</spring.version>
         <env>development</env>
         <javascript.minimize>false</javascript.minimize>
         <spring.webflow.version>2.4.0.M1</spring.webflow.version>

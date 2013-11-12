@@ -4,8 +4,9 @@
     <title>
         <tiles:insertAttribute name="title" defaultValue="encuestame" />
     </title>
-<%@ include file="decorators/web-meta.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/web/css.jsp"%>
+<%@ include file="decorators/web-meta.jsp"%>
+
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
 <tiles:insertAttribute name="rss" ignore="true" />
 </head>

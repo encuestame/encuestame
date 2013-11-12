@@ -28,8 +28,8 @@
                   ${poll.relevance}
                 </span>
               </div>
-               <c:if test="${!empty hashtags}">
-                 <c:forEach items="${hashtags}" var="h">
+               <c:if test="${!empty poll.hashTags}">
+                 <c:forEach items="${poll.hashTags}" var="h">
                          <span data-dojo-type="me/web/widget/stream/HashTagInfo"
                           url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
                           hashTagName="${h.hashTagName}"></span>

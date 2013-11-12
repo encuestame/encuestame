@@ -9,9 +9,9 @@
                 autocomplete="off">
                     <div class="section-signup" title="Sign Up with Username" collapsed="false">
                         <div class="web-form-singup-container">
-                        <h1>
+                        <h2>
                             <spring:message code="signup.title" />
-                        </h1>
+                        </h2>
                         <fieldset class="textbox">
                             <div class="section name">
                                 <div id="rm"
@@ -38,7 +38,7 @@
                         <fieldset>
                             <div class="right">
                                  <c:if test="${signupError}">
-                                    <div class="error">
+                                    <div class="alert alert-error">
                                       <spring:message code="signup.error" />
                                     </div>
                                 </c:if>

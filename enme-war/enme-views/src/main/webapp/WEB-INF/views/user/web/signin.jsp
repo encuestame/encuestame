@@ -7,15 +7,15 @@
             <div class="section-signup" title="Sign Up with Username"
                 collapsed="false">
                 <div class="web-form-singup-container">
-                    <h1>
+                    <h2>
                         <spring:message code="signin.title" />
-                    </h1>
+                    </h2>
                     <fieldset class="textbox">
-                        <div class="section">
-                            <c:if test="${not empty message}">
-                                <p class="box ${message.infoType.css}">${message.message}</p>
-                            </c:if>
-                            <c:if test="${signinError}">
+                        <c:if test="${signinError}">
+                            <div class="section">
+                                <c:if test="${not empty message}">
+                                    <p class="box ${message.infoType.css}">${message.message}</p>
+                                </c:if>
                                 <div class="alert alert-error">
                                     <spring:message code="signin.error" />
                                     <br />
@@ -24,9 +24,9 @@
                                             code="signin.error.signup" /> <spring:message
                                             code="signin.error.free" />
                                     </a>
-                                </div>
-                            </c:if>
-                        </div>
+                                </div>                            
+                            </div>
+                        </c:if>
                         <div class="section">
                             <div class="validator-wrapper" id="rm">
                                     <input type="text"
