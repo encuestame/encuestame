@@ -40,6 +40,7 @@ import org.encuestame.persistence.dao.IPermissionDao;
 import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.persistence.dao.IQuestionDao;
+import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -49,6 +50,7 @@ import org.encuestame.persistence.dao.imp.EmailDao;
 import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.PollDao;
+import org.encuestame.persistence.dao.imp.ScheduleDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.AbstractSurvey.CustomFinalMessage;
 import org.encuestame.persistence.domain.AccessRate;
@@ -66,6 +68,7 @@ import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
+import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
@@ -208,6 +211,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /** {@link DashboardDao} **/
     @Autowired
     private IDashboardDao dashboardDao;
+
+    /** {@link ScheduleDao **/
+    @Autowired
+    private IScheduled scheduleDao;
 
     /**
      * Get Property.
@@ -2226,7 +2233,24 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         this.commentsOperations = commentsOperations;
     }
 
+
     /**
+	 * @return the scheduleDao
+	 */
+	public IScheduled getScheduleDao() {
+		return scheduleDao;
+	}
+
+
+	/**
+	 * @param scheduleDao the scheduleDao to set
+	 */
+	public void setScheduleDao(final IScheduled scheduleDao) {
+		this.scheduleDao = scheduleDao;
+	}
+
+
+	/**
      * Create comment.
      * @param comm
      * @param likeVote
@@ -2555,5 +2579,49 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         isd.setItemId(itemId);
         //isd.setMilisecondsDate(miliDate);
         return isd;
+    }
+
+	/**
+	 *
+	 * @param tpoll
+	 * @param survey
+	 * @param poll
+	 * @param scheduleDate
+	 * @param socialAccount
+	 * @param status
+	 * @param attempts
+	 * @param tpollSaved
+	 * @param tweetText
+	 * @return
+	 */
+    public Schedule createScheduledItem(final TweetPoll tpoll,
+			final Survey survey, final Poll poll, final Date scheduleDate,
+			final SocialAccount socialAccount, final Status status,
+			final Integer attempts,
+			final TweetPollSavedPublishedStatus tpollSaved, final String tweetText) {
+    	final Schedule schedule = new Schedule();
+    	schedule.setPublishAttempts(attempts);
+    	schedule.setPoll(null);
+    	schedule.setScheduleDate(scheduleDate);
+    	schedule.setSocialAccount(socialAccount);
+    	schedule.setStatus(status);
+    	schedule.setSurvey(null);
+    	schedule.setTpoll(tpoll);
+    	schedule.setTpollSavedPublished(tpollSaved);
+    	schedule.setTweetText(tweetText);
+    	getScheduleDao().saveOrUpdate(schedule);
+    	return schedule;
+    }
+
+    /**
+     * Create Schedule for {@link TweetPoll}
+     * @param tpoll
+     * @param scheduleDate
+     * @param socialAccount
+     * @param status
+     * @return
+     */
+    public Schedule createTweetpollSchedule(final TweetPoll tpoll, final Date scheduleDate, final SocialAccount socialAccount, final Status status){
+    	return this.createScheduledItem(tpoll, null, null, scheduleDate, socialAccount, status, 5 , null, "tweettext");
     }
 }

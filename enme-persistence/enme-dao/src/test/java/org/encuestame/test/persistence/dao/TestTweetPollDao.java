@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
@@ -42,6 +43,7 @@ import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.RelativeTimeEnum;
 import org.encuestame.utils.enums.SearchPeriods;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
 import org.joda.time.DateTime;
@@ -1346,4 +1348,27 @@ public class TestTweetPollDao extends AbstractBase {
 //    	final List<TweetPollSwitch> getListAnswers = getTweetPoll().getAnswerTweetSwitch(questionAnswer);
     }
 
+
+    /**
+     * Test to retrieve all scheduled items.
+     */
+    @Test
+    public void testScheduledItems(){
+
+    final SocialAccount socialAcc2 = createDefaultSettedSocialAccount(this.secondary);
+
+    // Create Tweetpoll
+    final TweetPoll tpoll = createDefaultTweetPollPublicated(Boolean.TRUE,
+			Boolean.TRUE, Boolean.TRUE, this.secondary, this.question,
+			this.initDate.toDate());
+
+    // Create Scheduled items
+    createTweetpollSchedule(tpoll, this.initDate.toDate(), socialAcc2, Status.FAILED);
+    createTweetpollSchedule(tpoll, this.initDate.minusDays(2).toDate(), socialAcc2, Status.FAILED);
+	createTweetpollSchedule(tpoll, this.initDate.minusDays(2).toDate(), socialAcc2, Status.FAILED);
+	createTweetpollSchedule(tpoll, this.initDate.minusDays(6).toDate(), socialAcc2, Status.FAILED);
+
+	final List<Schedule> allScheduled = getScheduleDao().retrieveScheduled(Status.FAILED);
+	Assert.assertEquals("Should be", 3, allScheduled.size());
+	}
 }

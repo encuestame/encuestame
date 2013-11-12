@@ -32,6 +32,7 @@ import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -51,10 +52,12 @@ import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.enums.SearchPeriods;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.social.SocialProvider;
@@ -116,6 +119,9 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 
     /** {@link PollFolder}. **/
     private TweetPollFolder folder;
+
+    /** **/
+    private DateTime initDate;
 
 
     /**
@@ -449,9 +455,43 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 		final TweetPollSearchBean tpSearch = createTweetpollSearchBean(
 				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, "your",
 				"24", 10, 0, TypeSearch.LASTWEEK);
-        final List<TweetPollBean> tpoll = getTweetPollService().filterTweetPollByItemsByType(tpSearch, this.request);
+        final List<SearchBean> tpoll = getTweetPollService().filterTweetPollByItemsByTypeSearch(tpSearch, this.request);
 
         assertEquals("Should be equals", 2, tpoll.size());
+    }
+
+    @Test
+    @Category(DefaultTest.class)
+    public void testFilterTweetPollByItemsByTypeSearch() throws EnMeNoResultsFoundException, EnMeExpcetion  {
+        final DateTime date1 = new DateTime();
+        DateTime dt2 = date1.minusDays(5);
+        DateTime dt3 = date1.minusDays(4);
+        final Question q1 = createDefaultQuestion("What is your favourite movie");
+        final Question q2 = createDefaultQuestion("What is your favourite book");
+        final Question q3 = createDefaultQuestion("What is your favourite song");
+
+        final String keyword = "favourite";
+
+        final TweetPoll tp1 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q1);
+        tp1.setCreateDate(dt3.toDate());
+        tp1.setCompleted(Boolean.TRUE);
+        getTweetPoll().saveOrUpdate(tp1);
+
+        final TweetPoll tp2 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q2);
+        tp2.setCreateDate(dt2.toDate());
+        tp2.setCompleted(Boolean.TRUE);
+
+        getTweetPoll().saveOrUpdate(tp2);
+
+
+        final TweetPoll tp3 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q3);
+		final TweetPollSearchBean tpSearch = createTweetpollSearchBean(
+				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, "your",
+				"24", 10, 0, TypeSearch.BYOWNER);
+        final List<SearchBean> tpollSearch = getTweetPollService().filterTweetPollByItemsByTypeSearch(tpSearch, this.request);
+
+        System.out.println("TOTAL TPOLL --> " + tpollSearch.size());
+        assertEquals("Should be equals", 2, tpollSearch.size());
     }
 
     /**
@@ -571,8 +611,8 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         final TweetPollSearchBean tpSearch = createTweetpollSearchBean(
                 Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE,
                 "What", "24", 10, 0, TypeSearch.BYOWNER);
-        final List<TweetPollBean> tpollsByOwner = getTweetPollService()
-                .filterTweetPollByItemsByType(tpSearch, this.request);
+        final List<SearchBean> tpollsByOwner = getTweetPollService()
+                .filterTweetPollByItemsByTypeSearch(tpSearch, this.request);
         assertEquals("Should be equals", 3, tpollsByOwner.size());
     }
 
@@ -800,6 +840,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * @throws EnMeExpcetion
      */
     @Test
+    @Category(DefaultTest.class)
     public void testSearchTweetsPollScheduled() throws EnMeExpcetion{
 
     	final Question question1 = createQuestion("Why the sky is blue ?",
@@ -807,16 +848,31 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 		final DateTime dt = new DateTime();
 		final TweetPoll tp = createTweetPollPublicated(true, true, dt.toDate(),
 				this.userAccount, question1);
-
-  		tp.setScheduleTweetPoll(Boolean.TRUE);
+   		tp.setScheduleTweetPoll(Boolean.TRUE);
   		tp.setFavourites(Boolean.TRUE);
 		getTweetPoll().saveOrUpdate(tp);
+
+
+		final TweetPoll tp2 = createDefaultTweetPollPublicated(true, true, true, this.userAccount, createQuestion("Why the sky is red",
+				"html"), dt.toDate());
+
+		final TweetPollSearchBean tpbean222 = createTweetpollSearchBean(
+				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, " ",
+				"7", 10, 0, TypeSearch.ALL);
+
 		final TweetPollSearchBean tpbean22 = createTweetpollSearchBean(
 				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, " ",
 				"7", 10, 0, TypeSearch.SCHEDULED);
-		final List<TweetPollBean> tpLastWeek = getTweetPollService()
+
+
+		final List<TweetPollBean> tpall = getTweetPollService().getTweetsPollsByUserName(this.userAccount.getUsername(), this.request, tpbean222);
+		System.out.println("Tpoll all " + tpall.size()) ;
+
+		final List<SearchBean> tpLastWeek = getTweetPollService()
 				.searchTweetsPollScheduled(this.userAccount.getUsername(),
 						this.request, tpbean22);
+
+		System.out.println("Tpoll last week " + tpLastWeek.size()) ;
      }
 
 
@@ -836,7 +892,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 		final TweetPollSearchBean tpbean22 = createTweetpollSearchBean(
 				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, " ",
 				"7", 10, 0, TypeSearch.FAVOURITES);
-		final List<TweetPollBean> tpLastWeek = getTweetPollService()
+		final List<SearchBean> tpLastWeek = getTweetPollService()
 				.searchTweetsPollFavourites(this.userAccount.getUsername(),
 						this.request, tpbean22);
     }
@@ -859,7 +915,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 		final TweetPollSearchBean tpbean = createTweetpollSearchBean(
 				Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, " ",
 				"7", 10, 0, TypeSearch.LASTDAY);
-		final List<TweetPollBean> tpLastWeek = getTweetPollService()
+		final List<SearchBean> tpLastWeek = getTweetPollService()
 				.searchTweetsPollsLastWeek(this.userAccount.getUsername(),
 						this.request, tpbean);
 	 }
@@ -887,7 +943,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 		final TweetPollSearchBean tpbean = createTweetpollSearchBean(
 				Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, " ",
 				"7", 10, 0, TypeSearch.LASTWEEK);
-		final List<TweetPollBean> tpLastWeek = getTweetPollService()
+		final List<SearchBean> tpLastWeek = getTweetPollService()
 				.searchTweetsPollsToday(this.userAccount.getUsername(),
 						this.request, tpbean);
 	}
@@ -1082,5 +1138,19 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     	hashTagBean.setHits(hits);
     	hashTagBean.setSize(size);
     	return hashTagBean;
+    }
+
+    /**
+     * Test {@link Schedule}
+     */
+    @Test
+    public void testPublishScheduled(){
+    	final TweetPoll tweetPoll1 = createPublishedTweetPoll(
+				this.userAccount.getAccount(), this.question, new Date());
+    	final SocialAccount socialAcc = createDefaultSettedSocialAccount(this.userAccount);
+		final TweetPollSavedPublishedStatus tpsavedpub =  createTweetPollSavedPublishedStatus(tweetPoll1, "12BCDMQX", socialAcc, tweetText);
+    	createScheduledItem(tweetPoll1, null, null,this.initDate.minusDays(2).toDate() , socialAcc, Status.ACTIVE, 1, tpsavedpub, tweetText);
+    	createScheduledItem(tweetPoll1, null, null, this.initDate.minusDays(3).toDate(), socialAcc, Status.ACTIVE, 1, tpsavedpub, tweetText);
+    	getTweetPollService().publishScheduledItems(Status.ACTIVE);
     }
 }
