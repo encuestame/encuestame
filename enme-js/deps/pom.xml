@@ -45,8 +45,7 @@
 				</configuration>
 				<executions>
 					<execution>
-						<id>ie-js</id>
-						
+						<id>ie-js</id>						
 						<goals>
 							<goal>compress</goal>
 						</goals>
@@ -98,6 +97,7 @@
 										<include>${commonsSourceDir}/underscore.js</include>
 										<include>${commonsSourceDir}/sockjs.js</include>
 										<include>${commonsSourceDir}/stomp.js</include>
+										<include>${commonsSourceDir}/alertify/dist/alertify.js</include>
 									</includes>
 								</aggregation>
 							</aggregations>
@@ -121,6 +121,7 @@
 										<include>${commonsSourceDir}/underscore.js</include>
 										<include>${commonsSourceDir}/sockjs.js</include>
 										<include>${commonsSourceDir}/stomp.js</include>
+										<include>${commonsSourceDir}/alertify/dist/alertify.js</include>
 									</includes>
 								</aggregation>
 							</aggregations>

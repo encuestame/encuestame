@@ -12,10 +12,10 @@ require([
     "dojo/_base/declare",
     "dojo/parser",
     "dojo/ready",
-    'me/activity/Activity',
+    'me/support/Websocket',
     "me/web/widget/signup/LoginDialog",
     "me/core/enme"
-], function(dojo, declare, parser, ready, Activity, LoginDialog, _ENME) {
+], function(dojo, declare, parser, ready, Websocket, LoginDialog, _ENME) {
     ready(function(){
         // Call the parser manually so it runs after our widget is defined, and page has finished loading
         <%@ include file="/WEB-INF/jsp/includes/decorators/enme-init.jsp"%>
@@ -27,33 +27,43 @@ require([
         }));
         //parse all widgets.
         parser.parse();
+        console.log("Websocket", Websocket);
         <c:if test="${!detectedDevice}">
-            var sock = new SockJS('<%=request.getContextPath()%>/enme-ws');            
-            var stompClient = Stomp.over(sock);
-            stompClient.connect('', '', function(frame) {
-                  console.log('Connected ' + frame);
-                  //var userName = frame.headers['user-name'];
-                  //var queueSuffix = frame.headers['queue-suffix'];                  
-                  //self.username("demo10");
-                  stompClient.subscribe("/app/notifications-ws", function(message) {
-                    console.log("app/notificationsws", message);
-                    //self.portfolio().loadPositions(JSON.parse(message.body));
-                  });
-                  // stompClient.subscribe("/topic/price.stock.*", function(message) {
-                  //   console.log("ic/price.stock.*", message);
-                  //   self.portfolio().processQuote(JSON.parse(message.body));
-                  // });
-                  // stompClient.subscribe("/queue/position-updates" + queueSuffix, function(message) {
-                  //   self.pushNotification("Position update " + message.body);
-                  //   self.portfolio().updatePosition(JSON.parse(message.body));
-                  // });
-                  stompClient.subscribe("/notifications-ws/errors" + "/hola", function(message) {
-                    //self.pushNotification("Error " + message.body);
-                    console.error("message error", message);
-                  });
-                }, function(error) {
-                    console.log("STOMP protocol error " + error);
-            });
+            try {
+
+                socket = new Websocket({
+                  url : '<%=request.getContextPath()%>/enme-ws'
+                });
+
+                socket.debug();
+
+                socket.connect({
+                  notifications_updates : {
+                    type : 'subscribe',
+                    suffix : false,
+                    callback : function(data) {
+                      console.log('updates 2', data);
+                      dojo.publish('/notifications/service/messages', data);
+                    },
+                    channel : '/topic/notification-updates.*'
+                  }               
+                });
+
+                _ENME.setActivity(socket);
+
+                // socket.subscribe({
+                //     type : 'subscribe',
+                //     suffix : false,
+                //     callback : function(data) {
+                //       console.error("app/notificationsws", data);
+                //     },
+                //     channel : '/app/notifications-ws'
+                // });
+
+                         
+            } catch(error) {
+                console.log('error websocket', error);
+            }
     
         </c:if>
     });

@@ -42,6 +42,15 @@ public class NotificationResume {
 	public void setTotalNewNot(Long totalNewNot) {
 		this.totalNewNot = totalNewNot;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "NotificationResume [totalNot=" + totalNot + ", totalNewNot="
+				+ totalNewNot + "]";
+	}
 	
 	
 	

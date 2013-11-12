@@ -147,7 +147,7 @@ var profile = {
                    'me/core/ui/Loading',
                    'me/web/widget/stream/HashTagInfo',
                    'me/web/widget/pictures/AccountPicture',
-                   'me/activity/Activity',
+                   //'me/activity/Activity',
                    "dijit/registry",
                    'dijit/Dialog',
                    "dijit/form/TextBox",
@@ -160,29 +160,7 @@ var profile = {
                    'dojox/widget/Toaster',
                    'dojox/widget/UpgradeBar'
             ]
-    },
-    'dojox/cometd' : {
-        include :[
-          'org/cometd',
-          'org/cometd/AckExtension',
-          'org/cometd/ReloadExtension',
-          'org/cometd/TimeStampExtension',
-          'org/cometd/TimeSyncExtension',
-          'dojox/cometd/main',
-          'dojox/cometd/ack',
-          'dojox/cometd/reload',
-          'dojox/cometd/timestamp',
-          'dojox/cometd/timesync'
-       ]
-    },
-
-    'me/activity/Activity' : {
-        include :[
-          'dojox/cometd',
-          'me/web/widget/notifications/Notification',
-          'me/web/widget/notifications/NotificationItem'
-        ]
-    },
+    },   
 
     // 'me/web/widget/hashtags/Cloud' : {
     //     include :[
