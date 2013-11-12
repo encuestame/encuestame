@@ -32,6 +32,7 @@ import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.dao.IHashTagDao;
+import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
@@ -99,6 +100,9 @@ public class AbstractSurveyService extends AbstractChartService {
 
     /** Tweet Path, **/
     private String tweetPath;
+
+    /** Tweet Path, **/
+    private IScheduled scheduledDao;
 
     /**
      * Twee poll vote.
@@ -793,5 +797,17 @@ public class AbstractSurveyService extends AbstractChartService {
         this.hashTagDao = hashTagDao;
     }
 
+	/**
+	 * @return the scheduledDao
+	 */
+	public IScheduled getScheduledDao() {
+		return scheduledDao;
+	}
 
+	/**
+	 * @param scheduledDao the scheduledDao to set
+	 */
+	public void setScheduledDao(final IScheduled scheduledDao) {
+		this.scheduledDao = scheduledDao;
+	}
 }
