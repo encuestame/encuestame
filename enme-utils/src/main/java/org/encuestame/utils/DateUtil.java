@@ -149,6 +149,17 @@ public class DateUtil {
     }
 
     /**
+     * Retrieve before day midnight.
+     * @return
+     */
+    public static Date getBeforeDayMidnightDate(){
+        DateTime midNight = new DateTime();
+        midNight = midNight.plusDays(-1);
+        final DateMidnight midnightDate  = midNight.toDateMidnight();
+        return midnightDate.toDate();
+    }
+
+    /**
      * Increase a day your date.
      * @param startDate
      * @return

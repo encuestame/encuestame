@@ -31,6 +31,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -835,12 +836,51 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 tweetPoll.setPublishTweetPoll(Boolean.FALSE);
                 //getTweetPollDao().saveOrUpdate(tweetPoll);
             }
+
          }
          log.info("Publish Status Social :{------------>"+publishedStatus.toString());
          getTweetPollDao().saveOrUpdate(publishedStatus);
          return publishedStatus;
     }
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.core.service.imp.ITweetPollService#createScheduled(org
+	 * .encuestame.persistence.domain.tweetpoll.TweetPoll,
+	 * org.encuestame.persistence.domain.survey.Poll,
+	 * org.encuestame.persistence.domain.survey.Survey, java.util.Date,
+	 * org.encuestame.utils.enums.TypeSearchResult, java.lang.String,
+	 * java.lang.Long,
+	 * org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
+	 * )
+	 */
+	public Schedule createScheduled(final TweetPoll tpoll, final Poll poll,
+			final Survey survey, final Date scheduleDate,
+			final TypeSearchResult typeSearch, final String tweetText, final Long socialAccountId, final TweetPollSavedPublishedStatus tpollSaved) {
+    	final SocialAccount socialAccount = getAccountDao().getSocialAccountById(socialAccountId);
+		final Schedule schedule = new Schedule();
+		schedule.setScheduleDate(scheduleDate);
+		if (typeSearch.equals(TypeSearchResult.TWEETPOLL)){
+			schedule.setTpoll(tpoll);
+			schedule.setTypeSearch(TypeSearchResult.TWEETPOLL);
+		} else if(typeSearch.equals(TypeSearchResult.POLL)) {
+			schedule.setPoll(poll);
+			schedule.setTypeSearch(TypeSearchResult.POLL);
+		} else if(typeSearch.equals(TypeSearchResult.SURVEY)) {
+			schedule.setSurvey(survey);
+			schedule.setTypeSearch(TypeSearchResult.SURVEY);
+		}
+
+		schedule.setTweetText(tweetText);
+		schedule.setSocialAccount(socialAccount);
+		schedule.setStatus(Status.FAILED);
+		schedule.setPublishAttempts(0);
+		schedule.setTpollSavedPublished(tpollSaved);
+		return schedule;
+
+	}
 
     /*
      * (non-Javadoc)
@@ -1469,6 +1509,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
 		getTweetPollDao().delete(tpoll);
 
-
-    }
+	}
 }
+
