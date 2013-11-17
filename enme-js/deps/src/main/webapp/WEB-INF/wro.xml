@@ -16,7 +16,6 @@
 
 
   <group name='commons-mobile'>
-    <js>/commons/hammer.js</js>
     <js>/commons/moment.js</js>
     <js>/commons/d3.v3.min.js</js>
     <!-- why ?? <js>/commons/d3.layout.cloud.js</js> -->

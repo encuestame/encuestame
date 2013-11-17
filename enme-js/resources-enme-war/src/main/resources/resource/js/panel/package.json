@@ -1,0 +1,14 @@
+{
+	"name": "panel",
+	"version": "1.0",
+	"main": "main",
+	"dependencies": {
+		"dojo": "1.9.0",
+		"util": "1.9.0"
+	},
+	"description": "A Dojo module that creates a paneled-style menu (like the type seen in the mobile versions of Facebook and Google, as well as in many native iPhone applications)",
+	"bugs": "https://github.com/juanpicado/dojoPanelMenu/issues",
+	"keywords": ["JavaScript", "Dojo", "Mobile", "Menu"],
+	"homepage": "https://github.com/juanpicado/dojoPanelMenu",
+	"dojoBuild": "package.js"
+}
