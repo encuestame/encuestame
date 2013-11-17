@@ -16,9 +16,9 @@
     <div class="content">
         <div class="title">
             <a href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}">
-                <h1>
+                <h4 class="enme">
                      ${item.questionBean.questionName}
-                </h1>
+                </h4>
             </a>
         </div>
          <!-- List of Hashtags -->
@@ -36,15 +36,12 @@
          <div class="options">
              <div class="submited">
                  <spring:message code="submited_by" />
-                 <strong>
                      <a href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">${item.ownerUsername}</a>
-                 </strong>
                  <spring:message code="added" />
-                 <strong> ${item.relativeTime} |
+                  ${item.relativeTime} |
                       <a href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}#comments">
                          ${item.totalComments} <spring:message code="home_item_comments" />
                       </a>
-                 </strong>
              </div>
          </div>
      </div>

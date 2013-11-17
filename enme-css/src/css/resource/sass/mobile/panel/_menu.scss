@@ -1,7 +1,7 @@
 $header-size: 50px;
-$menu-color: mix($text-color,$black);
+$menu-color: #31394A;
 
-.jPanelMenu {
+.dojoPanelMenu {
 	header.main {
 		@include linear-gradient($blue, mix($blue, $blue-dark, 25%));
 		@include box-shadow(0,1px,5px,rgba($black,.5));
@@ -36,7 +36,7 @@ $menu-color: mix($text-color,$black);
 			a:before { display: none !important; }
 		}
 
-		.menu-trigger {
+		.menu-trigger, .left-menu {
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -45,6 +45,11 @@ $menu-color: mix($text-color,$black);
 			line-height: $header-size*1.15;
 
 			&:active { text-shadow: 0 -1px 1px $black, 0 0 50px $white; }
+		}
+
+		.left-menu {
+			left: auto;
+			right: 0 !important;
 		}
 
 		nav {
@@ -77,15 +82,26 @@ $menu-color: mix($text-color,$black);
 	}
 }
 
-#jPanelMenu-menu {
+.menu-background {
 	background: $menu-color;
 
 	ul {
 		border-bottom: 1px solid lighten($menu-color,5%);
+		padding: 0;
+		margin: 0px;
+	}
+
+	li {
+		list-style: none;
+	}
+
+	li.selected {
+		background-color: #262C3A;
 	}
 
 	li a {
-		@include linear-gradient(lighten($menu-color,1%), darken($menu-color,1%));
+		//@include linear-gradient(lighten($menu-color,1%), darken($menu-color,1%));
+		background-color: #31394A;
 		@include type-medium;
 		display: block;
 		padding: $vertical-space-small $horizontal-space-large;
@@ -93,7 +109,8 @@ $menu-color: mix($text-color,$black);
 		border-bottom: 1px solid darken($menu-color,5%);
 		text-decoration: none;
 		text-shadow: 0 -1px 2px $black;
-		color: $white;
+		//color: $white;
+		color: #C4CCDA;
 
 		&:hover, &:focus { @include linear-gradient(lighten($menu-color,5%), darken($menu-color,1%)); }
 		&:active {
