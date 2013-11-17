@@ -70,8 +70,21 @@ var profile = {
             name: "me",
             location: "me"
         },{
+            name: 'hammer',
+            location: 'hammer',
+            main: "hammer"
+        },{
             name: "org",
             location: "org"
+        },{
+            name: 'panel',
+            location: 'panel',
+            main: "main",
+        },{
+          name: 'mobile',
+          location: 'mobile',
+          main: "main",
+          map: {}
         }],
 
   // Builds can be split into multiple different JavaScript files called "layers". This allows applications to
