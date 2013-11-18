@@ -35,6 +35,7 @@ import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -101,7 +102,8 @@ public class AbstractSurveyService extends AbstractChartService {
     /** Tweet Path, **/
     private String tweetPath;
 
-    /** Tweet Path, **/
+    /** {@link Schedule} **/
+    @Autowired
     private IScheduled scheduledDao;
 
     /**

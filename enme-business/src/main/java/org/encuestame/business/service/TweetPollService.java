@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -47,6 +48,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.ValidationUtils;
@@ -1514,27 +1516,33 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 	/**
 	 *
 	 */
-	public void publishScheduledItems(final Status status) {
+	public void publishScheduledItems(final Status status, final Date minimumDate) {
 		Boolean publish = Boolean.FALSE;
-		// 1. Retrieve all records scheduled before currently date.
-		final List<Schedule> scheduledRecords = getScheduledDao()
-				.retrieveScheduled(status);
-		System.out.println("Schedule Records ---> " + scheduledRecords.size());
+	final String totalAttempts = EnMePlaceHolderConfigurer.getProperty("attempts.scheduled.publication");
+
+ 		// 1. Retrieve all records scheduled before currently date.
+	final List<Schedule> scheduledRecords = getScheduledDao()
+				.retrieveScheduled(status, minimumDate);
+
 		// 2. Iterate the results and for each try to publish again Call
 		// Service to publish Tweetpoll/ Poll or Survey.
 		// 3. If list > O - iterate list
 		if (scheduledRecords.size() > 0) {
 			for (Schedule schedule : scheduledRecords) {
-
+				TweetPollSavedPublishedStatus tpollSaved = new TweetPollSavedPublishedStatus();
 				// Retrieve attempt constant for properties file.
 				if (schedule.getPublishAttempts() < 5) {
-					final TweetPollSavedPublishedStatus tpollSaved = this
+					// Set Status PROCESSING
+					schedule.setStatus(Status.PROCESSING);
+					getScheduledDao().saveOrUpdate(schedule);
+
+					tpollSaved = this
 							.publishTweetBySocialAccountId(schedule
 									.getSocialAccount().getId(), schedule
 									.getTpoll(), schedule.getTweetText(),
 									schedule.getTypeSearch(), schedule
 											.getPoll(), schedule.getSurvey());
-					// If tpollsavedpublished isnt null and Status is failed, is
+ 					// If tpollsavedpublished isnt null and Status is failed, is
 					// necessary re publish
 					if ((tpollSaved != null)
 							&& (tpollSaved.getStatus()).equals(Status.FAILED)) {
@@ -1547,16 +1555,18 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 						int counter = schedule.getPublishAttempts();
 						counter = counter + 1;
 						schedule.setPublishAttempts(counter);
+						schedule.setStatus(Status.FAILED);
 						getScheduledDao().saveOrUpdate(schedule);
 
-					} else  {
+					} else {
 						log.debug("******* Published *******");
 						schedule.setStatus(Status.SUCCESS);
+						schedule.setPublicationDate(DateUtil.getCurrentCalendarDate());
 						getScheduledDao().saveOrUpdate(schedule);
 
 					}
 				}
+			}
 		}
-		}
-	}
+ 	}
 }
