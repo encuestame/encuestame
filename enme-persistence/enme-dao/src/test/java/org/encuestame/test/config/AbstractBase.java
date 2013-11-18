@@ -80,10 +80,10 @@ import org.encuestame.persistence.domain.question.QuestionColettion;
 import org.encuestame.persistence.domain.question.QuestionPreferences;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
@@ -110,6 +110,7 @@ import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Status;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.ItemStatDetail;
 import org.hibernate.search.FullTextSession;
@@ -2598,17 +2599,18 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 			final Survey survey, final Poll poll, final Date scheduleDate,
 			final SocialAccount socialAccount, final Status status,
 			final Integer attempts,
-			final TweetPollSavedPublishedStatus tpollSaved, final String tweetText) {
+			final TweetPollSavedPublishedStatus tpollSaved, final String tweetText, final TypeSearchResult typeSearch) {
     	final Schedule schedule = new Schedule();
     	schedule.setPublishAttempts(attempts);
-    	schedule.setPoll(null);
+    	schedule.setPoll(poll);
     	schedule.setScheduleDate(scheduleDate);
     	schedule.setSocialAccount(socialAccount);
     	schedule.setStatus(status);
-    	schedule.setSurvey(null);
+    	schedule.setSurvey(survey);
     	schedule.setTpoll(tpoll);
     	schedule.setTpollSavedPublished(tpollSaved);
     	schedule.setTweetText(tweetText);
+    	schedule.setTypeSearch(typeSearch);
     	getScheduleDao().saveOrUpdate(schedule);
     	return schedule;
     }
@@ -2621,7 +2623,25 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param status
      * @return
      */
-    public Schedule createTweetpollSchedule(final TweetPoll tpoll, final Date scheduleDate, final SocialAccount socialAccount, final Status status){
-    	return this.createScheduledItem(tpoll, null, null, scheduleDate, socialAccount, status, 5 , null, "tweettext");
+    public Schedule createTweetpollSchedule(final TweetPoll tpoll, final Date scheduleDate, final SocialAccount socialAccount, final Status status, final TypeSearchResult typeSearch){
+    	return this.createScheduledItem(tpoll, null, null, scheduleDate, socialAccount, status, 2 , null, "tweettext", typeSearch);
     }
+
+    /**
+     *
+     * @param tpoll
+     * @param scheduleDate
+     * @param socialAccount
+     * @param status
+     * @param typeSearch
+     * @return
+     */
+    public Schedule createTweetpollScheduleDefault(final TweetPoll tpoll,
+			final Date scheduleDate, final SocialAccount socialAccount,
+			final Status status, final TypeSearchResult typeSearch, final String tweetText) {
+		return this.createScheduledItem(tpoll, null, null, scheduleDate,
+				socialAccount, status, 2, null, tweetText, typeSearch);
+
+	}
+
 }

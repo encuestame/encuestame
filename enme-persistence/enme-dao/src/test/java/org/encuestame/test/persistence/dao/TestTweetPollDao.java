@@ -1361,14 +1361,22 @@ public class TestTweetPollDao extends AbstractBase {
     final TweetPoll tpoll = createDefaultTweetPollPublicated(Boolean.TRUE,
 			Boolean.TRUE, Boolean.TRUE, this.secondary, this.question,
 			this.initDate.toDate());
-
+    final DateTime secondDate = new DateTime();
     // Create Scheduled items
-    createTweetpollSchedule(tpoll, this.initDate.toDate(), socialAcc2, Status.FAILED);
-    createTweetpollSchedule(tpoll, this.initDate.minusDays(2).toDate(), socialAcc2, Status.FAILED);
-	createTweetpollSchedule(tpoll, this.initDate.minusDays(2).toDate(), socialAcc2, Status.FAILED);
-	createTweetpollSchedule(tpoll, this.initDate.minusDays(6).toDate(), socialAcc2, Status.FAILED);
 
-	final List<Schedule> allScheduled = getScheduleDao().retrieveScheduled(Status.FAILED);
-	Assert.assertEquals("Should be", 3, allScheduled.size());
+	createTweetpollSchedule(tpoll, secondDate.toDate(), socialAcc2, Status.FAILED, TypeSearchResult.TWEETPOLL);
+	createTweetpollSchedule(tpoll, secondDate.minusDays(2).toDate(), socialAcc2, Status.FAILED, TypeSearchResult.TWEETPOLL);
+
+	createTweetpollSchedule(tpoll, secondDate.minusDays(3).toDate(), socialAcc2, Status.FAILED, TypeSearchResult.TWEETPOLL);
+
+	createTweetpollSchedule(tpoll, secondDate.plusDays(1).toDate(), socialAcc2, Status.FAILED, TypeSearchResult.TWEETPOLL);
+	createTweetpollSchedule(tpoll, secondDate.minusDays(7).toDate(), socialAcc2, Status.FAILED, TypeSearchResult.TWEETPOLL);
+	//
+	final Date minimumDate = getScheduleDao().retrieveMinimumScheduledDate(Status.FAILED);
+
+	// Retrieve Scheduled items with Status FAILED
+	final List<Schedule> allScheduled = getScheduleDao().retrieveScheduled(Status.FAILED, minimumDate);
+
+	Assert.assertEquals("Should be", 4, allScheduled.size());
 	}
 }
