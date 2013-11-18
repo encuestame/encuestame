@@ -1098,5 +1098,6 @@ CREATE TABLE scheduled (
 	status integer,
 	publish_attempts integer,
 	tweetPoll_save_published_status_status_save_poll_id bigint,
-	type_search integer
+	type_search integer,
+	publication_date timestamp without time zone
 );
