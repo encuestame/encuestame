@@ -85,6 +85,9 @@ public class Schedule {
 	/** **/
 	private TypeSearchResult typeSearch;
 
+	/** **/
+	private Date publicationDate;
+
 
 	/**
 	 * @return the id
@@ -256,5 +259,21 @@ public class Schedule {
 	 */
 	public void setTypeSearch(final TypeSearchResult typeSearch) {
 		this.typeSearch = typeSearch;
+	}
+
+	/**
+	 * @return the publicationDate
+	 */
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "publication_date", nullable = true)
+	public Date getPublicationDate() {
+		return publicationDate;
+	}
+
+	/**
+	 * @param publicationDate the publicationDate to set
+	 */
+	public void setPublicationDate(final Date publicationDate) {
+		this.publicationDate = publicationDate;
 	}
 }

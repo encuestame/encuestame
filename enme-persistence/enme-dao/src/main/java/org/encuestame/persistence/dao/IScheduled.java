@@ -36,9 +36,10 @@ public interface IScheduled  extends IBaseDao{
 	/**
 	 *
 	 * @param status
+	 * @param minimumDate
 	 * @return
 	 */
-	List<Schedule> retrieveScheduled(final Status status);
+	List<Schedule> retrieveScheduled(final Status status, final Date minimumDate);
 
 
 }

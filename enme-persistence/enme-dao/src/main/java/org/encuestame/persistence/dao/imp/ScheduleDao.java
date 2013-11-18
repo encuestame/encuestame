@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.domain.Schedule;
+import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.Status;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -57,14 +58,14 @@ public class ScheduleDao  extends AbstractHibernateDaoSupport implements ISchedu
 	 * org.encuestame.persistence.dao.IScheduled#retrieveScheduled(org.encuestame
 	 * .utils.enums.Status)
 	 */
-	public List<Schedule> retrieveScheduled(final Status status) {
-		// Not necessary
-		final Date fechaMin = this.retrieveMinimumScheduledDate(Status.ACTIVE);
+	@SuppressWarnings("unchecked")
+	public List<Schedule> retrieveScheduled(final Status status, final Date minimumDate) {
+ 		System.out.println("Minimun date ---> " + minimumDate);
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(Schedule.class);
 		// Between Minimun date and currently date
-		criteria.add(Restrictions.gt("scheduleDate", fechaMin));
-		criteria.add(Restrictions.eq("status", status));
+		criteria.add(Restrictions.between("scheduleDate", minimumDate, DateUtil.getCurrentCalendarDate()));
+  		criteria.add(Restrictions.eq("status", status));
 		return getHibernateTemplate().findByCriteria(criteria);
 	}
 
