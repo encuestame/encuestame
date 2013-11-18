@@ -121,7 +121,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     private TweetPollFolder folder;
 
     /** **/
-    private DateTime initDate;
+    private DateTime initDate = new DateTime();
 
 
     /**
@@ -1144,13 +1144,38 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * Test {@link Schedule}
      */
     @Test
+    @Category(DefaultTest.class)
     public void testPublishScheduled(){
+    	// Tweetpoll
     	final TweetPoll tweetPoll1 = createPublishedTweetPoll(
 				this.userAccount.getAccount(), this.question, new Date());
+
+    	final TweetPoll tweetPoll2 = createPublishedTweetPoll(
+				this.userAccount.getAccount(), this.question, new Date());
+
+    	// SocialAccount
     	final SocialAccount socialAcc = createDefaultSettedSocialAccount(this.userAccount);
-		final TweetPollSavedPublishedStatus tpsavedpub =  createTweetPollSavedPublishedStatus(tweetPoll1, "12BCDMQX", socialAcc, tweetText);
-    	createScheduledItem(tweetPoll1, null, null,this.initDate.minusDays(2).toDate() , socialAcc, Status.ACTIVE, 1, tpsavedpub, tweetText);
-    	createScheduledItem(tweetPoll1, null, null, this.initDate.minusDays(3).toDate(), socialAcc, Status.ACTIVE, 1, tpsavedpub, tweetText);
-    	getTweetPollService().publishScheduledItems(Status.ACTIVE);
+
+    	// Scheduled 1
+		final Schedule schedule1 = createTweetpollScheduleDefault(tweetPoll1,
+				this.initDate.minusDays(2).toDate(), socialAcc, Status.ACTIVE,
+				TypeSearchResult.TWEETPOLL, this.tweetText);
+
+		// Scheduled 2
+		final Schedule schedule2 = createTweetpollScheduleDefault(tweetPoll2,
+				this.initDate.minusDays(2).toDate(), socialAcc, Status.ACTIVE,
+				TypeSearchResult.TWEETPOLL, this.tweetText);
+
+		// Scheduled 3
+		final Schedule schedule3 = createTweetpollScheduleDefault(tweetPoll1,
+				this.initDate.plus(2).toDate(), socialAcc, Status.ACTIVE, TypeSearchResult.TWEETPOLL, this.tweetText);
+
+		final Date minDate = getScheduleDao().retrieveMinimumScheduledDate(Status.ACTIVE);
+
+		getTweetPollService().publishScheduledItems(Status.ACTIVE, minDate);
+		Assert.assertEquals(schedule1.getStatus(), Status.SUCCESS);
     }
+
+
+
 }
