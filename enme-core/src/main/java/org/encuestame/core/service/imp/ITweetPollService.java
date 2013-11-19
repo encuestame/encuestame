@@ -568,4 +568,11 @@ public interface ITweetPollService extends IMasterSurveyService{
 	 * @return
 	 */
 	void publishScheduledItems(final Status status, final Date minimumDate);
+
+	/**
+	 * Remove Scheduled items.
+	 * @param status
+	 * @param attempts
+	 */
+	void removeScheduledItems(final Status status, final Integer attempts);
 }

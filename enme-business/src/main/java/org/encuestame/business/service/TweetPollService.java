@@ -1569,4 +1569,19 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 			}
 		}
  	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.core.service.imp.ITweetPollService#removeScheduledItems
+	 * (org.encuestame.utils.enums.Status, java.lang.Integer)
+	 */
+	public void removeScheduledItems(final Status status, final Integer attempts) {
+		final List<Schedule> removeList = getScheduledDao()
+				.retrieveFailedScheduledItems(attempts, status);
+		for (Schedule schedule : removeList) {
+			getScheduledDao().delete(schedule);
+		}
+	}
 }
