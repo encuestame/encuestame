@@ -69,12 +69,21 @@ public class ScheduleDao  extends AbstractHibernateDaoSupport implements ISchedu
 		return getHibernateTemplate().findByCriteria(criteria);
 	}
 
-
-	// Recuperar registros con counter menor o igual que y status succes
- 	public List<Schedule> retrieveScheduledFailed(){
-
-		return null;
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.IScheduled#retrieveScheduledFailed(java
+	 * .lang.Integer, org.encuestame.utils.enums.Status)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Schedule> retrieveFailedScheduledItems(final Integer attempts,
+			final Status status) {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(Schedule.class);
+		criteria.add(Restrictions.or(Restrictions.eq("publishAttempts", attempts),
+				Restrictions.eq("status", status)));
+		return getHibernateTemplate().findByCriteria(criteria);
 
 	}
-
 }

@@ -41,5 +41,12 @@ public interface IScheduled  extends IBaseDao{
 	 */
 	List<Schedule> retrieveScheduled(final Status status, final Date minimumDate);
 
-
+	/**
+	 * Retrieve scheduled items to remove.
+	 * @param attempts
+	 * @param status
+	 * @return
+	 */
+	List<Schedule> retrieveFailedScheduledItems(final Integer attempts,
+			final Status status);
 }

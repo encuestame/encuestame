@@ -2644,4 +2644,21 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
 	}
 
+    /**
+     *
+     * @param tpoll
+     * @param scheduleDate
+     * @param socialAccount
+     * @param status
+     * @param typeSearch
+     * @param attempts
+     * @return
+     */
+    public Schedule createTweetpollScheduleDefault(final TweetPoll tpoll,
+			final Date scheduleDate, final SocialAccount socialAccount,
+			final Status status, final TypeSearchResult typeSearch, final Integer attempts) {
+		return this.createScheduledItem(tpoll, null, null, scheduleDate,
+				socialAccount, status, attempts, null, "tweettext", typeSearch);
+
+	}
 }
