@@ -145,7 +145,6 @@ public class TestTweetPollDao extends AbstractBase {
      */
     @Test
     public void testRetrieveTweetsPollSwitch() {
-        // System.out.println("----------");
         final TweetPollSwitch pollSwitch = getTweetPoll()
                 .retrieveTweetsPollSwitch(this.pollSwitch1.getCodeTweet());
         assertNotNull(pollSwitch);
@@ -327,8 +326,7 @@ public class TestTweetPollDao extends AbstractBase {
         assertNotNull(tweetPoll);
         final Long userId = this.secondary.getAccount().getUid();
         final String peri = "7";
-         final List<TweetPoll> tweets = getTweetPoll().retrieveTweetsByUserId(" ", userId, 10, 0,  Boolean.TRUE,  Boolean.TRUE,  Boolean.TRUE,  Boolean.TRUE, peri);
-        System.out.println("Should be equals ---> " +tweets.size());
+        final List<TweetPoll> tweets = getTweetPoll().retrieveTweetsByUserId(" ", userId, 10, 0,  Boolean.TRUE,  Boolean.TRUE,  Boolean.TRUE,  Boolean.TRUE, peri);
         assertEquals("Should be equals", 1, tweets.size());
     }
 
@@ -628,31 +626,19 @@ public class TestTweetPollDao extends AbstractBase {
         getTweetPoll().saveOrUpdate(tweetPoll2);
 
         final Calendar calendar3 = Calendar.getInstance();
-        // System.out.println("THIRD CALENDAR --> "+calendar3.getTime());
 
         final HashMap<Integer, RelativeTimeEnum> hm3 = DateUtil
                 .getRelativeTime(tweetPoll1.getCreateDate());
-        // System.out.println("HM 3 ---------->"+hm3);
 
         final List<TweetPoll> tweetPolls2 = getTweetPoll()
                 .getTweetpollByHashTagName(this.hashTag1.getHashTag(),
                         this.INIT_RESULTS, this.MAX_RESULTS,
                         TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
-        // System.out.println("------------- HASH TAG NAME---------> " +
-        // this.hashTag1.getHashTag());
 
         final Calendar calendar4 = Calendar.getInstance();
-        // System.out.println(calendar.getTime());
 
         final HashMap<Integer, RelativeTimeEnum> hm4 = DateUtil
                 .getRelativeTime(tweetPoll2.getCreateDate());
-        // System.out.println("HM---------->"+hm4);
-
-        for (TweetPoll tweetPoll : tweetPolls2) {
-            // System.out.println(" TWITS BY HASHTAG --> " +
-            // tweetPoll.getQuestion().getQuestion() + "Published -->" +
-            // tweetPoll.getCreateDate());
-        }
         assertEquals("Should be equals", 3, tweetPolls2.size());
     }
 
@@ -672,15 +658,10 @@ public class TestTweetPollDao extends AbstractBase {
         tweetPoll1.getHashTags().add(this.hashTag1);
 
         getTweetPoll().saveOrUpdate(tweetPoll1);
-        // System.out.println(" TP 1 -->" +tweetPoll1.getTweetPollId());
 
         final TweetPoll tweetPollsbyTag = getTweetPoll()
                 .checkIfTweetPollHasHashTag(this.hashTag1.getHashTag(),
                         SearchPeriods.ALLTIME, tweetPoll1.getTweetPollId());
-
-        // System.out.println(" TP Result 1 -->" +tweetPollsbyTag);
-
-        // SIN TP Correcto
 
         final TweetPoll tweetPoll2 = createPublishedTweetPoll(
                 secondary.getAccount(),
@@ -691,13 +672,10 @@ public class TestTweetPollDao extends AbstractBase {
         tweetPoll2.getHashTags().add(this.hashTag1);
 
         getTweetPoll().saveOrUpdate(tweetPoll2);
-        // System.out.println(" TP 2 -->" +tweetPoll2.getTweetPollId());
 
         final TweetPoll tweetPollsbyTag2 = getTweetPoll()
                 .checkIfTweetPollHasHashTag(this.hashTag1.getHashTag(),
                         SearchPeriods.ALLTIME, tweetPoll2.getTweetPollId());
-
-        // System.out.println(" TP RESULT 2 -->" +tweetPollsbyTag2);
     }
 
     @Test
@@ -760,9 +738,6 @@ public class TestTweetPollDao extends AbstractBase {
         final Calendar dateFrom = Calendar.getInstance();
         dateFrom.add(Calendar.DATE, -5);
 
-        // System.out.println("Date From -->"+ dateFrom.getTime() + " \n");
-        // System.out.println("Today date -->"+ todayDate.getTime() + " \n");
-
         // **** First tweetPoll **//
         this.secondary = createUserAccount("jhon", createAccount());
         final TweetPoll tweetPoll1 = createPublishedTweetPoll(
@@ -794,9 +769,7 @@ public class TestTweetPollDao extends AbstractBase {
         // Get Max value
         final Long maxValueLike = getTweetPoll()
                 .getMaxTweetPollLikeVotesbyUser(this.secondary.getUid());
-
-        // System.out.println("Max tweetPoll like vote : " + maxValueLike);
-        Assert.assertNotNull(maxValueLike);
+         Assert.assertNotNull(maxValueLike);
     }
 
     /**
@@ -1028,15 +1001,6 @@ public class TestTweetPollDao extends AbstractBase {
                         longRadian, 510d, 6378, 10, TypeSearchResult.TWEETPOLL,
                         SearchPeriods.SEVENDAYS);
         Assert.assertEquals("Should be", 2, distanceFromOrigin.size());
-
-        /*
-         * for (Object[] objects : distanceFromOrigin) {
-         * System.out.println(" ------------------");
-         * System.out.println(" id values -->" + objects[0]);
-         * System.out.println(" distance values -->" + objects[1]);
-         *
-         * }
-         */
     }
 
     /**
@@ -1125,8 +1089,6 @@ public class TestTweetPollDao extends AbstractBase {
                 Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE,
                 this.secondary.getAccount(), 0, 10, 30, "b");
         Assert.assertEquals("Should be", 1, search2.size());
-
-    //    System.out.println("\n");
 
         final List<TweetPoll> search3 = getTweetPoll().advancedSearch(
                 Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE,
@@ -1301,11 +1263,6 @@ public class TestTweetPollDao extends AbstractBase {
 
 		final TweetPollFolder folders = getTweetPoll().getTweetPollFolderById(
 				tpFolder.getId());
-
-
-	//	System.out.println(" \n Tweetpoll Folder  " + tpollsbyFolder.size());
-	//	System.out.println(" \n  Folder  " + folders.getId());
-	//	System.out.println(" \n Question After " + quest.getQuestion());
      }
 
     /**

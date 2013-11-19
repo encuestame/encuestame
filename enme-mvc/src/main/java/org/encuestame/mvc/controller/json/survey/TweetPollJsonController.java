@@ -129,7 +129,6 @@ public class TweetPollJsonController extends AbstractJsonController {
             final List<SearchBean> list = (List<SearchBean>) getTweetPollService().filterTweetPollByItemsByTypeSearch(
                     tpollSearchBean, request);
 
-            //System.out.println("Json Controller --> " + list.size());
             log.debug("/api/survey/tweetpoll/search.json---------------->  "+ list.size());
             jsonResponse.put("tweetPolls", list);
             setItemResponse(jsonResponse);

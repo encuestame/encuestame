@@ -87,13 +87,13 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         }
     }
 
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IStatisticsService#getTotalSocialLinksbyHashTagUsageAndDateRangeGraph(java.lang.String, org.encuestame.utils.enums.SearchPeriods, javax.servlet.http.HttpServletRequest)
      */
 	public List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRangeGraph(
-			final String tagName, 
+			final String tagName,
 			final SearchPeriods period,
 			final HttpServletRequest request) throws EnMeSearchException {
 		List<HashTagDetailStats> tagDetailStatsBySocial = new ArrayList<HashTagDetailStats>();
@@ -772,9 +772,8 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 		List<HashTagDetailStats> tagDetailStatsByTagName = new ArrayList<HashTagDetailStats>();
 		tweetPollsByDateRange = this.getTweetPollsRangeStats(tag.getHashTag(),
 				period);
-		System.out.println("TweetPolls Service -->" + tweetPollsByDateRange.size());
+
 		pollsByDateRange = this.getPollsRangeStats(tag.getHashTag(), period);
-		System.out.println("POLLS Service -->" + pollsByDateRange.size());
 
 		surveysByDateRange = this.getSurveysRangeStats(tag.getHashTag(), period);
 
@@ -802,7 +801,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
    public List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRangeGraph(
            final String hashTagName, final SearchPeriods period, final HttpServletRequest request)
            throws EnMeNoResultsFoundException, EnMeSearchException {
-	   
+
 	   //TODO: This method should be updated
 	   //TODO: This method should be updated
 	   //TODO: This method should be updated

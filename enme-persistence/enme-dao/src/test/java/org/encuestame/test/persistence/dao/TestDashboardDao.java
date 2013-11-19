@@ -96,7 +96,6 @@ public class TestDashboardDao extends AbstractBase {
      */
     @Test
     public void testGetDashboardbyId(){
-        // System.out.println("----------------------------------");
         final Dashboard dashboard = getDashboardDao().getDashboardbyId(this.board.getBoardId());
         assertNotNull(dashboard);
         assertEquals("Should be equals", dashboard.getBoardId(), this.board.getBoardId());

@@ -103,16 +103,10 @@ public class TestHashTagDao  extends AbstractBase{
         createHashTag("Amazonas", 90L);
         createHashTag("Carazo",  50L);
         final List<Object[]>  frecuency = getHashTagDao().getMaxMinTagFrecuency();
-        //System.out.println("MAX 1-------->"+ frecuency.get(0)[0]);
-        //System.out.println(" MIN 1-------->"+ frecuency.get(0)[1]);
-         for (Object[] objects : frecuency) {
-           // System.out.println("---- MAX ----****"+ objects[0]);
-           // System.out.println("---- MIN ----****"+ objects[1]);
-        }
     }
-  
+
 	/**
-	 * 
+	 *
 	 */
 	@Test
 	public void testGetMaxHashTagRankDate() {
@@ -120,79 +114,79 @@ public class TestHashTagDao  extends AbstractBase{
 		final HashTag tag = createHashTag("America", 20L);
 		final HashTag tag1 = createHashTag("Europa", 20L);
 		final HashTag tag2 = createHashTag("Asia", 20L);
-		
-		myDate.add(Calendar.DATE, -1); 
+
+		myDate.add(Calendar.DATE, -1);
 		final Date maxDate = myDate.getTime();
 		createHashTagRank(tag, myDate.getTime(), 20D);
 		myDate.add(Calendar.DATE, -2);
-		 
-		createHashTagRank(tag1, myDate.getTime(), 10D);
-		
-		myDate.add(Calendar.DATE, -3); 
-		createHashTagRank(tag2, myDate.getTime(), 30D);
-		
- 		final Date tRank = getHashTagDao()
-				.getMaxHashTagRankingDate();  
 
-	} 
-	
+		createHashTagRank(tag1, myDate.getTime(), 10D);
+
+		myDate.add(Calendar.DATE, -3);
+		createHashTagRank(tag2, myDate.getTime(), 30D);
+
+ 		final Date tRank = getHashTagDao()
+				.getMaxHashTagRankingDate();
+
+	}
+
 	/**
 	 * Test Get hashtag rank stats.
 	 */
 	@Test
 	public void testgetHashTagRankStats(){
-		final DateTime time = new DateTime("2010-06-25");		
+		final DateTime time = new DateTime("2010-06-25");
 		//final Calendar myDate = Calendar.getInstance().setTime(time.toDate());
 		final HashTag tag = createHashTag("America", 20L);
 		final HashTag tag1 = createHashTag("Europa", 20L);
 		final HashTag tag2 = createHashTag("Asia", 20L);
 		final HashTag tag3 = createHashTag("Antartic", 20L);
-		final HashTag tag4 = createHashTag("Oceania", 20L); 
+		final HashTag tag4 = createHashTag("Oceania", 20L);
 		final HashTag tag5 = createHashTag("Polar", 10L);
-		
-		
+
+
 		//myDate.add(Calendar.DATE, -1);
 		final DateTime time1 = time.minusDays(1);
-		
-		createHashTagRank(tag, time1.toDate(), 20D); 
-		
+
+		createHashTagRank(tag, time1.toDate(), 20D);
+
 		time.minusHours(1);
 		time.minusMinutes(5);
 		//myDate.add(Calendar.HOUR, -1);
-		//myDate.add(Calendar.MINUTE, -5); 
+		//myDate.add(Calendar.MINUTE, -5);
 		createHashTagRank(tag1, time.toDate(), 25D);
-		
+
 		//myDate.add(Calendar.HOUR, -2);
-		//myDate.add(Calendar.MINUTE, 25); 
+		//myDate.add(Calendar.MINUTE, 25);
 		time.minusHours(2);
 		time.minusMinutes(25);
 		createHashTagRank(tag2, time.toDate(), 15D);
-		
+
 		//myDate.add(Calendar.HOUR, -3);
 		//myDate.add(Calendar.MINUTE, 10);
 		time.minusHours(3);
 		time.plusMinutes(10);
 		createHashTagRank(tag3, time.toDate(), 46D);
-		
+
 		//myDate.add(Calendar.HOUR, -2);
 		//myDate.add(Calendar.MINUTE, -30);
 		time.minusHours(2);
 		time.minusMinutes(30);
 		createHashTagRank(tag4, time.toDate(), 31D);
 		createHashTagRank(tag5, time.toDate(), 60D);
-		
-		final DateTime time8 = time.minusDays(3); 
+
+		final DateTime time8 = time.minusDays(3);
 		createHashTagRank(tag1, time8.toDate(), 10D);
 		createHashTagRank(tag, time8.toDate(), 20D);
 		createHashTagRank(tag, time8.toDate(), 20D);
-		
+
 		//myDate.add(Calendar.DATE, -3);
 		final DateTime time9 = time.minusDays(3);
 		createHashTagRank(tag2, time.toDate(), 30D);
-		
+
  		final Date tRank = getHashTagDao().getMaxHashTagRankingDate();
- 		System.out.println(tRank);
- 		final List<HashTagRanking> rankStats = getHashTagDao().getHashTagRankStats(tRank);   
+
+ 		final List<HashTagRanking> rankStats = getHashTagDao().getHashTagRankStats(tRank);
 		assertEquals("Should be equals", rankStats.size(), 6);
-	}  
+	}
 }

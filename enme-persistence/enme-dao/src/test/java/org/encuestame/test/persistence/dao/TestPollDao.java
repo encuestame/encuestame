@@ -453,7 +453,7 @@ public class TestPollDao extends AbstractBase {
 		final DateTime dtFrom = this.initDate.toDateTime();
 		final DateTime dtTo = this.initDate.toDateTime();
 		final Long maxVotes = getPollDao().getMaxPollLikeVotesbyUser(this.userAccount.getUid(), dtTo.minusDays(30).toDate(), dtFrom.toDate());
-		System.out.println("Max debe ser  -->" + maxVotes);
+
  	}
 
 	/**

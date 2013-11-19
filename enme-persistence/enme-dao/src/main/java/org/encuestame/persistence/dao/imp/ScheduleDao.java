@@ -60,7 +60,7 @@ public class ScheduleDao  extends AbstractHibernateDaoSupport implements ISchedu
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Schedule> retrieveScheduled(final Status status, final Date minimumDate) {
- 		System.out.println("Minimun date ---> " + minimumDate);
+
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(Schedule.class);
 		// Between Minimun date and currently date

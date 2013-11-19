@@ -150,11 +150,9 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      * @throws IOException
      */
     public JSONObject callJsonService() throws ServletException, IOException{
-        //System.out.println(this.request.getParameterMap());
         final String responseAsString = this.callStringService();
         Assert.assertNotNull(responseAsString);
         log.debug(responseAsString);
-        //System.out.println(responseAsString);
         return (JSONObject) JSONValue.parse(responseAsString);
     }
 

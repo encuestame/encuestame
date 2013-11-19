@@ -445,13 +445,13 @@ public class TestUserDao extends AbstractBase {
         beforeDate.add(Calendar.DATE, -7);
         beforeDate.add(Calendar.HOUR, +5);
         // final String expireValue = getProperty("account.expire.limit");
-        //System.out.println("Account Value  property------>"+ expireValue);
+
 
         for (int i = 0; i < 10; i++) {
             createdAt.add(Calendar.DATE, -i);
             createdAt.add(Calendar.HOUR, +i);
                final UserAccount uAcc = createUserAccount(Boolean.FALSE, createdAt.getTime(), "diana-"+i, this.account);
-               //System.out.println("Account Date ------>"+ uAcc.getEnjoyDate());
+
         }
         //create disabled account.g
         createdAt.add(Calendar.MONTH, +1);
