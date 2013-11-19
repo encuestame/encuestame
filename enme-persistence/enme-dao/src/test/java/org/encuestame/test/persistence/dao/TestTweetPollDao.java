@@ -105,6 +105,8 @@ public class TestTweetPollDao extends AbstractBase {
      */
     private DateTime initDate = new DateTime();
 
+    private SocialAccount socialAccount;
+
     /**
      * Before.
      */
@@ -135,6 +137,7 @@ public class TestTweetPollDao extends AbstractBase {
         this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder",
                 secondary);
         tweetPoll.setNumbervotes(65L);
+        this.socialAccount = createDefaultSettedSocialAccount(this.secondary);
     }
 
     /**
@@ -1379,4 +1382,25 @@ public class TestTweetPollDao extends AbstractBase {
 
 	Assert.assertEquals("Should be", 4, allScheduled.size());
 	}
+
+    /**
+     * Retrieve items to remove
+     */
+    @Test
+    public void testRetrieveFailedScheduledItems(){
+
+		createTweetpollScheduleDefault(this.tweetPoll, this.initDate.toDate(),
+				this.socialAccount, Status.SUCCESS, TypeSearchResult.TWEETPOLL,
+				1);
+		createTweetpollScheduleDefault(this.tweetPoll,
+				this.initDate.minusDays(2).toDate(), this.socialAccount,
+				Status.FAILED, TypeSearchResult.TWEETPOLL, 3);
+
+		createTweetpollScheduleDefault(this.tweetPoll, this.initDate.toDate(),
+				this.socialAccount, Status.FAILED, TypeSearchResult.TWEETPOLL,
+				5);
+
+		final List<Schedule> list = getScheduleDao().retrieveFailedScheduledItems(5, Status.SUCCESS);
+		Assert.assertEquals("Should be", 2, list.size());
+    }
 }
