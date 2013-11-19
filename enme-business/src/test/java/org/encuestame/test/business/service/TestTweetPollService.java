@@ -28,6 +28,7 @@ import junit.framework.Assert;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.TweetPollService;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
@@ -41,6 +42,7 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
@@ -1176,6 +1178,69 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
 		Assert.assertEquals(schedule1.getStatus(), Status.SUCCESS);
     }
 
+    /**
+     * Test Remove Scheduled
+     */
+    @Test
+    @Category(DefaultTest.class)
+    public void testRemoveScheduledItems(){
+    	// Tweetpoll
+    	final TweetPoll tweetPoll1 = createPublishedTweetPoll(
+				this.userAccount.getAccount(), this.question, new Date());
 
+    	final TweetPoll tweetPoll2 = createPublishedTweetPoll(
+				this.userAccount.getAccount(), this.question, new Date());
+
+    	final Poll poll = createDefaultPoll(question, this.userAccount);
+
+    	final Survey survey = createDefaultSurvey(this.user, " ", this.initDate.toDate());
+
+    	// SocialAccount
+    	final SocialAccount socialAcc = createDefaultSettedSocialAccount(this.userAccount);
+
+		final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
+				tweetPoll1, "1245", socialAcc, this.tweetText);
+
+
+		final TweetPollSavedPublishedStatus tpSaved2 = createTweetPollSavedPublishedStatus(
+				tweetPoll2, "1245", socialAcc, this.tweetText);
+
+		final TweetPollSavedPublishedStatus tpSaved3 = createPollSavedPublishedStatus(
+				poll, "", socialAcc, tweetText);
+
+		final TweetPollSavedPublishedStatus tpSaved4 = createSocialLinkSavedPublishedStatus(
+				null, null, survey, "3456", socialAcc, tweetText);
+
+		// Scheduled
+    	createTweetpollScheduleDefault(tweetPoll1,
+				this.initDate.minusDays(2).toDate(), socialAcc, Status.SUCCESS,
+				TypeSearchResult.TWEETPOLL, this.tweetText);
+
+		// Scheduled 2
+		createTweetpollScheduleDefault(tweetPoll2,
+				this.initDate.minusDays(3).toDate(), socialAcc, Status.SUCCESS,
+				TypeSearchResult.TWEETPOLL, this.tweetText);
+
+		// Scheduled
+		createTweetpollScheduleDefault(tweetPoll1, this.initDate.plus(2)
+				.toDate(), socialAcc, Status.ACTIVE,
+				TypeSearchResult.TWEETPOLL, this.tweetText);
+
+		// Scheduled 4
+		createScheduledItem(null, null, poll, this.initDate.toDate(), socialAcc, Status.ACTIVE, 5, tpSaved3, tweetText, TypeSearchResult.POLL);
+
+		// Scheduled 5
+		createScheduledItem(null, survey, poll, this.initDate.toDate(), socialAcc, Status.FAILED, 5, tpSaved3, tweetText, TypeSearchResult.POLL);
+
+		final String attemptsProp = EnMePlaceHolderConfigurer.getProperty("attempts.scheduled.publication");
+
+
+		final List<Schedule> scheduleBefore = getScheduleDao().retrieveFailedScheduledItems(5, Status.SUCCESS);
+		Assert.assertEquals(4, scheduleBefore.size());
+
+		getTweetPollService().removeScheduledItems(Status.FAILED, 5);
+		final List<Schedule> scheduleAfter = getScheduleDao().retrieveFailedScheduledItems(5, Status.FAILED);
+		Assert.assertEquals(0, scheduleAfter.size());
+    }
 
 }
