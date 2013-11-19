@@ -86,13 +86,13 @@
         </property>
     </bean>
 
-<!-- 	<bean id="removeScheduledJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
-<!--         <property name="targetObject" ref="publishScheduledee"/> -->
-<!--         <property name="targetMethod" value="remove"/> -->
-<!--         <property name="concurrent"> -->
-<!--             <value>false</value> -->
-<!--         </property> -->
-<!--     </bean> -->
+	<bean id="removeScheduledJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="publishScheduled"/>
+        <property name="targetMethod" value="remove"/>
+        <property name="concurrent">
+            <value>false</value>
+        </property>
+    </bean>
 
 
      <!-- Every 5 minutes 0 0/5 * * * ? -->
@@ -148,11 +148,11 @@
 <!-- 					<property name="cronExpression" value="0 0/3 * * * ?" /> -->
 <!--                       every 10 seconds -->
 				</bean>
-<!-- 				<bean id="removeAllScheduled" class="org.springframework.scheduling.quartz.CronTriggerBean"> -->
-<!--                     <property name="jobDetail" ref="removeScheduledJobDetail" /> -->
-<!--                     <property name="cronExpression" value="*/5 * * * * ?" /> -->
-<!--                       every 10 seconds -->
-<!-- 				</bean> -->
+				<bean id="removeAllScheduled" class="org.springframework.scheduling.quartz.CronTriggerBean">
+                    <property name="jobDetail" ref="removeScheduledJobDetail" />
+<!--                     <property name="cronExpression" value="*0 0/3 * * * ?" /> -->
+
+				</bean>
 
             </list>
         </property>

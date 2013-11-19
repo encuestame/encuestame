@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.domain.Schedule;
@@ -56,9 +57,9 @@ public class PublishScheduled {
 		final Date currentDate = DateUtil.getCurrentCalendarDate();
 		// Check if minimun Date exists and its before to current date
 		if ((minimumDate != null) && (minimumDate.before(currentDate))) {
-			// Add parameter to evaulate item date
+			// Add parameter to evaluate item date
 			// Is necesarry update TweetpollSavedPublished once it is published?
-			getTpollService().publishScheduledItems(Status.ACTIVE);
+			getTpollService().publishScheduledItems(Status.ACTIVE, minimumDate);
 		}
 		else {
 			log.debug("*** The minimum date is greater than the current ****");
@@ -67,11 +68,21 @@ public class PublishScheduled {
  	}
 
 	/**
-	 *
+	 * Remove scheduled items.
 	 */
 	public void remove(){
 		// 1. Remove all scheduled with status published and counter attempts equals CONSTANT
-		final List<Schedule> scheduleItems = getScheduled().retrieveScheduled(Status.FAILED);
+		final String attemptProperty = EnMePlaceHolderConfigurer.getProperty("");
+		final Status status = Status.SUCCESS;
+		final List<Schedule> removeList = getScheduled()
+				.retrieveFailedScheduledItems(5, status);
+		if(removeList.size() > 0){
+			getTpollService().removeScheduledItems(status, 5);
+		}
+		else {
+			log.debug(" ************** Nothing to remove ************ ");
+		}
+
 	}
 
 	/**
