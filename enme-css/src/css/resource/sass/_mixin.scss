@@ -81,6 +81,11 @@ $header_info_main_color_dark : darken($header_info_main_color, 5%);
 
 $default_background_color : $white;
 
+
+// mobile sizes
+$break-small: 320px;
+$break-large: 400px;
+
 @mixin background-default-wrapper() {
 	  background-color: $default_background_color;
 }

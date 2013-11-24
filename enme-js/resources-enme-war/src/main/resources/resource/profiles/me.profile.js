@@ -65,14 +65,14 @@ var profile = {
             name: "dojox",
             location: "dojox"
         },{
+            name: "org",
+            location: "org"
+        },{
             name: "chart",
             location: "chart"
         },{
             name: "me",
             location: "me"
-        },{
-            name: "org",
-            location: "org"
         }],
 
   // Builds can be split into multiple different JavaScript files called "layers". This allows applications to
@@ -162,19 +162,7 @@ var profile = {
                    'dojox/widget/UpgradeBar'
             ]
     },
-    // 'dojox/cometd' : {
-    //     include :[
-    //       'org/cometd',
-    //       'org/cometd/AckExtension',
-    //       'org/cometd/ReloadExtension',
-    //       'org/cometd/TimeStampExtension',
-    //       'org/cometd/TimeSyncExtension',
-    //       'dojox/cometd/main',
-    //       'dojox/cometd/ack',
-    //       'dojox/cometd/reload',
-    //       'dojox/cometd/timestamp',
-    //       'dojox/cometd/timesync'
-    //    ]
+    
     // },
 
     // 'me/activity/Activity' : {

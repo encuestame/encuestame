@@ -1,0 +1,30 @@
+.mobil {
+    // font-size: 12px;
+
+    h4.enme {
+	  color: $black_hight;
+	  font-size: 20px;
+	  line-height: 25px;
+	  text-transform: capitalize;
+	  margin: 0;
+	  font-weight: 500;
+	}	
+
+    a {
+		color: $gray_normal;
+	}
+
+	&:hover, &:focus {
+		color: lighten($gray_normal,10%);
+	}
+
+	&:active {
+		color: darken($gray_normal,10%);
+ 	}
+
+ 	.label {
+ 		// background-color : $white;
+ 		// color : $black;
+ 		// text-shadow : none;
+ 	}
+}

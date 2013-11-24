@@ -545,6 +545,16 @@
 			<artifactId>websocket-server</artifactId>
 		</dependency>
 
+		 <dependency>
+	        <groupId>ro.isdc.wro4j</groupId>
+	        <artifactId>wro4j-core</artifactId>
+	    </dependency>
+
+	    <dependency>
+	      <groupId>ro.isdc.wro4j</groupId>
+	      <artifactId>wro4j-extensions</artifactId>
+	    </dependency>   
+
 
 	</dependencies>
 

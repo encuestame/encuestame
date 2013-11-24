@@ -3,17 +3,17 @@
 
 <meta name="HandheldFriendly" content="True">
 <meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="cleartype" content="on">
-
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-touch-fullscreen" content="yes" />
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%=request.getContextPath()%>/resources/mobile/touch/apple-touch-icon-144x144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<%=request.getContextPath()%>/resources/mobile/touch/apple-touch-icon-114x114-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<%=request.getContextPath()%>/resources/mobile/touch/apple-touch-icon-72x72-precomposed.png">
 <link rel="apple-touch-icon-precomposed" href="<%=request.getContextPath()%>/resources/mobile/touch/apple-touch-icon-57x57-precomposed.png">
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/mobile/touch/apple-touch-icon.png">
-<!-- Tile icon for Win8 (144x144 + tile color) -->
-<meta name="msapplication-TileImage" content="<%=request.getContextPath()%>/resources/mobile/touch/apple-touch-icon-144x144-precomposed.png">
-<meta name="msapplication-TileColor" content="#222222">
+
 
 <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
 <!--

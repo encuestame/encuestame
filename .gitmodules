@@ -38,3 +38,6 @@
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/tests"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/tests
 	url = git://github.com/encuestame/enme-intern-test.git
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/hammer"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/hammer
+	url = https://github.com/encuestame/hammer.js.dojo.git

@@ -3,11 +3,14 @@
 $tan-light: #f2e9e0;
 $tan: #dbb89c;
 
-$blue: #3f94bf;
-$blue-dark: #1b5572;
+$blue: #738ABA;
+$blue-dark: #2C4987;
 
 $green: #12b312;
 $green-dark: #060;
+
+$plus_bk: #252525;
+$plus_bk-dark: #252525;
 
 $white: #f7f7f7;
 $black: #222;
@@ -24,10 +27,10 @@ $link-color: $blue;
 
 /* Length Measurements */
 
-$vertical-space: 1em;
+$vertical-space: 1.2em;
 $vertical-space-small: $vertical-space/2;
 $vertical-space-large: $vertical-space*2;
-$vertical-space-xl: $vertical-space*4;
+$vertical-space-xl: $vertical-space*3;
 
 $horizontal-space: 2.5%;
 $horizontal-space-large: $horizontal-space*2;
@@ -71,28 +74,4 @@ $font-museo: "museo-sans", "Museo Sans", "Helvetica Neue", Helvetica, Arial, san
 @mixin type-icon {
 	font-family: 'SSStandard';
 	font-weight: normal;
-}
-
-/* Generic Styles */
-
-::-moz-selection {
-	background: lighten($main,10%);
-	color: $white;
-}
-
-::selection {
-	background: lighten($main,10%);
-	color: $white;
-}
-
-a {
-	color: $link-color;
-
-	&:hover, &:focus {
-		color: lighten($link-color,10%);
-	}
-
-	&:active {
-		color: darken($link-color,10%);
-	}
 }

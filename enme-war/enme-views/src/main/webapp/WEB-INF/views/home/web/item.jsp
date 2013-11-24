@@ -13,21 +13,17 @@
             <div class="options">
                 <div class="submited">
                     <spring:message code="submited_by" />
-                    <strong> <a
+                     <a
                         href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">${item.ownerUsername}</a>
-                    </strong>
                     <spring:message code="added" />
-                    <strong> ${item.relativeTime} | <a
+                    ${item.relativeTime} | <a
                         href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}#comments">
-                            ${item.totalComments} <spring:message code="home_item_comments" /> </a> </strong>
+                            ${item.totalComments} <spring:message code="home_item_comments" /> </a> 
                 </div>
             </div>
         </div>
     </div>
     <div class="img">
-        <!--
-            TODO: votes == relevance???
-          -->
         <div data-dojo-type="me/web/widget/home/votes/ItemVote"
              voteMessage="<spring:message code="home_item_votes" />"
              viewMessage="<spring:message code="home_item_views" />"
@@ -37,7 +33,6 @@
              itemId="${item.id}"
         ></div>
     </div>
-    <!-- List of Hashtags -->
     <div class="tags">
         <c:forEach items="${item.hashTags}" var="h">
             <span data-dojo-type="me/web/widget/stream/HashTagInfo"

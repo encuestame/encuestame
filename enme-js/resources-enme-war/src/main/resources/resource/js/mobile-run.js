@@ -31,6 +31,16 @@ require({
       map: {}
     },
     {
+      name: 'hammer',
+      location: 'hammer',
+      main: "hammer"
+    },
+    {
+      name: 'panel',
+      location: 'panel',
+      main: "main",
+    },
+    {
       name: 'mobile',
       location: 'mobile',
       main: "main",
@@ -42,5 +52,5 @@ require({
       map: {}
     }
   ]
-// Require `me`. This loads the main application module, `me/main`, since we registered the `me` package above.
+// Require `mobile`. This loads the main application module, `mobile/main`, since we registered the `mobile` package above.
 }, [ 'mobile' ]);

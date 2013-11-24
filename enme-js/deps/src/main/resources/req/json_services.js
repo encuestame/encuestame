@@ -257,7 +257,7 @@ encuestame.contextDefault = "encuestame/";
 //encuestame.service.short.tinyurl = "/api/short/url/tinyurl.json";
 
 encuestame.constants = {};
-encuestame.constants.passwordExcludes = [];
+// encuestame.constants.passwordExcludes = [];
 encuestame.constants.imageSizes = {
     thumbnail : "thumbnail",
     defaultType : "default",
