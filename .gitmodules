@@ -43,4 +43,4 @@
 	url = https://github.com/encuestame/hammer.js.dojo.git
 [submodule "enme-css/src/css/resource/sass"]
 	path = enme-css/src/css/resource/sass
-	url = git@github.com:encuestame/css-theme.git
+	url = git://github.com/encuestame/css-theme.git
