@@ -249,7 +249,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
         return tweetPollsBean;
     }
-
+    
+    /**
+     * Create a list of {@link SearchBean} based on a List of {@link TweetPoll}
+     * @param listTweetPolls array of {@link TweetPoll}
+     * @param results define if the list will have the results for each {@link TweetPoll}
+     * @param httpServletRequest {@link HttpServletRequest} reference
+     * @return array of {@link SearchBean}
+     */
     private List<SearchBean> setTweetPollListAnswersSearch(
             final List<TweetPoll> listTweetPolls,
             final Boolean results,
@@ -272,8 +279,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                  this.calculatePercents(list);
              }
              unitTweetPoll.setAnswerSwitchBeans(listSwitchs);
-             // Aqui agregar un Searchbean
-             tweetPollsBean.add(null);
+             tweetPollsBean.add(unitTweetPoll);
         }
         return tweetPollsBean;
     }
