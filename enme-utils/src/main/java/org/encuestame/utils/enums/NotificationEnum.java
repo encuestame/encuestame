@@ -16,7 +16,6 @@ package org.encuestame.utils.enums;
  * Notification Enumeration
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 18, 2010 7:14:20 PM
- * @version $Id:$
  */
 public enum NotificationEnum {
 
@@ -45,4 +44,6 @@ public enum NotificationEnum {
     POLL_REMOVED,
 
     POLL_CREATED,
+    
+    WELCOME_SIGNUP
 }

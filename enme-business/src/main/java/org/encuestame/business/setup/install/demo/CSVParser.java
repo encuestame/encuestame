@@ -1,14 +1,15 @@
 package org.encuestame.business.setup.install.demo;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
+
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
 public interface CSVParser {
 
 	/**
 	 * @throws IOException 
+	 * @throws EnMeNoResultsFoundException 
 	 * 
 	 */
-	void executeCSVDemoInstall(Integer tpvotes, Integer pollvotes, Integer surveyVotes) throws IOException;
+	void executeCSVDemoInstall(Integer tpvotes, Integer pollvotes, Integer surveyVotes) throws IOException, EnMeNoResultsFoundException;
 }

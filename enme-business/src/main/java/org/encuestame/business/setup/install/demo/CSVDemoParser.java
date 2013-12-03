@@ -39,6 +39,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.enums.HitCategory;
@@ -253,11 +254,12 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
         return answer1;
     }
 
-    /**
-     *
-     */
+   /*
+    * (non-Javadoc)
+    * @see org.encuestame.business.setup.install.demo.CSVParser#executeCSVDemoInstall(java.lang.Integer, java.lang.Integer, java.lang.Integer)
+    */
     @Override
-    public void executeCSVDemoInstall(Integer tpvotes, Integer pollvotes, Integer surveyVotes) throws IOException {
+    public void executeCSVDemoInstall(Integer tpvotes, Integer pollvotes, Integer surveyVotes) throws IOException, EnMeNoResultsFoundException {
         log.debug("Starting domain reindex...");
         long start = System.currentTimeMillis();
         List<SignUpBean> users = getUsers();

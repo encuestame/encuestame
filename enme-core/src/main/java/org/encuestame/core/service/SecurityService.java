@@ -45,6 +45,7 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.FollowOperations;
+import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Profile;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.security.SignUpBean;
@@ -674,8 +675,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * SingUp User.
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UserAccountBean}.
+     * @throws EnMeNoResultsFoundException 
      */
-    public UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail) {
+    public UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail) throws EnMeNoResultsFoundException {
         //FIXME: Validate the email inside this service.
         log.debug("singupUser "+singUpBean.toString());
         //create account/
@@ -730,6 +732,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             log.debug("new user "+userAccount.getUsername());
             log.debug("Get Authoritie Name:{ "+SecurityContextHolder.getContext().getAuthentication().getName());
         }
+        	
+        // create a welcome notification
+        createNotification(NotificationEnum.WELCOME_SIGNUP,
+                getMessageProperties("notification.wellcome.account"),
+                null, false, userAccount);
 
         // disable, user should sign in from web.
         // SecurityUtils.authenticate(userAccount);
