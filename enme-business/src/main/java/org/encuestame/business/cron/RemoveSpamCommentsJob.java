@@ -28,6 +28,8 @@ public class RemoveSpamCommentsJob {
 	/** **/
 	@Autowired
 	private ICommentService commentService;
+	
+	public RemoveSpamCommentsJob() {}
 
 
 	  /**
@@ -36,16 +38,17 @@ public class RemoveSpamCommentsJob {
     private static final Log log = LogFactory.getLog(RemoveSpamCommentsJob.class);
 
     /**
+     * @return 
      *
      */
-    public RemoveSpamCommentsJob() throws EnMeExpcetion {    	//
-
+    public void removeSpamCommentsJob() throws EnMeExpcetion {
+    	log.debug("Removing all spam comments");
     }
 
     /**
 	 * Remove unconfirmed accounts.
 	 */
-	public void RemoveSpamComments() {
+	public void removeSpamComments() {
 		try {
    		 log.debug("Remove Spam Comments");
 		} catch (Exception e) {

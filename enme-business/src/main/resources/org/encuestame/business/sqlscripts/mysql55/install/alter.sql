@@ -393,12 +393,3 @@ ALTER TABLE `survey_temporal_result`
   ADD CONSTRAINT `FK7867CF551153812` FOREIGN KEY (`survey_sid`) REFERENCES `surveys` (`sid`),
   ADD CONSTRAINT `FK7867CF546BF7A1C` FOREIGN KEY (`question_qid`) REFERENCES `questions` (`qid`),
   ADD CONSTRAINT `FK7867CF5496009B4` FOREIGN KEY (`answer_q_answer_id`) REFERENCES `questions_answers` (`q_answer_id`);
-  
-  
-  
-ALTER TABLE `scheduled`
-  ADD CONSTRAINT `FKF66BC0AD1366E48E` FOREIGN KEY (`tpoll_tweet_poll_id`) REFERENCES `tweetPoll` (`tweet_poll_id`),
-  ADD CONSTRAINT `FKF66BC0AD51153812` FOREIGN KEY (`survey_sid`) REFERENCES `surveys` (`sid`),
-  ADD CONSTRAINT `FKF66BC0AD5239D117` FOREIGN KEY (`socialAccount_social_account_id`) REFERENCES `social_account` (`social_account_id`),
-  ADD CONSTRAINT `FKF66BC0AD63976E9` FOREIGN KEY (`poll_poll_id`) REFERENCES `poll` (`poll_id`),
-  ADD CONSTRAINT `FKF66BC0AD9C14A5E7` FOREIGN KEY (`tpollSavedPublished_status_save_poll_id`) REFERENCES `tweetPoll_save_published_status` (`status_save_poll_id`);

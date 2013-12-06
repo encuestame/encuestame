@@ -112,3 +112,8 @@ alter table survey_temporal_result add constraint FK7867CF5496009B4 foreign key 
 alter table survey_temporal_result add constraint FK7867CF551153812 foreign key (survey_sid) references surveys
 alter table question_preferences add constraint FKD540D01F46BF7A1C foreign key (question_qid) references questions
 alter table hash_tags_ranking add constraint FK71DECDA119AA125 foreign key (hashTag_hash_tag_id) references hash_tags
+alter table scheduled add constraint FKF66BC0AD1366E48E foreign key (tpoll_tweet_poll_id) references tweetPoll
+alter table scheduled add constraint FKF66BC0AD51153812 foreign key (survey_sid) references surveys
+alter table scheduled add constraint FKF66BC0AD5239D117 foreign key (socialAccount_social_account_id) references social_account
+alter table scheduled add constraint FKF66BC0AD63976E9 foreign key (poll_poll_id) references poll
+alter table scheduled add constraint FKF66BC0AD9C14A5E7 foreign key (tpollSavedPublished_status_save_poll_id) references tweetPoll_save_published_status

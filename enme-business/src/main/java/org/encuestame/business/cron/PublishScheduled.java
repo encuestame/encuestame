@@ -72,17 +72,13 @@ public class PublishScheduled {
 	 */
 	public void remove(){
 		// 1. Remove all scheduled with status published and counter attempts equals CONSTANT
-		final String attemptProperty = EnMePlaceHolderConfigurer.getProperty("");
+		//final String attemptProperty = EnMePlaceHolderConfigurer.getProperty("");
 		final Status status = Status.SUCCESS;
 		final List<Schedule> removeList = getScheduled()
 				.retrieveFailedScheduledItems(5, status);
-		if(removeList.size() > 0){
+		if (removeList.size() > 0){
 			getTpollService().removeScheduledItems(status, 5);
 		}
-		else {
-			log.debug(" ************** Nothing to remove ************ ");
-		}
-
 	}
 
 	/**
