@@ -23,6 +23,7 @@ import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class PublishScheduled {
 	 * publish {@link TweetPoll} {@link Poll} or {@link Survey} scheduled to be
 	 * published later.
 	 */
-	public void publish(){
+	public void publish() {
 		log.info("************ Start publish scheduled items **************");
 		// I include in the search for the minimum date that have the maximum attempts
 		final Date minimumDate = getScheduled().retrieveMinimumScheduledDate(
@@ -59,7 +60,12 @@ public class PublishScheduled {
 		if ((minimumDate != null) && (minimumDate.before(currentDate))) {
 			// Add parameter to evaluate item date
 			// Is necesarry update TweetpollSavedPublished once it is published?
-			getTpollService().publishScheduledItems(Status.ACTIVE, minimumDate);
+			try {
+				getTpollService().publishScheduledItems(Status.ACTIVE, minimumDate);
+			} catch (EnMeNoResultsFoundException e) {
+				log.error("error on execute the sheduled publish tweetpoll job " + e.getMessage());
+				e.printStackTrace();
+			}
 		}
 		else {
 			log.debug("*** The minimum date is greater than the current ****");

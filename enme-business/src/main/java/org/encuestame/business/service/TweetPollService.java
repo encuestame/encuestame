@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -1451,7 +1452,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return
      * @throws EnMeNoResultsFoundException
      */
-
     private List<TweetPoll> retrieveTweetPollsPostedOnSocialNetworks(
             final List<TweetPoll> tpolls, final List<SocialProvider> providers, final List<Long> socialAccounts) throws EnMeNoResultsFoundException {
         final List<TweetPoll> tpollsPostedOnSocialNet = new ArrayList<TweetPoll>();
@@ -1470,7 +1470,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
 
     /**
-     * Remove Tweetpoll
+     * Remove Tweetpoll.
+     * @param tpoll {@link TweetPoll}
      */
 	public void removeTweetPoll(final TweetPoll tpoll) throws EnMeNoResultsFoundException {
 		final Set<HashTag> hashTagSet = new HashSet<HashTag>();
@@ -1512,18 +1513,22 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 		}
 
 		// Remove Tweetpoll
-
 		getTweetPollDao().delete(tpoll);
 
 	}
 
 	/**
-	 *
+	 * Publish all scheduled items
+	 * @param status {@link Status} 
+	 * @param minimumDate {@link Date}
+	 * @throws EnMeNoResultsFoundException 
 	 */
-	public void publishScheduledItems(final Status status, final Date minimumDate) {
-		Boolean publish = Boolean.FALSE;
+	public void publishScheduledItems(
+			final Status status, 
+			final Date minimumDate) throws EnMeNoResultsFoundException {
+	
+	Boolean publish = Boolean.FALSE;
 	final String totalAttempts = EnMePlaceHolderConfigurer.getProperty("attempts.scheduled.publication");
-
  		// 1. Retrieve all records scheduled before currently date.
 	final List<Schedule> scheduledRecords = getScheduledDao()
 				.retrieveScheduled(status, minimumDate);
@@ -1548,9 +1553,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 											.getPoll(), schedule.getSurvey());
  					// If tpollsavedpublished isnt null and Status is failed, is
 					// necessary re publish
-					if ((tpollSaved != null)
-							&& (tpollSaved.getStatus()).equals(Status.FAILED)) {
-						log.debug("******* Item not published *******");
+					if ((tpollSaved != null) && (tpollSaved.getStatus()).equals(Status.FAILED)) {
+						log.trace("******* Item not published *******");
 						// Update ScheduleRecord and set counter und Date
 						DateTime dt = new DateTime(schedule.getScheduleDate());
 						// Set a new value to republishing
@@ -1561,13 +1565,17 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 						schedule.setPublishAttempts(counter);
 						schedule.setStatus(Status.FAILED);
 						getScheduledDao().saveOrUpdate(schedule);
-
 					} else {
-						log.debug("******* Published *******");
+						log.trace("******* Published *******");
+						final Date currentDate = DateUtil.getCurrentCalendarDate();
 						schedule.setStatus(Status.SUCCESS);
-						schedule.setPublicationDate(DateUtil.getCurrentCalendarDate());
+						schedule.setPublicationDate(currentDate);
 						getScheduledDao().saveOrUpdate(schedule);
-
+						createNotification(NotificationEnum.WELCOME_SIGNUP,
+								getMessageProperties("notification.tweetpoll.scheduled.success",
+				                          Locale.ENGLISH, //FIXME: fix this, locale is fixed
+				                          new Object[] {tpollSaved.getTweetPoll().getQuestion().getQuestion(), currentDate.toString()}), //FIXME: currentDate shouldbe passed as ISO date.
+				                null, false, tpollSaved.getTweetPoll().getEditorOwner());
 					}
 				}
 			}

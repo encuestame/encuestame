@@ -566,8 +566,9 @@ public interface ITweetPollService extends IMasterSurveyService{
 	 * Publish scheduled items
 	 * @param status
 	 * @return
+	 * @throws EnMeNoResultsFoundException 
 	 */
-	void publishScheduledItems(final Status status, final Date minimumDate);
+	void publishScheduledItems(final Status status, final Date minimumDate) throws EnMeNoResultsFoundException;
 
 	/**
 	 * Remove Scheduled items.
