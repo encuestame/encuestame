@@ -275,7 +275,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
 	//	this.tp1.setPublishTweetPoll(Boolean.FALSE);
 		getTweetPoll().saveOrUpdate(tp1);
 
-		initService("/api/survey/tweetpoll/publish.json", MethodJson.POST);
+		initService("/api/survey/tweetpoll/publish", MethodJson.POST);
 		setParameter("id", tPollId.toString());
 //		setParameter("twitterAccounts", tPollId.toString());
 //		setParameter("ip", tPollId.toString());
@@ -304,7 +304,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
    		final Long tPollId = this.tp1.getTweetPollId();
    		this.tp1.setPublishTweetPoll(Boolean.FALSE);
    		getTweetPoll().saveOrUpdate(tp1);
-   		initService("/api/survey/tweetpoll/autosave.json", MethodJson.POST);
+   		initService("/api/survey/tweetpoll/autosave", MethodJson.POST);
 
 
    		setParameter("tweetPollId", tPollId.toString());

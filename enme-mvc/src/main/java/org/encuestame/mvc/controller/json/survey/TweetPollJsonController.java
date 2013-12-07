@@ -253,7 +253,7 @@ public class TweetPollJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/tweetpoll/autosave.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/survey/tweetpoll/autosave", method = RequestMethod.POST)
     public @ResponseBody ModelMap create(
             @RequestParam(value = "tweetPollId", required = false) final Long tweetPollId,
             @RequestParam(value = "question", required = false) final String question,
@@ -392,17 +392,10 @@ public class TweetPollJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/tweetpoll/publish.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/survey/tweetpoll/publish", method = RequestMethod.POST)
     public @ResponseBody ModelMap publish(
             @RequestParam(value = "id", required = true) final Long tweetPollId,
             @RequestParam(value = "twitterAccounts", required = false) final Long[] twitterAccountsId,
-            @RequestParam(value = "ip", required = false) final Boolean ip,
-            @RequestParam(value = "limitNumbers", required = false) final Boolean limitNumbers,
-            @RequestParam(value = "limitVotes", required = false) final Integer limitVotes,
-            @RequestParam(value = "repeatedNumbers", required = false) final Integer repeatedNumbers,
-            @RequestParam(value = "scheduled", required = false) final Boolean scheduled,
-            @RequestParam(value = "scheduledDate", required = false) final String scheduledDate,
-            @RequestParam(value = "scheduledTime", required = false) final String scheduledTime,
             HttpServletRequest request,
             HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
@@ -519,6 +512,7 @@ public class TweetPollJsonController extends AbstractJsonController {
      * @throws JsonMappingException
      * @throws IOException
      */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/short/url/{type}.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getShortUrl(
             @PathVariable String type,
