@@ -1,15 +1,3 @@
-[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dojo"]
-	path = enme-js/resources-enme-war/src/main/resources/resource/js/dojo
-	url = git://github.com/encuestame/dojo.git
-[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dojox"]
-	path = enme-js/resources-enme-war/src/main/resources/resource/js/dojox
-	url = git://github.com/encuestame/dojox.git
-[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dijit"]
-	path = enme-js/resources-enme-war/src/main/resources/resource/js/dijit
-	url = git://github.com/encuestame/dijit.git
-[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/util"]
-	path = enme-js/resources-enme-war/src/main/resources/resource/js/util
-	url = git://github.com/encuestame/util.git
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/chart/eve"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/chart/eve
 	url = git://github.com/encuestame/eve.git
