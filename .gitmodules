@@ -13,7 +13,6 @@
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/mobile"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/mobile
 	url = git://github.com/encuestame/mobile-me.git
-
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/bootstrap"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/bootstrap
 	url = git://github.com/juanpicado/Dojo-Bootstrap.git
@@ -32,3 +31,16 @@
 [submodule "enme-css/src/css/resource/sass"]
 	path = enme-css/src/css/resource/sass
 	url = git://github.com/encuestame/css-theme.git
+
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dojox"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/dojox
+	url = https://github.com/dojo/dojox.git
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dojo"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/dojo
+	url = https://github.com/dojo/dojo.git
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dijit"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/dijit
+	url = https://github.com/dojo/dijit.git
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/util"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/util
+	url = https://github.com/dojo/util.git
