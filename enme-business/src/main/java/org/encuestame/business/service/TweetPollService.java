@@ -851,44 +851,35 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          getTweetPollDao().saveOrUpdate(publishedStatus);
          return publishedStatus;
     }
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.encuestame.core.service.imp.ITweetPollService#createScheduled(org
-	 * .encuestame.persistence.domain.tweetpoll.TweetPoll,
-	 * org.encuestame.persistence.domain.survey.Poll,
-	 * org.encuestame.persistence.domain.survey.Survey, java.util.Date,
-	 * org.encuestame.utils.enums.TypeSearchResult, java.lang.String,
-	 * java.lang.Long,
-	 * org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
-	 * )
-	 */
-	public Schedule createScheduled(final TweetPoll tpoll, final Poll poll,
-			final Survey survey, final Date scheduleDate,
-			final TypeSearchResult typeSearch, final String tweetText, final Long socialAccountId, final TweetPollSavedPublishedStatus tpollSaved) {
-    	final SocialAccount socialAccount = getAccountDao().getSocialAccountById(socialAccountId);
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ITweetPollService#createScheduled(java.util.Date, org.encuestame.utils.enums.TypeSearchResult, org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus)
+     */
+	public Schedule createScheduled(
+			final Date scheduleDate,
+			final TypeSearchResult typeSearch,   
+			final TweetPollSavedPublishedStatus tpollSaved) {
+    	final SocialAccount socialAccount = tpollSaved.getSocialAccount();
 		final Schedule schedule = new Schedule();
 		schedule.setScheduleDate(scheduleDate);
-		if (typeSearch.equals(TypeSearchResult.TWEETPOLL)){
-			schedule.setTpoll(tpoll);
+		if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+			schedule.setTpoll(tpollSaved.getTweetPoll());
 			schedule.setTypeSearch(TypeSearchResult.TWEETPOLL);
 		} else if(typeSearch.equals(TypeSearchResult.POLL)) {
-			schedule.setPoll(poll);
+			schedule.setPoll(tpollSaved.getPoll());
 			schedule.setTypeSearch(TypeSearchResult.POLL);
 		} else if(typeSearch.equals(TypeSearchResult.SURVEY)) {
-			schedule.setSurvey(survey);
+			schedule.setSurvey(tpollSaved.getSurvey());
 			schedule.setTypeSearch(TypeSearchResult.SURVEY);
 		}
-
-		schedule.setTweetText(tweetText);
+		schedule.setTweetText(tpollSaved.getTweetContent());
 		schedule.setSocialAccount(socialAccount);
 		schedule.setStatus(Status.FAILED);
 		schedule.setPublishAttempts(0);
 		schedule.setTpollSavedPublished(tpollSaved);
+		getTweetPollDao().saveOrUpdate(schedule);
 		return schedule;
-
 	}
 
     /*
@@ -915,6 +906,20 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
         return tweetPoll;
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPollSavedPublishedStatusById(java.lang.Long)
+     */
+    public TweetPollSavedPublishedStatus getTweetPollSavedPublishedStatusById(final Long id) throws EnMeNoResultsFoundException{
+        final TweetPollSavedPublishedStatus statusBean = getTweetPollDao().getTweetPollPublishedStatusbyId(id);
+        if (statusBean == null) {
+            throw new EnMeNoResultsFoundException("TweetPollSavedPublishedStatus [" + id
+                    + "] is missing");
+        }
+        return statusBean;
+    }
+    
 
 
    /*
@@ -1532,7 +1537,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
  		// 1. Retrieve all records scheduled before currently date.
 	final List<Schedule> scheduledRecords = getScheduledDao()
 				.retrieveScheduled(status, minimumDate);
-
 		// 2. Iterate the results and for each try to publish again Call
 		// Service to publish Tweetpoll/ Poll or Survey.
 		// 3. If list > O - iterate list

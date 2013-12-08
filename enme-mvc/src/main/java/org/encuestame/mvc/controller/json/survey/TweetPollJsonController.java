@@ -33,6 +33,7 @@ import org.encuestame.core.util.ConvertDomainToJson;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
@@ -48,12 +49,15 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.ScheduledTweetPoll;
 import org.encuestame.utils.web.search.TweetPollSearchBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -139,6 +143,44 @@ public class TweetPollJsonController extends AbstractJsonController {
         }
         return returnData();
     }
+    
+    /**
+     * Publish tweet on social account.
+     * @param twitterAccountsId
+     * @param question
+     * @param scheduled
+     * @param hashtags
+     * @param answers
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/tweetpoll/schedule/{id}", method = RequestMethod.POST)
+    public @ResponseBody ModelMap scheduleTweetpoll(
+    		@RequestBody ScheduledTweetPoll bean,
+    		@PathVariable final Long id,
+            HttpServletRequest request, HttpServletResponse response,
+            final UserAccount user)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+        	final TweetPollSavedPublishedStatus tweetPoll = getTweetPollService().getTweetPollSavedPublishedStatusById(id);
+            final Schedule schedule = this.getTweetPollService().createScheduled(
+            		bean.getScheduledDate(), 
+            		TypeSearchResult.TWEETPOLL,
+            		tweetPoll);
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            jsonResponse.put("schedulded_item", ConvertDomainBean.convertScheduletoBean(schedule));
+            setItemResponse(jsonResponse);
+        } catch (EnMeExpcetion e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }    
 
     /**
      * Publish tweet on social account.

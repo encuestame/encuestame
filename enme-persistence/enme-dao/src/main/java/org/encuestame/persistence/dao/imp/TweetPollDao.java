@@ -70,27 +70,28 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         setSessionFactory(sessionFactory);
     }
 
-    /**
-     * Get TweetPoll by Id.
-     *
-     * @param tweetPollId
-     *            tweetPollId
-     * @return {@link TweetPoll}
-     * @throws HibernateException
-     *             exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollById(java.lang.Long)
      */
     public TweetPoll getTweetPollById(final Long tweetPollId)
             throws HibernateException {
         return (TweetPoll) getHibernateTemplate().get(TweetPoll.class,
                 tweetPollId);
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollPublishedStatusbyId(java.lang.Long)
+     */
+    public TweetPollSavedPublishedStatus getTweetPollPublishedStatusbyId(final Long id) {
+    	return (TweetPollSavedPublishedStatus) getHibernateTemplate().get(TweetPollSavedPublishedStatus.class,
+                id);
+    }
 
     /*
      * (non-Javadoc)
-     *
-     * @see
-     * org.encuestame.persistence.dao.ITweetPoll#getPublicTweetPollById(java
-     * .lang.Long)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getPublicTweetPollById(java.lang.Long)
      */
     @SuppressWarnings("unchecked")
     public TweetPoll getPublicTweetPollById(final Long tweetPollId) {
@@ -790,7 +791,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      */
     @SuppressWarnings("unchecked")
     public List<TweetPollSavedPublishedStatus> getSocialLinksByTweetPollSearch(
-            final TweetPoll tweetPoll, final TypeSearchResult itemType, final List<SocialProvider> splist, final List<SocialAccount> socialAccounts) {
+            final TweetPoll tweetPoll, 
+            final TypeSearchResult itemType, 
+            final List<SocialProvider> splist, 
+            final List<SocialAccount> socialAccounts) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPollSavedPublishedStatus.class);
         criteria.createAlias("socialAccount", "socialAccount");
@@ -813,8 +817,6 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
                 .forClass(TweetPollSavedPublishedStatus.class);
         criteria.createAlias("socialAccount", "socialAccount");
 
-
-
         if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
       	  criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
       	  // Revisar bien estos valores porque sino encuentra nada va a evaluarlos y regresara valores
@@ -825,8 +827,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
 			criteria.add(Restrictions.eq("poll", poll));
 			criteriaSearchSocialLinksByType(criteria, splist, socialAccounts);
         }
-
-
+        
         return getHibernateTemplate().findByCriteria(criteria);
     }
 

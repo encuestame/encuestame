@@ -50,6 +50,13 @@ public interface ITweetPoll extends IBaseDao{
      * @throws HibernateException exception
      */
     TweetPoll getTweetPollById(final Long tweetPollId) throws HibernateException;
+    
+    /**
+     * Get a {@link TweetPollSavedPublishedStatus} by Id
+     * @param id id
+     * @return {@link TweetPollSavedPublishedStatus}
+     */
+    TweetPollSavedPublishedStatus getTweetPollPublishedStatusbyId(final Long id);
 
     /**
      * Get published tweetpoll by id.

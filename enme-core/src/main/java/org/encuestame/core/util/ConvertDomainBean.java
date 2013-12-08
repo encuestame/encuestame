@@ -36,6 +36,7 @@ import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
+import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
@@ -82,6 +83,7 @@ import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.ScheduledItemBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.TypeTreeNode;
@@ -1906,6 +1908,29 @@ public class ConvertDomainBean {
         sectionBean.setName(section.getSectionName());
 
         return sectionBean;
+    }
+    
+    /**
+     * 
+     * @param schedule
+     * @return
+     */
+    public static final ScheduledItemBean convertScheduletoBean(final Schedule schedule) {
+    	final ScheduledItemBean scheduleItemBean = new ScheduledItemBean();
+    	scheduleItemBean.setId(schedule.getIdpub());
+    	scheduleItemBean.setDate(schedule.getScheduleDate());
+    	scheduleItemBean.setTweet(schedule.getTweetText());
+    	//scheduleItemBean.setTweetPollResultsBean(ConvertDomainBean.convertTweetPollSavedPublishedStatus(schedule.getTpollSavedPublished()));
+    	scheduleItemBean.setAccountBean(ConvertDomainBean.convertSocialAccountToBean(schedule.getSocialAccount()));
+    	scheduleItemBean.setTypeSearch(schedule.getTypeSearch().toString());
+    	if (TypeSearchResult.TWEETPOLL.equals(schedule.getTypeSearch())) {
+    		scheduleItemBean.setItemId(schedule.getTpoll().getTweetPollId());
+    	} else if(TypeSearchResult.POLL.equals(schedule.getTypeSearch())) {
+    		scheduleItemBean.setItemId(schedule.getPoll().getPollId());
+    	} else if(TypeSearchResult.SURVEY.equals(schedule.getTypeSearch())) {
+    		scheduleItemBean.setItemId(schedule.getSurvey().getSid());
+    	}
+    	return scheduleItemBean;
     }
 
     /**

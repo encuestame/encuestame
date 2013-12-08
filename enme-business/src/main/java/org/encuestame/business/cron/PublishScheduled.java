@@ -51,7 +51,7 @@ public class PublishScheduled {
 	 * published later.
 	 */
 	public void publish() {
-		log.info("************ Start publish scheduled items **************");
+		log.trace("************ Start publish scheduled items **************");
 		// I include in the search for the minimum date that have the maximum attempts
 		final Date minimumDate = getScheduled().retrieveMinimumScheduledDate(
 				Status.ACTIVE);
@@ -68,7 +68,7 @@ public class PublishScheduled {
 			}
 		}
 		else {
-			log.debug("*** The minimum date is greater than the current ****");
+			log.trace("*** The minimum date is greater than the current ****");
 		}
 
  	}

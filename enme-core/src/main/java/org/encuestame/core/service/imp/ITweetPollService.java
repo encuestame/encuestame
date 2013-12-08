@@ -68,6 +68,14 @@ public interface ITweetPollService extends IMasterSurveyService{
             final String question,
             final UserAccount user,
             final HttpServletRequest httpServletRequest) throws EnMeExpcetion;
+    
+    /**
+     * 
+     * @param id
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    TweetPollSavedPublishedStatus getTweetPollSavedPublishedStatusById(final Long id) throws EnMeNoResultsFoundException;
 
 
     /**
@@ -546,20 +554,14 @@ public interface ITweetPollService extends IMasterSurveyService{
 
 	/**
 	 * Create a Scheduled {@link TweetPoll} , {@link Poll} or {@link Survey}.
-	 * @param tpoll
-	 * @param poll
-	 * @param survey
 	 * @param scheduleDate
 	 * @param typeSearch
-	 * @param tweetText
-	 * @param socialAccountId
 	 * @param tpollSaved
 	 * @return
 	 */
-	Schedule createScheduled(final TweetPoll tpoll, final Poll poll,
-			final Survey survey, final Date scheduleDate,
-			final TypeSearchResult typeSearch, final String tweetText,
-			final Long socialAccountId,
+	Schedule createScheduled(
+			final Date scheduleDate,
+			final TypeSearchResult typeSearch, 
 			final TweetPollSavedPublishedStatus tpollSaved);
 
 	/**
