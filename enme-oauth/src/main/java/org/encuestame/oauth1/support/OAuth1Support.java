@@ -150,13 +150,16 @@ public class OAuth1Support extends AbstractOAuthSupport implements OAuth1RestOpe
             ResponseEntity<String> response = getRestTemplate().exchange(tokenUrl, HttpMethod.POST, request, String.class);
             responseMap = parseResponse(response.getBody());
         } catch (HttpServerErrorException e) {
+        	e.printStackTrace();
             throw new EnMeOAuthSecurityException(e);
         } catch (HttpClientErrorException e) {
             // normally if the social credentials are wrong
+        	e.printStackTrace();
             throw new EnMeBadCredentialsException(e.getMessage());
         } catch (Exception e) {
             // another kind of error, possible wrong configuration
             //TODO : only happends with twitter
+        	e.printStackTrace();
             throw new EnMeBadCredentialsException(e.getMessage());
         }
 

@@ -23,6 +23,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -140,6 +141,46 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
         // unitTweetPoll.setTwitterUserAccount(null);
         return unitTweetPoll;
      }
+
+     /**
+      * Create {@link TweetPollBean}
+      * @param allowLiveResults
+      * @param closeNotification
+      * @param completed
+      * @param publicationDateTweet
+      * @param publishPoll
+      * @param resultNotification
+      * @param schedule
+      * @param scheduleDate
+      * @param tweetUrl
+      * @param userId
+      * @param questionBean
+      * @param userTwitterAccount
+      * @param tpollId
+      * @return
+      */
+	public TweetPollBean createTweetPoll(
+        final Boolean allowLiveResults,
+        final Boolean closeNotification,
+        final Boolean completed,
+        final Date publicationDateTweet,
+        final Boolean publishPoll,
+        final Boolean resultNotification,
+        final Boolean schedule,
+        final Date scheduleDate,
+        final String tweetUrl,
+        final Long userId,
+        final QuestionBean questionBean,
+        final String userTwitterAccount,
+        final Long tpollId
+        ){
+		final TweetPollBean tpollBean = this.createTweetPoll(allowLiveResults,
+				closeNotification, completed, publicationDateTweet,
+				publishPoll, resultNotification, schedule, scheduleDate,
+				tweetUrl, userId, questionBean, userTwitterAccount);
+		return tpollBean;
+
+	}
 
     /**
      * Helper Create Unit Tweet Poll Publicated.
@@ -505,6 +546,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          commentBean.setCreatedAt(createdAt);
          commentBean.setUserAccountId(userId);
          commentBean.setId(tweetPollId);
+         commentBean.setType(TypeSearchResult.TWEETPOLL);
          return commentBean;
      }
 

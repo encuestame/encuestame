@@ -19,9 +19,6 @@ package org.encuestame.utils.enums;
  */
 public enum LayoutEnum {
 
-    /** Three columns. **/
-    AAA_COLUMNS,
-
     /** Two Blocks. **/
     BB_BLOCK,
 
@@ -43,8 +40,7 @@ public enum LayoutEnum {
      */
     public String toString() {
         String layout = "";
-        if (this == AAA_COLUMNS) { layout = "AAA"; }
-        else if (this == BB_BLOCK) { layout = "BB"; }
+        if (this == BB_BLOCK) { layout = "BB"; }
         else if (this == B_BLOCK) { layout = "B"; }
         else if (this == AB_COLUMN_BLOCK) { layout = "AB"; }
         else if (this == BA_BLOCK_COLUMN) { layout = "BA"; }
@@ -58,7 +54,6 @@ public enum LayoutEnum {
      */
     public static LayoutEnum getDashboardLayout(final String layout) {
         if (null == layout) { return null; }
-        else if (layout.equalsIgnoreCase("AAA")) { return AAA_COLUMNS; }
         else if (layout.equalsIgnoreCase("BB")) { return BB_BLOCK; }
         else if (layout.equalsIgnoreCase("B")) { return B_BLOCK; }
         else if (layout.equalsIgnoreCase("AB")) { return AB_COLUMN_BLOCK; }

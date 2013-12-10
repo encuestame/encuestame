@@ -145,6 +145,32 @@ public class HomeController extends AbstractViewController {
     }
 
     /**
+     * Humans Txt Definition.
+     * @param model
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/humans.txt", method = RequestMethod.GET)
+    public String humansTxT(ModelMap model, HttpServletRequest request,
+            HttpServletResponse response) {
+        return "redirect:/home";
+    }
+
+    /**
+     * Robots Txt Definition.
+     * @param model
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/robots.txt", method = RequestMethod.GET)
+    public String robotsTxT(ModelMap model, HttpServletRequest request,
+            HttpServletResponse response) {
+        return "redirect:/home";
+    }
+
+    /**
      * Help View.
      * @param model model
      * @return template

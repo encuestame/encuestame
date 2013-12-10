@@ -50,6 +50,13 @@ public interface ITweetPoll extends IBaseDao{
      * @throws HibernateException exception
      */
     TweetPoll getTweetPollById(final Long tweetPollId) throws HibernateException;
+    
+    /**
+     * Get a {@link TweetPollSavedPublishedStatus} by Id
+     * @param id id
+     * @return {@link TweetPollSavedPublishedStatus}
+     */
+    TweetPollSavedPublishedStatus getTweetPollPublishedStatusbyId(final Long id);
 
     /**
      * Get published tweetpoll by id.
@@ -500,4 +507,27 @@ public interface ITweetPoll extends IBaseDao{
     List<TweetPollSavedPublishedStatus> getSocialLinksByTweetPollSearch(
             final TweetPoll tweetPoll, final TypeSearchResult itemType,
             final List<SocialProvider> splist, final List<SocialAccount> socialAccounts);
+
+    /**
+     * Retrieve {@link TweetPoll} stats
+     * @param tagName
+     * @param period
+     * @return
+     */
+	List<Object[]> getTweetPollsRangeStats(final String tagName,
+			final SearchPeriods period);
+	/**
+	 * Return all possible links related with one asset
+	 * @param tweetPoll
+	 * @param survey
+	 * @param poll
+	 * @param itemType
+	 * @return
+	 */
+	List<TweetPollSavedPublishedStatus> getAllLinks(
+            final TweetPoll tweetPoll, final Survey survey, final Poll poll,
+            final TypeSearchResult itemType);
+
+	List<TweetPollSavedPublishedStatus> searchSocialLinksbyType(
+	            final TweetPoll tweetPoll,  final Poll poll, final TypeSearchResult itemType, final List<SocialProvider> splist, final List<SocialAccount> socialAccounts);
 }

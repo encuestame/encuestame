@@ -4,5 +4,5 @@
 </c:if>
 
 <c:if test="${development}">
-	<link rel="stylesheet"  href="<c:url value="/resources/dev/sections/web/poll.css" />" />
+	<link rel="stylesheet"  href="<c:url value="/resources/dev/poll.css" />" />
 </c:if>

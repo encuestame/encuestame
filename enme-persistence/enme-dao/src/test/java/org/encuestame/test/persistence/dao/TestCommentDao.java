@@ -23,11 +23,15 @@ import org.encuestame.persistence.dao.imp.CommentDao;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.CommentsSocialOptions;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -53,11 +57,17 @@ public class TestCommentDao extends AbstractBase {
     /** {@link TweetPoll} **/
     private TweetPoll tpoll;
 
+    /** {@link Poll} **/
+    private Poll poll;
+
     /** Max results**/
     private Integer MAX_RESULTS = 10;
 
     /** **/
     private Integer START = 0;
+
+    /** **/
+    private DateTime creationDate  = new DateTime();
 
     @Before
     public void initData(){
@@ -65,6 +75,7 @@ public class TestCommentDao extends AbstractBase {
         this.question = createQuestion("When did you go last weekend", "");
         this.tpoll = createPublishedTweetPoll(user.getAccount(), this.question);
         this.comment = createDefaultTweetPollCommentVoted("I was working", this.tpoll, user, 150L, 985L, new Date());
+        this.poll = createDefaultPoll(this.question, this.user);
     }
 
     /**
@@ -107,7 +118,7 @@ public class TestCommentDao extends AbstractBase {
         final Question question2 = createQuestion("Who will win the supercopa", "");
         final TweetPoll tpoll2 = createPublishedTweetPoll(user.getAccount(), question2);
         createDefaultTweetPollComment("I was playing pc games", tpoll2, user);
-        final List<Comment> commentList = getCommentsOperations().getCommentsbyUser(this.user, this.MAX_RESULTS, this.START);
+        final List<Comment> commentList = getCommentsOperations().getCommentsbyUser(this.user, this.MAX_RESULTS, this.START, CommentStatus.ALL);
         assertEquals("Should be equals", 2, commentList.size());
     }
 
@@ -124,9 +135,181 @@ public class TestCommentDao extends AbstractBase {
         assertEquals("Should be equals", 2, commentbyTweetPoll.size());
         final Long totalComment = getCommentsOperations()
                 .getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
-                        TypeSearchResult.TWEETPOLL);
+                        TypeSearchResult.TWEETPOLL, CommentStatus.ALL, null);
         assertEquals("Should be equals", 2, totalComment.intValue());
     }
+
+    /**
+     *
+     */
+    @Test
+    public void testRetrieveTweetPollCommentsbyStatus(){
+		DateTime commentCreatedAt = this.creationDate;
+		createDefaultTweetPollCommentWithStatus("first comments", tpoll,
+				this.user, CommentStatus.APPROVE, commentCreatedAt.toDate());
+
+		commentCreatedAt = this.creationDate.minusDays(2);
+
+		createDefaultTweetPollCommentWithStatus("second comments", tpoll,
+				this.user, CommentStatus.MODERATE, commentCreatedAt.toDate());
+
+//		commentCreatedAt = this.creationDate.minusMonths(3);
+//		createDefaultTweetPollCommentWithStatus("third comments", tpoll,
+//				this.user, CommentStatus.RESTRICT,  commentCreatedAt.toDate());
+//
+//		commentCreatedAt = this.creationDate.minusYears(2);
+//		createDefaultTweetPollCommentWithStatus("third comments", tpoll,
+//				this.user, CommentStatus.RESTRICT, commentCreatedAt.toDate());
+
+
+		commentCreatedAt = this.creationDate.minusDays(3);
+
+		createDefaultTweetPollCommentWithStatus("fourth comments", tpoll,
+				this.user, CommentStatus.APPROVE, commentCreatedAt.toDate());
+
+		createDefaultTweetPollCommentWithStatus("fifth comments", tpoll,
+				this.user, CommentStatus.MODERATE, this.creationDate.toDate());
+
+		commentCreatedAt = this.creationDate.minusDays(4);
+		createDefaultTweetPollCommentWithStatus("sixth comments", tpoll,
+				this.user, CommentStatus.APPROVE, commentCreatedAt.toDate());
+
+	    // Retrieve without
+		final Long tweetpollCommentsApproved = getCommentsOperations()
+				.getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, CommentStatus.APPROVE, null);
+		assertEquals("Comments approved should be equals", 3, tweetpollCommentsApproved.intValue());
+
+		// Retrieve without
+		final Long tweetpollCommentsModerate = getCommentsOperations()
+				.getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, CommentStatus.MODERATE, null);
+
+		assertEquals("Comments moderate should be equals", 2, tweetpollCommentsModerate.intValue());
+
+//		// Retrieve without
+//		final Long tweetpollCommentsRestrict = getCommentsOperations()
+//				.getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
+//						TypeSearchResult.TWEETPOLL, CommentStatus.RESTRICT, null);
+//
+//		assertEquals("Comments Restrict should be equals", 2, tweetpollCommentsRestrict.intValue());
+
+		 // Retrieve with
+		final Long tweetpollCommentsApprovedWithRange = getCommentsOperations()
+				.getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, CommentStatus.APPROVE, SearchPeriods.SEVENDAYS);
+		assertEquals("Comments approved should be equals", 3, tweetpollCommentsApprovedWithRange.intValue());
+
+
+		// Retrieve with
+		final Long tweetpollCommentsModerateWithRange = getCommentsOperations()
+				.getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, CommentStatus.MODERATE, SearchPeriods.TWENTYFOURHOURS);
+
+			assertEquals("Comments moderate should be equals", 1, tweetpollCommentsModerateWithRange.intValue());
+
+//		// Retrieve with
+//		final Long tweetpollCommentsRestrictWithRange = getCommentsOperations()
+//				.getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
+//						TypeSearchResult.TWEETPOLL, CommentStatus.RESTRICT, SearchPeriods.ONEYEAR);
+//		assertEquals("Comments Restrict should be equals", 1, tweetpollCommentsRestrictWithRange.intValue());
+//
+//		// Retrieve with
+//		final Long tweetpollCommentsAllRestrictWithRange = getCommentsOperations()
+//				.getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
+//						TypeSearchResult.TWEETPOLL, CommentStatus.RESTRICT, SearchPeriods.ALLTIME);
+//		assertEquals("Comments Restrict should be equals", 2, tweetpollCommentsAllRestrictWithRange.intValue());
+
+
+    }
+
+    /**
+     * Retrieve all {@link Comment} by status
+     */
+	@Test
+    public void testRetrieveAllCommentsbyStatus(){
+		 DateTime commentPollCreated = this.creationDate;
+
+		createDefaultTweetPollCommentWithStatus("aaa comments", tpoll,
+				this.user, CommentStatus.APPROVE, this.creationDate.toDate());
+
+		commentPollCreated = this.creationDate.minusDays(4);
+		createDefaultTweetPollCommentWithStatus("bbb comments", tpoll,
+				this.user, CommentStatus.MODERATE, commentPollCreated.toDate());
+
+		createDefaultTweetPollCommentWithStatus("ccc comments", tpoll,
+				this.user, CommentStatus.MODERATE, this.creationDate.toDate());
+
+		commentPollCreated = this.creationDate.minusMonths(3);
+		createDefaultPollCommentWithStatus("ggg comments", poll, this.user,
+				CommentStatus.APPROVE, commentPollCreated.toDate());
+
+
+		createDefaultPollCommentWithStatus("hhh comments", poll, this.user,
+				CommentStatus.MODERATE, commentPollCreated.toDate());
+
+
+		createDefaultTweetPollCommentWithStatus("xxx comments", tpoll,
+				this.user, CommentStatus.APPROVE, commentPollCreated.toDate());
+
+	    final Long totalPollCommentsApproved = getCommentsOperations().getTotalCommentsbyTypeAndStatus(TypeSearchResult.POLL, CommentStatus.MODERATE, null);
+	    assertEquals("Comments Moderate should be equals", 1, totalPollCommentsApproved.intValue());
+
+
+	    final Long totalTweetPollCommentsApproved = getCommentsOperations()
+				.getTotalCommentsbyTypeAndStatus(TypeSearchResult.TWEETPOLL,
+						CommentStatus.APPROVE, null);
+	    assertEquals("Comments Approve should be equals", 2, totalTweetPollCommentsApproved.intValue());
+
+
+	    // With
+		final Long totalPollCommentsApprovedWithRange = getCommentsOperations()
+				.getTotalCommentsbyTypeAndStatus(TypeSearchResult.POLL,
+						CommentStatus.MODERATE, null);
+	    assertEquals("Comments Moderate should be equals", 1, totalPollCommentsApproved.intValue());
+
+	    // With
+	    final Long totalTweetPollCommentsApprovedWithRange = getCommentsOperations()
+				.getTotalCommentsbyTypeAndStatus(TypeSearchResult.TWEETPOLL,
+						CommentStatus.APPROVE, SearchPeriods.ONEYEAR);
+	    assertEquals("Comments Approve should be equals", 2, totalTweetPollCommentsApprovedWithRange.intValue());
+
+	    final Long totalTweetPollCommentsApprovedWithRangeToday = getCommentsOperations()
+				.getTotalCommentsbyTypeAndStatus(TypeSearchResult.TWEETPOLL,
+						CommentStatus.APPROVE, SearchPeriods.TWENTYFOURHOURS);
+
+	    assertEquals("Comments Approve should be equals", 1, totalTweetPollCommentsApprovedWithRangeToday.intValue());
+    }
+
+	/**
+	 *
+	 */
+	@Test
+	public void testRetrieveAllPollCommentsbyStatus() {
+		createDefaultPollCommentWithStatus("aaa comments", this.poll,
+				this.user, CommentStatus.APPROVE, this.creationDate.toDate());
+		createDefaultPollCommentWithStatus("bbb comments", this.poll,
+				this.user, CommentStatus.MODERATE, this.creationDate.toDate());
+//		createDefaultPollCommentWithStatus("ccc comments", this.poll,
+//				this.user, CommentStatus.RESTRICT, this.creationDate.toDate());
+		createDefaultPollCommentWithStatus("ddd comments", this.poll,
+				this.user, CommentStatus.APPROVE, this.creationDate.toDate());
+		createDefaultPollCommentWithStatus("eee comments", this.poll,
+				this.user, CommentStatus.MODERATE, this.creationDate.toDate());
+		createDefaultPollCommentWithStatus("fff comments", this.poll,
+				this.user, CommentStatus.APPROVE, this.creationDate.toDate());
+
+		createDefaultPollCommentWithStatus("ggg comments", this.poll, this.user,
+				CommentStatus.APPROVE, creationDate.toDate());
+		createDefaultPollCommentWithStatus("hhh comments", this.poll, this.user,
+				CommentStatus.MODERATE, creationDate.toDate());
+
+		final Long totalPollCommentsApproved = getCommentsOperations()
+				.getTotalCommentsbyTypeAndStatus(TypeSearchResult.POLL,
+						CommentStatus.APPROVE, null);
+		  assertEquals("Comments Approve should be equals", 4, totalPollCommentsApproved.intValue());
+	}
+
 
     /**
      * Test get top rated comments.
@@ -165,4 +348,61 @@ public class TestCommentDao extends AbstractBase {
         final List<Comment> getDisLikeTopRatedComments = getCommentsOperations().getTopRatedComments(CommentsSocialOptions.DISLIKE_VOTE, 3, 15, 0);
         assertEquals("Should be equals", 3, getDisLikeTopRatedComments.size());
     }
+
+    /**
+     * Test Retrieve Approved comments.
+     */
+    @Test
+    public void testRetrieveApprovedComments(){
+
+    	createDefaultTweetPollCommentWithStatus("First comment", tpoll, this.user, CommentStatus.APPROVE, this.creationDate.toDate());
+    	createDefaultTweetPollCommentWithStatus("Second comment", tpoll, this.user, CommentStatus.APPROVE, this.creationDate.toDate());
+    	createDefaultTweetPollCommentWithStatus("Third comment", tpoll, this.user, CommentStatus.SPAM, this.creationDate.toDate());
+
+		final List<Comment> approvedComments = getCommentsOperations()
+				.getCommentsbyTypeAndStatus(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, 10, 0,
+						CommentStatus.APPROVE, null);
+		assertEquals("Should be equals", 2, approvedComments.size());
+
+		final List<Comment> allComments = getCommentsOperations()
+				.getCommentsbyTypeAndStatus(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, 10, 0,
+						CommentStatus.ALL, null);
+		assertEquals("Should be equals", 4, allComments.size());
+    }
+
+
+    /**
+     * Test retrieve Comments by status and date range
+     */
+    @Test
+    public void testRetrieveApprovedCommentsByRange(){
+		// Today
+		createDefaultTweetPollCommentWithStatus("Third comment", tpoll,
+				this.user, CommentStatus.APPROVE, this.creationDate.toDate());
+		// Last week
+		this.creationDate.minusDays(2);
+		createDefaultTweetPollCommentWithStatus("Third comment", tpoll,
+				this.user, CommentStatus.APPROVE, this.creationDate.minusDays(2).toDate());
+
+		// Last week
+		this.creationDate.minusDays(3);
+		createDefaultTweetPollCommentWithStatus("Fourth comment", tpoll,
+				this.user, CommentStatus.APPROVE, this.creationDate.minusDays(2).toDate());
+
+		final List<Comment> approvedComments = getCommentsOperations()
+				.getCommentsbyTypeAndStatus(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, 10, 0,
+						CommentStatus.APPROVE, SearchPeriods.SEVENDAYS);
+
+		assertEquals("Should be equals", 3, approvedComments.size());
+
+		final List<Comment> approvedCommentsToday = getCommentsOperations()
+				.getCommentsbyTypeAndStatus(this.tpoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, 10, 0,
+						CommentStatus.APPROVE, SearchPeriods.TWENTYFOURHOURS);
+		//assertEquals("Should be equals", 1, approvedComments.size());
+    }
+
 }

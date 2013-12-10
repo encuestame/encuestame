@@ -9,10 +9,13 @@
     </bean>
 
     <bean id="reindexAttachmentJob" class="org.encuestame.business.search.ReIndexAttachmentsJob"/>
+    <bean id="sendNotificationsJob" class="org.encuestame.business.cron.SendNotificationsJob"/>
     <bean id="indexRebuilder" class="org.encuestame.core.cron.IndexRebuilder"/>
     <bean id="calculateHashTagSize" class="org.encuestame.core.cron.CalculateHashTagSize"/>
     <bean id="calculateRelevance" class="org.encuestame.core.cron.CalculateRelevance"/>
     <bean id="removeAccountJob" class="org.encuestame.business.cron.RemoveUnconfirmedAccountJob"/>
+	<bean id="removeSpamCommentJob" class="org.encuestame.business.cron.RemoveSpamCommentsJob"/> 
+	<bean id="publishScheduled" class="org.encuestame.business.cron.PublishScheduled"/>
 
     <bean id="calculateInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="calculateHashTagSize"/>
@@ -47,6 +50,16 @@
         </property>
     </bean>
 
+    <!-- Send notifications to channels to users subscribed -->
+    <bean id="sendNotificationsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="sendNotificationsJob"/>
+        <property name="targetMethod" value="sendNotifications"/>
+        <property name="concurrent">
+            <value>false</value>
+        </property>
+    </bean>
+
+
     <!-- Attachments process indexer -->
     <bean id="reindexingAttachmentsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="reindexAttachmentJob"/>
@@ -56,6 +69,32 @@
         </property>
     </bean>
 
+    <!-- Remove unconfirmed Account job -->
+    <bean id="removingSpamCommentsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="removeSpamCommentJob"/>
+        <property name="targetMethod" value="removeSpamComments"/>
+        <property name="concurrent">
+            <value>false</value>
+        </property>
+    </bean>
+
+     <bean id="publishScheduledJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="publishScheduled"/>
+        <property name="targetMethod" value="publish"/>
+        <property name="concurrent">
+            <value>false</value>
+        </property>
+    </bean>
+
+	<bean id="removeScheduledJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="publishScheduled"/>
+        <property name="targetMethod" value="remove"/>
+        <property name="concurrent">
+            <value>false</value>
+        </property>
+    </bean>
+
+
      <!-- Every 5 minutes 0 0/5 * * * ? -->
      <!-- 0 0 12 * * ?   Fire at 12pm (noon) every day -->
      <!-- 0 0 12 1/5 * ? Fire at 12pm (noon) every 5 days every month, starting on the first day of the month. -->
@@ -63,33 +102,78 @@
         class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-                 <!--  Reindex domains -->
+                 <!--  
+                    Renew the index for all domains, used in search
+                 -->
                  <bean id="cronReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="reindexingInvokingJobDetail" />
                     <property name="cronExpression" value="0 0 12 * * ?" />
-                    <!-- Fire at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday -->
                 </bean>
-                <!-- Reindex attachments
+                
+                <!-- 
+                    Reindex attachments
+                    TODO: Not used at the moment
                 <bean id="attachmentsReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="reindexingAttachmentsJobDetail" />
                     <property name="cronExpression" value="0 15 10 * * ? *" />
-                </bean> -->
+                </bean> 
+                
+                -->
+                
+                
                 <bean id="calculateReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="calculateInvokingJobDetail" />
                     <property name="cronExpression" value="0 15 10 ? * MON-FRI" />
-                    <!--    Fire at 11pm (noon) every day -->
                 </bean>
+                
+                <!--                 
+                    Calculate the relevance and renew the index files 
+                 -->
                 <bean id="calculateRelevanceReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="calculateRelevanceInvokingJobDetail" />
                     <property name="cronExpression" value="0 0 12 * * ?" />
-                    <!--    Fire at 11pm (noon) every day -->
                 </bean>
-                 <!-- Remove unconfirmed expired accounts -->
+
+                <!-- 
+                    Remove unconfirmed expired accounts 
+                -->
                 <bean id="removeUnconfirmedAccount" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="removeAccountJobDetail" />
                     <property name="cronExpression" value="0 0 12 * * ?" />
-                    <!--    Fire at 12pm (noon) every day -->
                 </bean>
+
+                <!-- 
+                    Remove unconfirmed expired accounts 
+                -->
+                <bean id="sendNotifications" class="org.springframework.scheduling.quartz.CronTriggerBean">
+                    <property name="jobDetail" ref="sendNotificationsJobDetail" />
+                    <property name="cronExpression" value="*/5 * * * * ?" />
+                </bean>
+               
+               <!-- 
+                    Remove all comments marked as spam
+                -->
+                <bean id="removeSpamComments" class="org.springframework.scheduling.quartz.CronTriggerBean">
+                    <property name="jobDetail" ref="removingSpamCommentsJobDetail" />
+                    <property name="cronExpression" value="0 0 12 * * ?" />
+                </bean>
+				
+				<!-- 
+				    Cron to Publish all scheduled assets
+				 -->
+				<bean id="publishAllScheduled" class="org.springframework.scheduling.quartz.CronTriggerBean">
+						<property name="jobDetail" ref="publishScheduledJobDetail" /> 
+     					<property name="cronExpression" value="0 0/3 * * * ?" />
+				</bean>
+				 
+				<!-- 
+				      Cron to remove all scheduled assets marked to be removed
+				 -->
+				<bean id="removeAllScheduled" class="org.springframework.scheduling.quartz.CronTriggerBean">
+                    <property name="jobDetail" ref="removeScheduledJobDetail" /> 
+                    <property name="cronExpression" value="*0 0/3 * * * ?" />
+			    </bean>
+			     
             </list>
         </property>
     </bean>

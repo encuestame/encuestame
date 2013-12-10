@@ -12,6 +12,8 @@
  */
 package org.encuestame.mvc.interceptor;
 
+import java.util.Locale;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -82,6 +84,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
      */
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
+    	request.setAttribute("user_locale", WidgetUtil.getCurrentLocale(request));
         final Authentication auth = getSecCtx().getAuthentication();
         log.trace("preHandle security auth "+auth);
         if (!SecurityUtils.checkIsSessionIsExpired(auth)) {
@@ -96,6 +99,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
                 request.setAttribute("isActivated", user.getInviteCode() == null ? true : false);
                 log.trace("Account User Interceptor "+user);
                 request.setAttribute("account", ConvertDomainBean.convertUserAccountToSignUpBean(user));
+                request.setAttribute("user_locale", user.getLanguage() == null ? WidgetUtil.getCurrentLocale(request): new Locale(user.getLanguage()).getLanguage());
                 Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
                 if(cookieName != null){
                     log.trace("Cookie "+cookieName.getName());

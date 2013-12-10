@@ -15,11 +15,16 @@ package org.encuestame.core.service.imp;
 import java.util.List;
 
 import org.encuestame.persistence.domain.Comment;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.persistence.exception.EnmeNotAllowedException;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.CommentsSocialOptions;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
@@ -63,7 +68,7 @@ public interface ICommentService {
      * @throws EnMeNoResultsFoundException
      */
     List<CommentBean> getCommentsbyUser(final Integer maxResults,
-            final Integer start) throws EnMeNoResultsFoundException;
+            final Integer start, final CommentStatus commentStatus) throws EnMeNoResultsFoundException;
 
     /**
      * Get comments by keyword.
@@ -83,8 +88,9 @@ public interface ICommentService {
      * @param commentBean
      * @return
      * @throws EnMeNoResultsFoundException
+     * @throws EnmeNotAllowedException
      */
-    Comment createComment(final CommentBean commentBean) throws EnMeNoResultsFoundException;
+    Comment createComment(final CommentBean commentBean) throws EnMeNoResultsFoundException, EnmeNotAllowedException;
 
     /***
      * Get comments by TweetPoll.
@@ -118,4 +124,43 @@ public interface ICommentService {
       */
      List<CommentBean> getTopRatedComments(final CommentsSocialOptions socialCommentOption, final Integer maxResults,
              final Integer start);
+
+     /**
+      * Retrieve {@link Comment} by Status and Comment type.
+      * @param id
+      * @param typeSearch
+      * @param maxResults
+      * @param start
+      * @param commentStatus
+      * @return
+      */
+     List<CommentBean> retrieveCommentsByTypeAndStatus(final Long id,
+ 			final TypeSearchResult typeSearch, final Integer maxResults,
+ 			final Integer start, final CommentStatus commentStatus, final SearchPeriods period);
+
+     /**
+      * Retrieve total comments by type: {@link TweetPoll} {@link Poll} {@link Survey}
+      * @param id
+      * @param itemType
+      * @param commentStatus
+      * @param period
+      * @return
+      * @throws EnMeNoResultsFoundException
+      */
+     Long totalCommentsbyType(final Long id,
+ 			final TypeSearchResult itemType,
+ 			final CommentStatus commentStatus, final SearchPeriods period) throws EnMeNoResultsFoundException;
+
+
+     /**
+      * Retrieve total comments by type: {@link TweetPoll}, {@link Poll} or Survey and Status : CommentStatus.
+      * @param itemType
+      * @param commentStatus
+      * @param period
+      * @return
+      * @throws EnMeNoResultsFoundException
+      */
+     Long totalCommentsbyTypeAndStatus(final TypeSearchResult itemType,
+ 			final CommentStatus commentStatus, final SearchPeriods period)
+ 			throws EnMeNoResultsFoundException;
 }

@@ -16,8 +16,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.collections.ListUtils;
-import org.encuestame.utils.enums.TypeSearch;
+ import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
 

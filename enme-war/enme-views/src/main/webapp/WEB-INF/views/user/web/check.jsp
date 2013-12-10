@@ -5,7 +5,7 @@
               collapsed="false">
               <div class="web-form-singup-container">
                   <div class="web-message-forgot">
-                      <h1>
+                      <h2>
                              <spring:message code="forgot.checkyouremail" />
                              <div class="web-message-forgor-link">
                                     <span class="link">
@@ -14,7 +14,7 @@
                                         </a>
                                     </span>
                              </div>
-                       </h1>
+                       </h2>
                   </div>
               </div>
           </div>

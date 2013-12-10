@@ -1,7 +1,8 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<h1>
+<h3>
     <spring:message code="setup.step1"></spring:message> <spring:message code="setup.stepDes1"></spring:message>
-</h1>
+</h3>
+<hr/>
 <p>
     <b>
         <a href="http://www.encuestame.org" target="_blank">
@@ -9,7 +10,8 @@
     </a>
     </b>
         <spring:message code="setup.open.source.is"></spring:message>
-     <b><spring:message code="setup.open.source"></spring:message></b>. <spring:message code="setup.open.source.final"> </spring:message>
+     <b>
+        <spring:message code="setup.open.source"></spring:message></b>. <spring:message code="setup.open.source.final"> </spring:message>:
 <ul>
     <li><b><spring:message code="setup.easy"></spring:message> -</b> <spring:message code="setup.easy.des"></spring:message></li>
     <li><b><spring:message code="setup.install"></spring:message> -</b> <spring:message code="setup.install.des"></spring:message></li>
@@ -19,9 +21,9 @@
     <li><b><spring:message code="setup.social"></spring:message> -</b> <spring:message code="setup.social.des"></spring:message></li>
 </ul>
 </p>
-<h2>
+<h4>
     <spring:message code="setup.stepHeader"></spring:message>:
-</h2>
+</h4>
 <ol>
     <li>
         <spring:message code="setup.stepDes1"></spring:message>
@@ -45,3 +47,7 @@
         <spring:message code="setup.stepDes7"></spring:message>
     </li>
 </ol>
+
+<div class="progress progress-warning progress-striped">
+  <div class="bar" style="width: 05%;"></div>
+</div>

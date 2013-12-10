@@ -116,6 +116,9 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `sid` bigint(20) DEFAULT NULL,
   `tweetPollId` bigint(20) DEFAULT NULL,
   `uid` bigint(20) NOT NULL,
+  `is_published` bit(1) DEFAULT NULL,
+  `is_spam` bit(1) DEFAULT NULL,
+  `comment_status` int(11) DEFAULT NULL,
   PRIMARY KEY (`commentId`),
   UNIQUE KEY `commentId` (`commentId`),
   KEY `FKDC17DDF4F44558E9` (`uid`),
@@ -923,6 +926,7 @@ CREATE TABLE IF NOT EXISTS `tweetPoll` (
   `editor` bigint(20) DEFAULT NULL,
   `qid` bigint(20) NOT NULL,
   `uid` bigint(20) NOT NULL,
+  `comment_option` int(11) DEFAULT NULL,
   `tweetPollFolderId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`tweet_poll_id`),
   UNIQUE KEY `tweet_poll_id` (`tweet_poll_id`),
@@ -944,7 +948,7 @@ CREATE TABLE IF NOT EXISTS `tweetPoll_Folder` (
   `createdBy_uid` bigint(20) DEFAULT NULL,
   `uid` bigint(20) NOT NULL,
   PRIMARY KEY (`tweetPollFolderId`),
-  UNIQUE KEY `tweetPollFolderId` (`tweetPollFolderId`),
+  UNIQUE KEY `tweetTFolderId` (`tweetPollFolderId`),
   KEY `FKA027A9DD2B2A6AB4` (`uid`),
   KEY `FKA027A9DD6EF241E9` (`createdBy_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -985,7 +989,7 @@ CREATE TABLE IF NOT EXISTS `tweetPoll_save_published_status` (
   `status_save_poll_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) DEFAULT NULL,
   `status_description` varchar(255) DEFAULT NULL,
-  `publication_date_tweet` datetime DEFAULT NULL,
+  `publication_date_tweet` datetime DEFAULT NULL,RT
   `status` int(11) DEFAULT NULL,
   `tweet_content` varchar(255) DEFAULT NULL,
   `tweet_id` varchar(255) DEFAULT NULL,
@@ -1141,3 +1145,23 @@ CREATE TABLE IF NOT EXISTS `survey_temporal_result` (
   KEY `FK7867CF5496009B4` (`answer_q_answer_id`),
   KEY `FK7867CF551153812` (`survey_sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+--
+-- Table structure for table `scheduled`
+--
+
+CREATE TABLE  `scheduled` (
+`publish_scheduled_id` BIGINT( 20 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`publish_attempts` INT( 11 ) NULL ,
+`scheduled_date` DATETIME NULL ,
+`status` INT( 11 ) NULL ,
+`tweet_text` VARCHAR( 255 ) NULL ,
+`type_search` INT( 11 ) NULL ,
+`poll_poll_id` BIGINT( 20 ) NULL ,
+`socialAccount_social_account_id` BIGINT( 20 ) NULL ,
+`survey_sid` BIGINT( 20 ) NULL ,
+`tpoll_tweet_poll_id` BIGINT( 20 ) NULL ,
+`tpollSavedPublished_status_save_poll_id` BIGINT( 20 ) NULL ,
+`publication_date` DATETIME NULL
+) ENGINE = INNODB;

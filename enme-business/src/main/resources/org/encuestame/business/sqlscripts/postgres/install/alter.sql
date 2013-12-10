@@ -1783,9 +1783,16 @@ ALTER TABLE ONLY question_preferences ADD CONSTRAINT FKD540D01F46BF7A1C FOREIGN 
 ALTER TABLE ONLY hash_tags_ranking
   ADD CONSTRAINT FK71DECDA119AA125 FOREIGN KEY (hashTag_hash_tag_id) REFERENCES hash_tags (hash_tag_id);
 
+ 
+ALTER TABLE ONLY scheduled ADD CONSTRAINT FKF66BC0AD1366E48E FOREIGN KEY (tpoll_tweet_poll_id) REFERENCES tweetpoll(tweet_poll_id);
+ALTER TABLE ONLY scheduled ADD CONSTRAINT FKF66BC0AD51153812 FOREIGN KEY (survey_sid) REFERENCES surveys(sid);
+ALTER TABLE ONLY scheduled ADD CONSTRAINT FKF66BC0AD5239D117 FOREIGN KEY (socialAccount_social_account_id) REFERENCES social_account(social_account_id);
+ALTER TABLE ONLY scheduled ADD CONSTRAINT FKF66BC0AD63976E9 FOREIGN KEY (poll_poll_id) REFERENCES poll(poll_id);
+ALTER TABLE ONLY scheduled ADD CONSTRAINT FKF66BC0AD9C14A5E7 FOREIGN KEY (tpollSavedPublished_status_save_poll_id) REFERENCES tweetPoll_save_published_status(status_save_poll_id);
+  
+
 -- Completed on 2011-11-30 21:40:42 CET
 
 --
 -- PostgreSQL database dump complete
 --
-

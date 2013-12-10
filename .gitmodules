@@ -1,15 +1,3 @@
-[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dojo"]
-	path = enme-js/resources-enme-war/src/main/resources/resource/js/dojo
-	url = git://github.com/encuestame/dojo.git
-[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dojox"]
-	path = enme-js/resources-enme-war/src/main/resources/resource/js/dojox
-	url = git://github.com/encuestame/dojox.git
-[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dijit"]
-	path = enme-js/resources-enme-war/src/main/resources/resource/js/dijit
-	url = git://github.com/encuestame/dijit.git
-[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/util"]
-	path = enme-js/resources-enme-war/src/main/resources/resource/js/util
-	url = git://github.com/encuestame/util.git
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/chart/eve"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/chart/eve
 	url = git://github.com/encuestame/eve.git
@@ -24,4 +12,35 @@
 	url = git://github.com/encuestame/me.git
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/mobile"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/mobile
-	url = git@github.com:encuestame/mobile-me.git
+	url = git://github.com/encuestame/mobile-me.git
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/bootstrap"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/bootstrap
+	url = git://github.com/juanpicado/Dojo-Bootstrap.git
+[submodule "doc"]
+	path = doc
+	url = git://github.com/encuestame/doc.git
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/widget"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/widget
+	url = git://github.com/juanpicado/widget-enme
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/tests"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/tests
+	url = git://github.com/encuestame/enme-intern-test.git
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/hammer"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/hammer
+	url = https://github.com/encuestame/hammer.js.dojo.git
+[submodule "enme-css/src/css/resource/sass"]
+	path = enme-css/src/css/resource/sass
+	url = git://github.com/encuestame/css-theme.git
+
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dojox"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/dojox
+	url = https://github.com/dojo/dojox.git
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dojo"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/dojo
+	url = https://github.com/dojo/dojo.git
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dijit"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/dijit
+	url = https://github.com/dojo/dijit.git
+[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/util"]
+	path = enme-js/resources-enme-war/src/main/resources/resource/js/util
+	url = https://github.com/dojo/util.git

@@ -189,4 +189,14 @@ public interface IFrontEndDao extends IBaseDao{
     List<Hit> getAllHitsByType(final TweetPoll tweetpoll,
             final Poll poll,
             final Survey survey);
+
+    /**
+     * Retrive {@link HashTag} {@link Hit}
+     * @param tagId
+     * @param period
+     * @return
+     */
+    List<Hit> getHashTagHitsRange(final Long tagId,
+			final SearchPeriods period);
+
 }

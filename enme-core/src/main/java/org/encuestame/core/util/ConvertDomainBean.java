@@ -16,6 +16,7 @@ package org.encuestame.core.util;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +36,7 @@ import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
+import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
@@ -65,6 +67,7 @@ import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -80,6 +83,7 @@ import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.ScheduledItemBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.TypeTreeNode;
@@ -483,9 +487,7 @@ public class ConvertDomainBean {
      */
     public static final UnitGroupBean convertGroupDomainToBean(final Group groupDomain) {
         final UnitGroupBean groupBean = new UnitGroupBean();
-        System.out.println("convertGroupDomainToBean 1 --> "+groupDomain);
         if (groupDomain != null) {
-            System.out.println("convertGroupDomainToBean 2 --> "+groupDomain);
             groupBean.setId(groupDomain.getGroupId());
             groupBean.setGroupName(groupDomain.getGroupName());
             groupBean
@@ -728,6 +730,73 @@ public class ConvertDomainBean {
                 .toLowerCase());
         return unitTweetPoll;
     }
+
+    public static final SearchBean convertTweetPollToSearchBean(
+            final TweetPoll tweetPoll) {
+        final SearchBean unitTweetPoll = new SearchBean();
+        unitTweetPoll.setId(tweetPoll.getTweetPollId());
+        unitTweetPoll.setScheduleDate(tweetPoll.getScheduleDate());
+        unitTweetPoll.setCreateDate(DateUtil.getFormatDate(tweetPoll
+                .getCreateDate()));
+        unitTweetPoll.setCreateDateComparable(tweetPoll.getCreateDate());
+        unitTweetPoll
+                .setAllowLiveResults(tweetPoll.getAllowLiveResults() == null ? false
+                        : tweetPoll.getAllowLiveResults());
+        unitTweetPoll
+                .setResumeLiveResults(tweetPoll.getResumeLiveResults() == null ? false
+                        : tweetPoll.getResumeLiveResults());
+        unitTweetPoll
+                .setSchedule(tweetPoll.getScheduleTweetPoll() == null ? false
+                        : tweetPoll.getScheduleTweetPoll());
+        unitTweetPoll
+                .setResultNotification(tweetPoll.getResultNotification() == null ? false
+                        : tweetPoll.getResultNotification());
+        unitTweetPoll.setUserId(tweetPoll.getTweetOwner().getUid());
+        unitTweetPoll
+                .setOwnerUsername(tweetPoll.getEditorOwner() == null ? null
+                        : tweetPoll.getEditorOwner().getUsername());
+        unitTweetPoll.setCaptcha(tweetPoll.getCaptcha() == null ? false
+                : tweetPoll.getCaptcha());
+        unitTweetPoll
+                .setCloseNotification(tweetPoll.getCloseNotification() == null ? false
+                        : tweetPoll.getCloseNotification());
+        unitTweetPoll.setFavourites(tweetPoll.getFavourites() == null ? false
+                : tweetPoll.getFavourites());
+        unitTweetPoll.setCompleted(tweetPoll.getCompleted() == null ? false
+                : tweetPoll.getCompleted());
+        unitTweetPoll.setQuestionBean(convertQuestionsToBean(tweetPoll
+                .getQuestion()));
+        unitTweetPoll.setHits(tweetPoll.getHits() == null ? EnMeUtils.VOTE_MIN
+                : tweetPoll.getHits());
+        unitTweetPoll
+                .setAllowRepeatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false
+                        : tweetPoll.getAllowRepatedVotes());
+        unitTweetPoll.setHashTags(ConvertDomainBean
+                .convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll
+                        .getHashTags())));
+        unitTweetPoll
+                .setTotalVotes(tweetPoll.getNumbervotes() == null ? EnMeUtils.VOTE_MIN
+                        : Long.valueOf(tweetPoll.getNumbervotes()));
+        unitTweetPoll.setCreatedDateAt(tweetPoll.getCreateDate());
+        unitTweetPoll
+                .setLimitVotesDate(tweetPoll.getDateLimit() == null ? false
+                        : tweetPoll.getDateLimit());
+        unitTweetPoll.setUpdateDate(tweetPoll.getUpdatedDate());
+        if (tweetPoll.getDateLimit() != null
+                && tweetPoll.getDateLimited() != null) {
+            unitTweetPoll
+                    .setDateToLimit(tweetPoll.getDateLimited() == null ? null
+                            : DateUtil.DOJO_DATE_FORMAT.format(tweetPoll
+                                    .getDateLimited()));
+        }
+        unitTweetPoll
+                .setRelevance(tweetPoll.getRelevance() == null ? EnMeUtils.RATE_DEFAULT
+                        : tweetPoll.getRelevance());
+        unitTweetPoll.setItemType(TypeSearchResult.TWEETPOLL.toString()
+                .toLowerCase());
+        return unitTweetPoll;
+    }
+
 
     /**
      * Convert TweetPoll List to TweetPoll Bean.
@@ -1132,7 +1201,7 @@ public class ConvertDomainBean {
         gadgetBean.setGadgetName(gadget.getGadgetName());
         gadgetBean.setGadgetColor(gadget.getGadgetColor());
         gadgetBean.setGadgetColumn(gadget.getGadgetColumn());
-        gadgetBean.setGadgetPosition(gadget.getGadgetColumn());
+        gadgetBean.setGadgetPosition(gadget.getGadgetPosition());
         gadgetBean.setStatus(gadget.getStatus());
         return gadgetBean;
     }
@@ -1214,21 +1283,21 @@ public class ConvertDomainBean {
         if (commentDomain.getPoll() != null && !set) {
             type = TypeSearchResult.POLL;
             id = commentDomain.getPoll().getPollId();
-            commentBean.setType(TypeSearchResult.POLL.toString());
+            commentBean.setType(TypeSearchResult.POLL);
             set = true;
             slug = commentDomain.getPoll().getQuestion().getSlugQuestion();
         }
         if (commentDomain.getTweetPoll() != null && !set) {
             type = TypeSearchResult.TWEETPOLL;
             id = commentDomain.getTweetPoll().getTweetPollId();
-            commentBean.setType(TypeSearchResult.TWEETPOLL.toString());
+            commentBean.setType(TypeSearchResult.TWEETPOLL);
             set = true;
             slug = commentDomain.getTweetPoll().getQuestion().getSlugQuestion();
         }
         if (commentDomain.getSurvey() != null && !set) {
             type = TypeSearchResult.SURVEY;
             id = commentDomain.getSurvey().getSid();
-            commentBean.setType(TypeSearchResult.SURVEY.toString());
+            commentBean.setType(TypeSearchResult.SURVEY);
             set = true;
             // slug =
             // commentDomain.getTweetPoll().getQuestion().getSlugQuestion();
@@ -1241,6 +1310,7 @@ public class ConvertDomainBean {
         commentBean.setCommentedBy(commentDomain.getUser().getCompleteName());
         commentBean.setCommentedByUsername(commentDomain.getUser()
                 .getUsername());
+        commentBean.setStatus(commentDomain.getCommentStatus());
         // url
         // tweetpoll/4/do-you-like-summer-season%3F
         if (type != null) {
@@ -1624,6 +1694,7 @@ public class ConvertDomainBean {
         final ItemStatDetail itemDetail = new ItemStatDetail();
         itemDetail.setItemId(tweetPoll.getTweetPollId());
         itemDetail.setDate(tweetPoll.getCreateDate());
+      //  itemDetail.setMilisecondsDate(DateUtil.getDateMiliseconds(tweetPoll.getCreateDate()));
         return itemDetail;
     }
 
@@ -1639,6 +1710,26 @@ public class ConvertDomainBean {
             itemStatDetail.add(ConvertDomainBean
                     .convertTweetPollToItemDetailBean(tweetPoll));
         }
+        return itemStatDetail;
+    }
+
+    /**
+     *
+     * @param tpolls
+     * @return
+     */
+    public static final List<ItemStatDetail> convertObjectListToItemDetailBean(
+            final List<Object[]> tpolls) {
+         final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+
+       for (Object[] objects : tpolls) {
+           final ItemStatDetail itemDetail = new ItemStatDetail();
+           final Long inte1 = (Long) objects[1];
+           final Date date1 = (Date) objects[0];
+           itemDetail.setDate(date1	);
+           itemDetail.setItemId(inte1);
+           itemStatDetail.add(itemDetail);
+       }
         return itemStatDetail;
     }
 
@@ -1817,6 +1908,44 @@ public class ConvertDomainBean {
         sectionBean.setName(section.getSectionName());
 
         return sectionBean;
+    }
+    	
+    /**
+     * 
+     * @param sections
+     * @return
+     */
+    public static final List<ScheduledItemBean> convertListScheduletoBean(
+            final List<Schedule> sections) {
+        final List<ScheduledItemBean> surveySections = new ArrayList<ScheduledItemBean>();
+        for (Schedule surveySection : sections) {
+            surveySections.add(ConvertDomainBean
+                    .convertScheduletoBean(surveySection));
+        }
+        return surveySections;
+    }
+    
+    /**
+     * 
+     * @param schedule
+     * @return
+     */
+    public static final ScheduledItemBean convertScheduletoBean(final Schedule schedule) {
+    	final ScheduledItemBean scheduleItemBean = new ScheduledItemBean();
+    	scheduleItemBean.setId(schedule.getIdpub());
+    	scheduleItemBean.setDate(schedule.getScheduleDate());
+    	scheduleItemBean.setTweet(schedule.getTweetText());
+    	//scheduleItemBean.setTweetPollResultsBean(ConvertDomainBean.convertTweetPollSavedPublishedStatus(schedule.getTpollSavedPublished()));
+    	scheduleItemBean.setAccountBean(ConvertDomainBean.convertSocialAccountToBean(schedule.getSocialAccount()));
+    	scheduleItemBean.setTypeSearch(schedule.getTypeSearch().toString());
+    	if (TypeSearchResult.TWEETPOLL.equals(schedule.getTypeSearch())) {
+    		scheduleItemBean.setItemId(schedule.getTpoll().getTweetPollId());
+    	} else if(TypeSearchResult.POLL.equals(schedule.getTypeSearch())) {
+    		scheduleItemBean.setItemId(schedule.getPoll().getPollId());
+    	} else if(TypeSearchResult.SURVEY.equals(schedule.getTypeSearch())) {
+    		scheduleItemBean.setItemId(schedule.getSurvey().getSid());
+    	}
+    	return scheduleItemBean;
     }
 
     /**

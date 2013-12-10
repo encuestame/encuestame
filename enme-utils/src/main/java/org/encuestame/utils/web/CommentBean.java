@@ -15,9 +15,11 @@ package org.encuestame.utils.web;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.encuestame.utils.enums.CommentStatus;
+import org.encuestame.utils.enums.TypeSearchResult;
 
 /**
  * Unit Comment bean.
@@ -57,7 +59,7 @@ public class CommentBean implements Serializable{
 
     /** Type of Comment */
     @JsonProperty(value = "type")
-    private String type;
+    private TypeSearchResult type;
 
     /** **/
     @JsonIgnore
@@ -85,6 +87,10 @@ public class CommentBean implements Serializable{
     /** **/
     @JsonProperty(value = "parent_id")
     private Long parentId;
+
+    @JsonProperty(value = "comment_status")
+    private CommentStatus status;
+
     /**
      * @return the commentId
      */
@@ -210,14 +216,14 @@ public class CommentBean implements Serializable{
      * @return the type
      */
     @JsonIgnore
-    public String getType() {
+    public TypeSearchResult getType() {
         return type;
     }
 
     /**
      * @param type the type to set
      */
-    public void setType(final String type) {
+    public void setType(final TypeSearchResult type) {
         this.type = type;
     }
 
@@ -265,4 +271,18 @@ public class CommentBean implements Serializable{
     public void setCommentedByUsername(final String commentedByUsername) {
         this.commentedByUsername = commentedByUsername;
     }
+
+	/**
+	 * @return the status
+	 */
+	public CommentStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(CommentStatus status) {
+		this.status = status;
+	}
 }

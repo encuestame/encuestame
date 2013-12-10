@@ -1,6 +1,6 @@
-![Example](http://api.encuestame.org/mail.png)
+![Example](http://encuestame.org/blog/wp-content/uploads/2013/06/logo_encuestame.png)
 
-Encuestame Open Source Social Survey
+#Encuestame Open Source Social Survey
 =====================================
 
 For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
@@ -13,7 +13,7 @@ If you want to download a build version of encuestame, they're hosted on the [So
 
 ## Maintainers
 * [Diana Paola Morales](http://about.me/dianmorales)
-* [Juan Carlos Picado](http://www.jotadeveloper.es)
+* [Juan Carlos Picado](http://www.jotadeveloper.me)
 * [All Contributors](http://www.encuestame.org#contributors)
 
 ## Where is the most stable code?
@@ -45,7 +45,7 @@ Pull requests are, of course, very welcome! A few "todos", if anyone is [interes
 * [Demo Site](http://demo.encuestame.org)
 * [GitHub](http://github.com/encuestame)
 * [Twitter](http://www.twitter.com/encuestame)
-* [Facebook](https://www.facebook.com/pages/encuestame/80467777529)
+* [Facebook](https://www.facebook.com/encuestame)
 
 
 Copyright and license

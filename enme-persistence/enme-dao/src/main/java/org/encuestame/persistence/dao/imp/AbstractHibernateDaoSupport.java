@@ -31,16 +31,20 @@ import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.WildcardQuery;
 import org.apache.lucene.util.Version;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.SearchPeriods;
+import org.encuestame.utils.enums.Status;
+import org.encuestame.utils.social.SocialProvider;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
@@ -138,6 +142,14 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
     public Date getNextDayMidnightDate(){
        return DateUtil.getNextDayMidnightDate();
     }
+
+    /**
+     * Return before midnight date -1.
+     * @return
+     */
+    public Date getBefDayMidnightDate(){
+        return DateUtil.getBeforeDayMidnightDate();
+     }
 
     /**
      * Return the current date midnight.
@@ -368,11 +380,41 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
         }
         if (isFavourite != null && isFavourite) {
             criteria.add(Restrictions.eq("favourites", isFavourite));
+
         }
         if (isPublished != null && isPublished) {
             criteria.add(Restrictions.eq("publishTweetPoll", isPublished));
         }
     }
+
+
+	public void criteriaAdvancedSearch(final String property, final String property_value,
+			final DetachedCriteria criteria, final Boolean isCompleted,
+			final Boolean isScheduled, final Boolean isFavourite,
+			final Boolean isPublished, final String keyword,
+			final String period) {
+
+        criteria.createAlias(property, property);
+        //  criteria.add(Restrictions.eq("editorOwner.uid", userId)); -- POLL
+        criteria.add(Restrictions.eq(property+"."+property_value, property_value));
+        criteria.addOrder(Order.desc("createDate"));
+        this.advancedSearchOptions(criteria,  isCompleted, isScheduled, isFavourite, isPublished, keyword, period);
+    }
+
+	/**
+	 *
+	 * @param criteria
+	 * @param property
+	 * @param splist
+	 */
+	public void criteriaSearchSocialLinksByType(final DetachedCriteria criteria,  final List<SocialProvider> splist, final List<SocialAccount> socialAccounts){
+          criteria.add(Restrictions.isNotNull("tweetId"));
+          criteria.add(Restrictions.eq("status", Status.SUCCESS));
+          criteria.add(Restrictions.in("apiType", splist));
+          if (socialAccounts.size() > 0) {
+              criteria.add(Restrictions.in("socialAccount", socialAccounts));
+          }
+	}
 
     /**
      * Create query to get  {@link TweetPoll}, {@link Poll}, {@link Survey} by geolocation.

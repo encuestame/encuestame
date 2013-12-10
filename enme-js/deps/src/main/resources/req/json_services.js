@@ -18,11 +18,11 @@ encuestame.service.timeout = ENME.config('delay');
 encuestame.contextDefault = ENME.config('contextPath');
 encuestame.signin = encuestame.contextDefault+"/signin";
 
-encuestame.shortUrlProvider = [
-                    {code:"googl",label:"http://googl.com"},
-                    {code:"tinyurl",label:"http://tinyurl.com"},
-                    {code:"bitly",label:"http://bit.ly/"}
-                   ];
+// encuestame.shortUrlProvider = [
+//                     {code:"googl",label:"http://googl.com"},
+//                     {code:"tinyurl",label:"http://tinyurl.com"},
+//                     {code:"bitly",label:"http://bit.ly/"}
+//                    ];
 
 encuestame.error = {};
 encuestame.error.debug = true;
@@ -257,7 +257,7 @@ encuestame.contextDefault = "encuestame/";
 //encuestame.service.short.tinyurl = "/api/short/url/tinyurl.json";
 
 encuestame.constants = {};
-encuestame.constants.passwordExcludes = [];
+// encuestame.constants.passwordExcludes = [];
 encuestame.constants.imageSizes = {
     thumbnail : "thumbnail",
     defaultType : "default",

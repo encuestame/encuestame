@@ -26,7 +26,9 @@ public enum Status {
    /** success status */
     SUCCESS,
     /** failed status **/
-    FAILED
-    
-    //TODO: to string methods 
+    FAILED,
+    /** processing status **/
+    PROCESSING
+
+    //TODO: to string methods
 }

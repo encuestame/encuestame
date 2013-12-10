@@ -37,7 +37,6 @@ var profile = {
   // Uses Closure Compiler as the JavaScript minifier. This can also be set to "shrinksafe" to use ShrinkSafe,
   // though ShrinkSafe is deprecated and not recommended.
   // This option defaults to "" (no compression) if not provided.
-  // FIXME: issues with inheritance with "closure"
   optimize: 'closure',
 
   // We're building layers, so we need to set the minifier to use for those, too.
@@ -53,6 +52,7 @@ var profile = {
   // smaller. We add it back here to avoid that extra HTTP request. There is also a "lite" selector available; if
   // you use that, you will need to set the `selectorEngine` property in `app/run.js`, too. (The "lite" engine is
   // only suitable if you are not supporting IE7 and earlier.)
+  // http://dojotoolkit.org/reference-guide/1.8/dojo/query.html
   selectorEngine: 'lite',
 
   packages:[{
@@ -65,14 +65,14 @@ var profile = {
             name: "dojox",
             location: "dojox"
         },{
+            name: "org",
+            location: "org"
+        },{
             name: "chart",
             location: "chart"
         },{
             name: "me",
             location: "me"
-        },{
-            name: "org",
-            location: "org"
         }],
 
   // Builds can be split into multiple different JavaScript files called "layers". This allows applications to
@@ -148,7 +148,7 @@ var profile = {
                    'me/core/ui/Loading',
                    'me/web/widget/stream/HashTagInfo',
                    'me/web/widget/pictures/AccountPicture',
-                   'me/activity/Activity',
+                   //'me/activity/Activity',
                    "dijit/registry",
                    'dijit/Dialog',
                    "dijit/form/TextBox",
@@ -161,28 +161,6 @@ var profile = {
                    'dojox/widget/Toaster',
                    'dojox/widget/UpgradeBar'
             ]
-    },
-    'dojox/cometd' : {
-        include :[
-          'org/cometd',
-          'org/cometd/AckExtension',
-          'org/cometd/ReloadExtension',
-          'org/cometd/TimeStampExtension',
-          'org/cometd/TimeSyncExtension',
-          'dojox/cometd/main',
-          'dojox/cometd/ack',
-          'dojox/cometd/reload',
-          'dojox/cometd/timestamp',
-          'dojox/cometd/timesync'
-       ]
-    },
-
-    'me/activity/Activity' : {
-        include :[
-          'dojox/cometd',
-          'me/web/widget/notifications/Notification',
-          'me/web/widget/notifications/NotificationItem'
-        ]
     },
 
     // 'me/web/widget/hashtags/Cloud' : {

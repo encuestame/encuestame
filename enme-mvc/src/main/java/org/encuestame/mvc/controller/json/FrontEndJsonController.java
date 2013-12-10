@@ -50,7 +50,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class FrontEndJsonController extends AbstractJsonController{
 
-
     /** Log. **/
     private Log log = LogFactory.getLog(this.getClass());
 

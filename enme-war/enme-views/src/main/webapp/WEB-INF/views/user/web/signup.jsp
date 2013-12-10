@@ -9,9 +9,9 @@
                 autocomplete="off">
                     <div class="section-signup" title="Sign Up with Username" collapsed="false">
                         <div class="web-form-singup-container">
-                        <h1>
+                        <h2>
                             <spring:message code="signup.title" />
-                        </h1>
+                        </h2>
                         <fieldset class="textbox">
                             <div class="section name">
                                 <div id="rm"
@@ -38,7 +38,7 @@
                         <fieldset>
                             <div class="right">
                                  <c:if test="${signupError}">
-                                    <div class="error">
+                                    <div class="alert alert-error">
                                       <spring:message code="signup.error" />
                                     </div>
                                 </c:if>
@@ -55,9 +55,9 @@
                     <div class="section-signup" title="Sign up with your favourite social network"
                             collapsed="false">
                             <div class="web-social-signin">
-                                <h3>
+                                <h5>
                                    <spring:message code="signup.social.signup" />
-                                </h3>
+                                </h5>
                                 <%@ include file="/WEB-INF/jsp/includes/web/social.jsp" %>
                               </div>
                     </div>

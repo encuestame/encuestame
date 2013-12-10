@@ -251,6 +251,7 @@ public class TweetPollController extends AbstractViewController {
         addi18nProperty(model, "detail_clean_filters", getMessage("detail_clean_filters"));
         addi18nProperty(model, "commons_favourite");
         addi18nProperty(model, "e_023");
+        addi18nProperty(model, "commons_no_results");
         addi18nProperty(model, "commons_unfavourite");
         return "tweetpoll";
     }

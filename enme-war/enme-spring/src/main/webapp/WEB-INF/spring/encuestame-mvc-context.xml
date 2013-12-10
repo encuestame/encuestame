@@ -43,6 +43,13 @@
     <bean id="signInInterceptor" class=" org.encuestame.mvc.interceptor.SignInInterceptor" />
     <bean id="checkInstallInterceptor" class=" org.encuestame.mvc.interceptor.CheckInstallInterceptor" />
 
+    <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+       <property name="cacheSeconds" value="${cache.period}"/>
+       <property name="useExpiresHeader" value="${cache.useExpiresHeader}"/>
+       <property name="useCacheControlHeader" value="${cache.useCacheControlHeader}"/>
+       <property name="useCacheControlNoStore" value="${cache.useCacheControlNoStore}"/>
+    </bean>
+
     <mvc:interceptors>
           <mvc:interceptor>
             <mvc:mapping path="/**"/>
@@ -79,6 +86,11 @@
             <mvc:exclude-mapping path="/resource/**"/>
             <mvc:exclude-mapping path="/resources/**"/>
             <ref bean="openSessionInViewInterceptor"/>
+          </mvc:interceptor>
+          <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!-- <mvc:exclude-mapping path="/api/**"/> -->
+            <ref bean="webContentInterceptor"/>
           </mvc:interceptor>
     </mvc:interceptors>
 
@@ -153,50 +165,37 @@
                     </property>
                 </bean>
                 <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
+                <!-- <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" /> -->
                 <!-- Converter for images -->
                 <bean class="org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter"/>
+                <ref bean="jsonHttpMessageConverter"/>
             </list>
         </property>
   </bean>
 
+    <bean id="JacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper" />
 
+    <bean id="jsonHttpMessageConverter"
+        class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" >
+        <property name="supportedMediaTypes" value="application/json"/>
+        <property name="objectMapper">
+                <ref bean="JacksonObjectMapper" />
+           </property>
+    </bean>
     <!--
         Tiles Configuration
      -->
     <bean id="tilesResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="order" value="3"/>
-        <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
     </bean>
 
-    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions">
             <value>/WEB-INF/layouts/tiles.xml,/WEB-INF/views/**/tiles.xml</value>
         </property>
-        <property name="checkRefresh" value="false" />
+        <property name="checkRefresh" value="false" />        
     </bean>
-
-
-
-   <!-- Tiles Configuration -->
-   <!-- <import resource="encuestame-tiles-context.xml"/> -->
-
-   <!-- Define url mappings to web flow controller.
-    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-       <property name="mappings">
-         <value>
-
-         </value>
-       </property>
-       <property name="defaultHandler" ref="urlFilenameViewController"/>
-       <property name="interceptors">
-        <list>
-             <ref bean="enMeInterceptor"/>
-             <ref bean="openSessionInViewInterceptor"/>
-             <ref bean="setupInterceptor"/>
-        </list>
-    </property>
-       <property name="order" value="1"/>
-    </bean>-->
 
   <!-- Maps request paths to @Controller classes;
        e.g. a path of /signup looks for a controller named SignUpController -->
@@ -227,17 +226,26 @@
   <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 
   <!-- Resources -->
-  <mvc:resources mapping="/resources/**" location="/resource/" cache-period="31556926" order="0"/>
+  <mvc:resources mapping="/resources/**" location="/resource/" cache-period="${cache.period}" order="0"/>
 
+  <!-- <bean id="wroFilter" class="ro.isdc.wro.http.ConfigurableWroFilter">
+    <property name="properties" ref="wroProperties"/>
+  </bean>
+
+  <bean id="wroProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">  
+      <property name="location" value="classpath:wro.properties" />  
+  </bean>   -->
   <!--
-    Dispatches requests mapped to flows to FlowHandler implementations-->
+    Dispatches requests mapped to flows to FlowHandler implementations
+    TEMP: Disabled, last Mileston of webflow is not compatible with Spring 4
    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
     <property name="flowExecutor" ref="flowExecutor" />
   </bean>
+  -->
 
 
     <!-- Maps request paths to flows in the flowRegistry;
-        e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->
+        TEMP: Disabled, last Mileston of webflow is not compatible with Spring 4
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
         <property name="flowRegistry" ref="flowRegistry"/>
         <property name="order" value="0"/>
@@ -250,6 +258,7 @@
             </list>
         </property>
     </bean>
+    -->
 
 
     <!-- Create Cookie Default Locale-->

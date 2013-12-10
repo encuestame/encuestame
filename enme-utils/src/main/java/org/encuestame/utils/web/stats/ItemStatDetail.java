@@ -9,29 +9,30 @@
  * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
- */ 
+ */
 
-package org.encuestame.utils.web.stats; 
+package org.encuestame.utils.web.stats;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 /**
- * 
+ *
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since April 27, 2012.
  */
-public class ItemStatDetail implements Serializable{  
-	
+public class ItemStatDetail implements Serializable{
+
 	/** Serial. **/
 	private static final long serialVersionUID = -7659857899824369975L;
 
 	/** **/
 	@JsonProperty(value = "item_id")
 	private Long itemId;
-	
+
 	/** **/
 	@JsonProperty(value = "date")
 	private Date date;
@@ -62,5 +63,7 @@ public class ItemStatDetail implements Serializable{
 	 */
 	public void setDate(final Date date) {
 		this.date = date;
-	} 
+	}
+
+
 }

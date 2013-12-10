@@ -4,9 +4,12 @@
         <article>
             <section class="web-user-confirm-message">
                 <article class="web-message-center">
-                    <h1>
-                    	 <spring:message code="error.pagenotfound" />
-                   	</h1>
+                    <h3>
+                        <spring:message code="error.pagenotfound" />
+                    </h3>
+                    <p>
+                        <spring:message code="error.pagenotfound.detail" />
+                    </p>
                 </article>
             </section>
         </article>

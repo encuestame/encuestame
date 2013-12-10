@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame-persistence</artifactId>
-        <version>1.147-M2-SNAPSHOT</version>
+        <version>1.147-M4-SNAPSHOT</version>
     </parent>
     <artifactId>enme-model</artifactId>
     <packaging>jar</packaging>
@@ -126,7 +126,7 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>${servlet-api-artifact}</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>

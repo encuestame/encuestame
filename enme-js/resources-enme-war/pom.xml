@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame-js</artifactId>
-    <version>1.147-M2-SNAPSHOT</version>
+    <version>1.147-M4-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -28,7 +28,7 @@
                     <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar" />
                   </classpath>
                   <target>
-                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <!-- <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
                     <echo message="$$$$$$ ENCUESTAME UNIT TESTS $$$$$$$$$$$" />
                     <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
                     <echo message="$$$$$$$$$$$$$ DOJO IS THE ROCK !!! $$$$$$$$$$$$$$$" />
@@ -43,7 +43,7 @@
                       <arg value="load=doh" />
                       <arg value="test=me/tests/module" />
                     </java>
-                    <echo message="ENCUESTAME :: Dojo Test Successfully ::" />
+                    <echo message="ENCUESTAME :: Dojo Test Successfully ::" /> -->
                   </target>
                 </configuration>
                 <goals>
@@ -96,6 +96,69 @@
                   <goal>run</goal>
                 </goals>
               </execution> -->
+
+ <execution>
+                <id>mobile-js</id>
+                <phase>compile</phase>
+                <configuration>
+                  <classpath>
+                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar" />
+                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/shrinksafe.jar" />
+                    <pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar" />
+                  </classpath>
+                  <target>
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$ ENCUESTAME MOBILE DOJO COMPILE PROCESS $$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$ DOJO IS THE ROCK !!! $$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <mkdir dir="${project.build.directory}/dojo-compiled" />
+                    <java fork="true" failonerror="true" dir="${basedir}" classname="org.mozilla.javascript.tools.shell.Main">
+                      <classpath>
+                        <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/js.jar" />
+                        <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/shrinksafe.jar" />
+                        <pathelement location="${basedir}/src/main/resources/resource/js/util/closureCompiler/compiler.jar" />
+                      </classpath>
+                      <jvmarg value="-Xmx512M" />
+                      <arg value="${basedir}/src/main/resources/resource/js/dojo/dojo.js" />
+                      <arg value="baseUrl=${basedir}/src/main/resources/resource/js/dojo" />
+                      <arg value="load=build" />
+                      <arg value="--require" />
+                      <arg value="${basedir}/src/main/resources/resource/js/mobile-run.js" />
+                      <arg value="--profile" />
+                      <arg value="${basedir}/src/main/resources/resource/profiles/mobile.me.profile.js" />
+                      <arg value="--releaseDir" />
+                      <arg value="${project.build.directory}/dojo-mobile-compiled" />
+                    </java>
+                    <delete includeEmptyDirs="true" verbose="false">
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="tests/**/" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/tests/**/" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/demos/**/" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="util/**" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.psd" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.fla" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.svg" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.as" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.swf" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dijit/themes/" excludes="**/claro/**/" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dijit" includes="**/*.uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojox" includes="**/*.uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/chart" includes="**/*.uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/org" includes="**/*.uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/me" includes="**/*.uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0" includes="**/package.json" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0" includes="**/package.js" />
+                      <!-- <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0" includes="build-report.txt" /> -->
+                    </delete>
+                    <echo message="ENCUESTAME MOBILE :: Dojo AMD optimized ::" />
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+              
               <execution>
                 <id>js</id>
                 <phase>compile</phase>
@@ -123,13 +186,13 @@
                       <arg value="baseUrl=${basedir}/src/main/resources/resource/js/dojo" />
                       <arg value="load=build" />
                       <arg value="--require" />
-                      <arg value="${basedir}/src/main/resources/resource/js/me/run.js" />
+                      <arg value="${basedir}/src/main/resources/resource/js/run.js" />
                       <arg value="--profile" />
                       <arg value="${basedir}/src/main/resources/resource/profiles/me.profile.js" />
                       <arg value="--releaseDir" />
                       <arg value="${project.build.directory}/dojo-compiled" />
                     </java>
-                    <delete includeEmptyDirs="true" verbose="true">
+                    <delete includeEmptyDirs="true" verbose="false">
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="tests/**/" />
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/tests/**/" />
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/demos/**/" />
@@ -148,7 +211,7 @@
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0/me" includes="**/*.uncompressed.js" />
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="**/package.json" />
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="**/package.js" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="build-report.txt" />
+                      <!-- <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="build-report.txt" /> -->
                     </delete>
                     <echo message="ENCUESTAME :: Dojo AMD optimized ::" />
                   </target>
@@ -157,6 +220,7 @@
                   <goal>run</goal>
                 </goals>
               </execution>
+             
             </executions>
           </plugin>
           <plugin>
@@ -171,15 +235,30 @@
               resource/static/**/*,
               resource/images/**/*,
               resource/css/*.css,
+              resource/font/**/*,
               resource/dev/*.css,
               resource/js/dojo/**/*,
               resource/js/dijit/**/*,
               resource/js/me/**/*,
-              resource/js/commons.js,
+              resource/js/commons*,
               resource/js/chart/**/*,
               resource/js/dojox/**/*,
               resource/js/org/**/*,
               resource/js/req/*,
+              resource/js/init*,
+              resource/js/ie*,
+              resource/mobile-js/**/*,
+              resource/mobile-js/dojo/**/*,
+              resource/mobile-js/dijit/**/*,
+              resource/mobile-js/me/**/*,
+              resource/mobile-js/commons*,
+              resource/mobile-js/chart/**/*,
+              resource/mobile-js/dojox/**/*,
+              resource/mobile-js/org/**/*,
+              resource/js/mobile-run.js,
+              resource/js/run.js,
+              resource/js/Modernizr.js,
+              resource/js/enme.chart.js,
               **/*.properties,
               **/*.tld,
               **/*.class,
@@ -189,7 +268,7 @@
               </packagingIncludes>
               <packagingExcludes>
                 WEB-INF/classes/build.sh,
-              resource/js/util/**/*
+                resource/js/util/**/*
               </packagingExcludes>
               <archive>
                 <manifest>
@@ -201,6 +280,10 @@
                 <resource>
                   <directory>${project.build.directory}/dojo-compiled/2.0</directory>
                   <targetPath>resource/js</targetPath>
+                </resource>
+                <resource>
+                  <directory>${project.build.directory}/dojo-mobile-compiled/2.0</directory>
+                  <targetPath>resource/mobile-js</targetPath>
                 </resource>
               </webResources>
             </configuration>
@@ -215,13 +298,13 @@
     <dependency>
       <groupId>org.encuestame</groupId>
       <artifactId>encuestame-css</artifactId>
-      <version>1.147-M2-SNAPSHOT</version>
+      <version>1.147-M4-SNAPSHOT</version>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>org.encuestame</groupId>
       <artifactId>deps</artifactId>
-      <version>1.147-M2-SNAPSHOT</version>
+      <version>1.147-M4-SNAPSHOT</version>
       <type>war</type>
     </dependency>
     <dependency>

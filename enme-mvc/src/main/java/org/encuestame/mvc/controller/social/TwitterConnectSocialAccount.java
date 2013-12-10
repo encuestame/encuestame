@@ -87,7 +87,7 @@ public class TwitterConnectSocialAccount extends AbstractAccountConnect {
     }
 
     /**
-     * Process the authorization callback from an OAuth 1 identi.ca provider.
+     * Process the authorization callback from an OAuth 1 twitter provider.
      * @throws Exception
      */
     @RequestMapping(value = "/social/back/twitter", method = RequestMethod.GET, params = "oauth_token")
@@ -101,14 +101,17 @@ public class TwitterConnectSocialAccount extends AbstractAccountConnect {
         try {
             Assert.notNull(httpRequest);
             accessToken = auth1RequestProvider.getAccessToken(verifier, request);
-        log.debug("OAUTH 1 ACCESS TOKEN:{ " + accessToken.toString());
+            log.debug("OAUTH 1 ACCESS TOKEN:{ " + accessToken.toString());
             this.checkOAuth1SocialAccount(SocialProvider.TWITTER, accessToken);
         } catch (EnMeOAuthSecurityException e1) {
             RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+            e1.printStackTrace();
         } catch (EnMeExistPreviousConnectionException e1) {
             RequestSessionMap.setErrorMessage(getMessage("social.repeated.account", httpRequest, null));
+            e1.printStackTrace();
         } catch (Exception e) {
             RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+            e.printStackTrace();
         }
         return this.redirect+"#provider="+SocialProvider.TWITTER.toString().toLowerCase()+"&refresh=true&successful=true";
     }

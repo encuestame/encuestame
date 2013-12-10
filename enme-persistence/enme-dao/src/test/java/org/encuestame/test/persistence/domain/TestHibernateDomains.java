@@ -23,6 +23,7 @@ import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
+import org.encuestame.persistence.domain.EmailSubscribe;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
@@ -41,9 +42,11 @@ import org.encuestame.persistence.domain.question.QuestionColettion;
 import org.encuestame.persistence.domain.question.QuestionDependenceSurvey;
 import org.encuestame.persistence.domain.question.QuestionDependencies;
 import org.encuestame.persistence.domain.question.QuestionPreferences;
+import org.encuestame.persistence.domain.question.QuestionSection;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
@@ -53,9 +56,13 @@ import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveyResult;
+import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.survey.SurveyTemporalResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollRate;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.EnMePermission;
@@ -63,7 +70,9 @@ import org.encuestame.utils.enums.GadgetType;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.Status;
+import org.encuestame.utils.social.SocialProvider;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -74,43 +83,46 @@ import org.junit.experimental.categories.Category;
  **/
 @Category(DefaultTest.class)
 public class TestHibernateDomains extends AbstractBase{
-	  
-	private Hit initHit;
-	
-	private Poll initPoll;
-	
-	private Survey initSurvey;
-	
-	private UserAccount initUser;
-	
-	private Account initAccount; 
-	
-	private TweetPoll initTweetPoll;
-	
-	private Question initQuestion;
-	
-	private HashTag initHashTag;
-	
-	private HitCategory hitCat  = HitCategory.VISIT;
-	
-	/**
-	 * 
-	 */
-	@Before
-	public void initData(){
-	 
-		initHashTag = createHashTag("health");
-		initQuestion = createQuestion(
-				"Who will win the Spain SuperCup?", "");
-		initAccount = createAccount();
-		initUser = createUserAccount("Betty", initAccount);
-		initPoll = createDefaultPoll(initQuestion, initUser);
-		initSurvey = createDefaultSurvey(initAccount);
-		initTweetPoll = createPublishedTweetPoll(initQuestion, initUser);
-		
-		initHit = createHit(initTweetPoll, initPoll, initSurvey, initHashTag, "192.168.1.1"); 
- 
-	}
+
+    private Hit initHit;
+
+    private Poll initPoll;
+
+    private Survey initSurvey;
+
+    private UserAccount initUser;
+
+    private Account initAccount;
+
+    private TweetPoll initTweetPoll;
+
+    private Question initQuestion;
+
+    private HashTag initHashTag;
+
+    private HitCategory hitCat  = HitCategory.VISIT;
+
+    private SocialAccount socialAccount;
+
+    /**
+     *
+     */
+    @Before
+    public void initData(){
+
+        initHashTag = createHashTag("health");
+        initQuestion = createQuestion(
+                "Who will win the Spain SuperCup?", "");
+        initAccount = createAccount();
+        initUser = createUserAccount("Betty", initAccount);
+        initPoll = createDefaultPoll(initQuestion, initUser);
+        initSurvey = createDefaultSurvey(initAccount);
+        initTweetPoll = createPublishedTweetPoll(initQuestion, initUser);
+
+        initHit = createHit(initTweetPoll, initPoll, initSurvey, initHashTag, "192.168.1.1");
+        socialAccount = createDefaultSettedSocialAccount(initUser);
+
+    }
 
     /**
      * Test Catalog Location.
@@ -317,11 +329,14 @@ public class TestHibernateDomains extends AbstractBase{
      public void testLocationFolder(){
          final Account account = createAccount();
          final GeoPointFolder geoPointFolder = new GeoPointFolder();
+		final GeoPointFolder geoLocationFolder = createDefaultGeoPointFolder(
+				" Polygon folder", this.initAccount);
          geoPointFolder.setFolderType(GeoPointFolderType.GROUPING);
          geoPointFolder.setFolderName("test folder");
          geoPointFolder.setUsers(account);
          geoPointFolder.setCreatedAt(Calendar.getInstance().getTime());
          geoPointFolder.setCreatedBy(createUserAccount("juan carlos", account));
+         geoPointFolder.setSubLocationFolder(geoLocationFolder);
          getGeoPointDao().saveOrUpdate(geoPointFolder);
      }
 
@@ -333,6 +348,9 @@ public class TestHibernateDomains extends AbstractBase{
          final Email email = new Email();
          email.setEmail("paola@jotadeveloper.com");
          email.setIdListEmail(createDefaultListEmail());
+         email.setSubscribed(Boolean.TRUE);
+         email.setCreated_at(new Date());
+         email.setEmailAccount("juan@encuestame.org");
          getCatEmailDao().saveOrUpdate(email);
          assertNotNull(email.getIdEmail());
      }
@@ -346,6 +364,8 @@ public class TestHibernateDomains extends AbstractBase{
          catListEmails.setCreatedAt(new Date());
          catListEmails.setListName("default encuestame list");
          catListEmails.setUsuarioEmail(createAccount());
+         catListEmails.setDescripcionList("Favorite emails");
+         catListEmails.setListState("Available");
          getCatEmailDao().saveOrUpdate(catListEmails);
          assertNotNull(catListEmails.getIdList());
      }
@@ -447,7 +467,7 @@ public class TestHibernateDomains extends AbstractBase{
         getHashTagDao().saveOrUpdate(tag);
         assertNotNull(tag.getHashTagId());
      }
-     
+
      /** Dashboard domain. **/
      @Test
      public void testDashboard(){
@@ -456,9 +476,10 @@ public class TestHibernateDomains extends AbstractBase{
         board.setDescription("My first dashboard");
         board.setFavorite(Boolean.TRUE);
         board.setFavoriteCounter(1);
-        board.setPageLayout(LayoutEnum.AAA_COLUMNS);
+        board.setPageLayout(LayoutEnum.BA_BLOCK_COLUMN);
         board.setBoardSequence(1);
         board.setUserBoard(createUserAccount("juan carlos", createAccount()));
+        board.setSelectedByDefault(Boolean.TRUE);
         getDashboardDao().saveOrUpdate(board);
       }
 
@@ -500,8 +521,10 @@ public class TestHibernateDomains extends AbstractBase{
          comments.setCreatedAt(new Date());
          comments.setLikeVote(1L);
          comments.setDislikeVote(2L);
-          comments.setUser(user);
+         comments.setUser(user);
          comments.setTweetPoll(tpoll);
+         comments.setIsSpam(Boolean.FALSE);
+         comments.setIsPublished(Boolean.FALSE);
          getCommentsOperations().saveOrUpdate(comments);
      }
 
@@ -531,6 +554,7 @@ public class TestHibernateDomains extends AbstractBase{
          final Account account = createAccount();
          final UserAccount user = createUserAccount("carlos", account);
          final TweetPoll tpoll = createPublishedTweetPoll(account, question);
+         final Comment comment = createDefaultTweetPollComment("my first comment", tpoll, user);
          final AccessRate rateItem = new AccessRate();
          rateItem.setRate(Boolean.TRUE);
          rateItem.setUser(user);
@@ -538,6 +562,8 @@ public class TestHibernateDomains extends AbstractBase{
          rateItem.setPoll(null);
          rateItem.setSurvey(null);
          rateItem.setUpdatedDate(Calendar.getInstance().getTime());
+         rateItem.setComments(comment);
+
     }
 
     /**
@@ -552,105 +578,236 @@ public class TestHibernateDomains extends AbstractBase{
         tagRanking.setRankingDate(new Date());
         getHashTagDao().saveOrUpdate(tagRanking);
     }
-    
+
+    /**
+     * Test {@link Hit} Domain.
+     */
+    @Test
+    public void testHit() {
+        final Hit hit = new Hit();
+        hit.setHashTag(this.initHashTag);
+        hit.setHitCategory(hitCat);
+        hit.setHitDate(new Date());
+        hit.setIpAddress("");
+        hit.setPoll(initPoll);
+        hit.setSurvey(initSurvey);
+        hit.setTweetPoll(initTweetPoll);
+        hit.setUserAccount(initUser);
+        getHashTagDao().saveOrUpdate(hit);
+        assertNotNull(hit.getId());
+    }
+
+    /**
+     * Test {@link TweetPoll} Domain.
+     */
+    @Test
+    public void testTweetPoll() {
+        final TweetPoll tweetPoll = new TweetPoll();
+
+        final HashTag tag1 = createHashTag("education");
+        final TweetPollFolder tpFolder = createTweetPollFolder("personal",
+                initUser);
+
+        tweetPoll.setAllowLiveResults(Boolean.TRUE);
+        tweetPoll.setAllowRepatedVotes(Boolean.FALSE);
+        tweetPoll.setCaptcha(Boolean.TRUE);
+        tweetPoll.setCloseNotification(Boolean.FALSE);
+        tweetPoll.setCompleted(Boolean.FALSE);
+        tweetPoll.setCreateDate(new Date());
+        tweetPoll.setDateLimit(Boolean.FALSE);
+        tweetPoll.setDateLimited(null);
+        tweetPoll.setDislikeVote(2L);
+        tweetPoll.setEditorOwner(initUser);
+        tweetPoll.setFavourites(Boolean.FALSE);
+        tweetPoll.getHashTags().add(initHashTag);
+        tweetPoll.getHashTags().add(tag1);
+        tweetPoll.setHits(20L);
+        tweetPoll.setLikeVote(18L);
+        tweetPoll.setLimitVotes(90);
+        tweetPoll.setLimitVotesEnabled(Boolean.TRUE);
+        tweetPoll.setLocationLatitude(25F);
+        tweetPoll.setMaxRepeatedVotes(10);
+        tweetPoll.setLocationLongitude(50F);
+        tweetPoll.setNumbervotes(10L);
+        tweetPoll.setPublishTweetPoll(Boolean.TRUE);
+        tweetPoll.setQuestion(initQuestion);
+        tweetPoll.setRelevance(40L);
+        tweetPoll.setResultNotification(Boolean.TRUE);
+        tweetPoll.setResumeLiveResults(Boolean.FALSE);
+        tweetPoll.setResumeTweetPollDashBoard(Boolean.FALSE);
+        tweetPoll.setScheduleDate(new Date());
+        tweetPoll.setScheduleTweetPoll(Boolean.FALSE);
+        tweetPoll.setTweetOwner(initAccount);
+        tweetPoll.setTweetPollFolder(tpFolder);
+        tweetPoll.setUpdatedDate(new Date());
+        getTweetPoll().saveOrUpdate(tweetPoll);
+        assertNotNull(tweetPoll.getTweetPollId());
+    }
+
+    /**
+     * Test {@link QuestionPreferences} domain.
+     */
+    @Test
+    public void testQuestionPreferences() {
+        final QuestionPreferences preference = new QuestionPreferences();
+        preference.setQuestion(this.initQuestion);
+        preference.setPreference("Order");
+        preference.setPreferenceValue("Desc");
+        getQuestionDaoImp().saveOrUpdate(preference);
+        assertNotNull(preference.getQuestion());
+        assertNotNull(preference.getPreference());
+        assertNotNull(preference.getPreferenceValue());
+    }
+
+    /**
+     * Test {@link SurveyResult} domain.
+     */
+    @Test
+    public void testSurveyResult() {
+        final SurveyResult result = new SurveyResult();
+        final QuestionAnswer qAnswers = createQuestionAnswer("Spain",
+                this.initQuestion, "ORFQT29");
+        result.setAnswer(qAnswers);
+        result.setQuestion(this.initQuestion);
+        result.setSurvey(this.initSurvey);
+        result.setTxtResponse("20");
+        getSurveyDaoImp().saveOrUpdate(result);
+        assertNotNull(result.getAnswer());
+        assertNotNull(result.getQuestion());
+		assertNotNull(result.getTxtResponse());
+		assertNotNull(result.getSurvey());
+    }
+
+    /**
+     * Subscribe email.
+     */
+    @Test
+	public void testEmailSubscribe() {
+		final EmailSubscribe subscribe = new EmailSubscribe();
+		final EmailList emailList = createListEmails(this.initAccount, "VIP Email List", new Date());
+		final Email email = createEmails("juan@encuestame.org", emailList);
+		subscribe.setHashCode("CKDpka8834s");
+		//subscribe.setIdSubscribe(5L);
+		subscribe.setList(emailList);
+		subscribe.setEmail(email);
+		getCatEmailDao().saveOrUpdate(subscribe);
+		assertNotNull(subscribe.getHashCode());
+		assertNotNull(subscribe.getList());
+		assertNotNull(subscribe.getEmail());
+		assertNotNull(subscribe.getIdSubscribe());
+	}
+
 	/**
-	 * Test {@link Hit} Domain.
+	 * Create {@link TweetPollRate}
+	 */
+	@Ignore
+	@Test
+	public void TweetPollRate() {
+		final TweetPollRate tpollRate = new TweetPollRate();
+		tpollRate.setRate(Boolean.FALSE);
+		tpollRate.setTweetPoll(this.initTweetPoll);
+	//	tpollRate.setTweetPollRateId(2L);
+		tpollRate.setUser(this.initUser);
+		getTweetPoll().saveOrUpdate(tpollRate);
+		assertNotNull(tpollRate.getRate());
+		assertNotNull(tpollRate.getTweetPoll());
+		assertNotNull(tpollRate.getTweetPollRateId());
+		assertNotNull(tpollRate.getUser());
+	}
+
+    /**
+     * Test {@link SurveyTemporalResult} domain.
+     */
+	@Test
+    public void testSurveyTemporalResult() {
+        final SurveyTemporalResult result = new SurveyTemporalResult();
+        final QuestionAnswer qAnswers = createQuestionAnswer("Yes",
+                this.initQuestion, "ORFQT31");
+        result.setAnswer(qAnswers);
+        result.setQuestion(this.initQuestion);
+        result.setSurvey(this.initSurvey);
+        result.setTxtResponse("3 Cups");
+      //  result.setIdTempResult(1L);
+        result.setHash("Jks193'5");
+        getSurveyDaoImp().saveOrUpdate(result);
+		assertNotNull(result.getAnswer());
+		assertNotNull(result.getSurvey());
+		assertNotNull(result.getTxtResponse());
+		assertNotNull(result.getHash());
+    }
+
+	/**
+	 * Test {@link TweetPollSavedPublishedStatus}.
 	 */
 	@Test
-	public void testHit() {
-		final Hit hit = new Hit(); 
-		hit.setHashTag(this.initHashTag);
-		hit.setHitCategory(hitCat);
-		hit.setHitDate(new Date());
-		hit.setIpAddress("");
-		hit.setPoll(initPoll);
-		hit.setSurvey(initSurvey);
-		hit.setTweetPoll(initTweetPoll);
-		hit.setUserAccount(initUser);
-		getHashTagDao().saveOrUpdate(hit);
-		assertNotNull(hit.getId());
+    public void testTweetPollSavedPublished() {
+		final TweetPollSavedPublishedStatus tpollSaved = new TweetPollSavedPublishedStatus();
+		tpollSaved.setApiType(SocialProvider.FACEBOOK);
+		tpollSaved.setDescriptionStatus("my first tweetpoll published");
+	//	tpollSaved.setId(2L);
+		tpollSaved.setPoll(null);
+		tpollSaved.setPublicationDateTweet(new Date());
+		tpollSaved.setSocialAccount(this.socialAccount);
+		tpollSaved.setStatus(Status.ACTIVE);
+		tpollSaved.setSurvey(null);
+		tpollSaved.setTweetContent("tweetcontent");
+		tpollSaved.setTweetId("1L");
+		tpollSaved.setTweetPoll(this.initTweetPoll);
+		tpollSaved.toString();
+		getSurveyDaoImp().saveOrUpdate(tpollSaved);
+		assertNotNull(tpollSaved.getApiType());
+		assertNotNull(tpollSaved.getDescriptionStatus());
+		assertNotNull(tpollSaved.getId());
+		assertNotNull(tpollSaved.getPublicationDateTweet());
+		assertNotNull(tpollSaved.getSocialAccount());
+		assertNotNull(tpollSaved.getStatus());
+		assertNotNull(tpollSaved.getTweetContent());
+		assertNotNull(tpollSaved.getTweetId());
+		assertNotNull(tpollSaved.getTweetPoll());
 	}
-	
+
+
 	/**
-	 * Test {@link TweetPoll} Domain.
+	 * Test {@link TweetPollSwitch}
 	 */
 	@Test
-	public void testTweetPoll() {
-		final TweetPoll tweetPoll = new TweetPoll();
+	public void testTweetPollSwitch() {
+		final TweetPollSwitch tpollSwitch = new TweetPollSwitch();
+		QuestionAnswer qAnswers = createQuestionAnswer("", this.initQuestion,
+				"HxjG823Dm");
+		tpollSwitch.setAnswers(qAnswers);
+		tpollSwitch.setCodeTweet("cod9kd");
+		tpollSwitch.setDateUpdated(new Date());
+		tpollSwitch.setRelativeUrl("http://encuestame.org");
+		tpollSwitch.setShortUrl("http://enme.gl");
+		//tpollSwitch.setSwitchId(2L);
+		tpollSwitch.setTweetPoll(this.initTweetPoll);
+		getSurveyDaoImp().saveOrUpdate(tpollSwitch);
+		assertNotNull(tpollSwitch.getAnswers());
+		assertNotNull(tpollSwitch.getDateUpdated());
+		assertNotNull(tpollSwitch.getCodeTweet());
+		assertNotNull(tpollSwitch.getRelativeUrl());
+		assertNotNull(tpollSwitch.getShortUrl());
+		assertNotNull(tpollSwitch.getSwitchId());
+		assertNotNull(tpollSwitch.getTweetPoll());
+	}
 
-		final HashTag tag1 = createHashTag("education");
-		final TweetPollFolder tpFolder = createTweetPollFolder("personal",
-				initUser);
+	/**
+	 * Test {@link QuestionSection}.
+	 */
+	@Ignore
+	@Test
+	@Deprecated
+	public void testQuestionSection(){
+		final QuestionSection qSection = new QuestionSection();
+		final SurveySection section = createSurveySection("Personal Information");
+		qSection.setQuestion(this.initQuestion);
+		//qSection.setQuestionSectionId(1L);
+		qSection.setSurveySection(section);
+		getSurveyDaoImp().saveOrUpdate(qSection);
+		assertNotNull(qSection.getQuestion());
+		assertNotNull(qSection.getQuestionSectionId());
+		assertNotNull(qSection.getSurveySection());
+	}
 
-		tweetPoll.setAllowLiveResults(Boolean.TRUE);
-		tweetPoll.setAllowRepatedVotes(Boolean.FALSE);
-		tweetPoll.setCaptcha(Boolean.TRUE);
-		tweetPoll.setCloseNotification(Boolean.FALSE);
-		tweetPoll.setCompleted(Boolean.FALSE);
-		tweetPoll.setCreateDate(new Date());
-		tweetPoll.setDateLimit(Boolean.FALSE);
-		tweetPoll.setDateLimited(null);
-		tweetPoll.setDislikeVote(2L);
-		tweetPoll.setEditorOwner(initUser);
-		tweetPoll.setFavourites(Boolean.FALSE);
-		tweetPoll.getHashTags().add(initHashTag);
-		tweetPoll.getHashTags().add(tag1);
-		tweetPoll.setHits(20L);
-		tweetPoll.setLikeVote(18L);
-		tweetPoll.setLimitVotes(90);
-		tweetPoll.setLimitVotesEnabled(Boolean.TRUE);
-		tweetPoll.setLocationLatitude(25F);
-		tweetPoll.setMaxRepeatedVotes(10);
-		tweetPoll.setLocationLongitude(50F);
-		tweetPoll.setNumbervotes(10L);
-		tweetPoll.setPublishTweetPoll(Boolean.TRUE);
-		tweetPoll.setQuestion(initQuestion);
-		tweetPoll.setRelevance(40L);
-		tweetPoll.setResultNotification(Boolean.TRUE);
-		tweetPoll.setResumeLiveResults(Boolean.FALSE);
-		tweetPoll.setResumeTweetPollDashBoard(Boolean.FALSE);
-		tweetPoll.setScheduleDate(new Date());
-		tweetPoll.setScheduleTweetPoll(Boolean.FALSE);
-		tweetPoll.setTweetOwner(initAccount);
-		tweetPoll.setTweetPollFolder(tpFolder);
-		tweetPoll.setUpdatedDate(new Date());
-		getTweetPoll().saveOrUpdate(tweetPoll);
-		assertNotNull(tweetPoll.getTweetPollId());
-	}
-	
-	/**
-	 * Test {@link QuestionPreferences} domain.
-	 */
-	public void testQuestionPreferences() {
-		final QuestionPreferences preference = new QuestionPreferences(); 
-		preference.setQuestion(this.initQuestion);
-		preference.setPreference("Order");
-		preference.setPreferenceValue("Desc");
-	}
-	
-	/**
-	 * Test {@link SurveyResult} domain.
-	 */
-	public void testSurveyResult() {
-		final SurveyResult result = new SurveyResult();
-		final QuestionAnswer qAnswers = createQuestionAnswer("Spain",
-				this.initQuestion, "ORFQT29");
-		result.setAnswer(qAnswers);
-		result.setQuestion(this.initQuestion);
-		result.setSurvey(this.initSurvey);
-		result.setTxtResponse("20");
-	}
-	
-	/**
-	 * Test {@link SurveyTemporalResult} domain.
-	 */
-	public void testSurveyTemporalResult() {
-		final SurveyResult result = new SurveyResult();
-		final QuestionAnswer qAnswers = createQuestionAnswer("Yes",
-				this.initQuestion, "ORFQT31");
-		result.setAnswer(qAnswers);
-		result.setQuestion(this.initQuestion);
-		result.setSurvey(this.initSurvey);
-		result.setTxtResponse("3 Cups");
-	}
 }

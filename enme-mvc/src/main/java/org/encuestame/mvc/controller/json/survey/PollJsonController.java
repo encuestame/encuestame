@@ -13,6 +13,7 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +67,7 @@ public class PollJsonController extends AbstractJsonController{
      *
      */
     private final Integer POLL_PUBLISH_STRING_LIMIT = 100;
+      
 
     /**
      * Search polls.
@@ -180,7 +182,7 @@ public class PollJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/poll/remove.json", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/survey/poll", method = RequestMethod.DELETE)
     public @ResponseBody ModelMap deletePoll(
             @RequestParam(value = "pollId", required = true) Long pollId,
             HttpServletRequest request,
@@ -299,7 +301,7 @@ public class PollJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/poll/create.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/survey/poll", method = RequestMethod.POST)
     public @ResponseBody ModelMap createGroup(
             @RequestParam(value = "questionName", required = true) String questionName,
             @RequestParam(value = "listAnswers", required = true) String[] answers,

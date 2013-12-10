@@ -4,9 +4,10 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.147-M2-SNAPSHOT</version>
+        <version>1.147-RELEASE-SNAPSHOT</version>
     </parent>
     <artifactId>encuestame-mvc</artifactId>
+  <version>1.147-M4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>encuestame mvc</name>
     <dependencies>
@@ -132,7 +133,7 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>${servlet-api-artifact}</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -218,11 +219,11 @@
             <groupId>rome</groupId>
             <artifactId>rome-fetcher</artifactId>
         </dependency>
-        <dependency>
+<!--         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
         </dependency>
-        <dependency>
+ -->        <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
         </dependency>
@@ -327,7 +328,7 @@
             <groupId>org.springframework.mobile</groupId>
             <artifactId>spring-mobile-device</artifactId>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.cometd.java</groupId>
             <artifactId>bayeux-api</artifactId>
         </dependency>
@@ -348,16 +349,16 @@
         <dependency>
             <groupId>org.cometd.java</groupId>
             <artifactId>cometd-java-annotations</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
         </dependency>
         <!-- Spring WebFlow -->
-        <dependency>
-            <groupId>org.springframework.webflow</groupId>
-            <artifactId>org.springframework.webflow</artifactId>
-        </dependency>
+             <dependency>
+                <groupId>org.springframework.webflow</groupId>
+                <artifactId>spring-webflow</artifactId>
+            </dependency>
 <!--         <dependency> -->
 <!--             <groupId>org.apache.cactus</groupId> -->
 <!--             <artifactId>cactus.core.framework</artifactId> -->
@@ -385,6 +386,38 @@
             <version>${jetty7.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.sf.uadetector</groupId>
+            <artifactId>uadetector-resources</artifactId>
+        </dependency>
+        
+        <!-- Required when using ReactorSubscribableChannel (vs ExecutorSubscribableChannel) -->
+        <dependency>
+            <groupId>org.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+            
+        </dependency>
+
+        <!-- Required when the "stomp-broker-relay" profile is enabled -->
+        <dependency>
+            <groupId>org.projectreactor</groupId>
+            <artifactId>reactor-tcp</artifactId>
+        </dependency>        
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>        
+        
     </dependencies>
     <build>
         <filters>
@@ -423,6 +456,7 @@
                 <directory>src/main/resources/</directory>
                 <includes>
                     <include>spring-test/*.*</include>
+                     <include>org/**/*.*</include>
                     <include>properties-test/*.*</include>
                 </includes>
                 <filtering>true</filtering>

@@ -62,6 +62,7 @@ public class ConvertDomainToJson {
 		tweetResponse.datePublished = savedPublishedStatus
 				.getPublicationDateTweet() == null ? null : DateUtil
 				.getFormatDate(savedPublishedStatus.getPublicationDateTweet());
+		tweetResponse.setId(savedPublishedStatus.getId());
         tweetResponse.textTweeted = savedPublishedStatus.getTweetContent();
         tweetResponse.statusTweet = savedPublishedStatus.getStatus().name();
         tweetResponse.statusDescriptionTweet = savedPublishedStatus.getDescriptionStatus();

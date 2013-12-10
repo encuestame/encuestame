@@ -27,11 +27,13 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -74,6 +76,10 @@ public class TestPollDao extends AbstractBase {
 
     private Calendar myDate = Calendar.getInstance();
 
+    private DateTime initDate = new DateTime();
+
+    private HashTag initTag ;
+
      /** Before.
      * @throws EnMeNoResultsFoundException
      **/
@@ -85,7 +91,8 @@ public class TestPollDao extends AbstractBase {
         this.poll = createPoll(myDate.getTime(), this.question, "FDK125", this.userAccount, Boolean.TRUE, Boolean.TRUE);
         this.pollFolder = createPollFolder("My First Poll Folder", this.userAccount);
         addPollToFolder(this.pollFolder.getId(), this.userAccount, this.poll.getPollId());
-        //System.out.println("Poll created at ----> " + this.poll.getCreatedAt());
+
+		this.initTag = createHashTag("roses");
     }
 
      /** Test retrievePollsByUserId. **/
@@ -339,13 +346,165 @@ public class TestPollDao extends AbstractBase {
         for (Object[] objects : pollsResultsbyAnswer) {
         	if (objects[0] ==  qansw.getQuestionAnswerId()) {
 				assertEquals("For answer1 should be equals",
-						objects[3], "7");
+						objects[3], 7L);
 			}
         	if (objects[0] ==  qansw2.getQuestionAnswerId()) {
 				assertEquals("For answer2 should be equals",
-						objects[3], "3");
+						objects[3], 3L);
 			}
         }
     }
 
+    /**
+     * Test find all {@link Poll}.
+     */
+	@Test
+	public void testFindAllPollByAccount() {
+		final Account acc2 = createUser("testEncuesta1", "testEncuesta1233");
+		final Account acc3 = createUser("testEncuesta3", "testEncuesta1235");
+
+		final UserAccount userAccount1 = createUserAccount("paola", acc2);
+		final UserAccount userAccount2 = createUserAccount("carlos", acc2);
+		final UserAccount userAccount3 = createUserAccount("isabella", acc3);
+		createDefaultPoll(question, userAccount1);
+		createDefaultPoll(question, userAccount1);
+		createDefaultPoll(question, userAccount2);
+		createDefaultPoll(question, userAccount2);
+		createDefaultPoll(question, userAccount2);
+		createDefaultPoll(question, userAccount3);
+
+		final List<Poll> allPolls = getPollDao().findAllPollByAccount(acc2, 10,
+				0);
+		assertEquals("Should be equals", 5, allPolls.size());
+
+	}
+
+	/**
+	 * Test Retrieve {@link Poll} by {@link Question}.
+	 */
+	@Test
+	public void testGetPollbyQuestion() {
+		final Poll pollByQuestion = getPollDao().getPollbyQuestion(
+				this.question.getQid());
+
+		assertEquals("Should be equals", this.poll.getPollId(),
+				pollByQuestion.getPollId());
+     }
+
+	/**
+	 *Create poll Helper.
+	 */
+	private void createPolls() {
+		final UserAccount userAcc2 = createUserAccount("userAcc2",this.user);
+
+		final Poll poll1 = createDefaultPoll(this.question, this.userAccount, this.initDate
+				.minusHours(5).toDate(), 25L, 15L);
+		poll1.getHashTags().add(initTag);
+		getPollDao().saveOrUpdate(poll1);
+
+		createDefaultPoll(this.question, this.userAccount, this.initDate
+				.minusHours(15).toDate(), 45L, 55L);
+
+		final Poll poll2 = createDefaultPoll(this.question, this.userAccount, this.initDate
+				.minusDays(25).toDate(), 75L, 160L);
+		poll2.getHashTags().add(initTag);
+		getPollDao().saveOrUpdate(poll2);
+
+		final Poll poll3 = createDefaultPoll(this.question, this.userAccount, this.initDate
+				.minusDays(25).toDate(), 45L, 10L);
+		poll3.getHashTags().add(initTag);
+		getPollDao().saveOrUpdate(poll3);
+
+		createDefaultPoll(this.question, userAcc2, this.initDate
+				.minusDays(6).toDate(), 78L, 35L);
+
+		createDefaultPoll(this.question, userAcc2, this.initDate
+				.minusDays(7).toDate(), 120L, 63L);
+	}
+
+	/**
+	 * Test Retrieve all {@link Poll} by type.
+	 */
+	@Test
+	public void testGetPolls() {
+		this.createPolls();
+		final List<Poll> pollsby24Hours = getPollDao().getPolls(10, 0,
+				SearchPeriods.TWENTYFOURHOURS);
+		assertEquals("Should be equals", 3,
+				pollsby24Hours.size());
+
+		final List<Poll> pollsby7Days = getPollDao().getPolls(10, 0,
+				SearchPeriods.SEVENDAYS);
+		assertEquals("Should be equals", 4,
+				pollsby7Days.size());
+
+		final List<Poll> pollsby30Days = getPollDao().getPolls(10, 0,
+				SearchPeriods.THIRTYDAYS);
+		assertEquals("Should be equals", 7,
+				pollsby30Days.size());
+
+	}
+
+	/**
+	 * Test Retrieve Maximum Like Votes by User
+	 */
+	@Test
+	public void testGetMaxPollLikeVotesbyUser(){
+		final DateTime dtFrom = this.initDate.toDateTime();
+		final DateTime dtTo = this.initDate.toDateTime();
+		final Long maxVotes = getPollDao().getMaxPollLikeVotesbyUser(this.userAccount.getUid(), dtTo.minusDays(30).toDate(), dtFrom.toDate());
+
+ 	}
+
+	/**
+	 * Test Retrieve Total votes by poll and Range.
+	 */
+	@Test
+	public void testGetTotalVotesByPollIdAndDateRange(){
+		final Poll poll1 = createDefaultPoll(this.question, this.userAccount, this.initDate
+				.minusHours(5).toDate(), 25L, 15L);
+		final QuestionAnswer questionAnswer = createQuestionAnswer("maybe", this.question, "&93fak");
+		final QuestionAnswer questionAnswer2 = createQuestionAnswer("yes", this.question, "jakP22");
+		final QuestionAnswer questionAnswer3 = createQuestionAnswer("No", this.question, "Lmd93s");
+		createPollResults(questionAnswer, poll1);
+		createPollResults(questionAnswer2, poll1);
+		createPollResults(questionAnswer3, poll1);
+		final Long totalVotes = getPollDao().getTotalVotesByPollIdAndDateRange(poll1.getPollId(), SearchPeriods.SEVENDAYS);
+		assertEquals("Should be equals", 3,
+				totalVotes.intValue());
+	}
+
+	/**
+	 * Test Retrieve poll statistics by range.
+	 */
+	@Test
+	public void testGetPollsRangeStats(){
+		this.createPolls();
+		final List<Object[]> objectStats = getPollDao().getPollsRangeStats(
+				this.initTag.getHashTag(), SearchPeriods.SEVENDAYS);
+
+		final Long firstValue = (Long) objectStats.get(0)[1];
+		final Long secondValue = (Long) objectStats.get(1)[1];
+		assertEquals("Should be equals", 1, firstValue.intValue());
+		assertEquals("Should be equals", 2, secondValue.intValue());
+ 	}
+
+	/**
+	 * Retrieve Validate vote ip.
+	 */
+	@Test
+	public void testValidateVoteIP() {
+		final String ip = "192.10.1.1";
+		final String ip2 = "192.10.1.11";
+		final Poll poll1 = createDefaultPoll(this.question, this.userAccount,
+				this.initDate.minusHours(8).toDate());
+		final QuestionAnswer qAsnwer = createQuestionAnswer("possible",
+				this.question, "3fak34");
+		createDefaultPollResults(qAsnwer, poll1, ip);
+
+		final PollResult result = getPollDao().validateVoteIP(ip, poll1);
+		assertNotNull(result);
+		final PollResult resultNull = getPollDao().validateVoteIP(ip2, poll1);
+		Assert.assertNull(resultNull);
+	}
 }

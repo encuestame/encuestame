@@ -276,8 +276,9 @@ public interface SecurityOperations extends ServiceOperations {
      * SingUp User
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UserAccountBean}.
+     * @throws EnMeNoResultsFoundException 
      */
-    UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail);
+    UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail) throws EnMeNoResultsFoundException;
 
     /**
      * Search {@link UserAccount} by email.

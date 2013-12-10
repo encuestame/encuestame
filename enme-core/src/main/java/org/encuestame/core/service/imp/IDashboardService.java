@@ -181,6 +181,13 @@ public interface IDashboardService {
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    Dashboard updateDashboard(final Long boardId, final DashboardBean boardBean) throws EnMeNoResultsFoundException;
+    Dashboard updateDashboard(final DashboardBean boardBean) throws EnMeNoResultsFoundException;
 
+    /**
+     * Delete a dashboard.
+     * @param dashboardBean
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+     void deleteDasbboard(final DashboardBean dashboardBean) throws EnMeNoResultsFoundException;
 }

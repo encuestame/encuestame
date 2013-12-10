@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
@@ -31,6 +32,7 @@ import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -43,6 +45,7 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.FollowOperations;
+import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Profile;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.security.SignUpBean;
@@ -672,8 +675,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * SingUp User.
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UserAccountBean}.
+     * @throws EnMeNoResultsFoundException 
      */
-    public UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail) {
+    public UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail) throws EnMeNoResultsFoundException {
         //FIXME: Validate the email inside this service.
         log.debug("singupUser "+singUpBean.toString());
         //create account/
@@ -718,7 +722,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 try {
                     getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
+                    // ENCUESTAME-602 ????
                     e.printStackTrace();
                 }
             }
@@ -728,6 +732,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             log.debug("new user "+userAccount.getUsername());
             log.debug("Get Authoritie Name:{ "+SecurityContextHolder.getContext().getAuthentication().getName());
         }
+        	
+        // create a welcome notification
+        createNotification(NotificationEnum.WELCOME_SIGNUP,
+                getMessageProperties("notification.wellcome.account"),
+                null, false, userAccount);
 
         // disable, user should sign in from web.
         // SecurityUtils.authenticate(userAccount);
@@ -969,13 +978,16 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final String username,
             final String email) throws EnMeNoResultsFoundException{
         final UserAccount account = getUserAccount(getUserPrincipalUsername());
-            log.debug("update Account user to update " + account.getUsername());
-            log.debug("update Account Profile bio " + bio);
-            log.debug("update Account Profile language " + language);
-            log.debug("update Account Profile language " + username);
+            if (log.isDebugEnabled()) {
+		    	log.debug("update Account user to update " + account.getUsername());
+		        log.debug("update Account Profile bio " + bio);
+		        log.debug("update Account Profile language " + language);
+		        log.debug("update Account Profile username " + username);
+            }
             account.setCompleteName(completeName);
             account.setUserEmail(email);
             account.setUsername(username);
+            account.setLanguage(language == null ? new Locale(EnMeUtils.DEFAULT_LANG).getLanguage() : new Locale(language).getLanguage());
             getAccountDao().saveOrUpdate(account);
             //clear the security context
             SecurityContextHolder.clearContext();
@@ -992,10 +1004,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final String action) throws EnMeNoResultsFoundException, IllegalSocialActionException{
         final UserAccount userAccount = getUserAccount(getUserPrincipalUsername());
         final SocialAccount social = getAccountDao().getSocialAccount(accountId, userAccount.getAccount());
-        log.debug("changeStateSocialAccount account");
-        log.debug("changeStateSocialAccount account accountId "+accountId);
-        log.debug("changeStateSocialAccount account action "+action);
-        if(social == null){
+        if (log.isDebugEnabled()) {
+	        log.debug("changeStateSocialAccount account");
+	        log.debug("changeStateSocialAccount account accountId "+accountId);
+	        log.debug("changeStateSocialAccount account action "+action);
+        }
+        if (social == null) {
             throw new EnMeNoResultsFoundException("social accout not found");
         }
         if ("default".equals(action)) {
@@ -1147,11 +1161,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 try {
                     getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
+                    log.fatal("not able to send new invite code");
                     e.printStackTrace();
                 }
             } else {
-                log.warn("invite code requested by " + userAccount.getUsername() + " it's null");
+                log.info("invite code requested by " + userAccount.getUsername() + " it's null, nothing to do");
             }
     }
 

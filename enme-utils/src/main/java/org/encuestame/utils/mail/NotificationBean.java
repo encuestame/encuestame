@@ -16,9 +16,7 @@ package org.encuestame.utils.mail;
  * Notification Bean.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 19, 2010
- * @deprecated not used anymore.
  */
-@Deprecated
 public class NotificationBean {
 
     /**

@@ -15,6 +15,10 @@ package org.encuestame.mvc.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.uadetector.UserAgent;
+import net.sf.uadetector.UserAgentStringParser;
+import net.sf.uadetector.service.UADetectorServiceFactory;
+
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.springframework.mobile.device.Device;
@@ -66,6 +70,16 @@ public class EnMeMobileInterceptor extends HandlerInterceptorAdapter {
             HttpServletResponse response, Object handler) throws Exception {
         final String mobil = "detectedDevice";
         final Device device = deviceResolver.resolveDevice(request);
+        final UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
+        final UserAgent agent = parser.parse(request.getHeader("User-Agent"));
+        log.trace("user agent --->" + agent.toString());
+        request.setAttribute("so", agent.getOperatingSystem().getFamily());
+        request.setAttribute("bo_vendor", agent.getProducer());
+        request.setAttribute("agent_type", agent.getTypeName());
+        request.setAttribute("agent_name", agent.getName());
+        request.setAttribute("agent_family", agent.getFamily());
+        request.setAttribute("agent_pro_url", agent.getProducerUrl());
+        request.setAttribute("bo_vendor_ver", agent.getVersionNumber().getMajor());
         final Boolean enabledMobileDevice = EnMePlaceHolderConfigurer
                 .getBooleanProperty("application.mobile.enabled");
         final Boolean forceMobileDevice = EnMePlaceHolderConfigurer
@@ -83,7 +97,7 @@ public class EnMeMobileInterceptor extends HandlerInterceptorAdapter {
             log.trace(" forceMobileDevice => 2");
         // if is a tablet and is not forced to be mobile
         } else if (!forceMobileDevice && device.isTablet()) {
-            request.setAttribute(mobil, Boolean.FALSE);
+            request.setAttribute(mobil, Boolean.TRUE);
             log.trace(" forceMobileDevice => 3");
         // if is normal (NO MOBILE AND TABLE) and is not force to be a mobile device
         } else if (!forceMobileDevice && device.isNormal()) {

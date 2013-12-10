@@ -13,9 +13,12 @@
 package org.encuestame.persistence.domain;
 
 import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,10 +27,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.CommentStatus;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -73,6 +78,15 @@ public class Comment{
 
     /** {@link Survey} **/
     private Survey survey;
+
+    /**   **/
+    private Boolean isSpam;
+
+    /** **/
+    private Boolean isPublished;
+
+    /** **/
+    private CommentStatus commentStatus;
 
     /**
      * @return the commentId
@@ -232,4 +246,50 @@ public class Comment{
     public void setSurvey(final Survey survey) {
         this.survey = survey;
     }
+
+	/**
+	 * @return the isSpam
+	 */
+    @Column(name = "is_spam")
+	public Boolean getIsSpam() {
+		return isSpam;
+	}
+
+	/**
+	 * @param isSpam the isSpam to set
+	 */
+	public void setIsSpam(final Boolean isSpam) {
+		this.isSpam = isSpam;
+	}
+
+	/**
+	 * @return the isPublished
+	 */
+	@Column(name = "is_published")
+	public Boolean getIsPublished() {
+		return isPublished;
+	}
+
+	/**
+	 * @param isPublished the isPublished to set
+	 */
+	public void setIsPublished(final Boolean isPublished) {
+		this.isPublished = isPublished;
+	}
+
+	/**
+	 * @return the commentStatus
+	 */
+	@Column(name = "comment_status")
+    @Enumerated(EnumType.ORDINAL)
+	public CommentStatus getCommentStatus() {
+		return commentStatus;
+	}
+
+	/**
+	 * @param commentStatus the commentStatus to set
+	 */
+	public void setCommentStatus(final CommentStatus commentStatus) {
+		this.commentStatus = commentStatus;
+	}
 }

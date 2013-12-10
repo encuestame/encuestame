@@ -1,0 +1,15 @@
+{
+    "name": "Encuestame Widget API",
+    "description": "The Encuestame Widget API Doc",
+    "version": "1.147",
+    "url": "http://www.encuestame.org",
+    "logo" : "http://encuestame.org/blog/wp-content/uploads/2013/06/logo_encuestame.png",
+    "options": {
+        "linkNatives": true,
+        "paths": ["*/js"],
+        "outdir": "./enme-doc/api/widgets",
+        "ignorePaths": [ "./enme-war/src/main/webapp/resource/js/dojo", "dojox", "dijit" ],
+        "port": 3001,
+        "nocode": false
+    }
+}

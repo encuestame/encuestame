@@ -15,10 +15,9 @@ package org.encuestame.utils.json;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Social Account Bean.
@@ -56,7 +55,7 @@ public class SocialAccountBean implements Serializable {
     private Boolean  defaultSelected;
 
     @JsonProperty(value = "date_created")
-    @JsonDeserialize(using = JsonDateDeserializer.class)
+    //@JsonDeserialize(using = JsonDateDeserializer.class)
     private Date addedAccount;
 
     @JsonProperty(value = "picture_url")

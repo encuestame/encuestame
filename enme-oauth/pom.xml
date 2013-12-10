@@ -4,9 +4,10 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.147-M2-SNAPSHOT</version>
+        <version>1.147-RELEASE-SNAPSHOT</version>
     </parent>
     <artifactId>encuestame-oauth</artifactId>
+  <version>1.147-M4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>encuestame oauth</name>
     <dependencies>
@@ -106,7 +107,7 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>${servlet-api-artifact}</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>
@@ -162,8 +163,8 @@
             <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
         </dependency>
         <!-- OAuth <dependency> <groupId>org.codehaus.spring-security-oauth</groupId>
             <artifactId>spring-security-oauth</artifactId> </dependency> -->
@@ -272,20 +273,7 @@
         <dependency>
             <groupId>org.springframework.mobile</groupId>
             <artifactId>spring-mobile-device</artifactId>
-        </dependency>
-        <!-- Commet API -->
-        <dependency>
-            <groupId>org.cometd.java</groupId>
-            <artifactId>bayeux-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.cometd.java</groupId>
-            <artifactId>cometd-java-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.cometd.java</groupId>
-            <artifactId>cometd-java-annotations</artifactId>
-        </dependency>
+        </dependency>        
         <dependency>
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>

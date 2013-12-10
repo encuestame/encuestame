@@ -6,6 +6,7 @@
             url="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}"
             title="${item.questionBean.questionName}"
             itemId="${item.id}"
+            displayImage="false"
             comments="${item.totalComments}"
             submited="<spring:message code="submited_by" />"
             added="<spring:message code="added" />"

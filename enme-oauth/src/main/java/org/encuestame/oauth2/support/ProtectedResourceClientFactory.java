@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+    * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,7 +13,6 @@
 package org.encuestame.oauth2.support;
 
 import org.encuestame.utils.oauth.OAuth2Version;
-import org.springframework.http.client.CommonsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -59,7 +58,7 @@ public class ProtectedResourceClientFactory {
      */
     private static RestTemplate version(String accessToken, OAuth2Version version) {
         //ENCUESTAME-407
-        final RestTemplate restTemplate = new RestTemplate(new CommonsClientHttpRequestFactory());
+        final RestTemplate restTemplate = new RestTemplate();
         restTemplate.setRequestFactory(new OAuth2RequestFactory(restTemplate.getRequestFactory(), accessToken, version));
         return restTemplate;
     }

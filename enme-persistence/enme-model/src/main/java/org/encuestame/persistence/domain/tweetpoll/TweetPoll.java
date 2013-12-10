@@ -20,6 +20,8 @@ import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,8 +38,10 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.utils.enums.CommentOptions;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
@@ -166,6 +170,12 @@ public class TweetPoll extends AbstractGeoPoint{
      /** Unlike **/
      private Long dislikeVote = 0L;
 
+     /**
+      * Show Comments Option.
+      */
+     private CommentOptions showComments;
+
+
     /**
      * @return the tweetPollId
      */
@@ -257,6 +267,7 @@ public class TweetPoll extends AbstractGeoPoint{
     @ManyToOne(cascade = CascadeType.MERGE)
     @IndexedEmbedded
     @JoinColumn(name = "qid", nullable = false)
+    @Cascade( org.hibernate.annotations.CascadeType.REMOVE )
     public Question getQuestion() {
         return question;
     }
@@ -463,6 +474,7 @@ public class TweetPoll extends AbstractGeoPoint{
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "tweetPollFolderId", nullable = true)
+
     public TweetPollFolder getTweetPollFolder() {
         return tweetPollFolder;
     }
@@ -643,6 +655,23 @@ public class TweetPoll extends AbstractGeoPoint{
         this.dislikeVote = dislikeVote;
     }
 
+    /**
+     * @return the showComments
+     */
+    @Column(name = "comment_option")
+    @Enumerated(EnumType.ORDINAL)
+    public CommentOptions getShowComments() {
+        return showComments;
+    }
+
+    /**
+     * @param showComments the showComments to set
+     */
+    public void setShowComments(final CommentOptions showComments) {
+        this.showComments = showComments;
+    }
+
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
@@ -666,4 +695,5 @@ public class TweetPoll extends AbstractGeoPoint{
                 + ", tweetPollFolder=" + tweetPollFolder + ", favourites="
                 + favourites + "]";
     }
+
 }

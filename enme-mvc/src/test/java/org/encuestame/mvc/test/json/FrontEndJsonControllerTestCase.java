@@ -55,7 +55,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      */
     @Test
     public void testGetMyDashBoards() throws ServletException, IOException {
-        initService("/api/common/dashboard/list.json", MethodJson.GET);
+        initService("/api/common/dashboard", MethodJson.GET);
         final JSONObject response = callJsonService();
         // {"error":{},"success":{"cloud":[]}}
         final JSONObject success = getSucess(response);
@@ -103,7 +103,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      */
     @Test
     public void testcreateDashBoard() throws ServletException, IOException {
-        initService("/api/common/dashboard/create-dashboard.json", MethodJson.POST);
+        initService("/api/common/dashboard", MethodJson.POST);
         setParameter("name", "dasboard 1");
         setParameter("desc", "description of my dashboard");
         setParameter("favourite", "true");
@@ -113,27 +113,6 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject items = (JSONObject) success.get("dashboard");
         Assert.assertNotNull(items);
         Assert.assertEquals(items.get("dashboard_name"), "dasboard 1");
-    }
-
-
-    /**
-     *
-     * @throws ServletException
-     * @throws IOException
-     */
-    //@Test
-    public void testmoveGadget() throws ServletException, IOException {
-        final Dashboard db = createDashboard("dashboard 1", true, getSpringSecurityLoggedUserAccount());
-        initService("/api/common/dashboard/move-gadget.json", MethodJson.GET);
-        setParameter("gadgetId", "stream");
-        setParameter("position", "1");
-        setParameter("column", "1");
-        setParameter("dashboardId", db.getBoardId().toString());
-        final JSONObject response = callJsonService();
-        final JSONObject success = getSucess(response);
-        //final JSONObject items = (JONObject) success.get("dashboard");
-        //Assert.assertNotNull(items);
-        //Assert.assertEquals(items.get("dashboard_name"), "dasboard 1");
     }
 
     /**
@@ -149,6 +128,8 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final Poll poll = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
         tp.setRelevance(50L);
         poll.setRelevance(30L);
+        getTweetPoll().saveOrUpdate(tp);
+        getPollDao().saveOrUpdate(poll);
         initService("/api/common/frontend/stream.json", MethodJson.GET);
         setParameter("period", "all");
         setParameter("maxResults", "10");

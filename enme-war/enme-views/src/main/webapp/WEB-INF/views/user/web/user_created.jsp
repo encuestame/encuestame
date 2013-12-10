@@ -3,14 +3,14 @@
     <div class="web-form-wrapper sign-in-form" id="web-form-wrapper">
         <article>
             <section class="web-user-confirm-message">
-                <h1>
+                <h2>
                     <spring:message code="signup.user.created" />.
                     <div>
                         <a href="<%=request.getContextPath()%>/user/signin">
                              <spring:message code="signin.button" />
                         </a>
                     </div>
-               </h1>
+               </h2>
             </section>
         </article>
     </div>

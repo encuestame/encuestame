@@ -14,16 +14,14 @@ package org.encuestame.mvc.controller.social;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
-import org.encuestame.oauth2.support.OAuth2Parameters;
-import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.oauth1.support.OAuth1RequestFlow;
+import org.encuestame.oauth2.support.OAuth2Parameters;
 import org.encuestame.oauth2.support.OAuth2RequestFlow;
-import org.encuestame.social.api.GoogleBuzzAPITemplate;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.social.api.FacebookAPITemplate;
 import org.encuestame.social.api.IdenticaAPITemplate;
 import org.encuestame.social.api.LinkedInAPITemplate;
 import org.encuestame.social.api.TwitterAPITemplate;
-import org.encuestame.social.api.support.BuzzAPIOperations;
 import org.encuestame.social.api.support.FacebookAPIOperations;
 import org.encuestame.social.api.support.IdentiCaProfile;
 import org.encuestame.social.api.support.IdenticaAPIOperations;
@@ -123,7 +121,9 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
             log.trace("OAUTH1AccessToken "+accessToken.toString());
             log.trace("OAUTH1AccessToken Provider "+socialProvider);
             String actionToDo = "";
-            if (socialProvider.equals(SocialProvider.IDENTICA)) {
+            // https://github.com/e14n/pump.io
+            // on 2013 identi.ca changed  name to pump.io 
+            if (socialProvider.equals(SocialProvider.IDENTICA) || socialProvider.equals(SocialProvider.PUMPIO)) {
                 IdenticaAPIOperations apiOperations = new IdenticaAPITemplate(
                         apiKey, consumerSecret, accessToken.getValue(),
                         accessToken.getSecret());

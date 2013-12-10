@@ -32,8 +32,10 @@ import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.dao.IHashTagDao;
+import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -70,7 +72,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import twitter4j.TwitterException;
-import twitter4j.http.RequestToken;
+import twitter4j.auth.RequestToken;
 
 /**
  * Survey Service.
@@ -99,6 +101,10 @@ public class AbstractSurveyService extends AbstractChartService {
 
     /** Tweet Path, **/
     private String tweetPath;
+
+    /** {@link Schedule} **/
+    @Autowired
+    private IScheduled scheduledDao;
 
     /**
      * Twee poll vote.
@@ -680,6 +686,49 @@ public class AbstractSurveyService extends AbstractChartService {
         }
     }
 
+
+    /**
+     * Retrieve {@link SocialAccount} by a list of id.
+     * @param socialId
+     * @param username
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public List<SocialAccount> retrieveSocialAccountsbyId(
+            final List<Long> socialId, final String username)
+            throws EnMeNoResultsFoundException {
+        final List<SocialAccount> socialAccountList = new ArrayList<SocialAccount>();
+        for (Long socialAccountId : socialId) {
+            final SocialAccount account = this.getSocialAccountsbyId(
+                    socialAccountId, username);
+            if (account != null) {
+                socialAccountList.add(account);
+
+            }
+        }
+        return socialAccountList;
+    }
+
+
+    /**
+     * Get Social account by ud and user.
+     * @param socialAccountId
+     * @param username
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    private SocialAccount getSocialAccountsbyId(
+            final Long socialAccountId, final String username)
+            throws EnMeNoResultsFoundException {
+        final SocialAccount socialAccount = getAccountDao().getSocialAccount(
+                socialAccountId, getAccount(username));
+        if (socialAccount == null) {
+            throw new EnMeNoResultsFoundException("Social Account id not valid");
+        }
+        return socialAccount;
+    }
+
+
     /**
      * @return the answerPollPath
      */
@@ -750,5 +799,17 @@ public class AbstractSurveyService extends AbstractChartService {
         this.hashTagDao = hashTagDao;
     }
 
+	/**
+	 * @return the scheduledDao
+	 */
+	public IScheduled getScheduledDao() {
+		return scheduledDao;
+	}
 
+	/**
+	 * @param scheduledDao the scheduledDao to set
+	 */
+	public void setScheduledDao(final IScheduled scheduledDao) {
+		this.scheduledDao = scheduledDao;
+	}
 }

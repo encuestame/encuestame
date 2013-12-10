@@ -1,12 +1,9 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<link rel="stylesheet"  href="<c:url value="/resources/js/me/resources/core.css"/>" />
-<tiles:insertAttribute name="css_module" ignore="true" />
+<%@ include file="/WEB-INF/jsp/includes/decorators/css-common.jsp"%>
 <c:if test="${development}">
 	<link rel="stylesheet"  href="<c:url value="/resources/dev/resources.css" />" />
 </c:if>
-<!-- <link rel="stylesheet"  href="<c:url value="/resources/css/me.web.css" />" /> -->
-<link rel="stylesheet"  href="<c:url value="/resources/js/me/resources/app.css"/>" />
-
-
-
-
+<link rel="stylesheet"  href="<c:url value="/resources/css/font-awesome.min.css" />" />
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/dbootstrap.css" />" />
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/dijit.css" />" />
+<tiles:insertAttribute name="css_module" ignore="true" />

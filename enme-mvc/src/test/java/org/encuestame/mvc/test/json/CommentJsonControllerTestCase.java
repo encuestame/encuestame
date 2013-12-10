@@ -25,7 +25,9 @@ import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.MethodJson;
+import org.joda.time.DateTime;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
@@ -49,6 +51,9 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
 
     /** {@link Question} **/
     private Question question;
+
+    /**   **/
+    private DateTime creationDate = new DateTime();
 
     @Before
     public void initJsonService(){
@@ -139,7 +144,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      */
     @Test
      public void testCreateComment() throws ServletException, IOException{
-         initService("/api/common/comment/create.json", MethodJson.POST);
+         initService("/api/common/comment/tweetpoll/create.json", MethodJson.POST);
          setParameter("comment", "My Comment");
          setParameter("tweetPollId", this.tweetPoll.getTweetPollId().toString());
          final JSONObject response = callJsonService();
@@ -182,4 +187,43 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
         Assert.assertEquals(comments.size(), 4);
 
     }
+
+   /**
+    *
+    * @throws ServletException
+    * @throws IOException
+    */
+   @Test
+	public void testCommentsByStatus() throws ServletException, IOException {
+
+		createDefaultTweetPollCommentWithStatus("first comment", tweetPoll,
+				getSpringSecurityLoggedUserAccount(), CommentStatus.APPROVE,
+				creationDate.toDate());
+		createDefaultTweetPollCommentWithStatus("second comment", tweetPoll,
+				getSpringSecurityLoggedUserAccount(), CommentStatus.APPROVE,
+				creationDate.toDate());
+
+		createDefaultTweetPollCommentWithStatus("third comment", tweetPoll,
+				getSpringSecurityLoggedUserAccount(), CommentStatus.MODERATE,
+				creationDate.minusDays(3).toDate());
+
+		createDefaultTweetPollCommentWithStatus("fourth comment", tweetPoll,
+				getSpringSecurityLoggedUserAccount(), CommentStatus.APPROVE,
+				creationDate.toDate());
+
+		initService(
+				"/api/common/comment/search/tweetpoll/approve/comments.json",
+				MethodJson.GET);
+		setParameter("id", this.tweetPoll.getTweetPollId().toString());
+		setParameter("start", "0");
+		setParameter("max", "10");
+		setParameter("period", "24");
+
+		final JSONObject response = callJsonService();
+		final JSONObject success = getSucess(response);
+		final JSONArray comments = (JSONArray) success.get("commentsbyStatus");
+		Assert.assertEquals(comments.size(), 3);
+
+	}
+
 }

@@ -31,6 +31,7 @@ import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -73,6 +74,15 @@ public class TestQuestionDao extends AbstractBase{
         final Question question = createQuestion("Why encuestame is better than polldady?", this.user);
         final Question retrieveQuestion = getQuestionDaoImp().retrieveQuestionById(question.getQid());
         assertEquals("Questions should be equals",question.getQid() , retrieveQuestion.getQid());
+    }
+
+    /**
+     * Test Retrieve Question by Id and User.
+     */
+    @Ignore
+    @Test
+    public void testRetrieveQuestionbyId(){
+    	final Question retrieveQ = getQuestionDaoImp().retrieveQuestionbyId(this.initQuestion.getQid(), this.user.getUid());
     }
 
     /**

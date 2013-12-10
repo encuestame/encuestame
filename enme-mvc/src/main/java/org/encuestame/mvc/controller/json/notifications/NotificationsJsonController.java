@@ -114,7 +114,7 @@ public class NotificationsJsonController extends AbstractJsonController {
          UserAccount secondary;
         try {
              secondary = getByUsername(getUserPrincipalUsername());
-             if(secondary == null){
+             if (secondary == null){
                  setError("account not valid", response);
              }
              final Map<String, Object> responseJson = new HashMap<String, Object>();

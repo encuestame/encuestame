@@ -112,9 +112,6 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testLayoutEnumOptions(){
-         final LayoutEnum aaaColumns = LayoutEnum.getDashboardLayout("AAA");
-         assertEquals("Should be equals", "AAA", aaaColumns.toString());
-
          final LayoutEnum bbColumns = LayoutEnum.getDashboardLayout("BB");
          assertEquals("Should be equals", "BB", bbColumns.toString());
 

@@ -41,6 +41,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
@@ -446,6 +447,35 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         return getHibernateTemplate().findByCriteria(criteria);
 
     }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.IFrontEndDao#getHashTagHitsRange(java.
+	 * lang.Long, org.encuestame.utils.enums.SearchPeriods)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Hit> getHashTagHitsRange(final Long tagId,
+			final SearchPeriods period) {
+
+		final DetachedCriteria criteria = DetachedCriteria.forClass(Hit.class);
+		criteria.createAlias("hashTag", "hashTag");
+		criteria.add(Restrictions.eq("hashTag.hashTagId", tagId));
+		criteria.addOrder(Order.desc("hitDate"));
+
+		// define as a VISIT category
+		criteria.add(Restrictions.eq("hitCategory", HitCategory.VISIT));
+
+		ProjectionList projList = Projections.projectionList();
+		projList.add(Projections.groupProperty("hitDate"));
+
+		projList.add(Projections.rowCount());
+		criteria.setProjection(projList);
+
+		return getHibernateTemplate().findByCriteria(criteria);
+
+	}
 
     /*
      * (non-Javadoc)

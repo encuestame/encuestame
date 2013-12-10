@@ -24,6 +24,7 @@ import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -84,7 +85,8 @@ public class TestCatLocationsDaoImp extends AbstractBase{
     /**
      * getLocationFolders.
      */
-    //@Test
+    @Ignore
+	@Test
     public void testGetLocationFolders(){
         createGeoPointFolder(GeoPointFolderType.GROUPING, this.userPrimary, "Managua", null);
         createGeoPointFolder(GeoPointFolderType.GROUPING, this.userPrimary, "Ocotal", null);
@@ -95,10 +97,11 @@ public class TestCatLocationsDaoImp extends AbstractBase{
     /**
      * Test for getLocationFoldersByLocationFolderId.
      */
-    //@Test
+	@Ignore
+	@Test
     public void testGetLocationFoldersByLocationFolderId(){
-        final GeoPointFolder geoPointFolder = createGeoPointFolder(GeoPointFolderType.GROUPING, this.userPrimary, "Condega", null);
-        createGeoPointFolder(GeoPointFolderType.GROUPING, this.userPrimary, "Wiwili", geoPointFolder);
+        final GeoPointFolder geoPointFolder = createGeoPointFolder(GeoPointFolderType.GROUPING, this.userPrimary, "Condega2", null);
+        createGeoPointFolder(GeoPointFolderType.GROUPING, this.userPrimary, "Wiwili2", geoPointFolder);
         final List<GeoPointFolder> geoPointFolders = getGeoPointDao().getLocationFoldersByLocationFolderId(
                 geoPointFolder.getLocationFolderId(), this.userPrimary.getUid());
         assertEquals("Should be equals",1 , geoPointFolders.size());
@@ -107,7 +110,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
     /**
      * Test getLocationByFolder.
      */
-    //@Test
+	@Test
     public void testGetLocationByFolder(){
         final GeoPointFolder geoPointFolder = createGeoPointFolder(GeoPointFolderType.GROUPING,
                                                     this.userPrimary, "Matagalpa", null);
@@ -120,7 +123,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
     /**
      * Test getLocationFolderByIdAndUserId.
      */
-    //@Test
+	@Test
     public void testGetLocationFolderByIdAndUserId(){
         final GeoPointFolder geoPointFolder = createGeoPointFolder(GeoPointFolderType.GROUPING,
                 this.userPrimary, "Carazo", null);

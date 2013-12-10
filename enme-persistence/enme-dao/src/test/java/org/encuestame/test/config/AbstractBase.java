@@ -40,6 +40,7 @@ import org.encuestame.persistence.dao.IPermissionDao;
 import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.persistence.dao.IQuestionDao;
+import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -49,6 +50,7 @@ import org.encuestame.persistence.dao.imp.EmailDao;
 import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.PollDao;
+import org.encuestame.persistence.dao.imp.ScheduleDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.AbstractSurvey.CustomFinalMessage;
 import org.encuestame.persistence.domain.AccessRate;
@@ -66,6 +68,7 @@ import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
+import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
@@ -77,10 +80,10 @@ import org.encuestame.persistence.domain.question.QuestionColettion;
 import org.encuestame.persistence.domain.question.QuestionPreferences;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
@@ -100,13 +103,16 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.enums.CommentOptions;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.GadgetType;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Status;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
+import org.encuestame.utils.web.stats.ItemStatDetail;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -206,6 +212,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /** {@link DashboardDao} **/
     @Autowired
     private IDashboardDao dashboardDao;
+
+    /** {@link ScheduleDao **/
+    @Autowired
+    private IScheduled scheduleDao;
 
     /**
      * Get Property.
@@ -457,6 +467,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(pollPublish);
         poll.setShowComments(CommentOptions.APPROVE);
+        poll.setRelevance(1L);
         getPollDao().saveOrUpdate(poll);
         return poll;
 
@@ -472,6 +483,38 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final UserAccount userAccount) {
         return this.createPoll(new Date(), question, userAccount, Boolean.TRUE,
                 Boolean.TRUE);
+    }
+
+    /**
+     * Helper create default poll.
+     * @param question
+     * @param userAccount
+     * @param createdAt
+     * @return
+     */
+    public Poll createDefaultPoll(final Question question,
+            final UserAccount userAccount, final Date createdAt) {
+        return this.createPoll(createdAt, question, userAccount, Boolean.TRUE,
+                Boolean.TRUE);
+    }
+
+    /**
+     * Helper create default poll.
+     * @param question
+     * @param userAccount
+     * @param createdAt
+     * @param likeVote
+     * @param dislikeVote
+     * @return
+     */
+    public Poll createDefaultPoll(final Question question,
+            final UserAccount userAccount, final Date createdAt, final Long likeVote, final Long dislikeVote) {
+    	final Poll poll = createPoll(createdAt, question, userAccount, Boolean.TRUE,
+                Boolean.TRUE);
+    	poll.setLikeVote(likeVote);
+    	poll.setDislikeVote(dislikeVote);
+    	getPollDao().saveOrUpdate(poll);
+        return poll;
     }
 
     /**
@@ -498,8 +541,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setClosedQuota(100);
         poll.setCustomFinalMessage(CustomFinalMessage.FINALMESSAGE);
         poll.setCustomMessage(true);
-        poll.setDislikeVote(300L);
-        poll.setLikeVote(560L);
+        poll.setDislikeVote(1L);
+        poll.setLikeVote(1L);
         poll.setEndDate(new Date());
         poll.setFavorites(true);
         poll.setNumbervotes(600L);
@@ -531,6 +574,22 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return pollRes;
 
     }
+
+	/**
+	 * Create Default {@link PollResult}.
+	 * @param questionAnswer
+	 * @param poll
+	 * @param ip
+	 * @return
+	 */
+    public PollResult createDefaultPollResults(
+			final QuestionAnswer questionAnswer, final Poll poll,
+			final String ip) {
+		final PollResult result = this.createPollResults(questionAnswer, poll);
+		result.setIpaddress(ip);
+		getPollDao().saveOrUpdate(result);
+		return result;
+	}
 
     /**
      * Create project.
@@ -675,7 +734,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
           board.setDescription("");
           board.setFavorite(favorite);
           board.setFavoriteCounter(1);
-          board.setPageLayout(LayoutEnum.AAA_COLUMNS);
+          board.setPageLayout(LayoutEnum.BA_BLOCK_COLUMN);
           board.setBoardSequence(1);
           board.setUserBoard(userAcc);
           getDashboardDao().saveOrUpdate(board);
@@ -1182,6 +1241,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         tweetPoll.setFavourites(Boolean.TRUE);
         tweetPoll.setTweetOwner(tweetOwner);
         tweetPoll.setEditorOwner(userAccount);
+        tweetPoll.setRelevance(1L);
         getTweetPoll().saveOrUpdate(tweetPoll);
         return tweetPoll;
     }
@@ -1217,6 +1277,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
 
+    /**
+     * Create published {@link TweetPoll}.
+     * @param id
+     * @param question
+     * @param user
+     * @return
+     */
     public TweetPoll createPublishedTweetPoll(final Long id, final Question question, final UserAccount user) {
         return createTweetPoll(id, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
@@ -1341,6 +1408,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create Default {@link GeoPointFolder}
+     * @param folderName
+     * @param secUsers
+     * @return
+     */
+	public GeoPointFolder createDefaultGeoPointFolder(final String folderName,
+			final Account secUsers) {
+		return this.createGeoPointFolder(GeoPointFolderType.POLYGON, secUsers,
+				folderName, null);
+
+	}
+
+    /**
      * Helper Create Survey Section.
      * @param catState
      * @param descSection
@@ -1449,6 +1529,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        survey.setStartDate(startDate);
        survey.setTicket(3);
        survey.setCreatedAt(createdAt);
+       survey.setRelevance(1L);
        getSurveyDaoImp().saveOrUpdate(survey);
        return survey;
    }
@@ -1965,6 +2046,35 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
          return tweetPoll;
      }
 
+     /**
+      * Create Default {@link TweetPoll}
+      * @param publishTweetPoll
+      * @param completed
+      * @param favourites
+      * @param tweetOwner
+      * @param question
+      * @param creationDate
+      * @return
+      */
+     public TweetPoll createDefaultTweetPollPublicated(
+             final Boolean publishTweetPoll,
+             final Boolean completed,
+             final Boolean favourites,
+             final UserAccount tweetOwner,
+             final Question question,
+             final Date creationDate ){
+        final TweetPoll tweetPoll = new TweetPoll();
+        tweetPoll.setPublishTweetPoll(publishTweetPoll);
+        tweetPoll.setCompleted(completed);
+        tweetPoll.setCreateDate(creationDate);
+        tweetPoll.setFavourites(favourites);
+        tweetPoll.setQuestion(question);
+        tweetPoll.setTweetOwner(tweetOwner.getAccount());
+        tweetPoll.setEditorOwner(tweetOwner);
+        getTweetPoll().saveOrUpdate(tweetPoll);
+        return tweetPoll;
+    }
+
       /**
        *  Create TweetPoll social links.
        * @param tweetPoll
@@ -2083,6 +2193,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return this.createHit(null, null, null, tag, ipAddress);
     }
 
+   /**
+    * Create HashTag hit.
+    * @param tag
+    * @param ipAddress
+    * @param hitDate
+    * @return
+    */
+    public Hit createHashTagHit(final HashTag tag, final String ipAddress, final Date hitDate){
+    	final Hit visit = this.createHit(null, null, null, tag, ipAddress);
+    	visit.setHitDate(hitDate);
+        return visit;
+    }
+
     /**
     * @return the dashboardDao
     */
@@ -2111,7 +2234,24 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         this.commentsOperations = commentsOperations;
     }
 
+
     /**
+	 * @return the scheduleDao
+	 */
+	public IScheduled getScheduleDao() {
+		return scheduleDao;
+	}
+
+
+	/**
+	 * @param scheduleDao the scheduleDao to set
+	 */
+	public void setScheduleDao(final IScheduled scheduleDao) {
+		this.scheduleDao = scheduleDao;
+	}
+
+
+	/**
      * Create comment.
      * @param comm
      * @param likeVote
@@ -2160,6 +2300,41 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param comment
      * @param tpoll
      * @param userAcc
+     * @param status
+     * @return
+     */
+    public Comment createDefaultTweetPollCommentStatus(
+            final String comment,
+            final TweetPoll tpoll,
+            final UserAccount userAcc, final CommentStatus status){
+        return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L , new Date());
+    }
+
+    /**
+     * Create a default {@link Comment} with status.
+     * @param comment
+     * @param tpoll
+     * @param userAcc
+     * @param commentStatus
+     * @return
+     */
+    public Comment createDefaultTweetPollCommentWithStatus(
+            final String comment,
+            final TweetPoll tpoll,
+            final UserAccount userAcc,
+            final CommentStatus commentStatus,
+            final Date creationDate){
+        final Comment tweetPollComment = this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L , creationDate);
+        tweetPollComment.setCommentStatus(commentStatus);
+        getCommentsOperations().saveOrUpdate(tweetPollComment);
+        return tweetPollComment;
+    }
+
+    /**
+     *
+     * @param comment
+     * @param tpoll
+     * @param userAcc
      * @param likeVote
      * @param dislikeVote
      * @return
@@ -2187,6 +2362,24 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create a default {@link Poll} {@link Comment} with status
+     * @param comment
+     * @param poll
+     * @param userAcc
+     * @param commentStatus
+     * @return
+     */
+    public Comment createDefaultPollCommentWithStatus(final String comment,
+            final Poll poll, final UserAccount userAcc,
+            final CommentStatus commentStatus, final Date creationDate) {
+        final Comment pollComment = this.createComment(comment, 0L, null, null,
+                poll, userAcc, 0L, creationDate);
+        pollComment.setCommentStatus(commentStatus);
+        getCommentsOperations().saveOrUpdate(pollComment);
+        return pollComment;
+    }
+
+    /**
      * Create default survey comment.
      * @param survey
      * @return
@@ -2196,6 +2389,25 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Survey survey,
             final UserAccount userAcc){
         return this.createComment(comment, 0L, null, survey, null, userAcc, 0L, new Date());
+    }
+
+    /**
+     * Create survey comment with status.
+     * @param comment
+     * @param survey
+     * @param userAcc
+     * @param commentStatus
+     * @return
+     */
+    public Comment createDefaultSurveyCommentWithStatus(final String comment,
+            final Survey survey, final UserAccount userAcc,
+            final CommentStatus commentStatus, final Date creationdate) {
+
+        final Comment surveyComment = this.createComment(comment, 0L, null,
+                survey, null, userAcc, 0L, creationdate);
+        surveyComment.setCommentStatus(commentStatus);
+        getCommentsOperations().saveOrUpdate(surveyComment);
+        return surveyComment;
     }
 
     /**
@@ -2361,4 +2573,92 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             assertNotNull(tpSaved);
         }
     }
+
+    public ItemStatDetail createItemStatDetail(final Long itemId, final Date creationDate, final Long miliDate){
+        final ItemStatDetail isd = new ItemStatDetail();
+        isd.setDate(creationDate);
+        isd.setItemId(itemId);
+        //isd.setMilisecondsDate(miliDate);
+        return isd;
+    }
+
+	/**
+	 *
+	 * @param tpoll
+	 * @param survey
+	 * @param poll
+	 * @param scheduleDate
+	 * @param socialAccount
+	 * @param status
+	 * @param attempts
+	 * @param tpollSaved
+	 * @param tweetText
+	 * @return
+	 */
+    public Schedule createScheduledItem(final TweetPoll tpoll,
+			final Survey survey, final Poll poll, final Date scheduleDate,
+			final SocialAccount socialAccount, final Status status,
+			final Integer attempts,
+			final TweetPollSavedPublishedStatus tpollSaved, final String tweetText, final TypeSearchResult typeSearch) {
+    	final Schedule schedule = new Schedule();
+    	schedule.setPublishAttempts(attempts);
+    	schedule.setPoll(poll);
+    	schedule.setScheduleDate(scheduleDate);
+    	schedule.setSocialAccount(socialAccount);
+    	schedule.setStatus(status);
+    	schedule.setSurvey(survey);
+    	schedule.setTpoll(tpoll);
+    	schedule.setTpollSavedPublished(tpollSaved);
+    	schedule.setTweetText(tweetText);
+    	schedule.setTypeSearch(typeSearch);
+    	getScheduleDao().saveOrUpdate(schedule);
+    	return schedule;
+    }
+
+    /**
+     * Create Schedule for {@link TweetPoll}
+     * @param tpoll
+     * @param scheduleDate
+     * @param socialAccount
+     * @param status
+     * @return
+     */
+    public Schedule createTweetpollSchedule(final TweetPoll tpoll, final Date scheduleDate, final SocialAccount socialAccount, final Status status, final TypeSearchResult typeSearch){
+    	return this.createScheduledItem(tpoll, null, null, scheduleDate, socialAccount, status, 2 , null, "tweettext", typeSearch);
+    }
+
+    /**
+     *
+     * @param tpoll
+     * @param scheduleDate
+     * @param socialAccount
+     * @param status
+     * @param typeSearch
+     * @return
+     */
+    public Schedule createTweetpollScheduleDefault(final TweetPoll tpoll,
+			final Date scheduleDate, final SocialAccount socialAccount,
+			final Status status, final TypeSearchResult typeSearch, final String tweetText) {
+		return this.createScheduledItem(tpoll, null, null, scheduleDate,
+				socialAccount, status, 2, null, tweetText, typeSearch);
+
+	}
+
+    /**
+     *
+     * @param tpoll
+     * @param scheduleDate
+     * @param socialAccount
+     * @param status
+     * @param typeSearch
+     * @param attempts
+     * @return
+     */
+    public Schedule createTweetpollScheduleDefault(final TweetPoll tpoll,
+			final Date scheduleDate, final SocialAccount socialAccount,
+			final Status status, final TypeSearchResult typeSearch, final Integer attempts) {
+		return this.createScheduledItem(tpoll, null, null, scheduleDate,
+				socialAccount, status, attempts, null, "tweettext", typeSearch);
+
+	}
 }

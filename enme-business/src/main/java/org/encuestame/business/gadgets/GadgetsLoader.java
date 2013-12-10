@@ -24,7 +24,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.core.io.Resource;
 
 /**
- * Gadgets Loader.
+ * Gadgets Loader is a class to read the all the gadget property files
+ * from the local storage.
  * @author Picado, Juan juanATencuestame.org
  * @since 04/08/2011
  */
@@ -51,7 +52,7 @@ public class GadgetsLoader {
     private static final Log log = LogFactory.getLog(GadgetsLoader.class);
 
     /**
-     * Init the load of gadgets.
+     * Initialized by Spring on load this class as a singleton bean.
      */
     public void load() {
         if (this.gadgets != null) {
@@ -80,7 +81,7 @@ public class GadgetsLoader {
     }
 
     /**
-     *
+     * Load a property file.
      * @return
      * @throws IOException
      */
@@ -92,7 +93,7 @@ public class GadgetsLoader {
     }
 
     /**
-     *
+     * Get all directory of gadget.
      * @return
      */
     public static List<Properties> getDirectoy(){
@@ -100,10 +101,10 @@ public class GadgetsLoader {
     }
 
     /**
-    *
+    * Get a gadget from the directory by key.
     * @return
     */
-   public static Properties getDirectoy(final String key){
+   public static Properties getDirectoy(final String key) {
        log.debug("getDirectoy "+mapDirectory.size());
        log.debug("getDirectoy "+mapDirectory);
        return mapDirectory.get(key);

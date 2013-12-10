@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame-war</artifactId>
-        <version>1.147-M2-SNAPSHOT</version>
+        <version>1.147-M4-SNAPSHOT</version>
     </parent>
     <artifactId>enme-spring</artifactId>
     <packaging>war</packaging>
@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.webflow</groupId>
-            <artifactId>org.springframework.webflow</artifactId>
+            <artifactId>spring-webflow</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.webflow</groupId>

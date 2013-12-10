@@ -115,6 +115,9 @@ CREATE TABLE comments (
     pollid bigint,
     sid bigint,
     tweetpollid bigint,
+    is_published boolean,
+    is_spam boolean,
+	comment_status integer,
     uid bigint NOT NULL
 );
 
@@ -910,7 +913,8 @@ CREATE TABLE tweetpoll (
     editor bigint,
     qid bigint NOT NULL,
     uid bigint NOT NULL,
-    tweetpollfolderid bigint
+    tweetpollfolderid bigint,
+    comment_option integer
 );
 
 
@@ -1080,3 +1084,20 @@ CREATE TABLE hash_tags_ranking (
    average real,
    ranking_updated timestamp without time zone,
    hashTag_hash_tag_id bigint);
+
+
+CREATE TABLE scheduled (
+	publish_scheduled_id bigint NOT NULL,
+	tweetpoll_tweet_poll_id bigint,
+	poll_poll_id bigint,
+	survey_sid bigint,
+	type character varying(255),
+	tweet_text character varying(255),
+	scheduled_date timestamp without time zone,
+	socialaccount_social_account_id bigint,
+	status integer,
+	publish_attempts integer,
+	tweetPoll_save_published_status_status_save_poll_id bigint,
+	type_search integer,
+	publication_date timestamp without time zone
+);

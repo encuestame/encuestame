@@ -45,6 +45,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
@@ -69,27 +70,28 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         setSessionFactory(sessionFactory);
     }
 
-    /**
-     * Get TweetPoll by Id.
-     *
-     * @param tweetPollId
-     *            tweetPollId
-     * @return {@link TweetPoll}
-     * @throws HibernateException
-     *             exception
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollById(java.lang.Long)
      */
     public TweetPoll getTweetPollById(final Long tweetPollId)
             throws HibernateException {
         return (TweetPoll) getHibernateTemplate().get(TweetPoll.class,
                 tweetPollId);
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollPublishedStatusbyId(java.lang.Long)
+     */
+    public TweetPollSavedPublishedStatus getTweetPollPublishedStatusbyId(final Long id) {
+    	return (TweetPollSavedPublishedStatus) getHibernateTemplate().get(TweetPollSavedPublishedStatus.class,
+                id);
+    }
 
     /*
      * (non-Javadoc)
-     *
-     * @see
-     * org.encuestame.persistence.dao.ITweetPoll#getPublicTweetPollById(java
-     * .lang.Long)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getPublicTweetPollById(java.lang.Long)
      */
     @SuppressWarnings("unchecked")
     public TweetPoll getPublicTweetPollById(final Long tweetPollId) {
@@ -709,7 +711,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
         criteria.addOrder(Order.desc("tweetPoll.createDate"));
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
-
+        ProjectionList projList = Projections.projectionList();
+        projList.add(Projections.groupProperty("createDate"));
+        projList.add(Projections.rowCount());
+        criteria.setProjection(projList);
        // calculateSearchPeriodsDates(period, criteria, "createDate");
 
         return getHibernateTemplate().findByCriteria(criteria);
@@ -755,10 +760,41 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getAllLinks(org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.survey.Survey, org.encuestame.persistence.domain.survey.Poll, org.encuestame.utils.enums.TypeSearchResult)
+     */
+    public List<TweetPollSavedPublishedStatus> getAllLinks(
+            final TweetPoll tweetPoll, final Survey survey, final Poll poll,
+            final TypeSearchResult itemType) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPollSavedPublishedStatus.class);
+        if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
+            criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+            // criteria.addOrder(Order.desc("tweetPoll.createDate"));
+        } else if (itemType.equals(TypeSearchResult.POLL)) {
+            criteria.add(Restrictions.eq("poll", poll));
+            // criteria.addOrder(Order.desc("survey.createdAt"));
+        } else if (itemType.equals(TypeSearchResult.SURVEY)) {
+            criteria.add(Restrictions.eq("survey", survey));
+            // criteria.addOrder(Order.desc("poll.createdAt"));
+        } else {
+            log.error("Item type not valid: " + itemType);
+        }
+        criteria.addOrder(Order.desc("publicationDateTweet"));
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getSocialLinksByTweetPollSearch(org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.utils.enums.TypeSearchResult, java.util.List, java.util.List)
+     */
     @SuppressWarnings("unchecked")
     public List<TweetPollSavedPublishedStatus> getSocialLinksByTweetPollSearch(
-            final TweetPoll tweetPoll, final TypeSearchResult itemType, final List<SocialProvider> splist, final List<SocialAccount> socialAccounts) {
+            final TweetPoll tweetPoll, 
+            final TypeSearchResult itemType, 
+            final List<SocialProvider> splist, 
+            final List<SocialAccount> socialAccounts) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPollSavedPublishedStatus.class);
         criteria.createAlias("socialAccount", "socialAccount");
@@ -773,6 +809,28 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         }
         return getHibernateTemplate().findByCriteria(criteria);
     }
+
+    @SuppressWarnings("unchecked")
+    public List<TweetPollSavedPublishedStatus> searchSocialLinksbyType(
+            final TweetPoll tweetPoll, final Poll poll, final TypeSearchResult itemType, final List<SocialProvider> splist, final List<SocialAccount> socialAccounts) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPollSavedPublishedStatus.class);
+        criteria.createAlias("socialAccount", "socialAccount");
+
+        if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
+      	  criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+      	  // Revisar bien estos valores porque sino encuentra nada va a evaluarlos y regresara valores
+      	  criteriaSearchSocialLinksByType(criteria, splist, socialAccounts);
+
+        }
+        else if (itemType.equals(TypeSearchResult.POLL)){
+			criteria.add(Restrictions.eq("poll", poll));
+			criteriaSearchSocialLinksByType(criteria, splist, socialAccounts);
+        }
+        
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
 
     /*
      * (non-Javadoc)
@@ -1030,5 +1088,43 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.ITweetPoll#getTweetPollsRangeStats(java
+	 * .lang.String, org.encuestame.utils.enums.SearchPeriods)
+	 */
+    @SuppressWarnings("unchecked")
+    public List<Object[]> getTweetPollsRangeStats(
+            final String tagName,
+            final SearchPeriods period) {
+        final DetachedCriteria detached = DetachedCriteria
+                .forClass(TweetPoll.class)
+                 .createAlias("hashTags", "hashTags")
+                .setProjection(Projections.id())
+                .add(Subqueries.propertyIn(
+                        "hashTags.hashTagId",
+                        DetachedCriteria
+                                .forClass(HashTag.class, "hash")
+                                .setProjection(Projections.id())
+                                .add(Restrictions.in("hash.hashTag",
+                                        new String[] { tagName }))));
+        final DetachedCriteria criteria = DetachedCriteria.forClass(
+                TweetPoll.class, "tweetPoll");
+        criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
 
+        criteria.addOrder(Order.desc("tweetPoll.createDate"));
+        criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
+        ProjectionList projList = Projections.projectionList();
+         projList.add(Projections.groupProperty("createDate"));
+       //  projList.add(Projections.sqlGroupProjection("DATE({alias}.create_date) as fecha", "fecha", new String[] { "fecha" }, new Type[] { StandardBasicTypes.DATE }));
+
+        projList.add(Projections.rowCount());
+        criteria.setProjection(projList);
+        //projectionList.add(Projections.sqlGroupProjection("date(dateCreated) as createdDate", "createdDate", new String[] { "createdDate" }, new Type[] { StandardBasicTypes.DATE }));
+       // calculateSearchPeriodsDates(period, criteria, "createDate");
+
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
 }

@@ -619,7 +619,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param key layout custom key
      * @param value message key
      */
-    public void addi18nProperty(final ModelMap model, final String key, final String value) {
+	public void addi18nProperty(ModelMap model, final String key, final String value) {
         @SuppressWarnings("unchecked")
         HashMap<String, String> i18n = (HashMap<String, String>) model.get("i18n");
         if (i18n == null) {
@@ -635,7 +635,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param model
      * @param key
      */
-    public void addi18nProperty(final ModelMap model, final String key) {
+    public void addi18nProperty(ModelMap model, final String key) {
         @SuppressWarnings("unchecked")
         HashMap<String, String> i18n = (HashMap<String, String>) model.get("i18n");
         if (i18n == null) {
@@ -667,7 +667,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     * Add to model defaults messages.
     * TODO: move to INTERCEPTOR.
     */
-   public final void addDefaulti18nMessages(final ModelMap model) {
+   public final void addDefaulti18nMessages(ModelMap model) {
        addi18nProperty(model, "profile_menu_configuration", getMessage("profile_menu_configuration"));
        addi18nProperty(model, "profile_menu_social", getMessage("profile_menu_social"));
        addi18nProperty(model, "profile_menu_help", getMessage("profile_menu_help"));
@@ -678,7 +678,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     * Add to model the social picker messages.
     * @param model
     */
-   public final void addSocialPickerWidgetMessages(final ModelMap model) {
+   public final void addSocialPickerWidgetMessages(ModelMap model) {
        addi18nProperty(model, "social_picker_only_selected", getMessage("social_picker_only_selected"));
        addi18nProperty(model, "social_picker_select_all", getMessage("social_picker_select_all"));
        addi18nProperty(model, "social_picker_unselect_all", getMessage("social_picker_unselect_all"));
@@ -691,7 +691,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     *
     * @param model
     */
-   public final void addItemsManangeMessages(final ModelMap model) {
+   public final void addItemsManangeMessages(ModelMap model) {
     addi18nProperty(model, "detail_manage_by_account", getMessage("detail_manage_by_account"));
        addi18nProperty(model, "detail_manage_today", getMessage("detail_manage_today"));
        addi18nProperty(model, "detail_manage_last_week", getMessage("detail_manage_last_week"));
@@ -717,8 +717,11 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
        addi18nProperty(model, "detail_manage_filters_advanced_type_to_search", getMessage("detail_manage_filters_advanced_type_to_search"));
        addi18nProperty(model, "detail_manage_filters_advanced_all_results", getMessage("detail_manage_filters_advanced_all_results"));
        addi18nProperty(model, "detail_manage_filters_advanced_range_days", getMessage("detail_manage_filters_advanced_range_days"));
-
+       // commons
        addi18nProperty(model, "commons_filter", getMessage("commons_filter"));
+       addi18nProperty(model, "commons_confirm");
+       addi18nProperty(model, "commons_yes");
+       addi18nProperty(model, "commons_no");
        addSocialPickerWidgetMessages(model);
    }
 }

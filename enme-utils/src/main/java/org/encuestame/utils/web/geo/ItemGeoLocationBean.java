@@ -14,9 +14,10 @@ package org.encuestame.utils.web.geo;
 
 import java.io.Serializable;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.encuestame.utils.enums.TypeSearchResult;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Item geo location Bean.

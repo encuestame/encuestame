@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
 
-    <definition name="location" extends="page">
+    <definition name="location" extends="page-logged">
         <put-attribute name="title" value="Locations | encuestame" />
-        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/admon/${detectedDevice ? 'mobile/' : 'web/'}location.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/admon/${detectedDevice ? 'mobile/' : 'web/'}admon_css.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/admon/location.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/admon/admon_css.jsp" />
     </definition>
 
-    <definition name="members" extends="page">
+    <definition name="members" extends="page-logged">
         <put-attribute name="title" value="Members | encuestame" />
-        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/admon/${detectedDevice ? 'mobile/' : 'web/'}members.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/admon/${detectedDevice ? 'mobile/' : 'web/'}admon_css.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/admon/members.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/admon/admon_css.jsp" />
     </definition>
 
-    <definition name="project" extends="page">
+    <definition name="project" extends="page-logged">
         <put-attribute name="title" value="Project | encuestame" />
-        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/admon/${detectedDevice ? 'mobile/' : 'web/'}project.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/admon/${detectedDevice ? 'mobile/' : 'web/'}admon_css.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/admon/project.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/admon/admon_css.jsp" />
     </definition>
 
 </tiles-definitions>

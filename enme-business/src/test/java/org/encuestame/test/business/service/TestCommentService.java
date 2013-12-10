@@ -24,14 +24,22 @@ import org.encuestame.business.service.CommentService;
 import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnmeNotAllowedException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.enums.CommentOptions;
+import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.CommentsSocialOptions;
+import org.encuestame.utils.enums.SearchPeriods;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -59,9 +67,16 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 
     private TweetPoll tweetPoll;
 
+    private Poll poll;
+
+    private Survey survey;
+
+    private DateTime creationDate = new DateTime();
+
 
     @Before
     public void initService(){
+
         final Question question = createQuestion("Why the sky is blue?","html");
         this.tweetPoll = createTweetPollPublicated(true, true, new Date(), getSpringSecurityLoggedUserAccount(), question);
         // First comment on Tweetpoll
@@ -72,6 +87,10 @@ public class TestCommentService extends AbstractSpringSecurityContext {
         createDefaultTweetPollComment("My Third tweetPoll comment", tweetPoll, getSpringSecurityLoggedUserAccount());
         // Fourth comment on Tweetpoll
         createDefaultTweetPollComment("dumb tweetPoll question", tweetPoll, getSpringSecurityLoggedUserAccount());
+
+        this.poll = createDefaultPoll(question, getSpringSecurityLoggedUserAccount());
+
+        this.survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount(), "My First survey", creationDate.toDate());
     }
 
     /**
@@ -93,8 +112,16 @@ public class TestCommentService extends AbstractSpringSecurityContext {
     @Test
     public void testGetCommentsbyUser() throws EnMeNoResultsFoundException{
         assertNotNull(this.comment);
-        final List<CommentBean> commentsbyUser = getCommentsOperationsService().getCommentsbyUser(this.MAX_RESULTS, this.START);
-        assertEquals("Should be equals", 4, commentsbyUser.size());
+        // comment on Tweetpoll
+		createDefaultTweetPollCommentWithStatus("dumb tweetPoll question",
+				tweetPoll, getSpringSecurityLoggedUserAccount(),
+				CommentStatus.APPROVE, this.creationDate.toDate());
+
+        createDefaultTweetPollComment("dumb tweetPoll question", tweetPoll, getSpringSecurityLoggedUserAccount());
+
+        final List<CommentBean> commentsbyUser = getCommentsOperationsService().getCommentsbyUser(this.MAX_RESULTS, this.START, CommentStatus.ALL);
+        assertEquals("Should be equals", 6, commentsbyUser.size());
+
     }
 
     /**
@@ -119,15 +146,20 @@ public class TestCommentService extends AbstractSpringSecurityContext {
     /**
      * Test create comment
      * @throws EnMeNoResultsFoundException
+     * @throws EnmeNotAllowedException
      */
     @Test
-    public void testCreateComment() throws EnMeNoResultsFoundException{
+    public void testCreateComment() throws EnMeNoResultsFoundException, EnmeNotAllowedException{
         final CommentBean commentBean = createCommentBean("totally Agree", new Date(),
                 getSpringSecurityLoggedUserAccount().getUid(), this.tweetPoll.getTweetPollId(), null);
         final Comment comment = getCommentsOperationsService().createComment(commentBean);
         assertNotNull(comment);
     }
 
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     */
     @Test
     public void testGetCommentsbyTweetPoll() throws EnMeNoResultsFoundException{
         final List<Comment> comments = getCommentsOperationsService().getCommentsbyTweetPoll(
@@ -163,6 +195,70 @@ public class TestCommentService extends AbstractSpringSecurityContext {
                         this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 7, topList.size());
     }
+
+	/**
+	 * Test to retrieve all comments by type: {@link TweetPoll} and {@link CommentOptions}
+	 */
+	@Test
+	public void testTweetPollCommentsByStatusAndType() {
+		final int totalCommentsApprove = 10;
+		final int totalCommentsSpam = 5;
+
+		for (int i = 0; i < totalCommentsApprove; i++) {
+			createDefaultTweetPollCommentWithStatus("Comment" + i,
+					this.tweetPoll, getSpringSecurityLoggedUserAccount(),
+					CommentStatus.APPROVE, this.creationDate.toDate());
+		}
+
+		for (int i = 0; i < totalCommentsSpam; i++) {
+			createDefaultTweetPollCommentWithStatus(
+						"Comment" + i, this.tweetPoll, getSpringSecurityLoggedUserAccount(),
+						CommentStatus.SPAM, this.creationDate.toDate());
+		}
+
+		final List<CommentBean> tweetPollCommentsApproved = getCommentsOperationsService()
+				.retrieveCommentsByTypeAndStatus(
+						this.tweetPoll.getTweetPollId(),
+						 TypeSearchResult.TWEETPOLL, 20, 0,
+						 CommentStatus.APPROVE, null);
+		assertEquals("Should be equals", 10, tweetPollCommentsApproved.size());
+
+		final List<CommentBean> tweetPollCommentsSpam = getCommentsOperationsService()
+				.retrieveCommentsByTypeAndStatus(
+						this.tweetPoll.getTweetPollId(),
+						TypeSearchResult.TWEETPOLL, 20, 0,
+						CommentStatus.SPAM, null);
+		assertEquals("Should be equals", 5, tweetPollCommentsSpam.size());
+
+		final List<CommentBean> alltweetPollComments = getCommentsOperationsService()
+				.retrieveCommentsByTypeAndStatus(
+						this.tweetPoll.getTweetPollId(),
+						 TypeSearchResult.TWEETPOLL, 20, 0,
+						CommentStatus.ALL, null);
+		assertEquals("Should be equals", 19, alltweetPollComments.size());
+
+	}
+
+	/**
+	 *  Test to retrieve all comments by type: {@link Poll} and {@link CommentOptions}
+	 */
+	@Test
+	public void testPollCommentsByStatusAndType() {
+		final int totalCommentsSpam = 5;
+		System.out.println("fecha --> " + this.creationDate.toDate());
+		for (int i = 0; i < totalCommentsSpam; i++) {
+			createDefaultPollCommentWithStatus("Comment" + i, this.poll,
+					getSpringSecurityLoggedUserAccount(), CommentStatus.SPAM,
+					this.creationDate.toDate());
+		}
+
+		final List<CommentBean> tweetPollCommentsApproved = getCommentsOperationsService()
+				.retrieveCommentsByTypeAndStatus(this.poll.getPollId(),
+						TypeSearchResult.POLL, 20, 0, CommentStatus.SPAM,
+						SearchPeriods.TWENTYFOURHOURS);
+
+		assertEquals("Should be equals", 5, tweetPollCommentsApproved.size());
+	}
 
     /**
      * @return the commentsOperationsService

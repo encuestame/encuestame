@@ -15,6 +15,8 @@ package org.encuestame.core.service.imp;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -26,13 +28,16 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.PollDetailBean;
 import org.encuestame.utils.web.UnitLists;
+import org.encuestame.utils.web.search.PollSearchBean;
 
 /**
  * Poll Service Interface.
@@ -209,7 +214,7 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeTweetPollNotFoundException
      * @throws EnMePollNotFoundException
      */
-    List<Poll> getPollsByRange(final Integer maxResults, final Integer start, final Date range);
+    List<Poll> getPollsByRange(final Integer maxResults, final Integer start, final SearchPeriods range);
 
     /**
      *
@@ -391,4 +396,80 @@ public interface IPollService extends IMasterSurveyService{
 	 */
 	Poll getPollByAnswerId(final Long pollId, final Long answerId,
 			final UserAccount account) throws EnMeNoResultsFoundException;
+
+	/**
+	 *
+	 * @param pollSearch
+	 * @param httpServletRequest
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 * @throws EnMeExpcetion
+	 */
+	List<SearchBean> filterSearchPollsByType(
+			final PollSearchBean pollSearch,
+			final HttpServletRequest httpServletRequest)
+			throws EnMeNoResultsFoundException, EnMeExpcetion;
+
+	/**
+	 *
+	 * @param username
+	 * @param httpServletRequest
+	 * @param pollSearch
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	List<SearchBean> getPollsByUserNameSearch(
+	            final String username,
+	            final HttpServletRequest httpServletRequest,
+	            final PollSearchBean pollSearch)
+	            throws EnMeNoResultsFoundException;
+
+	/**
+	 *
+	 * @param username
+	 * @param httpServletRequest
+	 * @param pollSearchBean
+	 * @return
+	 * @throws EnMeExpcetion
+	 */
+	List<SearchBean> searchPollsToday(
+	            final String username,
+	            final HttpServletRequest httpServletRequest, final PollSearchBean pollSearchBean) throws EnMeExpcetion;
+
+	/**
+	 *
+	 * @param username
+	 * @param httpServletRequest
+	 * @param pollSearchBean
+	 * @return
+	 * @throws EnMeExpcetion
+	 */
+	List<SearchBean> searchPollsLastWeek(final String username,
+			final HttpServletRequest httpServletRequest,
+			final PollSearchBean pollSearchBean) throws EnMeExpcetion;
+
+	/**
+	 *
+	 * @param username
+	 * @param httpServletRequest
+	 * @param pollSearchBean
+	 * @return
+	 * @throws EnMeExpcetion
+	 */
+	List<SearchBean> searchTweetsPollFavourites(final String username,
+			final HttpServletRequest httpServletRequest,
+			final PollSearchBean pollSearchBean) throws EnMeExpcetion;
+
+	/**
+	 *
+	 * @param username
+	 * @param httpServletRequest
+	 * @param pollSearchBean
+	 * @return
+	 * @throws EnMeExpcetion
+	 */
+	List<SearchBean> searchTweetsPollScheduled(final String username,
+            final HttpServletRequest httpServletRequest,
+            final PollSearchBean pollSearchBean) throws EnMeExpcetion;
+
 }

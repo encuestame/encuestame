@@ -56,7 +56,7 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
      * @throws ServletException
      * @throws IOException
      */
-    @Test
+    //@Test
     public void testGetHashTagButtonStats() throws ServletException, IOException{
         UserAccount userAcc= getSpringSecurityLoggedUserAccount();
         //1-  Create Tag, Question and TweetPoll

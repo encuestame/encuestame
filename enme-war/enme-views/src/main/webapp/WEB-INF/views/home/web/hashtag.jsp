@@ -1,95 +1,145 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
+<style>
 
+.web-ht-graph {
+  font: 10px sans-serif;
+  margin: 0;
+}
+
+path.line {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+path.area {
+  fill: #e7e7e7;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: #fff;
+}
+
+.x.axis .minor {
+  stroke-opacity: .5;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: #000;
+}
+
+</style>
 
 <article class="web-hashtag-wrapper">
 
-    <section class="web-hashtag-header web-detail-header">
-        <div class="title">
-            <h2>
-                ${tagName.hashTagName}
-            </h2>
-        </div>
-        <div class="web-hashtag-options">
-        <div channel="/encuestame/hashtag/time/range/refresh/graph"
-             data-dojo-type="me/web/widget/menu/TimeRangeDropDownMenu"
-             defaultDateRange="365"></div>
-    </div>
-    </section>
+    <div class="container">
 
-    <section class="web-ht-graph-wrapper emne-box emne-box-gray">
-       <div data-dojo-type="me/web/widget/hashtags/HashTagGraph"
-           channel="/encuestame/hashtag/time/range/refresh/graph"
-           hashtagName="${tagName.hashTagName}"
-         ></div>
-    </section>
+      <div class="row web-generic-stats">
+           <div data-dojo-type="me/web/widget/stats/GenericStats"
+                class=""
+                channel="/encuestame/hashtag/time/range/refresh/graph"
+                typeGeneric="HASHTAG"
+                hashtagName="${tagName.hashTagName}"
+                generic="${tagName.hashTagName}"
+                id="generic">
+            </div>
+             <div class="span2">
+                <div channel="/encuestame/hashtag/time/range/refresh/graph"
+                data-dojo-type="me/web/widget/menu/TimeRangeDropDownMenu"
+                defaultDateRange="365"></div>
+            </div>
+      </div>
 
-    <div class="web-ht-detail">
-       <div class="web-wrapper-detail web-ht-detail-wrapper">
-           <article class="emne-box emne-box-gray">
-                <header>
-                  <spring:message code="home.hashtag.lastpub" />
-                </header>
-                <div class="web-pup-wrapper">
-                <c:forEach items="${tweetPolls}" var="item">
-                    <%@ include file="detail_item.jsp"%>
-                </c:forEach>
-                <c:if test="${empty tweetPolls}">
-                    <h2>
-                       <spring:message code="home.hashtag.nolink" />
-                    </h2>
-                </c:if>
-                </div>
-            </article>
-             <article class="emne-box emne-box-gray">
-                     <header>
-                        <spring:message code="home.hashtag.tweets" />
-                     </header>
-                <section>
-                     <div data-dojo-type="me/web/widget/social/LinksPublished"
-                          channel="/encuestame/hashtag/time/range/refresh/graph"
-                          class="web-social-links"
-                          itemId="${tagName.hashTagName}"
-                          type="HASHTAG">
-                     </div>
-                </section>
-            </article>
+
+      <div data-dojo-type="me/web/widget/hashtags/HashTagGraph"
+             channel="/encuestame/hashtag/time/range/refresh/graph"
+             hashtagName="${tagName.hashTagName}"></div>
+      <div style="margin-right: 3px;text-aling:right;text-align: right;">
+        <div class="btn-group">
+          <button class="btn active">
+              by Type
+          </button>
+          <button class="btn">
+              Middle
+          </button>
+          <button class="btn">
+              Right
+          </button>
         </div>
-        <aside class="web-ht-wrapper-top web-wrapper-detail">
-            <article class="emne-box emne-box-gray">
-                 <header>
-                    <spring:message code="home.hashtag.stats" />
-                 </header>
-                 <div  data-dojo-type="me/web/widget/stats/GenericStats"
-            class="web-generic-stats"
-            channel="/encuestame/hashtag/time/range/refresh/graph"
-            typeGeneric="HASHTAG"
-            generic="${tagName.hashTagName}"
-                      id="generic">
-                 </div>
-             </article>
-            <article class="emne-box emne-box-gray">
-                 <header>
-                   <spring:message code="home.hashtag.position" />
-                 </header>
-                 <section data-dojo-type="me/web/widget/stats/RatePosition"
-                      tagName="${tagName.hashTagName}"
-                      channel="/encuestame/hashtag/time/range/refresh/graph"
-                      class="web-rated-position"
-                      id="position">
-                 </section>
-            </article>
-            <article class="emne-box emne-box-gray">
-                 <header>
-                    <spring:message code="home.hashtag.profile" />
-                 </header>
-                 <div data-dojo-type="me/web/widget/stats/TopProfiles"
-                      hasthag="${tagName.hashTagName}"
-                      channel="/encuestame/hashtag/time/range/refresh/graph"
-                      class="web-top-profile"
-                      key="HASHTAG" id="topprofiles">
-                 </div>
-            </article>
-        </aside>
+      </div>
+
+    <div class="row web-ht-detail">
+
+         <div class="span9 web-wrapper-ddetail web-dht-detail-wrapper">
+             <article class="emne-box">
+                  <h3>
+                    <spring:message code="home.hashtag.lastpub" />
+                  </h3>
+                  <div class="web-pup-wrapper">
+                  <c:forEach items="${tweetPolls}" var="item">
+                      <%@ include file="detail_item.jsp"%>
+                  </c:forEach>
+                  <c:if test="${empty tweetPolls}">
+                      <h3>
+                         <spring:message code="home.hashtag.nolink" />
+                      </h3>
+                  </c:if>
+                  </div>
+              </article>
+
+
+               <article class="emne-box">
+                       <h3>
+                          <spring:message code="home.hashtag.tweets" />
+                       </h3>
+                  <section>
+                       <div data-dojo-type="me/web/widget/social/LinksPublished"
+                            channel="/encuestame/hashtag/time/range/refresh/graph"
+                            class="web-social-links"
+                            itemId="${tagName.hashTagName}"
+                            type="HASHTAG">
+                       </div>
+                  </section>
+              </article>
+
+          </div>
+
+          <div class="span3 aside">
+              <aside class="web-ht-wrapper-top web-wrapper-detail">
+                  <article class="emne-box">
+                       <h3>
+                         <spring:message code="home.hashtag.position" />
+                       </h3>
+                       <section data-dojo-type="me/web/widget/stats/RatePosition"
+                            tagName="${tagName.hashTagName}"
+                            channel="/encuestame/hashtag/time/range/refresh/graph"
+                            class="web-rated-position"
+                            id="position">
+                       </section>
+                  </article>
+                  <article class="emne-box">
+                       <h3>
+                          <spring:message code="home.hashtag.profile" />
+                       </h3>
+                       <div data-dojo-type="me/web/widget/stats/TopProfiles"
+                            hasthag="${tagName.hashTagName}"
+                            channel="/encuestame/hashtag/time/range/refresh/graph"
+                            class="web-top-profile"
+                            key="HASHTAG" id="topprofiles">
+                       </div>
+                  </article>
+              </aside>
+          </div>
     </div>
+     </div>
 </article>
 

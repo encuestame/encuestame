@@ -49,6 +49,11 @@ public class EnMeUserAccountDetails implements EnMeUserAccount {
      * Account Enabled.
      */
     private boolean enabled = true;
+    
+    /**
+     * Default language.
+     */
+    private String language = "en_US";
 
     /**
      * Account Non Expired.
@@ -281,9 +286,23 @@ public class EnMeUserAccountDetails implements EnMeUserAccount {
      */
     public void setSocialCredentials(boolean socialCredentials) {
         this.socialCredentials = socialCredentials;
-    }
+    }       
 
-    /* (non-Javadoc)
+    /**
+	 * @return the language
+	 */
+	public String getLanguage() {
+		return language;
+	}
+
+	/**
+	 * @param language the language to set
+	 */
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	/* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override

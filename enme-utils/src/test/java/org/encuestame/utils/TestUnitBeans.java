@@ -21,7 +21,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.encuestame.utils.categories.test.DefaultTest;
-import org.encuestame.utils.categories.test.InternetTest;
+import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.LinksSocialBean;
@@ -47,13 +48,13 @@ import org.encuestame.utils.web.GadgetPropertiesBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
+import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAbstractSurvey.CustomFinalMessage;
 import org.encuestame.utils.web.UnitAbstractSurvey.MultipleResponse;
-import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.UnitAttachment;
 import org.encuestame.utils.web.UnitCatStateBean;
 import org.encuestame.utils.web.UnitEmails;
@@ -70,6 +71,7 @@ import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
 import org.encuestame.utils.web.frontEnd.UnitSearchItem;
 import org.encuestame.utils.web.notification.UtilNotification;
+import org.encuestame.utils.web.search.TweetPollSearchBean;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Before;
 import org.junit.Test;
@@ -209,10 +211,12 @@ public class TestUnitBeans extends AbstractBaseUtils {
         singUpBean.setFullName("Juan");
         singUpBean.setPassword("12345");
         singUpBean.setUsername("jotadeveloper");
+        singUpBean.setCaptcha("DlXdfP8x");
         assertNotNull(singUpBean.getEmail());
         assertNotNull(singUpBean.getFullName());
         assertNotNull(singUpBean.getPassword());
         assertNotNull(singUpBean.getUsername());
+        assertNotNull(singUpBean.getCaptcha());
     }
 
     /**
@@ -795,7 +799,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
         myCommentBean.setDislikeVote(10L);
         myCommentBean.setLikeVote(50L);
         myCommentBean.setParentId(0L);
-        myCommentBean.setType("TWEETPOLL");
+        myCommentBean.setType(TypeSearchResult.TWEETPOLL);
         myCommentBean.setUserAccountId(1L);
         assertNotNull(myCommentBean);
         assertNotNull(myCommentBean.getCommentId());
@@ -965,9 +969,9 @@ public class TestUnitBeans extends AbstractBaseUtils {
      */
     @Test
     public void testHashTagRankingBean(){
-        final HashTagRankingBean tagRankingBean = new HashTagRankingBean(); 
+        final HashTagRankingBean tagRankingBean = new HashTagRankingBean();
         tagRankingBean.setPosition(3);
-        tagRankingBean.setTagName("Spain"); 
+        tagRankingBean.setTagName("Spain");
         tagRankingBean.setLastPosition(10);
         assertNotNull(tagRankingBean.getPosition());
         assertNotNull(tagRankingBean.getTagName());
@@ -1125,25 +1129,47 @@ public class TestUnitBeans extends AbstractBaseUtils {
     /**
      * Test {@link ProfileRatedTopBean}.
      */
-	@Test
-	public void testProfileRatedTopBean() {
-		final ProfileRatedTopBean profileRatedTop = new ProfileRatedTopBean();
-		profileRatedTop.setCurrentPos(0);
-		profileRatedTop.setDisLikeVotes(1L);
-		profileRatedTop.setLastPos(3);
-		profileRatedTop.setLikeVotes(2L);
-		profileRatedTop.setTopValue(5L);
-		profileRatedTop.setTotalbyItems(15L);
-		profileRatedTop.setUrl("url");
-		profileRatedTop.setUsername("admin");
+    @Test
+    public void testProfileRatedTopBean() {
+        final ProfileRatedTopBean profileRatedTop = new ProfileRatedTopBean();
+        profileRatedTop.setCurrentPos(0);
+        profileRatedTop.setDisLikeVotes(1L);
+        profileRatedTop.setLastPos(3);
+        profileRatedTop.setLikeVotes(2L);
+        profileRatedTop.setTopValue(5L);
+        profileRatedTop.setTotalbyItems(15L);
+        profileRatedTop.setUrl("url");
+        profileRatedTop.setUsername("admin");
 
-		assertNotNull(profileRatedTop.getCurrentPos());
-		assertNotNull(profileRatedTop.getDisLikeVotes());
-		assertNotNull(profileRatedTop.getLastPos());
-		assertNotNull(profileRatedTop.getLikeVotes());
-		assertNotNull(profileRatedTop.getTopValue());
-		assertNotNull(profileRatedTop.getTotalbyItems());
-		assertNotNull(profileRatedTop.getUrl());
-		assertNotNull(profileRatedTop.getUsername());
-	}
+        assertNotNull(profileRatedTop.getCurrentPos());
+        assertNotNull(profileRatedTop.getDisLikeVotes());
+        assertNotNull(profileRatedTop.getLastPos());
+        assertNotNull(profileRatedTop.getLikeVotes());
+        assertNotNull(profileRatedTop.getTopValue());
+        assertNotNull(profileRatedTop.getTotalbyItems());
+        assertNotNull(profileRatedTop.getUrl());
+        assertNotNull(profileRatedTop.getUsername());
+    }
+
+    /**
+     * Test {@link TweetPollSearchBean}
+     */
+    @Test
+    public void testTweetPollSearchBean(){
+    	final TweetPollSearchBean tpollSearchBean = new TweetPollSearchBean();
+
+    	tpollSearchBean.setIsComplete(Boolean.TRUE);
+    	tpollSearchBean.setIsFavourite(Boolean.FALSE);
+    	tpollSearchBean.setIsPublished(Boolean.TRUE);
+    	tpollSearchBean.setIsScheduled(Boolean.FALSE);
+    	tpollSearchBean.setKeyword("deport");
+    	tpollSearchBean.setMax(10);
+    	//tpollSearchBean.setProviders(providers);
+    	tpollSearchBean.setSearchResult(TypeSearchResult.ALL);
+    	//tpollSearchBean.setSocialAccounts(socialAccounts)
+    	tpollSearchBean.setStart(0);
+    	tpollSearchBean.setTypeSearch(TypeSearch.LASTWEEK);
+
+
+    }
 }
