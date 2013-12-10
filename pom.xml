@@ -4,7 +4,7 @@
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
     <packaging>pom</packaging>
-    <version>1.147-M3-SNAPSHOT</version>
+    <version>1.147-M3</version>
     <name>encuestame</name>
     <description>
      Encuestame is an open source project based on Java 6 technology. You can use to create different
@@ -29,7 +29,7 @@
         <!-- Java version -->
         <java-version>1.7</java-version>
         <!-- encuestame version -->
-        <encuestame.version>1.147-M3-SNAPSHOT</encuestame.version>
+        <encuestame.version>1.147-M3</encuestame.version>
         <!-- Spring Version <spring.version>3.1.0.BUILD-SNAPSHOT</spring.version> -->
         <spring.version>4.0.0.RC1</spring.version>
         <env>development</env>
@@ -227,7 +227,7 @@
         <connection>scm:git:git@github.com:encuestame/encuestame.git</connection>
         <developerConnection>scm:git:git@github.com:encuestame/encuestame.git</developerConnection>
         <url>scm:git:git@github.com:encuestame/encuestame.git</url>
-       <tag>HEAD</tag>
+       <tag>1.147M3v101213</tag>
   </scm>
 
     <distributionManagement>
