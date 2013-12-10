@@ -7,7 +7,7 @@
 
 <c:if test="${!development}">
     <script src="<%=request.getContextPath()%>/resources/mobile-js/dojo/dojo.js"></script>
-    <script  src="<%=request.getContextPath()%>/resources/mobile-js/mobile-run.js"></script>
+    <script  src="<%=request.getContextPath()%>/resources/mobile-js/mobile/mobile-run.js"></script>
 </c:if>
 
 <c:if test="${development}">

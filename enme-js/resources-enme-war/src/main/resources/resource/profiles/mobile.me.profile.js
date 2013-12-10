@@ -197,22 +197,22 @@ var profile = {
             ]
     },
 
-    'me/web/widget/menu/SettingsMenuSwitch' : {
-       include :[
-          'dojo/hash',
-          'me/web/widget/menu/SettingsButton'
-      ]
-    },
+    // 'me/web/widget/menu/SettingsMenuSwitch' : {
+    //    include :[
+    //       'dojo/hash',
+    //       'me/web/widget/menu/SettingsButton'
+    //   ]
+    // },
 
-    'me/web/widget/social/SocialAccounts' : {
-        include :[
-            'me/web/widget/social/SocialButton',
-            'me/web/widget/social/SocialAccounts',
-            'me/web/widget/social/SocialAccountRow',
-            'me/web/widget/social/SocialAccountDetail',
-            'dijit/form/Form'
-        ]
-    },
+    // 'me/web/widget/social/SocialAccounts' : {
+    //     include :[
+    //         'me/web/widget/social/SocialButton',
+    //         'me/web/widget/social/SocialAccounts',
+    //         'me/web/widget/social/SocialAccountRow',
+    //         'me/web/widget/social/SocialAccountDetail',
+    //         'dijit/form/Form'
+    //     ]
+    // },
 
     'me/web/widget/profile/UploadProfilePicture' : {
        include :[
@@ -243,102 +243,102 @@ var profile = {
       ]
     },
 
-    'me/web/widget/poll/Poll' : {
-        include :[
-          'dojo/data/ItemFileReadStore',
-          'dojo/data/util/simpleFetch',
+    // 'me/web/widget/poll/Poll' : {
+    //     include :[
+    //       'dojo/data/ItemFileReadStore',
+    //       'dojo/data/util/simpleFetch',
 
-          'me/web/widget/options/LimitVotes',
-          'me/web/widget/options/AbstractOptionSelect',
-          'me/web/widget/questions/patterns/AbstractPattern',
-          'me/web/widget/support/ActionDialogHandler',
-          'me/web/widget/options/CheckSingleOption',
-          'me/web/widget/options/CommentsOptions',
-          'me/web/widget/options/ConstrainNumberPicker',
-          'me/web/widget/utils/ContextSupport',
-          'me/core/support/ContextSupport',
-          'me/web/widget/options/DateToClose',
-          'me/web/widget/support/DnD',
-          'me/web/widget/dialog/Dialog',
-          'me/web/widget/folder/FolderOperations',
-          'me/web/widget/folder/FolderSelect',
-          'me/web/widget/folder/FoldersItemAction',
-          'me/web/widget/pictures/Icon',
-          'me/web/widget/ui/MessageSearch',
-          'me/web/widget/publish/PublishEmailSupport',
-          'me/web/widget/publish/PublishEmbebedSupport',
-          'me/web/widget/publish/PublishPanelItem',
-          'me/web/widget/publish/PublishSocialStatus',
-          'me/web/widget/publish/PublishSocialSupport',
-          'me/core/support/PublishSupport',
-          'me/web/widget/publish/PublishSocialSupport',
-          'me/web/widget/questions/Question',
-          'me/web/widget/options/RepeatedVotes',
-          'me/web/widget/options/ResultsOptions',
-          'me/web/widget/questions/patterns/SingleResponse',
-          'me/web/widget/social/SocialAccountsSupport',
-          'me/web/widget/support/SocialFilterMenuItem',
-          'me/web/widget/tweetpoll/TweetPollPublishItemFAILUREStatus',
-          'me/web/widget/tweetpoll/TweetPollPublishItemSUCCESStatus',
-          'me/web/widget/tweetpoll/TweetPollPublishItemStatus',
-          'me/web/widget/support/Wipe',
+    //       'me/web/widget/options/LimitVotes',
+    //       'me/web/widget/options/AbstractOptionSelect',
+    //       'me/web/widget/questions/patterns/AbstractPattern',
+    //       'me/web/widget/support/ActionDialogHandler',
+    //       'me/web/widget/options/CheckSingleOption',
+    //       'me/web/widget/options/CommentsOptions',
+    //       'me/web/widget/options/ConstrainNumberPicker',
+    //       'me/web/widget/utils/ContextSupport',
+    //       'me/core/support/ContextSupport',
+    //       'me/web/widget/options/DateToClose',
+    //       'me/web/widget/support/DnD',
+    //       'me/web/widget/dialog/Dialog',
+    //       'me/web/widget/folder/FolderOperations',
+    //       'me/web/widget/folder/FolderSelect',
+    //       'me/web/widget/folder/FoldersItemAction',
+    //       'me/web/widget/pictures/Icon',
+    //       'me/web/widget/ui/MessageSearch',
+    //       'me/web/widget/publish/PublishEmailSupport',
+    //       'me/web/widget/publish/PublishEmbebedSupport',
+    //       'me/web/widget/publish/PublishPanelItem',
+    //       'me/web/widget/publish/PublishSocialStatus',
+    //       'me/web/widget/publish/PublishSocialSupport',
+    //       'me/core/support/PublishSupport',
+    //       'me/web/widget/publish/PublishSocialSupport',
+    //       'me/web/widget/questions/Question',
+    //       'me/web/widget/options/RepeatedVotes',
+    //       'me/web/widget/options/ResultsOptions',
+    //       'me/web/widget/questions/patterns/SingleResponse',
+    //       'me/web/widget/social/SocialAccountsSupport',
+    //       'me/web/widget/support/SocialFilterMenuItem',
+    //       'me/web/widget/tweetpoll/TweetPollPublishItemFAILUREStatus',
+    //       'me/web/widget/tweetpoll/TweetPollPublishItemSUCCESStatus',
+    //       'me/web/widget/tweetpoll/TweetPollPublishItemStatus',
+    //       'me/web/widget/support/Wipe',
 
-          'dijit/form/Form',
-          'dijit/InlineEditBox',
-          'dijit/CalendarLite',
-          'dijit/Calendar',
-          'dijit/form/CheckBox',
-          'dijit/form/_CheckBoxMixin',
-          'dijit/form/ComboBox',
-          'dijit/form/_DateTimeTextBox',
-          'dijit/form/_RadioButtonMixin',
-          'dijit/form/_Spinner',
-          'dijit/_TimePicker',
-          'dijit/form/_ToggleButtonMixin',
-          'dijit/typematic',
+    //       'dijit/form/Form',
+    //       'dijit/InlineEditBox',
+    //       'dijit/CalendarLite',
+    //       'dijit/Calendar',
+    //       'dijit/form/CheckBox',
+    //       'dijit/form/_CheckBoxMixin',
+    //       'dijit/form/ComboBox',
+    //       'dijit/form/_DateTimeTextBox',
+    //       'dijit/form/_RadioButtonMixin',
+    //       'dijit/form/_Spinner',
+    //       'dijit/_TimePicker',
+    //       'dijit/form/_ToggleButtonMixin',
+    //       'dijit/typematic',
 
-          'dijit/form/DateTextBox',
-          'dijit/form/DropDownButton',
-          'dijit/form/NumberSpinner',
-          'dijit/form/NumberTextBox',
-          'dijit/form/RadioButton',
-          'dijit/form/RangeBoundTextBox',
-          'dijit/form/TimeTextBox',
-          'dijit/form/ToggleButton',
+    //       'dijit/form/DateTextBox',
+    //       'dijit/form/DropDownButton',
+    //       'dijit/form/NumberSpinner',
+    //       'dijit/form/NumberTextBox',
+    //       'dijit/form/RadioButton',
+    //       'dijit/form/RangeBoundTextBox',
+    //       'dijit/form/TimeTextBox',
+    //       'dijit/form/ToggleButton',
 
-           // removed when new dnd it's integrated with tweetpoll
-          'dojo/dnd/Source',
-          'dojo/dnd/Container',
-          'dojo/dnd/Selector',
-          'dojo/dnd/Manager',
-          'dojo/dnd/Moveable',
-          'dojo/dnd/Avatar',
-          'dojo/dnd/autoscroll',
-          'dojo/dnd/Mover',
-          'dojo/dnd/TimedMoveable'
-        ]
-    },
+    //        // removed when new dnd it's integrated with tweetpoll
+    //       'dojo/dnd/Source',
+    //       'dojo/dnd/Container',
+    //       'dojo/dnd/Selector',
+    //       'dojo/dnd/Manager',
+    //       'dojo/dnd/Moveable',
+    //       'dojo/dnd/Avatar',
+    //       'dojo/dnd/autoscroll',
+    //       'dojo/dnd/Mover',
+    //       'dojo/dnd/TimedMoveable'
+    //     ]
+    // },
 
-    'me/web/widget/notifications/NotificationList' : {
-        include :[
-            'me/web/widget/notifications/NotificationListItem'
-          ]
-    },
+    // 'me/web/widget/notifications/NotificationList' : {
+    //     include :[
+    //         'me/web/widget/notifications/NotificationListItem'
+    //       ]
+    // },
 
-    'me/web/widget/hashtags/HashTagGraph' : {
-         include :[
-            'me/web/widget/hashtags/HashTagGraphStatsButton',
-            'me/web/widget/hashtags/HashTagGraphStatsUsageHandler',
-            'me/web/widget/hashtags/HashtagChart',
-            'me/web/widget/chart/RaphaelSupport',
-            'chart/raphael/raphael.amd',
-            'chart/raphael/raphael.core',
-            'chart/raphael/raphael.svg',
-            'chart/raphael/raphael.vml',
-            'chart/g.raphael/g.raphael',
-            'chart/g.raphael/g.line'
-          ]
-    },
+    // 'me/web/widget/hashtags/HashTagGraph' : {
+    //      include :[
+    //         'me/web/widget/hashtags/HashTagGraphStatsButton',
+    //         'me/web/widget/hashtags/HashTagGraphStatsUsageHandler',
+    //         'me/web/widget/hashtags/HashtagChart',
+    //         'me/web/widget/chart/RaphaelSupport',
+    //         'chart/raphael/raphael.amd',
+    //         'chart/raphael/raphael.core',
+    //         'chart/raphael/raphael.svg',
+    //         'chart/raphael/raphael.vml',
+    //         'chart/g.raphael/g.raphael',
+    //         'chart/g.raphael/g.line'
+    //       ]
+    // },
 
     'me/web/widget/comments/Comments' : {
           include :[
@@ -391,84 +391,84 @@ var profile = {
         ]
     },
 
-    'me/web/widget/poll/PollNavigate' : {
-        include :[
-          'dojo/colors',
-          'dojo/fx/easing',
-          'dojo/hash',
+    // 'me/web/widget/poll/PollNavigate' : {
+    //     include :[
+    //       'dojo/colors',
+    //       'dojo/fx/easing',
+    //       'dojo/hash',
 
-          'me/web/widget/poll/PollNavigateItem',
-          'me/web/widget/poll/PollNavigateItemDetail',
-          'me/web/widget/chart/ChartLayerSupport',
-          'me/web/widget/menu/DropDownMenuItem',
-          'me/web/widget/menu/DropDownMenuSelect',
-          'me/web/widget/chart/EncuestamePieChart',
-          'me/web/widget/data/FilterList',
-          "me/web/widget/folder/FolderOperations",
-          "me/web/widget/folder/FoldersActions",
-          "me/web/widget/folder/FoldersItemAction",
-          'me/web/widget/ui/More',
-          'me/web/widget/support/PanelWipe',
-          'me/web/widget/data/TableLinkedList',
-          'me/web/widget/utils/UpdateDefaultOptions',
-          'me/web/widget/options/YesNoWidget',
+    //       'me/web/widget/poll/PollNavigateItem',
+    //       'me/web/widget/poll/PollNavigateItemDetail',
+    //       'me/web/widget/chart/ChartLayerSupport',
+    //       'me/web/widget/menu/DropDownMenuItem',
+    //       'me/web/widget/menu/DropDownMenuSelect',
+    //       'me/web/widget/chart/EncuestamePieChart',
+    //       'me/web/widget/data/FilterList',
+    //       "me/web/widget/folder/FolderOperations",
+    //       "me/web/widget/folder/FoldersActions",
+    //       "me/web/widget/folder/FoldersItemAction",
+    //       'me/web/widget/ui/More',
+    //       'me/web/widget/support/PanelWipe',
+    //       'me/web/widget/data/TableLinkedList',
+    //       'me/web/widget/utils/UpdateDefaultOptions',
+    //       'me/web/widget/options/YesNoWidget',
 
 
-          'dijit/form/CheckBox',
-          'dijit/form/_CheckBoxMixin',
-          'dijit/InlineEditBox',
-          'dijit/form/ToggleButton',
-          'dijit/form/_ToggleButtonMixin',
+    //       'dijit/form/CheckBox',
+    //       'dijit/form/_CheckBoxMixin',
+    //       'dijit/InlineEditBox',
+    //       'dijit/form/ToggleButton',
+    //       'dijit/form/_ToggleButtonMixin',
 
-          // chart
-          'dojox/charting/action2d/Base',
-          'dojox/charting/plot2d/Base',
-          'dojox/charting/Chart',
-          'dojox/charting/Element',
-          'dojox/charting/action2d/Highlight',
-          'dojox/charting/widget/Legend',
-          'dojox/charting/themes/MiamiNice',
-          'dojox/charting/action2d/MoveSlice',
-          'dojox/charting/plot2d/Pie',
-          'dojox/charting/action2d/PlotAction',
-          'dojox/charting/Series',
-          'dojox/charting/SimpleTheme',
-          'dojox/charting/action2d/Tooltip',
-          'dojox/charting/plot2d/_PlotEvents',
-          'dojox/gfx/_base',
-          'dojox/lang/functional/array',
-          'dojox/charting/themes/common',
-          'dojox/charting/plot2d/common',
-          'dojox/charting/axis2d/common',
-          'dojox/charting/scaler/common',
-          'dojox/lang/functional/fold',
-          'dojox/lang/functional',
-          'dojox/gfx/fx',
-          'dojox/gfx',
-          'dojox/gfx/gradutils',
-          'dojox/lang/functional/lambda',
-          'dojox/gfx/matrix',
-          'dojox/lang/functional/object',
-          'dojox/gfx/path',
-          'dojox/gfx/renderer',
-          'dojox/lang/functional/reversed',
-          'dojox/lang/functional/scan',
-          'dojox/gfx/shape',
-          'dojox/gfx/svg',
-          'dojox/lang/utils',
+    //       // chart
+    //       'dojox/charting/action2d/Base',
+    //       'dojox/charting/plot2d/Base',
+    //       'dojox/charting/Chart',
+    //       'dojox/charting/Element',
+    //       'dojox/charting/action2d/Highlight',
+    //       'dojox/charting/widget/Legend',
+    //       'dojox/charting/themes/MiamiNice',
+    //       'dojox/charting/action2d/MoveSlice',
+    //       'dojox/charting/plot2d/Pie',
+    //       'dojox/charting/action2d/PlotAction',
+    //       'dojox/charting/Series',
+    //       'dojox/charting/SimpleTheme',
+    //       'dojox/charting/action2d/Tooltip',
+    //       'dojox/charting/plot2d/_PlotEvents',
+    //       'dojox/gfx/_base',
+    //       'dojox/lang/functional/array',
+    //       'dojox/charting/themes/common',
+    //       'dojox/charting/plot2d/common',
+    //       'dojox/charting/axis2d/common',
+    //       'dojox/charting/scaler/common',
+    //       'dojox/lang/functional/fold',
+    //       'dojox/lang/functional',
+    //       'dojox/gfx/fx',
+    //       'dojox/gfx',
+    //       'dojox/gfx/gradutils',
+    //       'dojox/lang/functional/lambda',
+    //       'dojox/gfx/matrix',
+    //       'dojox/lang/functional/object',
+    //       'dojox/gfx/path',
+    //       'dojox/gfx/renderer',
+    //       'dojox/lang/functional/reversed',
+    //       'dojox/lang/functional/scan',
+    //       'dojox/gfx/shape',
+    //       'dojox/gfx/svg',
+    //       'dojox/lang/utils',
 
-           // removed when new dnd it's integrated with tweetpoll
-          'dojo/dnd/Source',
-          'dojo/dnd/Container',
-          'dojo/dnd/Selector',
-          'dojo/dnd/Manager',
-          'dojo/dnd/Moveable',
-          'dojo/dnd/Avatar',
-          'dojo/dnd/autoscroll',
-          'dojo/dnd/Mover',
-          'dojo/dnd/TimedMoveable'
-        ]
-    },
+    //        // removed when new dnd it's integrated with tweetpoll
+    //       'dojo/dnd/Source',
+    //       'dojo/dnd/Container',
+    //       'dojo/dnd/Selector',
+    //       'dojo/dnd/Manager',
+    //       'dojo/dnd/Moveable',
+    //       'dojo/dnd/Avatar',
+    //       'dojo/dnd/autoscroll',
+    //       'dojo/dnd/Mover',
+    //       'dojo/dnd/TimedMoveable'
+    //     ]
+    // },
 
     'me/web/widget/results/answers/GenericPercentResult' : {
        include :[
@@ -527,77 +527,77 @@ var profile = {
         ]
     },
 
-    'me/web/widget/tweetpoll/TweetPoll': {
-        include :[
-          'dojo/date',
-          'dojo/hash',
-          'dojo/cldr/nls/gregorian',
-          'dojo/cldr/nls/en/gregorian',
-          'dojo/cldr/supplemental',
-          'dijit/CalendarLite',
-          'dijit/Calendar',
-          'dijit/_Container',
-          'dijit/DialogUnderlay',
-          'dijit/form/_DateTimeTextBox',
-          'dijit/form/_FormMixin',
-          'dijit/form/NumberSpinner',
-          'dijit/form/NumberTextBox',
-          'dijit/layout/_ContentPaneResizeMixin',
-          'dijit/typematic',
-          'dijit/layout/utils',
-          'dijit/form/CheckBox',
-          'dijit/form/_CheckBoxMixin',
-          'dijit/form/DropDownButton',
-          'dijit/form/RangeBoundTextBox',
-          'dijit/form/TimeTextBox',
-          'dijit/form/_ToggleButtonMixin',
-          'dijit/_DialogMixin',
-          'dijit/Viewport',
-          'dijit/form/ToggleButton',
-          'dijit/form/DateTextBox',
-          'me/web/widget/tweetpoll/TweetPollCore',
-          'me/web/widget/menu/OptionMenu',
-          'me/web/widget/menu/OptionMenuItem',
-          'me/web/widget/tweetpoll/AnswerItem',
-          'me/web/widget/tweetpoll/HashTags',
-          'me/web/widget/tweetpoll/HashTagsItem',
-          'me/web/widget/tweetpoll/TweetPollPreview',
-          'me/web/widget/tweetpoll/Answers',
-          'me/web/widget/social/SocialAccountPicker',
-          'me/web/widget/social/SocialAccountsSupport',
-          'me/web/widget/tweetpoll/TweetPollPublishInfo',
-          'me/web/widget/ui/HelpContext',
-          'me/web/widget/social/SocialPickerAccount',
-          'me/web/widget/tweetpoll/TweetPollPublishItemStatus',
-          'me/web/widget/tweetpoll/TweetPollPublishItemFAILUREStatus',
-          'me/web/widget/tweetpoll/TweetPollPublishItemSUCCESStatus',
-          'me/web/widget/tweetpoll/HashTagsSuggest',
-          'dijit/_TimePicker',
-          'dijit/layout/ContentPane',
-          'dijit/form/_Spinner',
-           // removed when new dnd it's integrated with tweetpoll
-          'dojo/dnd/Source',
-          'dojo/dnd/Container',
-          'dojo/dnd/Selector',
-          'dojo/dnd/Manager',
-          'dojo/dnd/Moveable',
-          'dojo/dnd/Avatar',
-          'dojo/dnd/autoscroll',
-          'dojo/dnd/Mover',
-          'dojo/dnd/TimedMoveable'
-        ]
-    },
+    // 'me/web/widget/tweetpoll/TweetPoll': {
+    //     include :[
+    //       'dojo/date',
+    //       'dojo/hash',
+    //       'dojo/cldr/nls/gregorian',
+    //       'dojo/cldr/nls/en/gregorian',
+    //       'dojo/cldr/supplemental',
+    //       'dijit/CalendarLite',
+    //       'dijit/Calendar',
+    //       'dijit/_Container',
+    //       'dijit/DialogUnderlay',
+    //       'dijit/form/_DateTimeTextBox',
+    //       'dijit/form/_FormMixin',
+    //       'dijit/form/NumberSpinner',
+    //       'dijit/form/NumberTextBox',
+    //       'dijit/layout/_ContentPaneResizeMixin',
+    //       'dijit/typematic',
+    //       'dijit/layout/utils',
+    //       'dijit/form/CheckBox',
+    //       'dijit/form/_CheckBoxMixin',
+    //       'dijit/form/DropDownButton',
+    //       'dijit/form/RangeBoundTextBox',
+    //       'dijit/form/TimeTextBox',
+    //       'dijit/form/_ToggleButtonMixin',
+    //       'dijit/_DialogMixin',
+    //       'dijit/Viewport',
+    //       'dijit/form/ToggleButton',
+    //       'dijit/form/DateTextBox',
+    //       'me/web/widget/tweetpoll/TweetPollCore',
+    //       'me/web/widget/menu/OptionMenu',
+    //       'me/web/widget/menu/OptionMenuItem',
+    //       'me/web/widget/tweetpoll/AnswerItem',
+    //       'me/web/widget/tweetpoll/HashTags',
+    //       'me/web/widget/tweetpoll/HashTagsItem',
+    //       'me/web/widget/tweetpoll/TweetPollPreview',
+    //       'me/web/widget/tweetpoll/Answers',
+    //       'me/web/widget/social/SocialAccountPicker',
+    //       'me/web/widget/social/SocialAccountsSupport',
+    //       'me/web/widget/tweetpoll/TweetPollPublishInfo',
+    //       'me/web/widget/ui/HelpContext',
+    //       'me/web/widget/social/SocialPickerAccount',
+    //       'me/web/widget/tweetpoll/TweetPollPublishItemStatus',
+    //       'me/web/widget/tweetpoll/TweetPollPublishItemFAILUREStatus',
+    //       'me/web/widget/tweetpoll/TweetPollPublishItemSUCCESStatus',
+    //       'me/web/widget/tweetpoll/HashTagsSuggest',
+    //       'dijit/_TimePicker',
+    //       'dijit/layout/ContentPane',
+    //       'dijit/form/_Spinner',
+    //        // removed when new dnd it's integrated with tweetpoll
+    //       'dojo/dnd/Source',
+    //       'dojo/dnd/Container',
+    //       'dojo/dnd/Selector',
+    //       'dojo/dnd/Manager',
+    //       'dojo/dnd/Moveable',
+    //       'dojo/dnd/Avatar',
+    //       'dojo/dnd/autoscroll',
+    //       'dojo/dnd/Mover',
+    //       'dojo/dnd/TimedMoveable'
+    //     ]
+    // },
 
-    'me/web/widget/signup/Signup' : {
-        include :[
-          'me/web/widget/validator/RealNameValidator',
-          'me/web/widget/validator/PasswordValidator',
-          'me/web/widget/validator/EmailValidator',
-          'me/web/widget/validator/UsernameValidator',
-          'me/web/widget/validator/AbstractValidatorWidget',
-          'dijit/form/Form'
-        ]
-    },
+    // 'me/web/widget/signup/Signup' : {
+    //     include :[
+    //       'me/web/widget/validator/RealNameValidator',
+    //       'me/web/widget/validator/PasswordValidator',
+    //       'me/web/widget/validator/EmailValidator',
+    //       'me/web/widget/validator/UsernameValidator',
+    //       'me/web/widget/validator/AbstractValidatorWidget',
+    //       'dijit/form/Form'
+    //     ]
+    // },
 
     'me/web/widget/tweetpoll/TweetPollList': {
         include :[

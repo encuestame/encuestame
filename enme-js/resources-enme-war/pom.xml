@@ -28,7 +28,7 @@
                     <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar" />
                   </classpath>
                   <target>
-                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <!-- <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
                     <echo message="$$$$$$ ENCUESTAME UNIT TESTS $$$$$$$$$$$" />
                     <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
                     <echo message="$$$$$$$$$$$$$ DOJO IS THE ROCK !!! $$$$$$$$$$$$$$$" />
@@ -43,7 +43,7 @@
                       <arg value="load=doh" />
                       <arg value="test=me/tests/module" />
                     </java>
-                    <echo message="ENCUESTAME :: Dojo Test Successfully ::" />
+                    <echo message="ENCUESTAME :: Dojo Test Successfully ::" /> -->
                   </target>
                 </configuration>
                 <goals>
@@ -96,6 +96,69 @@
                   <goal>run</goal>
                 </goals>
               </execution> -->
+
+ <execution>
+                <id>mobile-js</id>
+                <phase>compile</phase>
+                <configuration>
+                  <classpath>
+                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar" />
+                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/shrinksafe.jar" />
+                    <pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar" />
+                  </classpath>
+                  <target>
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$ ENCUESTAME MOBILE DOJO COMPILE PROCESS $$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$ DOJO IS THE ROCK !!! $$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <mkdir dir="${project.build.directory}/dojo-compiled" />
+                    <java fork="true" failonerror="true" dir="${basedir}" classname="org.mozilla.javascript.tools.shell.Main">
+                      <classpath>
+                        <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/js.jar" />
+                        <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/shrinksafe.jar" />
+                        <pathelement location="${basedir}/src/main/resources/resource/js/util/closureCompiler/compiler.jar" />
+                      </classpath>
+                      <jvmarg value="-Xmx512M" />
+                      <arg value="${basedir}/src/main/resources/resource/js/dojo/dojo.js" />
+                      <arg value="baseUrl=${basedir}/src/main/resources/resource/js/dojo" />
+                      <arg value="load=build" />
+                      <arg value="--require" />
+                      <arg value="${basedir}/src/main/resources/resource/js/mobile-run.js" />
+                      <arg value="--profile" />
+                      <arg value="${basedir}/src/main/resources/resource/profiles/mobile.me.profile.js" />
+                      <arg value="--releaseDir" />
+                      <arg value="${project.build.directory}/dojo-mobile-compiled" />
+                    </java>
+                    <delete includeEmptyDirs="true" verbose="false">
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="tests/**/" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/tests/**/" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/demos/**/" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="util/**" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.psd" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.fla" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.svg" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.as" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.swf" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dijit/themes/" excludes="**/claro/**/" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dijit" includes="**/*.uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojox" includes="**/*.uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/chart" includes="**/*.uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/org" includes="**/*.uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/me" includes="**/*.uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0" includes="**/package.json" />
+                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0" includes="**/package.js" />
+                      <!-- <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0" includes="build-report.txt" /> -->
+                    </delete>
+                    <echo message="ENCUESTAME MOBILE :: Dojo AMD optimized ::" />
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+              
               <execution>
                 <id>js</id>
                 <phase>compile</phase>
@@ -148,7 +211,7 @@
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0/me" includes="**/*.uncompressed.js" />
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="**/package.json" />
                       <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="**/package.js" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="build-report.txt" />
+                      <!-- <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="build-report.txt" /> -->
                     </delete>
                     <echo message="ENCUESTAME :: Dojo AMD optimized ::" />
                   </target>
@@ -157,67 +220,7 @@
                   <goal>run</goal>
                 </goals>
               </execution>
-              <execution>
-                <id>mobile-js</id>
-                <phase>compile</phase>
-                <configuration>
-                  <classpath>
-                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar" />
-                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/shrinksafe.jar" />
-                    <pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar" />
-                  </classpath>
-                  <target>
-                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-                    <echo message="$$$$$$ ENCUESTAME MOBILE DOJO COMPILE PROCESS $$$$$$$$$$$" />
-                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-                    <echo message="$$$$$$$$$$$$$ DOJO IS THE ROCK !!! $$$$$$$$$$$$$$$" />
-                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-                    <mkdir dir="${project.build.directory}/dojo-compiled" />
-                    <java fork="true" failonerror="true" dir="${basedir}" classname="org.mozilla.javascript.tools.shell.Main">
-                      <classpath>
-                        <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/js.jar" />
-                        <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/shrinksafe.jar" />
-                        <pathelement location="${basedir}/src/main/resources/resource/js/util/closureCompiler/compiler.jar" />
-                      </classpath>
-                      <jvmarg value="-Xmx512M" />
-                      <arg value="${basedir}/src/main/resources/resource/js/dojo/dojo.js" />
-                      <arg value="baseUrl=${basedir}/src/main/resources/resource/js/dojo" />
-                      <arg value="load=build" />
-                      <arg value="--require" />
-                      <arg value="${basedir}/src/main/resources/resource/js/mobile-run.js" />
-                      <arg value="--profile" />
-                      <arg value="${basedir}/src/main/resources/resource/profiles/mobile.me.profile.js" />
-                      <arg value="--releaseDir" />
-                      <arg value="${project.build.directory}/dojo-mobile-compiled" />
-                    </java>
-                    <delete includeEmptyDirs="true" verbose="false">
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="tests/**/" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/tests/**/" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/demos/**/" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="util/**" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.psd" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.fla" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.svg" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.as" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.swf" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dijit/themes/" excludes="**/claro/**/" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojo" includes="**/*.uncompressed.js" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dijit" includes="**/*.uncompressed.js" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/dojox" includes="**/*.uncompressed.js" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/chart" includes="**/*.uncompressed.js" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/org" includes="**/*.uncompressed.js" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0/me" includes="**/*.uncompressed.js" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0" includes="**/package.json" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0" includes="**/package.js" />
-                      <fileset dir="${project.build.directory}/dojo-mobile-compiled/2.0" includes="build-report.txt" />
-                    </delete>
-                    <echo message="ENCUESTAME MOBILE :: Dojo AMD optimized ::" />
-                  </target>
-                </configuration>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-              </execution>
+             
             </executions>
           </plugin>
           <plugin>

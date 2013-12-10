@@ -162,16 +162,6 @@ var profile = {
                    'dojox/widget/UpgradeBar'
             ]
     },
-    
-    // },
-
-    // 'me/activity/Activity' : {
-    //     include :[
-    //       'dojox/cometd',
-    //       'me/web/widget/notifications/Notification',
-    //       'me/web/widget/notifications/NotificationItem'
-    //     ]
-    // },
 
     // 'me/web/widget/hashtags/Cloud' : {
     //     include :[
