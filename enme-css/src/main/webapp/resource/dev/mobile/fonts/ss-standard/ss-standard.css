@@ -1,0 +1,849 @@
+@charset "UTF-8";
+/*
+* Symbolset
+* www.symbolset.com
+* Copyright © 2012 Oak Studios LLC
+* 
+* Upload this file to your web server
+* and place this within your <head> tags.
+* <link href="webfonts/ss-standard.css" rel="stylesheet" />
+*/
+@font-face {
+  font-family: "SSStandard";
+  src: url("../font/ss-standard/ss-standard.eot");
+  src: url("../font/ss-standard/ss-standard.eot?#iefix") format("embedded-opentype"), url("../font/ss-standard/ss-standard.woff") format("woff"), url("../font/ss-standard/ss-standard.ttf") format("truetype"), url("../font/ss-standard/ss-standard.svg#SSStandard") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 28, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-icon, .ss-icon.ss-standard,
+[class^="ss-"]:before, [class*=" ss-"]:before,
+[class^="ss-"].ss-standard:before, [class*=" ss-"].ss-standard:before,
+[class^="ss-"].right:after, [class*=" ss-"].right:after,
+[class^="ss-"].ss-standard.right:after, [class*=" ss-"].ss-standard.right:after {
+  font-family: "SSStandard";
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+  white-space: nowrap;
+  -webkit-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga=1";
+  -moz-font-feature-settings: "liga";
+  -ms-font-feature-settings: "liga" 1;
+  -o-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* line 44, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+[class^="ss-"].right:before, [class*=" ss-"].ss-standard.right:before {
+  display: none;
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-cursor:before, .ss-cursor.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-crosshair:before, .ss-crosshair.right:after {
+  content: '⌖';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-search:before, .ss-search.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-zoomin:before, .ss-zoomin.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-zoomout:before, .ss-zoomout.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-view:before, .ss-view.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-attach:before, .ss-attach.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-link:before, .ss-link.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-move:before, .ss-move.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-write:before, .ss-write.right:after {
+  content: '✎';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-writingdisabled:before, .ss-writingdisabled.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-erase:before, .ss-erase.right:after {
+  content: '✐';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-compose:before, .ss-compose.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-lock:before, .ss-lock.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-unlock:before, .ss-unlock.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-key:before, .ss-key.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-backspace:before, .ss-backspace.right:after {
+  content: '⌫';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-ban:before, .ss-ban.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-trash:before, .ss-trash.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-target:before, .ss-target.right:after {
+  content: '◎';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-tag:before, .ss-tag.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-bookmark:before, .ss-bookmark.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-flag:before, .ss-flag.right:after {
+  content: '⚑';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-like:before, .ss-like.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-dislike:before, .ss-dislike.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-heart:before, .ss-heart.right:after {
+  content: '♥';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-halfheart:before, .ss-halfheart.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-star:before, .ss-star.right:after {
+  content: '⋆';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-halfstar:before, .ss-halfstar.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-sample:before, .ss-sample.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-crop:before, .ss-crop.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-layers:before, .ss-layers.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-phone:before, .ss-phone.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-phonedisabled:before, .ss-phonedisabled.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-rss:before, .ss-rss.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-facetime:before, .ss-facetime.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-reply:before, .ss-reply.right:after {
+  content: '↩';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-send:before, .ss-send.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-mail:before, .ss-mail.right:after {
+  content: '✉';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-inbox:before, .ss-inbox.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-chat:before, .ss-chat.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-user:before, .ss-user.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-femaleuser:before, .ss-femaleuser.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-users:before, .ss-users.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-cart:before, .ss-cart.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-creditcard:before, .ss-creditcard.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-dollarsign:before, .ss-dollarsign.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-barchart:before, .ss-barchart.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-piechart:before, .ss-piechart.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-box:before, .ss-box.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-home:before, .ss-home.right:after {
+  content: '⌂';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-globe:before, .ss-globe.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-navigate:before, .ss-navigate.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-compass:before, .ss-compass.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-signpost:before, .ss-signpost.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-location:before, .ss-location.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-map:before, .ss-map.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-pin:before, .ss-pin.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-database:before, .ss-database.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-hdd:before, .ss-hdd.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-music:before, .ss-music.right:after {
+  content: '♫';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-mic:before, .ss-mic.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-volume:before, .ss-volume.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-volumelow:before, .ss-volumelow.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-volumehigh:before, .ss-volumehigh.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-airplay:before, .ss-airplay.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-camera:before, .ss-camera.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-picture:before, .ss-picture.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-video:before, .ss-video.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-play:before, .ss-play.right:after {
+  content: '▶';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-pause:before, .ss-pause.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-stop:before, .ss-stop.right:after {
+  content: '■';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-record:before, .ss-record.right:after {
+  content: '●';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-rewind:before, .ss-rewind.right:after {
+  content: '⏪';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-fastforward:before, .ss-fastforward.right:after {
+  content: '⏩';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-skipback:before, .ss-skipback.right:after {
+  content: '⏮';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-skipforward:before, .ss-skipforward.right:after {
+  content: '⏭';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-eject:before, .ss-eject.right:after {
+  content: '⏏';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-repeat:before, .ss-repeat.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-replay:before, .ss-replay.right:after {
+  content: '↺';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-shuffle:before, .ss-shuffle.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-book:before, .ss-book.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-openbook:before, .ss-openbook.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-notebook:before, .ss-notebook.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-grid:before, .ss-grid.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-rows:before, .ss-rows.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-columns:before, .ss-columns.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-thumbnails:before, .ss-thumbnails.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-desktop:before, .ss-desktop.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-laptop:before, .ss-laptop.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-tablet:before, .ss-tablet.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-cell:before, .ss-cell.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-battery:before, .ss-battery.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-batteryhigh:before, .ss-batteryhigh.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-batterymedium:before, .ss-batterymedium.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-batterylow:before, .ss-batterylow.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-batteryempty:before, .ss-batteryempty.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-clouddownload:before, .ss-clouddownload.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-download:before, .ss-download.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-cloudupload:before, .ss-cloudupload.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-upload:before, .ss-upload.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-fork:before, .ss-fork.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-merge:before, .ss-merge.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-refresh:before, .ss-refresh.right:after {
+  content: '↻';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-sync:before, .ss-sync.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-loading:before, .ss-loading.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-wifi:before, .ss-wifi.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-connection:before, .ss-connection.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-file:before, .ss-file.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-folder:before, .ss-folder.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-quote:before, .ss-quote.right:after {
+  content: '“';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-text:before, .ss-text.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-font:before, .ss-font.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-print:before, .ss-print.right:after {
+  content: '⎙';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-fax:before, .ss-fax.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-list:before, .ss-list.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-layout:before, .ss-layout.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-action:before, .ss-action.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-redirect:before, .ss-redirect.right:after {
+  content: '↪';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-expand:before, .ss-expand.right:after {
+  content: '⤢';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-contract:before, .ss-contract.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-help:before, .ss-help.right:after {
+  content: '❓';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-info:before, .ss-info.right:after {
+  content: 'ℹ';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-alert:before, .ss-alert.right:after {
+  content: '⚠';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-caution:before, .ss-caution.right:after {
+  content: '⛔';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-logout:before, .ss-logout.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-plus:before, .ss-plus.right:after {
+  content: '+';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-hyphen:before, .ss-hyphen.right:after {
+  content: '-';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-check:before, .ss-check.right:after {
+  content: '✓';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-delete:before, .ss-delete.right:after {
+  content: '␡';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-settings:before, .ss-settings.right:after {
+  content: '⚙';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-dashboard:before, .ss-dashboard.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-notifications:before, .ss-notifications.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-notificationsdisabled:before, .ss-notificationsdisabled.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-clock:before, .ss-clock.right:after {
+  content: '⏲';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-stopwatch:before, .ss-stopwatch.right:after {
+  content: '⏱';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-calendar:before, .ss-calendar.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-calendaradd:before, .ss-calendaradd.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-calendarremove:before, .ss-calendarremove.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-calendarcheck:before, .ss-calendarcheck.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-calendardelete:before, .ss-calendardelete.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-briefcase:before, .ss-briefcase.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-cloud:before, .ss-cloud.right:after {
+  content: '☁';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-droplet:before, .ss-droplet.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-navigateup:before, .ss-navigateup.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-navigateright:before, .ss-navigateright.right:after {
+  content: '▻';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-navigatedown:before, .ss-navigatedown.right:after {
+  content: '';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-navigateleft:before, .ss-navigateleft.right:after {
+  content: '◅';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-up:before, .ss-up.right:after {
+  content: '⬆';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-upright:before, .ss-upright.right:after {
+  content: '⬈';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-right:before, .ss-right.right:after {
+  content: '➡';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-downright:before, .ss-downright.right:after {
+  content: '⬊';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-down:before, .ss-down.right:after {
+  content: '⬇';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-downleft:before, .ss-downleft.right:after {
+  content: '⬋';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-left:before, .ss-left.right:after {
+  content: '⬅';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-upleft:before, .ss-upleft.right:after {
+  content: '⬉';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-directup:before, .ss-directup.right:after {
+  content: '▴';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-directright:before, .ss-directright.right:after {
+  content: '▹';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-dropdown:before, .ss-dropdown.right:after {
+  content: '▾';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-directleft:before, .ss-directleft.right:after {
+  content: '◃';
+}
+
+/* line 46, ../../../../../../../css/resource/sass/mobile/fonts/ss-standard/ss-standard.scss */
+.ss-retweet:before, .ss-retweet.right:after {
+  content: '';
+}

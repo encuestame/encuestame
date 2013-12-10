@@ -10215,12 +10215,12 @@ groupWidget div.selected {
 
 /** Publish Tweet Poll **/
 /* line 2, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishContent {
+.publishContent {
   margin: 35px 35px 35px 0px;
 }
 
 /* line 6, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishWrapper {
+.publishWrapper {
   float: left;
   width: 460px;
   margin-right: 23px;
@@ -10232,51 +10232,45 @@ div.publishWrapper {
 }
 
 /* line 17, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishWrapper .rich-table {
+.publishWrapper .rich-table {
   background-color: #EEEEEE;
   width: 100%;
 }
 
 /* line 22, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishWrapper table {
+.publishWrapper table {
   background-color: #EEEEEE;
 }
 
-/*
-div.publishWrapper tr:hover{
-    padding: 10px;
-    background-color: #CACACA;
-}
-*/
-/* line 32, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishWrapper td {
+/* line 26, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishWrapper td {
   padding: 10px;
 }
 
-/* line 36, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishWrapper div.socialItem {
+/* line 30, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishWrapper .socialItem {
   font-size: 1.1em;
   color: #777777;
   font-weight: bold;
 }
 
-/* line 42, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishWrapper .rich-table-row {
+/* line 36, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishWrapper .rich-table-row {
   padding: 10px;
   background-color: #EEEEEE;
   margin: 2px;
 }
 
-/* line 52, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishWrapper div.publishTwitterTitle {
+/* line 46, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishWrapper .publishTwitterTitle {
   padding: 10px;
   font-size: 12px;
   color: #FFF;
   font-weight: bold;
 }
 
-/* line 59, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishWrapper div.itemPublish {
+/* line 53, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishWrapper .itemPublish {
   padding: 5px 4px 0px;
   background-color: #1277C9;
   color: #FFF;
@@ -10285,16 +10279,16 @@ div.publishWrapper div.itemPublish {
   font-weight: bold;
 }
 
-/* line 68, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishWrapper div.itemPublish .check {
+/* line 62, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishWrapper .itemPublish .check {
   display: inline-block;
   width: 50px;
   padding-top: 3px;
   float: left;
 }
 
-/* line 75, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishWrapper div.itemPublish .account {
+/* line 69, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishWrapper .itemPublish .account {
   display: inline-block;
   width: 200px;
   background-repeat: no-repeat;
@@ -10305,8 +10299,8 @@ div.publishWrapper div.itemPublish .account {
   padding-top: 5px;
 }
 
-/* line 86, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishOptions {
+/* line 80, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishOptions {
   background-color: #BCBCBC;
   padding: 19px;
   width: 54%;
@@ -10315,96 +10309,93 @@ div.publishOptions {
   border-radius: 10px;
 }
 
-/* line 95, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishOptions .paddingLeft {
+/* line 89, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishOptions .paddingLeft {
   padding: 10px;
 }
 
-/* line 99, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishOptions .paddingRigth {
+/* line 93, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishOptions .paddingRigth {
   padding: 10px;
 }
 
-/* line 103, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.optionTitle {
+/* line 97, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.optionTitle {
   padding: 7px;
   font-size: 12px;
   color: #FFF;
   font-weight: bold;
 }
 
-/* line 110, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishOptions table {
+/* line 104, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishOptions table {
   width: 80%;
   background-color: #D7D2D2;
   color: #777777;
 }
 
-/* line 116, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishOptions tr {
+/* line 110, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishOptions tr {
   font-weight: bold;
 }
 
-/* line 120, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishOptions tr .label {
+/* line 114, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishOptions tr .label {
   padding-left: 10px;
 }
 
-/* line 128, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishOptions div.publishTableOptionWrapper .itemOption {
+/* line 122, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishOptions .publishTableOptionWrapper .itemOption {
   padding: 6px;
 }
 
-/* line 132, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishOptions div.publishTableOptionWrapper .itemOption .itemLeft {
+/* line 126, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishOptions .publishTableOptionWrapper .itemOption .itemLeft {
   float: left;
   margin-right: 20px;
 }
 
-/* line 137, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishOptions div.publishTableOptionWrapper .itemOption .label {
+/* line 131, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishOptions .publishTableOptionWrapper .itemOption .label {
   font-size: 1.1em;
   color: #777777;
   font-weight: bold;
 }
 
-/* line 143, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishOptions div.publishTableOptionWrapper .extra {
+/* line 137, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishOptions .publishTableOptionWrapper .extra {
   padding-left: 10px;
   background-color: #EEEEEE;
 }
 
-/* line 148, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.publishButtons {
+/* line 142, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.publishButtons {
   float: right;
   margin-right: 15px;
   margin-top: 30px;
 }
 
 /** tweetPollPublishDialog **/
-/* line 155, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.tweetPollPublishDialog {
+/* line 149, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog {
   padding: 10px;
 }
-
-/* line 159, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.tweetPollPublishDialog div.info {
+/* line 153, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .info {
   font-size: 18px;
   font-weight: normal;
   line-height: 20px;
   margin: 10px;
   padding: 10px;
 }
-
-/* line 167, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.tweetPollPublishDialog div.items {
+/* line 161, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .items {
   max-height: 200px;
   overflow: auto;
   padding: 5px;
 }
-
-/* line 173, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.tweetPollPublishDialog div.items div.item {
+/* line 166, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .items .item {
   border-bottom: 1px solid #E1DFDF;
   clear: both;
   font-weight: bold;
@@ -10412,65 +10403,74 @@ div.tweetPollPublishDialog div.items div.item {
   padding: 3px;
   overflow: auto;
 }
-
-/* line 182, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.tweetPollPublishDialog div.items div.item div.image {
+/* line 178, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .items .item .scheduled-options {
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid #D8D8D8;
+  background-color: #F7F5F5;
+}
+/* line 183, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .items .item .scheduled-options > div {
+  padding: 5px;
+}
+/* line 188, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .items .item .image {
   float: left;
   margin-right: 5px;
   padding: 3px;
   width: 20px;
 }
-
-/* line 189, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.tweetPollPublishDialog div.items div.item div.detail {
+/* line 195, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .items .item .detail {
   float: left;
   padding: 4px;
   width: 80%;
 }
-
-/* line 195, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.tweetPollPublishDialog div.items div.item div.icon {
+/* line 201, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .items .item .icon {
   float: right;
   padding: 5px;
   width: 50px;
 }
-
-/* line 201, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.tweetPollPublishDialog div.items div.item div.detail {
+/* line 207, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .items .item .detail {
   padding: 4px;
 }
-
-/* line 206, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.tweetPollPublishDialog div.items div.item div.detail .success-message {
+/* line 211, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .items .item .detail .success-message {
   padding: 3px;
   max-width: 50%;
   padding: 4px;
   color: #26A526;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
   border-radius: 2px;
   margin-right: 10px;
   float: left;
 }
-
-/* line 218, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.tweetPollPublishDialog div.items div.item div.detail .success-url {
+/* line 221, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .items .item .detail .success-url {
   color: #444444;
   font-weight: normal;
   line-height: 25px;
   padding: 4px;
   text-decoration: underline;
 }
-
-/* line 227, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.tweetPollPublishDialog div.items div.item div.detail .success-url a:hover {
+/* line 229, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .items .item .detail .success-url a:hover {
   text-decoration: underline;
 }
-
-/* line 232, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
-div.tweetPollPublishDialog div.items div.item div.detail .failure-message {
+/* line 233, ../../../../css/resource/sass/web/components/_tweetpoll-publish.scss */
+.tweetPollPublishDialog .items .item .detail .failure-message {
   background-color: #EB2C2C;
-  border-radius: 2px 2px 2px 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
   color: #FFFFFF;
   margin-right: 10px;
   max-width: 50%;
