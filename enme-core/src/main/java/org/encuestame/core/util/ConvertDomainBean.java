@@ -1909,6 +1909,21 @@ public class ConvertDomainBean {
 
         return sectionBean;
     }
+    	
+    /**
+     * 
+     * @param sections
+     * @return
+     */
+    public static final List<ScheduledItemBean> convertListScheduletoBean(
+            final List<Schedule> sections) {
+        final List<ScheduledItemBean> surveySections = new ArrayList<ScheduledItemBean>();
+        for (Schedule surveySection : sections) {
+            surveySections.add(ConvertDomainBean
+                    .convertScheduletoBean(surveySection));
+        }
+        return surveySections;
+    }
     
     /**
      * 

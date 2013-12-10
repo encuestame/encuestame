@@ -41,6 +41,7 @@ import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.json.TweetPollScheduledBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
@@ -559,10 +560,19 @@ public interface ITweetPollService extends IMasterSurveyService{
 	 * @param tpollSaved
 	 * @return
 	 */
-	Schedule createScheduled(
+	Schedule createTweetPollPublishedStatusScheduled(
 			final Date scheduleDate,
 			final TypeSearchResult typeSearch, 
 			final TweetPollSavedPublishedStatus tpollSaved);
+	
+	/**
+	 * 
+	 * @param bean
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 * @throws EnMeExpcetion 
+	 */ 
+	List<Schedule> createTweetPollScheduled(final TweetPollScheduledBean bean) throws EnMeNoResultsFoundException, EnMeExpcetion; 	
 
 	/**
 	 * Publish scheduled items

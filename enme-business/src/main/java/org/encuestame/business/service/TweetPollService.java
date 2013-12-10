@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -65,6 +66,7 @@ import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.json.TweetPollScheduledBean;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -715,6 +717,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
         log.debug("Tweet Text Generated: "+tweetQuestionText);
         log.debug("Tweet Text Generated: "+tweetQuestionText.length());
+        if (tweetQuestionText.length() > SocialUtils.TWITTER_LIMIT) {
+            throw new EnMeFailSendSocialTweetException("tweet exceed the maximun allowed");
+        }
         return tweetQuestionText;
     }
 
@@ -852,11 +857,36 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          return publishedStatus;
     }
     
+   /*
+    * (non-Javadoc)
+    * @see org.encuestame.core.service.imp.ITweetPollService#createTweetPollScheduled(org.encuestame.utils.json.TweetPollScheduledBean)
+    */
+    public List<Schedule> createTweetPollScheduled(final TweetPollScheduledBean bean) throws EnMeExpcetion, EnMeNoResultsFoundException {
+    	final List<Schedule> list = new ArrayList<Schedule>();
+    	final TweetPoll tp = this.getTweetPollById(bean.getId());
+    	final String tweetText = generateTweetPollContent(tp);
+    	for (SocialAccountBean socialBean : bean.getSocialAccounts()) {
+    		final SocialAccount soc = getAccountDao().getSocialAccountById(socialBean.getAccountId());
+    		final Schedule schedule = new Schedule();    		
+    		schedule.setScheduleDate(tp.getScheduleDate());    		
+    		schedule.setTpoll(tp);
+    		schedule.setTypeSearch(TypeSearchResult.TWEETPOLL);    		
+    		schedule.setTweetText(tweetText);
+    		schedule.setSocialAccount(soc);
+    		schedule.setStatus(Status.FAILED);
+    		schedule.setPublishAttempts(0);
+    		schedule.setTpollSavedPublished(null);
+    		getTweetPollDao().saveOrUpdate(schedule);
+    		list.add(schedule);
+		}
+    	return list;
+    }
+    
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ITweetPollService#createScheduled(java.util.Date, org.encuestame.utils.enums.TypeSearchResult, org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus)
      */
-	public Schedule createScheduled(
+	public Schedule createTweetPollPublishedStatusScheduled(
 			final Date scheduleDate,
 			final TypeSearchResult typeSearch,   
 			final TweetPollSavedPublishedStatus tpollSaved) {

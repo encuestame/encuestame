@@ -49,6 +49,7 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.json.TweetPollScheduledBean;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.ScheduledTweetPoll;
@@ -168,7 +169,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
         	final TweetPollSavedPublishedStatus tweetPoll = getTweetPollService().getTweetPollSavedPublishedStatusById(id);
-            final Schedule schedule = this.getTweetPollService().createScheduled(
+            final Schedule schedule = this.getTweetPollService().createTweetPollPublishedStatusScheduled(
             		bean.getScheduledDate(), 
             		TypeSearchResult.TWEETPOLL,
             		tweetPoll);
@@ -181,6 +182,36 @@ public class TweetPollJsonController extends AbstractJsonController {
         }
         return returnData();
     }    
+    
+    /**
+     * 
+     * @param bean
+     * @param request
+     * @param response
+     * @param user
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/tweetpoll/schedule", method = RequestMethod.POST)
+    public @ResponseBody ModelMap scheduleUnPublishTweetpoll(
+    		@RequestBody TweetPollScheduledBean bean,
+            HttpServletRequest request, HttpServletResponse response,
+            final UserAccount user)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+        	final List<Schedule> schedules = getTweetPollService().createTweetPollScheduled(bean);
+        	final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            jsonResponse.put("schedulded_items", ConvertDomainBean.convertListScheduletoBean(schedules));
+            setItemResponse(jsonResponse);
+        } catch (EnMeExpcetion e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }      
 
     /**
      * Publish tweet on social account.
@@ -453,9 +484,6 @@ public class TweetPollJsonController extends AbstractJsonController {
                  final String tweetText = getTweetPollService().generateTweetPollContent(tweetPoll);
                  log.debug("tweet text "+tweetText);
                  //check real lenght if execed limit required.
-                 if (tweetText.length() > SocialUtils.TWITTER_LIMIT) {
-                     throw new EnMeFailSendSocialTweetException(getMessage("e_020"));
-                 }
                 final List<SocialAccountBean> accountBeans = new ArrayList<SocialAccountBean>();
                 //convert accounts id to real social accounts objects.
                 for (int row = 0; row < twitterAccountsId.length; row++) {
