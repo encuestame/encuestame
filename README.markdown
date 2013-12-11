@@ -5,7 +5,7 @@
 
 For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
 
-## Current Version (1.147-M1) Info
+## Current Version (1.147-M3) Info
 
 The **last release versions** are defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
@@ -22,10 +22,11 @@ If you are looking for the most stable code, please clone **stable** branch
 
 
 ## Direct Download Last Releases
+* [1.147-M3](https://github.com/encuestame/encuestame/archive/1.147M3v101213.tar.gz)
+* [1.147-M2](https://github.com/encuestame/encuestame/archive/1.147M2v090913.tar.gz)
 * [1.147-M1](https://sourceforge.net/projects/encuestame/files/encuestame_beta/1.147/)
 * [1.146](http://sourceforge.net/projects/encuestame/files/encuestame_beta/1.146/encuestame-1.146-tomcat.zip/download)
 * [1.145](http://code.google.com/p/encuestame/downloads/detail?name=encuestame-1.145-release.zip&can=2&q=)
-* [1.144](http://sourceforge.net/projects/encuestame/files/encuestame_beta/1.144/encuestame-1.144-release.zip/download)
 
 
 ## Contributions
