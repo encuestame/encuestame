@@ -123,18 +123,18 @@
     <logger name="net.sf.ehcache">
         <level value="warn" />
     </logger>
-
-    <logger name="org.cometd">
+    
+    <logger name="org.hibernate">
         <level value="warn" />
     </logger>
-
+    
     <logger name="org.springframework.aop.framework.Cglib2AopProxy">
          <level value="error" />
     </logger>
 
     <!-- Root Logger -->
     <root>
-        <priority value="warn" />
+        <priority value="info" />
         <appender-ref ref="console" />
         <!--  <appender-ref ref="file" />-->
     </root>
