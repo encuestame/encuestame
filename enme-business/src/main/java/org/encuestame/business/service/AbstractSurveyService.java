@@ -49,12 +49,14 @@ import org.encuestame.social.api.FacebookAPITemplate;
 import org.encuestame.social.api.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.IdenticaAPITemplate;
 import org.encuestame.social.api.LinkedInAPITemplate;
+import org.encuestame.social.api.PlurkAPITemplate;
 import org.encuestame.social.api.TumblrAPITemplate;
 import org.encuestame.social.api.TwitterAPITemplate;
 import org.encuestame.social.api.support.BuzzAPIOperations;
 import org.encuestame.social.api.support.FacebookAPIOperations;
 import org.encuestame.social.api.support.IdenticaAPIOperations;
 import org.encuestame.social.api.support.LinkedInAPIOperations;
+import org.encuestame.social.api.support.PlurkAPIOperations;
 import org.encuestame.social.api.support.TumblrAPIOperations;
 import org.encuestame.social.api.support.TwitterAPIOperations;
 import org.encuestame.utils.MD5Utils;
@@ -488,6 +490,22 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.error(e);
                 e.printStackTrace();
             }
+        } else if (socialAccount.getAccounType().equals(SocialProvider.PLURK)) {
+            log.debug("Publish on PLURK");
+            final PlurkAPIOperations tumblrAPIOperations = new PlurkAPITemplate(
+                    EnMePlaceHolderConfigurer.getProperty("tumblr.consumer.key"),
+                    EnMePlaceHolderConfigurer.getProperty("tumblr.consumer.secret"),
+                    socialAccount.getAccessToken(),
+                    socialAccount.getSecretToken());
+            try {
+                log.debug("Publish on Identica............>");
+                published = tumblrAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on Identica...... "+published);
+            } catch (Exception e) {
+                published.setDatePublished(Calendar.getInstance().getTime());
+                log.error(e);
+                e.printStackTrace();
+            }                    
         } else if (socialAccount.getAccounType().equals(SocialProvider.TUMBLR)) {
             log.debug("Publish on TUMBLR");
             final TumblrAPIOperations tumblrAPIOperations = new TumblrAPITemplate(

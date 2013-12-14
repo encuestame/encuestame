@@ -249,6 +249,15 @@ public class SocialUtils {
                 facebookUrl = facebookUrl.replace("{A}", array[1]);
                 builder.append(facebookUrl);
             }
+        } else if(SocialProvider.PLURK.equals(provider)){
+        	String tumblrLink = EnMePlaceHolderConfigurer.getProperty("social.plurk");
+        	tumblrLink.replace("{id}", id);
+        	builder.append(tumblrLink);                   
+        } else if(SocialProvider.TUMBLR.equals(provider)){
+        	String tumblrLink = EnMePlaceHolderConfigurer.getProperty("social.tubmlr");
+        	tumblrLink.replace("{username}", username);
+        	tumblrLink.replace("{id}", id);
+        	builder.append(tumblrLink);
         } else if(SocialProvider.LINKEDIN.equals(provider)){
             builder.append(EnMePlaceHolderConfigurer.getProperty("social.linkedin"));
         } else if(SocialProvider.IDENTICA.equals(provider)){
@@ -256,7 +265,7 @@ public class SocialUtils {
              identicaUrl = identicaUrl.replace("{id}", id);
              builder.append(identicaUrl);
         }
-        log.debug("getSocialTweetPublishedUrl "+builder.toString());
+        //log.debug("getSocialTweetPublishedUrl "+builder.toString());
         return builder.toString();
     }
 

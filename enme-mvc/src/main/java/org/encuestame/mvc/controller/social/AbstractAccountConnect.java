@@ -21,6 +21,7 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.social.api.FacebookAPITemplate;
 import org.encuestame.social.api.IdenticaAPITemplate;
 import org.encuestame.social.api.LinkedInAPITemplate;
+import org.encuestame.social.api.PlurkAPITemplate;
 import org.encuestame.social.api.TumblrAPITemplate;
 import org.encuestame.social.api.TwitterAPITemplate;
 import org.encuestame.social.api.support.FacebookAPIOperations;
@@ -28,6 +29,7 @@ import org.encuestame.social.api.support.IdentiCaProfile;
 import org.encuestame.social.api.support.IdenticaAPIOperations;
 import org.encuestame.social.api.support.LinkedInAPIOperations;
 import org.encuestame.social.api.support.LinkedInProfile;
+import org.encuestame.social.api.support.PlurkAPIOperations;
 import org.encuestame.social.api.support.TumblrAPIOperations;
 import org.encuestame.social.api.support.TwitterAPIOperations;
 import org.encuestame.utils.oauth.AccessGrant;
@@ -118,9 +120,9 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
 
 
     /**
-     *
-     * @param socialProvider
-     * @param accessToken
+     * Get the social profile data from the Social Network API only for OAuth1
+     * @param socialProvider {@link SocialProvider}
+     * @param accessToken {@link OAuth1Token}
      * @param account
      * @throws Exception
      */
@@ -183,17 +185,32 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
             } else if (socialProvider.equals(SocialProvider.YAHOO)) {
                 //FUTURE - Only valid on defined domain.
                 log.debug("Yahoo provider is disabled");
+                
+            } else if (socialProvider.equals(SocialProvider.PLURK)) {
+            	PlurkAPIOperations  apiOperations = new PlurkAPITemplate(
+                        apiKey, consumerSecret, accessToken.getValue(),
+                        accessToken.getSecret());
+                SocialUserProfile profile = apiOperations.getProfile();
+                log.debug("plurk profile " + profile.toString());
+                final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider, profile.getId());
+                if (socialAccount == null) {
+                    getSecurityService().addNewSocialAccount(
+                            accessToken.getValue(), accessToken.getSecret(), null, profile,
+                            socialProvider, getUserAccount());
+                } else {
+                    log.warn("This account already exist");
+                    throw new EnMeExistPreviousConnectionException(getMessage("social.repeated.account"));
+                }
             } else if (socialProvider.equals(SocialProvider.TUMBLR)) {
             	TumblrAPIOperations apiOperations = new TumblrAPITemplate(
                         apiKey, consumerSecret, accessToken.getValue(),
                         accessToken.getSecret());
                 SocialUserProfile profile = apiOperations.getProfile();
-                SocialUserProfile profileAPI = apiOperations.getProfile();
                 log.debug("linkedin profile "+profile.toString());
                 final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider, profile.getId());
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(
-                            accessToken.getValue(), accessToken.getSecret(), null, profileAPI,
+                            accessToken.getValue(), accessToken.getSecret(), null, profile,
                             socialProvider, getUserAccount());
                 } else {
                     log.warn("This account already exist");

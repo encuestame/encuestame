@@ -43,9 +43,9 @@ public class ConvertDomainToJson {
             final List<TweetPollSavedPublishedStatus> savedPublishedStatus) {
         final List<TweetItemPublishedResponse> list = new ArrayList<TweetItemPublishedResponse>();
         for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : savedPublishedStatus) {
-        	log.debug("*******************************************************************************");
-        	log.debug(savedPublishedStatus.toString());
-        	log.debug("*******************************************************************************");
+        	//log.debug("*******************************************************************************");
+        	//log.debug(savedPublishedStatus.toString());
+        	//log.debug("*******************************************************************************");
             list.add(convertTweetPollStatusToJson(tweetPollSavedPublishedStatus));
         }
         return list;
