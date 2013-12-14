@@ -12,6 +12,7 @@
  */
 package org.encuestame.social.api.support;
 
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
 
@@ -21,9 +22,20 @@ import org.encuestame.utils.social.SocialUserProfile;
  * @since Apr 20, 2011
  */
 public interface SocialAPIOperations {
-
+	
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
     SocialUserProfile getProfile() throws Exception;
 
-    TweetPublishedMetadata updateStatus(final String status) throws Exception;
+    /**
+     * 
+     * @param status
+     * @return
+     * @throws Exception
+     */
+    TweetPublishedMetadata updateStatus(final String status) throws Exception;   
 
 }

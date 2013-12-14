@@ -1,15 +1,27 @@
 package org.encuestame.social.api;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.social.AbstractSocialAPISupport;
 import org.encuestame.social.api.support.TumblrAPIOperations;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.encuestame.utils.social.TubmlrUserProfile;
+import org.encuestame.utils.social.TumblrBlog;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 
 public class TumblrAPITemplate extends AbstractSocialAPISupport implements TumblrAPIOperations{
@@ -27,9 +39,8 @@ public class TumblrAPITemplate extends AbstractSocialAPISupport implements Tumbl
     /**
     *
     */
-    static final String PUT_STATUS = "http://api.tumblr.com/v2/blog/citriccomics.tumblr.com/posts/text";
-    
-    
+    static final String PUT_STATUS = "http://api.tumblr.com/v2/blog/{username}.tumblr.com/post";
+        
     /**
     *
     * @param apiKey
@@ -87,7 +98,7 @@ public class TumblrAPITemplate extends AbstractSocialAPISupport implements Tumbl
     * @return
     */
    private TubmlrUserProfile getUserProfile() {
-       Map<?, ?> response = getRestTemplate().getForObject(GET_CURRENT_USER_INFO, Map.class);
+       Map<?, ?> response = getRestTemplate().getForObject(GET_CURRENT_USER_INFO, Map.class);       
        Map<?, ?> response2 = (Map<?, ?>) response.get("response");
        Map<?, ?> user = (Map<?, ?>) response2.get("user");
        final TubmlrUserProfile profile = new TubmlrUserProfile();
@@ -96,9 +107,21 @@ public class TumblrAPITemplate extends AbstractSocialAPISupport implements Tumbl
        profile.setLikes(Integer.valueOf(user.get("likes").toString()));
        profile.setDefaultPostFormat(user.get("default_post_format").toString());
        try {
-    	   Object t =  user.get("blogs");
-    	   log.debug(t);
+    	   List<LinkedHashMap<String, Object>> t =   (List<LinkedHashMap<String, Object>>) user.get("blogs");
+    	   for (LinkedHashMap<String, Object> linkedHashMap : t) {
+    		   final TumblrBlog blog = new TumblrBlog();
+    		   blog.setAsk(Boolean.valueOf(linkedHashMap.get("ask").toString()));
+    		   blog.setDescription(linkedHashMap.get("description").toString());
+    		   blog.setFollowers(Integer.valueOf(linkedHashMap.get("followers").toString()));
+    		   blog.setUrl(linkedHashMap.get("url").toString());
+    		   blog.setName(linkedHashMap.get("name").toString());
+    		   blog.setPrimary(Boolean.valueOf(linkedHashMap.get("primary").toString()));
+    		   //blog.setLastUpdated(new Date(linkedHashMap.get("updated").toString()));
+    		   blog.setLastUpdated(Calendar.getInstance().getTime());
+    		   profile.getListBlogs().add(blog);
+    	   }
        }catch(Exception ex){
+    	   ex.printStackTrace();
     	   log.error(ex);    	
        }
        return profile;
@@ -110,6 +133,7 @@ public class TumblrAPITemplate extends AbstractSocialAPISupport implements Tumbl
     */
 	@Override
 	public SocialUserProfile getProfile() throws Exception {
+		//TODO: finish properties mapping
 		final SocialUserProfile socialUserProfile = new SocialUserProfile();
 		final TubmlrUserProfile profile = this.getUserProfile();
 		socialUserProfile.setFollowersCount(0);
@@ -119,18 +143,49 @@ public class TumblrAPITemplate extends AbstractSocialAPISupport implements Tumbl
 		socialUserProfile.setEmail(null);
 		socialUserProfile.setCreatedAt(Calendar.getInstance().getTime());
 		socialUserProfile.setName(profile.getName());
-		socialUserProfile.setUrl("profile url");
-		socialUserProfile.setProfileImageUrl("url image");
+		socialUserProfile.setUrl(profile.getListBlogs().get(0).getUrl());
+		socialUserProfile.setProfileImageUrl("http://api.tumblr.com/v2/blog/{username}.tumblr.com/avatar/24".replace("{username}", profile.getName()));
 		socialUserProfile.setScreenName(profile.getName());
 		socialUserProfile.setLocation("");
 		socialUserProfile.setDescription(profile.getName());
 		return socialUserProfile;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.social.api.support.TumblrAPIOperations#updateStatus(java.lang.String, org.encuestame.persistence.domain.security.SocialAccount)
+	 */
 	@Override
-	public TweetPublishedMetadata updateStatus(String status) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public TweetPublishedMetadata updateStatus(String status, final SocialAccount account, final TweetPoll tweetPoll) throws Exception {
+		final MultiValueMap<String, Object> tweetParams = new LinkedMultiValueMap<String, Object>();
+		String hashStrign = "";
+		final Set<HashTag> list = tweetPoll.getHashTags();
+		if (list.size() > 0) {
+			Iterator<HashTag> iterator = list.iterator();
+		    while(iterator.hasNext()) {
+		    	HashTag setElement = iterator.next();
+		        hashStrign  = hashStrign + setElement.getHashTag() + ",";
+		    }
+		    tweetParams.add("tags",  hashStrign.substring(0,hashStrign.length()-1));
+		}	   
+        tweetParams.add("type","text");
+        tweetParams.add("state","published");        
+        tweetParams.add("body",status);
+        final ResponseEntity<Map> response = getRestTemplate().postForEntity(PUT_STATUS.replace("{username}", account.getSocialAccountName()), tweetParams, Map.class);
+        final Map body = response.getBody();
+        //Responses table: http://www.tumblr.com/docs/en/api/v2#common-fields
+        final TweetPublishedMetadata metadata = createStatus(status);
+        final Map response_body = (Map) body.get("response");
+        metadata.setTweetId(response_body.get("id").toString());
+		return metadata;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.social.api.support.SocialAPIOperations#updateStatus(java.lang.String)
+	 */
+	@Override
+	public TweetPublishedMetadata updateStatus(String status) throws Exception {	
+		return null; //not necesary
+	}
 }

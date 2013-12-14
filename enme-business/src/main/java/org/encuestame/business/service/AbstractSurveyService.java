@@ -49,11 +49,13 @@ import org.encuestame.social.api.FacebookAPITemplate;
 import org.encuestame.social.api.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.IdenticaAPITemplate;
 import org.encuestame.social.api.LinkedInAPITemplate;
+import org.encuestame.social.api.TumblrAPITemplate;
 import org.encuestame.social.api.TwitterAPITemplate;
 import org.encuestame.social.api.support.BuzzAPIOperations;
 import org.encuestame.social.api.support.FacebookAPIOperations;
 import org.encuestame.social.api.support.IdenticaAPIOperations;
 import org.encuestame.social.api.support.LinkedInAPIOperations;
+import org.encuestame.social.api.support.TumblrAPIOperations;
 import org.encuestame.social.api.support.TwitterAPIOperations;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
@@ -454,7 +456,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @return status of tweet
      * @throws EnMeExpcetion exception
      */
-    public TweetPublishedMetadata publicTweetPoll(final String tweetText, final SocialAccount socialAccount)
+    public TweetPublishedMetadata publicTweetPoll(final String tweetText, final SocialAccount socialAccount, final TweetPoll tweetPoll)
            throws EnMeExpcetion {
         TweetPublishedMetadata published = new TweetPublishedMetadata();
         log.debug("publicTweetPoll:{ "+tweetText);
@@ -465,10 +467,7 @@ public class AbstractSurveyService extends AbstractChartService {
                     EnMePlaceHolderConfigurer.getProperty("twitter.oauth.consumerKey"),
                     socialAccount);
             try {
-//                log.debug("Publish on Twitter 1 ............>");
                 published = twitterAPIOperations.updateStatus(tweetText);
-//                log.debug("Publish on Twitter 2 ...... "+published);
-//                log.debug("Publish on Twitter 2 ...... "+published.getTweetId());
             } catch (Exception e) {
                 log.error(e);
                 e.printStackTrace();
@@ -483,6 +482,22 @@ public class AbstractSurveyService extends AbstractChartService {
             try {
                 log.debug("Publish on Identica............>");
                 published = identicaAPIOperations.updateStatus(tweetText);
+                log.debug("Publish on Identica...... "+published);
+            } catch (Exception e) {
+                published.setDatePublished(Calendar.getInstance().getTime());
+                log.error(e);
+                e.printStackTrace();
+            }
+        } else if (socialAccount.getAccounType().equals(SocialProvider.TUMBLR)) {
+            log.debug("Publish on TUMBLR");
+            final TumblrAPIOperations tumblrAPIOperations = new TumblrAPITemplate(
+                    EnMePlaceHolderConfigurer.getProperty("tumblr.consumer.key"),
+                    EnMePlaceHolderConfigurer.getProperty("tumblr.consumer.secret"),
+                    socialAccount.getAccessToken(),
+                    socialAccount.getSecretToken());
+            try {
+                log.debug("Publish on Identica............>");
+                published = tumblrAPIOperations.updateStatus(tweetText, socialAccount, tweetPoll);
                 log.debug("Publish on Identica...... "+published);
             } catch (Exception e) {
                 published.setDatePublished(Calendar.getInstance().getTime());
