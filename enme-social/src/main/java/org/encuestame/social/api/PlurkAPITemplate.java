@@ -106,7 +106,32 @@ public class PlurkAPITemplate extends AbstractSocialAPISupport implements PlurkA
         tweetParams.add("qualifier", "is");
         final ResponseEntity<Map> response = getRestTemplate().postForEntity(PUT_STATUS, tweetParams, Map.class);
         final Map body = response.getBody();
-        // {"plurk_id": 3, "content": "Test", "qualifier_translated": "says", "qualifier": "says", "lang": "en" ...}
+        // plurk example response:
+        // 		{
+		//        "replurkers": [],
+		//        "responses_seen": 0,
+		//        "qualifier": "is",
+		//        "replurkers_count": 0,
+		//        "plurk_id": 1180244031,
+		//        "response_count": 0,
+		//        "anonymous": false,
+		//        "replurkable": true,
+		//        "limited_to": null,
+		//        "favorite_count": 0,
+		//        "is_unread": 0,
+		//        "lang": "en",
+		//        "favorers": [],
+		//        "content_raw": "juan test",
+		//        "user_id": 10210418,
+		//        "plurk_type": 0,
+		//        "replurked": false,
+		//        "favorite": false,
+		//        "no_comments": 0,
+		//        "content": "juan test",
+		//        "replurker_id": null,
+		//        "posted": "Sun, 15 Dec 2013 12:04:00 GMT",
+		//        "owner_id": 10210418
+		//    }
         final TweetPublishedMetadata metadata = createStatus(status);
         //final Map response_body = (Map) body.get("plurk_id");
         metadata.setTweetId(body.get("plurk_id").toString());

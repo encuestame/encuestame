@@ -251,7 +251,7 @@ public class SocialUtils {
             }
         } else if(SocialProvider.PLURK.equals(provider)){
         	String tumblrLink = EnMePlaceHolderConfigurer.getProperty("social.plurk");
-        	tumblrLink.replace("{id}", id);
+        	tumblrLink = tumblrLink.replace("{0}", username.toString());
         	builder.append(tumblrLink);                   
         } else if(SocialProvider.TUMBLR.equals(provider)){
         	String tumblrLink = EnMePlaceHolderConfigurer.getProperty("social.tubmlr");

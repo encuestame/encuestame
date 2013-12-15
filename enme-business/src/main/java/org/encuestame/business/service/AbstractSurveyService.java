@@ -493,8 +493,8 @@ public class AbstractSurveyService extends AbstractChartService {
         } else if (socialAccount.getAccounType().equals(SocialProvider.PLURK)) {
             log.debug("Publish on PLURK");
             final PlurkAPIOperations tumblrAPIOperations = new PlurkAPITemplate(
-                    EnMePlaceHolderConfigurer.getProperty("tumblr.consumer.key"),
-                    EnMePlaceHolderConfigurer.getProperty("tumblr.consumer.secret"),
+                    EnMePlaceHolderConfigurer.getProperty("plurk.consumer.key"),
+                    EnMePlaceHolderConfigurer.getProperty("plurk.consumer.secret"),
                     socialAccount.getAccessToken(),
                     socialAccount.getSecretToken());
             try {
@@ -514,9 +514,9 @@ public class AbstractSurveyService extends AbstractChartService {
                     socialAccount.getAccessToken(),
                     socialAccount.getSecretToken());
             try {
-                log.debug("Publish on Identica............>");
+                log.debug("Publish on TUMBLR............>");
                 published = tumblrAPIOperations.updateStatus(tweetText, socialAccount, tweetPoll);
-                log.debug("Publish on Identica...... "+published);
+                log.debug("Publish on TUMBLR...... "+published);
             } catch (Exception e) {
                 published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
