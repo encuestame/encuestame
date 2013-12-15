@@ -718,7 +718,6 @@ CREATE TABLE IF NOT EXISTS `social_account` (
   `userOwner_uid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`social_account_id`),
   UNIQUE KEY `social_account_id` (`social_account_id`),
-  UNIQUE KEY `social_account_name` (`social_account_name`),
   KEY `FK50078B5B5ECE45A2` (`account_uid`),
   KEY `FK50078B5BF2F411F2` (`userOwner_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

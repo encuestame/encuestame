@@ -49,7 +49,36 @@ public class PlurkAPITemplate extends AbstractSocialAPISupport implements PlurkA
 	@Override
 	public SocialUserProfile getProfile() throws Exception {
 		Map<?, ?> response = getRestTemplate().getForObject(GET_CURRENT_USER_INFO, Map.class);
-		//{"display_name": "amix3", "gender": 0, "nick_name": "amix", "has_profile_image": 1, "id": 1, "avatar": null}
+		//{ List of available properties
+		//verified_account=false, 
+		//page_title=, 
+		//plurks_count=5, 
+		//full_name=encuestame, 
+		//timezone=null, 
+		//id=10210418, 
+		//fans_count=0, 
+		//relationship=not_saying,
+		//avatar_small=http://www.plurk.com/static/default_small.gif,
+		//friends_count=1, 
+		//post_anonymous_plurk=false, 
+		//date_of_birth=Thu, 09 Apr 1981 00:01:00 GMT, 
+		//location=Vienna, Austria, 
+		//avatar_medium=http://www.plurk.com/static/default_medium.jpg,
+		//recruited=0, 
+		//bday_privacy=2,
+		//avatar=null, 
+		//default_lang=en, 
+		//setup_facebook_sync=false,
+		//avatar_big=http://www.plurk.com/static/default_big.jpg,
+		//dateformat=0, 
+		//has_profile_image=0, 
+		//response_count=0,
+		//setup_weibo_sync=false,
+		//about=,
+		//nick_name=encuestame, 
+		//gender=2,
+		//setup_twitter_sync=false, 
+		//karma=5.35}
 		final SocialUserProfile socialUserProfile = new SocialUserProfile();
 		socialUserProfile.setFollowersCount(0);
 		socialUserProfile.setUsername(response.get("nick_name").toString());
@@ -57,12 +86,12 @@ public class PlurkAPITemplate extends AbstractSocialAPISupport implements PlurkA
 		//get the primary blog
 		socialUserProfile.setEmail(null);
 		socialUserProfile.setCreatedAt(Calendar.getInstance().getTime());
-		socialUserProfile.setName(response.get("display_name").toString());
+		socialUserProfile.setName(response.get("full_name").toString());
 		socialUserProfile.setUrl("http://www.plurk.com/" + socialUserProfile.getUsername());
 		socialUserProfile.setProfileImageUrl("http://avatars.plurk.com/{user_id}-small.gif".replace("{user_id}", socialUserProfile.getId()));
-		socialUserProfile.setScreenName(response.get("display_name").toString());
-		socialUserProfile.setLocation("");
-		socialUserProfile.setDescription("");
+		socialUserProfile.setScreenName(response.get("nick_name").toString());
+		socialUserProfile.setLocation(response.get("location").toString());
+		socialUserProfile.setDescription(response.get("about").toString());
 		return socialUserProfile;
 	}
 

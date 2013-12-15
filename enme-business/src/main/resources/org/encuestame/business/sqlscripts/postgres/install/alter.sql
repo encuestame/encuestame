@@ -452,16 +452,6 @@ ALTER TABLE ONLY questions
 ALTER TABLE ONLY social_account
     ADD CONSTRAINT social_account_pkey PRIMARY KEY (social_account_id);
 
-
---
--- TOC entry 2064 (class 2606 OID 99702)
--- Dependencies: 1673 1673
--- Name: social_account_social_account_name_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY social_account
-    ADD CONSTRAINT social_account_social_account_name_key UNIQUE (social_account_name);
-
 --
 -- TOC entry 2068 (class 2606 OID 99707)
 -- Dependencies: 1674 1674
