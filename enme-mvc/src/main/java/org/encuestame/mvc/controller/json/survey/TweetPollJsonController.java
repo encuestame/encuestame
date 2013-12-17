@@ -142,7 +142,7 @@ public class TweetPollJsonController extends AbstractJsonController {
         }
         return returnData();
     }
-    
+
     /**
      * Publish tweet on social account.
      * @param twitterAccountsId
@@ -168,7 +168,7 @@ public class TweetPollJsonController extends AbstractJsonController {
         try {
         	final TweetPollSavedPublishedStatus tweetPoll = getTweetPollService().getTweetPollSavedPublishedStatusById(id);
             final Schedule schedule = this.getTweetPollService().createTweetPollPublishedStatusScheduled(
-            		bean.getScheduledDate(), 
+            		bean.getScheduledDate(),
             		TypeSearchResult.TWEETPOLL,
             		tweetPoll);
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
@@ -179,10 +179,10 @@ public class TweetPollJsonController extends AbstractJsonController {
             setError(e.getMessage(), response);
         }
         return returnData();
-    }    
-    
+    }
+
     /**
-     * 
+     *
      * @param bean
      * @param request
      * @param response
@@ -209,7 +209,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             setError(e.getMessage(), response);
         }
         return returnData();
-    }      
+    }
 
     /**
      * Publish tweet on social account.
@@ -336,8 +336,8 @@ public class TweetPollJsonController extends AbstractJsonController {
             @RequestParam(value = "limitVotes", required = false) final Boolean limitVotes,
             @RequestParam(value = "followDashBoard", required = false) final Boolean onDashboard,
             @RequestParam(value = "repeatedVotes", required = false) final Boolean repeatedVotes,
-            @RequestParam(value = "maxLimitVotes", required = false) final Integer repeatedVotesNum,
-            @RequestParam(value = "maxRepeatedVotes", required = false) final Integer votesToLimit,
+            @RequestParam(value = "maxLimitVotes", required = false) final Integer votesToLimit ,
+            @RequestParam(value = "maxRepeatedVotes", required = false) final Integer repeatedVotesNum,
             @RequestParam(value = "resumeLiveResults", required = false) final Boolean resumeLiveResults,
             //@PathVariable final String type,
             HttpServletRequest request,
@@ -597,7 +597,7 @@ public class TweetPollJsonController extends AbstractJsonController {
 	                jsonResponse.put("url", SocialUtils.getTinyUrl(url));
 	            } else if ("yourls".equals(type)){
 	            	jsonResponse.put("url", SocialUtils.getYourls(url));
-	            }            
+	            }
 	            setItemResponse(jsonResponse);
             } else {
                 setError("url malformed", response);

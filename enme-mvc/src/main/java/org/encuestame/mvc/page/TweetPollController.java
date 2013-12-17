@@ -94,7 +94,8 @@ public class TweetPollController extends AbstractViewController {
                     final TweetPollSwitch tweetPoll = getTweetPollService()
                             .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
                     model.addAttribute("tp_switch", tweetPoll);
-                    //NOTE: tweetpoll should be published to able to vote !!
+                    final Boolean validateLimitVotes = getTweetPollService().validateLimitVotes(tweetPoll.getTweetPoll());
+                     //NOTE: tweetpoll should be published to able to vote !!
                     if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
                         log.debug("tweetpoll answer not found");
                         model.put("message", "Tweet Not Valid.");
@@ -102,7 +103,13 @@ public class TweetPollController extends AbstractViewController {
                         log.debug("tweetpoll is archived");
                         model.put("message", "Tweetpoll is closed, no more votes.");
                         pathVote = "completeTweetVote";
-                    }else {
+                        // Validate Limit Votes
+                     } else if(validateLimitVotes) {
+                     	log.debug("tweetpoll reached limit votes");
+                         model.put("message", "You have reached the maximum of votes for this poll.");
+                         pathVote = "LimitTweetVote";
+                     }
+                    else {
                         log.info("Validate Votting");
                             log.info("IP" + IP);
                             try {

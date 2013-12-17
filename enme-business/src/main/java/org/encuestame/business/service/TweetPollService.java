@@ -467,6 +467,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tweetPollDomain.setCaptcha(tweetPollBean.getCaptcha());
         tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
         tweetPollDomain.setLimitVotes(tweetPollBean.getLimitVotes());
+        tweetPollDomain.setLimitVotesEnabled((tweetPollBean.getLimitVotesEnabled()));
         UserAccount acc = null;
         try {
             acc = getUserAccount(getUserPrincipalUsername());
@@ -483,7 +484,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tweetPollDomain.setNumbervotes(EnMeUtils.VOTE_DEFAULT);
         tweetPollDomain.setDislikeVote(EnMeUtils.DISLIKE_DEFAULT);
         tweetPollDomain.setCreateDate(Calendar.getInstance().getTime());
-        tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
         tweetPollDomain.setScheduleTweetPoll(tweetPollBean.getSchedule());
         tweetPollDomain.setScheduleDate(tweetPollBean.getScheduleDate());
         tweetPollDomain.setUpdatedDate(Calendar.getInstance().getTime());
@@ -1098,7 +1098,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tpResult = getTweetPollDao().validateTweetPollResultsIP(ipVote, tweetPoll);
         if (tpResult.size() > 0) {
             if (tweetPoll.getAllowRepatedVotes()
-                    && (tpResult.size() < tweetPoll.getLimitVotes())) {
+                    && (tpResult.size() < tweetPoll.getMaxRepeatedVotes())) {
                 return tpResult;
             } else {
                 throw new EnmeFailOperation(
@@ -1109,6 +1109,27 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             return tpResult;
         }
     }
+
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.core.service.imp.ITweetPollService#validateLimitVotes(
+	 * org.encuestame.persistence.domain.tweetpoll.TweetPoll)
+	 */
+	public Boolean validateLimitVotes(final TweetPoll tweetPoll) {
+		Boolean limitVote = Boolean.FALSE;
+		if (tweetPoll.getLimitVotesEnabled()) {
+			final Long totalVotes = getTweetPollDao()
+					.getTotalVotesByTweetPollId(tweetPoll.getTweetPollId());
+			if (Long.valueOf(tweetPoll.getLimitVotes()) == totalVotes) {
+				limitVote = Boolean.TRUE;
+			}
+
+		}
+		return limitVote;
+	}
 
     /**
      * Create TweetPoll Folder.
