@@ -592,18 +592,20 @@ public class TweetPollJsonController extends AbstractJsonController {
         try {
             url = filterValue(url);
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-            if(InternetUtils.validateUrl(url)){
-            if("google".equals(type)){
-                jsonResponse.put("url", SocialUtils.getGoGl(url, EnMePlaceHolderConfigurer.getProperty("short.google.key")));
-            } else if("tinyurl".equals(type)){
-                jsonResponse.put("url", SocialUtils.getTinyUrl(url));
-            }
-            setItemResponse(jsonResponse);
+            if (InternetUtils.validateUrl(url)) {
+	            if ("google".equals(type)) {
+	                jsonResponse.put("url", SocialUtils.getGoGl(url, EnMePlaceHolderConfigurer.getProperty("short.google.key")));
+	            } else if ("tinyurl".equals(type)){
+	                jsonResponse.put("url", SocialUtils.getTinyUrl(url));
+	            } else if ("yourls".equals(type)){
+	            	jsonResponse.put("url", SocialUtils.getYourls(url));
+	            }            
+	            setItemResponse(jsonResponse);
             } else {
                 setError("url malformed", response);
             }
-        } catch (Exception e) {
-            setError(e.getMessage(), response);
+        } catch (Exception ex) {
+            setError(ex.getMessage(), response);
         }
         return returnData();
     }

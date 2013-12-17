@@ -189,7 +189,7 @@ public class SocialAccount extends AbstractSocial {
      * @return the twitterAccount
      */
     @Field(index = Index.TOKENIZED, store = Store.YES)
-    @Column (name="social_account_name", nullable = false, unique = false)
+    @Column (name="social_account_name", nullable = false)
     public String getSocialAccountName() {
         return socialAccountName;
     }

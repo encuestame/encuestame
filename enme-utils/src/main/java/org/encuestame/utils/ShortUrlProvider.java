@@ -23,6 +23,7 @@ public enum ShortUrlProvider {
 
     GOOGL,
     TINYURL,
+    YOURLS,
     BITLY,
     NONE,
 
@@ -39,10 +40,11 @@ public enum ShortUrlProvider {
      * @return
      */
     public static ShortUrlProvider get(final String provider) {
-        log.debug("ShortUrlProvider:{ "+provider);
+        log.debug("ShortUrlProvider:{ " + provider);
         if (null == provider) { return BITLY; }
         else if (provider.equalsIgnoreCase("googl")) { return GOOGL; }
         else if (provider.equalsIgnoreCase("tinyurl")) { return TINYURL; }
+        else if (provider.equalsIgnoreCase("yourls")) { return YOURLS; }
         else if (provider.equalsIgnoreCase("bitly")) { return BITLY; }
         else return BITLY;
     }
@@ -55,6 +57,7 @@ public enum ShortUrlProvider {
         String shortUrlProvider = "googl";
         if (this == GOOGL) { shortUrlProvider = "googl"; }
         else if (this == TINYURL) { shortUrlProvider = "tinyurl"; }
+        else if (this == YOURLS) { shortUrlProvider = "yourls"; }
         else if (this == BITLY) { shortUrlProvider = "bitly"; }
         return shortUrlProvider;
     }

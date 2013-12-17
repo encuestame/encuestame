@@ -809,7 +809,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
              publishedStatus.setSocialAccount(socialAccount);
              try {
                  log.debug("publishTweetPoll Publishing... "+tweetText.length());
-                 final TweetPublishedMetadata metadata = publicTweetPoll(tweetText, socialAccount);
+                 final TweetPublishedMetadata metadata = publicTweetPoll(tweetText, socialAccount, tweetPoll);
                  if (metadata == null) {
                      throw new EnMeFailSendSocialTweetException("status not valid");
                  }//getMessageProperties(propertieId)

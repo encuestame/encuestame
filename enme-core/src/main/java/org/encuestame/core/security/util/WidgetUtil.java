@@ -102,7 +102,9 @@ public class WidgetUtil {
                         EnMePlaceHolderConfigurer.getProperty("short.google.key"));
             } else if (provider.equals(ShortUrlProvider.NONE)) {
                 urlShort = url;
-            } else if (provider.equals(ShortUrlProvider.TINYURL)) {
+            } else if (provider.equals(ShortUrlProvider.YOURLS)) {
+            	urlShort = SocialUtils.getYourls(url);
+            } else if (provider.equals(ShortUrlProvider.TINYURL)) {            	
                 urlShort = SocialUtils.getTinyUrl(url);
             } else if (provider.equals(ShortUrlProvider.BITLY)) {
                  urlShort = SocialUtils.getBitLy(url,
