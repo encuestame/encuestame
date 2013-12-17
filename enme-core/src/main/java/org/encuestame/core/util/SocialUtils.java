@@ -150,7 +150,6 @@ public class SocialUtils {
 
     /**
      * Get TinyUrl.
-     *
      * @param string
      * @return
      * @throws HttpException

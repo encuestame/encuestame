@@ -9909,19 +9909,20 @@ input:focus {
   position: absolute;
   right: 10px;
   top: 3px;
+  margin: 0px;
 }
-/* line 41, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 42, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .web-gadget .options li {
   list-style: none;
   float: left;
   font-weight: bold;
   cursor: pointer;
 }
-/* line 51, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 52, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .web-gadget .gad-content {
   padding: 5px;
 }
-/* line 55, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 56, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .web-gadget .gad-content .web-list-more {
   padding: 10px;
   cursor: pointer;
@@ -9929,7 +9930,7 @@ input:focus {
   font-size: 15px;
 }
 
-/* line 68, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 69, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .gadgetRowItem {
   position: relative;
   border-bottom: 1px solid #e5e5e5;
@@ -9938,116 +9939,116 @@ input:focus {
   padding: 5px;
   color: black;
 }
-/* line 76, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 77, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .gadgetRowItem .description, .gadgetRowItem .link {
   font-weight: 400;
   color: #616161;
 }
-/* line 81, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 82, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .gadgetRowItem .buttons-group {
   position: relative;
   display: none;
   -webkit-transition: opacity 1s ease-out;
   opacity: 0;
 }
-/* line 88, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 89, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .gadgetRowItem div.active {
   opacity: 1;
   display: block;
 }
-/* line 93, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 94, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .gadgetRowItem .link {
   color: #0088cc;
   cursor: pointer;
 }
-/* line 98, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 99, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .gadgetRowItem .rating {
   position: absolute;
   top: 0;
   right: 0;
 }
-/* line 102, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 103, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .gadgetRowItem .rating > div {
   float: left;
   width: 50px;
 }
-/* line 108, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 109, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .gadgetRowItem .dijitButtonNode {
   padding: 2px 15px !important;
 }
-/* line 112, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 113, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .gadgetRowItem .link:hover {
   color: #005580;
   text-decoration: underline;
 }
 
-/* line 118, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 119, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .gadgetRowItem:last-child {
   border: 0;
 }
 
 /** tweetpoll votes **/
-/* line 124, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 125, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .ga-tp-votes {
   text-align: center;
 }
-/* line 127, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 128, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .ga-tp-votes .graph-wrapper {
   min-height: 380px;
 }
-/* line 131, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 132, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .ga-tp-votes .tools {
   position: relative;
 }
-/* line 134, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 135, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .ga-tp-votes .tools .arrows span {
   width: 30px;
   height: 50px;
 }
-/* line 139, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 140, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .ga-tp-votes .tools label {
   display: inline;
   clear: both;
 }
-/* line 144, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 145, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .ga-tp-votes .tools i {
   cursor: pointer;
 }
 
-/* line 151, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 152, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .web-directory .web-directory-item {
   border-bottom: 1px solid #DDD;
   padding-bottom: 25px;
   margin-left: 10px;
   margin-right: 10px;
 }
-/* line 157, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 158, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .web-directory .web-directory-item:last-child {
   border-bottom: 0;
 }
-/* line 161, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 162, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .web-directory .web-directory-item .web-directory-item-title {
   margin: 0;
 }
-/* line 164, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 165, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .web-directory .web-directory-item .web-directory-item-title > div {
   font-size: 22px;
   margin: 20px 0px 5px;
 }
-/* line 169, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 170, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .web-directory .web-directory-item .web-directory-item-title img {
   padding: 5px 0px 0px 0px;
   width: 70px;
   height: 70px;
 }
-/* line 176, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 177, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .web-directory .web-directory-item .web-directory-item-description {
   font-weight: 400px;
   font-size: 14px;
   padding-top: 20px;
   color: #616161;
 }
-/* line 183, ../../../../css/resource/sass/shared-components/_gadget.scss */
+/* line 184, ../../../../css/resource/sass/shared-components/_gadget.scss */
 .web-directory .web-directory-item .web-directory-item-actions {
   padding-top: 20px;
 }
