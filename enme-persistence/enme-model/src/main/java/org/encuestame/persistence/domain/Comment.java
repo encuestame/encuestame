@@ -125,7 +125,7 @@ public class Comment{
     /**
      * @return the createdAt
      */
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     public Date getCreatedAt() {
         return createdAt;

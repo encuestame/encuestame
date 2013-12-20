@@ -108,7 +108,7 @@ CREATE TABLE client (
 CREATE TABLE comments (
     commentid bigint NOT NULL,
     comment character varying(2000) NOT NULL,
-    created_at date,
+    created_at timestamp without time zone,
     dislikevote bigint,
     likevote bigint,
     parentid bigint,

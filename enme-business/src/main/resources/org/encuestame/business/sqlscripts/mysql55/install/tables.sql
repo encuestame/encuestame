@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `client` (
 CREATE TABLE IF NOT EXISTS `comments` (
   `commentId` bigint(20) NOT NULL AUTO_INCREMENT,
   `comment` longtext NOT NULL,
-  `created_at` date DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   `dislikeVote` bigint(20) DEFAULT NULL,
   `likeVote` bigint(20) DEFAULT NULL,
   `parentId` bigint(20) DEFAULT NULL,
