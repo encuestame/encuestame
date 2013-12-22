@@ -54,6 +54,7 @@ import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.ValidationUtils;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.Status;
@@ -1300,13 +1301,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
     }
 
-    /**
-     * Change Allow Repeated TweetPoll.
-     * @param tweetPollId
-     * @param username
-     * @throws EnMeNoResultsFoundException
-     * @throws EnmeFailOperation
-     */
+   /*
+    * (non-Javadoc)
+    * @see org.encuestame.core.service.imp.ITweetPollService#changeAllowRepeatedTweetPoll(java.lang.Long, java.lang.String)
+    */
     public void changeAllowRepeatedTweetPoll(final Long tweetPollId, final String username)
                 throws EnMeNoResultsFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = this.getTweetPoll(tweetPollId, username);
@@ -1317,6 +1315,28 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             throw new EnmeFailOperation("Fail Change Allow Repeated Operation");
         }
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ITweetPollService#chaneCommentStatusTweetPoll(java.lang.Long, java.lang.String)
+     */
+    public void chaneCommentStatusTweetPoll(final Long tweetPollId, final String username)
+            throws EnMeNoResultsFoundException, EnmeFailOperation{
+    final TweetPoll tweetPoll = this.getTweetPoll(tweetPollId, username);
+    final CommentOptions commentOption = tweetPoll.getShowComments();
+    if (tweetPoll != null) {
+    	if (commentOption == null) {
+    		tweetPoll.setShowComments(CommentOptions.MODERATE);
+    	} else if (commentOption.equals(CommentOptions.MODERATE)) {
+    		tweetPoll.setShowComments(CommentOptions.PUBLISHED);
+    	} else if (commentOption.equals(CommentOptions.PUBLISHED)) {
+    		tweetPoll.setShowComments(CommentOptions.MODERATE);
+    	}     
+        getTweetPollDao().saveOrUpdate(tweetPoll);
+    } else {
+        throw new EnmeFailOperation("Fail Change Allow Repeated Operation");
+    }
+}    
 
     /**
      * Change Close Notification.

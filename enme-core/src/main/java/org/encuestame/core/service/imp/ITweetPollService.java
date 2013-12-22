@@ -588,4 +588,14 @@ public interface ITweetPollService extends IMasterSurveyService{
 	 * @param attempts
 	 */
 	void removeScheduledItems(final Status status, final Integer attempts);
+	
+	/**
+	 * 
+	 * @param tweetPollId
+	 * @param username
+	 * @throws EnMeNoResultsFoundException
+	 * @throws EnmeFailOperation
+	 */
+	 void chaneCommentStatusTweetPoll(final Long tweetPollId, final String username)
+	            throws EnMeNoResultsFoundException, EnmeFailOperation;
 }

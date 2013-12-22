@@ -555,6 +555,10 @@ public class TweetPollJsonController extends AbstractJsonController {
                 log.debug("Property Type" + propertyType);
                 getTweetPollService().changeAllowRepeatedTweetPoll(
                         tweetPollId, getUserPrincipalUsername());
+            } else if ("comment".equals(propertyType)) {
+                log.debug("Property Type" + propertyType);
+                getTweetPollService().chaneCommentStatusTweetPoll(
+                        tweetPollId, getUserPrincipalUsername());
             } else {
                 log.warn("Type not valid");
             }

@@ -171,11 +171,11 @@ public class CommentService extends AbstractBaseService implements ICommentServi
         if (TypeSearchResult.TWEETPOLL.equals(commentBean.getType())) {
             final TweetPoll tweetPoll = getTweetPollById(commentBean.getId());
             comment.setTweetPoll(tweetPoll);
-            comment.setCommentOptions(tweetPoll.getShowComments());
+            comment.setCommentOptions(tweetPoll.getShowComments() == null ? CommentOptions.PUBLISHED : tweetPoll.getShowComments());
         } else if (TypeSearchResult.POLL.equals(commentBean.getType())) {
             final Poll poll = getPollById(commentBean.getId());
             comment.setPoll(poll);
-            comment.setCommentOptions(poll.getShowComments());
+            comment.setCommentOptions(poll.getShowComments()  == null ? CommentOptions.PUBLISHED : poll.getShowComments());
         } else if (TypeSearchResult.SURVEY.equals(commentBean.getType())) {
             //TODO: survey get imp
         	//comment.setPoll(poll);

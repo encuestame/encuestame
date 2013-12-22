@@ -86,7 +86,7 @@ public class Comment{
     private Boolean isPublished;
 
     /** **/
-    private CommentOptions commentOptions;
+    private CommentOptions commentOptions = CommentOptions.PUBLISHED;
 
     /**
      * @return the commentId
