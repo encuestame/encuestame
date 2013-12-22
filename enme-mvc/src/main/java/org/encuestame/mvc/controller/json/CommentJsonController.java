@@ -31,7 +31,7 @@ import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeNotAllowedException;
 import org.encuestame.utils.enums.CommentOptions;
-import org.encuestame.utils.enums.CommentStatus;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -159,7 +159,7 @@ public class CommentJsonController extends AbstractJsonController {
         try {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             List<CommentBean> comments = getCommentService().getCommentsbyUser(
-                    limit, start, CommentStatus.getCommentStatus(option));
+                    limit, start, CommentOptions.getCommentOption(option));
             jsonResponse.put("comments", comments);
             setItemResponse(jsonResponse);
         } catch (Exception e) {
@@ -337,8 +337,8 @@ public class CommentJsonController extends AbstractJsonController {
 			final TypeSearchResult type = TypeSearchResult
 					.getTypeSearchResult(filterValue(typeSearch));
 
-			final CommentStatus statusComm = CommentStatus
-					.getCommentStatus(filterValue(status));
+			final CommentOptions statusComm = CommentOptions
+					.getCommentOption(filterValue(status));
 
 			final SearchPeriods searchPeriod = SearchPeriods
 					.getPeriodString(filterValue(period));

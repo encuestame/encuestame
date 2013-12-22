@@ -134,7 +134,7 @@ public class ConvertDomainBean {
             final HttpServletRequest request) {
         final List<TweetPollAnswerSwitchBean> listSwitchs = new ArrayList<TweetPollAnswerSwitchBean>();
         for (TweetPollSwitch account : pollSwitchs) {
-            listSwitchs.add(ConvertDomainBean
+            listSwitchs.add(ConvertDomainBean 
                     .convertTweetPollSwitchToBean(account, request));
         }
         return listSwitchs;
@@ -1310,7 +1310,7 @@ public class ConvertDomainBean {
         commentBean.setCommentedBy(commentDomain.getUser().getCompleteName());
         commentBean.setCommentedByUsername(commentDomain.getUser()
                 .getUsername());
-        commentBean.setStatus(commentDomain.getCommentStatus());
+        commentBean.setStatus(commentDomain.getCommentOptions());
         // url
         // tweetpoll/4/do-you-like-summer-season%3F
         if (type != null) {

@@ -19,18 +19,37 @@ package org.encuestame.utils.enums;
  */
 public enum CommentOptions {
 
-    /** Restrict Comments. **/
+    /** 
+     * Define the status of the comment as restricted. 
+     **/
     RESTRICT,
 
-    /** Approve Comments. **/
+    /** 
+     * Approve Comments 
+     **/
     APPROVE,
 
-    /** Moderate Comments. **/
+    /**
+     *  Define the comment status as moderated.
+     **/
     MODERATE,
+    	
+    /**
+     * Define the asset as published
+     */
+    PUBLISHED,
 
-    showComments(){
+    /**
+     * Define the asset as a SPAM
+     */
+    SPAM,
 
-    };
+    /**
+     * Allow all
+     */
+    ALL,
+
+    showComments(){};
 
     /**
      * To String.
@@ -40,6 +59,9 @@ public enum CommentOptions {
         if (this == RESTRICT) { comment = "RESTRICT"; }
         else if (this == APPROVE) { comment = "APPROVE"; }
         else if (this == MODERATE) { comment = "MODERATE"; }
+        else if (this == PUBLISHED) { comment = "PUBLISHED"; }
+        else if (this == SPAM) { comment = "SPAM"; }
+        else if (this == ALL) { comment = "ALL"; }
         return comment;
     }
 
@@ -53,6 +75,25 @@ public enum CommentOptions {
         else if (option.equalsIgnoreCase("RESTRICT")) { return RESTRICT; }
         else if (option.equalsIgnoreCase("APPROVE")) { return APPROVE; }
         else if (option.equalsIgnoreCase("MODERATE")) { return MODERATE; }
+        else if (option.equalsIgnoreCase("PUBLISHED")) { return PUBLISHED; }
+        else if (option.equalsIgnoreCase("SPAM")) { return SPAM; }
+        else if (option.equalsIgnoreCase("ALL")) { return ALL; }
         else return null;
     }
+    
+    /**
+     * Get comment option enum.
+     * @param option
+     * @return
+     */
+    public static CommentOptions getCommentStatus(final String option) {
+        if (null == option) { return null; }
+        else if (option.equalsIgnoreCase("RESTRICT")) { return RESTRICT; }
+        else if (option.equalsIgnoreCase("APPROVE")) { return APPROVE; }
+        else if (option.equalsIgnoreCase("MODERATE")) { return MODERATE; }
+        else if (option.equalsIgnoreCase("PUBLISHED")) { return PUBLISHED; }
+        else if (option.equalsIgnoreCase("SPAM")) { return SPAM; }
+        else if (option.equalsIgnoreCase("ALL")) { return ALL; }
+        else return null;
+    }    
 }
