@@ -1133,7 +1133,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 	/**
 	 * Restrict Votes by Date.
 	 */
-	public Boolean validateVotesByDate(final Poll poll) {
+	public Boolean restrictVotesByDate(final Poll poll) {
 		Boolean limitVoteByDate = Boolean.FALSE;
 		if (poll.getCloseAfterDate()) {
 			limitVoteByDate = DateUtil.compareToCurrentDate(poll
@@ -1158,4 +1158,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
 		}
 		return limitVote;
 	}
+
+
 }
