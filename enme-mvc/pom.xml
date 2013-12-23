@@ -390,20 +390,20 @@
             <groupId>net.sf.uadetector</groupId>
             <artifactId>uadetector-resources</artifactId>
         </dependency>
-        
+
         <!-- Required when using ReactorSubscribableChannel (vs ExecutorSubscribableChannel) -->
         <dependency>
             <groupId>org.projectreactor</groupId>
             <artifactId>reactor-core</artifactId>
-            
+
         </dependency>
 
         <!-- Required when the "stomp-broker-relay" profile is enabled -->
         <dependency>
             <groupId>org.projectreactor</groupId>
             <artifactId>reactor-tcp</artifactId>
-        </dependency>        
-        
+        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-messaging</artifactId>
@@ -416,8 +416,13 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-        </dependency>        
-        
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <filters>

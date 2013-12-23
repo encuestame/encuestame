@@ -44,15 +44,9 @@ public class NotificationsWSController extends AbstractBaseOperations {
     private INotification notificationDao;
 
 
-	//@SubscribeEvent("/notifications-ws")
+    @MessageMapping("/notifications-ws")
 	public NotificationResume getPositions() throws Exception {
-		log.debug("/notifications-ws");
-		log.debug("/notifications-ws");
-		log.debug("/notifications-ws");
-		log.debug("/notifications-ws");
-		log.debug("/notifications-ws");
-		log.debug("/notifications-ws");
-		log.debug("/notifications-ws");		
+		log.debug("/notifications-ws");	
 		final NotificationResume notificationResume = new NotificationResume();
 		try {
             final String username = getUserPrincipalUsername();

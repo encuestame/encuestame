@@ -22,35 +22,18 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void configureClientOutboundChannel(ChannelRegistration arg0) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry configurer) {
 		configurer.enableSimpleBroker("/queue/", "/topic/");
-		//	configurer.enableStompBrokerRelay("/queue/", "/topic/");
-		configurer.setUserDestinationPrefix("/app");
-		//configurer.setAnnotationMethodDestinationPrefixes("/app");
-		
+		configurer.setUserDestinationPrefix("/app");		
 	}
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/enme-ws").withSockJS();
-		
+		registry.addEndpoint("/enme-ws").withSockJS();		
 	}
-
-//	@Override
-//	public void registerStompEndpoints(StompEndpointRegistry registry) {
-//		registry.addEndpoint("/enme-ws").withSockJS();
-//	}
-//
-//	@Override
-//	public void configureMessageBroker(MessageBrokerConfigurer configurer) {
-//		configurer.enableSimpleBroker("/queue/", "/topic/");
-//		//	configurer.enableStompBrokerRelay("/queue/", "/topic/");
-//		configurer.setAnnotationMethodDestinationPrefixes("/app");
-//	}
 
 }

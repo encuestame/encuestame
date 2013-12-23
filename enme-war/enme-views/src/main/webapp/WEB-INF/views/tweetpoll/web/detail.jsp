@@ -114,6 +114,7 @@
             <div name="comments" data-dojo-type="me/web/widget/comments/AddComment"
                  comment_limit="9000"
                  type="tweetpoll"
+                 isModerated="${isModerated}"
                  item_id="${tweetpoll.id}"
                  username="${account.username}"></div>
       </c:if>

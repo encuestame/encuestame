@@ -35,7 +35,7 @@
         <env>development</env>
         <javascript.minimize>false</javascript.minimize>
         <spring.webflow.version>2.4.0.BUILD-SNAPSHOT</spring.webflow.version>
-        <spring.security.version>3.2.0.M2</spring.security.version>
+        <spring.security.version>3.2.0.RELEASE</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-integration-core>2.1.0.RELEASE</spring-integration-core>
         <spring-oauth.version>1.0.0.M6</spring-oauth.version>
