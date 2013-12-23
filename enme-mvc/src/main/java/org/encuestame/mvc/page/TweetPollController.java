@@ -32,6 +32,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.SocialAccountBean;
@@ -356,20 +357,21 @@ public class TweetPollController extends AbstractViewController {
             model.addAttribute("tweetpoll", ConvertDomainBean.convertTweetPollToBean(tweetPoll));
             final List<HashTag> hashtagsBean = new ArrayList<HashTag>(tweetPoll.getHashTags());
             model.addAttribute("hashtags", ConvertDomainBean.convertListHashTagsToBean(hashtagsBean));
+            model.addAttribute("isModerated", tweetPoll.getShowComments() == null ? false : (tweetPoll.getShowComments().equals(CommentOptions.MODERATE) ? true : false));
             //answers.
             final List<TweetPollSwitch> answers = getTweetPollService().getTweetPollSwitch(tweetPoll);
             model.addAttribute("answers", answers);
             return "tweetpoll/detail";
         } catch (EnMeTweetPollNotFoundException e) {
             log.error(e);
-            return "404";
+            return "404"; //FIXME: replace by ENUM
         } catch (EnMeNoResultsFoundException e) {
              log.error(e);
-             return "404";
+             return "404"; //FIXME: replace by ENUM
         } catch (UnknownHostException e) {
             e.printStackTrace();
             log.error(e);
-            return "404";
+            return "404"; //FIXME: replace by ENUM
         }
     }
 }

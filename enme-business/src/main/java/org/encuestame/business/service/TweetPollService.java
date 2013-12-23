@@ -1333,18 +1333,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             throws EnMeNoResultsFoundException, EnmeFailOperation{
     final TweetPoll tweetPoll = this.getTweetPoll(tweetPollId, username);
     final CommentOptions commentOption = tweetPoll.getShowComments();
-    if (tweetPoll != null) {
-    	if (commentOption == null) {
-    		tweetPoll.setShowComments(CommentOptions.MODERATE);
-    	} else if (commentOption.equals(CommentOptions.MODERATE)) {
-    		tweetPoll.setShowComments(CommentOptions.PUBLISHED);
-    	} else if (commentOption.equals(CommentOptions.PUBLISHED)) {
-    		tweetPoll.setShowComments(CommentOptions.MODERATE);
-    	}     
-        getTweetPollDao().saveOrUpdate(tweetPoll);
-    } else {
-        throw new EnmeFailOperation("Fail Change Allow Repeated Operation");
-    }
+    if (commentOption == null) {
+		tweetPoll.setShowComments(CommentOptions.MODERATE);
+	} else if (commentOption.equals(CommentOptions.MODERATE)) {
+		tweetPoll.setShowComments(CommentOptions.PUBLISHED);
+	} else if (commentOption.equals(CommentOptions.PUBLISHED)) {
+		tweetPoll.setShowComments(CommentOptions.MODERATE);
+	}     
+	getTweetPollDao().saveOrUpdate(tweetPoll);
 }    
 
     /**

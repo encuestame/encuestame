@@ -236,6 +236,7 @@ public class SearchUtils {
     * @throws Exception
     */
     public static Document createTextDocument(final File file) throws Exception {
+    	//FIXME: 'FileReader' is never closed
         final String docText = new FileReader(file).toString();
         final Document doc = SearchUtils.addFields(file, docText);
         return doc;

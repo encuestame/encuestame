@@ -102,12 +102,11 @@ public class ConcurrentMapOAuthSessionManager implements OAuthSessionManager {
     /**
      * Get Session.
      */
-    public OAuthSession getSession(String requestToken)
-            throws EnMeNotValidKeyOAuthSecurityException {
+    public OAuthSession getSession(String requestToken) throws EnMeNotValidKeyOAuthSecurityException {
         OAuthSession session = sessions.get(requestToken);
-        log.debug("OAuth Session SE "+session.getSecret());
-        log.debug("OAuth Session AP "+session.getApiKey());
-        log.debug("OAuth Session RT "+session.getRequestToken());
+        log.trace("OAuth Session SE "+session.getSecret());
+        log.trace("OAuth Session AP "+session.getApiKey());
+        log.trace("OAuth Session RT "+session.getRequestToken());
         if (session == null) {
             log.error("OAuth Session is null");
             throw new EnMeNotValidKeyOAuthSecurityException(requestToken);
