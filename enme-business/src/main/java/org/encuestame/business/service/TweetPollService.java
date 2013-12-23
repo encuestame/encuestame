@@ -1131,6 +1131,18 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 		return limitVote;
 	}
 
+	/**
+	 * Restrict Votes by Date.
+	 */
+	public Boolean validateVotesByDate(final TweetPoll tweetPoll) {
+		Boolean limitVoteByDate = Boolean.FALSE;
+		if (tweetPoll.getDateLimit()) {
+			limitVoteByDate = DateUtil.compareToCurrentDate(tweetPoll
+					.getDateLimited());
+		}
+ 		return limitVoteByDate;
+	}
+
     /**
      * Create TweetPoll Folder.
      * @param folderName

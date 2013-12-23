@@ -590,9 +590,16 @@ public interface ITweetPollService extends IMasterSurveyService{
 	void removeScheduledItems(final Status status, final Integer attempts);
 
 	/**
-	 *
+	 * Validate Limit votes by date.
 	 * @param tweetPoll
 	 * @return
 	 */
 	Boolean validateLimitVotes(final TweetPoll tweetPoll);
+
+	/**
+	 *
+	 * @param tweetPoll
+	 * @return
+	 */
+	Boolean validateVotesByDate	(final TweetPoll tweetPoll);
 }
