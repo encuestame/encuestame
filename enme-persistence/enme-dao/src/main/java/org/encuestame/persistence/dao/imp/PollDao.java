@@ -299,10 +299,11 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                 .forClass(PollResult.class);
         criteria.setProjection(Projections.rowCount());
         criteria.add(Restrictions.eq("poll.pollId", pollId));
-        calculateSearchPeriodsDates(period, criteria, "votationDate");
+        if(period!=null){
+        	calculateSearchPeriodsDates(period, criteria, "votationDate");
+        }
         @SuppressWarnings("unchecked")
         List<Long> results = getHibernateTemplate().findByCriteria(criteria);
-
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
 
