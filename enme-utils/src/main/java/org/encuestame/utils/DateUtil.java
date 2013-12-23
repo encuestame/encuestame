@@ -420,4 +420,44 @@ public class DateUtil {
         cal.set(Calendar.MILLISECOND, 0);
         return cal.getTime();
     }
+
+    /**
+     * Convert Date to Calendar date.
+     * @param dateToCompare
+     * @return
+     */
+    public static Calendar convertDateToCalendar(final Date dateToCompare){
+    	final Calendar calendarDate = Calendar.getInstance();
+    	calendarDate.setTime(dateToCompare);
+    	return calendarDate;
+    }
+
+    /**
+     * Retrieve Calendar date.
+     * @return
+     */
+	public static Calendar getCalendarDate() {
+		final Calendar currentDate = Calendar.getInstance();
+		currentDate.set(Calendar.SECOND, 0);
+		return currentDate;
+	}
+
+	/**
+	 * Comparte
+	 * @param limitDate
+	 * @return
+	 */
+	public static Boolean compareToCurrentDate(final Date limitDate) {
+		final Calendar currentDateCalendar = DateUtil.getCalendarDate();
+		final Calendar dateToCompare = DateUtil
+				.convertDateToCalendar(limitDate);
+		Boolean isEqual = Boolean.FALSE;
+		// Remove seconds
+		currentDateCalendar.set(Calendar.SECOND, 0);
+		dateToCompare.set(Calendar.SECOND, 0);
+		if (currentDateCalendar.equals(dateToCompare)) {
+			isEqual = Boolean.TRUE;
+		}
+		return isEqual;
+	}
 }

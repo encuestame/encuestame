@@ -66,4 +66,10 @@
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
+    <definition name="LimitTweetVote" extends="main-vote">
+        <put-attribute name="title" value="TweetPoll Limited" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/limit.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
+    </definition>
+
 </tiles-definitions>

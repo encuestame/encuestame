@@ -95,7 +95,9 @@ public class TweetPollController extends AbstractViewController {
                     final TweetPollSwitch tweetPoll = getTweetPollService()
                             .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
                     model.addAttribute("tp_switch", tweetPoll);
-                    //NOTE: tweetpoll should be published to able to vote !!
+                    final Boolean validateLimitVotes = getTweetPollService().validateLimitVotes(tweetPoll.getTweetPoll());
+                    final Boolean restrictVotesByDate = getTweetPollService().validateVotesByDate(tweetPoll.getTweetPoll());
+                     //NOTE: tweetpoll should be published to able to vote !!
                     if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
                         log.debug("tweetpoll answer not found");
                         model.put("message", "Tweet Not Valid.");
@@ -103,30 +105,39 @@ public class TweetPollController extends AbstractViewController {
                         log.debug("tweetpoll is archived");
                         model.put("message", "Tweetpoll is closed, no more votes.");
                         pathVote = "completeTweetVote";
-                    }else {
-                        log.info("Validate Votting");
-                            log.info("IP" + IP);
-                            try {
-                                getTweetPollService().validateIpVote(IP,
-                                        tweetPoll.getTweetPoll());
-                                if (!tweetPoll.getTweetPoll().getCaptcha()) {
-                                    getTweetPollService().tweetPollVote(tweetPoll, IP,
-                                            Calendar.getInstance().getTime());
-                                    model.put("message", "Tweet Poll Voted.");
-                                    pathVote = "tweetVoted";
-                                    log.debug("VOTED");
-                                } else {
-                                    this.createCaptcha(model, tweetId);
-                                    log.debug("VOTE WITH CAPTCHA");
-                                    pathVote = "voteCaptcha";
-                                }
-                            } catch (Exception e) {
-                                // TODO: handle exception
-                                log.error("");
-                                pathVote = "repeatedTweetVote";
-                            }
-                }
-            }
+                        // Validate Limit Votes
+                    } else if(validateLimitVotes) {
+                     	log.debug("tweetpoll reached limit votes");
+                         model.put("message", "You have reached the maximum of votes for this poll.");
+                         pathVote = "LimitTweetVote";
+                    } else if(validateLimitVotes) {
+                      	log.debug("tweetpoll date limit votes");
+                        model.put("message", "The Tweetpoll has closed-.");
+                        pathVote = "LimitTweetVote";
+                    } else {
+                    	log.info("Validate Votting");
+                    	log.info("IP" + IP);
+					try {
+						getTweetPollService().validateIpVote(IP,
+								tweetPoll.getTweetPoll());
+						if (!tweetPoll.getTweetPoll().getCaptcha()) {
+							getTweetPollService().tweetPollVote(tweetPoll, IP,
+									Calendar.getInstance().getTime());
+							model.put("message", "Tweet Poll Voted.");
+							pathVote = "tweetVoted";
+							log.debug("VOTED");
+						} else {
+							this.createCaptcha(model, tweetId);
+							log.debug("VOTE WITH CAPTCHA");
+							pathVote = "voteCaptcha";
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						log.error("");
+						pathVote = "repeatedTweetVote";
+					}
+				}
+			}
             log.info("redirect template WHERE "+pathVote);
         }
         return pathVote;

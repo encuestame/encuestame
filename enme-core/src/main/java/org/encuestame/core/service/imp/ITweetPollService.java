@@ -69,9 +69,9 @@ public interface ITweetPollService extends IMasterSurveyService{
             final String question,
             final UserAccount user,
             final HttpServletRequest httpServletRequest) throws EnMeExpcetion;
-    
+
     /**
-     * 
+     *
      * @param id
      * @return
      * @throws EnMeNoResultsFoundException
@@ -562,23 +562,23 @@ public interface ITweetPollService extends IMasterSurveyService{
 	 */
 	Schedule createTweetPollPublishedStatusScheduled(
 			final Date scheduleDate,
-			final TypeSearchResult typeSearch, 
+			final TypeSearchResult typeSearch,
 			final TweetPollSavedPublishedStatus tpollSaved);
-	
+
 	/**
-	 * 
+	 *
 	 * @param bean
 	 * @return
 	 * @throws EnMeNoResultsFoundException
-	 * @throws EnMeExpcetion 
-	 */ 
-	List<Schedule> createTweetPollScheduled(final TweetPollScheduledBean bean) throws EnMeNoResultsFoundException, EnMeExpcetion; 	
+	 * @throws EnMeExpcetion
+	 */
+	List<Schedule> createTweetPollScheduled(final TweetPollScheduledBean bean) throws EnMeNoResultsFoundException, EnMeExpcetion;
 
 	/**
 	 * Publish scheduled items
 	 * @param status
 	 * @return
-	 * @throws EnMeNoResultsFoundException 
+	 * @throws EnMeNoResultsFoundException
 	 */
 	void publishScheduledItems(final Status status, final Date minimumDate) throws EnMeNoResultsFoundException;
 
@@ -588,9 +588,24 @@ public interface ITweetPollService extends IMasterSurveyService{
 	 * @param attempts
 	 */
 	void removeScheduledItems(final Status status, final Integer attempts);
-	
+
 	/**
-	 * 
+	 * Validate Limit votes by date.
+	 * @param tweetPoll
+	 * @return
+	 */
+	Boolean validateLimitVotes(final TweetPoll tweetPoll);
+
+	/**
+	 *
+	 * @param tweetPoll
+	 * @return
+	 */
+	Boolean validateVotesByDate	(final TweetPoll tweetPoll);
+
+
+	/**
+	 *
 	 * @param tweetPollId
 	 * @param username
 	 * @throws EnMeNoResultsFoundException
@@ -598,4 +613,5 @@ public interface ITweetPollService extends IMasterSurveyService{
 	 */
 	 void chaneCommentStatusTweetPoll(final Long tweetPollId, final String username)
 	            throws EnMeNoResultsFoundException, EnmeFailOperation;
+
 }
