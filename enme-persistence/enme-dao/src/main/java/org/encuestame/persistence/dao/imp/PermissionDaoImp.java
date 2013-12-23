@@ -53,7 +53,7 @@ public class PermissionDaoImp extends AbstractHibernateDaoSupport implements IPe
      * Load all permisssion.
      * @return List of  {@link Permission}
      */
-    public List<Permission> loadAllPermissions() throws HibernateException {
+    public List loadAllPermissions() throws HibernateException {
         return getHibernateTemplate().find("from Permission");
 
     }
@@ -67,15 +67,15 @@ public class PermissionDaoImp extends AbstractHibernateDaoSupport implements IPe
     public Permission loadPermission(final EnMePermission permission) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Permission.class);
         criteria.add(Restrictions.eq("permission", permission) );
-        final List<Permission> permissions = getHibernateTemplate().findByCriteria(criteria);
+        final List permissions = getHibernateTemplate().findByCriteria(criteria);
         if (permissions.size() >= 1) {
             log.warn("two permissions with the same name ");
             if (log.isDebugEnabled()) {
-                for (Permission permission2 : permissions) {
+                for (Permission permission2 : (List<Permission>) permissions) {
                     log.debug(permission2.getPermission() + ""+permission2.getPermissionDescription());
                 }
             }
-            return permissions.get(0);
+            return (Permission) permissions.get(0);
         } else {
             return null;
         }
@@ -87,7 +87,7 @@ public class PermissionDaoImp extends AbstractHibernateDaoSupport implements IPe
      * @throws HibernateException exception
      */
     @SuppressWarnings("unchecked")
-    public List<Permission> findAllPermissions() throws HibernateException {
+    public List findAllPermissions() throws HibernateException {
         return getHibernateTemplate().find("from Permission");
     }
 

@@ -454,7 +454,7 @@ public interface ITweetPoll extends IBaseDao{
      * @param tweetPoll
      * @return
      */
-    List<Object> validateTweetPollResultsIP(final String ip, final TweetPoll tweetPoll);
+    List<TweetPollResult> validateTweetPollResultsIP(final String ip, final TweetPoll tweetPoll);
 
     /**
      * Retrieve published and unpublished tweetpolls.

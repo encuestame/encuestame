@@ -44,7 +44,7 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      */
     //@Secured("ENCUESTAME_SUPER_ADMIN")
     @SuppressWarnings("unchecked")
-    public List<Group> findAllGroups() {
+    public List findAllGroups() {
         return getHibernateTemplate().find("from Group");
     }
 
@@ -54,7 +54,7 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      * @return list of groups.
      */
     @SuppressWarnings("unchecked")
-    public List<Group> loadGroupsByUser(final Account user) {
+    public List loadGroupsByUser(final Account user) {
         return getHibernateTemplate().findByNamedParam("from Group where account = :user ", "user", user);
     }
 
@@ -110,9 +110,9 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      */
     @SuppressWarnings("unchecked")
     public Long getCountUserbyGroup(final Long groupId){
-        List<Long> counter = getHibernateTemplate().findByNamedParam("select count(uid) "
+        List counter = getHibernateTemplate().findByNamedParam("select count(uid) "
                   +" from UserAccount where group.groupId = :groupId", "groupId", groupId);
-         return counter.get(0);
+         return (Long) counter.get(0);
     }
 
    /**
@@ -121,7 +121,7 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
     * @return
     */
     @SuppressWarnings("unchecked")
-    public List<Object[]> getUsersbyGroups(final Account user){
+    public List getUsersbyGroups(final Account user){
          return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.group.groupId) "
                                                          + "FROM UserAccount as scu, Group as sg "
                                                          + "WHERE scu.group.groupId = sg.groupId AND "
@@ -135,7 +135,7 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Object[]> countUsersbyGroups(final Long user){
+    public List countUsersbyGroups(final Long user){
         return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.group.groupId) "
                                                         + "FROM UserAccount as scu, Group as sg "
                                                         + "WHERE scu.group.groupId = sg.groupId AND "

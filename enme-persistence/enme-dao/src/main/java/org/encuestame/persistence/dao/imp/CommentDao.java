@@ -181,7 +181,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
   				calculateSearchPeriodsDates(period, criteria, "createdAt");
             }
           @SuppressWarnings("unchecked")
-          List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+          List results = getHibernateTemplate().findByCriteria(criteria);
           log.trace("Retrieve total comments by  " + itemType + "--->"
                   + results.size());
           return (Long) (results.get(0) == null ? 0 : results.get(0));
@@ -219,7 +219,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 				calculateSearchPeriodsDates(period, criteria, "createdAt");
          }
 		@SuppressWarnings("unchecked")
-		List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+		List results = getHibernateTemplate().findByCriteria(criteria);
 		log.trace("Retrieve total comments by  " + itemType + "--->"
 				+ results.size());
 		return (Long) (results.get(0) == null ? 0 : results.get(0));

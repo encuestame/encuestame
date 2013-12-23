@@ -28,7 +28,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
-import org.springframework.messaging.simp.annotation.SubscribeEvent;
 import org.springframework.stereotype.Controller;
 
 
@@ -45,7 +44,7 @@ public class NotificationsWSController extends AbstractBaseOperations {
     private INotification notificationDao;
 
 
-	@SubscribeEvent("/notifications-ws")
+	//@SubscribeEvent("/notifications-ws")
 	public NotificationResume getPositions() throws Exception {
 		log.debug("/notifications-ws");
 		log.debug("/notifications-ws");

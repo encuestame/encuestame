@@ -31,10 +31,10 @@
         <!-- encuestame version -->
         <encuestame.version>1.147-M4-SNAPSHOT</encuestame.version>
         <!-- Spring Version <spring.version>3.1.0.BUILD-SNAPSHOT</spring.version> -->
-        <spring.version>4.0.0.RC1</spring.version>
+        <spring.version>4.0.0.RELEASE</spring.version>
         <env>development</env>
         <javascript.minimize>false</javascript.minimize>
-        <spring.webflow.version>2.4.0.M1</spring.webflow.version>
+        <spring.webflow.version>2.4.0.BUILD-SNAPSHOT</spring.webflow.version>
         <spring.security.version>3.2.0.M2</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-integration-core>2.1.0.RELEASE</spring-integration-core>
@@ -160,7 +160,7 @@
         <findbugs-maven-plugin>1.2</findbugs-maven-plugin>
         <taglist-maven-plugin>2.4</taglist-maven-plugin>
         <maven-checkstyle-plugin>2.5</maven-checkstyle-plugin>
-        <site.version>2.3</site.version>        
+        <site.version>2.3</site.version>
         <!-- <jetty.ssl>7.0.0.pre5</jetty.ssl> -->
         <keytool.maven.plugin>1.0</keytool.maven.plugin>
         <maven.war.plugin>2.1.1</maven.war.plugin>
@@ -1730,7 +1730,7 @@
                 <groupId>org.eclipse.jetty.websocket</groupId>
                 <artifactId>websocket-server</artifactId>
                 <version>${jetty7.version}</version>
-            </dependency>                        
+            </dependency>
             <dependency>
                 <groupId>commons-dbcp</groupId>
                 <artifactId>commons-dbcp</artifactId>
@@ -1848,7 +1848,7 @@
               <groupId>ro.isdc.wro4j</groupId>
               <artifactId>wro4j-extensions</artifactId>
               <version>${wro4j.version}</version>
-            </dependency>            
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

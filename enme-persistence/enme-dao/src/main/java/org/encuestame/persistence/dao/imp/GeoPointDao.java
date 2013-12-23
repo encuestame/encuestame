@@ -45,7 +45,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      * @throws HibernateException hibernate
      */
     @SuppressWarnings("unchecked")
-    public List<GeoPoint> findAll() throws HibernateException {
+    public List findAll() throws HibernateException {
           return getHibernateTemplate().find("from GeoPoint");
     }
 
@@ -69,7 +69,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      * @throws HibernateException HibernateException
      */
     @SuppressWarnings("unchecked")
-    public List<GeoPoint> getLocationByTypeLocationId(final Long tidType) throws HibernateException{
+    public List getLocationByTypeLocationId(final Long tidType) throws HibernateException{
         final String queryLocation = "FROM GeoPoint WHERE tidtype.id  =?";
        return   getHibernateTemplate().find(queryLocation, tidType);
     }
@@ -80,7 +80,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      * @throws HibernateException HibernateException
      */
     @SuppressWarnings("unchecked")
-    public List<GeoPoint> getLocationbyLevelId(final Integer locateId) throws HibernateException{
+    public List getLocationbyLevelId(final Integer locateId) throws HibernateException{
         final String queryLocationType ="FROM GeoPoint WHERE locationLevel = ?";
         return getHibernateTemplate().find(queryLocationType, locateId);
     }
@@ -91,7 +91,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<GeoPointFolder> getLocationFolders(final Long userId){
+    public List getLocationFolders(final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPointFolder.class);
          criteria.add(Restrictions.eq("users.id", userId));
          criteria.add(Restrictions.isNull("subLocationFolder"));
@@ -105,7 +105,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<GeoPointFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId){
+    public List getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPointFolder.class);
         criteria.add(Restrictions.eq("users.id", userId));
       //  criteria.add(Restrictions.eq("subLocationFolder.locationFolderId", locationFolderId));
@@ -119,7 +119,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<GeoPoint> getLocationByFolder(final Long locationFolderId, final Long userId){
+    public List getLocationByFolder(final Long locationFolderId, final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPoint.class);
          criteria.add(Restrictions.eq("geoPointFolder.id", locationFolderId));
          criteria.add(Restrictions.eq("account.uid", userId));
@@ -132,7 +132,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<GeoPoint> getLocationByUser(final Long userId){
+    public List getLocationByUser(final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPoint.class);
         criteria.add(Restrictions.eq("account.uid", userId));
         return getHibernateTemplate().findByCriteria(criteria);

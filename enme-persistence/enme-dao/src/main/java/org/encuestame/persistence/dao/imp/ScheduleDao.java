@@ -46,8 +46,8 @@ public class ScheduleDao  extends AbstractHibernateDaoSupport implements ISchedu
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(Schedule.class);
 		criteria.setProjection(Projections.min("scheduleDate"));
-		List<Date> results = getHibernateTemplate().findByCriteria(criteria);
-		return (results.get(0) == null ? new Date() : results.get(0));
+		List results = getHibernateTemplate().findByCriteria(criteria);
+		return (Date) (results.get(0) == null ? new Date() : results.get(0));
 
 	}
 
@@ -59,7 +59,7 @@ public class ScheduleDao  extends AbstractHibernateDaoSupport implements ISchedu
 	 * .utils.enums.Status)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Schedule> retrieveScheduled(final Status status, final Date minimumDate) {
+	public List retrieveScheduled(final Status status, final Date minimumDate) {
 
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(Schedule.class);
@@ -77,7 +77,7 @@ public class ScheduleDao  extends AbstractHibernateDaoSupport implements ISchedu
 	 * .lang.Integer, org.encuestame.utils.enums.Status)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Schedule> retrieveFailedScheduledItems(final Integer attempts,
+	public List retrieveFailedScheduledItems(final Integer attempts,
 			final Status status) {
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(Schedule.class);
