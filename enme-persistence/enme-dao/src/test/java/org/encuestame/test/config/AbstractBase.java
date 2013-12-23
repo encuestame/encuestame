@@ -103,7 +103,6 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.enums.CommentOptions;
-import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.GadgetType;
 import org.encuestame.utils.enums.HitCategory;
@@ -2303,10 +2302,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param status
      * @return
      */
-    public Comment createDefaultTweetPollCommentStatus(
+    public Comment createDefaultTweetPollCommentOptions(
             final String comment,
             final TweetPoll tpoll,
-            final UserAccount userAcc, final CommentStatus status){
+            final UserAccount userAcc, final CommentOptions status){
         return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L , new Date());
     }
 
@@ -2315,17 +2314,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param comment
      * @param tpoll
      * @param userAcc
-     * @param commentStatus
+     * @param commentOptions
      * @return
      */
     public Comment createDefaultTweetPollCommentWithStatus(
             final String comment,
             final TweetPoll tpoll,
             final UserAccount userAcc,
-            final CommentStatus commentStatus,
+            final CommentOptions commentOptions,
             final Date creationDate){
         final Comment tweetPollComment = this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L , creationDate);
-        tweetPollComment.setCommentStatus(commentStatus);
+        tweetPollComment.setCommentOptions(commentOptions);
         getCommentsOperations().saveOrUpdate(tweetPollComment);
         return tweetPollComment;
     }
@@ -2366,15 +2365,15 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param comment
      * @param poll
      * @param userAcc
-     * @param commentStatus
+     * @param commentOptions
      * @return
      */
     public Comment createDefaultPollCommentWithStatus(final String comment,
             final Poll poll, final UserAccount userAcc,
-            final CommentStatus commentStatus, final Date creationDate) {
+            final CommentOptions commentOptions, final Date creationDate) {
         final Comment pollComment = this.createComment(comment, 0L, null, null,
                 poll, userAcc, 0L, creationDate);
-        pollComment.setCommentStatus(commentStatus);
+        pollComment.setCommentOptions(commentOptions);
         getCommentsOperations().saveOrUpdate(pollComment);
         return pollComment;
     }
@@ -2396,16 +2395,16 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param comment
      * @param survey
      * @param userAcc
-     * @param commentStatus
+     * @param commentOptions
      * @return
      */
     public Comment createDefaultSurveyCommentWithStatus(final String comment,
             final Survey survey, final UserAccount userAcc,
-            final CommentStatus commentStatus, final Date creationdate) {
+            final CommentOptions commentOptions, final Date creationdate) {
 
         final Comment surveyComment = this.createComment(comment, 0L, null,
                 survey, null, userAcc, 0L, creationdate);
-        surveyComment.setCommentStatus(commentStatus);
+        surveyComment.setCommentOptions(commentOptions);
         getCommentsOperations().saveOrUpdate(surveyComment);
         return surveyComment;
     }

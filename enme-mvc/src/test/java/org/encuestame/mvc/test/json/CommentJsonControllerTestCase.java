@@ -25,7 +25,7 @@ import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.categories.test.DefaultTest;
-import org.encuestame.utils.enums.CommentStatus;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.MethodJson;
 import org.joda.time.DateTime;
 import org.json.simple.JSONArray;
@@ -197,18 +197,18 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
 	public void testCommentsByStatus() throws ServletException, IOException {
 
 		createDefaultTweetPollCommentWithStatus("first comment", tweetPoll,
-				getSpringSecurityLoggedUserAccount(), CommentStatus.APPROVE,
+				getSpringSecurityLoggedUserAccount(), CommentOptions.APPROVE,
 				creationDate.toDate());
 		createDefaultTweetPollCommentWithStatus("second comment", tweetPoll,
-				getSpringSecurityLoggedUserAccount(), CommentStatus.APPROVE,
+				getSpringSecurityLoggedUserAccount(), CommentOptions.APPROVE,
 				creationDate.toDate());
 
 		createDefaultTweetPollCommentWithStatus("third comment", tweetPoll,
-				getSpringSecurityLoggedUserAccount(), CommentStatus.MODERATE,
+				getSpringSecurityLoggedUserAccount(), CommentOptions.MODERATE,
 				creationDate.minusDays(3).toDate());
 
 		createDefaultTweetPollCommentWithStatus("fourth comment", tweetPoll,
-				getSpringSecurityLoggedUserAccount(), CommentStatus.APPROVE,
+				getSpringSecurityLoggedUserAccount(), CommentOptions.APPROVE,
 				creationDate.toDate());
 
 		initService(

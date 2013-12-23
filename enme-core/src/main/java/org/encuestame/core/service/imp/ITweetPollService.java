@@ -602,4 +602,16 @@ public interface ITweetPollService extends IMasterSurveyService{
 	 * @return
 	 */
 	Boolean validateVotesByDate	(final TweetPoll tweetPoll);
+
+
+	/**
+	 *
+	 * @param tweetPollId
+	 * @param username
+	 * @throws EnMeNoResultsFoundException
+	 * @throws EnmeFailOperation
+	 */
+	 void chaneCommentStatusTweetPoll(final Long tweetPollId, final String username)
+	            throws EnMeNoResultsFoundException, EnmeFailOperation;
+
 }

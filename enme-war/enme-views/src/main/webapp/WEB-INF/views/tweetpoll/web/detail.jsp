@@ -111,7 +111,11 @@
             <spring:message code="options.comments" />
       </h3>
       <c:if test="${logged}">
-            <div name="comments" data-dojo-type="me/web/widget/comments/AddComment" type="tweetpoll" item_id="${tweetpoll.id}" username="${account.username}"></div>
+            <div name="comments" data-dojo-type="me/web/widget/comments/AddComment"
+                 comment_limit="9000"
+                 type="tweetpoll"
+                 item_id="${tweetpoll.id}"
+                 username="${account.username}"></div>
       </c:if>
       <c:if test="${!logged}">
           <div>

@@ -54,6 +54,7 @@ import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.ValidationUtils;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.Status;
@@ -113,7 +114,15 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         log.info("tweetPoll size: " + tweetpollsSearchResult.size());
         return this.setTweetPollListAnswers(tweetpollsSearchResult, Boolean.TRUE, httpServletRequest);
     }
-
+    
+    /**
+     * 
+     * @param username
+     * @param httpServletRequest
+     * @param tpollSearch
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
     public List<SearchBean> getTweetsPollsByUserNameSearch(
             final String username,
             final HttpServletRequest httpServletRequest,
@@ -190,6 +199,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         log.info("filterTweetPollByItemsByType max: "+ tpollSearch.getMax());
         log.info("filterTweetPollByItemsByType start: "+ tpollSearch.getStart());
         final List<SearchBean> list = new ArrayList<SearchBean>();
+        //TODO: why this code is commented?
 //        if (TypeSearch.KEYWORD.equals(tpollSearch.getTypeSearch())) {
 //            list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(),
 //                    tpollSearch.getKeyword(), httpServletRequest, tpollSearch));
@@ -197,7 +207,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         if (TypeSearch.BYOWNER.equals(tpollSearch.getTypeSearch())) {
             list.addAll(this.getTweetsPollsByUserNameSearch(getUserPrincipalUsername(), httpServletRequest, tpollSearch));
         } else if (TypeSearch.ALL.equals(tpollSearch.getTypeSearch())) {
-             //TODO: this method return only the tweetpoll by owner.
+             //TODO: this method return only the tweetpoll by owner. WHY return the same data of BYOWNER, should be return all tweetpoll???
              list.addAll(this.getTweetsPollsByUserNameSearch(getUserPrincipalUsername(),
                              httpServletRequest, tpollSearch));
         } else if (TypeSearch.LASTDAY.equals(tpollSearch.getTypeSearch())) {
@@ -1333,13 +1343,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
     }
 
-    /**
-     * Change Allow Repeated TweetPoll.
-     * @param tweetPollId
-     * @param username
-     * @throws EnMeNoResultsFoundException
-     * @throws EnmeFailOperation
-     */
+   /*
+    * (non-Javadoc)
+    * @see org.encuestame.core.service.imp.ITweetPollService#changeAllowRepeatedTweetPoll(java.lang.Long, java.lang.String)
+    */
     public void changeAllowRepeatedTweetPoll(final Long tweetPollId, final String username)
                 throws EnMeNoResultsFoundException, EnmeFailOperation{
         final TweetPoll tweetPoll = this.getTweetPoll(tweetPollId, username);
@@ -1350,6 +1357,28 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             throw new EnmeFailOperation("Fail Change Allow Repeated Operation");
         }
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ITweetPollService#chaneCommentStatusTweetPoll(java.lang.Long, java.lang.String)
+     */
+    public void chaneCommentStatusTweetPoll(final Long tweetPollId, final String username)
+            throws EnMeNoResultsFoundException, EnmeFailOperation{
+    final TweetPoll tweetPoll = this.getTweetPoll(tweetPollId, username);
+    final CommentOptions commentOption = tweetPoll.getShowComments();
+    if (tweetPoll != null) {
+    	if (commentOption == null) {
+    		tweetPoll.setShowComments(CommentOptions.MODERATE);
+    	} else if (commentOption.equals(CommentOptions.MODERATE)) {
+    		tweetPoll.setShowComments(CommentOptions.PUBLISHED);
+    	} else if (commentOption.equals(CommentOptions.PUBLISHED)) {
+    		tweetPoll.setShowComments(CommentOptions.MODERATE);
+    	}     
+        getTweetPollDao().saveOrUpdate(tweetPoll);
+    } else {
+        throw new EnmeFailOperation("Fail Change Allow Repeated Operation");
+    }
+}    
 
     /**
      * Change Close Notification.

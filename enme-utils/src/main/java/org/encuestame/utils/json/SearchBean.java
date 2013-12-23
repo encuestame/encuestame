@@ -70,6 +70,8 @@ public class SearchBean extends AbstractUnitSurvey{
 	    private Boolean limitVotesEnabled;
 	    @JsonProperty(value = "resumeTweetPollDashBoard")
 	    private Boolean resumeTweetPollDashBoard;
+	    @JsonProperty(value = "moderated_comments")
+	    private Boolean moderatedComments;
 	    @JsonProperty(value = "createdDateAt")
 	    private Date createdDateAt;
 	    @JsonProperty(value = "limitVotesDate")
@@ -542,9 +544,24 @@ public class SearchBean extends AbstractUnitSurvey{
 	     */
 	    public void setHits(Long hits) {
 	        this.hits = hits;
-	    }
+	    }	   	   
 
-	    /* (non-Javadoc)
+	    /**
+		 * @return the moderatedComments
+		 */
+	    @JsonIgnore
+		public Boolean getModeratedComments() {
+			return moderatedComments;
+		}
+
+		/**
+		 * @param moderatedComments the moderatedComments to set
+		 */
+		public void setModeratedComments(Boolean moderatedComments) {
+			this.moderatedComments = moderatedComments;
+		}
+
+		/* (non-Javadoc)
 	     * @see java.lang.Object#toString()
 	     */
 	    @Override
