@@ -83,16 +83,19 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
     @SuppressWarnings("unchecked")
 	public List<Comment> getCommentsbyUser(final UserAccount userAcc,
 			final Integer maxResults, final Integer start,
-			final CommentOptions commentOptions) {
+			final List<CommentOptions> commentOptions) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
         criteria.add(Restrictions.eq("user", userAcc));
         criteria.addOrder(Order.desc("createdAt"));
-        criteria.addOrder(Order.desc("likeVote"));
-        if (!commentOptions.equals(CommentOptions.ALL)) {
-        	 criteria.add(Restrictions.eq("commentOptions", commentOptions));
-        }
-        return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
+		criteria.addOrder(Order.desc("likeVote"));
+		if ((commentOptions.size() != 1)
+				&& (!commentOptions.get(0).equals(CommentOptions.ALL))) {
+			criteria.add(Restrictions.in("commentOptions", commentOptions));
+		}
+		return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
     }
+
+
 
     /*
      * (non-Javadoc)

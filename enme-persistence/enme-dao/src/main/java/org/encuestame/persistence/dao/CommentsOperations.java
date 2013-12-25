@@ -68,7 +68,7 @@ public interface CommentsOperations extends IBaseDao {
      * @param commentOptions
      * @return
      */
-    List<Comment> getCommentsbyUser(final UserAccount userAcc, final Integer maxResults, final Integer start, final CommentOptions commentOptions);
+    List<Comment> getCommentsbyUser(final UserAccount userAcc, final Integer maxResults, final Integer start, final List<CommentOptions> commentOptions);
 
     /**
      * Get comments by TweetPoll
