@@ -31,7 +31,6 @@ import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeNotAllowedException;
 import org.encuestame.utils.enums.CommentOptions;
-import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -153,13 +152,15 @@ public class CommentJsonController extends AbstractJsonController {
     public @ResponseBody ModelMap getComments(
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "start", required = false) Integer start,
-            @RequestParam(value = "option", required = false) String option,
+            @RequestParam(value = "option", required = false)  List<String> option,
+
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
+        	final List<CommentOptions> options = ConvertDomainBean.convertToCommentsOptions(option);
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             List<CommentBean> comments = getCommentService().getCommentsbyUser(
-                    limit, start, CommentOptions.getCommentOption(option));
+                    limit, start, options);
             jsonResponse.put("comments", comments);
             setItemResponse(jsonResponse);
         } catch (Exception e) {

@@ -68,7 +68,7 @@ public interface ICommentService {
      * @throws EnMeNoResultsFoundException
      */
     List<CommentBean> getCommentsbyUser(final Integer maxResults,
-            final Integer start, final CommentOptions commentOptions) throws EnMeNoResultsFoundException;
+            final Integer start, final List<CommentOptions> commentOptions) throws EnMeNoResultsFoundException;
 
     /**
      * Get comments by keyword.

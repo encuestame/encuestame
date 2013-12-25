@@ -1968,4 +1968,22 @@ public class ConvertDomainBean {
         }
         return socialNetworksProviders;
     }
+
+    /**
+     * Convert String List to {@link CommentOptions}
+     * @param options
+     * @return
+     */
+    public static final List<CommentOptions> convertToCommentsOptions(
+            final List<String> options) {
+        final List<CommentOptions> comments = new ArrayList<CommentOptions>();
+    	CommentOptions commentRestriction;
+    	for (String restrictOption : options) {
+    		commentRestriction = CommentOptions.getCommentOption(restrictOption);
+    		if(commentRestriction !=null){
+    			comments.add(commentRestriction);
+    		}
+		}
+    	return comments;
+     }
 }

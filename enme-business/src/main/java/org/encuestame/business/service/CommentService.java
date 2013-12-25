@@ -127,7 +127,7 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * @see org.encuestame.core.service.imp.ICommentService#getCommentsbyUser(java.lang.Integer, java.lang.Integer)
      */
     public List<CommentBean> getCommentsbyUser(final Integer maxResults,
-            final Integer start, final CommentOptions commentOptions) throws EnMeNoResultsFoundException{
+            final Integer start, final List<CommentOptions> commentOptions) throws EnMeNoResultsFoundException{
         final List<CommentBean> commentBean = new ArrayList<CommentBean>();
         final List<Comment> comments = getCommentsOperations().getCommentsbyUser(
                 getUserAccount(getUserPrincipalUsername()), maxResults, start, commentOptions);
