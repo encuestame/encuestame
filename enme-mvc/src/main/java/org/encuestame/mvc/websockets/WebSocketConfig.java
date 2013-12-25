@@ -15,14 +15,12 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
-	public void configureClientInboundChannel(ChannelRegistration arg0) {
-		// TODO Auto-generated method stub
-		
+	public void configureClientInboundChannel(ChannelRegistration arg0) {		
 	}
 
 	@Override
-	public void configureClientOutboundChannel(ChannelRegistration arg0) {
-		// TODO Auto-generated method stub		
+	public void configureClientOutboundChannel(ChannelRegistration registration) {
+		registration.taskExecutor().corePoolSize(4).maxPoolSize(10);
 	}
 
 	@Override

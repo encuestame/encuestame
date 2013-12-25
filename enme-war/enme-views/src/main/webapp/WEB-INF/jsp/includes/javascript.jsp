@@ -18,7 +18,6 @@ require([
     "me/core/enme"
 ], function(dojo, declare, parser, ready, Websocket, Offline, LoginDialog, _ENME) {
     ready(function(){
-        // Call the parser manually so it runs after our widget is defined, and page has finished loading
         <%@ include file="/WEB-INF/jsp/includes/decorators/enme-init.jsp"%>
         dojo.subscribe('/encuestame/login/show', this, dojo.hitch(this, function(expired_session) {
             var login = new LoginDialog({
@@ -26,12 +25,8 @@ require([
                 action_url : '<%=request.getContextPath()%>/user/signin/authenticate'
             });
         }));
-        //parse all widgets.
         parser.parse();
-
-
-        <%@ include file="/WEB-INF/jsp/includes/decorators/shared-javascript.jsp"%>        
-       
+        <%@ include file="/WEB-INF/jsp/includes/decorators/shared-javascript.jsp"%>
     });
 });
 <%@ include file="/WEB-INF/jsp/includes/decorators/dojo-notify.jsp"%>

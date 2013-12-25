@@ -16,7 +16,7 @@ try {
           dojo.publish('/notifications/service/messages', data);
         },
         channel : '/topic/notification-updates.*'
-      }               
+      }
     });
 
     _ENME.setActivity(socket);
@@ -29,21 +29,21 @@ try {
         "down" : function () {
             socket.disconnect();
             console.log("2");
-        }                    
+        }
     });
 
-    _ENME.setOffline(offline); 
+    _ENME.setOffline(offline);
 
-    // socket.subscribe({
-    //     type : 'subscribe',
-    //     suffix : false,
-    //     callback : function(data) {
-    //       console.error("app/notificationsws", data);
-    //     },
-    //     channel : '/app/notifications-ws'
-    // });
+    socket.subscribe({
+         type : 'subscribe',
+         suffix : false,
+         callback : function(data) {
+           console.error("/app/notifications", data);
+         },
+         channel : '/app/notifications'
+    });
 
-             
+
 } catch(error) {
     console.log('error websocket', error);
 }

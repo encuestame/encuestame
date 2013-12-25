@@ -57,9 +57,13 @@
         <security:remember-me key="${spring.sec.rememberMe.key}"
                               services-alias="_rememberMeServices"
                               token-validity-seconds="10080" />
-        <security:anonymous enabled="true"  granted-authority="ENCUESTAME_ANONYMOUS" key="${spring.sec.anonymous.key}" />
+        <security:anonymous enabled="true" 
+                            granted-authority="ENCUESTAME_ANONYMOUS" 
+                            key="${spring.sec.anonymous.key}" />
         <security:logout logout-success-url="${spring.sec.logout.sucess}"
-            invalidate-session="true" logout-url="${spring.sec.logout.url}" delete-cookies="JSESSIONID"/>
+                         invalidate-session="true" 
+                         logout-url="${spring.sec.logout.url}" 
+                         delete-cookies="JSESSIONID"/>
         <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
 <!--         <security:session-management invalid-session-url="/user/session/invalid" -->
 <!--                   session-fixation-protection="newSession"></security:session-management> -->
@@ -77,8 +81,7 @@
         <security:intercept-url pattern="/user/forgot/**" access="permitAll" />
         <security:intercept-url pattern="/activity/**" access="permitAll"  />
         <security:intercept-url pattern="/user/logout" access="hasRole('ENCUESTAME_USER')"  />
-        <security:intercept-url pattern="/admon/**/*"  access="hasRole('ENCUESTAME_OWNER')" />
-        <security:intercept-url pattern="/enme-ws/**/*" access="permitAll" />
+        <security:intercept-url pattern="/admon/**/*"  access="hasRole('ENCUESTAME_OWNER')" />        
         <security:intercept-url pattern="/settings/**/*" access="hasRole('ENCUESTAME_USER')" />
         <security:intercept-url pattern="/user/**/*"  access="hasRole('ENCUESTAME_USER')" />
         <security:intercept-url pattern="/user/tweetpoll"  access="hasAnyRole('ENCUESTAME_USER','ENCUESTAME_EDITOR')" />
@@ -95,7 +98,9 @@
         <security:intercept-url pattern="/api/groups/**/*"  access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/api/common/comment/comments/**/*"  access="permitAll"  />
         <security:intercept-url pattern="/api/notifications/**/*"  access="hasRole('ENCUESTAME_USER')"  />
-        <security:intercept-url pattern="/resources/**" access="permitAll"/>
+        <security:intercept-url pattern="/resources/**" access="permitAll"/>  
+        
+        <security:intercept-url pattern="/enme-ws/**/*" access="hasRole('ENCUESTAME_USER')" />      
     </security:http>
 
     <bean id="authenticationEntryPoint"
