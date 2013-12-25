@@ -17,6 +17,8 @@ package org.encuestame.mvc.websockets.notifications;
 
 import java.security.Principal;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.dao.INotification;
@@ -28,12 +30,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 
 
 @Controller
 public class NotificationsWSController extends AbstractBaseOperations {
-
+	
+	/**
+	 * 
+	 */
+	private static final Log logger = LogFactory.getLog(NotificationsWSController.class);
+	
+	/**
+	 * 
+	 */
+	public NotificationsWSController() {}
+	
 	/*
      * Log.
      */
@@ -43,8 +56,12 @@ public class NotificationsWSController extends AbstractBaseOperations {
     @Autowired
     private INotification notificationDao;
 
-
-    @MessageMapping("/notifications-ws")
+    /**
+     * 
+     * @return
+     * @throws Exception
+     */
+    @SubscribeMapping("/notifications")
 	public NotificationResume getPositions() throws Exception {
 		log.debug("/notifications-ws");	
 		final NotificationResume notificationResume = new NotificationResume();
@@ -78,8 +95,9 @@ public class NotificationsWSController extends AbstractBaseOperations {
 		return notificationResume;
 	}
 
-	@MessageMapping("/push-notification-ws")
+	@MessageMapping("/push_notification")
 	public void executeTrade(Principal principal) {
+		logger.debug("/push_notification");
 		//		trade.setUsername(principal.getName());
 		//		log.debug("Trade: " + trade);
 		//this.tradeService.executeTrade(trade);
