@@ -34,6 +34,7 @@
     <!-- Configures Web Flow to use Tiles to create views for rendering; Tiles allows for applying consistent layouts to your views-->
    <bean id="viewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
         <property name="viewResolvers" ref="tilesResolver" />
+         <property name="useSpringBeanBinding" value="true" />
    </bean>
 
 
