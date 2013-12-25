@@ -16,6 +16,7 @@ package org.encuestame.test.business.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +33,6 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeNotAllowedException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
-import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
@@ -116,10 +116,11 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 		createDefaultTweetPollCommentWithStatus("dumb tweetPoll question",
 				tweetPoll, getSpringSecurityLoggedUserAccount(),
 				CommentOptions.APPROVE, this.creationDate.toDate());
-
+		final List<CommentOptions> opt = new ArrayList<CommentOptions>();
+		opt.add(CommentOptions.ALL);
         createDefaultTweetPollComment("dumb tweetPoll question", tweetPoll, getSpringSecurityLoggedUserAccount());
 
-        final List<CommentBean> commentsbyUser = getCommentsOperationsService().getCommentsbyUser(this.MAX_RESULTS, this.START, CommentOptions.ALL);
+        final List<CommentBean> commentsbyUser = getCommentsOperationsService().getCommentsbyUser(this.MAX_RESULTS, this.START, opt);
         assertEquals("Should be equals", 6, commentsbyUser.size());
 
     }
