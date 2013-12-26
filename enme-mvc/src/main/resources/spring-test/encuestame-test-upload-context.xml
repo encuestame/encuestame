@@ -9,7 +9,7 @@
     <!-- thumbnail generator engine
          thanks to raulraja.
      -->
-    <bean id="thumbnailGeneratorEngine" class="org.encuestame.core.image.ThumbnailGeneratorEngineImpl">
+    <bean id="thumbnailGeneratorEngine" class="org.encuestame.business.images.ThumbnailGeneratorEngineImpl">
 
         <!-- the file extension for the thumbnail files -->
         <property name="generatedExtension">
@@ -47,6 +47,6 @@
     </bean>
 
     <!-- a thumbnail generator that generates thumbnails from images -->
-    <bean id="imageThumbnailGenerator" class="org.encuestame.core.image.ImageThumbnailGeneratorImpl" />
+    <bean id="imageThumbnailGenerator" class="org.encuestame.business.images.ImageThumbnailGeneratorImpl" />
 
 </beans>
