@@ -29,7 +29,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 19, 2011
  */
-@Deprecated
+//@Deprecated
 public class EnMeContext extends ContextLoaderListener implements ServletContextListener {
 
     /**
@@ -49,7 +49,11 @@ public class EnMeContext extends ContextLoaderListener implements ServletContext
         super();
     }
 
-    /**
+    public EnMeContext(WebApplicationContext context) {
+		super(context);
+	}
+
+	/**
      * On start application.
      */
     @Override

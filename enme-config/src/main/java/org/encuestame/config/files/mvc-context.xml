@@ -17,7 +17,7 @@
     <!-- Scans for application @Components to deploy -->
 <!--     <context:component-scan base-package="org.encuestame.mvc" /> -->
 
-    <mvc:annotation-driven>
+   <!--  <mvc:annotation-driven>
          <mvc:message-converters register-defaults="true">
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
               <property name="supportedMediaTypes" value = "text/plain;charset=UTF-8" />
@@ -31,10 +31,10 @@
                   </property>
               </bean>
               <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
-              <!-- Converter for images -->
+              Converter for images
               <bean class="org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter"/>
           </mvc:message-converters>
-    </mvc:annotation-driven>
+    </mvc:annotation-driven> -->
 
   <!--   <bean id="messagesInterceptor" class="org.encuestame.mvc.interceptor.Messagei18nInterceptor" />
     <bean id="mobileInterceptor" class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
@@ -195,31 +195,7 @@
   <bean id="wroProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
       <property name="location" value="classpath:wro.properties" />
   </bean>   -->
-  <!--
-    Dispatches requests mapped to flows to FlowHandler implementations
-    TEMP: Disabled, last Mileston of webflow is not compatible with Spring 4
-   <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
-    <property name="flowExecutor" ref="flowExecutor" />
-  </bean>
-  -->
-
-
-    <!-- Maps request paths to flows in the flowRegistry;
-        TEMP: Disabled, last Mileston of webflow is not compatible with Spring 4
-    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
-        <property name="flowRegistry" ref="flowRegistry"/>
-        <property name="order" value="0"/>
-         <property name="interceptors">
-            <list>
-                <ref bean="checkInstallInterceptor"/>
-                <ref bean="enMeInterceptor"/>
-                <ref bean="mobileInterceptor"/>
-                <ref bean="openSessionInViewInterceptor"/>
-            </list>
-        </property>
-    </bean>
-    -->
-
+  
 
     <!-- Create Cookie Default Locale-->
 <!--     <bean id="localeResolver"
