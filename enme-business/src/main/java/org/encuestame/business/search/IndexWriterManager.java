@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Singleton;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,6 +32,7 @@ import org.springframework.util.Assert;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since Mar 25, 2011
  */
+
 public class IndexWriterManager implements IIndexWriter {
 
     /**

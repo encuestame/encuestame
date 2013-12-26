@@ -13,8 +13,14 @@
 package org.encuestame.mvc.view;
 
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.core.rss.AbstractBaseAtomFeedView;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+import com.google.common.annotations.Beta;
 import com.sun.syndication.feed.atom.Feed;
 
 /**
@@ -23,7 +29,8 @@ import com.sun.syndication.feed.atom.Feed;
  * @since Jul 3, 2010 2:31:28 AM
  * @version $Id:$
  */
-public final class TweetPollAtomFeedView extends AbstractBaseAtomFeedView {
+@Component(value="tweetPollAtomFeedView")
+public class TweetPollAtomFeedView extends AbstractBaseAtomFeedView {
 
 
     /**

@@ -13,8 +13,12 @@
 package org.encuestame.mvc.view;
 
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.core.rss.AbstractBaseAtomFeedView;
+import org.springframework.stereotype.Component;
+
 import com.sun.syndication.feed.atom.Feed;
 
 /**
@@ -22,6 +26,7 @@ import com.sun.syndication.feed.atom.Feed;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 21, 2012
  */
+@Component(value="profileAtomFeedView")
 public final class ProfileAtomFeedView extends AbstractBaseAtomFeedView {
 
     /**

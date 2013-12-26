@@ -20,6 +20,7 @@ import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * Calculate relevance.
@@ -64,6 +65,7 @@ public class CalculateRelevance {
      * @throws EnMePollNotFoundException
      * @throws EnMeTweetPollNotFoundException
      */
+    @Scheduled(cron = "${cron.calculateRelevane}")
     public void calculate() {
         log.info("************ Start calculate relevance item **************");
         // Unused code to search items by date range.

@@ -30,6 +30,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * This job calculate every day the size of each hashgtag in the database.
@@ -62,6 +63,7 @@ public class CalculateHashTagSize {
     /**
      * Calculate all hashtag size.
      */
+    @Scheduled(cron = "${cron.calculateReindex}")
     public void calculate(){
         log.info("************ Start hashtag calculate job **************");
 

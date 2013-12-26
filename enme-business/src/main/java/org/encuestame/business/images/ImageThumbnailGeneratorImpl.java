@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.image;
+package org.encuestame.business.images;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -31,7 +31,6 @@ import org.apache.log4j.Logger;
  * Generate thumbnails for images.
  * @author Picado, Juan juanATencuestame.org
  * @since Jan 22, 2011 7:48:24 PM
- * @version $Id:$
  */
 public class ImageThumbnailGeneratorImpl implements ThumbnailGenerator {
 

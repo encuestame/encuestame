@@ -15,6 +15,7 @@ package org.encuestame.mvc.view;
 import java.util.Date;
 
 import org.encuestame.core.rss.AbstractBaseRssFeedView;
+import org.springframework.stereotype.Component;
 
 import com.sun.syndication.feed.rss.Channel;
 
@@ -23,6 +24,7 @@ import com.sun.syndication.feed.rss.Channel;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since Jul 3, 2010 10:42:10 AM
  */
+@Component(value="projectRssFeedView")
 public class ProjectRssFeedView extends AbstractBaseRssFeedView{
 
     @Override

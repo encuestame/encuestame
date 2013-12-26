@@ -13,7 +13,10 @@
 package org.encuestame.mvc.view;
 
 import java.util.Date;
+
 import org.encuestame.core.rss.AbstractBaseRssFeedView;
+import org.springframework.stereotype.Component;
+
 import com.sun.syndication.feed.rss.Channel;
 
 /**
@@ -21,6 +24,7 @@ import com.sun.syndication.feed.rss.Channel;
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 3, 2010 10:42:10 AM
  */
+@Component(value="tweetPollRssFeedView")
 public class TweetPollRssFeedView extends AbstractBaseRssFeedView{
 
     @Override
