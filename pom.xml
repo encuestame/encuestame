@@ -180,6 +180,7 @@
         <module>enme-oauth</module>
         <module>enme-persistence</module>
         <module>enme-business</module>
+        <module>enme-config</module>
         <module>enme-mvc</module>
         <module>enme-war</module>
     </modules>
