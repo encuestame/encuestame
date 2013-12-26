@@ -5,7 +5,7 @@ import org.springframework.context.annotation.ImportResource;
 
 
 @Configuration
-@ImportResource({"classpath:org/encuestame/config/files/web-flow-context.xml"})
+@ImportResource({"classpath:/config/files/web-flow-context.xml"})
 public class EnMeWebflow {
 
 }

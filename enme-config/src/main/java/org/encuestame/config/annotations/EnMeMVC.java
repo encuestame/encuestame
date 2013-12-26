@@ -5,12 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
-import org.codehaus.jackson.map.ObjectMapper;
 import org.encuestame.business.images.ImageThumbnailGeneratorImpl;
 import org.encuestame.business.images.ThumbnailGenerator;
 import org.encuestame.business.images.ThumbnailGeneratorEngineImpl;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.service.MessageSourceFactoryBean;
 import org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter;
 import org.encuestame.mvc.interceptor.CheckInstallInterceptor;
 import org.encuestame.mvc.interceptor.EnMeMobileInterceptor;
@@ -23,8 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -55,17 +54,28 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 @Configuration
 public class EnMeMVC extends WebMvcConfigurerAdapter {
 	
-	/**
-	 * 
-	 */
-	@Inject
-	private Environment environment;
-	
+
 	/**
 	 * 
 	 */
 	@Autowired
-	private SessionFactory sessionFactory;
+	private OpenSessionInViewInterceptor openSessionInViewInterceptor;
+	
+	@Autowired
+	private EnMeMobileInterceptor enMeMobileInterceptor;
+	
+    /**
+    *
+    */
+   @Autowired
+   private MessageSource messageSource;
+
+	
+	@Autowired
+	private CheckInstallInterceptor checkInstallInterceptor;
+	
+	@Autowired
+	private EnMeSecurityInterceptor enMeSecurityInterceptor;
 
 	/*
 	 * (non-Javadoc)
@@ -91,10 +101,10 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 	 */
 	private WebContentInterceptor getWebContentInterceptor(){
 		final WebContentInterceptor contentInterceptor = new WebContentInterceptor();
-		contentInterceptor.setCacheSeconds(Integer.valueOf(environment.getProperty("cache.period")));
-		contentInterceptor.setUseExpiresHeader(Boolean.valueOf(environment.getProperty("cache.useExpiresHeader")));
-		contentInterceptor.setUseCacheControlHeader(Boolean.valueOf(environment.getProperty("cache.useCacheControlHeader")));
-		contentInterceptor.setUseCacheControlNoStore(Boolean.valueOf(environment.getProperty("ache.useCacheControlNoStore")));
+		contentInterceptor.setCacheSeconds(Integer.valueOf(EnMePlaceHolderConfigurer.getProperty("cache.period")));
+		contentInterceptor.setUseExpiresHeader(Boolean.valueOf(EnMePlaceHolderConfigurer.getProperty("cache.useExpiresHeader")));
+		contentInterceptor.setUseCacheControlHeader(Boolean.valueOf(EnMePlaceHolderConfigurer.getProperty("cache.useCacheControlHeader")));
+		contentInterceptor.setUseCacheControlNoStore(Boolean.valueOf(EnMePlaceHolderConfigurer.getProperty("ache.useCacheControlNoStore")));
 		return contentInterceptor;
 	}
 	
@@ -104,15 +114,12 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 	 */
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new Messagei18nInterceptor()).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
-		registry.addInterceptor(new EnMeMobileInterceptor()).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
-		registry.addInterceptor(new EnMeSecurityInterceptor()).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
+		registry.addInterceptor(enMeMobileInterceptor).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
+		registry.addInterceptor(this.enMeSecurityInterceptor).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
 		registry.addInterceptor(new SetupInterceptor()).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
 		registry.addInterceptor(new SignInInterceptor()).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
-		registry.addInterceptor(new CheckInstallInterceptor()).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
-		registry.addInterceptor(getWebContentInterceptor()).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
-		final OpenSessionInViewInterceptor openSessionInViewInterceptor = new OpenSessionInViewInterceptor();
-		openSessionInViewInterceptor.setSessionFactory(this.sessionFactory);
-		openSessionInViewInterceptor.setSingleSession(true);
+		registry.addInterceptor(this.checkInstallInterceptor).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
+		registry.addInterceptor(getWebContentInterceptor()).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;		
 		registry.addWebRequestInterceptor(openSessionInViewInterceptor).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");
 	}	
 	
@@ -123,16 +130,16 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		//images
 		final ByteArrayHttpMessageConverter arrayHttpMessageConverter = new ByteArrayHttpMessageConverter();
-		final MediaType mediaType = new MediaType("image/jpeg");
-		final MediaType jsonMediaType = new MediaType("application/json");
+		//final MediaType mediaType = new MediaType(MediaType.IMAGE_JPEG);
+		//final MediaType jsonMediaType = new MediaType("application/json");
 		final List<MediaType> supportedMediaTypes = new ArrayList<MediaType>();
-		supportedMediaTypes.add(mediaType);
+		supportedMediaTypes.add(MediaType.IMAGE_JPEG);
 		arrayHttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes);
 			
 		//json
 		final MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();		
 		final List<MediaType> jsonSupportedMediaTypes = new ArrayList<MediaType>();
-		jsonSupportedMediaTypes.add(jsonMediaType);
+		jsonSupportedMediaTypes.add(MediaType.APPLICATION_JSON);
 		jackson2HttpMessageConverter.setSupportedMediaTypes(jsonSupportedMediaTypes);
 		jackson2HttpMessageConverter.setObjectMapper(new com.fasterxml.jackson.databind.ObjectMapper());
 
@@ -184,29 +191,14 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
         ret.setDefinitions(new String[] { "/WEB-INF/layouts/tiles.xml,/WEB-INF/views/**/tiles.xml" });
         return ret;
     }
-    
-	/**
-	 * Messages to support internationalization/localization.
-	 */
-	@Bean(name="messageSource")
-	public MessageSource messageSource() {
-		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasename("/WEB-INF/messages/messages");
-		messageSource.setDefaultEncoding("UTF-8");
-		messageSource.setCacheSeconds(1);
-		if (environment.acceptsProfiles("embedded")) {
-			messageSource.setCacheSeconds(0);
-		}
-		return messageSource;
-	}    
-    
+        
     /**
      * 
      * @return
      */
     public @Bean(name="multipartResolver") CommonsMultipartResolver setMultiPart(){
     		final CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-    		commonsMultipartResolver.setMaxUploadSize(Integer.valueOf(environment.getProperty("application.file.upload.limit")));
+    		commonsMultipartResolver.setMaxUploadSize(Integer.valueOf(EnMePlaceHolderConfigurer.getProperty("application.file.upload.limit")));
     		return commonsMultipartResolver;
     }
  	
@@ -236,6 +228,11 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
      */
     public @Bean(name="jsonView") MappingJackson2JsonView jsonView(){
     	return new MappingJackson2JsonView();
+    }
+    
+    @Lazy
+    public @Bean(name="messageSourceFactoryBean") MessageSourceFactoryBean messageSourceFactoryBean(){
+    	return new MessageSourceFactoryBean(this.messageSource);
     }
     
     /**

@@ -89,15 +89,12 @@ public class XMLConfigurationFileSupport {
      * @param file
      * @throws ConfigurationException
      */
-    private void reloadConfiguration(final File file)
-            throws ConfigurationException {
+    private void reloadConfiguration(final File file) throws ConfigurationException {
         log.debug("createConfiguration " + file.exists());
         log.debug("createConfiguration.... " + file.getAbsolutePath());
-        XMLConfigurationFileSupport.xmlConfiguration = new XMLConfiguration(
-                file);
+        XMLConfigurationFileSupport.xmlConfiguration = new XMLConfiguration(file);
         XMLConfigurationFileSupport.xmlConfiguration.setAutoSave(true);
-        XMLConfigurationFileSupport.xmlConfiguration
-                .setReloadingStrategy(new FileChangedReloadingStrategy());
+        XMLConfigurationFileSupport.xmlConfiguration.setReloadingStrategy(new FileChangedReloadingStrategy());
     }
 
     /**

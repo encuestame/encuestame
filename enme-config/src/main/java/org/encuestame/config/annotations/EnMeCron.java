@@ -19,10 +19,10 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.util.Assert;
 
 
 @Configuration
@@ -33,7 +33,7 @@ public class EnMeCron {
 	/**
 	 * 
 	 */
-	@Autowired
+	@Autowired(required=true)
 	private IndexFSDirectory indexFSDirectory;
 	
 	/**
@@ -42,11 +42,12 @@ public class EnMeCron {
 	 * @throws EnMeExpcetion
 	 */
 	@Scope("singleton")
-	@Bean(name = "indexWriter")
+	@Bean(name = "indexWriter", initMethod="openIndexWriter", destroyMethod="closeIndexWriter")
 	public  IndexWriterManager indexWriterManager() throws EnMeExpcetion {
 		final IndexWriterManager searchAttachmentManager = new IndexWriterManager();
+		Assert.notNull(this.indexFSDirectory, "Index FSD Directory is null");
 		searchAttachmentManager.setDirectoryStore(this.indexFSDirectory);
-		return new IndexWriterManager();
+		return searchAttachmentManager;
 	}
 	
 	/**
@@ -161,5 +162,13 @@ public class EnMeCron {
 		ReIndexJob indexJob = new ReIndexJob();
 		indexJob.setIndexRebuilder(new IndexRebuilder());
 		return indexJob;
+	}
+
+	public IndexFSDirectory getIndexFSDirectory() {
+		return indexFSDirectory;
+	}
+
+	public void setIndexFSDirectory(IndexFSDirectory indexFSDirectory) {
+		this.indexFSDirectory = indexFSDirectory;
 	}
 }

@@ -32,7 +32,7 @@ public class EnMeInitializer implements WebApplicationInitializer {
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
 				"DispatcherServlet", new DispatcherServlet(context));
 		dispatcher.setLoadOnStartup(1);
-		dispatcher.addMapping("/*");
+		dispatcher.addMapping("/");
 
 	}
 	
@@ -42,7 +42,7 @@ public class EnMeInitializer implements WebApplicationInitializer {
 	 */
 	private AnnotationConfigWebApplicationContext getContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.setConfigLocation("org.encuesstame.business.config.annotations");
+		context.setConfigLocation("org.encuestame.config.annotations");
 		return context;
 	}
 
