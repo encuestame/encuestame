@@ -1,26 +1,7 @@
 package org.encuestame.config.annotations;
 
-import java.util.Properties;
-
-import javax.inject.Inject;
-import javax.sql.DataSource;
-
-import org.apache.commons.dbcp.BasicDataSource;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.hibernate.SessionFactory;
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
-import org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig;
-import org.springframework.context.annotation.AdviceMode;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.core.env.Environment;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.orm.hibernate3.HibernateTransactionManager;
-import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 //@EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
