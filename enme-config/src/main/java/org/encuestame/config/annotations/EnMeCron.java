@@ -28,6 +28,7 @@ import org.springframework.util.Assert;
 @Configuration
 @EnableScheduling
 @EnableAsync
+//@ImportResource({"classpath:/config/files/task-search.xml"})
 public class EnMeCron {
 	
 	/**

@@ -93,7 +93,7 @@ public class CommentService extends AbstractBaseService implements ICommentServi
             final Integer max,
             final Integer start) throws EnMeExpcetion{
         final List<Comment> comments = new ArrayList<Comment>();
-        if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
+        if (searchResult.equals(TypeSearchResult.TWEETPOLL)) { 
             final TweetPoll tweetPoll = getTweetPollService().getTweetPollPublishedById(
                     itemId);
              comments.addAll(this.getCommentsbyTweetPoll(tweetPoll, max, start));

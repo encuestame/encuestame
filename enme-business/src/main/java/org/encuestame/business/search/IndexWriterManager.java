@@ -61,7 +61,7 @@ public class IndexWriterManager implements IIndexWriter {
      * Initialize writer lucene index directory.
      * @throws IOException
      */
-    //@PostConstruct
+    @PostConstruct
     public void openIndexWriter() {
         try {
             this.indexWriter = SearchUtils.openIndexWriter(getDirectoryStore(), this.indexWriter);
@@ -80,7 +80,7 @@ public class IndexWriterManager implements IIndexWriter {
      * @throws CorruptIndexException
      * @throws IOException
      */
-    //@PreDestroy
+    @PreDestroy
     public void closeIndexWriter() throws CorruptIndexException, IOException{
         Assert.notNull(this.indexWriter);
         SearchUtils.closeIndexWriter(indexWriter);

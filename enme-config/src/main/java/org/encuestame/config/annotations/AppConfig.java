@@ -14,6 +14,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.ClassPathResource;
@@ -22,6 +23,8 @@ import org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor;
 
 @Configuration
 @ComponentScan(basePackages = "org.encuestame")
+
+@ImportResource({"classpath:/config/files/service-context.xml"})
 public class AppConfig {
 
 	/**

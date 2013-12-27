@@ -38,21 +38,21 @@ public class MessageSourceFactoryBean implements MessageSource {
      *
      */
     private MessageSource messageSource;
+    
+    /**
+     * 
+     */
+    public MessageSourceFactoryBean() {}
 
-    
-    
+    /**
+     * 
+     * @param messageSource
+     */
     public MessageSourceFactoryBean(MessageSource messageSource) {
 		super();
 		this.messageSource = messageSource;
 	}
 
-	/**
-     *
-     * @param messagesource
-     */
-    public void setMessagesource(final MessageSource messagesource) {
-        this.messageSource = messagesource;
-    }
 
     /**
      *
@@ -102,4 +102,21 @@ public class MessageSourceFactoryBean implements MessageSource {
         //log.debug("Message Source Factory Bean :::==> " + locales);
         return locales;
     }
+
+    /**
+     * 
+     * @return
+     */
+	public MessageSource getMessageSource() {
+		return messageSource;
+	}
+	
+	/**
+	 * 
+	 * @param messageSource
+	 */
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
+	}
+    
 }

@@ -23,6 +23,11 @@
             <value>messages</value>
         </property>
     </bean>
+    
+    
+    <bean class="org.encuestame.core.service.MessageSourceFactoryBean">
+       <constructor-arg  index="0" ref="messageSource"/>
+    </bean> 
 
     <!-- Startup Support -->
     <bean id="install" class="org.encuestame.business.setup.install.DatabaseInstall"
