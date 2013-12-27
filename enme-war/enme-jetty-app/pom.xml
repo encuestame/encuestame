@@ -476,13 +476,7 @@
 			<artifactId>enme-config</artifactId>
 			<version>1.147-M4-SNAPSHOT</version>
 			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>org.encuestame</groupId>
-			<artifactId>enme-spring</artifactId>
-			<version>1.147-M4-SNAPSHOT</version>
-			<type>war</type>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>org.encuestame</groupId>
 			<artifactId>enme-views</artifactId>

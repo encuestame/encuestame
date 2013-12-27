@@ -23,8 +23,7 @@ import org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor;
 
 @Configuration
 @ComponentScan(basePackages = "org.encuestame")
-
-@ImportResource({"classpath:/config/files/service-context.xml"})
+//@ImportResource({"classpath:/config/files/service-context.xml"})
 public class AppConfig {
 
 	/**
