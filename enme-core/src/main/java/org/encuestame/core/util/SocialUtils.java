@@ -18,6 +18,9 @@ import java.io.PrintWriter;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.validation.Path.Node;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -27,12 +30,16 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import javax.xml.xpath.XPath;
+
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.social.SocialProvider;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.util.Assert;
+import org.w3c.dom.Document;
 
 /**
  * Social Util Helpers.
@@ -139,6 +146,52 @@ public class SocialUtils {
         }
         return shortUrl;
     }
+    
+
+    /**
+     * Get TinyUrl.
+     * @param string
+     * @return
+     * @throws HttpException
+     * @throws IOException
+     */
+    public static String getYourls(final String string) {
+        String yourlsShortUrl = string;
+        HttpClientParams params = new HttpClientParams();
+        params.setConnectionManagerTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
+        params.setSoTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
+        HttpClient httpclient = new HttpClient(params); //TODO: time out??
+        //httpclient.setConnectionTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
+        //log.debug("tiny url timeout "+EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
+        //httpclient.setParams(params);
+        HttpMethod method = new GetMethod(EnMePlaceHolderConfigurer.getProperty("short.yourls.path"));
+        method.setQueryString(new NameValuePair[] {
+        		new NameValuePair("url", string),
+        		new NameValuePair("action", "shorturl"),
+        		new NameValuePair("format", "json"),
+        		new NameValuePair("signature", EnMePlaceHolderConfigurer.getProperty("short.yourls.key")) 
+        });
+        try {
+            httpclient.executeMethod(method);
+            final Object jsonObject = JSONValue.parse(method.getResponseBodyAsString());
+            final JSONObject o = (JSONObject) jsonObject;
+            yourlsShortUrl = (String) o.get("shorturl");
+        } catch (HttpException e) {
+            log.error("HttpException "+ e);
+            yourlsShortUrl = string;
+        } catch (IOException e) {
+            log.error("IOException"+ e);
+            yourlsShortUrl = string;
+        } catch (Exception e) {
+			e.printStackTrace();
+			log.error("IOException"+ e);
+            yourlsShortUrl = string;
+		} finally {
+            method.releaseConnection();
+        }
+        return yourlsShortUrl;
+    }
+    
 
     /**
      * Get TinyUrl.
@@ -249,6 +302,15 @@ public class SocialUtils {
                 facebookUrl = facebookUrl.replace("{A}", array[1]);
                 builder.append(facebookUrl);
             }
+        } else if(SocialProvider.PLURK.equals(provider)){
+        	String tumblrLink = EnMePlaceHolderConfigurer.getProperty("social.plurk");
+        	tumblrLink = tumblrLink.replace("{0}", username.toString());
+        	builder.append(tumblrLink);                   
+        } else if(SocialProvider.TUMBLR.equals(provider)){
+        	String tumblrLink = EnMePlaceHolderConfigurer.getProperty("social.tubmlr");
+        	tumblrLink.replace("{username}", username);
+        	tumblrLink.replace("{id}", id);
+        	builder.append(tumblrLink);
         } else if(SocialProvider.LINKEDIN.equals(provider)){
             builder.append(EnMePlaceHolderConfigurer.getProperty("social.linkedin"));
         } else if(SocialProvider.IDENTICA.equals(provider)){
@@ -256,7 +318,7 @@ public class SocialUtils {
              identicaUrl = identicaUrl.replace("{id}", id);
              builder.append(identicaUrl);
         }
-        log.debug("getSocialTweetPublishedUrl "+builder.toString());
+        //log.debug("getSocialTweetPublishedUrl "+builder.toString());
         return builder.toString();
     }
 

@@ -42,7 +42,7 @@ public class GeoPointTypeDao extends AbstractHibernateDaoSupport implements IGeo
      * @throws HibernateException hibernate exception.
      */
     @SuppressWarnings("unchecked")
-    public List<GeoPointType> findAll() throws HibernateException {
+    public List findAll() throws HibernateException {
         return getHibernateTemplate().find("from GeoPointType");
     }
 

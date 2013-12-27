@@ -1231,7 +1231,7 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 	 * @throws EnMeNoResultsFoundException 
 	 */
 	@Test
-	@Category(DefaultTest.class)
+	@Category(InternetTest.class)
 	public void testPublishScheduled() throws EnMeNoResultsFoundException {
 		// Tweetpoll
 		final TweetPoll tweetPoll1 = createPublishedTweetPoll(

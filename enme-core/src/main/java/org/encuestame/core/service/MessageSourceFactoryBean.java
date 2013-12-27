@@ -25,9 +25,8 @@ import org.springframework.stereotype.Service;
  * Message Source Factory Bean.
  * @author Picado, Juan juanATencuestame.org
  * @since 12/05/2009 9:17:43
- * @version $Id$
  */
-@Service
+
 public class MessageSourceFactoryBean implements MessageSource {
 
     /**
@@ -38,16 +37,22 @@ public class MessageSourceFactoryBean implements MessageSource {
     /**
      *
      */
-    @Autowired
     private MessageSource messageSource;
+    
+    /**
+     * 
+     */
+    public MessageSourceFactoryBean() {}
 
     /**
-     *
-     * @param messagesource
+     * 
+     * @param messageSource
      */
-    public void setMessagesource(final MessageSource messagesource) {
-        this.messageSource = messagesource;
-    }
+    public MessageSourceFactoryBean(MessageSource messageSource) {
+		super();
+		this.messageSource = messageSource;
+	}
+
 
     /**
      *
@@ -97,4 +102,21 @@ public class MessageSourceFactoryBean implements MessageSource {
         //log.debug("Message Source Factory Bean :::==> " + locales);
         return locales;
     }
+
+    /**
+     * 
+     * @return
+     */
+	public MessageSource getMessageSource() {
+		return messageSource;
+	}
+	
+	/**
+	 * 
+	 * @param messageSource
+	 */
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
+	}
+    
 }

@@ -968,6 +968,22 @@ input:focus {
   resize: none;
 }
 
+/* line 603, ../../../../css/resource/sass/_common.scss */
+.picture {
+  float: left;
+}
+/* line 605, ../../../../css/resource/sass/_common.scss */
+.picture img {
+  border: 1px solid #c9f5c8;
+  -webkit-border-radius: 140px;
+  -moz-border-radius: 140px;
+  -ms-border-radius: 140px;
+  -o-border-radius: 140px;
+  border-radius: 140px;
+  height: 110px;
+  width: 110px;
+}
+
 /*
  * Bootstrap v2.3.1
  *
@@ -8341,28 +8357,53 @@ div.mobile-search input {
   padding: 0 4px;
 }
 
-/* line 1, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 3, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+.web-tweetpoll-comments .picture img {
+  width: 90px;
+  height: 90px;
+}
+
+/* line 10, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+.add-comment {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+/* line 15, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+.add-comment .options {
+  margin-right: 40px;
+  float: right;
+  margin-top: 10px;
+}
+/* line 21, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+.add-comment .picture {
+  text-align: center;
+  width: 90px;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+/* line 29, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments {
   overflow: auto;
   background-color: white;
 }
-/* line 6, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 34, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper {
   margin: 0;
 }
-/* line 9, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 37, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment {
   clear: both;
   overflow: auto;
   padding: 5px;
   position: relative;
 }
-/* line 16, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 44, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-image {
   float: left;
   width: 45px;
 }
-/* line 23, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 50, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper-no-content {
   clear: both;
   color: #A09F9D;
@@ -8371,56 +8412,56 @@ div.mobile-search input {
   text-align: center;
   width: auto;
 }
-/* line 32, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 59, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-form {
   margin-top: 10px;
   margin-bottom: 5px;
 }
-/* line 39, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 66, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data {
   float: left;
   height: auto;
   line-height: normal;
   padding: 10px;
-  width: auto;
+  width: 95%;
 }
-/* line 48, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 74, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data:hover {
   box-shadow: 0 1px 2px #CCC;
   background-color: #F8F8F8;
   border: 1px solid #EFEFEF;
   cursor: pointer;
 }
-/* line 56, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 82, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data .comment-info-data {
   font-size: 0.9em;
   font-weight: bold;
   padding: 1px;
 }
-/* line 62, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 88, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data .comment-info-data .date {
   margin-left: 10px;
 }
-/* line 66, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 92, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data .comment-info-data .date a {
   color: black;
   text-decoration: none;
 }
-/* line 71, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 97, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment a {
   color: #070691;
   font-weight: 500;
 }
-/* line 76, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 102, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data .comment-date a {
   color: #A3A3A3;
   font-size: 10px;
 }
-/* line 82, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 108, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data .comment-body {
   padding: 3px;
 }
-/* line 86, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 112, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data .comment-body p {
   margin: 5px 0;
 }

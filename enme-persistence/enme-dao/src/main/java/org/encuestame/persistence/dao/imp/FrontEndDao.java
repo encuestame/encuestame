@@ -312,7 +312,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @see org.encuestame.persistence.dao.IFrontEndDao#getAllHitsByType(org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.survey.Poll, org.encuestame.persistence.domain.survey.Survey)
      */
     @SuppressWarnings("unchecked")
-    public List<Hit> getAllHitsByType(final TweetPoll tweetpoll,
+    public List getAllHitsByType(final TweetPoll tweetpoll,
             final Poll poll,
             final Survey survey) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Hit.class);
@@ -410,7 +410,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         //define as a VISIT category
         criteria.add(Restrictions.eq("hitCategory", HitCategory.VISIT));
         @SuppressWarnings("unchecked")
-        List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+        List results = getHibernateTemplate().findByCriteria(criteria);
         log.debug("Retrieve total hits by  " + searchHitby + "--->"
                 + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
@@ -425,7 +425,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
-    public List<Hit> getHashTagHitsbyDateRange(final Long tagId,
+    public List getHashTagHitsbyDateRange(final Long tagId,
             final Integer period) {
         Date startDate = null;
         Date endDate = null;
@@ -456,7 +456,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
 	 * lang.Long, org.encuestame.utils.enums.SearchPeriods)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Hit> getHashTagHitsRange(final Long tagId,
+	public List getHashTagHitsRange(final Long tagId,
 			final SearchPeriods period) {
 
 		final DetachedCriteria criteria = DetachedCriteria.forClass(Hit.class);
@@ -517,7 +517,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @see org.encuestame.persistence.dao.IFrontEndDao#getLinksByHomeItem(org.encuestame.persistence.domain.HashTag, org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.survey.Survey, org.encuestame.persistence.domain.survey.Poll, org.encuestame.utils.enums.TypeSearchResult)
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPollSavedPublishedStatus> getLinksByHomeItem(
+    public List getLinksByHomeItem(
             final HashTag hashTag,
             final UserAccount userAccount,
             final TweetPoll tweetPoll,
@@ -531,7 +531,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
                 .forClass(TweetPollSavedPublishedStatus.class);
         // define if is necessary execute a query, if not exist filters it's not necessary run a query
         boolean queryRequired = false;
-        List<TweetPollSavedPublishedStatus> tweetPollSavedPublishedStatus = ListUtils.EMPTY_LIST;
+        List tweetPollSavedPublishedStatus = ListUtils.EMPTY_LIST;
         if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
             criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
             queryRequired = true;
@@ -572,7 +572,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         criteria.add(Restrictions.eq("status", Status.SUCCESS));
         // if exist filters, we execute a query
         if (queryRequired) {
-            tweetPollSavedPublishedStatus = (List<TweetPollSavedPublishedStatus>) getHibernateTemplate().findByCriteria(criteria, start, max);
+            tweetPollSavedPublishedStatus =  getHibernateTemplate().findByCriteria(criteria, start, max);
         }
         return tweetPollSavedPublishedStatus;
     }

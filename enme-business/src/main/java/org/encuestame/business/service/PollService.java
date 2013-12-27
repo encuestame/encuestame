@@ -39,6 +39,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -1128,4 +1129,35 @@ public class PollService extends AbstractSurveyService implements IPollService{
     public PollResult validatePollIP(final String ip, final Poll poll) {
         return getPollDao().validateVoteIP(ip, poll);
     }
+
+	/**
+	 * Restrict Votes by Date.
+	 */
+	public Boolean restrictVotesByDate(final Poll poll) {
+		Boolean limitVoteByDate = Boolean.FALSE;
+		if (poll.getCloseAfterDate()) {
+			limitVoteByDate = DateUtil.compareToCurrentDate(poll
+					.getClosedDate());
+		}
+ 		return limitVoteByDate;
+	}
+
+	/**
+	 *
+	 * @param poll
+	 * @return
+	 */
+	public Boolean restrictVotesByQuota(final Poll poll) {
+		Boolean limitVote = Boolean.FALSE;
+		if (poll.getCloseAfterquota()) {
+			final Long totalVotes = getPollDao()
+					.getTotalVotesByPollIdAndDateRange(poll.getPollId(), null);
+			if (Long.valueOf(poll.getClosedQuota()) == totalVotes) {
+				limitVote = Boolean.TRUE;
+			}
+		}
+		return limitVote;
+	}
+
+
 }

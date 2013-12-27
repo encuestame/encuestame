@@ -10,19 +10,15 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.listener;
+package org.encuestame.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.setup.StartupProcess;
 import org.encuestame.core.service.DirectorySetupOperations;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeStartupException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -33,6 +29,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 19, 2011
  */
+//@Deprecated
 public class EnMeContext extends ContextLoaderListener implements ServletContextListener {
 
     /**
@@ -52,7 +49,11 @@ public class EnMeContext extends ContextLoaderListener implements ServletContext
         super();
     }
 
-    /**
+    public EnMeContext(WebApplicationContext context) {
+		super(context);
+	}
+
+	/**
      * On start application.
      */
     @Override

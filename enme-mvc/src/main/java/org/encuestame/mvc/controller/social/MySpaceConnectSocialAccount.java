@@ -28,10 +28,11 @@ import org.springframework.web.context.request.WebRequest;
 
 /**
  * MySpace connect support.
+ * MYSPACE cancelled the support for they API
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 23, 2011
  */
-@Controller
+//@Controller
 public class MySpaceConnectSocialAccount extends AbstractAccountConnect {
 
     /**

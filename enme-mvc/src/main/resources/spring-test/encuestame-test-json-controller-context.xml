@@ -36,7 +36,7 @@
         </property>
         <property name="singleSession" value="true" />
    </bean>
-   <bean id="imageThumbnailGenerator" class="org.encuestame.core.image.ImageThumbnailGeneratorImpl" />
+   <bean id="imageThumbnailGenerator" class="org.encuestame.business.images.ImageThumbnailGeneratorImpl" />
    <bean id="tweetPollAtomFeedView" class="org.encuestame.mvc.view.TweetPollAtomFeedView"></bean>
    <bean id="tweetPollRssFeedView" class="org.encuestame.mvc.view.TweetPollRssFeedView"></bean>
    <bean id="frontEndAtomFeedView" class="org.encuestame.mvc.view.FrontEndAtomFeedView"></bean>
@@ -144,7 +144,7 @@
   <!-- thumbnail generator engine
          thanks to raulraja.
      -->
-    <bean id="thumbnailGeneratorEngine" class="org.encuestame.core.image.ThumbnailGeneratorEngineImpl">
+    <bean id="thumbnailGeneratorEngine" class="org.encuestame.business.images.ThumbnailGeneratorEngineImpl">
 
         <!-- the file extension for the thumbnail files -->
         <property name="generatedExtension">
@@ -218,7 +218,7 @@
         </property>
         <property name="singleSession" value="true" />
    </bean>
-   <bean id="imageThumbnailGenerator" class="org.encuestame.core.image.ImageThumbnailGeneratorImpl" />
+   <bean id="imageThumbnailGenerator" class="org.encuestame.business.images.ImageThumbnailGeneratorImpl" />
    <bean id="tweetPollAtomFeedView" class="org.encuestame.mvc.view.TweetPollAtomFeedView"></bean>
    <bean id="tweetPollRssFeedView" class="org.encuestame.mvc.view.TweetPollRssFeedView"></bean>
    <bean id="frontEndAtomFeedView" class="org.encuestame.mvc.view.FrontEndAtomFeedView"></bean>

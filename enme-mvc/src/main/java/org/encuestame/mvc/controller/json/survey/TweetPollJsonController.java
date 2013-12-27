@@ -27,7 +27,6 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainToJson;
 import org.encuestame.core.util.InternetUtils;
@@ -50,7 +49,6 @@ import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.TweetPollScheduledBean;
-import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.ScheduledTweetPoll;
 import org.encuestame.utils.web.search.TweetPollSearchBean;
@@ -144,7 +142,7 @@ public class TweetPollJsonController extends AbstractJsonController {
         }
         return returnData();
     }
-    
+
     /**
      * Publish tweet on social account.
      * @param twitterAccountsId
@@ -170,7 +168,7 @@ public class TweetPollJsonController extends AbstractJsonController {
         try {
         	final TweetPollSavedPublishedStatus tweetPoll = getTweetPollService().getTweetPollSavedPublishedStatusById(id);
             final Schedule schedule = this.getTweetPollService().createTweetPollPublishedStatusScheduled(
-            		bean.getScheduledDate(), 
+            		bean.getScheduledDate(),
             		TypeSearchResult.TWEETPOLL,
             		tweetPoll);
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
@@ -181,10 +179,10 @@ public class TweetPollJsonController extends AbstractJsonController {
             setError(e.getMessage(), response);
         }
         return returnData();
-    }    
-    
+    }
+
     /**
-     * 
+     *
      * @param bean
      * @param request
      * @param response
@@ -211,7 +209,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             setError(e.getMessage(), response);
         }
         return returnData();
-    }      
+    }
 
     /**
      * Publish tweet on social account.
@@ -338,8 +336,8 @@ public class TweetPollJsonController extends AbstractJsonController {
             @RequestParam(value = "limitVotes", required = false) final Boolean limitVotes,
             @RequestParam(value = "followDashBoard", required = false) final Boolean onDashboard,
             @RequestParam(value = "repeatedVotes", required = false) final Boolean repeatedVotes,
-            @RequestParam(value = "maxLimitVotes", required = false) final Integer repeatedVotesNum,
-            @RequestParam(value = "maxRepeatedVotes", required = false) final Integer votesToLimit,
+            @RequestParam(value = "maxLimitVotes", required = false) final Integer votesToLimit ,
+            @RequestParam(value = "maxRepeatedVotes", required = false) final Integer repeatedVotesNum,
             @RequestParam(value = "resumeLiveResults", required = false) final Boolean resumeLiveResults,
             //@PathVariable final String type,
             HttpServletRequest request,
@@ -557,6 +555,10 @@ public class TweetPollJsonController extends AbstractJsonController {
                 log.debug("Property Type" + propertyType);
                 getTweetPollService().changeAllowRepeatedTweetPoll(
                         tweetPollId, getUserPrincipalUsername());
+            } else if ("comment".equals(propertyType)) {
+                log.debug("Property Type" + propertyType);
+                getTweetPollService().chaneCommentStatusTweetPoll(
+                        tweetPollId, getUserPrincipalUsername());
             } else {
                 log.warn("Type not valid");
             }
@@ -592,18 +594,20 @@ public class TweetPollJsonController extends AbstractJsonController {
         try {
             url = filterValue(url);
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-            if(InternetUtils.validateUrl(url)){
-            if("google".equals(type)){
-                jsonResponse.put("url", SocialUtils.getGoGl(url, EnMePlaceHolderConfigurer.getProperty("short.google.key")));
-            } else if("tinyurl".equals(type)){
-                jsonResponse.put("url", SocialUtils.getTinyUrl(url));
-            }
-            setItemResponse(jsonResponse);
+            if (InternetUtils.validateUrl(url)) {
+	            if ("google".equals(type)) {
+	                jsonResponse.put("url", SocialUtils.getGoGl(url, EnMePlaceHolderConfigurer.getProperty("short.google.key")));
+	            } else if ("tinyurl".equals(type)){
+	                jsonResponse.put("url", SocialUtils.getTinyUrl(url));
+	            } else if ("yourls".equals(type)){
+	            	jsonResponse.put("url", SocialUtils.getYourls(url));
+	            }
+	            setItemResponse(jsonResponse);
             } else {
                 setError("url malformed", response);
             }
-        } catch (Exception e) {
-            setError(e.getMessage(), response);
+        } catch (Exception ex) {
+            setError(ex.getMessage(), response);
         }
         return returnData();
     }

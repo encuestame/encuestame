@@ -10,11 +10,10 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.image;
+package org.encuestame.business.images;
 
 import org.apache.log4j.Logger;
-
-import org.encuestame.core.image.ThumbnailGenerator;
+import org.encuestame.business.images.ThumbnailGenerator;
 
 import java.io.File;
 import java.io.InputStream;

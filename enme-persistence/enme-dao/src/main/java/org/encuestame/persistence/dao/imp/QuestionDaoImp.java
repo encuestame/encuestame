@@ -80,7 +80,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      */
     //@Cacheable(modelId="retrieveQuestionsByName")
     @SuppressWarnings("unchecked")
-    public final List<Question> retrieveQuestionsByName(final String keyword, final Long userId){
+    public final List retrieveQuestionsByName(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Question.class);
         criteria.add(Restrictions.like("question", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
@@ -217,7 +217,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @see org.encuestame.persistence.dao.IQuestionDao#getAnswersByQuestionId(java.lang.Long)
      */
     @SuppressWarnings("unchecked")
-    public final List<QuestionAnswer> getAnswersByQuestionId(final Long questionId) throws HibernateException {
+    public final List getAnswersByQuestionId(final Long questionId) throws HibernateException {
      /*   return getHibernateTemplate().findByNamedParam("from QuestionAnswer where questions.id =:questionId ",
                                                        "questionId", questionId);*/
 		final DetachedCriteria criteria = DetachedCriteria
@@ -246,7 +246,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @see org.encuestame.persistence.dao.IQuestionDao#loadAllQuestions()
      */
     @SuppressWarnings("unchecked")
-    public final List<Question> loadAllQuestions() throws HibernateException {
+    public final List loadAllQuestions() throws HibernateException {
         return getHibernateTemplate().find("from Question");
     }
 
@@ -255,7 +255,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @see org.encuestame.persistence.dao.IQuestionDao#getQuestionsbySection(org.encuestame.persistence.domain.survey.SurveySection)
      */
     @SuppressWarnings("unchecked")
-    public List<Question> getQuestionsbySection(final SurveySection section){
+    public List getQuestionsbySection(final SurveySection section){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Question.class);
         criteria.add(Restrictions.eq("section", section));
         return getHibernateTemplate().findByCriteria(criteria);
@@ -266,7 +266,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      * @see org.encuestame.persistence.dao.IQuestionDao#getQuestionPreferences(org.encuestame.persistence.domain.question.Question)
      */
     @SuppressWarnings("unchecked")
-	public List<QuestionPreferences> getQuestionPreferences(final Question question){
+	public List getQuestionPreferences(final Question question){
     	final DetachedCriteria criteria = DetachedCriteria.forClass(QuestionPreferences.class);
     	criteria.add(Restrictions.eq("question", question));
     	return getHibernateTemplate().findByCriteria(criteria);
@@ -280,7 +280,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
 	 * .encuestame.persistence.domain.question.Question, java.lang.String)
 	 */
     @SuppressWarnings("unchecked")
-	public List<QuestionPreferences> getQuestionPreference(final Question question, final String pref){
+	public List getQuestionPreference(final Question question, final String pref){
     	final DetachedCriteria criteria = DetachedCriteria.forClass(QuestionPreferences.class);
     	criteria.createAlias("question", "question");
     	criteria.add(Restrictions.eq("question", question));

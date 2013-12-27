@@ -968,6 +968,22 @@ input:focus {
   resize: none;
 }
 
+/* line 603, ../../../../css/resource/sass/_common.scss */
+.picture {
+  float: left;
+}
+/* line 605, ../../../../css/resource/sass/_common.scss */
+.picture img {
+  border: 1px solid #c9f5c8;
+  -webkit-border-radius: 140px;
+  -moz-border-radius: 140px;
+  -ms-border-radius: 140px;
+  -o-border-radius: 140px;
+  border-radius: 140px;
+  height: 110px;
+  width: 110px;
+}
+
 /*
  * Bootstrap v2.3.1
  *

@@ -67,7 +67,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollFolderBySecUser(org.encuestame.persistence.domain.security.UserAccount)
      */
     @SuppressWarnings("unchecked")
-    public List<PollFolder> getPollFolderByUserAccount(final UserAccount userAccount){
+    public List getPollFolderByUserAccount(final UserAccount userAccount){
           final DetachedCriteria criteria = DetachedCriteria.forClass(PollFolder.class);
           criteria.add(Restrictions.eq("createdBy", userAccount));
           return getHibernateTemplate().findByCriteria(criteria);
@@ -78,7 +78,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollsByPollFolder(org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.survey.PollFolder)
      */
     @SuppressWarnings("unchecked")
-    public List<Poll> getPollsByPollFolder(final UserAccount userAcc, final PollFolder folder){
+    public List getPollsByPollFolder(final UserAccount userAcc, final PollFolder folder){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("editorOwner", userAcc));
         criteria.add(Restrictions.eq("pollFolder", folder));
@@ -90,7 +90,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollsByPollFolderId(org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.survey.PollFolder)
      */
     @SuppressWarnings("unchecked")
-    public List<Poll> getPollsByPollFolderId(final UserAccount userId, final PollFolder folder){
+    public List getPollsByPollFolderId(final UserAccount userId, final PollFolder folder){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.createAlias("editorOwner", "editorOwner");
         //criteria.add(Restrictions.eq("editorOwner.uid", userId));
@@ -173,7 +173,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollsbyHashTagNameAndDateRange(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
-    public List<Poll> getPollsbyHashTagNameAndDateRange(
+    public List getPollsbyHashTagNameAndDateRange(
             final String tagName, final SearchPeriods period) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Poll.class)
@@ -203,7 +203,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 	 * org.encuestame.utils.enums.SearchPeriods)
 	 */
     @SuppressWarnings("unchecked")
-    public List<Object[]> getPollsRangeStats(
+    public List getPollsRangeStats(
             final String tagName, final SearchPeriods period) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Poll.class)
@@ -282,7 +282,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#retrievePollResults(org.encuestame.persistence.domain.survey.Poll)
      */
     @SuppressWarnings("unchecked")
-    public List<PollResult> retrievePollResults(final Poll poll) {
+    public List retrievePollResults(final Poll poll) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(PollResult.class);
         criteria.add(Restrictions.eq("poll", poll));
@@ -299,10 +299,10 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                 .forClass(PollResult.class);
         criteria.setProjection(Projections.rowCount());
         criteria.add(Restrictions.eq("poll.pollId", pollId));
-        calculateSearchPeriodsDates(period, criteria, "votationDate");
-        @SuppressWarnings("unchecked")
-        List<Long> results = getHibernateTemplate().findByCriteria(criteria);
-
+        if(period!=null){
+        	calculateSearchPeriodsDates(period, criteria, "votationDate");
+        }
+        List results = getHibernateTemplate().findByCriteria(criteria);
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
 
@@ -463,8 +463,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.createAlias("editorOwner", "editorOwner");
         criteria.add(Restrictions.eq("editorOwner.uid", userId));
         criteria.add(Restrictions.between("createdAt", dateFrom, dateTo));
-        @SuppressWarnings("unchecked")
-        List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+        List results = getHibernateTemplate().findByCriteria(criteria);
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
 
@@ -555,8 +554,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.setProjection(Projections.rowCount());
         criteria.add(Restrictions.eq("editorOwner", user));
         criteria.add(Restrictions.eq("publish", publishStatus));
-        @SuppressWarnings("unchecked")
-        List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+        List results = getHibernateTemplate().findByCriteria(criteria);
         log.trace("Retrieve total polls by  " + user.getUsername() + "--->"
                 + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
@@ -596,13 +594,13 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     * @param answerId
     * @return
     */
-   public List<Object[]> retrieveResultPollsbyAnswer(final Long pollId,
+   public List retrieveResultPollsbyAnswer(final Long pollId,
            final Long answerId) {
        final String pollResultsCounter = "select answer.questionAnswerId, answer.answer, answer.color,"
                + "count(poll.pollId) FROM PollResult "
                + "where poll.pollId= :pollId AND answer.questionAnswerId= :answerId "
                + "group by answer.answer, answer.questionAnswerId, answer.color";
-       final List<Object[]> myObject = getHibernateTemplate().findByNamedParam(pollResultsCounter, new String[] {"pollId", "answerId"}, new Long[] {pollId, answerId});
+       final List myObject = getHibernateTemplate().findByNamedParam(pollResultsCounter, new String[] {"pollId", "answerId"}, new Long[] {pollId, answerId});
        return myObject;
 }
 

@@ -110,6 +110,24 @@
       <h3>
             <spring:message code="options.comments" />
       </h3>
+      <c:if test="${logged}">
+            <div name="comments" data-dojo-type="me/web/widget/comments/AddComment"
+                 comment_limit="9000"
+                 type="tweetpoll"
+                 isModerated="${isModerated}"
+                 item_id="${tweetpoll.id}"
+                 username="${account.username}"></div>
+      </c:if>
+      <c:if test="${!logged}">
+          <div>
+            <a href="<%=request.getContextPath()%>/user/signin">
+                <img src="<%=request.getContextPath()%>/picture/profile/demo10/profile" width="80" height="80"/>
+              <b>
+                  Log in to post a comment
+              </b>
+            </a>
+          </div>
+      </c:if>
       <div name="comments" data-dojo-type="me/web/widget/comments/Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
    </section>
 

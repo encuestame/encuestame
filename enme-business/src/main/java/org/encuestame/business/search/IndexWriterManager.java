@@ -24,6 +24,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.encuestame.core.search.DirectoryIndexStore;
 import org.encuestame.core.service.imp.IIndexWriter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 /**
@@ -31,6 +32,7 @@ import org.springframework.util.Assert;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since Mar 25, 2011
  */
+
 public class IndexWriterManager implements IIndexWriter {
 
     /**
@@ -40,7 +42,8 @@ public class IndexWriterManager implements IIndexWriter {
 
     /**
     * {@link IndexWriter}.
-    */
+    */    
+    
     private IndexWriter indexWriter;
 
 

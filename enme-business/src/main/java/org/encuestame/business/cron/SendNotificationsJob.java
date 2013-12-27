@@ -18,6 +18,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.utils.json.NotificationResume;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * Publish notifications to users subscribed
@@ -41,6 +42,7 @@ public class SendNotificationsJob {
 	/**
 	 *
 	 */
+	@Scheduled(cron = "${cron.sendNotifications}")
 	public void sendNotifications() {
 		String username = "demo10";
 		final NotificationResume notificationResume = new NotificationResume();

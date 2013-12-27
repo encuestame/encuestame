@@ -144,7 +144,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
      * @return list of {@link SocialAccount}
      */
     @SuppressWarnings("unchecked")
-    public final List<SocialAccount> getSocialAccountByAccount(
+    public final List getSocialAccountByAccount(
             final Account account,
             final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
@@ -163,7 +163,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
      * @return
      */
     @SuppressWarnings("unchecked")
-    public final List<SocialAccount> getSocialVerifiedAccountByUserAccount(
+    public final List getSocialVerifiedAccountByUserAccount(
             final Account account, final SocialProvider provider) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(SocialAccount.class);
@@ -365,7 +365,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSavedPublishedStatus.class);
         criteria.add(Restrictions.eq("socialAccount", socialAccount));
         criteria.setProjection(Projections.rowCount());
-        final List<Long> tweetPollstats = getHibernateTemplate().findByCriteria(criteria);
+        final List tweetPollstats = getHibernateTemplate().findByCriteria(criteria);
         log.debug("getSocialAccountStats "+tweetPollstats.size());
         log.debug("getSocialAccountStats "+tweetPollstats);
         if(tweetPollstats.size() > 0) {

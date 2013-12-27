@@ -147,7 +147,7 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
      * @see org.encuestame.persistence.dao.IDashboardDao#retrievePropertiesbyGadget(java.lang.Long)
      */
     @SuppressWarnings("unchecked")
-    public List<GadgetProperties> retrievePropertiesbyGadget(final Long gadgetId){
+    public List retrievePropertiesbyGadget(final Long gadgetId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(GadgetProperties.class);
         criteria.createAlias("gadget", "gadget");
         criteria.add(Restrictions.eq("gadget.gadgetId", gadgetId));
@@ -159,7 +159,7 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
      * @see org.encuestame.persistence.dao.IDashboardDao#retrieveGadgetsbyDashboard(java.lang.Long)
      */
     @SuppressWarnings("unchecked")
-    public List<Gadget> retrieveGadgetsbyDashboard(final Long boardId) {
+    public List retrieveGadgetsbyDashboard(final Long boardId) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
         criteria.createAlias("dashboard","dashboard");
         criteria.add(Restrictions.eq("dashboard.boardId", boardId));
@@ -171,7 +171,7 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
      * @see org.encuestame.persistence.dao.IDashboardDao#retrieveGadgetsbyType(java.lang.String)
      */
     @SuppressWarnings("unchecked")
-    public List<Gadget> retrieveGadgetsbyType(final GadgetType gadgetType) {
+    public List retrieveGadgetsbyType(final GadgetType gadgetType) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
         criteria.add(Restrictions.eq("gadgetType", gadgetType));
         return getHibernateTemplate().findByCriteria(criteria);
@@ -182,7 +182,7 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
      * @see org.encuestame.persistence.dao.IDashboardDao#retrieveGadgets(java.lang.Boolean)
      */
     @SuppressWarnings("unchecked")
-    public List<Gadget> retrieveGadgets(final Dashboard board){
+    public List retrieveGadgets(final Dashboard board){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
         criteria.add(Restrictions.eq("dashboard", board));
         return getHibernateTemplate().findByCriteria(criteria);

@@ -45,7 +45,7 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<EmailList> findListbyUser(final Long userId){
+    public List findListbyUser(final Long userId){
         return getHibernateTemplate().findByNamedParam(
                 "from EmailList where usuarioEmail.uid= :userId", "userId", userId);
      }
@@ -56,7 +56,7 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Email> findEmailsByListId(final Long idList){
+    public List findEmailsByListId(final Long idList){
         return getHibernateTemplate().findByNamedParam("FROM Email WHERE idListEmail.idList= :idList", "idList", idList);
      }
 
@@ -65,7 +65,7 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<EmailList> findAllEmailList(){
+    public List findAllEmailList(){
         return getHibernateTemplate().find("FROM EmailList");
     }
 
@@ -74,7 +74,7 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<EmailList> getListEmailsByKeyword(final String keyword, final Long userId){
+    public List getListEmailsByKeyword(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(EmailList.class);
         criteria.add(Restrictions.like("listName", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);
@@ -85,7 +85,7 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Email> getEmailsByKeyword(final String keyword, final Long userId){
+    public List getEmailsByKeyword(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Email.class);
         criteria.add(Restrictions.like("email", keyword, MatchMode.ANYWHERE));
         return getHibernateTemplate().findByCriteria(criteria);

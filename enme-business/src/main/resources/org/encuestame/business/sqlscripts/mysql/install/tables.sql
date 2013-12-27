@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `client` (
 CREATE TABLE IF NOT EXISTS `comments` (
   `commentId` bigint(20) NOT NULL AUTO_INCREMENT,
   `comment` longtext NOT NULL,
-  `created_at` date DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   `dislikeVote` bigint(20) DEFAULT NULL,
   `likeVote` bigint(20) DEFAULT NULL,
   `parentId` bigint(20) DEFAULT NULL,
@@ -718,7 +718,6 @@ CREATE TABLE IF NOT EXISTS `social_account` (
   `userOwner_uid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`social_account_id`),
   UNIQUE KEY `social_account_id` (`social_account_id`),
-  UNIQUE KEY `social_account_name` (`social_account_name`),
   KEY `FK50078B5B5ECE45A2` (`account_uid`),
   KEY `FK50078B5BF2F411F2` (`userOwner_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

@@ -46,7 +46,7 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
      * @throws HibernateException hibernate expcetion
      */
     @SuppressWarnings("unchecked")
-    public List<Project> findAll() throws HibernateException {
+    public List findAll() throws HibernateException {
         return getHibernateTemplate().find("from Project");
     }
 
@@ -56,7 +56,7 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
      * @return list of projects.
      */
     @SuppressWarnings("unchecked")
-    public List<Project> findProjectsByUserID(final Long userId) throws HibernateException{
+    public List findProjectsByUserID(final Long userId) throws HibernateException{
         return getHibernateTemplate().findByNamedParam("from Project where users.id = :userId", "userId", userId);
     }
 
@@ -76,7 +76,7 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
      * @throws HibernateException HibernateException
      */
     @SuppressWarnings("unchecked")
-    public List<Project> getProjectByLocationId() throws HibernateException{
+    public List getProjectByLocationId() throws HibernateException{
        /* final String queryLocProject = "FROM Projects where"
         return getHibernateTemplate().fin
         final String queryLocation = "FROM CatLocation WHERE tidtype.id  =?";*/
@@ -101,7 +101,7 @@ public class ProjectDaoImp extends AbstractHibernateDaoSupport implements IProje
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Attachment> getAttachmentsListbyProject(final Long projectId){
+    public List getAttachmentsListbyProject(final Long projectId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Attachment.class);
           criteria.add(Restrictions.eq("projectAttachment.proyectId", projectId));
           return getHibernateTemplate().findByCriteria(criteria);

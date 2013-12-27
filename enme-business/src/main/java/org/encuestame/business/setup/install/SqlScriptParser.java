@@ -47,6 +47,7 @@ public class SqlScriptParser {
      */
     public static void readScript(File scriptFile, String[] stmts)
             throws IOException {
+    	//FIXME: 'reader' is never closed
         BufferedReader reader = new BufferedReader(new FileReader(scriptFile));
         StringBuffer stmtString = new StringBuffer();
         String line = null;

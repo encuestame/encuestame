@@ -31,7 +31,6 @@ import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeNotAllowedException;
 import org.encuestame.utils.enums.CommentOptions;
-import org.encuestame.utils.enums.CommentStatus;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -71,7 +70,7 @@ public class CommentJsonController extends AbstractJsonController {
      * @return
      */
     @RequestMapping(value = "/api/common/comment/comments/{type}.json", method = RequestMethod.GET)
-    public @ResponseBody ModelMap getCommentsbyTweetPoll(
+    public @ResponseBody ModelMap getCommentsbyItemType(
             @PathVariable String type,
             @RequestParam(value = "id", required = true) Long itemId,
             @RequestParam(value = "max", required = false) Integer max,
@@ -153,13 +152,15 @@ public class CommentJsonController extends AbstractJsonController {
     public @ResponseBody ModelMap getComments(
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "start", required = false) Integer start,
-            @RequestParam(value = "option", required = false) String option,
+            @RequestParam(value = "option", required = false)  List<String> option,
+
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
+        	final List<CommentOptions> options = ConvertDomainBean.convertToCommentsOptions(option);
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             List<CommentBean> comments = getCommentService().getCommentsbyUser(
-                    limit, start, CommentStatus.getCommentStatus(option));
+                    limit, start, options);
             jsonResponse.put("comments", comments);
             setItemResponse(jsonResponse);
         } catch (Exception e) {
@@ -216,7 +217,7 @@ public class CommentJsonController extends AbstractJsonController {
             HttpServletResponse response){
          try {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-             jsonResponse.put("comment", createComment(mycomment, tweetPollId, type, relatedCommentId, false));
+             jsonResponse.put("comment", createComment(filterValue(mycomment), tweetPollId, type, relatedCommentId, false));
              setItemResponse(jsonResponse);
          } catch (Exception e) {
               log.error(e);
@@ -273,7 +274,7 @@ public class CommentJsonController extends AbstractJsonController {
             HttpServletResponse response){
          try {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-             jsonResponse.put("comment", createComment(mycomment, tweetPollId, type, relatedCommentId, true));
+             jsonResponse.put("comment", createComment(filterValue(mycomment), tweetPollId, type, relatedCommentId, true));
          } catch (Exception e) {
               log.error(e);
               setError(e.getMessage(), response);
@@ -335,18 +336,18 @@ public class CommentJsonController extends AbstractJsonController {
 			HttpServletResponse response) {
 		try {
 			final TypeSearchResult type = TypeSearchResult
-					.getTypeSearchResult(typeSearch);
+					.getTypeSearchResult(filterValue(typeSearch));
 
-			final CommentStatus statusComm = CommentStatus
-					.getCommentStatus(status);
+			final CommentOptions statusComm = CommentOptions
+					.getCommentOption(filterValue(status));
 
 			final SearchPeriods searchPeriod = SearchPeriods
-					.getPeriodString(period);
+					.getPeriodString(filterValue(period));
 
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 			final List<CommentBean> commentsByStatus = getCommentService()
 					.retrieveCommentsByTypeAndStatus(id, type, maxResults,
-							start, statusComm, searchPeriod);
+							start, statusComm, (searchPeriod));
 
 			jsonResponse.put("commentsbyStatus", commentsByStatus);
 			setItemResponse(jsonResponse);

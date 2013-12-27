@@ -81,10 +81,10 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(HashTag.class);
 		criteria.add(Restrictions.eq("hashTag", hashTag));
-		final List<HashTag> results = getHibernateTemplate().findByCriteria(
+		final List results = getHibernateTemplate().findByCriteria(
 				criteria);
 		if (results.size() >= 1) {
-			return results.get(0); // TODO: it's possible repeated HashTags?
+			return (HashTag) results.get(0); // TODO: it's possible repeated HashTags?
 		} else {
 			return null;
 		}
@@ -253,7 +253,7 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 		criteria.add(Restrictions.not(Restrictions.eq("rankingDate", maxDate)));
 		criteria.addOrder(Order.desc("average")); 
 		@SuppressWarnings("unchecked")
-		List<HashTagRanking> results = getHibernateTemplate().findByCriteria(
+		List results = getHibernateTemplate().findByCriteria(
 				criteria);
 		return results;
 	} 
@@ -269,8 +269,8 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 				.forClass(HashTagRanking.class);
 		criteria.setProjection(Projections.max("rankingDate"));
 		@SuppressWarnings("unchecked")
-		List<Date> results = getHibernateTemplate().findByCriteria(criteria);
-		return (results.get(0) == null ? new Date() : results.get(0));
+		List results = getHibernateTemplate().findByCriteria(criteria);
+		return (Date) (results.get(0) == null ? new Date() : results.get(0));
 	}
 	 
 	/*
@@ -294,7 +294,7 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Object[]> getMaxMinTagFrecuency() {
+	public List getMaxMinTagFrecuency() {
 		final String maxHit = "Select max(hits) as maximum, min(hits) as minimum from HashTag";
 		return getHibernateTemplate().find(maxHit);
 	}

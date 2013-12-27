@@ -471,7 +471,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<Object[]> findByNamedParamGeoLocationItems(final String query,
+    public List findByNamedParamGeoLocationItems(final String query,
             final double latitude, final double longitude,
             final double distance, final double radius, final int maxItems,
             final Date startDate, final Date endDate) {

@@ -32,6 +32,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.SocialAccountBean;
@@ -94,7 +95,9 @@ public class TweetPollController extends AbstractViewController {
                     final TweetPollSwitch tweetPoll = getTweetPollService()
                             .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
                     model.addAttribute("tp_switch", tweetPoll);
-                    //NOTE: tweetpoll should be published to able to vote !!
+                    final Boolean validateLimitVotes = getTweetPollService().validateLimitVotes(tweetPoll.getTweetPoll());
+                    final Boolean restrictVotesByDate = getTweetPollService().validateVotesByDate(tweetPoll.getTweetPoll());
+                     //NOTE: tweetpoll should be published to able to vote !!
                     if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
                         log.debug("tweetpoll answer not found");
                         model.put("message", "Tweet Not Valid.");
@@ -102,30 +105,39 @@ public class TweetPollController extends AbstractViewController {
                         log.debug("tweetpoll is archived");
                         model.put("message", "Tweetpoll is closed, no more votes.");
                         pathVote = "completeTweetVote";
-                    }else {
-                        log.info("Validate Votting");
-                            log.info("IP" + IP);
-                            try {
-                                getTweetPollService().validateIpVote(IP,
-                                        tweetPoll.getTweetPoll());
-                                if (!tweetPoll.getTweetPoll().getCaptcha()) {
-                                    getTweetPollService().tweetPollVote(tweetPoll, IP,
-                                            Calendar.getInstance().getTime());
-                                    model.put("message", "Tweet Poll Voted.");
-                                    pathVote = "tweetVoted";
-                                    log.debug("VOTED");
-                                } else {
-                                    this.createCaptcha(model, tweetId);
-                                    log.debug("VOTE WITH CAPTCHA");
-                                    pathVote = "voteCaptcha";
-                                }
-                            } catch (Exception e) {
-                                // TODO: handle exception
-                                log.error("");
-                                pathVote = "repeatedTweetVote";
-                            }
-                }
-            }
+                        // Validate Limit Votes
+                    } else if(validateLimitVotes) {
+                     	log.debug("tweetpoll reached limit votes");
+                         model.put("message", "You have reached the maximum of votes for this poll.");
+                         pathVote = "LimitTweetVote";
+                    } else if(validateLimitVotes) {
+                      	log.debug("tweetpoll date limit votes");
+                        model.put("message", "The Tweetpoll has closed-.");
+                        pathVote = "LimitTweetVote";
+                    } else {
+                    	log.info("Validate Votting");
+                    	log.info("IP" + IP);
+					try {
+						getTweetPollService().validateIpVote(IP,
+								tweetPoll.getTweetPoll());
+						if (!tweetPoll.getTweetPoll().getCaptcha()) {
+							getTweetPollService().tweetPollVote(tweetPoll, IP,
+									Calendar.getInstance().getTime());
+							model.put("message", "Tweet Poll Voted.");
+							pathVote = "tweetVoted";
+							log.debug("VOTED");
+						} else {
+							this.createCaptcha(model, tweetId);
+							log.debug("VOTE WITH CAPTCHA");
+							pathVote = "voteCaptcha";
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						log.error("");
+						pathVote = "repeatedTweetVote";
+					}
+				}
+			}
             log.info("redirect template WHERE "+pathVote);
         }
         return pathVote;
@@ -356,20 +368,21 @@ public class TweetPollController extends AbstractViewController {
             model.addAttribute("tweetpoll", ConvertDomainBean.convertTweetPollToBean(tweetPoll));
             final List<HashTag> hashtagsBean = new ArrayList<HashTag>(tweetPoll.getHashTags());
             model.addAttribute("hashtags", ConvertDomainBean.convertListHashTagsToBean(hashtagsBean));
+            model.addAttribute("isModerated", tweetPoll.getShowComments() == null ? false : (tweetPoll.getShowComments().equals(CommentOptions.MODERATE) ? true : false));
             //answers.
             final List<TweetPollSwitch> answers = getTweetPollService().getTweetPollSwitch(tweetPoll);
             model.addAttribute("answers", answers);
             return "tweetpoll/detail";
         } catch (EnMeTweetPollNotFoundException e) {
             log.error(e);
-            return "404";
+            return "404"; //FIXME: replace by ENUM
         } catch (EnMeNoResultsFoundException e) {
              log.error(e);
-             return "404";
+             return "404"; //FIXME: replace by ENUM
         } catch (UnknownHostException e) {
             e.printStackTrace();
             log.error(e);
-            return "404";
+            return "404"; //FIXME: replace by ENUM
         }
     }
 }

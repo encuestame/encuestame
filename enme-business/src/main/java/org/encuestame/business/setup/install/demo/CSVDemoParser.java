@@ -500,16 +500,16 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
         //retrive all hits
         log.debug(" :: Update Hits Date :: ");
         @SuppressWarnings("unchecked")
-        final List<Hit> listHits = getAccountDao().getHibernateTemplate().find("from Hit");
-        for (Hit hit : listHits) {
+        final List listHits = getAccountDao().getHibernateTemplate().find("from Hit");
+        for (Hit hit : (List<Hit>) listHits) {
             hit.setHitDate(createRandomDate());
             getAccountDao().saveOrUpdate(hit);
         }
 
         log.debug(" :: Update Poll Result Date :: ");
         @SuppressWarnings("unchecked")
-        final List<PollResult> pollResults = getAccountDao().getHibernateTemplate().find("from PollResult");
-        for (PollResult hit : pollResults) {
+        final List pollResults = getAccountDao().getHibernateTemplate().find("from PollResult");
+        for (PollResult hit : (List<PollResult>) pollResults) {
             hit.setVotationDate(createRandomDate());
             getAccountDao().saveOrUpdate(hit);
         }

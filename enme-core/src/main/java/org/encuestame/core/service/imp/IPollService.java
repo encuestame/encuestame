@@ -472,4 +472,19 @@ public interface IPollService extends IMasterSurveyService{
             final HttpServletRequest httpServletRequest,
             final PollSearchBean pollSearchBean) throws EnMeExpcetion;
 
+	/**
+	 * Restrict votes by date.
+	 * @param poll
+	 * @return
+	 */
+	Boolean restrictVotesByDate(final Poll poll);
+
+	/**
+	 * Restrict votation by Quota.
+	 * @param poll
+	 * @return
+	 */
+	Boolean restrictVotesByQuota(final Poll poll);
+
+
 }
