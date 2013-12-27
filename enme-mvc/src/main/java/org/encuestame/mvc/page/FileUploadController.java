@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.log4j.Logger;
+import org.encuestame.business.images.ThumbnailGeneratorEngine;
 import org.encuestame.core.files.PathUtil;
-import org.encuestame.core.image.ThumbnailGeneratorEngine;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;

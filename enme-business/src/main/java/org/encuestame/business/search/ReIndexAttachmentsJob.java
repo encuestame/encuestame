@@ -24,6 +24,7 @@ import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.util.Assert;
 
 /**
@@ -108,6 +109,7 @@ public class ReIndexAttachmentsJob {
     /**
      * Reindex.
      */
+    @Scheduled(cron = "${cron.attachment}")
     public void reindexAttachments(){
         log.debug("reindexAttachments");
         final List<File> userDomainAttachmentsLocation = this.getListOfAccountEnabledDirectories();

@@ -27,6 +27,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * This job calculate every day the size of each hashgtag in the database.
@@ -50,6 +51,7 @@ public class PublishScheduled {
 	 * publish {@link TweetPoll} {@link Poll} or {@link Survey} scheduled to be
 	 * published later.
 	 */
+	@Scheduled(cron = "${cron.publishAllScheduled}")
 	public void publish() {
 		log.trace("************ Start publish scheduled items **************");
 		// I include in the search for the minimum date that have the maximum attempts

@@ -17,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * Remove Spam comments Job.
@@ -48,6 +49,7 @@ public class RemoveSpamCommentsJob {
     /**
 	 * Remove unconfirmed accounts.
 	 */
+    @Scheduled(cron = "${cron.removeSpamComments}")
 	public void removeSpamComments() {
 		try {
    		 log.debug("Remove Spam Comments");

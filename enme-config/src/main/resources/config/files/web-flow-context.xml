@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/webflow-config
+           http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.3.xsd">
+
+	<!-- Dispatches requests mapped to flows to FlowHandler implementations -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+		<property name="flowExecutor" ref="flowExecutor" />
+	</bean>
+
+	<!-- Maps request paths to flows in the flowRegistry; -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<property name="flowRegistry" ref="flowRegistry" />
+		<property name="order" value="0" />
+		<property name="interceptors">
+			<list>
+				<ref bean="checkInstallInterceptor" />
+				<ref bean="enMeInterceptor" />
+				<ref bean="mobileInterceptor" />
+				<ref bean="openSessionInViewInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- The registry of executable flow definitions -->
+	<webflow:flow-registry id="flowRegistry"
+		base-path="/WEB-INF/flows" flow-builder-services="flowBuilderServices">
+		<webflow:flow-location-pattern value="/**/*-flow.xml" />
+	</webflow:flow-registry>
+
+	<!-- Executes flows: the central entry point into the Spring Web Flow system -->
+	<webflow:flow-executor id="flowExecutor"
+		flow-registry="flowRegistry">
+		<webflow:flow-execution-listeners>
+			<webflow:listener ref="hibernateFlowExecutionListener" />
+			<webflow:listener ref="securityFlowExecutionListener" />
+		</webflow:flow-execution-listeners>
+	</webflow:flow-executor>
+
+	<!-- Plugs in a custom creator for Web Flow views -->
+	<webflow:flow-builder-services id="flowBuilderServices"
+		view-factory-creator="viewFactoryCreator" validator="validator"
+		development="true" />
+
+	<!-- JSR-303 validation support -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+
+
+	<!-- Configures Web Flow to use Tiles to create views for rendering; Tiles 
+		allows for applying consistent layouts to your views -->
+	<bean id="viewFactoryCreator"
+		class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+		<property name="viewResolvers" ref="tilesResolver" />
+		<property name="useSpringBeanBinding" value="true" />
+	</bean>
+
+
+	<!-- Installs a listener that manages Hibernate persistence contexts for 
+		flows that require them -->
+	<bean id="hibernateFlowExecutionListener"
+		class="org.springframework.webflow.persistence.HibernateFlowExecutionListener">
+		<constructor-arg index="0">
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+		<constructor-arg index="1">
+			<ref bean="transactionManager" />
+		</constructor-arg>
+	</bean>
+
+	<!-- Installs a listener to apply Spring Security authoritie Reported on 
+		JIRA https://jira.springsource.org/browse/SWF-1182?page=com.atlassian.jira.plugin.system.issuetabpanels:changehistory-tabpanel 
+		Should be ready on Spring Webflow 2.0.9 -->
+	<bean id="securityFlowExecutionListener"
+		class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
+
+</beans>

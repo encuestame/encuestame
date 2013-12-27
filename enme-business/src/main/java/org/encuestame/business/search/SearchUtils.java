@@ -256,7 +256,7 @@ public class SearchUtils {
             IOException {
         final Directory directory = directoryStore.getDirectory();
         log.debug("Get Directory ----------" + directory.toString());
-        if(indexWriter != null){
+        if (indexWriter != null){
         indexWriter.close();
         }
         log.debug("Index Directory is locked?  ----------> " + indexWriter.isLocked(directory));

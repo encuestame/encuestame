@@ -14,6 +14,7 @@ package org.encuestame.core.cron;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * Reindex Job.
@@ -36,10 +37,10 @@ public class ReIndexJob {
     /**
      * Reindex.
      */
+    @Scheduled(cron = "${cron.reindex}")
     public void reindex(){
         this.reindexData();
     }
-
 
     /**
      * Reindex Data.
