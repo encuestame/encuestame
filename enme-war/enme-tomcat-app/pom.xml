@@ -58,6 +58,7 @@
 									<artifactId>resources-enme-war</artifactId>
 									<excludes>
 										<exclude>WEB-INF/web.xml</exclude>
+										<exclude>WEB-INF/lib</exclude>
 										<exclude>resource/js/dojo</exclude>
 										<exclude>resource/js/dojox</exclude>
 										<exclude>resource/js/dijit</exclude>
@@ -103,6 +104,10 @@
 		<dependency>
 			<groupId>org.encuestame</groupId>
 			<artifactId>enme-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.encuestame</groupId>
+			<artifactId>encuestame-config</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.encuestame</groupId>
@@ -403,6 +408,12 @@
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-extras</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.tiles</groupId>
+					<artifactId>ctiles-freemarker</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
@@ -461,6 +472,18 @@
 			<artifactId>webutilities</artifactId>
 			<exclusions>
 				<exclusion>
+					<artifactId>args4j</artifactId>
+					<groupId>args4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>com.yahoo.platform.yui</artifactId>
+					<groupId>yuicompressor</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>com.google.javascript</artifactId>
+					<groupId>closure-compiler</groupId>
+				</exclusion>
+				<exclusion>
 					<artifactId>javax.servlet</artifactId>
 					<groupId>jsp-api</groupId>
 				</exclusion>
@@ -504,23 +527,17 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 		</dependency>
 
-		 <dependency>
-	        <groupId>ro.isdc.wro4j</groupId>
-	        <artifactId>wro4j-core</artifactId>
-	    </dependency>
-
-	    <dependency>
-	      <groupId>ro.isdc.wro4j</groupId>
-	      <artifactId>wro4j-extensions</artifactId>
-	    </dependency>
-
 		<dependency>
 			<groupId>org.dojotoolkit</groupId>
 			<artifactId>dojo-war</artifactId>
 			<version>${dojo.version}</version>
 			<type>war</type>
+			<exclusions>
+				<exclusion>
+					<artifactId>com.github.lltyk</artifactId>
+					<groupId>dojo-shrinksafe</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-
-
 	</dependencies>
 </project>
