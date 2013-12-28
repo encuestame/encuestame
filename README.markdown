@@ -1,13 +1,11 @@
 ![Example](http://encuestame.org/blog/wp-content/uploads/2013/06/logo_encuestame.png)
 
 ##Encuestame Open Source Social Survey
-=====================================
-
 [![Build Status](https://secure.travis-ci.org/encuestame/encuestame.png)](http://travis-ci.org/encuestame/encuestame)
 
 For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
 
-## Current Version (1.147-M1) Info
+## Current Version (1.147-M3) Info
 
 The **last release versions** are defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
