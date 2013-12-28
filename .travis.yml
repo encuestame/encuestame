@@ -1,10 +1,4 @@
 language: java
 before_install:
   - git submodule update --init --recursive
-script: "mvn clean install -Pproduction"
-
-# whitelist
-branches:
-  only:
-    - development
-    - master
+install: mvn clean install -Pproduction
