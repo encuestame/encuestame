@@ -37,6 +37,7 @@ public class MessageSourceFactoryBean implements MessageSource {
     /**
      *
      */
+    @Autowired
     private MessageSource messageSource;
     
     /**

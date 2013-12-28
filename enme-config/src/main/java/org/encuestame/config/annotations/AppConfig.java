@@ -23,7 +23,7 @@ import org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor;
 
 @Configuration
 @ComponentScan(basePackages = "org.encuestame")
-//@ImportResource({"classpath:/config/files/service-context.xml"})
+@ImportResource({"classpath:/config/files/service-context.xml"})
 public class AppConfig {
 
 	/**
@@ -43,30 +43,30 @@ public class AppConfig {
 		return new IndexFSDirectory();
 	}
 	
-	@Scope("singleton")
-	@Bean(name = "gadgetLoader")
-	public  GadgetsLoader gadgetsLoader() {
-		final GadgetsLoader gadgetsLoader = new GadgetsLoader();
-		final Resource[] gadgets  = {
-				new ClassPathResource("org/encuestame/business/gadgets/activity-stream.properties"),
-				new ClassPathResource("org/encuestame/business/gadgets/comments-stream.properties"),
-				new ClassPathResource("org/encuestame/business/gadgets/tweetpoll-stream.properties")
-				};
-		gadgetsLoader.setGadgets(gadgets);
-		return gadgetsLoader;
-	}
+//	@Scope("singleton")
+//	@Bean(name = "gadgetLoader")
+//	public  GadgetsLoader gadgetsLoader() {
+//		final GadgetsLoader gadgetsLoader = new GadgetsLoader();
+//		final Resource[] gadgets  = {
+//				new ClassPathResource("org/encuestame/business/gadgets/activity-stream.properties"),
+//				new ClassPathResource("org/encuestame/business/gadgets/comments-stream.properties"),
+//				new ClassPathResource("org/encuestame/business/gadgets/tweetpoll-stream.properties")
+//				};
+//		gadgetsLoader.setGadgets(gadgets);
+//		return gadgetsLoader;
+//	}
 	
-	/**
-	 * Messages to support internationalization/localization.
-	 */    
-	@Bean(name="messageSource")
-	public MessageSource messageSource() {
-		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasename("/WEB-INF/messages/messages");
-		messageSource.setDefaultEncoding("UTF-8");
-		messageSource.setCacheSeconds(1);		
-		return messageSource;
-	}   	
+//	/**
+//	 * Messages to support internationalization/localization.
+//	 */    
+//	@Bean(name="messageSource")
+//	public MessageSource messageSource() {
+//		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+//		messageSource.setBasename("/WEB-INF/messages/messages");
+//		messageSource.setDefaultEncoding("UTF-8");
+//		messageSource.setCacheSeconds(1);		
+//		return messageSource;
+//	}   	
 		
 	/**
 	 * 
@@ -113,12 +113,12 @@ public class AppConfig {
 	}
 	
 	
-	/**
-	 * 
-	 * @return
-	 */
-	@Scope("singleton")
-	public @Bean(name="install") DatabaseInstall install(){
-		return new DatabaseInstall();
-	}	
+//	/**
+//	 * 
+//	 * @return
+//	 */
+//	@Scope("singleton")
+//	public @Bean(name="install") DatabaseInstall install(){
+//		return new DatabaseInstall();
+//	}	
 }
