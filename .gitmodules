@@ -44,3 +44,6 @@
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/util"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/util
 	url = https://github.com/dojo/util.git
+[submodule "enme-js/dojo-maven"]
+	path = enme-js/dojo-maven
+	url = https://github.com/encuestame/dojo-maven.git

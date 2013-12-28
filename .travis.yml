@@ -1,3 +1,4 @@
 language: java
 before_install:
   - git submodule update --init --recursive
+install: mvn clean install -Pproduction

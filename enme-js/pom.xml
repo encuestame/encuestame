@@ -14,6 +14,7 @@
 
   <modules>
     <module>deps</module>
+    <module>dojo-maven</module>
     <module>resources-enme-war</module>
   </modules>
   <build>
