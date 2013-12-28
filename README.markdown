@@ -1,7 +1,9 @@
 ![Example](http://encuestame.org/blog/wp-content/uploads/2013/06/logo_encuestame.png)
 
-#Encuestame Open Source Social Survey
+##Encuestame Open Source Social Survey
 =====================================
+
+[![Build Status](https://secure.travis-ci.org/encuestame/encuestame.png)](http://travis-ci.org/encuestame/encuestame)
 
 For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
 
@@ -15,11 +17,6 @@ If you want to download a build version of encuestame, they're hosted on the [So
 * [Diana Paola Morales](http://about.me/dianmorales)
 * [Juan Carlos Picado](http://www.jotadeveloper.me)
 * [All Contributors](http://www.encuestame.org#contributors)
-
-## Where is the most stable code?
-If you are looking for the most stable code, please clone **stable** branch
-[![Build Status](https://secure.travis-ci.org/encuestame/encuestame.png)](http://travis-ci.org/encuestame/encuestame)
-
 
 ## Direct Download Last Releases
 * [1.147-M1](https://sourceforge.net/projects/encuestame/files/encuestame_beta/1.147/)
@@ -40,9 +37,9 @@ Pull requests are, of course, very welcome! A few "todos", if anyone is [interes
 
 * [JIRA](http://www.encuestame.org/issues)
 * [Wiki](http://www.encuestame.org/wiki)
-* [Metrics](http://metrics.encuestame.org)
-* [API Javadoc](http://api.encuestame.org)
-* [Demo Site](http://demo.encuestame.org)
+* [Metrics](http://www.encuestame.org/clover)
+* [API Javadoc](http://encuestame.org/javadoc/)
+* [Demo Site](http://www.encuestame.org/demo)
 * [GitHub](http://github.com/encuestame)
 * [Twitter](http://www.twitter.com/encuestame)
 * [Facebook](https://www.facebook.com/encuestame)
