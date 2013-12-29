@@ -3,8 +3,7 @@
 <head>
 <title>
     <tiles:insertAttribute name="title" defaultValue="encuestame" />
-
-    </title>
+</title>
 <%@ include file="/WEB-INF/jsp/includes/meta.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/web/css.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
@@ -31,12 +30,6 @@
         <tiles:insertAttribute name="content" />
       </div>
     </div>
-    <footer id="footer" class="">
-
-    </footer>
-  </div>
-  <div id="footer-f">
-     <tiles:insertAttribute name="footer" />
   </div>
 </body>
 

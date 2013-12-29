@@ -11,6 +11,7 @@
 <tiles:insertAttribute name="rss" ignore="true" />
 </head>
 <body class="enme-web-context dbootstrap">
+  <%@ include file="decorators/ui_bar.jsp"%>
   <div class="container">
       <tiles:insertAttribute name="header" ignore="true" />
   </div>
@@ -32,7 +33,6 @@
      <div id="loading"></div>
   </c:if>
   <%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
-  <%@ include file="decorators/ui_bar.jsp"%>
 </body>
 
 </html>
