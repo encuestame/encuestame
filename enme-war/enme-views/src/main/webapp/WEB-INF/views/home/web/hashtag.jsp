@@ -64,7 +64,7 @@ path.area {
              channel="/encuestame/hashtag/time/range/refresh/graph"
              hashtagName="${tagName.hashTagName}"></div>
       <div style="margin-right: 3px;text-aling:right;text-align: right;">
-        <div class="btn-group">
+        <!-- <div class="btn-group">
           <button class="btn active">
               by Type
           </button>
@@ -74,7 +74,7 @@ path.area {
           <button class="btn">
               Right
           </button>
-        </div>
+        </div> -->
       </div>
 
     <div class="row web-ht-detail">

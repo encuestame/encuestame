@@ -19,24 +19,26 @@
                   average</div>
               </div>
             </div>
-            <div class="span9">
+            <div class="span10">
               <div>
                 <h2>
-                 ${poll.questionBean.questionName}
+                    ${poll.questionBean.questionName}
                 </h2>
                 <span class="badge badge-success" data-dojo-attach-point="_badge">
-                  ${poll.relevance}
+                    ${poll.relevance}
                 </span>
               </div>
-               <c:if test="${!empty poll.hashTags}">
-                 <c:forEach items="${poll.hashTags}" var="h">
-                         <span data-dojo-type="me/web/widget/stream/HashTagInfo"
-                          url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
-                          hashTagName="${h.hashTagName}"></span>
-                 </c:forEach>
-               </c:if>
             </div>
 
+          </div>
+           <div>
+              <c:if test="${!empty poll.hashTags}">
+               <c:forEach items="${poll.hashTags}" var="h">
+                       <span data-dojo-type="me/web/widget/stream/HashTagInfo"
+                        url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
+                        hashTagName="${h.hashTagName}"></span>
+               </c:forEach>
+             </c:if>
           </div>
         </div>
 
@@ -119,6 +121,24 @@
       <h3>
             <spring:message code="options.comments" />
       </h3>
+      <c:if test="${logged}">
+            <div name="comments" data-dojo-type="me/web/widget/comments/AddComment"
+                 comment_limit="9000"
+                 type="tweetpoll"
+                 isModerated="${isModerated}"
+                 item_id="${tweetpoll.id}"
+                 username="${account.username}"></div>
+      </c:if>
+      <c:if test="${!logged}">
+          <div>
+            <a href="<%=request.getContextPath()%>/user/signin">
+                <img src="<%=request.getContextPath()%>/picture/profile/demo10/profile" width="80" height="80"/>
+              <b>
+                  Log in to post a comment
+              </b>
+            </a>
+          </div>
+      </c:if>
       <div data-dojo-type="me/web/widget/comments/Comments" type="poll" item_id="${poll.id}"></div>
    </section>
  </div>

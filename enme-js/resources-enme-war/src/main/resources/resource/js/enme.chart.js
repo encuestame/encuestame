@@ -141,14 +141,14 @@
 
             // On click, upmiliseconds_date the x-axis.
             function click() {
-              var n = values.length - 1,
-                  i = Math.floor(Math.random() * n / 2),
-                  j = i + Math.floor(Math.random() * n / 2) + 1;
-              x.domain([values[i].miliseconds_date, values[j].miliseconds_date]);
-              var t = svg.transition().duration(750);
-              t.select(".x.axis").call(xAxis);
-              t.select(".area").attr("d", area(values));
-              t.select(".line").attr("d", line(values));
+              // var n = values.length - 1,
+              //     i = Math.floor(Math.random() * n / 2),
+              //     j = i + Math.floor(Math.random() * n / 2) + 1;
+              // x.domain([values[i].miliseconds_date, values[j].miliseconds_date]);
+              // var t = svg.transition().duration(750);
+              // t.select(".x.axis").call(xAxis);
+              // t.select(".area").attr("d", area(values));
+              // t.select(".line").attr("d", line(values));
             }
 
             // Parse miliseconds_dates and numbers. We assume values are sorted by miliseconds_date.
