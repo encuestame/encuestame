@@ -21,7 +21,7 @@
                   average</div>
               </div>
             </div>
-            <div class="span9">
+            <div class="span10">
               <div>
                 <h2>
                   ${tweetpoll.questionBean.questionName}
@@ -30,15 +30,17 @@
                   ${tweetpoll.relevance}
                 </span>
               </div>
-               <c:if test="${!empty hashtags}">
+            </div>
+
+          </div>
+            <div>
+              <c:if test="${!empty hashtags}">
                  <c:forEach items="${hashtags}" var="h">
                          <span data-dojo-type="me/web/widget/stream/HashTagInfo"
                           url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
                           hashTagName="${h.hashTagName}"></span>
                  </c:forEach>
                </c:if>
-            </div>
-
           </div>
         </div>
 

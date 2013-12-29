@@ -24,12 +24,6 @@
         <tiles:insertAttribute name="content" />
       </div>
     </div>
-    <footer id="footer" class="">
-
-    </footer>
-  </div>
-  <div id="footer-f">
-     <tiles:insertAttribute name="footer" />
   </div>
   <!-- Insert additional javascript  -->
   <tiles:insertAttribute name="extra-js" ignore="true" />

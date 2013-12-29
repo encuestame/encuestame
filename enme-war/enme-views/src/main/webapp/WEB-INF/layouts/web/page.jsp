@@ -11,6 +11,7 @@
 <tiles:insertAttribute name="rss" ignore="true" />
 </head>
 <body class="enme-web-context dbootstrap">
+  <%@ include file="decorators/ui_bar.jsp"%>
   <div class="container">
       <tiles:insertAttribute name="header" ignore="true" />
   </div>
@@ -24,10 +25,6 @@
         <tiles:insertAttribute name="content" />
       </div>
     </div>
-    <footer id="footer"></footer>
-  </div>
-  <div id="footer-f">
-     <tiles:insertAttribute name="footer" />
   </div>
   <!-- Insert additional javascript  -->
   <tiles:insertAttribute name="extra-js" ignore="true" />
@@ -36,7 +33,6 @@
      <div id="loading"></div>
   </c:if>
   <%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
-  <%@ include file="decorators/ui_bar.jsp"%>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/meta.jsp"%>
 <c:if test="${logged}">
-      <div data-dojo-type="me/web/widget/ui/UpgradeBar" validate="${isActivated}">
-          <div class="up-message">
+      <div data-dojo-type="me/web/widget/ui/UpgradeBar" validate="${isActivated}" class="hidden">
+          <div class="up-message ">
               <span>
                   <spring:message code="singup.account.not.validated" />
               </span>
