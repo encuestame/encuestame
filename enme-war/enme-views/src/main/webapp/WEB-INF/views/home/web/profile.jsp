@@ -11,7 +11,7 @@
 <div class="web-profile-wrapper web-wrapper-detail">
   <div class="container">
     <div class="row">
-      <div class="span12 profile-header">
+      <div class="profile-header">
           <div class="picture">
                  <img width="110" height="110" alt="${profile.username}" src="<%=request.getContextPath()%>/picture/profile/${profile.username}/profile">
           </div>

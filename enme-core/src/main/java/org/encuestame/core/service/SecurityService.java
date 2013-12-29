@@ -750,7 +750,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @return
      */
     public Boolean isActivated(final SignUpBean signUpBean){
-        //TODO: true?
+        ///FIXME: implementation is needed
         return true;
     }
 
