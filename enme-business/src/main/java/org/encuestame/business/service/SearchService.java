@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -130,6 +131,11 @@ public class SearchService extends AbstractIndexService implements
             log.debug("attachments " + attachments.size());
             hashset.put("attachments", attachments);
         }
+        
+        if (resultsAllowed.indexOf(TypeSearchResult.COMMENT) != -1) {
+        	//TODO: add comment search implementation
+        	hashset.put("comments", ListUtils.EMPTY_LIST);
+        }
        // List<GlobalSearchItem> totalItems = new ArrayList<GlobalSearchItem>(hashset);
 
         //TODO: order by rated or something.
@@ -149,18 +155,28 @@ public class SearchService extends AbstractIndexService implements
         return hashset;
     }
 
+    /**
+     * 
+     */
     public List<GlobalSearchItem> globalKeywordSearch(String keyword,
             String language, final Integer start, final Integer limit) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.SearchServiceOperations#globalKeywordSearch(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
     public List<GlobalSearchItem> globalKeywordSearch(String keyword,
             final Integer start, final Integer limit) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /**
+     * 
+     */
     public String indexAttachment(final File file, final Long attachmentId){
      long start = System.currentTimeMillis();
                try {
@@ -194,6 +210,16 @@ public class SearchService extends AbstractIndexService implements
         }
     }
 
+    /**
+     * 
+     * @param typeSearch
+     * @param keyword
+     * @param max
+     * @param start
+     * @return
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeExpcetion
+     */
     public List<SearchBean> filterPollByItemsByType(
             final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
