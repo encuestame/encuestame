@@ -122,6 +122,9 @@
     <!-- TODO: future. -->
 
     <view-state id="finish-state">
+      	<on-entry>
+            <evaluate expression="EnMePlaceHolderConfigurer.setSystemInitialized(Boolean.TRUE)"></evaluate>
+        </on-entry>
         <!-- display all configuration and finish message. -->
 <!--         <secured attributes="ENCUESTAME_ADMIN"/> -->
         <transition on="home" to="home"></transition>

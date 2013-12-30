@@ -45,6 +45,11 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
      *
      */
     private static XMLConfigurationFileSupport configurationManager;
+    
+    /**
+     * 
+     */
+    private static Boolean systemInitialized = false;
 
 
     /**
@@ -182,4 +187,12 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
         final String value = EnMePlaceHolderConfigurer.getProperty(property);
         return new Integer(value == null ? "0" : value.trim());
     }
+
+	public static Boolean getSystemInitialized() {
+		return systemInitialized;
+	}
+
+	public static void setSystemInitialized(Boolean systemInitialized) {
+		EnMePlaceHolderConfigurer.systemInitialized = systemInitialized;
+	}    
 }

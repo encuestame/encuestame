@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.DirectorySetupOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
@@ -111,23 +112,25 @@ public class ReIndexAttachmentsJob {
      */
     @Scheduled(cron = "${cron.attachment}")
     public void reindexAttachments(){
-        log.debug("reindexAttachments");
-        final List<File> userDomainAttachmentsLocation = this.getListOfAccountEnabledDirectories();
-        log.debug("Location size:{"+userDomainAttachmentsLocation.size());
-        try {
-            if (userDomainAttachmentsLocation.size() > 0) {
-                if (this.indexerManager == null) {
-                    log.fatal("IndexManager is missing.");
-                } else {
-                    log.debug("Initialize Index Starting...");
-                    Assert.notNull(userDomainAttachmentsLocation);
-                    this.indexerManager.initializeIndex(userDomainAttachmentsLocation);
-                }
-            } else {
-                log.debug("Nothing to index... ");
-            }
-        } catch (Exception e) {
-            log.fatal("Index on reindex: "+e);
+    	if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
+	        log.debug("reindexAttachments");
+	        final List<File> userDomainAttachmentsLocation = this.getListOfAccountEnabledDirectories();
+	        log.debug("Location size:{"+userDomainAttachmentsLocation.size());
+	        try {
+	            if (userDomainAttachmentsLocation.size() > 0) {
+	                if (this.indexerManager == null) {
+	                    log.fatal("IndexManager is missing.");
+	                } else {
+	                    log.debug("Initialize Index Starting...");
+	                    Assert.notNull(userDomainAttachmentsLocation);
+	                    this.indexerManager.initializeIndex(userDomainAttachmentsLocation);
+	                }
+	            } else {
+	                log.debug("Nothing to index... ");
+	            }
+	        } catch (Exception e) {
+	            log.fatal("Index on reindex: "+e);
+	        }
         }
     }
 

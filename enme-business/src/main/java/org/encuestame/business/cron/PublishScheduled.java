@@ -53,26 +53,27 @@ public class PublishScheduled {
 	 */
 	@Scheduled(cron = "${cron.publishAllScheduled}")
 	public void publish() {
-		log.trace("************ Start publish scheduled items **************");
-		// I include in the search for the minimum date that have the maximum attempts
-		final Date minimumDate = getScheduled().retrieveMinimumScheduledDate(
-				Status.ACTIVE);
-		final Date currentDate = DateUtil.getCurrentCalendarDate();
-		// Check if minimun Date exists and its before to current date
-		if ((minimumDate != null) && (minimumDate.before(currentDate))) {
-			// Add parameter to evaluate item date
-			// Is necesarry update TweetpollSavedPublished once it is published?
-			try {
-				getTpollService().publishScheduledItems(Status.ACTIVE, minimumDate);
-			} catch (EnMeNoResultsFoundException e) {
-				log.error("error on execute the sheduled publish tweetpoll job " + e.getMessage());
-				e.printStackTrace();
+		if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
+			log.trace("************ Start publish scheduled items **************");
+			// I include in the search for the minimum date that have the maximum attempts
+			final Date minimumDate = getScheduled().retrieveMinimumScheduledDate(
+					Status.ACTIVE);
+			final Date currentDate = DateUtil.getCurrentCalendarDate();
+			// Check if minimun Date exists and its before to current date
+			if ((minimumDate != null) && (minimumDate.before(currentDate))) {
+				// Add parameter to evaluate item date
+				// Is necesarry update TweetpollSavedPublished once it is published?
+				try {
+					getTpollService().publishScheduledItems(Status.ACTIVE, minimumDate);
+				} catch (EnMeNoResultsFoundException e) {
+					log.error("error on execute the sheduled publish tweetpoll job " + e.getMessage());
+					e.printStackTrace();
+				}
+			}
+			else {
+				log.trace("*** The minimum date is greater than the current ****");
 			}
 		}
-		else {
-			log.trace("*** The minimum date is greater than the current ****");
-		}
-
  	}
 
 	/**

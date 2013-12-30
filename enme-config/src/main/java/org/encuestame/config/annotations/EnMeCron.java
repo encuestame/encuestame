@@ -164,11 +164,19 @@ public class EnMeCron {
 		indexJob.setIndexRebuilder(new IndexRebuilder());
 		return indexJob;
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public IndexFSDirectory getIndexFSDirectory() {
 		return indexFSDirectory;
 	}
 
+	/**
+	 * 
+	 * @param indexFSDirectory
+	 */
 	public void setIndexFSDirectory(IndexFSDirectory indexFSDirectory) {
 		this.indexFSDirectory = indexFSDirectory;
 	}

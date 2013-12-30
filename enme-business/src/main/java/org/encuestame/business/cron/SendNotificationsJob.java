@@ -15,6 +15,7 @@ package org.encuestame.business.cron;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.utils.json.NotificationResume;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -44,11 +45,13 @@ public class SendNotificationsJob {
 	 */
 	@Scheduled(cron = "${cron.sendNotifications}")
 	public void sendNotifications() {
-		String username = "demo10";
-		final NotificationResume notificationResume = new NotificationResume();
-		notificationResume.setTotalNewNot(RandomUtils.nextLong());
-		notificationResume.setTotalNot(RandomUtils.nextLong());
-		this.messagingTemplate.convertAndSend("/topic/notification-updates." + username, notificationResume);
+		if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
+			String username = "demo10";
+			final NotificationResume notificationResume = new NotificationResume();
+			notificationResume.setTotalNewNot(RandomUtils.nextLong());
+			notificationResume.setTotalNot(RandomUtils.nextLong());
+			this.messagingTemplate.convertAndSend("/topic/notification-updates." + username, notificationResume);
+		}
 	}
 
 	/**

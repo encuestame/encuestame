@@ -14,6 +14,7 @@ package org.encuestame.business.cron;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,11 +52,13 @@ public class RemoveUnconfirmedAccountJob {
      */
     @Scheduled(cron = "${cron.removeUnconfirmedAccount}")
     public void removeUnconfirmedAccount(){
-        try {
-          getSecurityService().removeUnconfirmedAccount(Boolean.FALSE);
-        } catch (Exception e) {
-          log.error("Owner account not found to change status");
-        }
+    	if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
+	        try {
+	          getSecurityService().removeUnconfirmedAccount(Boolean.FALSE);
+	        } catch (Exception e) {
+	          log.error("Owner account not found to change status");
+	        }
+    	}
     }
 
     /**
