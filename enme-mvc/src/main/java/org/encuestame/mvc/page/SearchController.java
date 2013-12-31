@@ -106,10 +106,12 @@ public class SearchController extends AbstractViewController {
            model.addAttribute("q", keyword);
            log.debug("search get");
            //keyword stats.
+           model.addAttribute("searchService", getSearchService());
            model.addAttribute("keywordStats", null);
            //search service.
            final Map<String, List<GlobalSearchItem>>  results  = getSearchService().quickSearch(keyword, "", 0, LIMIT_RESULTS, null, types);
            model.addAttribute("results", results);
+           model.addAttribute("no_results", results.isEmpty());
        }  catch (Exception e) {
            model.addAttribute("results", ListUtils.EMPTY_LIST);
            log.error(e);

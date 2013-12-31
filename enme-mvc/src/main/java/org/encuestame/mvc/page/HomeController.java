@@ -196,8 +196,13 @@ public class HomeController extends AbstractViewController {
             @PathVariable String slug,
             HttpServletRequest request,
             HttpServletResponse response) {
-
-
+    		try {
+				model.put("question", getSearchService().getQuestionInfo(Long.valueOf(id)));
+			} catch (EnMeNoResultsFoundException | NumberFormatException e) {
+				 e.printStackTrace();
+	             log.error(e);
+	            return "500";
+			}
             return "question/detail";
     }
 

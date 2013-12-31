@@ -31,11 +31,13 @@ import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Attachment;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitAttachment;
@@ -262,5 +264,18 @@ public class SearchService extends AbstractIndexService implements
         log.debug("Poll Search Items : " + list.size());
         return null;
     }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.SearchServiceOperations#getQuestionInfo(java.lang.Long)
+     */
+	@Override
+	public QuestionBean getQuestionInfo(Long questionId) throws EnMeNoResultsFoundException {
+		final Question question = getQuestionDao().retrieveQuestionById(questionId);
+		if (question == null) {
+			throw new EnMeNoResultsFoundException("question not found");
+		}
+		return ConvertDomainBean.convertQuestionsToBean(question);
+	}
 
 }

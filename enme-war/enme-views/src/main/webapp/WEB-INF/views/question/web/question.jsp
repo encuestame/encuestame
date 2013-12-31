@@ -1,15 +1,20 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<article class="web-tweetpoll-detail web-wrapper-detail">
-   <section class="web-hashtag-header web-detail-header">
-        <div class="title">
+<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
+<div id="web-tweetpoll-wrapper" class="enme-main-section web-wrapper-detail">
+    <div class="admon-table-options panel-header">
+       <div class="tb-left">
             <h3>
-               Question View
+                ${question}
             </h3>
-        </div>
-    </section>
-   <article class="emne-box">
+       </div>
+    </div>
+</div>
+
+
+<article class="web-tweetpoll-detail web-wrapper-detail">
+   <article class="emne-box" style="padding-top:20px;">
    			<p class="alert">
-   				Nothing to display
+   				 Information not avilable
    			</p>
    </article>
 </article>
