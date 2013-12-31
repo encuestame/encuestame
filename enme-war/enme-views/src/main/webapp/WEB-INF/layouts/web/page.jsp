@@ -19,8 +19,8 @@
     <header id="header" class="header_input_hidden">
           <%@ include file="/WEB-INF/layouts/decorators/i18n-input.jsp"%>
     </header>
-    <tiles:insertAttribute name="menu" ignore="true" />
     <div id="content-container">
+      <tiles:insertAttribute name="menu" ignore="true" />
       <div id="enme-content" class="container">
         <tiles:insertAttribute name="content" />
       </div>

@@ -25,6 +25,10 @@
     <js>/commons/offline.js</js>
     <js>/commons/alertify/dist/alertify.min.js</js>
   </group>
+  
+  <group name='maps'>
+ 	 <js>/commons/leaflet-0.7.1/leaflet-src.js</js>
+  </group> 
 
   <group name='init'>
     <js>/commons/modernizr.js</js>
