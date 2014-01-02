@@ -99,12 +99,12 @@
           <spring:message code="options.links" />
        </h3>
        <section>
-            <div data-dojo-type="me/web/widget/social/LinksPublished"
+              <div data-dojo-type="me/web/widget/social/LinksPublished"
                  more="false"
                  itemId="${tweetpoll.id}"
                  type="TWEETPOLL"
-                 class="web-social-links"
-                 ></div>
+                 class="web-social-links">
+               </div>
        </section>
    </article>
 
@@ -121,12 +121,19 @@
                  username="${account.username}"></div>
       </c:if>
       <c:if test="${!logged}">
-          <div>
-            <a href="<%=request.getContextPath()%>/user/signin">
-                <img src="<%=request.getContextPath()%>/picture/profile/demo10/profile" width="80" height="80"/>
-              <b>
-                  Log in to post a comment
-              </b>
+          <div class="row comment-login">
+              <div class="picture span2">
+                  <img src="<%=request.getContextPath()%>/picture/profile/demo10/profile" width="80" height="80"/>
+              </div>
+              <div class="span4">
+                  <div class="login">
+                      <a href="<%=request.getContextPath()%>/user/signin">
+                        <b>
+                            <spring:message code="comments.login.post.comment" />
+                        </b>
+                      </a>
+                  </div>
+              </div>
             </a>
           </div>
       </c:if>

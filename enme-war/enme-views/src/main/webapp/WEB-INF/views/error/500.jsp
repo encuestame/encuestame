@@ -4,11 +4,13 @@
         <article>
             <section class="web-user-confirm-message">
                 <article class="web-message-center">
-                    <h3>
-                        <spring:message code="error.pagenotfound" />
-                   	</h3>
-                    <p>
+                    <h4>
                         <spring:message code="error.pagenotfound.detail" />
+                   	</h4>
+                    <p>
+                        <spring:message code="error.report" /><a href="<%=EnMePlaceHolderConfigurer.getProperty("application.official.bugtrac")%>">
+                                          <%=EnMePlaceHolderConfigurer.getProperty("application.official.bugtrac")%>
+                                        </a>
                     </p>
                 </article>
             </section>

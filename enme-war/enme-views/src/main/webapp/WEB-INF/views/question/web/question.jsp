@@ -4,7 +4,7 @@
     <div class="admon-table-options panel-header">
        <div class="tb-left">
             <h3>
-                ${question}
+                ${question.questionName}
             </h3>
        </div>
     </div>

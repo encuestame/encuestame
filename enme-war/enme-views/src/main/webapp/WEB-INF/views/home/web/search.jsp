@@ -3,10 +3,10 @@
     <div class="admon-table-options panel-header">
        <div class="tb-left">
             <h3>
-                Search Results for <b>${q}</b>
+                <spring:message code="search.title" /> Search Results for <b>${q}</b>
             </h3>
             <p>
-                134 found
+                <b>${total}</b> <spring:message code="search.total.found" />
             </p>
        </div>
     </div>

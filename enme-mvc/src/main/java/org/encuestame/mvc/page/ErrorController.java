@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.utils.web.frontEnd.WebMessage;
 import org.encuestame.utils.web.frontEnd.WebMessage.WebInfoType;
@@ -65,8 +66,11 @@ public class ErrorController  extends AbstractViewController {
      */
     @RequestMapping({"/error"})
     public String errorController(final ModelMap model, final HttpServletRequest request, final HttpServletResponse  response) {
-        // if the error message is missing, nothing to display, it's redirected to home
-        if (request.getAttribute("message") == null) {
+        if (EnMePlaceHolderConfigurer.getBooleanProperty("encuestame.error.debug")) {
+        	log.debug("model error" + model.toString());
+        	return "500";
+        } else if (request.getAttribute("message") == null) {
+        	 // if the error message is missing, nothing to display, it's redirected to home
              log.error("*********************************************************************************************");
              log.error("redirect to home no error message, redirect to home");
              log.error("*********************************************************************************************");

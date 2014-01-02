@@ -58,6 +58,7 @@ public abstract class AbstractViewController extends AbstractBaseOperations{
      */
     @ExceptionHandler(NoSuchRequestHandlingMethodException.class)
     public ResponseEntity<String> handleNoSuchRequestHandlingMethodException(NoSuchRequestHandlingMethodException ex)   {
+    	ex.printStackTrace();
        return this.errorManage(ex);
     }
 
@@ -84,6 +85,7 @@ public abstract class AbstractViewController extends AbstractBaseOperations{
      */
     @ExceptionHandler(ServletRequestBindingException.class)
     public ResponseEntity<String> handleServletRequestBindingException(ServletRequestBindingException ex)   {
+    	ex.printStackTrace();
         return this.errorManage(ex);
     }
 
@@ -97,6 +99,7 @@ public abstract class AbstractViewController extends AbstractBaseOperations{
     @ExceptionHandler(AccessDeniedException.class)
     public ModelAndView handleException (final AccessDeniedException ex, HttpServletResponse httpResponse,
             HttpServletRequest request) {
+      ex.printStackTrace();
        ModelAndView mav = new ModelAndView();
        mav.setViewName("tilesResolver");
        mav.setViewName("error/denied");
