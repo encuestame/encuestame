@@ -123,19 +123,26 @@
       </h3>
       <c:if test="${logged}">
             <div name="comments" data-dojo-type="me/web/widget/comments/AddComment"
-                 comment_limit="9000"
-                 type="tweetpoll"
+                 comment_limit="<%=EnMePlaceHolderConfigurer.getProperty("comments.max.length")%>"
+                 type="poll"
                  isModerated="${isModerated}"
-                 item_id="${tweetpoll.id}"
+                 item_id="${poll.id}"
                  username="${account.username}"></div>
       </c:if>
       <c:if test="${!logged}">
-          <div>
-            <a href="<%=request.getContextPath()%>/user/signin">
-                <img src="<%=request.getContextPath()%>/picture/profile/demo10/profile" width="80" height="80"/>
-              <b>
-                  Log in to post a comment
-              </b>
+         <div class="row comment-login">
+              <div class="picture span2">
+                  <img src="<%=request.getContextPath()%>/resources/images/default.png" width="60" height="60"/>
+              </div>
+              <div class="span4">
+                  <div class="login">
+                      <a href="<%=request.getContextPath()%>/user/signin">
+                        <h4 class="enme">
+                            <spring:message code="comments.login.post.comment" />
+                        </h4>
+                      </a>
+                  </div>
+              </div>
             </a>
           </div>
       </c:if>

@@ -112,9 +112,10 @@
       <h3>
             <spring:message code="options.comments" />
       </h3>
+
       <c:if test="${logged}">
             <div name="comments" data-dojo-type="me/web/widget/comments/AddComment"
-                 comment_limit="9000"
+                 comment_limit="<%=EnMePlaceHolderConfigurer.getProperty("comments.max.length")%>"
                  type="tweetpoll"
                  isModerated="${isModerated}"
                  item_id="${tweetpoll.id}"
@@ -123,14 +124,14 @@
       <c:if test="${!logged}">
           <div class="row comment-login">
               <div class="picture span2">
-                  <img src="<%=request.getContextPath()%>/picture/profile/demo10/profile" width="80" height="80"/>
+                  <img src="<%=request.getContextPath()%>/resources/images/default.png" width="60" height="60"/>
               </div>
               <div class="span4">
                   <div class="login">
                       <a href="<%=request.getContextPath()%>/user/signin">
-                        <b>
+                        <h4 class="enme">
                             <spring:message code="comments.login.post.comment" />
-                        </b>
+                        </h4>
                       </a>
                   </div>
               </div>
