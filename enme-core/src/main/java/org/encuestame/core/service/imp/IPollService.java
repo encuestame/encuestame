@@ -226,7 +226,9 @@ public interface IPollService extends IMasterSurveyService{
      * @return
      * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion
+     * @deprecated in favor of IPollService.filterSearchPollsByType
      */
+    @Deprecated
     List<PollBean> filterPollByItemsByType(final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
             throws EnMeNoResultsFoundException, EnMeExpcetion;

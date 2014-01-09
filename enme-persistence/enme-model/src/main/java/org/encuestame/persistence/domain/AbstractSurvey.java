@@ -203,10 +203,26 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      ***/
     private Date endDate;
 
+    
+    /** Create Date. **/
+    private Date createDate;
+        
     /**
-     * Survey created at.
-     ***/
-    private Date createdAt;  
+     * @return the createDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    //FIXME: change to  created_date, this means update all SQL script files 
+    @Column(name = "created_at", nullable = true)
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    /**
+     * @param createDate the createDate to set
+     */
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 
     /**
      * @return the customMessage.
@@ -652,20 +668,4 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     public void setOwner(final Account owner) {
         this.owner = owner;
     }
-
-    /**
-     * @return the createdAt
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    /**
-     * @param createdAt the createdAt to set
-     */
-    public void setCreatedAt(final Date createdAt) {
-        this.createdAt = createdAt;
-    } 
 }

@@ -65,6 +65,25 @@ public class Search implements Serializable {
 
     /** **/
     private List<Long> socialAccounts = new ArrayList<Long>();
+    
+    /** **/
+	private Boolean isPublished = Boolean.TRUE;
+
+
+
+	/**
+	 * @return the isPublished
+	 */
+	public Boolean getIsPublished() {
+		return isPublished;
+	}
+
+	/**
+	 * @param isPublished the isPublished to set
+	 */
+	public void setIsPublished(final Boolean isPublished) {
+		this.isPublished = isPublished;
+	}    
 
 
     /**

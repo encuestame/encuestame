@@ -27,23 +27,6 @@ public class TweetPollSearchBean extends Search{
 	private static final long serialVersionUID = -3143051300650851973L;
 
 
-	/** **/
-	private Boolean isPublished = Boolean.TRUE;
-
-
-
-	/**
-	 * @return the isPublished
-	 */
-	public Boolean getIsPublished() {
-		return isPublished;
-	}
-
-	/**
-	 * @param isPublished the isPublished to set
-	 */
-	public void setIsPublished(final Boolean isPublished) {
-		this.isPublished = isPublished;
-	}
+	
 
 }

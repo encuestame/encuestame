@@ -813,9 +813,9 @@ public class ConvertDomainBean {
         unitPoll.setId(poll.getPollId());
         unitPoll.setCompletedPoll(poll.getPollCompleted() == null ? false
                 : poll.getPollCompleted());
-        unitPoll.setCreationDate(poll.getCreatedAt() == null ? null
-                : DateUtil.SIMPLE_DATE_FORMAT.format(poll.getCreatedAt()));
-        unitPoll.setCreateDateComparable(poll.getCreatedAt());
+        unitPoll.setCreationDate(poll.getCreateDate() == null ? null
+                : DateUtil.SIMPLE_DATE_FORMAT.format(poll.getCreateDate()));
+        unitPoll.setCreateDateComparable(poll.getCreateDate());
         unitPoll.setQuestionBean(ConvertDomainBean.convertQuestionsToBean(poll
                 .getQuestion()));
         unitPoll.setPublishPoll(poll.getPublish() == null ? false : poll
@@ -1105,7 +1105,7 @@ public class ConvertDomainBean {
         unitSurvey.setName(survey.getName());
         unitSurvey.setRelevance(survey.getRelevance());
         unitSurvey.setSurveySlugName(survey.getSurveySlugName());
-        unitSurvey.setCreatedAt(survey.getCreatedAt());
+        unitSurvey.setCreatedAt(survey.getCreateDate());
         unitSurvey.setTotalVotes(survey.getNumbervotes() == null ? EnMeUtils.VOTE_MIN
                 : Long.valueOf(survey.getNumbervotes()));
         unitSurvey.setLikeVote(survey.getLikeVote() == null ? EnMeUtils.LIKE_DEFAULT
@@ -1730,7 +1730,7 @@ public class ConvertDomainBean {
             final Poll poll) {
         final ItemStatDetail itemDetail = new ItemStatDetail();
         itemDetail.setItemId(poll.getPollId());
-        itemDetail.setDate(poll.getCreatedAt());
+        itemDetail.setDate(poll.getCreateDate());
         return itemDetail;
     }
 
@@ -1758,7 +1758,7 @@ public class ConvertDomainBean {
             final Survey survey) {
         final ItemStatDetail itemDetail = new ItemStatDetail();
         itemDetail.setItemId(survey.getSid());
-        itemDetail.setDate(survey.getCreatedAt());
+        itemDetail.setDate(survey.getCreateDate());
         return itemDetail;
     }
 
