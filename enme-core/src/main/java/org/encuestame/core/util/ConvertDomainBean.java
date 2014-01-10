@@ -135,7 +135,7 @@ public class ConvertDomainBean {
             final HttpServletRequest request) {
         final List<TweetPollAnswerSwitchBean> listSwitchs = new ArrayList<TweetPollAnswerSwitchBean>();
         for (TweetPollSwitch account : pollSwitchs) {
-            listSwitchs.add(ConvertDomainBean 
+            listSwitchs.add(ConvertDomainBean
                     .convertTweetPollSwitchToBean(account, request));
         }
         return listSwitchs;
@@ -784,6 +784,77 @@ public class ConvertDomainBean {
                 .toLowerCase());
         return unitTweetPoll;
     }
+
+    public static final SearchBean convertPollToSearchBean(
+            final Poll poll) {
+        final SearchBean pollSearch = new SearchBean();
+        pollSearch.setId(poll.getPollId());
+
+        pollSearch.setCreateDate(DateUtil.getFormatDate(poll.getCreateDate()));
+        pollSearch.setCreateDateComparable(poll.getCreateDate());
+        pollSearch.setAllowLiveResults(poll.getShowResults() == null ? false
+                        : poll.getShowResults());
+
+        pollSearch.setModeratedComments(poll.getShowComments() == null ? false : (poll.getShowComments().equals(
+        		CommentOptions.MODERATE) ? true : false));
+
+        pollSearch
+                .setResultNotification(poll.getNotifications() == null ? false
+                        : poll.getNotifications());
+        pollSearch.setUserId(poll.getEditorOwner().getUid());
+        pollSearch.setOwnerUsername(poll.getEditorOwner() == null ? null
+                        : poll.getEditorOwner().getUsername());
+         pollSearch.setFavourites(poll.getFavorites() == null ? false
+                : poll.getFavorites());
+        pollSearch.setCompleted(poll.getPollCompleted() == null ? false
+                : poll.getPollCompleted());
+        pollSearch.setQuestionBean(convertQuestionsToBean(poll
+                .getQuestion()));
+        pollSearch.setHits(poll.getHits() == null ? EnMeUtils.VOTE_MIN
+                : poll.getHits());
+
+        pollSearch.setHashTags(ConvertDomainBean
+                .convertListHashTagsToBean(new ArrayList<HashTag>(poll
+                        .getHashTags())));
+        pollSearch
+                .setTotalVotes(poll.getNumbervotes() == null ? EnMeUtils.VOTE_MIN
+                        : Long.valueOf(poll.getNumbervotes()));
+        pollSearch.setCreatedDateAt(poll.getCreateDate());
+        pollSearch
+                .setLimitVotesDate(poll.getCloseAfterDate() == null ? false
+                        : poll.getCloseAfterDate());
+        pollSearch.setUpdateDate(poll.getUpdatedDate());
+        if (poll.getClosedQuota() != null
+                && poll.getClosedDate() != null) {
+            pollSearch
+                    .setDateToLimit(poll.getClosedDate() == null ? null
+                            : DateUtil.DOJO_DATE_FORMAT.format(poll
+                                    .getClosedDate()));
+        }
+        pollSearch
+                .setRelevance(poll.getRelevance() == null ? EnMeUtils.RATE_DEFAULT
+                        : poll.getRelevance());
+        pollSearch.setItemType(TypeSearchResult.POLL.toString()
+                .toLowerCase());
+        return pollSearch;
+    }
+
+
+    /**
+     *Convert a Poll array to {@link SearchBean} list.
+     * @param poll
+     * @return
+     */
+    public static final List<SearchBean> convertPollListToSearchBean(
+            final List<Poll> poll) {
+        final List<SearchBean> listPollSearchBeans = new ArrayList<SearchBean>();
+        for (Poll pollList : poll) {
+        	listPollSearchBeans
+                    .add(ConvertDomainBean.convertPollToSearchBean(pollList));
+        }
+        return listPollSearchBeans;
+    }
+
 
 
     /**
