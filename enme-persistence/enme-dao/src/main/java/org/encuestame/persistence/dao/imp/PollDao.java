@@ -110,7 +110,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("editorOwner", userAcc));
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
-        criteria.addOrder(Order.desc("createdAt"));
+        criteria.addOrder(Order.desc("createDate"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -129,7 +129,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("owner", account));
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
-        criteria.addOrder(Order.desc("createdAt"));
+        criteria.addOrder(Order.desc("createDate"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -159,12 +159,12 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                 Poll.class, "poll");
         criteria.add(Subqueries.propertyIn("poll.pollId", detached));
         if (filterby.equals(TypeSearchResult.HASHTAG)) {
-            criteria.addOrder(Order.desc("poll.createdAt"));
+            criteria.addOrder(Order.desc("poll.createDate"));
         } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
               criteria.addOrder(Order.desc("numbervotes"));
         }
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
-        calculateSearchPeriodsDates(searchPeriods, detached, "createdAt");
+        calculateSearchPeriodsDates(searchPeriods, detached, "createDate");
         return (List<Poll>) filterByMaxorStart(criteria,limitResults, startResults);
     }
 
@@ -189,8 +189,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         final DetachedCriteria criteria = DetachedCriteria.forClass(
                 Poll.class, "poll");
         criteria.add(Subqueries.propertyIn("poll.pollId", detached));
-        criteria.addOrder(Order.desc("poll.createdAt"));
-        calculateSearchPeriodsDates(period, criteria, "createdAt");
+        criteria.addOrder(Order.desc("poll.createDate"));
+        calculateSearchPeriodsDates(period, criteria, "createDate");
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
         return getHibernateTemplate().findByCriteria(criteria);
     }
@@ -219,12 +219,12 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         final DetachedCriteria criteria = DetachedCriteria.forClass(
                 Poll.class, "poll");
         criteria.add(Subqueries.propertyIn("poll.pollId", detached));
-        criteria.addOrder(Order.desc("poll.createdAt"));
+        criteria.addOrder(Order.desc("poll.createDate"));
         //calculateSearchPeriodsDates(period, criteria, "createdAt");
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
 
         ProjectionList projList = Projections.projectionList();
-        projList.add(Projections.groupProperty("createdAt"));
+        projList.add(Projections.groupProperty("createDate"));
         projList.add(Projections.rowCount());
         criteria.setProjection(projList);
 
@@ -433,7 +433,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("editorOwner", userAcc));
         if ( date != null) {
-            criteria.add(Restrictions.between("createdAt", date, getNextDayMidnightDate()));
+            criteria.add(Restrictions.between("createDate", date, getNextDayMidnightDate()));
         }
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
@@ -449,7 +449,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
          final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
          criteria.add(Restrictions.eq("publish", Boolean.TRUE));
          criteria.add(Restrictions.eq("editorOwner", userAcc));
-         criteria.addOrder(Order.desc("createdAt"));
+         criteria.addOrder(Order.desc("createDate"));
          return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -462,7 +462,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.setProjection(Projections.max("likeVote"));
         criteria.createAlias("editorOwner", "editorOwner");
         criteria.add(Restrictions.eq("editorOwner.uid", userId));
-        criteria.add(Restrictions.between("createdAt", dateFrom, dateTo));
+        criteria.add(Restrictions.between("createDate", dateFrom, dateTo));
         List results = getHibernateTemplate().findByCriteria(criteria);
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
@@ -481,9 +481,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
         if (range != null) {
           //  criteria.add(Restrictions.gt("createdAt", range));
-            calculateSearchPeriodsDates(range, criteria, "createdAt");
+            calculateSearchPeriodsDates(range, criteria, "createDate");
         }
-        criteria.addOrder(Order.desc("createdAt"));
+        criteria.addOrder(Order.desc("createDate"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -527,7 +527,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
             final Integer maxResults,
             final Integer start){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-         criteria.add(Restrictions.between("createdAt", initDate, endDate));
+         criteria.add(Restrictions.between("createDate", initDate, endDate));
          criteria.add(Restrictions.eq("owner", owner));
          return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
@@ -668,7 +668,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 		final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
 		criteria.createAlias("owner", "owner");
 		criteria.add(Restrictions.eq("owner", account));
-		criteria.add(Restrictions.between("createdAt", initDate,
+		criteria.add(Restrictions.between("createDate", initDate,
 				getNextDayMidnightDate()));
 		advancedSearchOptions(criteria, isCompleted, isScheduled, isFavourite,
 				isPublished, keyword, period);

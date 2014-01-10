@@ -119,11 +119,11 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             final Integer firstResult) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.createAlias("question", "question");
-        calculateSearchPeriodsDates(period, criteria, "createdAt");
+        calculateSearchPeriodsDates(period, criteria, "createDate");
         criteria.add(Restrictions.gt("relevance", 0L));
         criteria.addOrder(Order.desc("relevance"));
         criteria.add(Restrictions.eq("publish", Boolean.TRUE)); //should be published
-        criteria.addOrder(Order.desc("createdAt"));
+        criteria.addOrder(Order.desc("createDate"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
         //return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
     }
@@ -139,10 +139,10 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
          //criteria.createAlias("question", "question");
         // TODO: Complete method, adding criteria params
 
-        calculateSearchPeriodsDates(period, criteria, "createdAt");
+        calculateSearchPeriodsDates(period, criteria, "createDate");
         criteria.add(Restrictions.gt("relevance", 0L));
         criteria.addOrder(Order.desc("relevance"));
-        criteria.addOrder(Order.desc("createdAt"));
+        criteria.addOrder(Order.desc("createDate"));
         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }
 
