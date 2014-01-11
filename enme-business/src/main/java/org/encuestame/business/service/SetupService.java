@@ -97,6 +97,14 @@ public class SetupService extends AbstractBaseService implements SetupOperations
         config.getXmlConfiguration().addProperty("install.uuid", RandomStringUtils.randomAlphanumeric(50));
         log.debug("validateInstall ------------");
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.SetupOperations#finishInstall()
+     */
+    public void finishInstall(){
+    	EnMePlaceHolderConfigurer.setSystemInitialized(Boolean.TRUE);
+    }
 
     /**
      * @throws EnmeFailOperation

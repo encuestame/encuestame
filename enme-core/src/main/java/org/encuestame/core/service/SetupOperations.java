@@ -44,6 +44,8 @@ public interface SetupOperations {
     void demoInstall();
 
     void upgradeDatabase();
+    
+    void finishInstall();
 
     String getSQLExecuted();
 
