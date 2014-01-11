@@ -667,7 +667,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     * Add to model defaults messages.
     * TODO: move to INTERCEPTOR.
     */
-   public final void addDefaulti18nMessages(ModelMap model) {
+   public void addDefaulti18nMessages(ModelMap model) {
        addi18nProperty(model, "profile_menu_configuration", getMessage("profile_menu_configuration"));
        addi18nProperty(model, "profile_menu_social", getMessage("profile_menu_social"));
        addi18nProperty(model, "profile_menu_help", getMessage("profile_menu_help"));
@@ -678,7 +678,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     * Add to model the social picker messages.
     * @param model
     */
-   public final void addSocialPickerWidgetMessages(ModelMap model) {
+   public void addSocialPickerWidgetMessages(ModelMap model) {
        addi18nProperty(model, "social_picker_only_selected", getMessage("social_picker_only_selected"));
        addi18nProperty(model, "social_picker_select_all", getMessage("social_picker_select_all"));
        addi18nProperty(model, "social_picker_unselect_all", getMessage("social_picker_unselect_all"));
@@ -691,7 +691,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     *
     * @param model
     */
-   public final void addItemsManangeMessages(ModelMap model) {
+   public void addItemsManangeMessages(ModelMap model) {
     addi18nProperty(model, "detail_manage_by_account", getMessage("detail_manage_by_account"));
        addi18nProperty(model, "detail_manage_today", getMessage("detail_manage_today"));
        addi18nProperty(model, "detail_manage_last_week", getMessage("detail_manage_last_week"));

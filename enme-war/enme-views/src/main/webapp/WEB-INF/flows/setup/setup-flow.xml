@@ -97,18 +97,22 @@
     </view-state>
 
     <view-state id="review-admon">
-        <transition on="finish" to="finish-state">
-            <evaluate expression="setupService.validateInstall()"></evaluate>
-        </transition>
+        <transition on="welcome" to="welcome-page"/>  
         <!-- <transition on="edit-user" to="editAdmon" /> TODO: wish list. -->
     </view-state>
 
     <view-state id="install-check">
 <!--         <secured attributes="ENCUESTAME_ADMIN" match="all"/> -->
         <transition on="customize" to="add-social-networks"></transition> <!-- TODO: future. -->
-        <transition on="finish" to="finish-state"></transition>
+        <transition on="finish" to="welcome-page"></transition>
         <transition on-exception="java.lang.Exception" to="displayError"></transition>
     </view-state>
+    
+    <view-state id="welcome-page">
+        <transition on="finish" to="finish-state">
+        	<evaluate expression="setupService.validateInstall()"></evaluate>
+        </transition>
+    </view-state>    
 
     <!-- TODO: future. -->
     <view-state id="add-social-networks">

@@ -327,7 +327,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      */
     @Override
     public List<SocialNetworkBean> listAllNetworkConfigurationSocial() {
-        // TODO Auto-generated method stub
+    	
         return null;
     }
 
@@ -344,4 +344,10 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     public void setCsvParser(CSVParser csvParser) {
         this.csvParser = csvParser;
     }
+
+	@Override
+	public void checkSocialNetworks() {
+		// TODO Auto-generated method stub
+		
+	}
 }
