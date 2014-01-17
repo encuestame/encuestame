@@ -7,43 +7,10 @@
 <%@ include file="/WEB-INF/jsp/includes/mobile/css.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
 <body class="mobil">
-    <header class="main">
-        <h1 class="logo">    
-            <a href="#" class="ss-list">                
-                    dojoPanelMenu                
-            </a>    
-        </h1>
-        <a href="#menu" class="menu-trigger ss-icon">&#xED50;</a>
-        <nav id="menu">
-            <ul>
-                <li class="selected">
-                    <a href="#">
-                        Menu 1
-                    </a>
-                </li>
-                <li>
-                    <a href="#usage">
-                        Menu 2
-                    </a>
-                </li>
-                <li>
-                    <a href="#inner-workings">
-                        Menu 2
-                    </a>
-                </li>
-                <li>
-                    <a href="#animation">
-                        Menu 2
-                    </a>
-                </li>
-                <li>
-                    <a href="#options">
-                        Menu 3
-                    </a>
-                </li>
-            </ul>
-        </nav>       
-    </header>
+    
+    <a href="<%=request.getContextPath()%>/home">
+        <header class="mobile-header" style="background: url('<%=request.getContextPath()%>/resources/images/logos/2013/horizontal/encuestame_horizontal_small_alpha.png')"></header>
+    </a>
 
     <div class="content">
          <tiles:insertAttribute name="content"/>

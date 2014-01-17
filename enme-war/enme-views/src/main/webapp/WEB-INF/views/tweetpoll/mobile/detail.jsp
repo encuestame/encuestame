@@ -1,8 +1,8 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <article class="mobile-detail">
-    <section class="mobile-question-detail category_color">
-        ${tweetpoll.questionBean.questionName}
-    </section>
+    <h4 class="enme mobile-question-detail">
+                ${tweetpoll.questionBean.questionName}
+    </h4>
     <article>
          <div id="chart" data-dojo-type="me/web/widget/tweetpoll/detail/TweetPollChartDetail"
                      tweetPollid="${tweetpoll.id}"
@@ -37,7 +37,7 @@
     </article>
     <c:if test="${!empty hashtags}">
        <article class="emne-box">
-           <header class="category_color">
+           <header class="mobile-home-subtitle category_color">
                 <spring:message code="options.hashtag" />
            </header>
            <div class="web-tweetpoll-hashtags ">
@@ -51,7 +51,7 @@
    </c:if>
 
    <article class="emne-box">
-       <header class="category_color">
+       <header class="mobile-home-subtitle category_color">
           <spring:message code="options.links" />
        </header>
        <section>
@@ -65,12 +65,14 @@
    </article>
 
     <section class="web-tweetpoll-comments emne-box">
-       <header class="category_color">
+       <header class="mobile-home-subtitle category_color">
             <spring:message code="options.comments" />
       </header>
       <div name="comments"
            data-dojo-type="me/web/widget/comments/Comments"
            type="tweetpoll"
+           more="true"
+           limit="10"
            item_id="${tweetpoll.id}">
       </div>
    </section>

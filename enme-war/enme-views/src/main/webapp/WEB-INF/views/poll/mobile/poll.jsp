@@ -2,9 +2,9 @@
 
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <article class="mobile-detail">
-   <div class="mobile-question-detail category_color">
+   <h4 class="enme mobile-question-detail">
               ${poll.questionBean.questionName}
-   </div>
+   </h4>
    <article class="emne-box">
         <section class="web-wrapper-detail-wrapper">
             <article class="web-detail-chart">
