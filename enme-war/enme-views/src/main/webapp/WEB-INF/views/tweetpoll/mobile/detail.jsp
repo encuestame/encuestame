@@ -68,6 +68,31 @@
        <header class="mobile-home-subtitle category_color">
             <spring:message code="options.comments" />
       </header>
+ <c:if test="${logged}">
+            <div name="comments" data-dojo-type="me/web/widget/comments/AddComment"
+                 comment_limit="<%=EnMePlaceHolderConfigurer.getProperty("comments.max.length")%>"
+                 type="tweetpoll"
+                 isModerated="${isModerated}"
+                 item_id="${tweetpoll.id}"
+                 username="${account.username}"></div>
+      </c:if>
+      <c:if test="${!logged}">
+          <div class="row comment-login">
+              <div class="picture span2">
+                  <img src="<%=request.getContextPath()%>/resources/images/default.png" width="60" height="60"/>
+              </div>
+              <div class="span4">
+                  <div class="login">
+                      <a href="<%=request.getContextPath()%>/user/signin">
+                        <h4 class="enme">
+                            <spring:message code="comments.login.post.comment" />
+                        </h4>
+                      </a>
+                  </div>
+              </div>
+            </a>
+          </div>
+      </c:if>      
       <div name="comments"
            data-dojo-type="me/web/widget/comments/Comments"
            type="tweetpoll"

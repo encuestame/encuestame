@@ -24,6 +24,7 @@
 
     <definition name="main-vote" templateExpression="/WEB-INF/layouts/vote.jsp">
          <put-attribute name="header" expression="/WEB-INF/layouts/header.jsp" />
+         <put-attribute name="footer" expression="/WEB-INF/layouts/footer.jsp" />
     </definition>
 
     <definition name="main-embedded" templateExpression="/WEB-INF/layouts/embedded-page.jsp"></definition>

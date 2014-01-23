@@ -1,8 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]>    <html class="no-js iem7"> <![endif]-->
-<!--[if (gt IEMobile 7)|!(IEMobile)]><!--> <html class="no-js"> <!--<![endif]-->
+<%@ include file="/WEB-INF/layouts/decorators/html.jsp"%>
     <head>
         <title>
             <tiles:insertAttribute name="title" defaultValue="encuestame mobile" />
