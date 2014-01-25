@@ -43,19 +43,19 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     @JsonProperty(value = "closeNotification")
     private Boolean closeNotification; //TODO: ???????
     @JsonProperty(value = "resultNotification")
-    private Boolean resultNotification;
+    private Boolean resultNotification  = false;
     @JsonProperty(value = "publishPoll")
-    private Boolean publishPoll;
+    private Boolean publishPoll  = false;
     @JsonProperty(value = "scheduleDate")
     private Date scheduleDate;
     @JsonProperty(value = "allowLiveResults")
-    private Boolean allowLiveResults;
+    private Boolean allowLiveResults = false;
     @JsonProperty(value = "schedule")
-    private Boolean schedule;
+    private Boolean schedule  = false;
     @JsonProperty(value = "completed")
-    private Boolean completed;
+    private Boolean completed  = false;
     @JsonProperty(value = "favourites")
-    private Boolean favourites;
+    private Boolean favourites  = false;
     @JsonProperty(value = "userId")
     private Long userId;
     @JsonProperty(value = "ownerUsername")
@@ -65,7 +65,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     @JsonProperty(value = "createDate")
     private String createDate;
     @JsonProperty(value = "allowRepeatedVotes")
-    private Boolean allowRepeatedVotes;
+    private Boolean allowRepeatedVotes  = false;
     @JsonProperty(value = "totalVotes")
     private Long totalVotes;
     @JsonProperty(value = "hits")
@@ -73,13 +73,13 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     @JsonProperty(value = "maxRepeatedVotes")
     private Integer maxRepeatedVotes;
     @JsonProperty(value = "limitVotesEnabled")
-    private Boolean limitVotesEnabled;
+    private Boolean limitVotesEnabled  = false;
     @JsonProperty(value = "resumeTweetPollDashBoard")
-    private Boolean resumeTweetPollDashBoard;
+    private Boolean resumeTweetPollDashBoard  = false;
     @JsonProperty(value = "createdDateAt")
     private Date createdDateAt;
     @JsonProperty(value = "limitVotesDate")
-    private Boolean limitVotesDate;
+    private Boolean limitVotesDate  = false;
     @JsonProperty(value = "dateToLimit")
     private String dateToLimit;
     @JsonProperty(value = "update_date")
