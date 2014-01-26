@@ -43,7 +43,7 @@ path.area {
 
     <div class="container">
 
-      <div class="row web-generic-stats">
+      <div class="row web-generic-stats">            
            <div data-dojo-type="me/web/widget/stats/GenericStats"
                 class=""
                 channel="/encuestame/hashtag/time/range/refresh/graph"

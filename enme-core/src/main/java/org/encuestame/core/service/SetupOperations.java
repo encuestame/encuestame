@@ -44,6 +44,10 @@ public interface SetupOperations {
     void demoInstall();
 
     void upgradeDatabase();
+    
+    void finishInstall();
+    
+    void checkSocialNetworks();
 
     String getSQLExecuted();
 

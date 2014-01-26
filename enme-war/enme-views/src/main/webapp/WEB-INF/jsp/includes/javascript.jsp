@@ -33,3 +33,4 @@ require([
 </script>
 <%@ include file="/WEB-INF/jsp/includes/decorators/log-js.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/decorators/analytics.jsp"%>
+

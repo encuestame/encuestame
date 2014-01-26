@@ -192,25 +192,25 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		final Survey survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount()
 				.getAccount());
 		survey.getHashTags().add(tag);
-		survey.setCreatedAt(new Date());
+		survey.setCreateDate(new Date());
 		getSurveyDaoImp().saveOrUpdate(survey);
 		final Survey survey2 = createDefaultSurvey(getSpringSecurityLoggedUserAccount()
 				.getAccount());
 		survey2.getHashTags().add(tag);
-		survey2.setCreatedAt(new Date());
+		survey2.setCreateDate(new Date());
 		getSurveyDaoImp().saveOrUpdate(survey2);
 
 		final Survey survey3 = createDefaultSurvey(getSpringSecurityLoggedUserAccount()
 				.getAccount());
 		survey3.getHashTags().add(tag);
-		survey3.setCreatedAt(myDate.getTime());
+		survey3.setCreateDate(myDate.getTime());
 		getSurveyDaoImp().saveOrUpdate(survey3);
 
 		myDate.add(Calendar.MONTH, +6);
 		final Survey survey4 = createDefaultSurvey(getSpringSecurityLoggedUserAccount()
 					.getAccount());
 		survey4.getHashTags().add(tag);
-		survey4.setCreatedAt(myDate.getTime());
+		survey4.setCreateDate(myDate.getTime());
 		getSurveyDaoImp().saveOrUpdate(survey4);
 
 		final List<HashTagDetailStats> stats = getStatisticsService()
@@ -1251,7 +1251,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
  		final Poll poll4 = createDefaultPoll(question,
  				getSpringSecurityLoggedUserAccount());
  		poll4.getHashTags().add(mytag);
- 		poll4.setCreatedAt(createdAt.toDate());
+ 		poll4.setCreateDate(createdAt.toDate());
  		getPollDao().saveOrUpdate(poll4);
 
 

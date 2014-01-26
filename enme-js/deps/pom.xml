@@ -35,7 +35,7 @@
                 <configuration>
                     <options>box-model</options>
                     <minimize>${javascript.minimize}</minimize>
-                    <targetGroups>commons,commons-mobile,init</targetGroups>
+                    <targetGroups>commons,commons-mobile,init,maps</targetGroups>
                     <wroFile>${basedir}/src/main/webapp/WEB-INF/wro.xml</wroFile>
                       <jsDestinationFolder>${project.build.directory}/${project.build.finalName}/resource/js/</jsDestinationFolder>
                       <contextFolder>${basedir}/src/main/resources/</contextFolder>

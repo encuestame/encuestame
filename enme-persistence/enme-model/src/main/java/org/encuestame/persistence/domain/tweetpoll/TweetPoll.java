@@ -109,7 +109,7 @@ public class TweetPoll extends AbstractGeoPoint{
     /**
      * Enable a limit of valid votes.
      **/
-    private Boolean limitVotesEnabled;
+    private Boolean limitVotesEnabled  = false;
 
     /**
      * Limit Votes.
@@ -135,7 +135,7 @@ public class TweetPoll extends AbstractGeoPoint{
     /**
      * Repeated Votes
      * **/
-    private Boolean allowRepatedVotes;
+    private Boolean allowRepatedVotes  = false;
 
     /**
      * Limit of repeated votes by user (ip).

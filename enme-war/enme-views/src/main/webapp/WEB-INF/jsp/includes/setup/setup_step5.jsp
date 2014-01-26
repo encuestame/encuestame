@@ -23,7 +23,7 @@
         <div class="form-actions">
                 <form:form method="post">
                      <div class="default-rigth-aling">
-                        <button type="submit" name="_eventId_finish" class="btn btn-warning">
+                        <button type="submit" name="_eventId_welcome" class="btn btn-warning">
                             <spring:message code="setup.step.next"></spring:message>
                         </button>
                         <div class="hidden" id="loading">

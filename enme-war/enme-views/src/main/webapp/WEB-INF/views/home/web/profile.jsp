@@ -1,12 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
 
-<style>
-.web-profile-wrapper {
-
-}
-
-</style>
 
 <div class="web-profile-wrapper web-wrapper-detail">
   <div class="container">

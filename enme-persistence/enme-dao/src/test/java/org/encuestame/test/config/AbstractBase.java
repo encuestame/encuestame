@@ -458,7 +458,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             ){
         final String pollHash = RandomStringUtils.randomAlphabetic(18);
         final Poll poll = new Poll();
-        poll.setCreatedAt(createdAt);
+        poll.setCreateDate(createdAt);
         poll.setQuestion(question);
         poll.setPollHash(pollHash);         //should be unique
         poll.setEditorOwner(userAccount);
@@ -533,7 +533,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Boolean pollCompleted,
             final Boolean published){
         final Poll poll = new Poll();
-        poll.setCreatedAt(createdDate);
+        poll.setCreateDate(createdDate);
         poll.setCloseAfterDate(true);
         poll.setAdditionalInfo("additional");
         poll.setClosedDate(new Date());
@@ -1527,7 +1527,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        survey.setOwner(secUsers);
        survey.setStartDate(startDate);
        survey.setTicket(3);
-       survey.setCreatedAt(createdAt);
+       survey.setCreateDate(createdAt);
        survey.setRelevance(1L);
        getSurveyDaoImp().saveOrUpdate(survey);
        return survey;

@@ -239,7 +239,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
             final Integer start){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
          criteria.createAlias("owner","owner");
-         criteria.add(Restrictions.between("createdAt", initDate, getNextDayMidnightDate()));
+         criteria.add(Restrictions.between("createDate", initDate, getNextDayMidnightDate()));
          criteria.add(Restrictions.eq("owner", account));
          return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }
@@ -356,7 +356,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
          final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
          criteria.createAlias("editorOwner","editorOwner");
          criteria.add(Restrictions.eq("editorOwner.uid", userId));
-         criteria.addOrder(Order.desc("createdAt"));
+         criteria.addOrder(Order.desc("createDate"));
          return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -372,7 +372,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
          final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
          criteria.createAlias("owner","owner");
          criteria.add(Restrictions.eq("owner.uid", userId));
-         criteria.addOrder(Order.desc("createdAt"));
+         criteria.addOrder(Order.desc("createDate"));
          return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -422,11 +422,11 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
                 Survey.class, "survey");
         criteria.add(Subqueries.propertyIn("survey.sid", detached));
         if (filterby.equals(TypeSearchResult.HASHTAG)) {
-            criteria.addOrder(Order.desc("survey.createdAt"));
+            criteria.addOrder(Order.desc("survey.createDate"));
         } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
               criteria.addOrder(Order.desc("numbervotes"));
         }
-        calculateSearchPeriodsDates(searchPeriods, detached, "createdAt");
+        calculateSearchPeriodsDates(searchPeriods, detached, "createDate");
         return (List<Survey>) filterByMaxorStart(criteria, limitResults, startResults);
     }
 
@@ -454,8 +454,8 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
            final DetachedCriteria criteria = DetachedCriteria.forClass(
                    Survey.class, "survey");
            criteria.add(Subqueries.propertyIn("survey.sid", detached));
-           criteria.addOrder(Order.desc("survey.createdAt"));
-           calculateSearchPeriodsDates(period, criteria, "survey.createdAt");
+           criteria.addOrder(Order.desc("survey.createDate"));
+           calculateSearchPeriodsDates(period, criteria, "survey.createDate");
            return getHibernateTemplate().findByCriteria(criteria);
        }
 
@@ -477,9 +477,9 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
 		final DetachedCriteria criteria = DetachedCriteria.forClass(
 				Survey.class, "survey");
 		criteria.add(Subqueries.propertyIn("survey.sid", detached));
-		criteria.addOrder(Order.desc("survey.createdAt"));
+		criteria.addOrder(Order.desc("survey.createDate"));
 		ProjectionList projList = Projections.projectionList();
-		projList.add(Projections.groupProperty("createdAt"));
+		projList.add(Projections.groupProperty("createDate"));
 		projList.add(Projections.rowCount());
 		criteria.setProjection(projList);
 		return getHibernateTemplate().findByCriteria(criteria);

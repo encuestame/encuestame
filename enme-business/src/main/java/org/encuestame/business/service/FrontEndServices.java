@@ -1195,7 +1195,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             final Poll poll = this.getPoll(id);
             totalHits = poll.getHits() == null ? 0 : poll.getHits();
             createdBy = poll.getEditorOwner().getUsername();
-            createdAt = convertRelativeTimeToString(poll.getCreatedAt(), request);
+            createdAt = convertRelativeTimeToString(poll.getCreateDate(), request);
             likeVotes = poll.getLikeVote() == null ? 0L : poll.getLikeVote();
             dislikeVotes = poll.getDislikeVote() == null ? 0L : poll
                     .getDislikeVote();
@@ -1207,7 +1207,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             totalHits = survey.getHits();
             createdBy = survey.getEditorOwner().getUsername() == null ? " "
                     : survey.getEditorOwner().getUsername();
-            createdAt = convertRelativeTimeToString(survey.getCreatedAt(), request);
+            createdAt = convertRelativeTimeToString(survey.getCreateDate(), request);
             likeVotes = survey.getLikeVote();
             dislikeVotes = survey.getDislikeVote();
             likeDislikeRate = (likeVotes - dislikeVotes);

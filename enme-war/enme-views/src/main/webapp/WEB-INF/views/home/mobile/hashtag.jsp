@@ -1,8 +1,47 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
+<style>
+
+.web-ht-graph {
+  font: 10px sans-serif;
+  margin: 0;
+}
+
+path.line {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+path.area {
+  fill: #e7e7e7;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: #fff;
+}
+
+.x.axis .minor {
+  stroke-opacity: .5;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: #000;
+}
+
+</style>
 
 <article class="web-hashtag-wrapper mobile-hashtag-wrapper">
-   <div class="mobile-question-detail category_color">
+   <div class="mobile-home-subtitle category_color">
                ${tagName.hashTagName}
    </div>
 
@@ -21,14 +60,20 @@
                channel="/encuestame/hashtag/time/range/refresh/graph"
                hashtagName="${tagName.hashTagName}"
              ></div>
-        </section> --%>
-        Hashtag Graph In Progress
+        </section> --%>     
+        <section class="web-ht-graph-wrapper emne-box emne-box-gray">
+           <div data-dojo-type="me/web/widget/hashtags/HashTagGraph"
+               small_mode="true"
+               channel="/encuestame/hashtag/time/range/refresh/graph"
+               hashtagName="${tagName.hashTagName}"
+             ></div>
+        </section>
    </div>
 
     <div class="web-ht-detail-wrapper">
        <div class="web-ht-wrapper-mainline">
            <article class="emne-box emne-box-gray">
-                <header class="category_color">
+                <header class="mobile-home-subtitle category_color">
                   <spring:message code="home.hashtag.lastpub" />
                 </header>
                 <div class="web-pup-wrapper">
@@ -43,7 +88,7 @@
                 </div>
             </article>
              <article class="emne-box emne-box-gray">
-                     <header class="category_color">
+                     <header class="mobile-home-subtitle category_color">
                         <spring:message code="home.hashtag.tweets" />
                      </header>
                 <section>
@@ -56,20 +101,20 @@
                      </div>
                 </section>
             </article>
-            <article class="emne-box emne-box-gray">
-                 <header class="category_color">
+            <!-- <article class="emne-box emne-box-gray">
+                 <header class="mobile-home-subtitle category_color">
                     <spring:message code="home.hashtag.stats" />
                  </header>
-                 <div  data-dojo-type="me/web/widget/stats/GenericStats"
-            class="web-generic-stats"
-            channel="/encuestame/hashtag/time/range/refresh/graph"
-            typeGeneric="HASHTAG"
-            generic="${tagName.hashTagName}"
+                 <div data-dojo-type="me/web/widget/stats/GenericStats"
+                      class="web-generic-stats"
+                      channel="/encuestame/hashtag/time/range/refresh/graph"
+                      typeGeneric="HASHTAG"
+                      generic="${tagName.hashTagName}"
                       id="generic">
                  </div>
-             </article>
+             </article> -->
             <article class="emne-box emne-box-gray">
-                 <header class="category_color">
+                 <header class="mobile-home-subtitle category_color">
                    <spring:message code="home.hashtag.position" />
                  </header>
                  <section data-dojo-type="me/web/widget/stats/RatePosition"
@@ -79,8 +124,8 @@
                       id="position">
                  </section>
             </article>
-            <article class="emne-box emne-box-gray">
-                 <header class="category_color">
+            <article class="emne-box emne-box-gray enme-mob-section">
+                 <header class="mobile-home-subtitle category_color">
                     <spring:message code="home.hashtag.profile" />
                  </header>
                  <div data-dojo-type="me/web/widget/stats/TopProfiles"

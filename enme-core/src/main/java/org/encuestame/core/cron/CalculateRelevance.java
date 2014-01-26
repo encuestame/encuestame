@@ -13,6 +13,7 @@
 package org.encuestame.core.cron;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
@@ -67,19 +68,21 @@ public class CalculateRelevance {
      */
     @Scheduled(cron = "${cron.calculateRelevane}")
     public void calculate() {
-        log.info("************ Start calculate relevance item **************");
-        // Unused code to search items by date range.
-        /*
-         * final Calendar dateFrom = Calendar.getInstance();
-         * dateFrom.add(Calendar.DATE, -5); final Calendar datebefore =
-         * Calendar.getInstance(); datebefore.add(Calendar.DATE, -5); final
-         * Calendar todayDate = Calendar.getInstance();
-         */
-        getFrontEndService().processItemstoCalculateRelevance(
-                getTweetPollService().getTweetPollsbyRange(MAX_RESULTS, START_RESULTS,
-                        null),
-                getPollService().getPollsByRange(MAX_RESULTS, START_RESULTS, null),
-                null, SearchPeriods.ALLTIME);
+    	if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
+	        log.info("************ Start calculate relevance item **************");
+	        // Unused code to search items by date range.
+	        /*
+	         * final Calendar dateFrom = Calendar.getInstance();
+	         * dateFrom.add(Calendar.DATE, -5); final Calendar datebefore =
+	         * Calendar.getInstance(); datebefore.add(Calendar.DATE, -5); final
+	         * Calendar todayDate = Calendar.getInstance();
+	         */
+	        getFrontEndService().processItemstoCalculateRelevance(
+	                getTweetPollService().getTweetPollsbyRange(MAX_RESULTS, START_RESULTS,
+	                        null),
+	                getPollService().getPollsByRange(MAX_RESULTS, START_RESULTS, null),
+	                null, SearchPeriods.ALLTIME);
+    	}
     }
 
     /**

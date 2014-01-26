@@ -1,4 +1,4 @@
-![Example](http://encuestame.org/blog/wp-content/uploads/2013/06/logo_encuestame.png)
+![Example](http://encuestame.org/logos/horizontal/enuestame_horizontal_small_alpha.png)
 
 ##Encuestame Open Source Social Survey
 [![Build Status](https://secure.travis-ci.org/encuestame/encuestame.png)](http://travis-ci.org/encuestame/encuestame)

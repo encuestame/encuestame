@@ -24,7 +24,6 @@ import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.search.GlobalSearchItem;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.springframework.stereotype.Controller;
@@ -101,15 +100,19 @@ public class SearchController extends AbstractViewController {
        types.add(TypeSearchResult.HASHTAG);
        types.add(TypeSearchResult.PROFILE);
        types.add(TypeSearchResult.QUESTION);
+       types.add(TypeSearchResult.COMMENT);
        //TODO: add survey to results.
        try {
            model.addAttribute("q", keyword);
            log.debug("search get");
            //keyword stats.
+           model.addAttribute("searchService", getSearchService());
            model.addAttribute("keywordStats", null);
            //search service.
            final Map<String, List<GlobalSearchItem>>  results  = getSearchService().quickSearch(keyword, "", 0, LIMIT_RESULTS, null, types);
            model.addAttribute("results", results);
+           model.addAttribute("total", results.size());
+           model.addAttribute("no_results", results.isEmpty());
        }  catch (Exception e) {
            model.addAttribute("results", ListUtils.EMPTY_LIST);
            log.error(e);

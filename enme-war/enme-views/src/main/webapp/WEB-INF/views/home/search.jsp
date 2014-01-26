@@ -1,5 +1,5 @@
-<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
+<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
   <c:if test="${detectedDevice}">
      <%@ include file="mobile/search.jsp"%>
   </c:if>

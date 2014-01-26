@@ -18,7 +18,7 @@ package org.encuestame.utils.enums;
  * @since Mar 23, 2011
  */
 public enum TypeSearchResult {
-    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG, HASHTAGRATED, SOCIALNETWORK, HITS, VOTES, ALL, 
+    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG, HASHTAGRATED, SOCIALNETWORK, HITS, VOTES, ALL, COMMENT,
 
     TypeSearchResult(){
 
@@ -31,6 +31,7 @@ public enum TypeSearchResult {
         String type = "";
         if (this == TWEETPOLL) { type = "TWEETPOLL"; }
         else if (this == PROFILE) { type = "PROFILE"; }
+        else if (this == COMMENT) { type = "COMMENT"; }
         else if (this == POLL) { type = "POLL"; }
         else if (this == SURVEY) { type = "SURVEY"; }
         else if (this == ATTACHMENT) { type = "ATTACHMENT"; }
@@ -53,6 +54,7 @@ public enum TypeSearchResult {
         if (null == type) { return null; }
         else if (type.equals(TWEETPOLL)) { return "tweetpoll"; }
         else if (type.equals(PROFILE)) { return "profile"; }
+        else if (type.equals(COMMENT)) { return "comment"; }
         else if (type.equals(POLL)) { return "poll"; }
         else if (type.equals(SURVEY)) { return "survey"; }
         else if (type.equals(HASHTAG)) { return "tag"; }
@@ -78,6 +80,7 @@ public enum TypeSearchResult {
         else if (type.equalsIgnoreCase("ATTACHMENT")) { return ATTACHMENT; }
         else if (type.equalsIgnoreCase("QUESTION")) { return QUESTION; }
         else if (type.equalsIgnoreCase("HASHTAG")) { return HASHTAG; }
+        else if (type.equalsIgnoreCase("COMMENT")) { return COMMENT; }
         else if (type.equalsIgnoreCase("HASHTAGRATED")) { return HASHTAGRATED; }
         else if (type.equalsIgnoreCase("SOCIALNETWORK")) { return SOCIALNETWORK; }
         else if (type.equalsIgnoreCase("HITS")) { return HITS; }

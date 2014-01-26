@@ -75,6 +75,8 @@ public class ApplicationStartup implements StartupProcess {
                 // etc etc.
                 mailService.sendStartUpNotification(startupMessage.toString());
             }
+            //notify the system has been initialized
+            EnMePlaceHolderConfigurer.setSystemInitialized(Boolean.TRUE);            
             // check internet connection
             //if (EnMePlaceHolderConfigurer.getBooleanProperty(
             //        "setup.check.network").booleanValue()) {

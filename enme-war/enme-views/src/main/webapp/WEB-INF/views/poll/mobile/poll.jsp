@@ -2,9 +2,9 @@
 
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <article class="mobile-detail">
-   <div class="mobile-question-detail category_color">
+   <h4 class="enme mobile-question-detail">
               ${poll.questionBean.questionName}
-   </div>
+   </h4>
    <article class="emne-box">
         <section class="web-wrapper-detail-wrapper">
             <article class="web-detail-chart">
@@ -16,7 +16,7 @@
               </div>
             </article>
        </section>
-       <section class="emne-box web-tweetpoll-answer-wrapper">
+       <section class="emne-box web-poll-answer-wrapper">
             <div class="web-tweetpoll-answer-answer">
                 <header>
                      <div class="answer-label">
@@ -41,7 +41,7 @@
                  </c:forEach>
                  <div class="web-poll-options-button">
                    <a href="<%=request.getContextPath()%>/poll/vote/${poll.id}/${poll.questionBean.slugName}">
-                     <button class="enme-ui-button vote">
+                     <button class="btn-block btn-warning btn enme-ui-button vote">
                        <spring:message code="options.vote" />
                      </button>
                    </a>
@@ -50,7 +50,7 @@
        </section>
    </article>
    <article class="emne-box">
-       <header class="category_color">
+       <header class="mobile-home-subtitle category_color">
           <spring:message code="options.links" />
        </header>
        <section>
@@ -77,9 +77,34 @@
        </section>
    </c:if>
    <section class="web-tweetpoll-comments emne-box">
-      <header class="category_color">
+      <header class="category_color mobile-home-subtitle">
           <spring:message code="options.comments" />
       </header>
+      <c:if test="${logged}">
+            <div name="comments" data-dojo-type="me/web/widget/comments/AddComment"
+                 comment_limit="<%=EnMePlaceHolderConfigurer.getProperty("comments.max.length")%>"
+                 type="poll"
+                 isModerated="${isModerated}"
+                 item_id="${poll.id}"
+                 username="${account.username}"></div>
+      </c:if>
+      <c:if test="${!logged}">
+         <div class="row comment-login">
+              <div class="picture span2">
+                  <img src="<%=request.getContextPath()%>/resources/images/default.png" width="60" height="60"/>
+              </div>
+              <div class="span4">
+                  <div class="login">
+                      <a href="<%=request.getContextPath()%>/user/signin">
+                        <h4 class="enme">
+                            <spring:message code="comments.login.post.comment" />
+                        </h4>
+                      </a>
+                  </div>
+              </div>
+            </a>
+          </div>
+      </c:if>
       <div data-dojo-type="me/web/widget/comments/Comments" type="poll" item_id="${poll.id}"></div>
    </section>
 </article>

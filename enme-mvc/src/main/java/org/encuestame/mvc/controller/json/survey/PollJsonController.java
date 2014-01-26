@@ -21,6 +21,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -37,9 +38,12 @@ import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.search.PollSearchBean;
+import org.encuestame.utils.web.search.TweetPollSearchBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -89,20 +93,50 @@ public class PollJsonController extends AbstractJsonController{
             @RequestParam(value = "max", required = false) Integer max,
             @RequestParam(value = "pollFolderId", required = false) Long pollFolderId,
             @RequestParam(value = "start", required = false)Integer start,
+            @RequestParam(value = "social_networks", required = false)  List<String> socialNetworks,
+            @RequestParam(value = "social_account_networks", required = false) List<Long> socialAccountNetworks,
+            @RequestParam(value = "_published", required = false) Boolean isPublished,
+            @RequestParam(value = "_complete", required = false) Boolean isCompleted,
+            @RequestParam(value = "_favourite", required = false) Boolean isFavourite,
+            @RequestParam(value = "_scheduled", required = false) Boolean isScheduled,
+            @RequestParam(value = "period", required = false) String period,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-        try{
-            final List<PollBean> list = (List<PollBean>) getPollService().filterPollByItemsByType(
-                     TypeSearch.getSearchString(typeSearch), keyword, max,
-                     start);
-             jsonResponse.put("poll", list);
-             log.debug("/api/survey/poll/search.json "+jsonResponse);
-             setItemResponse(jsonResponse);
+        final PollSearchBean tpollSearchBean = new PollSearchBean();
+        try {
+            log.debug("search.json" + typeSearch);
+            log.debug("search.json" + keyword);
+            log.debug("search.json" + max);
+            log.debug("search.json" + start);
+            log.debug("search.json socialNetworks" + socialNetworks);
+            log.debug("search.json socialAccountNetworks " + socialAccountNetworks);
+            log.debug("search.json isCompleted " + isPublished);
+            log.debug("search.json" + isCompleted);
+            log.debug("search.json favourite" + isFavourite);
+            // Create TweetpollSearchBean
+            tpollSearchBean.setIsComplete(isCompleted == null ? false : isCompleted);
+            tpollSearchBean.setIsFavourite(isFavourite == null ? false : isFavourite);
+            tpollSearchBean.setIsPublished(isPublished == null ? false : isPublished);
+            tpollSearchBean.setIsScheduled(isScheduled == null ? false : isScheduled);
+            tpollSearchBean.setKeyword(keyword == null ? null : keyword.isEmpty() ? null : keyword);
+            tpollSearchBean.setMax(max);
+            //tpollSearchBean.setPeriod(period); it's not used, will be removed in the future.
+            tpollSearchBean.setSearchResult(null);
+            tpollSearchBean.setStart(start);
+            tpollSearchBean.setTypeSearch(TypeSearch.getSearchString(typeSearch));
+            tpollSearchBean.setProviders(socialNetworks == null ? ListUtils.EMPTY_LIST : ConvertDomainBean.convertSocialProviderStringToProvider(socialNetworks));
+            tpollSearchBean.setSocialAccounts(socialAccountNetworks == null ? ListUtils.EMPTY_LIST : socialAccountNetworks);
+            final List<SearchBean> list = (List<SearchBean>) getPollService().filterSearchPollsByType(
+                    tpollSearchBean, request);
+            log.debug("/api/survey/poll/search.json---------------->  "+ list.size());
+            jsonResponse.put("tweetPolls", list);
+            setItemResponse(jsonResponse);
+
         } catch (EnMeExpcetion e) {
-            log.error(e);
-            setError(e.getMessage(), response);
-       }
+             log.error(e);
+             setError(e.getMessage(), response);
+        }     
         return returnData();
      }
 
@@ -260,7 +294,7 @@ public class PollJsonController extends AbstractJsonController{
                 log.debug("folderId "+folderId);
                 log.debug("type "+type);
                   final Map<String, Object> sucess = new HashMap<String, Object>();
-                  if("keyword".equals(type)){
+                  if ("keyword".equals(type)) {
                       sucess.put("pollsbyKey", getPollService().searchPollByKeyword(keyword, maxResults, start));
                       setItemResponse(sucess);
                   } else if ("folder".equals(type)) {

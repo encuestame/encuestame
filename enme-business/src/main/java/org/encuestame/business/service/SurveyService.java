@@ -224,7 +224,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             surveyDomain.setShowAdditionalInfo(surveyBean.getShowAdditionalInfo());
             surveyDomain.setNotifications(surveyBean.getNotifications());
             surveyDomain.setName(surveyBean.getName());
-            surveyDomain.setCreatedAt(surveyBean.getCreatedAt());
+            surveyDomain.setCreateDate(surveyBean.getCreatedAt());
             surveyDomain.setFavorites(surveyBean.getFavorites());
             try {
                 surveyDomain.setOwner(getAccount(surveyBean.getOwnerUsername()));

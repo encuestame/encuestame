@@ -7,3 +7,11 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/dbootstrap.css" />" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/dijit.css" />" />
 <tiles:insertAttribute name="css_module" ignore="true" />
+
+<!--MAPS -->
+<!--MAPS
+<script src="<%=request.getContextPath()%>/resources/js/maps.js"></script>
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/dev/map.css" />" />
+ -->
+<!--MAPS -->
+<!--MAPS -->

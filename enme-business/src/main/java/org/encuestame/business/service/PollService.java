@@ -86,7 +86,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#filterPollByItemsByType(org.encuestame.utils.enums.TypeSearch, java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
      */
-
+    @Deprecated
     public List<PollBean> filterPollByItemsByType(
             final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
@@ -152,11 +152,22 @@ public class PollService extends AbstractSurveyService implements IPollService{
 		if (TypeSearch.BYOWNER.equals(pollSearch.getTypeSearch())) {
 			list.addAll(this.getPollsByUserNameSearch(
 					getUserPrincipalUsername(), httpServletRequest, pollSearch));
-		} else {
+		} else if (TypeSearch.LASTDAY.equals(pollSearch.getTypeSearch())) {
+            list.addAll(this.searchPollsToday(getUserPrincipalUsername(), httpServletRequest, pollSearch));
+		} else if (TypeSearch.LASTWEEK.equals(pollSearch.getTypeSearch())) {
+            list.addAll(this.searchPollsLastWeek(getUserPrincipalUsername(), httpServletRequest, pollSearch));
+
+        } else if (TypeSearch.FAVOURITES.equals(pollSearch.getTypeSearch())) {
+            list.addAll(this.searchTweetsPollFavourites(getUserPrincipalUsername(), httpServletRequest, pollSearch));
+
+        } else if (TypeSearch.ALL.equals(pollSearch.getTypeSearch())) {
+        	list.addAll(this.getPollsByUserNameSearch(
+					getUserPrincipalUsername(), httpServletRequest, pollSearch));
+        } else {
 			throw new EnMeExpcetion("operation not valid");
 		}
 		log.debug("Poll Search Items : " + list.size());
-		return null;
+		return list;
 	}
 
 	/*
@@ -180,8 +191,26 @@ public class PollService extends AbstractSurveyService implements IPollService{
 				pollSearch.getPeriod());
 		pollsSearchResult = this.getPollSearchResult(polls,
 				pollSearch.getProviders(), pollSearch.getSocialAccounts());
-			log.info("tweetPoll size: " + pollsSearchResult.size());
-		 return null;
+		log.info("tweetPoll size: " + pollsSearchResult.size());
+
+		return ConvertDomainBean.convertPollListToSearchBean(pollsSearchResult);
+	}
+
+	// TODO: Retrieve results and set
+	private List<SearchBean> setPollAnswersSearch(
+			final List<Poll> pollsResults, final Boolean results,
+			final HttpServletRequest request) {
+
+		for (Poll poll : pollsResults) {
+			if (results) {
+				final List<PollBeanResult> pollBeanResult = this
+						.getResultVotes(poll);
+				// Calculate votes percents
+			}
+		}
+
+		return null;
+
 	}
 
 	/**
@@ -365,7 +394,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final CommentOptions commentOpt = CommentOptions.getCommentOption(commentOption);
             log.trace("OPTION SHOW COMMENTS GETTED ENUM---> " +commentOpt);
             pollDomain.setEditorOwner(user);
-            pollDomain.setCreatedAt(Calendar.getInstance().getTime());
+            pollDomain.setCreateDate(Calendar.getInstance().getTime());
             pollDomain.setPollHash(hashPoll);
             pollDomain.setQuestion(question);
             pollDomain.setPollCompleted(Boolean.FALSE);
@@ -1135,7 +1164,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 	 */
 	public Boolean restrictVotesByDate(final Poll poll) {
 		Boolean limitVoteByDate = Boolean.FALSE;
-		if (poll.getCloseAfterDate()) {
+		if (poll.getCloseAfterDate() != null && poll.getCloseAfterDate()) {
 			limitVoteByDate = DateUtil.compareToCurrentDate(poll
 					.getClosedDate());
 		}
@@ -1149,7 +1178,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 	 */
 	public Boolean restrictVotesByQuota(final Poll poll) {
 		Boolean limitVote = Boolean.FALSE;
-		if (poll.getCloseAfterquota()) {
+		if (poll.getCloseAfterquota() != null && poll.getCloseAfterquota()) {
 			final Long totalVotes = getPollDao()
 					.getTotalVotesByPollIdAndDateRange(poll.getPollId(), null);
 			if (Long.valueOf(poll.getClosedQuota()) == totalVotes) {

@@ -14,6 +14,7 @@ package org.encuestame.business.cron;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,12 +52,14 @@ public class RemoveSpamCommentsJob {
 	 */
     @Scheduled(cron = "${cron.removeSpamComments}")
 	public void removeSpamComments() {
-		try {
-   		 log.debug("Remove Spam Comments");
-		} catch (Exception e) {
-			// TODO: handle exception
-			 log.error(e);
-		}
+    	if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
+			try {
+	   		 log.debug("Remove Spam Comments");
+			} catch (Exception e) {
+				// TODO: handle exception
+				 log.error(e);
+			}
+    	}
 
 	}
 

@@ -1,13 +1,11 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]>    <html class="no-js iem7"> <![endif]-->
-<!--[if (gt IEMobile 7)|!(IEMobile)]><!--> <html class="no-js"> <!--<![endif]-->
+<%@ include file="/WEB-INF/layouts/decorators/html.jsp"%>
     <head>
         <title>
             <tiles:insertAttribute name="title" defaultValue="encuestame mobile" />
         </title>
-        <%@ include file="/WEB-INF/jsp/includes/meta.jsp"%>
+        <%@ include file="decorators/mobile-meta.jsp"%>
         <%@ include file="/WEB-INF/jsp/includes/mobile/css.jsp"%>
         <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
         <%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
@@ -16,15 +14,20 @@
 
         <%@ include file="/WEB-INF/jsp/includes/javascript-mobile.jsp"%>
     </head>
-    <body class="mobile claro vote-page">
-        <header class="vote-logo">
-            <%@ include file="/WEB-INF/layouts/logo.jsp"%>
-        </header>
-        <article class="mobile-main-vote">
-              <tiles:insertAttribute name="content"/>
-        </article>
-        <footer>
+    <body class="mobil">
+        <%@ include file="/WEB-INF/jsp/includes/decorators/mobile-header.jsp"%>
+        <div class="content">
+            <header class="header_input_hidden">
+                <%@ include file="/WEB-INF/layouts/decorators/i18n-input.jsp"%>
+            </header>            
+            <div class="vote-page">
+                <article class="mobile-main-vote">
+                      <tiles:insertAttribute name="content"/>
+                </article>
+            </div>
+        <div>      
+        <footer class="vote-footer">
             <tiles:insertAttribute name="footer" />
-        </footer>
+        </footer> 
     </body>
 </html>

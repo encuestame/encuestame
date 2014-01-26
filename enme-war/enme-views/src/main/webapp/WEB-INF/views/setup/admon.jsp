@@ -5,5 +5,5 @@
   </c:if>
 
   <c:if test="${!detectedDevice}">
-     <%@ include file="web/question.jsp"%>
+     <%@ include file="web/admon.jsp"%>
   </c:if>

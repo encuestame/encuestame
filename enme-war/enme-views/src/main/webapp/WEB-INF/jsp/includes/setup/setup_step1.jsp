@@ -40,9 +40,10 @@
     <li>
         <spring:message code="setup.stepDes5"></spring:message>
     </li>
-    <li>
+<!--     <li>
         <spring:message code="setup.stepDes6"></spring:message>
     </li>
+ -->
     <li>
         <spring:message code="setup.stepDes7"></spring:message>
     </li>

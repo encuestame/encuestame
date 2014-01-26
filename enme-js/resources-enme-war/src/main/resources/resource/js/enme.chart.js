@@ -45,8 +45,8 @@
               bottom: 20,
               left: 20
               },
-              width = 700 - margin.left - margin.right,
-              height = 400 - margin.top - margin.bottom;
+              width = _options.width  - margin.left - margin.right,
+              height = _options.height - margin.top - margin.bottom;
 
           var parse = d3.time.format("%b %Y").parse;
 

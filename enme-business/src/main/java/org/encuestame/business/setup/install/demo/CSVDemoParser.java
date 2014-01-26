@@ -463,7 +463,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
                 }
                 List<HashTagBean> hashtagList = Arrays.asList(arrayHashtag);
                 final Poll poll = getPollService().createPoll(question.getQuestionName(),arrayAnswers, true, "MODERATE", true, hashtagList);
-                poll.setCreatedAt(createRandomDate());
+                poll.setCreateDate(createRandomDate());
                 getTweetPollDao().saveOrUpdate(poll);
                 double hits = getRandomNumberRange(EnMePlaceHolderConfigurer
                         .getIntegerProperty("demo.min.poll.hits"), EnMePlaceHolderConfigurer
@@ -492,7 +492,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
                                 EnMeUtils.ipGenerator(),questionAnswerBean.getAnswerId());
                         }
                     }
-                    log.debug(" Polls ID ..."+poll.getCreatedAt());
+                    log.debug(" Polls ID ..."+poll.getCreateDate());
             } catch (EnMeExpcetion e) {
                 e.printStackTrace();
             }

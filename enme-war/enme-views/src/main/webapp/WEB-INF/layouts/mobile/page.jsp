@@ -7,48 +7,12 @@
 <%@ include file="/WEB-INF/jsp/includes/mobile/css.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
 <body class="mobil">
-    <header class="main">
-        <h1 class="logo">    
-            <a href="#" class="ss-list">                
-                    dojoPanelMenu                
-            </a>    
-        </h1>
-        <a href="#menu" class="menu-trigger ss-icon">&#xED50;</a>
-        <nav id="menu">
-            <ul>
-                <li class="selected">
-                    <a href="#">
-                        Menu 1
-                    </a>
-                </li>
-                <li>
-                    <a href="#usage">
-                        Menu 2
-                    </a>
-                </li>
-                <li>
-                    <a href="#inner-workings">
-                        Menu 2
-                    </a>
-                </li>
-                <li>
-                    <a href="#animation">
-                        Menu 2
-                    </a>
-                </li>
-                <li>
-                    <a href="#options">
-                        Menu 3
-                    </a>
-                </li>
-            </ul>
-        </nav>       
-    </header>
+    
+    <%@ include file="/WEB-INF/jsp/includes/decorators/mobile-header.jsp"%>
 
     <div class="content">
          <tiles:insertAttribute name="content"/>
-    </div>    
-
+    </div>
 
     <header class="header_input_hidden">
         <%@ include file="/WEB-INF/layouts/decorators/i18n-input.jsp"%>

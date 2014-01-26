@@ -3,6 +3,7 @@
      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 <script  src="<%=request.getContextPath()%>/resources/js/commons-mobile.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/enme.chart.js"></script>
 <%@ include file="/WEB-INF/jsp/includes/decorators/dojo-config.jsp"%>
 
 <c:if test="${!development}">

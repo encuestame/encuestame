@@ -97,6 +97,14 @@ public class SetupService extends AbstractBaseService implements SetupOperations
         config.getXmlConfiguration().addProperty("install.uuid", RandomStringUtils.randomAlphanumeric(50));
         log.debug("validateInstall ------------");
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.SetupOperations#finishInstall()
+     */
+    public void finishInstall(){
+    	EnMePlaceHolderConfigurer.setSystemInitialized(Boolean.TRUE);
+    }
 
     /**
      * @throws EnmeFailOperation
@@ -319,7 +327,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      */
     @Override
     public List<SocialNetworkBean> listAllNetworkConfigurationSocial() {
-        // TODO Auto-generated method stub
+    	
         return null;
     }
 
@@ -336,4 +344,10 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     public void setCsvParser(CSVParser csvParser) {
         this.csvParser = csvParser;
     }
+
+	@Override
+	public void checkSocialNetworks() {
+		// TODO Auto-generated method stub
+		
+	}
 }

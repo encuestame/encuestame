@@ -13,7 +13,6 @@
 
      <modules>
       <module>enme-config</module>
-      <module>enme-spring</module>
       <module>enme-views</module>
       <module>enme-jetty-app</module>
       <module>enme-tomcat-app</module>

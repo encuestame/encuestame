@@ -23,6 +23,7 @@ import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.UnitAttachment;
 
 /**
@@ -85,5 +86,14 @@ public interface SearchServiceOperations extends ServiceOperations {
      * @return
      */
     String indexAttachment(final File file, final Long attachmentId);
+    
+    
+    /**
+     * 
+     * @param questionId
+     * @return
+     * @throws EnMeNoResultsFoundException 
+     */
+    QuestionBean getQuestionInfo(final Long questionId) throws EnMeNoResultsFoundException;
 
 }

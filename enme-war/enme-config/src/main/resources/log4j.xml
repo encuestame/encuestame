@@ -14,50 +14,50 @@
         <param name="maxFileSize" value="1000KB" />
         <param name="maxBackupIndex" value="0" />
         <param name="File" value="encuestame-webapp.log" />
-        <param name="threshold" value="debug" />
+        <param name="threshold" value="warn" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{ABSOLUTE} %5p %c{1}:%L - %m%n" />
         </layout>
     </appender>
 
     <!-- Encuestame -->
-    
+
     <logger name="org.encuestame.mvc">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.encuestame.comet">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
      <logger name="org.encuestame.social">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
         <logger name="org.encuestame.oauth">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.encuestame.persistence">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.encuestame.core">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.encuestame.business">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.encuestame.utils">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.encuestame.search">
         <level value="warn" />
     </logger>
-    
+
     <!-- Spring -->
 
     <logger name="org.springframework.core">
@@ -79,13 +79,13 @@
     <logger name="org.springframework.webflow">
         <level value="warn" />
     </logger>
-        
+
     <logger name="org.springframework.messaging">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.messaging.simp.stomp">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.web">
@@ -93,9 +93,9 @@
     </logger>
 
     <logger name="org.springframework.web.socket">
-        <level value="debug" />
-    </logger>    
-    
+        <level value="warn" />
+    </logger>
+
     <logger name="org.springframework.security">
         <level value="warn" />
     </logger>
@@ -106,16 +106,16 @@
 
     <logger name="org.springframework.orm.hibernate3.support">
         <level value="warn" />
-    </logger>    
-    
+    </logger>
+
     <!-- APACHE -->
 
     <logger name="org.apache.http">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="httpclient.wire">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <!-- Hibernate -->
@@ -123,18 +123,18 @@
     <logger name="net.sf.ehcache">
         <level value="warn" />
     </logger>
-    
+
     <logger name="org.hibernate">
         <level value="warn" />
     </logger>
-    
+
     <logger name="org.springframework.aop.framework.Cglib2AopProxy">
          <level value="error" />
     </logger>
 
     <!-- Root Logger -->
     <root>
-        <priority value="info" />
+        <priority value="warn" />
         <appender-ref ref="console" />
         <!--  <appender-ref ref="file" />-->
     </root>

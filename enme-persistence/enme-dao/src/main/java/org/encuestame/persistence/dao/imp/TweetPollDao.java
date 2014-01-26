@@ -79,7 +79,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return (TweetPoll) getHibernateTemplate().get(TweetPoll.class,
                 tweetPollId);
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollPublishedStatusbyId(java.lang.Long)
@@ -791,9 +791,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      */
     @SuppressWarnings("unchecked")
     public List getSocialLinksByTweetPollSearch(
-            final TweetPoll tweetPoll, 
-            final TypeSearchResult itemType, 
-            final List<SocialProvider> splist, 
+            final TweetPoll tweetPoll,
+            final TypeSearchResult itemType,
+            final List<SocialProvider> splist,
             final List<SocialAccount> socialAccounts) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPollSavedPublishedStatus.class);
@@ -827,7 +827,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
 			criteria.add(Restrictions.eq("poll", poll));
 			criteriaSearchSocialLinksByType(criteria, splist, socialAccounts);
         }
-        
+
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
@@ -1049,9 +1049,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
             queryStr = this.getQueryStringForGeoLocation("tweetPollId", "locationLatitude", "locationLongitude", "question.question",
                     "TweetPoll", "createDate");
         } else if (type.equals(TypeSearchResult.POLL)) {
-            queryStr = this.getQueryStringForGeoLocation("pollId", "locationLatitude", "locationLongitude", "question.question", "Poll",  "createdAt");
+            queryStr = this.getQueryStringForGeoLocation("pollId", "locationLatitude", "locationLongitude", "question.question", "Poll",  "createDate");
         } else if (type.equals(TypeSearchResult.SURVEY)) {
-            queryStr = this.getQueryStringForGeoLocation("sid", "locationLatitude", "locationLongitude", "name", "Survey",  "createdAt");
+            queryStr = this.getQueryStringForGeoLocation("sid", "locationLatitude", "locationLongitude", "name", "Survey",  "createDate");
         } else if (type.equals(TypeSearchResult.HASHTAG)) {
             // TODO: Define how to should store geolocations for hashtags, maybe
             // in tweetpoll_hashtags
