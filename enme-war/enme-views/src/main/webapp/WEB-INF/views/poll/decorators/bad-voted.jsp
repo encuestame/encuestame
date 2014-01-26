@@ -1,13 +1,22 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-  <div class="hero-unit red-bk">
-  <h2>
-     <spring:message code="poll.votes.bad" />
-  </h2>
-  <p>
-     <div class="link">
-          <a href="<%=request.getContextPath()%>/home">
-              <spring:message code="poll.votes.link" />
-          </a>
-      </div>
-  </p>
+<div class="container">
+    <section class="web-tweetpoll-vote-options">        
+        <div class="web-permatlink red-bk">
+            <h2>
+                <spring:message code="poll.votes.bad" />
+            </h2>
+            <h3>
+               ${message}
+            </h3>                        
+            <div class="web-tweetpoll-info">
+                <a href="<%=request.getContextPath()%>/poll/${pollAnswer.pollId}/${pollAnswer.question.slugQuestion}">
+                    <button class="btn btn-warning">
+                        <spring:message code="poll.votes.link" />
+                    </button>
+                </a>
+            </div>
+            <!-- <div data-dojo-type="me/web/widget/geo/BasicGeoWidget" tpid="${tp_switch.tweetPoll.tweetPollId}"> </div> -->
+        </div>
+
+    </section>
 </div>

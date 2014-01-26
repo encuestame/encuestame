@@ -1,16 +1,15 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<article class="defaultMarginWrapper">
-    <section class="web-tweetpoll-vote-options">
-
-        <div class="web-permatlink green">
+<div class="container">
+    <div class="row web-tweetpoll-vote-options">
+        <div class="web-permatlink green span10">
             <h2>
                 <spring:message code="poll.votes.thanks" />
             </h2>
             <h3>
-               ${tp_switch.tweetPoll.question.question}
+               ${pollAnswer.question.question}
             </h3>
             <div class="web-tweetpoll-info">
-                <a href="<%=request.getContextPath()%>/home">
+                <a href="<%=request.getContextPath()%>/poll/${pollAnswer.pollId}/${pollAnswer.question.slugQuestion}">
                     <button class="btn btn-success">
                         <spring:message code="poll.votes.link" />
                     </button>
@@ -18,6 +17,5 @@
             </div>
             <!-- <div data-dojo-type="me/web/widget/geo/BasicGeoWidget" tpid="${tp_switch.tweetPoll.tweetPollId}"> </div> -->
         </div>
-
-    </section>
-</article>
+    </div>
+</div>

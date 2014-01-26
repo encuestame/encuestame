@@ -58,7 +58,7 @@
                  <span>
                     <spring:message code="home.profile.lastpub" />
                  </span>
-                 <div class="rss">
+                 <div class="rss-icon">
                    <a href="<%=request.getContextPath()%>/feed/${profile.username}/tweetpoll.rss">
                      <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png">
                      </a>

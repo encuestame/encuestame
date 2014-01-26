@@ -124,7 +124,7 @@ path.area {
                       id="position">
                  </section>
             </article>
-            <article class="emne-box emne-box-gray">
+            <article class="emne-box emne-box-gray enme-mob-section">
                  <header class="mobile-home-subtitle category_color">
                     <spring:message code="home.hashtag.profile" />
                  </header>

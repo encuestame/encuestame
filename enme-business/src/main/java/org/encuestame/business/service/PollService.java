@@ -1164,7 +1164,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 	 */
 	public Boolean restrictVotesByDate(final Poll poll) {
 		Boolean limitVoteByDate = Boolean.FALSE;
-		if (poll.getCloseAfterDate()) {
+		if (poll.getCloseAfterDate() != null && poll.getCloseAfterDate()) {
 			limitVoteByDate = DateUtil.compareToCurrentDate(poll
 					.getClosedDate());
 		}
@@ -1178,7 +1178,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 	 */
 	public Boolean restrictVotesByQuota(final Poll poll) {
 		Boolean limitVote = Boolean.FALSE;
-		if (poll.getCloseAfterquota()) {
+		if (poll.getCloseAfterquota() != null && poll.getCloseAfterquota()) {
 			final Long totalVotes = getPollDao()
 					.getTotalVotesByPollIdAndDateRange(poll.getPollId(), null);
 			if (Long.valueOf(poll.getClosedQuota()) == totalVotes) {

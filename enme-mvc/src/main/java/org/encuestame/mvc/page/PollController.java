@@ -123,14 +123,13 @@ public class PollController extends AbstractViewController {
 		log.trace("/poll/vote/post VOTE POLL " + type);
 		log.trace("/poll/vote/post VOTE POLL " + type);
 		log.trace("*************************************************");
-		// default path
-		String pathVote = "redirect:/poll/voted/";
-
+		// default path		
 		final RequestSourceType requestSourceType = RequestSourceType
 				.getSource(type_form);
 		final String isEmbedded = !requestSourceType
 				.equals(RequestSourceType.EMBEDDED) ? "" : "embedded/";
 		log.debug("isEmbedded   * " + isEmbedded);
+		String pathVote = "poll/" + isEmbedded + "voted";
 		Poll poll = new Poll();
 
 		// Check IP in BlackListFile - Validation
@@ -143,15 +142,12 @@ public class PollController extends AbstractViewController {
 			// Item id is poll id
 			if (itemId == null) {
 				// Exception musst be removed.
-				throw new EnMePollNotFoundException(
-						"poll id has not been found");
+				throw new EnMePollNotFoundException("poll id has not been found");
 				// if answer id is null return the request
 			} else if (responseId == null) {
 				poll = getPollService().getPollById(itemId);
-				model.addAttribute("poll",
-						ConvertDomainBean.convertPollDomainToBean(poll));
-				RequestSessionMap.getCurrent(req).put("votePollError",
-						Boolean.TRUE);
+				model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
+				RequestSessionMap.getCurrent(req).put("votePollError", Boolean.TRUE);
 				pathVote = "redirect:/poll/vote/" + itemId + "/" + slugName;
 
 			} else {
@@ -161,42 +157,40 @@ public class PollController extends AbstractViewController {
 
 				// Retrieve Answer object by id (Answer) and check out if exist
 				// any vote
+				//FIXME: we are retrieving the same poll above 
 				final Poll pollAnswer = getPollService().getPollByAnswerId(
 						itemId, responseId, null);
+				model.put("pollAnswer", pollAnswer);
 				final Boolean restrictVotesByDate = getPollService()
 						.restrictVotesByDate(pollAnswer);
 				final Boolean restrictVotesByQuota = getPollService()
 						.restrictVotesByQuota(pollAnswer);
 				if (pollAnswer == null || !pollAnswer.getPublish()) {
-					log.debug("pll answer not found");
-					model.put("message", "poll Not Valid.");
+					log.warn("pll answer not found");
+					model.put("message", getMessage("poll.votes.bad"));
 				}
 
 				// Validate properties or options
 				else if (pollAnswer.getPollCompleted()) {
-					log.debug("tweetpoll is archived");
-					model.put("message", "Poll is closed, no more votes.");
-					pathVote = "completePollVote";
+					model.put("message", getMessage("poll.completed"));
+					pathVote = "poll/" + isEmbedded + "completed";
 				} else if (restrictVotesByDate) {
 					log.debug("Poll reached limit votes");
-					model.put("message",
-							"You have reached the maximum of votes for this poll.");
-					pathVote = "LimitPollVote";
+					model.put("message", getMessage("tweetpoll.votes.limited"));
+					pathVote = "poll/" + isEmbedded + "bad";
 				} else if (restrictVotesByDate) {
-					log.debug("Limit Poll votes by date");
-					model.put("message", "The Poll has closed-.");
-					pathVote = "LimitPollVoteByDate";
+					log.trace("Limit Poll votes by date");
+					model.put("message", getMessage("poll.closed"));
+					pathVote = "poll/" + isEmbedded + "bad";
 				} else {
 					try {
-
-						final PollResult result = getPollService()
-								.validatePollIP(IP, pollAnswer);
+						final PollResult result = getPollService().validatePollIP(IP, pollAnswer);
 						if (result == null) {
 							getPollService().vote(pollAnswer, slugName, IP,
 									responseId);
-							model.put("message", "Poll Voted.");
-							pathVote = "tweetVoted";
-							log.debug("VOTED");
+							model.put("message", getMessage("poll.votes.thanks"));
+							pathVote = "poll/" + isEmbedded + "voted";
+							log.trace("VOTED");
 
 						} else {
 							pathVote = "poll/" + isEmbedded + "repeated";

@@ -1,7 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<article class="defaultMarginWrapper">
+<div class="container">
     <section class="web-tweetpoll-vote-options">
-
         <div class="web-permatlink gradient-gray">
             <h2>
                 ${tp_switch.tweetPoll.question.question}
@@ -27,4 +26,4 @@
         </div>
 
     </section>
-</article>
+</div>

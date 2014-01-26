@@ -8,14 +8,11 @@
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
 <body class="mobil">
     
-    <a href="<%=request.getContextPath()%>/home">
-        <header class="mobile-header" style="background: url('<%=request.getContextPath()%>/resources/images/logos/2013/horizontal/encuestame_horizontal_small_alpha.png')"></header>
-    </a>
+    <%@ include file="/WEB-INF/jsp/includes/decorators/mobile-header.jsp"%>
 
     <div class="content">
          <tiles:insertAttribute name="content"/>
-    </div>    
-
+    </div>
 
     <header class="header_input_hidden">
         <%@ include file="/WEB-INF/layouts/decorators/i18n-input.jsp"%>

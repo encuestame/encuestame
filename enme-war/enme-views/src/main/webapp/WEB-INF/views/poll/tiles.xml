@@ -9,7 +9,6 @@
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/poll_css.jsp" />
     </definition>
 
-
     <definition name="poll/vote" extends="main-vote">
         <put-attribute name="title" value="Poll Vote | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/decorators/vote.jsp" />
@@ -23,13 +22,19 @@
     </definition>
 
     <definition name="poll/bad" extends="main-vote">
-        <put-attribute name="title" value="Voted | encuestame" />
+        <put-attribute name="title" value="Bad Vote | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/decorators/bad-voted.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/poll_css.jsp" />
     </definition>
 
+    <definition name="poll/completed" extends="main-vote">
+        <put-attribute name="title" value="Vote Completed | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/poll/decorators/completed.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/poll/poll_css.jsp" />
+    </definition>
+
     <definition name="poll/banned" extends="main-vote">
-        <put-attribute name="title" value="Bad Voted | encuestame" />
+        <put-attribute name="title" value="Banned | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/decorators/bad-voted.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/poll_css.jsp" />
     </definition>
