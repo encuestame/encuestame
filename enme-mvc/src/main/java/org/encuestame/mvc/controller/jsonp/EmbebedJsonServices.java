@@ -13,7 +13,6 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.controller.jsonp.beans.JavascriptEmbebedBody;
@@ -60,6 +59,7 @@ public class EmbebedJsonServices extends AbstractJsonController {
 	 * @throws JsonMappingException
 	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/api/jsonp/generate/code/{type}/embedded", method = RequestMethod.GET)
 	public void embedded(
 			@RequestParam(value = "id", required = true) Long itemId,
@@ -123,6 +123,7 @@ public class EmbebedJsonServices extends AbstractJsonController {
 	 * @throws JsonMappingException
 	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/api/jsonp/{type}/embedded", method = RequestMethod.GET)
 	public void typeJavascriptJSONP(
 			@RequestParam(value = "id", required = true) Long pollId,
