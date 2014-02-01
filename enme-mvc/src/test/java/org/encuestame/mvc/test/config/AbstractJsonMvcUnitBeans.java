@@ -45,7 +45,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 /**
  *
@@ -80,7 +80,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
     /**
      * Json View.
      */
-    public MappingJacksonJsonView jacksonJsonView = new MappingJacksonJsonView();
+    public MappingJackson2JsonView jacksonJsonView = new MappingJackson2JsonView();
 
     /**
      * Model and View.

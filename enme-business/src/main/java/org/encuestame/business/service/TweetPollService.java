@@ -449,6 +449,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<SearchBean> searchTweetsPollScheduled(final String username,
             final HttpServletRequest httpServletRequest,
             final TweetPollSearchBean tpollSearch) throws EnMeExpcetion {
+    	if (tpollSearch.getIsScheduled() == null || !tpollSearch.getIsScheduled()) {
+    		tpollSearch.setIsScheduled(Boolean.TRUE); //must be true
+    	}
         List<TweetPoll> tweetPollSearchResult = new ArrayList<TweetPoll>();
         final List<TweetPoll> tweetPolls = getTweetPollDao()
                 .retrieveScheduledTweetPoll(getUserAccountId(username),
@@ -874,6 +877,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<Schedule> createTweetPollScheduled(final TweetPollScheduledBean bean) throws EnMeExpcetion, EnMeNoResultsFoundException {
     	final List<Schedule> list = new ArrayList<Schedule>();
     	final TweetPoll tp = this.getTweetPollById(bean.getId());
+    	if (tp.getScheduleTweetPoll() != null || !tp.getScheduleTweetPoll()) {
+    		tp.setScheduleTweetPoll(Boolean.TRUE);
+    		getTweetPollDao().saveOrUpdate(tp);
+    	}
     	final String tweetText = generateTweetPollContent(tp);
     	for (SocialAccountBean socialBean : bean.getSocialAccounts()) {
     		final SocialAccount soc = getAccountDao().getSocialAccountById(socialBean.getAccountId());
@@ -1413,7 +1420,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public void checkTweetPollCompleteStatus(final TweetPoll tweetPoll) {
         boolean next = true;
 
-        log.debug("checkTweetPollCompleteStatus tweetPoll.getLimitVotesEnabled() "+tweetPoll.getLimitVotesEnabled());
+        log.debug("checkTweetPollCompleteStatus tweetPoll.getLimitVotesEnabled() " + tweetPoll.getLimitVotesEnabled());
         boolean votesEnabled = tweetPoll.getLimitVotesEnabled() == null ? false : tweetPoll.getLimitVotesEnabled();
         if (votesEnabled) {
             long limitVotes = tweetPoll.getLimitVotes() == null ? 0 : tweetPoll.getLimitVotes();

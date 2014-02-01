@@ -157,7 +157,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final JSONArray array5 = (JSONArray) sucess5.get("tweetPolls");
         Assert.assertEquals(array5.size(), 5);
 
-      //SCHEDULED
+        //SCHEDULED
         initService("/api/survey/tweetpoll/search.json", MethodJson.GET);
         setParameter("typeSearch", "SCHEDULED");
         setParameter("max", "100");
@@ -166,7 +166,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject sucess6 = getSucess(response6);
         Assert.assertNotNull(sucess6.get("tweetPolls"));
         final JSONArray array6 = (JSONArray) sucess6.get("tweetPolls");
-        Assert.assertEquals(array6.size(), 7);
+        Assert.assertEquals(array6.size(), 1);
 
 
          //WHAT ELSE
