@@ -874,6 +874,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<Schedule> createTweetPollScheduled(final TweetPollScheduledBean bean) throws EnMeExpcetion, EnMeNoResultsFoundException {
     	final List<Schedule> list = new ArrayList<Schedule>();
     	final TweetPoll tp = this.getTweetPollById(bean.getId());
+    	if (tp.getScheduleTweetPoll() != null || !tp.getScheduleTweetPoll()) {
+    		tp.setScheduleTweetPoll(Boolean.TRUE);
+    		getTweetPollDao().saveOrUpdate(tp);
+    	}
     	final String tweetText = generateTweetPollContent(tp);
     	for (SocialAccountBean socialBean : bean.getSocialAccounts()) {
     		final SocialAccount soc = getAccountDao().getSocialAccountById(socialBean.getAccountId());

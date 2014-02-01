@@ -336,6 +336,13 @@ public class TweetPollController extends AbstractViewController {
         addi18nProperty(model, "e_024", getMessage("e_024"));
         addi18nProperty(model, "commons_success", getMessage("commons_success"));
         addi18nProperty(model, "commons_failure", getMessage("commons_failure"));
+        addi18nProperty(model, "commons_tab_to_save", getMessage("commons_tab_to_save"));
+        //help context
+        addi18nProperty(model, "tp_help_question", getMessage("tp_help_question"));
+        addi18nProperty(model, "tp_help_1", getMessage("tp_help_1"));
+        addi18nProperty(model, "tp_help_2", getMessage("tp_help_2"));
+        addi18nProperty(model, "tp_help_3", getMessage("tp_help_3"));
+        addi18nProperty(model, "tp_help_4", getMessage("tp_help_4"));
         return path;
     }
 
