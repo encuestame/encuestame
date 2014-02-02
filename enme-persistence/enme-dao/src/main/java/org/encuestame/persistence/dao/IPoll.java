@@ -23,6 +23,7 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.web.search.PollSearchBean;
 import org.hibernate.HibernateException;
 
 /**
@@ -294,8 +295,7 @@ public interface IPoll extends IBaseDao {
 	 * @param period
 	 * @return
 	 */
-	List<Object[]> getPollsRangeStats(
-	            final String tagName, final SearchPeriods period);
+	List<Object[]> getPollsRangeStats(final String tagName, final SearchPeriods period);
 
 	/**
 	 * Find all Polls by {@link Account}
@@ -304,125 +304,53 @@ public interface IPoll extends IBaseDao {
 	 * @param start
 	 * @return
 	 */
-	List<Poll> findAllPollByAccount(final Account account,
-			final Integer maxResults, final Integer start);
+	List<Poll> findAllPollByAccount(final Account account,final Integer maxResults, final Integer start);
 
 	/**
-	 * Retrieve Polls by users.
-	 * @param keyword
+	 * 
+	 * @param bean
 	 * @param userId
-	 * @param maxResults
-	 * @param start
-	 * @param isCompleted
-	 * @param isScheduled
-	 * @param isPublished
-	 * @param isFavourite
-	 * @param period
 	 * @return
 	 */
-	List<Poll> retrievePollsByUserId(
-			   final String keyword, 
-			   final Long userId,
-	           final Integer maxResults, 
-	           final Integer start,
-	           final Boolean isCompleted, 
-	           final Boolean isScheduled,
-	           final Boolean isPublished, 
-	           final Boolean isFavourite,
-	           final String period);
+	List<Poll> retrievePollsByUserId(final PollSearchBean bean, final Long userId);
 
 	/**
 	 * Retrieve all {@link Poll} created today.
-	 * @param account
-	 * @param maxResults
-	 * @param start
-	 * @param isCompleted
-	 * @param isScheduled
-	 * @param isFavourite
-	 * @param isPublished
-	 * @param keyword
-	 * @param period
+	 * @param bean
+	 * @param userId
 	 * @return
 	 */
-	List<Poll> retrievePollsToday(final Account account,
-	           final Integer maxResults, final Integer start,
-	           final Boolean isCompleted, final Boolean isScheduled,
-	           final Boolean isFavourite, final Boolean isPublished, final String keyword, final String period);
+	List<Poll> retrievePollsToday(final PollSearchBean bean, final Long userId);
 
 	/**
 	 * Retrieve the {@link Poll} created last week.
-	 * @param account
-	 * @param maxResults
-	 * @param start
-	 * @param isCompleted
-	 * @param isScheduled
-	 * @param isFavourite
-	 * @param isPublished
-	 * @param keyword
-	 * @param period
+	 * @param bean
+	 * @param userId
 	 * @return
 	 */
-	List<Poll> retrievePollsLastWeek(final Account account,
-	           final Integer maxResults, final Integer start,
-	           final Boolean isCompleted, final Boolean isScheduled,
-	           final Boolean isFavourite, final Boolean isPublished,
-	           final String keyword, final String period);
+	List<Poll> retrievePollsLastWeek(final PollSearchBean bean, final Long userId);
 
 	/**
 	 * Retrieve favourites {@link Poll}.
-	 * @param account
-	 * @param maxResults
-	 * @param start
-	 * @param isCompleted
-	 * @param isScheduled
-	 * @param isFavourite
-	 * @param isPublished
-	 * @param keyword
-	 * @param period
+	 * @param bean
+	 * @param userId
 	 * @return
 	 */
-	List<Poll> retrieveFavouritesPoll(final Account account,
-	           final Integer maxResults, final Integer start,
-	           final Boolean isCompleted, final Boolean isScheduled,
-	           final Boolean isFavourite, final Boolean isPublished,
-	           final String keyword, final String period);
+	List<Poll> retrieveFavouritesPoll(final PollSearchBean bean, final Long userId);
 
 	/**
 	 * Retrieve scheduled {@link Poll}.
+	 * @param bean
 	 * @param userId
-	 * @param maxResults
-	 * @param start
-	 * @param isCompleted
-	 * @param isScheduled
-	 * @param isFavourite
-	 * @param isPublished
-	 * @param keyword
-	 * @param period
 	 * @return
 	 */
-	List<Poll> retrieveScheduledPoll(final Long userId,
-	           final Integer maxResults, final Integer start,
-	           final Boolean isCompleted, final Boolean isScheduled,
-	           final Boolean isFavourite, final Boolean isPublished,
-	           final String keyword, final String period);
+	List<Poll> retrieveScheduledPoll(final PollSearchBean bean, final Long userId);
 
 	/**
 	 * Retrieve {@link Poll} by date.
-	 * @param account
-	 * @param maxResults
-	 * @param start
-	 * @param isCompleted
-	 * @param isScheduled
-	 * @param isFavourite
-	 * @param isPublished
-	 * @param keyword
-	 * @param period
-	 * @param initDate
+	 * @param bean
+	 * @param userId
 	 * @return
 	 */
-	List<Poll> retrievePollByDate(final Account account,
-	           final Integer maxResults, final Integer start,
-	           final Boolean isCompleted, final Boolean isScheduled,
-	           final Boolean isFavourite, final Boolean isPublished,
-	           final String keyword, final String period, final Date initDate);
+	List<Poll> retrievePollByDate(final PollSearchBean bean, final Long userId, final Date startDate);
 }

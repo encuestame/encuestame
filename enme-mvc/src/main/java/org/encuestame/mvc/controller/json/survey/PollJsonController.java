@@ -129,7 +129,7 @@ public class PollJsonController extends AbstractJsonController{
             final List<SearchBean> list = (List<SearchBean>) getPollService().filterSearchPollsByType(
                     tpollSearchBean, request);
             log.debug("/api/survey/poll/search.json---------------->  "+ list.size());
-            jsonResponse.put("tweetPolls", list);
+            jsonResponse.put("poll", list);
             setItemResponse(jsonResponse);
 
         } catch (EnMeExpcetion e) {

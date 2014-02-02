@@ -458,7 +458,7 @@ public interface IPollService extends IMasterSurveyService{
 	 * @return
 	 * @throws EnMeExpcetion
 	 */
-	List<SearchBean> searchTweetsPollFavourites(final String username,
+	List<SearchBean> searchPollFavourites(final String username,
 			final HttpServletRequest httpServletRequest,
 			final PollSearchBean pollSearchBean) throws EnMeExpcetion;
 
@@ -470,7 +470,8 @@ public interface IPollService extends IMasterSurveyService{
 	 * @return
 	 * @throws EnMeExpcetion
 	 */
-	List<SearchBean> searchTweetsPollScheduled(final String username,
+	List<SearchBean> searchPollScheduled(
+			final String username,
             final HttpServletRequest httpServletRequest,
             final PollSearchBean pollSearchBean) throws EnMeExpcetion;
 

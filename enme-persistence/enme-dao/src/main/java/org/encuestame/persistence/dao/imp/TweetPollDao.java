@@ -123,7 +123,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         // criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
         criteria.add(Restrictions.eq("tweetOwner.id", userId));
         criteria.addOrder(Order.desc("createDate"));
-        advancedSearchOptions(criteria, isCompleted, isScheduled, isFavourite, isPublished, keyWord, period);
+        advancedTweetPollSearchOptions(criteria, isCompleted, isScheduled, isFavourite, isPublished, keyWord, period);
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -146,7 +146,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
                 .forClass(TweetPoll.class);
         criteria.createAlias("tweetOwner", "tweetOwner");
         criteria.add(Restrictions.eq("tweetOwner.id", userId));
-        advancedSearchOptions(criteria, isCompleted, isScheduled, isFavourite, isPublished, keyWord, period);
+        advancedTweetPollSearchOptions(criteria, isCompleted, isScheduled, isFavourite, isPublished, keyWord, period);
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -192,7 +192,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.add(Restrictions.eq("tweetOwner", account));
         criteria.add(Restrictions.between("createDate", initDate,
              getNextDayMidnightDate()));
-        advancedSearchOptions(criteria, isCompleted, isScheduled, isFavourite,
+        advancedTweetPollSearchOptions(criteria, isCompleted, isScheduled, isFavourite,
                 isPublished, keyword, period);
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
@@ -236,7 +236,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
                 .forClass(TweetPoll.class);
         criteria.createAlias("tweetOwner", "tweetOwner");
         criteria.add(Restrictions.eq("tweetOwner", account));
-        advancedSearchOptions(criteria, isCompleted, isScheduled, Boolean.TRUE,
+        advancedTweetPollSearchOptions(criteria, isCompleted, isScheduled, Boolean.TRUE,
                 isPublished, keyword, period);
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
@@ -259,7 +259,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.createAlias("tweetOwner", "tweetOwner");
         criteria.add(Restrictions.eq("tweetOwner.uid", userId));
         // To retrieve all and only scheduled Tweetpoll period should be = ALLTIME
-        advancedSearchOptions(criteria, isCompleted, isScheduled, isFavourite,
+        advancedTweetPollSearchOptions(criteria, isCompleted, isScheduled, isFavourite,
                 isPublished, keyword, period);
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }

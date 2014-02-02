@@ -253,7 +253,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * Test Find Polls By User.
      * @throws EnMeNoResultsFoundException
      **/
-    @Test
+    @Test 
     public void testFindAllPollByUserId() throws EnMeNoResultsFoundException{
         List<PollBean> unitPoll =  new ArrayList<PollBean>();
         unitPoll = pollService.listPollByUser(5, 0);
