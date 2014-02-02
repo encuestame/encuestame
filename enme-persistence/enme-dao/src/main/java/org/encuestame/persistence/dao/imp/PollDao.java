@@ -443,7 +443,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#retrievePollsByUserId(org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
-    public List<Poll> retrievePollsByUserId(final UserAccount userAcc,
+    public List<Poll> retrievePollsByUserId(
+    		final UserAccount userAcc,
             final Integer maxResults,
             final Integer start){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
@@ -498,7 +499,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
             final Integer start) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.createAlias("editorOwner","editorOwner");
-        criteria.add(Restrictions.eq("favorites", Boolean.TRUE));
+        criteria.add(Restrictions.eq("favourites", Boolean.TRUE));
         criteria.add(Restrictions.eq("editorOwner", userAccount));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
@@ -614,14 +615,28 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 	 * java.lang.Boolean, java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Poll> retrievePollsByUserId(final String keyword,
-			final Long userId, final Integer maxResults, final Integer start,
-			final Boolean isCompleted, final Boolean isScheduled,
-			final Boolean isPublished, final Boolean isFavourite,
+	public List<Poll> retrievePollsByUserId(
+			final String keyword,
+			final Long userId, 
+			final Integer maxResults, 
+			final Integer start,
+			final Boolean isCompleted, 
+			final Boolean isScheduled,
+			final Boolean isPublished, 
+			final Boolean isFavourite,
 			final String period) {
 		final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-		criteriaAdvancedSearch("owner", "uid", criteria, isCompleted,
-				isScheduled, isFavourite, isPublished, keyword, period);
+		this.criteriaAdvancedSearch(
+				"owner", 
+				"uid",
+				userId,
+				criteria, 
+				isCompleted,
+				isScheduled, 
+				isFavourite, 
+				isPublished, 
+				keyword, 
+				period);
 		return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
 	}
 
@@ -705,11 +720,16 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 	 * java.lang.Boolean, java.lang.Boolean, java.lang.String, java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Poll> retrieveFavouritesPoll(final Account account,
-			final Integer maxResults, final Integer start,
-			final Boolean isCompleted, final Boolean isScheduled,
-			final Boolean isFavourite, final Boolean isPublished,
-			final String keyword, final String period) {
+	public List<Poll> retrieveFavouritesPoll(
+			final Account account,
+			final Integer maxResults, 
+			final Integer start,
+			final Boolean isCompleted, 
+			final Boolean isScheduled,
+			final Boolean isFavourite, 
+			final Boolean isPublished,
+			final String keyword, final 
+			String period) {
 		final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
 		criteria.createAlias("owner", "owner");
 		criteria.add(Restrictions.eq("owner", account));

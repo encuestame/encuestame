@@ -804,8 +804,8 @@ public class ConvertDomainBean {
         pollSearch.setUserId(poll.getEditorOwner().getUid());
         pollSearch.setOwnerUsername(poll.getEditorOwner() == null ? null
                         : poll.getEditorOwner().getUsername());
-         pollSearch.setFavourites(poll.getFavorites() == null ? false
-                : poll.getFavorites());
+         pollSearch.setFavourites(poll.getFavourites() == null ? false
+                : poll.getFavourites());
         pollSearch.setCompleted(poll.getPollCompleted() == null ? false
                 : poll.getPollCompleted());
         pollSearch.setQuestionBean(convertQuestionsToBean(poll
@@ -908,8 +908,8 @@ public class ConvertDomainBean {
                 : poll.getRelevance());
         unitPoll.setHits(poll.getHits() == null ? EnMeUtils.VOTE_MIN : poll
                 .getHits());
-        unitPoll.setFavorite(poll.getFavorites() == null ? false : poll
-                .getFavorites());
+        unitPoll.setFavorite(poll.getFavourites() == null ? false : poll
+                .getFavourites());
         unitPoll.setHashTags(ConvertDomainBean
                 .convertListHashTagsToBean(new ArrayList<HashTag>(poll
                         .getHashTags())));

@@ -78,7 +78,7 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
     /**
      *  {@link MailService}.
      */
-    @Resource()
+    //@Resource()    
     private MailServiceOperations mailService;
 
     /**
@@ -385,7 +385,7 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
 
     /**
      * @return the mailServiceOperations
-     */
+     */    
     @Autowired
     public MailServiceOperations getMailService() {
         return mailService;

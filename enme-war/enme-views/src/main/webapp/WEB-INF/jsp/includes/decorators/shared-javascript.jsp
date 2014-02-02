@@ -45,6 +45,8 @@ try {
 
     _ENME.setOffline(offline);
 
+    window.scrollTo(0,0)
+
 } catch(error) {
     console.log('error websocket', error);
 }

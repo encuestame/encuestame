@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.encuestame.business.service.PollService;
 import org.encuestame.core.service.imp.IPollService;
@@ -37,19 +38,23 @@ import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.enums.SearchPeriods;
+import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.UnitLists;
+import org.encuestame.utils.web.search.PollSearchBean;
 import org.hibernate.HibernateException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 
  /**
  * Test for {@link PollService}.
@@ -61,6 +66,11 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
      /** {@link Account} **/
     private Account user;
+    
+	/**
+	 * Mock HttpServletRequest.
+	 */
+	MockHttpServletRequest request;    
 
     /** {@link Question} **/
     private Question question;
@@ -149,6 +159,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
 				.convertHashTagDomain(this.tag3));
 		tagBeanList.add(ConvertDomainBean
 				.convertHashTagDomain(this.tag4));
+		
+		//fake request
+		request = new MockHttpServletRequest();
+		request.addPreferredLocale(Locale.ENGLISH);
      }
 
     /**
@@ -410,6 +424,35 @@ public class TestPollService extends AbstractSpringSecurityContext{
 			}
 		}
 
-	}
+	}	
+	
+	/**
+	 * Test for PollService.filterSearchPollsByType()
+	 * @throws EnMeExpcetion
+	 */
+	@Test
+    public void testfilterSearchPollsByType() throws EnMeExpcetion{
+		final PollSearchBean bean = new PollSearchBean();
+		//all
+		bean.setTypeSearch(TypeSearch.ALL);
+        List<SearchBean> pollAll = this.pollService.filterSearchPollsByType(bean, this.request);
+        assertEquals(pollAll.size(), 1);
+        //by onwer
+        bean.setTypeSearch(TypeSearch.BYOWNER);
+        List<SearchBean> pollAll2 = this.pollService.filterSearchPollsByType(bean, this.request);
+       assertEquals(pollAll2.size(), 1);
+       //last day
+       bean.setTypeSearch(TypeSearch.LASTDAY);
+       List<SearchBean> pollAll3 = this.pollService.filterSearchPollsByType(bean, this.request);
+       assertEquals(pollAll3.size(), 0);
+       //last week
+       bean.setTypeSearch(TypeSearch.LASTWEEK);
+       List<SearchBean> pollAll4 = this.pollService.filterSearchPollsByType(bean, this.request);
+       assertEquals(pollAll4.size(), 1);       
+       //last 30 days
+       bean.setTypeSearch(TypeSearch.FAVOURITES);
+       List<SearchBean> pollAll5 = this.pollService.filterSearchPollsByType(bean, this.request);
+       assertEquals(pollAll5.size(), 1);            
+    }	
 
 }

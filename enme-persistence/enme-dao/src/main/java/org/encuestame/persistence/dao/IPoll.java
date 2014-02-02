@@ -320,10 +320,15 @@ public interface IPoll extends IBaseDao {
 	 * @param period
 	 * @return
 	 */
-	List<Poll> retrievePollsByUserId(final String keyword, final Long userId,
-	           final Integer maxResults, final Integer start,
-	           final Boolean isCompleted, final Boolean isScheduled,
-	           final Boolean isPublished, final Boolean isFavourite,
+	List<Poll> retrievePollsByUserId(
+			   final String keyword, 
+			   final Long userId,
+	           final Integer maxResults, 
+	           final Integer start,
+	           final Boolean isCompleted, 
+	           final Boolean isScheduled,
+	           final Boolean isPublished, 
+	           final Boolean isFavourite,
 	           final String period);
 
 	/**

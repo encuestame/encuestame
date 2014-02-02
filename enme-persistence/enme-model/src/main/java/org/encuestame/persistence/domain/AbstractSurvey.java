@@ -191,7 +191,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * Mark as favourites.
      */
-    private Boolean favorites = false;
+    private Boolean favourites = false;
 
     /**
      * Update Date
@@ -608,16 +608,16 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the favourites
      */
-    @Column(name = "favorites")
-    public Boolean getFavorites() {
-        return favorites;
+    @Column(name = "favorites") //FUTURE: change to favourites
+    public Boolean getFavourites() {
+        return favourites;
     }
 
     /**
      * @param favourites the favourites to set
      */
-    public void setFavorites(final Boolean favorites) {
-        this.favorites = favorites;
+    public void setFavourites(final Boolean favourites) {
+        this.favourites = favourites;
     }
 
     /**

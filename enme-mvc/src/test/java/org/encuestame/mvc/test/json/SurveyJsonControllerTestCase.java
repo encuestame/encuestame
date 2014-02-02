@@ -63,7 +63,7 @@ public class SurveyJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
         final Date myDate = new Date();
         this.format = createSurveyFormat("My TextBox", new Date());
         this.survey = createSurvey(null, new Date(), new Date(), userAccount.getAccount(), myDate, format, "My Survey", myDate );
-        this.survey.setFavorites(Boolean.TRUE);
+        this.survey.setFavourites(Boolean.TRUE);
         this.survey.setEditorOwner(userAccount);
         getAccountDao().saveOrUpdate(this.survey);  
     }

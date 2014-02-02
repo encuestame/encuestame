@@ -386,20 +386,44 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
             criteria.add(Restrictions.eq("publishTweetPoll", isPublished));
         }
     }
-
-
-	public void criteriaAdvancedSearch(final String property, final String property_value,
-			final DetachedCriteria criteria, final Boolean isCompleted,
-			final Boolean isScheduled, final Boolean isFavourite,
-			final Boolean isPublished, final String keyword,
+    
+    /**
+     * 
+     * @param property
+     * @param property_value
+     * @param criteria
+     * @param isCompleted
+     * @param isScheduled
+     * @param isFavourite
+     * @param isPublished
+     * @param keyword
+     * @param period
+     */
+	public void criteriaAdvancedSearch(
+			final String property,
+			final String property_value, 
+			final Object itemId,
+			final DetachedCriteria criteria,
+			final Boolean isCompleted, 
+			final Boolean isScheduled,
+			final Boolean isFavourite, 
+			final Boolean isPublished,
+			final String keyword, 
 			final String period) {
-
-        criteria.createAlias(property, property);
-        //  criteria.add(Restrictions.eq("editorOwner.uid", userId)); -- POLL
-        criteria.add(Restrictions.eq(property+"."+property_value, property_value));
-        criteria.addOrder(Order.desc("createDate"));
-        this.advancedSearchOptions(criteria,  isCompleted, isScheduled, isFavourite, isPublished, keyword, period);
-    }
+		// criteria.add(Restrictions.eq("editorOwner.uid", userId)); -- POLL
+		criteria.createAlias(property, property);
+		criteria.add(Restrictions.eq(property + "." + property_value, itemId));
+		
+		criteria.addOrder(Order.desc("createDate"));
+		this.advancedSearchOptions(
+				criteria, 
+				isCompleted,
+				isScheduled,
+				isFavourite, 
+				isPublished, 
+				keyword, 
+				period);
+	}
 
 	/**
 	 *

@@ -86,7 +86,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#filterPollByItemsByType(org.encuestame.utils.enums.TypeSearch, java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
      */
-    @Deprecated
     public List<PollBean> filterPollByItemsByType(
             final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
@@ -132,7 +131,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see
 	 * org.encuestame.core.service.imp.IPollService#filterSearchPollsByType(
 	 * org.encuestame.utils.web.search.PollSearchBean,
@@ -156,7 +154,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
             list.addAll(this.searchPollsToday(getUserPrincipalUsername(), httpServletRequest, pollSearch));
 		} else if (TypeSearch.LASTWEEK.equals(pollSearch.getTypeSearch())) {
             list.addAll(this.searchPollsLastWeek(getUserPrincipalUsername(), httpServletRequest, pollSearch));
-
         } else if (TypeSearch.FAVOURITES.equals(pollSearch.getTypeSearch())) {
             list.addAll(this.searchTweetsPollFavourites(getUserPrincipalUsername(), httpServletRequest, pollSearch));
 
@@ -178,7 +175,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
 	 * (java.lang.String, javax.servlet.http.HttpServletRequest,
 	 * org.encuestame.utils.web.search.PollSearchBean)
 	 */
-	public List<SearchBean> getPollsByUserNameSearch(final String username,
+	public List<SearchBean> getPollsByUserNameSearch(
+			final String username,
 			final HttpServletRequest httpServletRequest,
 			final PollSearchBean pollSearch) throws EnMeNoResultsFoundException {
 		log.debug("tweetPoll username: " + username);
@@ -275,16 +273,17 @@ public class PollService extends AbstractSurveyService implements IPollService{
 			final PollSearchBean pollSearchBean) throws EnMeExpcetion {
 		List<Poll> pollSearchResult = new ArrayList<Poll>();
 		final List<Poll> polls = getPollDao().retrievePollsToday(
-				getUserAccountonSecurityContext().getAccount(), pollSearchBean.getMax(),
+				getAccount(getUserPrincipalUsername()), pollSearchBean.getMax(),
 				pollSearchBean.getStart(), pollSearchBean.getIsComplete(),
 				pollSearchBean.getIsScheduled(),
 				pollSearchBean.getIsFavourite(),
 				pollSearchBean.getIsFavourite(), pollSearchBean.getKeyword(),
 				pollSearchBean.getPeriod());
+		//FIXME: java use ref variables, we don't need create multiple list, just reuse the first one 
 		pollSearchResult = this.getPollSearchResult(polls,
 				pollSearchBean.getProviders(),
 				pollSearchBean.getSocialAccounts());
-		return null;
+		return ConvertDomainBean.convertPollListToSearchBean(pollSearchResult);
 	}
 
 	/*
@@ -309,7 +308,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 		pollSearchResult = this.getPollSearchResult(polls,
 				pollSearchBean.getProviders(),
 				pollSearchBean.getSocialAccounts());
-		return null;
+		return ConvertDomainBean.convertPollListToSearchBean(pollSearchResult);
 	}
 
 	/*
@@ -334,7 +333,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 		pollSearchResult = this.getPollSearchResult(favouritePolls,
 				pollSearchBean.getProviders(),
 				pollSearchBean.getSocialAccounts());
-		return null;
+		return ConvertDomainBean.convertPollListToSearchBean(pollSearchResult);
 	}
 
 	/*
@@ -359,7 +358,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 		pollSearchResult = this.getPollSearchResult(polls,
 				pollSearchBean.getProviders(),
 				pollSearchBean.getSocialAccounts());
-		return null;
+		return ConvertDomainBean.convertPollListToSearchBean(pollSearchResult);
 	}
 
     /*
