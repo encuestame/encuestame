@@ -76,6 +76,12 @@ public class ApplicationStartup implements StartupProcess {
                 mailService.sendStartUpNotification(startupMessage.toString());
             }
             //notify the system has been initialized
+            final String uuid = EnMePlaceHolderConfigurer.getConfigurationManager().getProperty("install.uuid");
+            if (uuid != null) {
+            	EnMePlaceHolderConfigurer.setSystemInstalled(Boolean.TRUE);
+            } else {
+            	EnMePlaceHolderConfigurer.setSystemInstalled(Boolean.FALSE);
+            }
             EnMePlaceHolderConfigurer.setSystemInitialized(Boolean.TRUE);            
             // check internet connection
             //if (EnMePlaceHolderConfigurer.getBooleanProperty(

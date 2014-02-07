@@ -321,18 +321,25 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
             SecurityUtils.authenticate(u);
             tweetPollBean.setUserId(u.getAccount().getUid());
             tweetPollBean.setCloseNotification(Boolean.FALSE);
-            tweetPollBean.setResultNotification(Boolean.FALSE);
+            
+            tweetPollBean.setResultNotification(Boolean.FALSE);            
+            // all published by default
+            tweetPollBean.setPublishPoll(Boolean.TRUE);
             // publish aleatory a publish poll.
-            int publish = RandomUtils.nextInt(10);
-            if (publish <= 7) {
-                tweetPollBean.setPublishPoll(Boolean.TRUE); // always TRUE
-            }
-
+//            int publish = RandomUtils.nextInt(10);
+//            if (publish <= 7) {
+//                tweetPollBean.setPublishPoll(Boolean.TRUE); // always TRUE
+//            }
+            // no scheduled tp in the demo data
             tweetPollBean.setSchedule(Boolean.FALSE);
             try {
                 //final Question qm = createQuestion(question, u, QuestionPattern.CUSTOMIZABLE_SELECTION);
                 final TweetPoll tweetPollDomain = getTweetPollService().createTweetPoll(tweetPollBean, question.getQuestionName(), u, null);
 
+                //force to be published
+                tweetPollDomain.setPublishTweetPoll(true);
+                getTweetPollDao().saveOrUpdate(tweetPollDomain);
+                
                 double hits = getRandomNumberRange(2, EnMePlaceHolderConfigurer
                         .getIntegerProperty("demo.max.tweetpoll.hits"));
                 for (int i = 0; i < hits; i++) {
@@ -645,6 +652,5 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
     public void setCalculateRelevance(CalculateRelevance calculateRelevance) {
         this.calculateRelevance = calculateRelevance;
     }
-
 
 }

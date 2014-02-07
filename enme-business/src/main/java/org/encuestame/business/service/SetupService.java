@@ -103,7 +103,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      * @see org.encuestame.core.service.SetupOperations#finishInstall()
      */
     public void finishInstall(){
-    	EnMePlaceHolderConfigurer.setSystemInitialized(Boolean.TRUE);
+    	EnMePlaceHolderConfigurer.setSystemInstalled(Boolean.TRUE);
     }
 
     /**

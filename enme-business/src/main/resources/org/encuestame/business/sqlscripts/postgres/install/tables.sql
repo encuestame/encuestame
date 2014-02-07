@@ -438,6 +438,8 @@ CREATE TABLE poll (
     publish_poll boolean,
     editor bigint,
     owner_id bigint,
+    schedule_date_tweet timestamp without time zone,
+    schedule boolean,
     poll_folder bigint,
     qid bigint NOT NULL
 );
@@ -865,6 +867,8 @@ CREATE TABLE surveys (
     date_interview date,
     schedule_date_survey timestamp without time zone,
     is_schedule boolean,
+    schedule_date_tweet timestamp without time zone,
+    schedule boolean,
     show_progress_bar boolean,
     start_date timestamp without time zone,
     survey_slug_name character varying(255),

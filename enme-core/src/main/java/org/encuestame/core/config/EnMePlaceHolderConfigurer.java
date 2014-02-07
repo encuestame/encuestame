@@ -50,6 +50,11 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
      * 
      */
     private static Boolean systemInitialized = false;
+    
+    /**
+     * 
+     */
+    private static Boolean systemInstalled = true;
 
 
     /**
@@ -194,5 +199,21 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
 
 	public static void setSystemInitialized(Boolean systemInitialized) {
 		EnMePlaceHolderConfigurer.systemInitialized = systemInitialized;
+	}
+
+	/**
+	 * @return the systemInstalled
+	 */
+	public static Boolean getSystemInstalled() {
+		return systemInstalled;
+	}
+
+	/**
+	 * @param systemInstalled the systemInstalled to set
+	 */
+	public static void setSystemInstalled(Boolean systemInstalled) {
+		EnMePlaceHolderConfigurer.systemInstalled = systemInstalled;
 	}    
+	
+	
 }

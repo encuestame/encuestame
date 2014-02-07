@@ -39,4 +39,7 @@
         <put-attribute name="footer" expression="/WEB-INF/layouts/footer.jsp" />
     </definition>
 
+    <definition name="display/iframe" templateExpression="/WEB-INF/layouts/iframe.jsp">
+    </definition>
+
 </tiles-definitions>
