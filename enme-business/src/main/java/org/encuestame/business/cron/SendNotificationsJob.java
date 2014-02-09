@@ -45,7 +45,7 @@ public class SendNotificationsJob {
 	 */
 	@Scheduled(cron = "${cron.sendNotifications}")
 	public void sendNotifications() {
-		if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
+		if (EnMePlaceHolderConfigurer.getSystemInstalled()) {
 			String username = "demo10";
 			final NotificationResume notificationResume = new NotificationResume();
 			notificationResume.setTotalNewNot(RandomUtils.nextLong());

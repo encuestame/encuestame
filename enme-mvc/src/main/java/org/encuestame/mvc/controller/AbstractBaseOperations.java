@@ -22,8 +22,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Locale.Builder;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import junit.framework.Assert;
 
@@ -75,6 +78,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 /**
@@ -114,6 +118,12 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
       */
      private ReCaptcha reCaptcha;
 
+     /**
+      * 
+      */
+     @Resource
+	 private LocaleResolver localeResolver;     
+     
     /**
      * {@link ServiceManager}.
      */
@@ -354,8 +364,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
             final Object[] args) {
         String stringValue = "";
         try {
-            stringValue = getServiceManager().getMessageSource().getMessage(
-                    message, args, getLocale(request));
+            stringValue = getServiceManager().getMessageSource().getMessage(message, args, getLocale(request));
         } catch (Exception e) {
             log.error(e);
         }
@@ -619,6 +628,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param key layout custom key
      * @param value message key
      */
+    @Deprecated
 	public void addi18nProperty(ModelMap model, final String key, final String value) {
         @SuppressWarnings("unchecked")
         HashMap<String, String> i18n = (HashMap<String, String>) model.get("i18n");
@@ -635,6 +645,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param model
      * @param key
      */
+	@Deprecated
     public void addi18nProperty(ModelMap model, final String key) {
         @SuppressWarnings("unchecked")
         HashMap<String, String> i18n = (HashMap<String, String>) model.get("i18n");
@@ -644,6 +655,29 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         }
         i18n.put(key, getMessage(key));
     }
+    
+    /**
+     * 
+     * @param model
+     * @param key
+     * @param request
+     */
+    public void addi18nProperty(
+    		ModelMap model, 
+    		final String key, 
+    		final HttpServletRequest request,
+    		final HttpServletResponse response) {
+    	log.debug("--- after addi18nProperty -->" + request.getLocale().toLanguageTag());
+		getLocaleResolver().setLocale(request, response, getUserAccountLocale(getUserPrincipalUsername()));
+		log.debug("--- before addi18nProperty -->" + request.getLocale().toLanguageTag());
+        @SuppressWarnings("unchecked")
+        HashMap<String, String> i18n = (HashMap<String, String>) model.get("i18n");
+        if (i18n == null) {
+            i18n = new HashMap<String, String>();
+            model.addAttribute("i18n", i18n);
+        }
+        i18n.put(key, getMessage(key, request, null));
+    }    
 
    /**
     * If is not complete check and validate current status.
@@ -664,64 +698,84 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
    }
 
    /**
-    * Add to model defaults messages.
-    * TODO: move to INTERCEPTOR.
-    */
-   public void addDefaulti18nMessages(ModelMap model) {
-       addi18nProperty(model, "profile_menu_configuration", getMessage("profile_menu_configuration"));
-       addi18nProperty(model, "profile_menu_social", getMessage("profile_menu_social"));
-       addi18nProperty(model, "profile_menu_help", getMessage("profile_menu_help"));
-       addi18nProperty(model, "profile_menu_log_out", getMessage("profile_menu_log_out"));
-   }
-
-   /**
     * Add to model the social picker messages.
     * @param model
     */
-   public void addSocialPickerWidgetMessages(ModelMap model) {
-       addi18nProperty(model, "social_picker_only_selected", getMessage("social_picker_only_selected"));
-       addi18nProperty(model, "social_picker_select_all", getMessage("social_picker_select_all"));
-       addi18nProperty(model, "social_picker_unselect_all", getMessage("social_picker_unselect_all"));
-       addi18nProperty(model, "social_picker_accounts_selected", getMessage("social_picker_accounts_selected"));
-       addi18nProperty(model, "social_picker_filter_selected", getMessage("social_picker_filter_selected"));
-       addi18nProperty(model, "e_022", getMessage("e_022"));
+   public void addSocialPickerWidgetMessages(ModelMap model, HttpServletRequest request,
+   		HttpServletResponse response) {
+       addi18nProperty(model, "social_picker_only_selected", request, response);
+       addi18nProperty(model, "social_picker_select_all", request, response);
+       addi18nProperty(model, "social_picker_unselect_all", request, response);
+       addi18nProperty(model, "social_picker_accounts_selected", request, response);
+       addi18nProperty(model, "social_picker_filter_selected", request, response);
+       addi18nProperty(model, "e_022", request, response);
    }
 
    /**
     *
     * @param model
+ * @param response 
     */
-   public void addItemsManangeMessages(ModelMap model) {
-    addi18nProperty(model, "detail_manage_by_account", getMessage("detail_manage_by_account"));
-       addi18nProperty(model, "detail_manage_today", getMessage("detail_manage_today"));
-       addi18nProperty(model, "detail_manage_last_week", getMessage("detail_manage_last_week"));
-       addi18nProperty(model, "detail_manage_favorites", getMessage("detail_manage_favorites"));
-       addi18nProperty(model, "detail_manage_scheduled", getMessage("detail_manage_scheduled"));
-       addi18nProperty(model, "detail_manage_all", getMessage("detail_manage_all"));
-       addi18nProperty(model, "detail_manage_published", getMessage("detail_manage_published"));
-       addi18nProperty(model, "detail_manage_unpublished", getMessage("detail_manage_unpublished"));
-       addi18nProperty(model, "detail_manage_only_completed", getMessage("detail_manage_only_completed"));
+   public void addItemsManangeMessages(ModelMap model, final HttpServletRequest request, HttpServletResponse response) {
+	   
+	   addi18nProperty(model, "detail_manage_by_account", request, response);
+       addi18nProperty(model, "detail_manage_today",request, response);
+       addi18nProperty(model, "detail_manage_last_week", request, response);
+       addi18nProperty(model, "detail_manage_favorites", request, response);
+       addi18nProperty(model, "detail_manage_scheduled", request, response);
+       addi18nProperty(model, "detail_manage_all", request, response);
+       addi18nProperty(model, "detail_manage_published", request, response);
+       addi18nProperty(model, "detail_manage_unpublished", request, response);
+       addi18nProperty(model, "detail_manage_only_completed", request, response);
        //folder messages
-       addi18nProperty(model, "detail_manage_folder_title", getMessage("detail_manage_folder_title"));
-       addi18nProperty(model, "detail_manage_delete", getMessage("detail_manage_delete"));
-       addi18nProperty(model, "detail_manage_new", getMessage("detail_manage_new"));
-       addi18nProperty(model, "detail_manage_search", getMessage("detail_manage_search"));
-       addi18nProperty(model, "detail_manage_folder_replace_name", getMessage("detail_manage_folder_replace_name"));
+       addi18nProperty(model, "detail_manage_folder_title", request, response);
+       addi18nProperty(model, "detail_manage_delete", request, response);
+       addi18nProperty(model, "detail_manage_new", request, response);
+       addi18nProperty(model, "detail_manage_search", request, response);
+       addi18nProperty(model, "detail_manage_folder_replace_name", request, response);
        //filters
-       addi18nProperty(model, "detail_manage_filters_advanced", getMessage("detail_manage_filters_advanced"));
-       addi18nProperty(model, "detail_manage_filters_order", getMessage("detail_manage_filters_order"));
-       addi18nProperty(model, "detail_manage_filters_social_network", getMessage("detail_manage_filters_social_network"));
-       addi18nProperty(model, "detail_manage_filters_votes_options", getMessage("detail_manage_filters_votes_options"));
+       addi18nProperty(model, "detail_manage_filters_advanced", request, response);
+       addi18nProperty(model, "detail_manage_filters_order", request, response);
+       addi18nProperty(model, "detail_manage_filters_social_network", request, response);
+       addi18nProperty(model, "detail_manage_filters_votes_options", request, response);
        // advanced filter
-       addi18nProperty(model, "detail_manage_filters_advanced_title", getMessage("detail_manage_filters_advanced_title"));
-       addi18nProperty(model, "detail_manage_filters_advanced_type_to_search", getMessage("detail_manage_filters_advanced_type_to_search"));
-       addi18nProperty(model, "detail_manage_filters_advanced_all_results", getMessage("detail_manage_filters_advanced_all_results"));
-       addi18nProperty(model, "detail_manage_filters_advanced_range_days", getMessage("detail_manage_filters_advanced_range_days"));
+       addi18nProperty(model, "detail_manage_filters_advanced_title", request, response);
+       addi18nProperty(model, "detail_manage_filters_advanced_type_to_search", request, response);
+       addi18nProperty(model, "detail_manage_filters_advanced_all_results", request, response);
+       addi18nProperty(model, "detail_manage_filters_advanced_range_days", request, response);
        // commons
-       addi18nProperty(model, "commons_filter", getMessage("commons_filter"));
-       addi18nProperty(model, "commons_confirm");
-       addi18nProperty(model, "commons_yes");
-       addi18nProperty(model, "commons_no");
-       addSocialPickerWidgetMessages(model);
+       addi18nProperty(model, "commons_filter", request, response);
+       addi18nProperty(model, "commons_confirm", request, response);
+       addi18nProperty(model, "commons_yes", request, response);
+       addi18nProperty(model, "commons_no", request, response);
+       addSocialPickerWidgetMessages(model, request, response);
    }
+   
+   /**
+    * 
+    * @return
+    */
+   public Locale getUserAccountLocale(final String username) {
+	   try {	
+		   	final UserAccount account = getSecurityService().findUserByUserName(username);
+		   	if (account != null) {
+		   		final String language = account.getLanguage();
+				final Builder lang = new Locale.Builder().setLanguage(language);
+				return lang.build();
+		   	} else {	   		
+		   		throw new EnMeExpcetion("anonymous user does not have locale");
+		   	}
+		} catch (EnMeExpcetion e) {
+			log.warn(e.getMessage());
+			return Locale.ENGLISH;
+		}		
+   }
+	
+	/**
+	 * @return the localeResolver
+	 */
+	public LocaleResolver getLocaleResolver() {
+		return localeResolver;
+	}
+   
 }

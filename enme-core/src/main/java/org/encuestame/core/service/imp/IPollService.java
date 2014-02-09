@@ -217,7 +217,7 @@ public interface IPollService extends IMasterSurveyService{
     List<Poll> getPollsByRange(final Integer maxResults, final Integer start, final SearchPeriods range);
 
     /**
-     *
+     * Filter a list of poll by keyword and TypeSearch.
      * @param typeSearch
      * @param keyword
      * @param max
@@ -228,8 +228,8 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeExpcetion
      * @deprecated in favor of IPollService.filterSearchPollsByType
      */
-    @Deprecated
-    List<PollBean> filterPollByItemsByType(final TypeSearch typeSearch,
+    List<PollBean> filterPollByItemsByType(
+    		final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
             throws EnMeNoResultsFoundException, EnMeExpcetion;
 
@@ -458,7 +458,7 @@ public interface IPollService extends IMasterSurveyService{
 	 * @return
 	 * @throws EnMeExpcetion
 	 */
-	List<SearchBean> searchTweetsPollFavourites(final String username,
+	List<SearchBean> searchPollFavourites(final String username,
 			final HttpServletRequest httpServletRequest,
 			final PollSearchBean pollSearchBean) throws EnMeExpcetion;
 
@@ -470,7 +470,8 @@ public interface IPollService extends IMasterSurveyService{
 	 * @return
 	 * @throws EnMeExpcetion
 	 */
-	List<SearchBean> searchTweetsPollScheduled(final String username,
+	List<SearchBean> searchPollScheduled(
+			final String username,
             final HttpServletRequest httpServletRequest,
             final PollSearchBean pollSearchBean) throws EnMeExpcetion;
 

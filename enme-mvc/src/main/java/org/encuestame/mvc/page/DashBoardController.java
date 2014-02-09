@@ -13,9 +13,11 @@
 
 package org.encuestame.mvc.page;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,8 +44,24 @@ public class DashBoardController extends AbstractViewController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/dashboard", method = RequestMethod.GET)
-    public String dashBoardController(ModelMap model, UserAccount account) {
-        log.debug("dashboard");
+    public String dashBoardController(ModelMap model, UserAccount account,  final HttpServletRequest request, HttpServletResponse response) {
+        addi18nProperty(model, "dashboard_title", request, response);
+        addi18nProperty(model, "dashboard_description", request, response);
+        addi18nProperty(model, "dashboard_add_gadget", request, response);
+        addi18nProperty(model, "dashboard_add_gadget_tooltip", request, response);
+        addi18nProperty(model, "dashboard_change_layout", request, response);
+        addi18nProperty(model, "dashboard_change_layout_tooltip", request, response);
+        addi18nProperty(model, "dashboard_new_dasboard", request, response);        
+        addi18nProperty(model, "dashboard_panel_name", request, response);
+        addi18nProperty(model, "dashboard_panel_descri", request, response);
+        addi18nProperty(model, "commons_yes", request, response);
+        addi18nProperty(model, "commons_no", request, response);
+        addi18nProperty(model, "commons_no_results", request, response);
+        addi18nProperty(model, "commons_confirm", request, response);
+        addi18nProperty(model, "commons_create", request, response);
+        addi18nProperty(model, "gadgets_activity_description", request, response);
+        addi18nProperty(model, "gadgets_comments_description", request, response);
+        addi18nProperty(model, "gadgets_tweetpoll_description", request, response);
         return "dashboard";
     }
 }

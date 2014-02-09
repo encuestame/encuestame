@@ -355,7 +355,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @param keyword
      * @param period
      */
-    protected void advancedSearchOptions(
+    protected void advancedTweetPollSearchOptions(
             final DetachedCriteria criteria,
             final Boolean isCompleted,
             final Boolean isScheduled,
@@ -386,21 +386,49 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
             criteria.add(Restrictions.eq("publishTweetPoll", isPublished));
         }
     }
+    
+    /**
+    *
+    * @param criteria
+    * @param isCompleted
+    * @param isScheduled
+    * @param isFavourite
+    * @param isPublished
+    * @param keyword
+    * @param period
+    */
+   protected void advancedPollSearchOptions(
+           final DetachedCriteria criteria,
+           final Boolean isCompleted,
+           final Boolean isScheduled,
+           final Boolean isFavourite,
+           final Boolean isPublished,
+           final String keyword,
+           final String period) {
 
+       //final SearchPeriods searchPeriods = SearchPeriods.getPeriodString(period);
+       //  calculateSearchPeriodsDates(searchPeriods, criteria, "createDate");
+       if (keyword != null) {
+           criteria.createAlias("question", "question");
+           criteria.add(Restrictions.like("question.question", keyword,
+                   MatchMode.ANYWHERE));
+       }
+       if (isCompleted != null && isCompleted) {
+           criteria.add(Restrictions.eq("completed", isCompleted));
+       }
+       if (isScheduled != null && isScheduled) {
+           criteria.add(Restrictions.eq("schedule", isScheduled));
+           criteria.add(Restrictions.isNotNull("scheduleDate"));
+       }
+       if (isFavourite != null && isFavourite) {
+           criteria.add(Restrictions.eq("favourites", isFavourite));
 
-	public void criteriaAdvancedSearch(final String property, final String property_value,
-			final DetachedCriteria criteria, final Boolean isCompleted,
-			final Boolean isScheduled, final Boolean isFavourite,
-			final Boolean isPublished, final String keyword,
-			final String period) {
-
-        criteria.createAlias(property, property);
-        //  criteria.add(Restrictions.eq("editorOwner.uid", userId)); -- POLL
-        criteria.add(Restrictions.eq(property+"."+property_value, property_value));
-        criteria.addOrder(Order.desc("createDate"));
-        this.advancedSearchOptions(criteria,  isCompleted, isScheduled, isFavourite, isPublished, keyword, period);
-    }
-
+       }
+       if (isPublished != null && isPublished) {
+           criteria.add(Restrictions.eq("publish", isPublished));
+       }
+   }    
+    
 	/**
 	 *
 	 * @param criteria

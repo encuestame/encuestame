@@ -33,6 +33,7 @@ import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -45,6 +46,7 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.FollowOperations;
+import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Profile;
 import org.encuestame.utils.json.SocialAccountBean;
@@ -652,6 +654,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
             this.assingPermission(userAccount, permissions);
             log.debug("administration user ----> Adding Security label");
+            
+            // create a dashboard by default
+            createDefaultDashboard(userAccount);
 
             //Disabled auto-autenticate, the administrative user should sign in manually
             //SecurityUtils.authenticate(userAccount);
@@ -737,11 +742,30 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         createNotification(NotificationEnum.WELCOME_SIGNUP,
                 getMessageProperties("notification.wellcome.account"),
                 null, false, userAccount);
+        
+        // create a dashboard by default
+        createDefaultDashboard(userAccount);
 
-        // disable, user should sign in from web.
+        // disabled, user must sign in from web.
         // SecurityUtils.authenticate(userAccount);
 
         return userAccount;
+    }
+    
+    /**
+     * 
+     * @param userAccount
+     */
+    private void createDefaultDashboard(final UserAccount userAccount) {
+    	 //FUTURE: this code must be in higher level {reuse code}
+        final Dashboard board = new Dashboard();
+        board.setPageBoardName(EnMePlaceHolderConfigurer.getProperty("dashboard.default.name"));
+        board.setDescription(EnMePlaceHolderConfigurer.getProperty("dashboard.default.descr"));
+        board.setUserBoard(userAccount);
+        board.setPageLayout(LayoutEnum.AB_COLUMN_BLOCK);
+        board.setFavorite(true);
+        board.setSelectedByDefault(true);
+        getDashboardDao().saveOrUpdate(board);
     }
 
     /**

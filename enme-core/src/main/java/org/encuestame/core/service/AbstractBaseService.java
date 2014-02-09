@@ -257,7 +257,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
         final HashTag hashTag = getHashTagDao().getHashTagByName(
                 ValidationUtils.removeNonAlphanumericCharacters(tagName
                         .toLowerCase()));
-        log.warn("AService getHashTag - is "+tagName+" on  database ?->"+hashTag);
+        log.trace("AService getHashTag - is "+tagName+" on  database ?->"+hashTag);
         if (hashTag == null) {
             //if possible we can't exception to allow create a new with the parameter.
             if (exceptionIfNotFound || exceptionIfNotFound == null) {

@@ -543,7 +543,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setDislikeVote(1L);
         poll.setLikeVote(1L);
         poll.setEndDate(new Date());
-        poll.setFavorites(true);
+        poll.setFavourites(true);
         poll.setNumbervotes(600L);
         poll.setQuestion(question);
         poll.setPollHash(hash);

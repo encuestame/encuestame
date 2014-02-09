@@ -77,10 +77,8 @@ public class Survey extends AbstractSurvey {
     private Date startDate;
 
     /** Scheduled Survey. **/
+    @Deprecated // moved to parent class
     private Boolean scheduleSurvey;
-
-    /** Scheduled Date. **/
-    private Date scheduleDate;
 
     /**
      * Show progress bar.
@@ -234,22 +232,6 @@ public class Survey extends AbstractSurvey {
      */
     public void setScheduleSurvey(final Boolean scheduleSurvey) {
         this.scheduleSurvey = scheduleSurvey;
-    }
-
-    /**
-     * @return the scheduleDate
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "schedule_date_survey")
-    public Date getScheduleDate() {
-        return scheduleDate;
-    }
-
-    /**
-     * @param scheduleDate the scheduleDate to set
-     */
-    public void setScheduleDate(final Date scheduleDate) {
-        this.scheduleDate = scheduleDate;
     }
 
     /**

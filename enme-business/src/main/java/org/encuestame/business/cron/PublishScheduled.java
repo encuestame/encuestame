@@ -53,7 +53,7 @@ public class PublishScheduled {
 	 */
 	@Scheduled(cron = "${cron.publishAllScheduled}")
 	public void publish() {
-		if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
+		if (EnMePlaceHolderConfigurer.getSystemInstalled()) {
 			log.trace("************ Start publish scheduled items **************");
 			// I include in the search for the minimum date that have the maximum attempts
 			final Date minimumDate = getScheduled().retrieveMinimumScheduledDate(

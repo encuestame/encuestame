@@ -323,7 +323,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
         criteria.createAlias("editorOwner","editorOwner");
         criteria.add(Restrictions.eq("editorOwner", userAccount));
-        criteria.add(Restrictions.eq("favorites", Boolean.TRUE));
+        criteria.add(Restrictions.eq("favourites", Boolean.TRUE));
         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }
 

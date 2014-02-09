@@ -728,16 +728,15 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws EnMeNoResultsFoundException
      */
     public List<SocialAccount> retrieveSocialAccountsbyId(
-            final List<Long> socialId, final String username)
-            throws EnMeNoResultsFoundException {
+    		final List<Long> socialId, 
+            final String username) {
         final List<SocialAccount> socialAccountList = new ArrayList<SocialAccount>();
         for (Long socialAccountId : socialId) {
-            final SocialAccount account = this.getSocialAccountsbyId(
-                    socialAccountId, username);
-            if (account != null) {
-                socialAccountList.add(account);
-
-            }
+			try {
+				socialAccountList.add(this.getSocialAccountsbyId(socialAccountId, username));
+			} catch (EnMeNoResultsFoundException e) {
+				log.warn("social network not found: " + e.getMessage());
+			}
         }
         return socialAccountList;
     }

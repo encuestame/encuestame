@@ -43,7 +43,6 @@ import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.search.PollSearchBean;
-import org.encuestame.utils.web.search.TweetPollSearchBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -130,7 +129,7 @@ public class PollJsonController extends AbstractJsonController{
             final List<SearchBean> list = (List<SearchBean>) getPollService().filterSearchPollsByType(
                     tpollSearchBean, request);
             log.debug("/api/survey/poll/search.json---------------->  "+ list.size());
-            jsonResponse.put("tweetPolls", list);
+            jsonResponse.put("poll", list);
             setItemResponse(jsonResponse);
 
         } catch (EnMeExpcetion e) {

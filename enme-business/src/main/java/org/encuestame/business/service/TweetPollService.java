@@ -353,9 +353,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 		List<TweetPoll> tpollsbysocialNetwork = new ArrayList<TweetPoll>();
 
 		if ((socialNetworks.size() > 0) || (socialAccounts.size() > 0)) {
-			tpollsbysocialNetwork = this
-					.retrieveTweetPollsPostedOnSocialNetworks(tweetPolls,
-							socialNetworks, socialAccounts);
+			tpollsbysocialNetwork = this.retrieveTweetPollsPostedOnSocialNetworks(tweetPolls, socialNetworks, socialAccounts);
 		} else {
 			tpollsbysocialNetwork = tweetPolls;
 		}
@@ -1554,7 +1552,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @throws EnMeNoResultsFoundException
      */
     private List<TweetPoll> retrieveTweetPollsPostedOnSocialNetworks(
-            final List<TweetPoll> tpolls, final List<SocialProvider> providers, final List<Long> socialAccounts) throws EnMeNoResultsFoundException {
+            final List<TweetPoll> tpolls, final List<SocialProvider> providers, final List<Long> socialAccounts) {
         final List<TweetPoll> tpollsPostedOnSocialNet = new ArrayList<TweetPoll>();
         List<TweetPollSavedPublishedStatus> tpSavedPublished = new ArrayList<TweetPollSavedPublishedStatus>();
         final List<SocialAccount> socialAccountList = this.retrieveSocialAccountsbyId(socialAccounts, getUserPrincipalUsername());

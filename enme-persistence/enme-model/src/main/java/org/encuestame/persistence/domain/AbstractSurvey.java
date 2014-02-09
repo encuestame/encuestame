@@ -53,6 +53,12 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * Define which user create this tweetPoll.
      */
     private UserAccount editorOwner;
+    
+    /** Define if is Scheduled **/
+    private Boolean scheduled;
+    
+    /** Scheduled Date. **/
+    private Date scheduleDate;    
 
     /**
      * Define the account owner of the item.
@@ -191,7 +197,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * Mark as favourites.
      */
-    private Boolean favorites = false;
+    private Boolean favourites = false;
 
     /**
      * Update Date
@@ -608,16 +614,16 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the favourites
      */
-    @Column(name = "favorites")
-    public Boolean getFavorites() {
-        return favorites;
+    @Column(name = "favorites") //FUTURE: change to favourites
+    public Boolean getFavourites() {
+        return favourites;
     }
 
     /**
      * @param favourites the favourites to set
      */
-    public void setFavorites(final Boolean favorites) {
-        this.favorites = favorites;
+    public void setFavourites(final Boolean favourites) {
+        this.favourites = favourites;
     }
 
     /**
@@ -668,4 +674,38 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     public void setOwner(final Account owner) {
         this.owner = owner;
     }
+    
+    /**
+     * @return the getScheduled
+     */
+    @Column(name = "schedule", nullable = true)
+    public Boolean getScheduled() {
+        return scheduled;
+    }
+
+    /**
+     * @param setScheduled
+     *  the scheduled to set
+     */
+    public void setScheduled(final Boolean scheduled) {
+        this.scheduled = scheduled;
+    }
+    
+    /**
+     * @return the scheduleDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "schedule_date_tweet", nullable = true)
+    public Date getScheduleDate() {
+        return scheduleDate;
+    }
+
+    /**
+     * @param scheduleDate
+     *            the scheduleDate to set
+     */
+    public void setScheduleDate(final Date scheduleDate) {
+        this.scheduleDate = scheduleDate;
+    }
+       
 }

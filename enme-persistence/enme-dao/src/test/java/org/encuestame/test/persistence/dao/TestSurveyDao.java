@@ -257,7 +257,7 @@ public class TestSurveyDao extends AbstractBase {
         final Survey mySurvey = createDefaultSurvey(user, "My First Survey",
                 this.myDate.getTime());
         mySurvey.setEditorOwner(this.secondaryUser);
-        mySurvey.setFavorites(Boolean.TRUE);
+        mySurvey.setFavourites(Boolean.TRUE);
         getSurveyDaoImp().saveOrUpdate(mySurvey);
         final List<Survey> favoriteSurveys = getSurveyDaoImp()
                 .retrieveFavoritesSurvey(this.secondaryUser, this.MAX_RESULTS,
