@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -238,29 +239,32 @@ public class TweetPollController extends AbstractViewController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/tweetpoll/list", method = RequestMethod.GET)
-    public String tweetPollController(final ModelMap model) {
-        addItemsManangeMessages(model);
-        addi18nProperty(model, "tweetpoo_detail_tab_detail", getMessage("tweetpoo_detail_tab_detail"));
-        addi18nProperty(model, "tweetpoo_detail_tab_stats", getMessage("tweetpoo_detail_tab_stats"));
-        addi18nProperty(model, "tweetpoo_detail_tab_comments", getMessage("tweetpoo_detail_tab_comments"));
-        addi18nProperty(model, "tweetpoo_detail_tab_social", getMessage("tweetpoo_detail_tab_social"));
-        addi18nProperty(model, "tweetpoo_detail_tab_delete", getMessage("tweetpoo_detail_tab_delete"));
-        addi18nProperty(model, "tweetpoo_detail_answers_title_link", getMessage("tweetpoo_detail_answers_title_link"));
-        addi18nProperty(model, "tweetpoo_detail_answers_title_count", getMessage("tweetpoo_detail_answers_title_count"));
-        addi18nProperty(model, "tweetpoo_detail_answers_title_percent", getMessage("tweetpoo_detail_answers_title_percent"));
-        addi18nProperty(model, "commons_created_date", getMessage("commons_created_date"));
-        addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
-        addi18nProperty(model, "tp_options_allow_results", getMessage("tp_options_allow_results"));
-        addi18nProperty(model, "tp_options_follow_dashboard", getMessage("tp_options_follow_dashboard"));
-        addi18nProperty(model, "tp_options_allow_repeated_votes", getMessage("tp_options_allow_repeated_votes"));
-        addi18nProperty(model, "tp_options_notifications", getMessage("tp_options_notifications"));
-        addi18nProperty(model, "related_terms", getMessage("related_terms"));
-        addi18nProperty(model, "commons_success", getMessage("commons_success"));
-        addi18nProperty(model, "detail_clean_filters", getMessage("detail_clean_filters"));
-        addi18nProperty(model, "commons_favourite");
-        addi18nProperty(model, "e_023");
-        addi18nProperty(model, "commons_no_results");
-        addi18nProperty(model, "commons_unfavourite");
+    public String tweetPollController(
+    		final ModelMap model,
+    		HttpServletRequest request,
+    		HttpServletResponse response) {
+        addItemsManangeMessages(model, request, response);
+        addi18nProperty(model, "tweetpoo_detail_tab_detail", request, response);
+        addi18nProperty(model, "tweetpoo_detail_tab_stats", request, response);
+        addi18nProperty(model, "tweetpoo_detail_tab_comments", request, response);
+        addi18nProperty(model, "tweetpoo_detail_tab_social", request, response);
+        addi18nProperty(model, "tweetpoo_detail_tab_delete", request, response);
+        addi18nProperty(model, "tweetpoo_detail_answers_title_link", request, response);
+        addi18nProperty(model, "tweetpoo_detail_answers_title_count", request, response);
+        addi18nProperty(model, "tweetpoo_detail_answers_title_percent", request, response);
+        addi18nProperty(model, "commons_created_date", request, response);
+        addi18nProperty(model, "commons_captcha", request, response);
+        addi18nProperty(model, "tp_options_allow_results", request, response);
+        addi18nProperty(model, "tp_options_follow_dashboard", request, response);
+        addi18nProperty(model, "tp_options_allow_repeated_votes", request, response);
+        addi18nProperty(model, "tp_options_notifications", request, response);
+        addi18nProperty(model, "related_terms", request, response);
+        addi18nProperty(model, "commons_success", request, response);
+        addi18nProperty(model, "detail_clean_filters", request, response);
+        addi18nProperty(model, "commons_favourite", request, response);
+        addi18nProperty(model, "e_023", request, response);
+        addi18nProperty(model, "commons_no_results", request, response);
+        addi18nProperty(model, "commons_unfavourite", request, response);
         return "tweetpoll";
     }
 
@@ -283,7 +287,7 @@ public class TweetPollController extends AbstractViewController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/tweetpoll/new", method = RequestMethod.GET)
-    public String newTweetPollController(final ModelMap model) {
+    public String newTweetPollController(final ModelMap model, final HttpServletRequest request, HttpServletResponse response) {
         //check social accounts.
         String path = "tweetpoll/new";
         try {
@@ -313,7 +317,7 @@ public class TweetPollController extends AbstractViewController {
         addi18nProperty(model, "tp_options_limit_votes", getMessage("tp_options_limit_votes"));
         addi18nProperty(model, "tp_options_resume_live_results", getMessage("tp_options_resume_live_results"));
         addi18nProperty(model, "tp_options_follow_dashboard", getMessage("tp_options_follow_dashboard"));
-        addSocialPickerWidgetMessages(model);
+        addSocialPickerWidgetMessages(model, request, response);
         addi18nProperty(model, "button_add", getMessage("button_add"));
         addi18nProperty(model, "button_remove", getMessage("button_remove"));
         addi18nProperty(model, "button_close", getMessage("button_close"));

@@ -14,6 +14,7 @@ package org.encuestame.mvc.controller.settings;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -204,6 +205,8 @@ public class SettingsJsonController extends AbstractJsonController{
             } else {
                 log.debug("updating profile ....");
                 //setError("invalid type", response);
+                // check if the locale is vlaid
+                new Locale.Builder().setLanguage(language).build();
                 getSecurityService().updateAccountProfile(bio, language, completeName, username, email);
                 setSuccesResponse(getMessage("settings_config_profile_success", request, null));
             }
