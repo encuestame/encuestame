@@ -768,9 +768,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
 		} catch (EnMeExpcetion e) {
 			log.warn(e.getMessage());
 			return Locale.ENGLISH;
-		}
-
-		
+		}		
    }
 	
 	/**
