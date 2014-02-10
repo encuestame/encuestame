@@ -13,18 +13,17 @@
 package org.encuestame.business.service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.StreamOperations;
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -228,12 +227,20 @@ public class StreamService extends AbstractBaseService implements
                 .equals(NotificationEnum.SOCIAL_MESSAGE_PUBLISHED)) {
             message = getMessage("notification.social.tweet.published",
                     request, objects);
+        } else if (notificationEnum
+                .equals(NotificationEnum.POLL_CREATED)) {
+            message = getMessage("notification.poll.created",
+                    request, objects);
+        } else if (notificationEnum
+                .equals(NotificationEnum.POLL_PUBLISHED)) {
+            message = getMessage("notification.poll.publish",
+                    request, objects);
         }
         return message;
     }
 
     /**
-     *
+     * Convert {@link NotificationDao} to {@link UtilNotification}
      * @param notification
      * @param request
      * @return
@@ -241,8 +248,15 @@ public class StreamService extends AbstractBaseService implements
     public UtilNotification convertNotificationToBean(
             final Notification notification, final HttpServletRequest request) {
         final UtilNotification utilNotification = new UtilNotification();
-        utilNotification.setDate(DateUtil.SIMPLE_DATE_FORMAT
-                .format(notification.getCreated()));
+		// If the creation date is within the range of 48 hours shown the
+		// relative date otherwise the original date.
+        if(DateUtil.isWithinCurrentDate(notification.getCreated())){
+        	utilNotification.setDate(this.convertRelativeTimeToString(notification.getCreated(), request));
+        }
+        else {
+        	utilNotification.setDate(DateUtil.SIMPLE_DATE_FORMAT
+        	        .format(notification.getCreated()));
+        }
         utilNotification.setDescription(this.convertNotificationMessage(
                 notification.getDescription(), request, new Object[] {}));
         utilNotification.setId(notification.getNotificationId());

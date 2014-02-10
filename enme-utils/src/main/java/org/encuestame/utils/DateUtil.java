@@ -443,6 +443,23 @@ public class DateUtil {
 	}
 
 	/**
+	 * Check if the date is within the current date or within 48 hours.
+	 * @param createdAt
+	 * @return
+	 */
+	public static Boolean isWithinCurrentDate(final Date createdAt) {
+		final Calendar createdAtCal = convertDateToCalendar(createdAt);
+		Boolean isCurrent = Boolean.FALSE;
+
+		if (createdAtCal.getTime().after(DateUtil.getBeforeDayMidnightDate())
+				&& (createdAtCal.getTime().before(DateUtil
+						.getNextDayMidnightDate()))) {
+			isCurrent = Boolean.TRUE;
+		}
+ 		return isCurrent;
+	}
+
+	/**
 	 * Comparte
 	 * @param limitDate
 	 * @return
