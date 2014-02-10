@@ -14,6 +14,7 @@ package org.encuestame.test.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Calendar;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -45,6 +46,8 @@ public class TestNotificationDao extends AbstractBase{
     /** {@link UserAccount} **/
     private UserAccount userAccount;
 
+    private Calendar calDate = Calendar.getInstance();
+
     /**
      * Before start.
      */
@@ -52,11 +55,12 @@ public class TestNotificationDao extends AbstractBase{
     public void initService(){
         this.account = createAccount();
         this.userAccount = createUserAccount("user 1", this.account);
-        for (int i = 0; i < 10; i++) {
-            createNotification(RandomStringUtils.randomAscii(100), account, NotificationEnum.TWEETPOL_CREATED, false);
+                for (int i = 0; i < 10; i++) {
+            createNotification(RandomStringUtils.randomAscii(100), account, NotificationEnum.TWEETPOL_CREATED, false, calDate.getTime());
         }
-        for (int i = 0; i < 10; i++) {
-            createNotification(RandomStringUtils.randomAscii(100), account, NotificationEnum.TWEETPOL_CREATED, true);
+  		calDate.add(Calendar.HOUR, 3);
+  		for (int i = 0; i < 10; i++) {
+            createNotification(RandomStringUtils.randomAscii(100), account, NotificationEnum.TWEETPOL_CREATED, true, calDate.getTime());
         }
     }
 

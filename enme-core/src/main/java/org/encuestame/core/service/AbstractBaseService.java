@@ -586,18 +586,18 @@ public abstract class AbstractBaseService extends AbstractDataSource {
             final String additional,
             final String urlReference,
             final Boolean group) throws EnMeNoResultsFoundException{
-        return this.createNotification(description, additional, urlReference, group, null);
+        return this.createNotification(description, additional, urlReference, group, getUserAccount(getUserPrincipalUsername()));
     }
-    
+
     /**
      * Create {@link Notification} with url reference.
      * @param description the notification title
      * @param additional A detail description
      * @param urlReference URL path to open the resource (optional)
-     * @param userAccount userAccount    
+     * @param userAccount userAccount
      * @return
      * @throws EnMeNoResultsFoundException
-     */    
+     */
     public Notification createNotification(
             final NotificationEnum description,
             final String additional,
@@ -606,14 +606,14 @@ public abstract class AbstractBaseService extends AbstractDataSource {
             final UserAccount account) throws EnMeNoResultsFoundException{
         final Notification notification = new Notification();
         notification.setDescription(description);
-        notification.setAccount(account == null ? getUserAccount(getUserPrincipalUsername()).getAccount() : account.getAccount());
+        notification.setAccount(account.getAccount());
         notification.setAdditionalDescription(additional);
         notification.setUrlReference(urlReference);
         notification.setCreated(Calendar.getInstance().getTime());
         notification.setGroup(group);
         getNotificationDao().saveOrUpdate(notification);
         return notification;
-    }    
+    }
 
     /**
      *
