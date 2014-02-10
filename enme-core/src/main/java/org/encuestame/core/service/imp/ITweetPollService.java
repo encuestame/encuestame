@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Schedule;
+import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -613,5 +614,20 @@ public interface ITweetPollService extends IMasterSurveyService{
 	 */
 	 void chaneCommentStatusTweetPoll(final Long tweetPollId, final String username)
 	            throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+	 /**
+	  * Create Notification for each social network published.
+	  * @param tweetPollPublished
+	  * @throws EnMeNoResultsFoundException
+	  */
+	 void createTweetPollNotification(final TweetPollSavedPublishedStatus tweetPollPublished) throws EnMeNoResultsFoundException;
+
+	 /**
+	  * Retrieve all {@link TweetPollSavedPublishedStatus} by {@link TweetPoll}
+	  * @param tweetPoll
+	  * @return
+	  * @throws EnMeNoResultsFoundException
+	  */
+	 List<TweetPollSavedPublishedStatus> retrieveTweetPollSavedPublished(final TweetPoll tweetPoll) throws EnMeNoResultsFoundException;
 
 }
