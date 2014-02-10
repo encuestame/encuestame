@@ -58,7 +58,7 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeExpcetion
     */
-     Poll createPoll(final String questionName, final String[] answers, final Boolean showResults,
+     Poll createPoll(final String questionName, final String[] answers, final String showResults,
                 final String commentOption, final Boolean notification, final List<HashTagBean> hashtags) throws EnMeExpcetion;
 
    /**

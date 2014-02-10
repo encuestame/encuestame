@@ -175,7 +175,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
         final PollBean unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
         unitPoll.setQuestionBean(question);
 
-        final Poll myPoll = this.pollService.createPoll("ssss", this.answers, Boolean.TRUE, "APPROVE" ,Boolean.TRUE, this.tagBeanList);
+        final Poll myPoll = this.pollService.createPoll("ssss", this.answers, "ALL", "APPROVE" ,Boolean.TRUE, this.tagBeanList);
         Assert.assertNotNull(myPoll);
     }
 
@@ -344,11 +344,11 @@ public class TestPollService extends AbstractSpringSecurityContext{
 		unitPoll.setQuestionBean(question);
 
 		final Poll myPoll = this.pollService.createPoll("dddd", this.answers,
-				Boolean.TRUE, "APPROVE", Boolean.TRUE, this.tagBeanList);
+				"ALL", "APPROVE", Boolean.TRUE, this.tagBeanList);
 
 		Assert.assertNotNull(myPoll);
 		final Poll myPoll2 = this.pollService.createPoll("eeee", this.answers,
-				Boolean.TRUE, "APPROVE", Boolean.TRUE, this.tagBeanList);
+				"ALL", "APPROVE", Boolean.TRUE, this.tagBeanList);
 		Assert.assertNotNull(myPoll2);
 
 		final List<Poll> retrievePollsbyTagBeforeRemove = getPollDao()

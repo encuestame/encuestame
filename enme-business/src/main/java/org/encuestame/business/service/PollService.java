@@ -352,9 +352,13 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#createPoll(java.lang.String, java.lang.String[], java.lang.Boolean, java.lang.String, java.lang.Boolean, java.util.List)
      */
-    public Poll createPoll(final String questionName, final String[] answers,
-            final Boolean showResults, final String commentOption,
-            final Boolean notification, final List<HashTagBean> hashtags)
+    public Poll createPoll(
+    		final String questionName, 
+    		final String[] answers,
+            final String showResults, 
+            final String commentOption,
+            final Boolean notification, 
+            final List<HashTagBean> hashtags)
             throws EnMeExpcetion {
         final UserAccount user = getUserAccount(getUserPrincipalUsername());
         Assert.notNull(answers);
@@ -391,8 +395,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setNumbervotes(EnMeUtils.VOTE_MIN);
             pollDomain.setEditorOwner(user);
             pollDomain.setOwner(user.getAccount());
-            pollDomain.setShowResults(showResults);
-
+            //FIXME: must be replaced by ENUM 
+            pollDomain.setShowResults(Boolean.TRUE);
             pollDomain.setShowComments(commentOpt == null ? null :commentOpt);
             pollDomain.setPublish(Boolean.TRUE);
             pollDomain.setNotifications(notification);

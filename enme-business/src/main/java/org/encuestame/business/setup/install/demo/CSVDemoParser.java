@@ -469,7 +469,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
                     arrayHashtag[i] = b;
                 }
                 List<HashTagBean> hashtagList = Arrays.asList(arrayHashtag);
-                final Poll poll = getPollService().createPoll(question.getQuestionName(),arrayAnswers, true, "MODERATE", true, hashtagList);
+                final Poll poll = getPollService().createPoll(question.getQuestionName(),arrayAnswers, "ALL", "MODERATE", true, hashtagList);
                 poll.setCreateDate(createRandomDate());
                 getTweetPollDao().saveOrUpdate(poll);
                 double hits = getRandomNumberRange(EnMePlaceHolderConfigurer

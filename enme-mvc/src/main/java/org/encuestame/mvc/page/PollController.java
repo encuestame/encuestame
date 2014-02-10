@@ -76,8 +76,7 @@ public class PollController extends AbstractViewController {
 			log.trace("Poll Detail Answers " + results.size());
 			log.trace("poll--> " + poll);
 			// TODO: reuse this code on vote poll.
-			model.addAttribute("poll",
-					ConvertDomainBean.convertPollDomainToBean(poll));
+			model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
 			model.addAttribute("answers", results);
 			return "poll/detail";
 		} catch (Exception e) {
@@ -366,14 +365,14 @@ public class PollController extends AbstractViewController {
 		return "poll/vote";
 	}
 
-	/**
-	 *
-	 * @param model
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/poll/{id}/vote.js", method = RequestMethod.GET)
-	public String jsView(Model model, HttpServletRequest request) {
-		return "jsView";
-	}
+//	/**
+//	 *
+//	 * @param model
+//	 * @param request
+//	 * @return
+//	 */
+//	@RequestMapping(value = "/poll/{id}/vote.js", method = RequestMethod.GET)
+//	public String jsView(Model model, HttpServletRequest request) {
+//		return "jsView";
+//	}
 }

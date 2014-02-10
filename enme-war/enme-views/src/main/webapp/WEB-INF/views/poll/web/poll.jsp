@@ -2,7 +2,6 @@
 <article class="web-wrapper-detail web-poll-results web-wrapper-detail">
 
   <div class="container">
-
     <div class="row web-generic-stats">
         <div class="span12" id="generic" widgetid="generic">
           <div class="row">
@@ -117,36 +116,39 @@
             </div>
        </section>
     </article>
-   <section class="web-tweetpoll-comments emne-box">
-      <h3>
-            <spring:message code="options.comments" />
-      </h3>
-      <c:if test="${logged}">
-            <div name="comments" data-dojo-type="me/web/widget/comments/AddComment"
-                 comment_limit="<%=EnMePlaceHolderConfigurer.getProperty("comments.max.length")%>"
-                 type="poll"
-                 isModerated="${isModerated}"
-                 item_id="${poll.id}"
-                 username="${account.username}"></div>
-      </c:if>
-      <c:if test="${!logged}">
-         <div class="row comment-login">
-              <div class="picture span2">
-                  <img src="<%=request.getContextPath()%>/resources/images/default.png" width="60" height="60"/>
-              </div>
-              <div class="span4">
-                  <div class="login">
-                      <a href="<%=request.getContextPath()%>/user/signin">
-                        <h4 class="enme">
-                            <spring:message code="comments.login.post.comment" />
-                        </h4>
-                      </a>
+    <c:if test = "${!poll.showComments == 'RESTRICT'}">
+        <section class="web-tweetpoll-comments emne-box">
+          <h3>
+                <spring:message code="options.comments" />
+          </h3>
+          <c:if test="${logged}">
+                <div name="comments" data-dojo-type="me/web/widget/comments/AddComment"
+                     comment_limit="<%=EnMePlaceHolderConfigurer.getProperty("comments.max.length")%>"
+                     type="poll"
+                     isModerated="${isModerated}"
+                     item_id="${poll.id}"
+                     username="${account.username}"></div>
+          </c:if>
+          <c:if test="${!logged}">
+             <div class="row comment-login">
+                  <div class="picture span2">
+                      <img src="<%=request.getContextPath()%>/resources/images/default.png" width="60" height="60"/>
                   </div>
+                  <div class="span4">
+                      <div class="login">
+                          <a href="<%=request.getContextPath()%>/user/signin">
+                            <h4 class="enme">
+                                <spring:message code="comments.login.post.comment" />
+                            </h4>
+                          </a>
+                      </div>
+                  </div>
+                </a>
               </div>
-            </a>
-          </div>
-      </c:if>
-      <div data-dojo-type="me/web/widget/comments/Comments" type="poll" item_id="${poll.id}"></div>
-   </section>
+          </c:if>
+          <div data-dojo-type="me/web/widget/comments/Comments" type="poll" item_id="${poll.id}"></div>
+       </section>
+   </c:if>
+
  </div>
 </article>

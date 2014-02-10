@@ -337,7 +337,8 @@ public class PollJsonController extends AbstractJsonController{
     public @ResponseBody ModelMap createGroup(
             @RequestParam(value = "questionName", required = true) String questionName,
             @RequestParam(value = "listAnswers", required = true) String[] answers,
-            @RequestParam(value = "showResults", required = false) Boolean showResults,
+            @RequestParam(value = "showResults", required = false) Boolean showResults,//FIXME: replaced by results, please remove
+            @RequestParam(value = "results", required = false) String results,//FIXME: this value doesn't exist
             @RequestParam(value = "showComments", required = false) String showComments,
             @RequestParam(value = "notification", required = false) Boolean notification,
             @RequestParam(value = "limitVote", required = false) Boolean limitVote,
@@ -349,11 +350,15 @@ public class PollJsonController extends AbstractJsonController{
            try {
                final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                final List<HashTagBean> tagsBean = createHashTagBeansList(hashtags == null ? new String[]{} : hashtags);
-               log.debug("poll list answer " + answers);
-               final Poll poll = getPollService().createPoll(questionName, answers, showResults,
-                                 showComments, notification, tagsBean);
+               //FIXME: must be replaced by single bean
+               final Poll poll = getPollService().createPoll(
+            		   			 questionName, 
+            		   			 answers, 
+            		   			 results,
+                                 showComments, 
+                                 notification, 
+                                 tagsBean);
                final PollBean pollBean = ConvertDomainBean.convertPollDomainToBean(poll);
-               log.debug("Poll Bean "+pollBean);
                jsonResponse.put("pollBean", pollBean);
                setItemResponse(jsonResponse);
                getPollService().createPollNotification(poll);
