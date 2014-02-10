@@ -4,12 +4,10 @@
     <div class="admon-table-options panel-header">
        <div class="tb-left">
             <h3>
-              Poll Administration
-               <!--  <spring:message code="tweetpoll.list.title" /> -->
+                <spring:message code="poll_title" />
             </h3>
             <p>
-               <!-- <spring:message code="tweetpoll.list.subtitle" /> -->
-               Manage your Poll
+                <spring:message code="poll_title_subtitle" />
             </p>
        </div>
        <div class="tb-right">
@@ -18,7 +16,7 @@
                     <spring:message code="tweetpoll.new" />
                 </button>
                  <span data-dojo-type="dijit/Tooltip" data-dojo-props='connectId:"create_tweetpoll_button"' style="display:none;">
-                     Click if you want create a new tweetpoll
+                       <spring:message code="poll_button_tooltip" />
                  </span>
             </a>
       </div>

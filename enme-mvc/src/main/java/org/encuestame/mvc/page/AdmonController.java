@@ -13,6 +13,9 @@
 
 package org.encuestame.mvc.page;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
@@ -55,33 +58,36 @@ public class AdmonController extends AbstractViewController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/admon/members", method = RequestMethod.GET)
-    public String membersLocation(ModelMap model) {
-        addi18nProperty(model, "admon_create_user", getMessage("admon_create_user"));
-        addi18nProperty(model, "admon_username", getMessage("admon_username"));
-        addi18nProperty(model, "admon_group", getMessage("admon_group"));
-        addi18nProperty(model, "admon_user_from", getMessage("admon_user_from"));
-        addi18nProperty(model, "admon_status", getMessage("admon_status"));
-        addi18nProperty(model, "admon_tweetpoll_count", getMessage("admon_tweetpoll_count"));
-        addi18nProperty(model, "admon_poll_count", getMessage("admon_poll_count"));
-        addi18nProperty(model, "admon_survey_count", getMessage("admon_survey_count"));
-        addi18nProperty(model, "admon_last_logged", getMessage("admon_last_logged"));
-        addi18nProperty(model, "followers", getMessage("followers"));
-        addi18nProperty(model, "placeholder_username");
-        addi18nProperty(model, "placeholder_email");
-        addi18nProperty(model, "table_first");
-        addi18nProperty(model, "table_previous");
-        addi18nProperty(model, "table_next");
-        addi18nProperty(model, "table_last");
-        addi18nProperty(model, "admon_members_title");
-        addi18nProperty(model, "admon_members_subtitle");
-        addi18nProperty(model, "admon_users_new_title");
-        addi18nProperty(model, "admon_users_new_option1_title");
-        addi18nProperty(model, "admon_users_new_user_subtitle");
-        addi18nProperty(model, "admon_users_new_button");
-        addi18nProperty(model, "admon_users_new_invite_title");
-        addi18nProperty(model, "admon_users_invite_subtitle");
-        addi18nProperty(model, "button_close");
-        addi18nProperty(model, "admon_users_invite_button");
+    public String membersLocation(
+    		ModelMap model,
+    		HttpServletRequest request,
+    		HttpServletResponse response) {
+        addi18nProperty(model, "admon_create_user", request, response);
+        addi18nProperty(model, "admon_username", request, response);
+        addi18nProperty(model, "admon_group", request, response);
+        addi18nProperty(model, "admon_user_from", request, response);
+        addi18nProperty(model, "admon_status", request, response);
+        addi18nProperty(model, "admon_tweetpoll_count", request, response);
+        addi18nProperty(model, "admon_poll_count", request, response);
+        addi18nProperty(model, "admon_survey_count", request, response);
+        addi18nProperty(model, "admon_last_logged", request, response);
+        addi18nProperty(model, "followers", request, response);
+        addi18nProperty(model, "placeholder_username", request, response);
+        addi18nProperty(model, "placeholder_email", request, response);
+        addi18nProperty(model, "table_first", request, response);
+        addi18nProperty(model, "table_previous", request, response);
+        addi18nProperty(model, "table_next", request, response);
+        addi18nProperty(model, "table_last", request, response);
+        addi18nProperty(model, "admon_members_title", request, response);
+        addi18nProperty(model, "admon_members_subtitle", request, response);
+        addi18nProperty(model, "admon_users_new_title", request, response);
+        addi18nProperty(model, "admon_users_new_option1_title", request, response);
+        addi18nProperty(model, "admon_users_new_user_subtitle", request, response);
+        addi18nProperty(model, "admon_users_new_button", request, response);
+        addi18nProperty(model, "admon_users_new_invite_title", request, response);
+        addi18nProperty(model, "admon_users_invite_subtitle", request, response);
+        addi18nProperty(model, "button_close", request, response);
+        addi18nProperty(model, "admon_users_invite_button", request, response);
         return "members";
     }
 

@@ -12,6 +12,9 @@
  */
 package org.encuestame.mvc.controller.settings;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -41,28 +44,32 @@ public class SettingsController extends AbstractBaseOperations{
      * @return
      */
     @RequestMapping(value = "/settings/configuration", method = RequestMethod.GET)
-    public String settingsAccountController(ModelMap model, final UserAccount userAccount) {
+    public String settingsAccountController(
+    		ModelMap model, 
+    		final UserAccount userAccount,
+    		HttpServletRequest request,
+    		HttpServletResponse response) {
         ProfileUserAccount user;
         try {
             user = getProfileUserInfo();
             model.put("account", user);
-            addi18nProperty(model, "settings_config_profile_title");
-            addi18nProperty(model, "settings_config_profile_description");
-            addi18nProperty(model, "settings_config_profile_email");
-            addi18nProperty(model, "settings_config_profile_email_description");
-            addi18nProperty(model, "settings_config_profile_username");
-            addi18nProperty(model, "settings_config_profile_username_description");
-            addi18nProperty(model, "settings_config_profile_complete_name");
-            addi18nProperty(model, "settings_config_profile_language");
-            addi18nProperty(model, "e_005");
-            addi18nProperty(model, "commons_update");
+            addi18nProperty(model, "settings_config_profile_title", request, response);
+            addi18nProperty(model, "settings_config_profile_description", request, response);
+            addi18nProperty(model, "settings_config_profile_email", request, response);
+            addi18nProperty(model, "settings_config_profile_email_description", request, response);
+            addi18nProperty(model, "settings_config_profile_username", request, response);
+            addi18nProperty(model, "settings_config_profile_username_description", request, response);
+            addi18nProperty(model, "settings_config_profile_complete_name", request, response);
+            addi18nProperty(model, "settings_config_profile_language", request, response);
+            addi18nProperty(model, "e_005", request, response);
+            addi18nProperty(model, "commons_update", request, response);
             // picture
-            addi18nProperty(model, "settings_config_picture_title");
-            addi18nProperty(model, "settings_config_picture_description");
-            addi18nProperty(model, "settings_config_picture_own");
-            addi18nProperty(model, "settings_config_picture_restrictions");
-            addi18nProperty(model, "m_023");
-            addi18nProperty(model, "settings_config_profile_form_not_valid");
+            addi18nProperty(model, "settings_config_picture_title", request, response);
+            addi18nProperty(model, "settings_config_picture_description", request, response);
+            addi18nProperty(model, "settings_config_picture_own", request, response);
+            addi18nProperty(model, "settings_config_picture_restrictions", request, response);
+            addi18nProperty(model, "m_023", request, response);
+            addi18nProperty(model, "settings_config_profile_form_not_valid", request, response);
             //social settings
 
             log.debug("settingsAccountController user: " + user.toString());
@@ -79,20 +86,23 @@ public class SettingsController extends AbstractBaseOperations{
     * @return
     */
    @RequestMapping(value = "/settings/social", method = RequestMethod.GET)
-   public String socialSettingsController(ModelMap model) {
+   public String socialSettingsController(
+		   ModelMap model,
+		   HttpServletRequest request,
+   		HttpServletResponse response) {
        log.debug("social");
-       addi18nProperty(model, "settings_config_profile_email");
-       addi18nProperty(model, "settings_config_profile_complete_name");
-       addi18nProperty(model, "settings_social_tp_published_whith_this_account");
-       addi18nProperty(model, "settings_social_pll_published_whith_this_account");
-       addi18nProperty(model, "settings_social_su_published_whith_this_account");
-       addi18nProperty(model, "button_remove");
-       addi18nProperty(model, "settings_social_set_default");
-       addi18nProperty(model, "settings_social_profile_url");
-       addi18nProperty(model, "settings_social_seted_as_default");
-       addi18nProperty(model, "commons_confirm");
-       addi18nProperty(model, "commons_no");
-       addi18nProperty(model, "commons_yes");
+       addi18nProperty(model, "settings_config_profile_email", request, response);
+       addi18nProperty(model, "settings_config_profile_complete_name", request, response);
+       addi18nProperty(model, "settings_social_tp_published_whith_this_account", request, response);
+       addi18nProperty(model, "settings_social_pll_published_whith_this_account", request, response);
+       addi18nProperty(model, "settings_social_su_published_whith_this_account", request, response);
+       addi18nProperty(model, "button_remove", request, response);
+       addi18nProperty(model, "settings_social_set_default", request, response);
+       addi18nProperty(model, "settings_social_profile_url", request, response);
+       addi18nProperty(model, "settings_social_seted_as_default", request, response);
+       addi18nProperty(model, "commons_confirm", request, response);
+       addi18nProperty(model, "commons_no", request, response);
+       addi18nProperty(model, "commons_yes", request, response);
        return "settings/social";
    }
 }

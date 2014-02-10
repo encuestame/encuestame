@@ -240,50 +240,50 @@ public class PollController extends AbstractViewController {
     		HttpServletResponse response) throws EnMeExpcetion {
 		log.debug("poll list render view");
 		addItemsManangeMessages(model, request, response);
-		addi18nProperty(model, "commons_no_results");
-		addi18nProperty(model, "poll_admon_poll_options");
-		addi18nProperty(model, "poll_admon_poll_answers");
+		addi18nProperty(model, "commons_no_results", request, response);
+		addi18nProperty(model, "poll_admon_poll_options", request, response);
+		addi18nProperty(model, "poll_admon_poll_answers", request, response);
 		//
-		addi18nProperty(model, "poll_admon_poll_edit");
-		addi18nProperty(model, "poll_admon_poll_preview");
-		addi18nProperty(model, "poll_admon_poll_publish_options");
-		addi18nProperty(model, "poll_admon_poll_embebed");
+		addi18nProperty(model, "poll_admon_poll_edit", request, response);
+		addi18nProperty(model, "poll_admon_poll_preview", request, response);
+		addi18nProperty(model, "poll_admon_poll_publish_options", request, response);
+		addi18nProperty(model, "poll_admon_poll_embebed", request, response);
 		//
-		addi18nProperty(model, "commons_success");
+		addi18nProperty(model, "commons_success", request, response);
 
-		addi18nProperty(model, "detail_manage_today");
+		addi18nProperty(model, "detail_manage_today", request, response);
 
-		addi18nProperty(model, "poll_admon_poll_votes");
+		addi18nProperty(model, "poll_admon_poll_votes", request, response);
 		//
-		addi18nProperty(model, "detail_manage_poll_title");
-		addi18nProperty(model, "detail_manage_filters");
-		addi18nProperty(model, "detail_manage_poll_dropdown_title");
+		addi18nProperty(model, "detail_manage_poll_title", request, response);
+		addi18nProperty(model, "detail_manage_filters", request, response);
+		addi18nProperty(model, "detail_manage_poll_dropdown_title", request, response);
 		// menu items
-		addi18nProperty(model, "poll_admon_poll_new");
-		addi18nProperty(model, "commons_remove");
+		addi18nProperty(model, "poll_admon_poll_new", request, response);
+		addi18nProperty(model, "commons_remove", request, response);
 
 		// poll options
-		addi18nProperty(model, "poll_options_close");
-		addi18nProperty(model, "poll_options_quota");
-		addi18nProperty(model, "poll_options_ip");
-		addi18nProperty(model, "poll_options_password");
-		addi18nProperty(model, "poll_options_info");
-		addi18nProperty(model, "poll_options_public");
-		addi18nProperty(model, "poll_options_notifications");
+		addi18nProperty(model, "poll_options_close", request, response);
+		addi18nProperty(model, "poll_options_quota", request, response);
+		addi18nProperty(model, "poll_options_ip", request, response);
+		addi18nProperty(model, "poll_options_password", request, response);
+		addi18nProperty(model, "poll_options_info", request, response);
+		addi18nProperty(model, "poll_options_public", request, response);
+		addi18nProperty(model, "poll_options_notifications", request, response);
 
 		// confirm
-		addi18nProperty(model, "commons_confirm");
-		addi18nProperty(model, "commons_no");
-		addi18nProperty(model, "commons_yes");
-		addi18nProperty(model, "detail_manage_today");
+		addi18nProperty(model, "commons_confirm", request, response);
+		addi18nProperty(model, "commons_no", request, response);
+		addi18nProperty(model, "commons_yes", request, response);
+		addi18nProperty(model, "detail_manage_today", request, response);
 
-		addi18nProperty(model, "publish_social");
-		addi18nProperty(model, "loading_message");
-		addi18nProperty(model, "counter_zero");
-		addi18nProperty(model, "pubication_failure_status");
-		addi18nProperty(model, "button_try_later");
-		addi18nProperty(model, "button_ignore");
-		addi18nProperty(model, "button_try_again");
+		addi18nProperty(model, "publish_social", request, response);
+		addi18nProperty(model, "loading_message", request, response);
+		addi18nProperty(model, "counter_zero", request, response);
+		addi18nProperty(model, "pubication_failure_status", request, response);
+		addi18nProperty(model, "button_try_later", request, response);
+		addi18nProperty(model, "button_ignore", request, response);
+		addi18nProperty(model, "button_try_again", request, response);
 		return "poll/list";
 	}
 
@@ -296,42 +296,44 @@ public class PollController extends AbstractViewController {
 	 */
 	@PreAuthorize("hasRole('ENCUESTAME_USER')")
 	@RequestMapping(value = "/user/poll/new", method = RequestMethod.GET)
-	public String newPollController(final ModelMap model) {
-		log.debug("new poll render view");
-		addi18nProperty(model, "leave_mesage");
-		addi18nProperty(model, "tp_add_hashtag", getMessage("tp_add_hashtag"));
-		addi18nProperty(model, "poll_create_question_title");
-		addi18nProperty(model, "poll_create_build_answers");
-		addi18nProperty(model, "poll_create_add_new_answer");
-		addi18nProperty(model, "poll_create_allow_multiple_selection");
-		addi18nProperty(model, "poll_create_allow_new_responses");
-		addi18nProperty(model, "poll_create_limits");
-		addi18nProperty(model, "poll_create_poll_options");
-		addi18nProperty(model, "poll_create_comments");
-		addi18nProperty(model, "poll_create_results");
-		addi18nProperty(model, "poll_create_button_create");
-		addi18nProperty(model, "widget_folder_select_label");
-		addi18nProperty(model, "pattern_question_single");
-		addi18nProperty(model, "m_025");
-		addi18nProperty(model, "widget_repated_votes");
-		addi18nProperty(model, "widget_limit_votes");
-		addi18nProperty(model, "widget_date_to_close");
-		addi18nProperty(model, "widget_comments_allow");
-		addi18nProperty(model, "widget_comments_moderated");
-		addi18nProperty(model, "widget_comments_no_comments");
-		addi18nProperty(model, "widget_results_options");
-		addi18nProperty(model, "widget_results_only_percents");
-		addi18nProperty(model, "widget_results_all_data");
-		addi18nProperty(model, "widget_question_type");
-		addi18nProperty(model, "commons_cancel");
-		addi18nProperty(model, "social_picker_filter_selected");
-		addi18nProperty(model, "publish_social");
-		addi18nProperty(model, "loading_message");
-		addi18nProperty(model, "counter_zero");
-		addi18nProperty(model, "pubication_failure_status");
-		addi18nProperty(model, "button_try_later");
-		addi18nProperty(model, "button_ignore");
-		addi18nProperty(model, "button_try_again");
+	public String newPollController(final ModelMap model,
+			HttpServletRequest request,
+    		HttpServletResponse response) {
+		//log.debug("new poll render view", request, response);
+		addi18nProperty(model, "leave_mesage", request, response);
+		addi18nProperty(model, "tp_add_hashtag", request, response);
+		addi18nProperty(model, "poll_create_question_title", request, response);
+		addi18nProperty(model, "poll_create_build_answers", request, response);
+		addi18nProperty(model, "poll_create_add_new_answer", request, response);
+		addi18nProperty(model, "poll_create_allow_multiple_selection", request, response);
+		addi18nProperty(model, "poll_create_allow_new_responses", request, response);
+		addi18nProperty(model, "poll_create_limits", request, response);
+		addi18nProperty(model, "poll_create_poll_options", request, response);
+		addi18nProperty(model, "poll_create_comments", request, response);
+		addi18nProperty(model, "poll_create_results", request, response);
+		addi18nProperty(model, "poll_create_button_create", request, response);
+		addi18nProperty(model, "widget_folder_select_label", request, response);
+		addi18nProperty(model, "pattern_question_single", request, response);
+		addi18nProperty(model, "m_025", request, response);
+		addi18nProperty(model, "widget_repated_votes", request, response);
+		addi18nProperty(model, "widget_limit_votes", request, response);
+		addi18nProperty(model, "widget_date_to_close", request, response);
+		addi18nProperty(model, "widget_comments_allow", request, response);
+		addi18nProperty(model, "widget_comments_moderated", request, response);
+		addi18nProperty(model, "widget_comments_no_comments", request, response);
+		addi18nProperty(model, "widget_results_options", request, response);
+		addi18nProperty(model, "widget_results_only_percents", request, response);
+		addi18nProperty(model, "widget_results_all_data", request, response);
+		addi18nProperty(model, "widget_question_type", request, response);
+		addi18nProperty(model, "commons_cancel", request, response);
+		addi18nProperty(model, "social_picker_filter_selected", request, response);
+		addi18nProperty(model, "publish_social", request, response);
+		addi18nProperty(model, "loading_message", request, response);
+		addi18nProperty(model, "counter_zero", request, response);
+		addi18nProperty(model, "pubication_failure_status", request, response);
+		addi18nProperty(model, "button_try_later", request, response);
+		addi18nProperty(model, "button_ignore", request, response);
+		addi18nProperty(model, "button_try_again", request, response);
 		return "poll/new";
 	}
 

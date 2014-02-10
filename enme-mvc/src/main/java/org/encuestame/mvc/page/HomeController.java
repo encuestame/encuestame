@@ -82,11 +82,11 @@ public class HomeController extends AbstractViewController {
             HttpServletResponse response) {
         final Boolean privateHome = EnMePlaceHolderConfigurer
                 .getBooleanProperty("application.private");
-        addi18nProperty(model, "home_item_comments");
-        addi18nProperty(model, "submited_by");
-        addi18nProperty(model, "home_item_votes");
-        addi18nProperty(model, "home_item_views");
-        addi18nProperty(model, "added");
+        addi18nProperty(model, "home_item_comments", request, response);
+        addi18nProperty(model, "submited_by", request, response);
+        addi18nProperty(model, "home_item_votes", request, response);
+        addi18nProperty(model, "home_item_views", request, response);
+        addi18nProperty(model, "added", request, response);
         if (privateHome) {
             log.debug("signup is disabled");
             return "redirect:/user/signin";
