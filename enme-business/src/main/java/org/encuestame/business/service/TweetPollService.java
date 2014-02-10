@@ -760,12 +760,13 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param tweetPoll
      * @throws EnMeNoResultsFoundException
      */
+
     public void createTweetPollNotification(final TweetPoll tweetPoll) throws EnMeNoResultsFoundException {
         createNotification(NotificationEnum.TWEETPOLL_PUBLISHED,
-                getMessageProperties("notification.tweetpoll.created"),
+                tweetPoll.getQuestion().getQuestion(),
                 this.createTweetPollUrlAccess(tweetPoll), false);
-    }
 
+    }
 
     /**
      * Create url to acces to tweetPoll.
@@ -1620,14 +1621,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
 	/**
 	 * Publish all scheduled items
-	 * @param status {@link Status} 
+	 * @param status {@link Status}
 	 * @param minimumDate {@link Date}
-	 * @throws EnMeNoResultsFoundException 
+	 * @throws EnMeNoResultsFoundException
 	 */
 	public void publishScheduledItems(
-			final Status status, 
+			final Status status,
 			final Date minimumDate) throws EnMeNoResultsFoundException {
-	
+
 	Boolean publish = Boolean.FALSE;
 	final String totalAttempts = EnMePlaceHolderConfigurer.getProperty("attempts.scheduled.publication");
  		// 1. Retrieve all records scheduled before currently date.
