@@ -364,22 +364,22 @@
             <url>file:${basedir}/lib/repository</url>
         </repository>
         <!-- Facebook API -->
-        <repository>
-            <id>sonatype-google-snapshot</id>
-            <name>Facebook Java API Snapshot repository</name>
-            <url>http://oss.sonatype.org/content/repositories/googlecode-snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>atlassian-maven public 1</id>
-            <url>https://maven.atlassian.com/repository/public</url>
-        </repository>
-        <repository>
-            <id>atlassian-maven public 2</id>
-            <url>https://maven.atlassian.com/content/repositories/atlassian-public/</url>
-        </repository>
+        <!--<repository>-->
+            <!--<id>sonatype-google-snapshot</id>-->
+            <!--<name>Facebook Java API Snapshot repository</name>-->
+            <!--<url>http://oss.sonatype.org/content/repositories/googlecode-snapshots/</url>-->
+            <!--<snapshots>-->
+                <!--<enabled>true</enabled>-->
+            <!--</snapshots>-->
+        <!--</repository>-->
+        <!--<repository>-->
+            <!--<id>atlassian-maven public 1</id>-->
+            <!--<url>https://maven.atlassian.com/repository/public</url>-->
+        <!--</repository>-->
+        <!--<repository>-->
+            <!--<id>atlassian-maven public 2</id>-->
+            <!--<url>https://maven.atlassian.com/content/repositories/atlassian-public/</url>-->
+        <!--</repository>-->
     </repositories>
 
     <!-- Plugin Repository -->
