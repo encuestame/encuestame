@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.filter.RequestSessionMap;
@@ -234,9 +235,11 @@ public class PollController extends AbstractViewController {
 	 */
 	@PreAuthorize("hasRole('ENCUESTAME_USER')")
 	@RequestMapping(value = "/user/poll/list", method = RequestMethod.GET)
-	public String pollListController(final ModelMap model) throws EnMeExpcetion {
+	public String pollListController(final ModelMap model, 
+			HttpServletRequest request,
+    		HttpServletResponse response) throws EnMeExpcetion {
 		log.debug("poll list render view");
-		addItemsManangeMessages(model);
+		addItemsManangeMessages(model, request, response);
 		addi18nProperty(model, "commons_no_results");
 		addi18nProperty(model, "poll_admon_poll_options");
 		addi18nProperty(model, "poll_admon_poll_answers");

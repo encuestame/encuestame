@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Locale;
 
 import junit.framework.Assert;
-
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.TweetPollService;
@@ -871,6 +870,46 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 	}
 
 	/**
+	 * Create and publish multiple notifications.
+	 * @throws EnMeNoResultsFoundException
+	 */
+	@Test
+	@Category(DefaultTest.class)
+	public void testCreateTweetPollPublishedNotification()
+			throws EnMeNoResultsFoundException {
+
+
+		final TweetPoll tp = createTweetPollPublicated(true, true, new Date(),
+				this.userAccount, this.question);
+		// Publish Tweetpoll on Social network
+		// Social Accounts & Providers
+		final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.userAccount);
+
+		final List<SocialProvider> providers = new ArrayList<SocialProvider>();
+		providers.add(SocialProvider.FACEBOOK);
+		providers.add(SocialProvider.LINKEDIN);
+
+		// Create TweetPollSavedPublished - Social Links
+		createTweetPollSavedPublishStatus(tp, socialAccount,
+				SocialProvider.FACEBOOK);
+		createTweetPollSavedPublishStatus(tp, socialAccount,
+				SocialProvider.TWITTER);
+		createTweetPollSavedPublishStatus(tp, socialAccount,
+				SocialProvider.LINKEDIN);
+
+		final List<TweetPollSavedPublishedStatus> tpsp = getTweetPollService().retrieveTweetPollSavedPublished(tp);
+
+		for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : tpsp) {
+			getTweetPollService().createTweetPollNotification(tweetPollSavedPublishedStatus);
+		}
+
+		final List<Notification> noti = getNotification()
+				.loadNotificationByUserAndLimit(this.userAccount.getAccount(),
+						10, 0, Boolean.TRUE);
+	}
+
+
+	/**
 	 *
 	 * @throws EnMeExpcetion
 	 */
@@ -1228,7 +1267,7 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 
 	/**
 	 * Test {@link Schedule}
-	 * @throws EnMeNoResultsFoundException 
+	 * @throws EnMeNoResultsFoundException
 	 */
 	@Test
 	@Category(InternetTest.class)

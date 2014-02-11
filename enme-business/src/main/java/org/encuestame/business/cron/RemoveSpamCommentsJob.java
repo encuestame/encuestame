@@ -52,7 +52,7 @@ public class RemoveSpamCommentsJob {
 	 */
     @Scheduled(cron = "${cron.removeSpamComments}")
 	public void removeSpamComments() {
-    	if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
+    	if (EnMePlaceHolderConfigurer.getSystemInstalled()) {
 			try {
 	   		 log.debug("Remove Spam Comments");
 			} catch (Exception e) {

@@ -113,6 +113,7 @@ public class TestStreamService extends AbstractSpringSecurityContext {
         final List<UtilNotification> list = this.streamService.retrieveLastNotifications(10, this.request);
 
         Assert.assertEquals(4, list.size());
+        // Parameter onlyReaded is false.. so return all notifications(readed or not).
         final List<UtilNotification> list2 = this.streamService.retrieveLastNotifications(10, false, this.request);
         //TODO: review, this method should retrieve 0 items.
         Assert.assertEquals(list2.size(), 4);
@@ -120,14 +121,15 @@ public class TestStreamService extends AbstractSpringSecurityContext {
 				Boolean.TRUE, Boolean.FALSE,
 				getSpringSecurityLoggedUserAccount(), question, DateUtil
 						.getCalendarDate().getTime());
-//
+
 		createNotification2(tp4.getQuestion().getQuestion(),
 				getSpringSecurityLoggedUserAccount().getAccount(),
 				NotificationEnum.TWEETPOL_CREATED, true, DateUtil
 						.getCalendarDate().getTime());
 
 		final List<UtilNotification> list3 = this.streamService.retrieveLastNotifications(10, true, this.request);
-		Assert.assertEquals(list3.size(), 4);
+		// if parameter onlyReaded is true, so return all notifications with property readed = false
+		Assert.assertEquals(4, list3.size());
     }
 
     /**
@@ -138,7 +140,7 @@ public class TestStreamService extends AbstractSpringSecurityContext {
     public void testloadNotificationByUserAndLimit() throws EnMeNoResultsFoundException{
         final List<UtilNotification> loadNotificationByUserAndLimit = this.streamService
                 .loadNotificationByUserAndLimit(10, 0, false, this.request);
-        Assert.assertEquals(loadNotificationByUserAndLimit.size(), 1);
+        Assert.assertEquals(4, loadNotificationByUserAndLimit.size());
     }
 
     /**
@@ -152,7 +154,7 @@ public class TestStreamService extends AbstractSpringSecurityContext {
         final HashMap<DateClasificatedEnum, List<UtilNotification>> classify = this.streamService.classifyNotificationList(list, this.request);
         Assert.assertNotNull(classify.get(DateClasificatedEnum.FEW_MONTHS_AGO));
         Assert.assertNotNull(classify.get(DateClasificatedEnum.TODAY));
-        Assert.assertEquals(classify.get(DateClasificatedEnum.TODAY).size(), 1);
+        Assert.assertEquals(classify.get(DateClasificatedEnum.TODAY).size(), 4);
         Assert.assertNotNull(classify.get(DateClasificatedEnum.LAST_MONTH));
         Assert.assertNotNull(classify.get(DateClasificatedEnum.LAST_YEAR));
         Assert.assertNotNull(classify.get(DateClasificatedEnum.LONG_TIME_AGO));

@@ -436,6 +436,8 @@ CREATE TABLE IF NOT EXISTS `poll` (
   `editor` bigint(20) DEFAULT NULL,
   `owner_id` bigint(20) DEFAULT NULL,
   `poll_folder` bigint(20) DEFAULT NULL,
+  `schedule_date_tweet` datetime DEFAULT NULL,
+  `schedule` bit(1) DEFAULT NULL,
   `qid` bigint(20) NOT NULL,
   PRIMARY KEY (`poll_id`),
   UNIQUE KEY `poll_id` (`poll_id`),
@@ -724,6 +726,7 @@ CREATE TABLE IF NOT EXISTS `social_account` (
 
 --
 -- Table structure for table `surveys`
+-- FIXME schedule_date_survey is missing in the java files
 --
 
 CREATE TABLE IF NOT EXISTS `surveys` (
@@ -762,6 +765,8 @@ CREATE TABLE IF NOT EXISTS `surveys` (
   `date_interview` date DEFAULT NULL,
   `schedule_date_survey` datetime DEFAULT NULL,
   `is_Schedule` bit(1) DEFAULT NULL,
+  `schedule_date_tweet` datetime DEFAULT NULL,
+  `schedule` bit(1) DEFAULT NULL,
   `show_progress_bar` bit(1) DEFAULT NULL,
   `start_date` datetime DEFAULT NULL,
   `survey_slug_name` varchar(255) DEFAULT NULL,
