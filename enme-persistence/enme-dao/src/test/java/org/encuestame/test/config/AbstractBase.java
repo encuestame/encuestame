@@ -1870,10 +1870,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String message,
             final Account secUser,
             final NotificationEnum description,
-            final Boolean readed){
+            final Boolean readed,
+            final Date createdAt){
          final Notification notification = new Notification();
          notification.setAdditionalDescription(message);
-         notification.setCreated(Calendar.getInstance().getTime());
+         notification.setCreated(createdAt);
          notification.setDescription(description);
          notification.setReaded(readed);
          notification.setAccount(secUser);

@@ -18,8 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -758,12 +757,26 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param tweetPoll
      * @throws EnMeNoResultsFoundException
      */
+    @Deprecated
     public void createTweetPollNotification(final TweetPoll tweetPoll) throws EnMeNoResultsFoundException {
         createNotification(NotificationEnum.TWEETPOLL_PUBLISHED,
-                getMessageProperties("notification.tweetpoll.created"),
+                tweetPoll.getQuestion().getQuestion(),
                 this.createTweetPollUrlAccess(tweetPoll), false);
+
     }
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.core.service.imp.ITweetPollService#createTweetPollNotification(org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus)
+	 */
+      public void createTweetPollNotification(final TweetPollSavedPublishedStatus tweetPollPublished) throws EnMeNoResultsFoundException {
+    	createNotification(NotificationEnum.TWEETPOLL_PUBLISHED,
+                tweetPollPublished.getTweetPoll().getQuestion().getQuestion(),
+				SocialUtils.getSocialTweetPublishedUrl(
+						tweetPollPublished.getTweetId(), tweetPollPublished
+								.getTweetPoll().getEditorOwner().getUsername(),
+						tweetPollPublished.getApiType()), false);
+    }
 
     /**
      * Create url to acces to tweetPoll.
@@ -955,7 +968,22 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
         return tweetPoll;
     }
-    
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ITweetPollService#retrieveTweetPollSavedPublished(org.encuestame.persistence.domain.tweetpoll.TweetPoll)
+     */
+	public List<TweetPollSavedPublishedStatus> retrieveTweetPollSavedPublished(
+			final TweetPoll tweetPoll) throws EnMeNoResultsFoundException {
+		final List<TweetPollSavedPublishedStatus> tpollSaved = getTweetPollDao()
+				.getAllLinks(tweetPoll, null, null, TypeSearchResult.TWEETPOLL);
+		if (tpollSaved.size() == 0) {
+			throw new EnMeNoResultsFoundException("tweetpoll saved published["
+					+ tweetPoll + "] not results found");
+		}
+		return tpollSaved;
+	}
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPollSavedPublishedStatusById(java.lang.Long)
@@ -1622,14 +1650,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
 	/**
 	 * Publish all scheduled items
-	 * @param status {@link Status} 
+	 * @param status {@link Status}
 	 * @param minimumDate {@link Date}
-	 * @throws EnMeNoResultsFoundException 
+	 * @throws EnMeNoResultsFoundException
 	 */
 	public void publishScheduledItems(
-			final Status status, 
+			final Status status,
 			final Date minimumDate) throws EnMeNoResultsFoundException {
-	
+
 	Boolean publish = Boolean.FALSE;
 	final String totalAttempts = EnMePlaceHolderConfigurer.getProperty("attempts.scheduled.publication");
  		// 1. Retrieve all records scheduled before currently date.

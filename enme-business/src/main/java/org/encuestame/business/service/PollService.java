@@ -696,7 +696,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      */
     public void createPollNotification(final Poll poll) throws EnMeNoResultsFoundException {
         createNotification(NotificationEnum.POLL_PUBLISHED,
-                getMessageProperties("notification.poll.publish"),
+                poll.getQuestion().getQuestion(),
                 this.createUrlPollAccess(poll), false);
     }
 

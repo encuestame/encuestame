@@ -12,6 +12,7 @@
  */
 package org.encuestame.mvc.test.json;
 
+import java.util.Calendar;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -40,15 +41,17 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
     /** Notification. **/
     private Notification notification;
 
+    private Calendar calDate = Calendar.getInstance();
+
     /**
      * Init Test.
      */
     @Before
     public void initTest() {
        this.notification = createNotification("test notification", getSpringSecurityLoggedUserAccount().getAccount(),
-                NotificationEnum.PROJECT_CREATED, false);
+                NotificationEnum.PROJECT_CREATED, false, calDate.getTime());
         createNotification("test notification", getSpringSecurityLoggedUserAccount().getAccount(),
-                NotificationEnum.TWEETPOL_CREATED, false);
+                NotificationEnum.TWEETPOL_CREATED, false, calDate.getTime());
     }
 
     /**
