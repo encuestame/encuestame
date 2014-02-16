@@ -8,7 +8,7 @@
     </parent>
     <artifactId>controllers</artifactId>
     <packaging>jar</packaging>
-    <name>encuestame mvc controllers</name>
+    <name>encuestame MVC Controllers and Utils</name>
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>

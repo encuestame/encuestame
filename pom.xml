@@ -933,6 +933,13 @@
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
                 <groupId>org.encuestame</groupId>
+                <artifactId>controllers</artifactId>
+                <version>${encuestame.version}</version>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+            </dependency>
+            <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
+                <groupId>org.encuestame</groupId>
                 <artifactId>json-api1</artifactId>
                 <version>${encuestame.version}</version>
             </dependency>
