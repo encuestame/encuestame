@@ -10,7 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 
-import org.encuestame.mvc.test.config.AbstractJsonMVCUnitBeans2;
+
+
+import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.mvc.test.config.TestUtil;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.web.CreatePollBean;
@@ -19,7 +21,7 @@ import org.junit.experimental.categories.Category;
 import org.springframework.test.web.servlet.ResultActions;
 
 //@Category(DefaultTest.class)
-public class PollJsonServiceTest2 extends AbstractJsonMVCUnitBeans2 {
+public class PollJsonServiceTest2 extends AbstractJsonMvcUnitBeans {
 
 	//@Test
     public void testSearchPollByType() throws Exception {

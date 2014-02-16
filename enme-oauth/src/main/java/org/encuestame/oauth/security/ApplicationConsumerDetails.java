@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth.common.signature.SharedConsumerSecret;
+import org.springframework.security.oauth.common.signature.SharedConsumerSecretImpl;
 import org.springframework.security.oauth.common.signature.SignatureSecret;
 import org.springframework.security.oauth.provider.ConsumerDetails;
 import org.encuestame.persistence.domain.application.Application;
@@ -70,7 +71,7 @@ public class ApplicationConsumerDetails implements ConsumerDetails {
      * getSignatureSecret()
      */
     public SignatureSecret getSignatureSecret() {
-        return new SharedConsumerSecret(this.application.getSecret());
+        return new SharedConsumerSecretImpl(this.application.getSecret());
     }
 
     /*

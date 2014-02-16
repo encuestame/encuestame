@@ -1,16 +1,12 @@
 package org.encuestame.social.api;
 
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
-import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.social.AbstractSocialAPISupport;
 import org.encuestame.social.api.support.PlurkAPIOperations;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
-import org.encuestame.utils.social.TubmlrUserProfile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;

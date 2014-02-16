@@ -218,6 +218,7 @@
                 </resource>
               </webResources>
             </configuration>
+            <version>${maven.war.plugin}</version>
           </plugin>
 
         </plugins>

@@ -74,27 +74,7 @@
 			<groupId>org.encuestame</groupId>
 			<artifactId>encuestame-utils</artifactId>
 		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>org.encuestame</groupId>-->
-			<!--<artifactId>encuestame-mvc</artifactId>-->
-			<!--<exclusions>-->
-				<!--<exclusion>-->
-					<!--<artifactId>slf4j-api</artifactId>-->
-					<!--<groupId>org.slf4j</groupId>-->
-				<!--</exclusion>-->
-			<!--</exclusions>-->
-		<!--</dependency>-->
         <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>controllers</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
             <groupId>org.encuestame</groupId>
             <artifactId>json-api1</artifactId>
             <exclusions>
@@ -104,17 +84,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
-            <groupId>org.encuestame</groupId>
-            <artifactId>json-api2</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
+        <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>websocket</artifactId>
             <exclusions>
@@ -124,26 +94,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-		<dependency>
-			<groupId>org.encuestame</groupId>
-			<artifactId>enme-dao</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.encuestame</groupId>
-			<artifactId>enme-model</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+
 		<dependency>
 			<groupId>org.encuestame</groupId>
 			<artifactId>encuestame-business</artifactId>
@@ -153,24 +104,6 @@
 					<groupId>org.slf4j</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.encuestame</groupId>
-			<artifactId>encuestame-oauth</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.encuestame</groupId>
-			<artifactId>encuestame-social</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.encuestame</groupId>
-			<artifactId>encuestame-config</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
@@ -364,10 +297,6 @@
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.webflow</groupId>
 			<artifactId>spring-webflow</artifactId>
 		</dependency>
@@ -406,10 +335,16 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.security.oauth</groupId>
-			<artifactId>spring-security-oauth</artifactId>
-		</dependency>
+        <!-- for OAuth 2.0 -->
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+        </dependency>
+        <!-- for OAuth 1.0a -->
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>

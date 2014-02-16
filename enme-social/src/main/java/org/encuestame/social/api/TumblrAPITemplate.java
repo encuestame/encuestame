@@ -1,7 +1,6 @@
 package org.encuestame.social.api;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,7 +11,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.social.AbstractSocialAPISupport;
 import org.encuestame.social.api.support.TumblrAPIOperations;
 import org.encuestame.utils.TweetPublishedMetadata;

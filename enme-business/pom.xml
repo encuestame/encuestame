@@ -52,30 +52,30 @@
         </resources>
     </build>
     <dependencies>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>enme-dao</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>enme-model</artifactId>
-        </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
-            <groupId>org.encuestame</groupId>
-            <artifactId>enme-dao</artifactId>
-            <scope>test</scope>
-            <classifier>tests</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-utils</artifactId>
-        </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
-            <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-utils</artifactId>
-            <scope>test</scope>
-            <classifier>tests</classifier>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.encuestame</groupId>-->
+            <!--<artifactId>enme-dao</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.encuestame</groupId>-->
+            <!--<artifactId>enme-model</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency> &lt;!&ndash; reuse src/test/java code from encuestame-core! &ndash;&gt;-->
+            <!--<groupId>org.encuestame</groupId>-->
+            <!--<artifactId>enme-dao</artifactId>-->
+            <!--<scope>test</scope>-->
+            <!--<classifier>tests</classifier>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.encuestame</groupId>-->
+            <!--<artifactId>encuestame-utils</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency> &lt;!&ndash; reuse src/test/java code from encuestame-core! &ndash;&gt;-->
+            <!--<groupId>org.encuestame</groupId>-->
+            <!--<artifactId>encuestame-utils</artifactId>-->
+            <!--<scope>test</scope>-->
+            <!--<classifier>tests</classifier>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-core</artifactId>
@@ -176,8 +176,6 @@
             <groupId>org.twitter4j</groupId>
             <artifactId>twitter4j-core</artifactId>
         </dependency>
-
-
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
@@ -251,10 +249,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
         </dependency>
         <!-- Spring Integration -->
         <dependency>

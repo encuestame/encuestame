@@ -32,4 +32,37 @@
       </plugins>
     </pluginManagement>
   </build>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>json-api1</artifactId>
+                <version>${encuestame.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>json-api2</artifactId>
+                <version>${encuestame.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>websocket</artifactId>
+                <version>${encuestame.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>json-api1</artifactId>
+                <version>${encuestame.version}</version>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>json-api2</artifactId>
+                <version>${encuestame.version}</version>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
