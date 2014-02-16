@@ -294,13 +294,14 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getTotalVotesByPollIdAndDateRange(java.lang.Long, org.encuestame.utils.enums.SearchPeriods)
      */
-    public Long getTotalVotesByPollIdAndDateRange(final Long pollId,
-            final SearchPeriods period) {
+    public Long getTotalVotesByPollIdAndDateRange(
+    			final Long pollId,
+    			final SearchPeriods period) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(PollResult.class);
         criteria.setProjection(Projections.rowCount());
         criteria.add(Restrictions.eq("poll.pollId", pollId));
-        if(period!=null){
+        if (period != null) {
         	calculateSearchPeriodsDates(period, criteria, "votationDate");
         }
         List results = getHibernateTemplate().findByCriteria(criteria);
@@ -570,12 +571,23 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     public PollResult validateVoteIP(
             final String ip,
             final Poll poll) {
-        return (PollResult) DataAccessUtils
-                .uniqueResult(getHibernateTemplate()
-                        .findByNamedParam(
+        return (PollResult) DataAccessUtils.uniqueResult(getHibernateTemplate().findByNamedParam(
                                 "from PollResult where ipAddress= :ipAddress and  poll = :poll",
                                 new String[] { "ipAddress", "poll" },
                                 new Object[] { ip, poll }));
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getListvalidateVoteIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
+     */
+    public List getListvalidateVoteIP(
+            final String ip,
+            final Poll poll) {
+        return getHibernateTemplate().findByNamedParam(
+                                "from PollResult where ipAddress= :ipAddress and  poll = :poll",
+                                new String[] { "ipAddress", "poll" },
+                                new Object[] { ip, poll });
     }
 
     /*

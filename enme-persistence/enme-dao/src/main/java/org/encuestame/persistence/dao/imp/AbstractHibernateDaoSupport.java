@@ -438,7 +438,9 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
 	public void criteriaSearchSocialLinksByType(final DetachedCriteria criteria,  final List<SocialProvider> splist, final List<SocialAccount> socialAccounts){
           criteria.add(Restrictions.isNotNull("tweetId"));
           criteria.add(Restrictions.eq("status", Status.SUCCESS));
-          criteria.add(Restrictions.in("apiType", splist));
+          if (splist.size() > 0) {
+        	  criteria.add(Restrictions.in("apiType", splist));
+          }
           if (socialAccounts.size() > 0) {
               criteria.add(Restrictions.in("socialAccount", socialAccounts));
           }

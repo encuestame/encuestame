@@ -22,6 +22,8 @@ import java.io.StringReader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Logger;
 import org.encuestame.utils.net.XFordwardedInetAddressUtil;
+import org.encuestame.utils.web.HashTagBean;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -233,7 +236,22 @@ public class EnMeUtils {
         DocumentBuilder builder = factory.newDocumentBuilder();
         InputSource is = new InputSource(new StringReader(xml));
         return builder.parse(is);
-    } 
+    }
+    
+    /**
+     * 
+     * @param arrayHashTags
+     * @return
+     */
+    public static List<HashTagBean> createHashTagBeansList(final String[] arrayHashTags) {
+        final List<HashTagBean> tagBeanlist = new ArrayList<HashTagBean>();
+        for (int i = 0; i < arrayHashTags.length; i++) {
+            final HashTagBean itemTagBean = new HashTagBean();
+            itemTagBean.setHashTagName(arrayHashTags[i]);
+            tagBeanlist.add(itemTagBean);
+        }
+        return tagBeanlist;
+    }
 
     /**
      * Return a random ip.

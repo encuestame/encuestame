@@ -156,12 +156,11 @@ public class TumblrAPITemplate extends AbstractSocialAPISupport implements Tumbl
 	 * @see org.encuestame.social.api.support.TumblrAPIOperations#updateStatus(java.lang.String, org.encuestame.persistence.domain.security.SocialAccount)
 	 */
 	@Override
-	public TweetPublishedMetadata updateStatus(String status, final SocialAccount account, final TweetPoll tweetPoll) throws Exception {
+	public TweetPublishedMetadata updateStatus(String status, final SocialAccount account, final Set<HashTag> hashtags) throws Exception {
 		final MultiValueMap<String, Object> tweetParams = new LinkedMultiValueMap<String, Object>();
 		String hashStrign = "";
-		final Set<HashTag> list = tweetPoll.getHashTags();
-		if (list.size() > 0) {
-			Iterator<HashTag> iterator = list.iterator();
+		if (hashtags.size() > 0) {
+			Iterator<HashTag> iterator = hashtags.iterator();
 		    while(iterator.hasNext()) {
 		    	HashTag setElement = iterator.next();
 		        hashStrign  = hashStrign + setElement.getHashTag() + ",";

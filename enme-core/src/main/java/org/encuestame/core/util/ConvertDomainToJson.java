@@ -17,8 +17,12 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.TweetItemPublishedResponse;
 
 /**
@@ -57,7 +61,7 @@ public class ConvertDomainToJson {
      * @return
      */
     public static final TweetItemPublishedResponse convertTweetPollStatusToJson(
-            final TweetPollSavedPublishedStatus savedPublishedStatus) {
+        final TweetPollSavedPublishedStatus savedPublishedStatus) {
         final TweetItemPublishedResponse tweetResponse = new TweetItemPublishedResponse();
 		tweetResponse.datePublished = savedPublishedStatus
 				.getPublicationDateTweet() == null ? null : DateUtil
@@ -74,7 +78,27 @@ public class ConvertDomainToJson {
 						.getTweetId(),
                 savedPublishedStatus.getSocialAccount().getSocialAccountName(),
                 savedPublishedStatus.getSocialAccount().getAccounType());
+		tweetResponse.setTypeItem(defineTypeOfItem(savedPublishedStatus.getPoll(), savedPublishedStatus.getTweetPoll(), savedPublishedStatus.getSurvey()));
         tweetResponse.socialAccountName = savedPublishedStatus.getSocialAccount().getSocialAccountName();
         return tweetResponse;
+    }
+    
+    /**
+     * Return a {@link TypeSearchResult} based on the type of the survey
+     * @param poll
+     * @param tweetPoll
+     * @param survey
+     * @return
+     */
+    private static String defineTypeOfItem(final Poll poll, final TweetPoll tweetPoll, final Survey survey){
+    	if (poll != null){
+    		return TypeSearchResult.POLL.name();
+    	} else if (tweetPoll != null){
+    		return TypeSearchResult.TWEETPOLL.name();
+    	} else if (survey != null){
+    		return TypeSearchResult.SURVEY.name();
+    	} else {
+    		return "";
+    	}		
     }
 }

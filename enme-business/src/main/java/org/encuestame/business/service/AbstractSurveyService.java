@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -458,7 +459,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @return status of tweet
      * @throws EnMeExpcetion exception
      */
-    public TweetPublishedMetadata publicTweetPoll(final String tweetText, final SocialAccount socialAccount, final TweetPoll tweetPoll)
+    public TweetPublishedMetadata publicTweetPoll(final String tweetText, final SocialAccount socialAccount,  final Set<HashTag> hashtags)
            throws EnMeExpcetion {
         TweetPublishedMetadata published = new TweetPublishedMetadata();
         log.debug("publicTweetPoll:{ "+tweetText);
@@ -515,7 +516,7 @@ public class AbstractSurveyService extends AbstractChartService {
                     socialAccount.getSecretToken());
             try {
                 log.debug("Publish on TUMBLR............>");
-                published = tumblrAPIOperations.updateStatus(tweetText, socialAccount, tweetPoll);
+                published = tumblrAPIOperations.updateStatus(tweetText, socialAccount, hashtags);
                 log.debug("Publish on TUMBLR...... "+published);
             } catch (Exception e) {
                 published.setDatePublished(Calendar.getInstance().getTime());

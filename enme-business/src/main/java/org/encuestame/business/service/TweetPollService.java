@@ -794,22 +794,24 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          log.debug("publicMultiplesTweetAccounts tweetPoll" + tweetPoll);
         //get social account
          final SocialAccount socialAccount = getAccountDao().getSocialAccountById(socialAccountId);
+         Set<HashTag> hashTags = new HashSet<>();
          log.debug("publishTweetPoll socialTwitterAccounts: {"+socialAccount);
          //create tweet status
          final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
          //social provider.
          publishedStatus.setApiType(socialAccount.getAccounType());
-         //adding tweetpoll
-         //publishedStatus.setTweetPoll(tweetPoll);
          //checking required values.
          if (type.equals(TypeSearchResult.TWEETPOLL)) {
             //adding tweetpoll
              publishedStatus.setTweetPoll(tweetPoll);
+             hashTags = tweetPoll.getHashTags();
          } else if(type.equals(TypeSearchResult.POLL)) {
             //adding tweetpoll
              publishedStatus.setPoll(poll);
+             hashTags = poll.getHashTags();
          } else if(type.equals(TypeSearchResult.SURVEY)) {
              publishedStatus.setSurvey(survey);
+             hashTags = survey.getHashTags();
          } else {
              log.error("Type not defined");
          }
@@ -820,8 +822,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
              publishedStatus.setSocialAccount(socialAccount);
              try {
                  log.debug("publishTweetPoll Publishing... "+tweetText.length());
-                 final TweetPublishedMetadata metadata = publicTweetPoll(tweetText, socialAccount, tweetPoll);
-                 if (metadata == null) {
+                 final TweetPublishedMetadata metadata = publicTweetPoll(tweetText, socialAccount, hashTags);
+                 if (metadata == null || metadata.getTweetId() == null) {
                      throw new EnMeFailSendSocialTweetException("status not valid");
                  }//getMessageProperties(propertieId)
                  if (metadata.getTweetId() == null) {
@@ -837,7 +839,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                  publishedStatus.setTweetContent(metadata.getTextTweeted());
                  //create notification
                  //createNotification(NotificationEnum.TWEETPOLL_PUBLISHED, "tweet published", socialAccount.getAccount());
-                 createNotification(NotificationEnum.SOCIAL_MESSAGE_PUBLISHED,tweetText, SocialUtils.getSocialTweetPublishedUrl(
+                 createNotification(NotificationEnum.SOCIAL_MESSAGE_PUBLISHED, tweetText, SocialUtils.getSocialTweetPublishedUrl(
                          metadata.getTweetId(), socialAccount.getSocialAccountName(), socialAccount.getAccounType()), Boolean.TRUE);
              } catch (Exception e) {
                  e.printStackTrace();
@@ -872,7 +874,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     * (non-Javadoc)
     * @see org.encuestame.core.service.imp.ITweetPollService#createTweetPollScheduled(org.encuestame.utils.json.TweetPollScheduledBean)
     */
-    public List<Schedule> createTweetPollScheduled(final TweetPollScheduledBean bean) throws EnMeExpcetion, EnMeNoResultsFoundException {
+    public List<Schedule> createTweetPollScheduled(
+    		final TweetPollScheduledBean bean,
+    		final TypeSearchResult searchResult) throws EnMeExpcetion, EnMeNoResultsFoundException {
     	final List<Schedule> list = new ArrayList<Schedule>();
     	final TweetPoll tp = this.getTweetPollById(bean.getId());
     	if (tp.getScheduleTweetPoll() != null || !tp.getScheduleTweetPoll()) {
@@ -885,7 +889,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     		final Schedule schedule = new Schedule();    		
     		schedule.setScheduleDate(tp.getScheduleDate());    		
     		schedule.setTpoll(tp);
-    		schedule.setTypeSearch(TypeSearchResult.TWEETPOLL);    		
+    		schedule.setTypeSearch(searchResult);    		
     		schedule.setTweetText(tweetText);
     		schedule.setSocialAccount(soc);
     		schedule.setStatus(Status.FAILED);

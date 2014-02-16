@@ -103,7 +103,12 @@ public abstract class AbstractUnitSurvey implements Serializable {
 
     /** Show results. **/
     @JsonProperty(value = "is_show_results")
+    @Deprecated
     private Boolean isShowResults;
+    
+    
+    @JsonProperty(value = "show_results")
+    private String showResults;
 
     /** Poll Folder. **/
     @JsonProperty(value = "folder_id")
@@ -375,21 +380,6 @@ public abstract class AbstractUnitSurvey implements Serializable {
     }
 
     /**
-     * @return the showResults
-     */
-    @JsonIgnore
-    public Boolean getShowResults() {
-        return isShowResults;
-    }
-
-    /**
-     * @param showResults the showResults to set
-     */
-    public void setIsShowResults(final Boolean isShowResults) {
-        this.isShowResults = isShowResults;
-    }
-
-    /**
      * @return the folderId
      */
     @JsonIgnore
@@ -600,5 +590,20 @@ public abstract class AbstractUnitSurvey implements Serializable {
 	 */
 	public void setCreateDateComparable(Date createDateComparable) {
 		this.createDateComparable = createDateComparable;
+	}
+
+	/**
+	 * @param showResults the showResults to set
+	 */
+	public void setShowResults(String showResults) {
+		this.showResults = showResults;
+	}
+
+	/**
+	 * @return the showResults
+	 */
+	@JsonIgnore
+	public String getShowResults() {
+		return showResults;
 	}
 }

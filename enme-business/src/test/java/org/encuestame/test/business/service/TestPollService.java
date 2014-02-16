@@ -43,6 +43,7 @@ import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SearchBean;
+import org.encuestame.utils.web.CreatePollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
@@ -174,8 +175,11 @@ public class TestPollService extends AbstractSpringSecurityContext{
         final QuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
         final PollBean unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
         unitPoll.setQuestionBean(question);
-
-        final Poll myPoll = this.pollService.createPoll("ssss", this.answers, "ALL", "APPROVE" ,Boolean.TRUE, this.tagBeanList);
+        //"ssss", this.answers, "ALL", "APPROVE" ,Boolean.TRUE, this.tagBeanList
+        final String[] answer = {"a", "b"};
+        final String[] hashtag = {"hastag1", "hastag2"};
+        final CreatePollBean cb = createPollBean("ssssssssssss",answer, hashtag, "MODERATE", "ALL", true, null, null);
+        final Poll myPoll = this.pollService.createPoll(cb);
         Assert.assertNotNull(myPoll);
     }
 
@@ -306,14 +310,14 @@ public class TestPollService extends AbstractSpringSecurityContext{
 	@Test
 	public void testRemovePoll() throws EnMeExpcetion {
 		//this.answers[3] = "answer Four";
-
-		final Poll newPollService = this.pollService.createPoll(
-				"First test poll", this.answers, Boolean.TRUE, "APPROVE",
-				Boolean.TRUE, this.tagBeanList);
+		final String[] answer = {"a", "b"};
+        final String[] hashtag = {"hastag1", "hastag2"};
+        final CreatePollBean cb = createPollBean("ssssssssssss",answer, hashtag, "APPROVE", "ALL", true, null, null);
+		final Poll newPollService = this.pollService.createPoll(cb);
 
 		final List<QuestionAnswer> beforeAnswers = getQuestionDaoImp()
 				.getAnswersByQuestionId(newPollService.getQuestion().getQid());
-		assertEquals(beforeAnswers.size(), 4);
+		assertEquals(beforeAnswers.size(), 2);
 
 		this.pollService.removePoll(newPollService.getPollId());
 
@@ -342,13 +346,18 @@ public class TestPollService extends AbstractSpringSecurityContext{
 		final PollBean unitPoll = ConvertDomainBean
 				.convertPollDomainToBean(this.poll);
 		unitPoll.setQuestionBean(question);
-
-		final Poll myPoll = this.pollService.createPoll("dddd", this.answers,
-				"ALL", "APPROVE", Boolean.TRUE, this.tagBeanList);
+		
+		
+		final String[] answer = {"a", "b"};
+        final String[] hashtag = {"hastag1", "hastag2"};
+        final CreatePollBean cb = createPollBean("dddd",answer, hashtag, "APPROVE", "ALL", true, null, null);
+		final Poll myPoll = this.pollService.createPoll(cb);
 
 		Assert.assertNotNull(myPoll);
-		final Poll myPoll2 = this.pollService.createPoll("eeee", this.answers,
-				"ALL", "APPROVE", Boolean.TRUE, this.tagBeanList);
+		final String[] answer1 = {"a", "b"};
+        final String[] hashtag2 = {"hastag3", "hastag4"};
+        final CreatePollBean cb2 = createPollBean("dddd",answer1, hashtag2, "APPROVE", "ALL", true, null, null);
+		final Poll myPoll2 = this.pollService.createPoll(cb2);
 		Assert.assertNotNull(myPoll2);
 
 		final List<Poll> retrievePollsbyTagBeforeRemove = getPollDao()

@@ -27,6 +27,7 @@ import javax.persistence.TemporalType;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.enums.CommentOptions;
+import org.encuestame.utils.enums.ShowResultsOptions;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Store;
@@ -144,7 +145,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * Show Results
      */
-    private Boolean showResults;
+    private ShowResultsOptions showResults;
 
     /**
      * Show Comments Option.
@@ -433,14 +434,15 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * @return the showResults
      */
     @Column(name = "show_results")
-    public Boolean getShowResults() {
+    @Enumerated(EnumType.ORDINAL)
+    public ShowResultsOptions getShowResults() {
         return showResults;
     }
 
     /**
      * @param showResults the showResults to set
      */
-    public void setShowResults(final Boolean showResults) {
+    public void setShowResults(final ShowResultsOptions showResults) {
         this.showResults = showResults;
     }
 

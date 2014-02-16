@@ -32,6 +32,7 @@ import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.SearchBean;
+import org.encuestame.utils.web.CreatePollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
@@ -58,8 +59,7 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeExpcetion
     */
-     Poll createPoll(final String questionName, final String[] answers, final String showResults,
-                final String commentOption, final Boolean notification, final List<HashTagBean> hashtags) throws EnMeExpcetion;
+     Poll createPoll(final CreatePollBean createPollBean) throws EnMeExpcetion;
 
    /**
     * List Poll by User Id.
@@ -489,5 +489,13 @@ public interface IPollService extends IMasterSurveyService{
 	 */
 	Boolean restrictVotesByQuota(final Poll poll);
 
+	
+	/**
+	 * 
+	 * @param ip
+	 * @param poll
+	 * @return
+	 */
+	public List<PollResult> getListvalidateVoteIP(final String ip, final Poll poll);
 
 }

@@ -572,7 +572,9 @@ public interface ITweetPollService extends IMasterSurveyService{
 	 * @throws EnMeNoResultsFoundException
 	 * @throws EnMeExpcetion
 	 */
-	List<Schedule> createTweetPollScheduled(final TweetPollScheduledBean bean) throws EnMeNoResultsFoundException, EnMeExpcetion;
+	List<Schedule> createTweetPollScheduled(
+			final TweetPollScheduledBean bean, 
+			final TypeSearchResult searchResult) throws EnMeNoResultsFoundException, EnMeExpcetion;
 
 	/**
 	 * Publish scheduled items

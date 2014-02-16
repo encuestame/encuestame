@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <!-- thumbnail generator engine
+         thanks to raulraja.
+     -->
+    <bean id="thumbnailGeneratorEngine" class="org.encuestame.business.images.ThumbnailGeneratorEngineImpl">
+
+        <!-- the file extension for the thumbnail files -->
+        <property name="generatedExtension">
+            <value>.jpg</value>
+        </property>
+
+        <!-- the different sizes we want to generate, adjusting the aspect ratio based on the biggest dimension -->
+        <property name="supportedSizes">
+            <list>
+                <value>900</value>
+                <value>375</value>
+                <value>256</value>
+                <value>128</value>
+                <value>64</value>
+                <value>22</value>
+            </list>
+        </property>
+
+        <!-- mappings from the different content types to the right generator that handles each type -->
+        <property name="thumbnailGenerators">
+            <map>
+                <entry key="image/jpeg" value-ref="imageThumbnailGenerator" />
+                <entry key="image/jpg" value-ref="imageThumbnailGenerator" />
+                <entry key="image/pjpeg" value-ref="imageThumbnailGenerator" />
+                <entry key="image/gif" value-ref="imageThumbnailGenerator" />
+                <entry key="image/png" value-ref="imageThumbnailGenerator" />
+                <entry key="image/tiff" value-ref="imageThumbnailGenerator" />
+                <entry key="image/bmp" value-ref="imageThumbnailGenerator" />
+                <!--<entry key="application/pdf" value-ref="pdfThumbnailGenerator" />-->
+            </map>
+        </property>
+
+        <!-- A default thumbnail generator to be used for unregistered mime types -->
+        <property name="defaultThumbnailGenerator" ref="imageThumbnailGenerator"/>
+    </bean>
+
+    <!-- a thumbnail generator that generates thumbnails from images -->
+    <bean id="imageThumbnailGenerator" class="org.encuestame.business.images.ImageThumbnailGeneratorImpl" />
+
+</beans>

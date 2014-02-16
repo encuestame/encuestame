@@ -74,10 +74,26 @@
 			<groupId>org.encuestame</groupId>
 			<artifactId>enme-dao</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.encuestame</groupId>
-			<artifactId>encuestame-mvc</artifactId>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.encuestame</groupId>-->
+			<!--<artifactId>encuestame-mvc</artifactId>-->
+		<!--</dependency>-->
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>controllers</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>json-api1</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>json-api2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>websocket</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.encuestame</groupId>
 			<artifactId>enme-model</artifactId>

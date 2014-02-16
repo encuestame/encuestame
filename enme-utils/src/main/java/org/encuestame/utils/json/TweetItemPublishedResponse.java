@@ -58,6 +58,9 @@ public class TweetItemPublishedResponse implements Serializable{
 
     @JsonProperty(value = "social_account_id")
     public Long socialAccountId;
+    
+    @JsonProperty(value = "type_item")
+    public String typeItem;
 
 	/**
 	 * @return the id
@@ -208,5 +211,18 @@ public class TweetItemPublishedResponse implements Serializable{
 	public void setSocialAccountId(Long socialAccountId) {
 		this.socialAccountId = socialAccountId;
 	}
-       
+
+	/**
+	 * @return the typeItem
+	 */
+	public String getTypeItem() {
+		return typeItem;
+	}
+
+	/**
+	 * @param typeItem the typeItem to set
+	 */
+	public void setTypeItem(String typeItem) {
+		this.typeItem = typeItem;
+	}
 }

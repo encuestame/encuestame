@@ -1,5 +1,8 @@
 package org.encuestame.social.api.support;
 
+import java.util.Set;
+
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.TweetPublishedMetadata;
@@ -13,6 +16,6 @@ public interface TumblrAPIOperations extends SocialAPIOperations{
      * @return
      * @throws Exception
      */
-    TweetPublishedMetadata updateStatus(final String status, final SocialAccount socialAccount, final TweetPoll tweetPoll) throws Exception;	
+    TweetPublishedMetadata updateStatus(final String status, final SocialAccount socialAccount,  final Set<HashTag> hashtags) throws Exception;	
 
 }

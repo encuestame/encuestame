@@ -29,6 +29,7 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.CommentBean;
+import org.encuestame.utils.web.CreatePollBean;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
@@ -51,6 +52,35 @@ import org.encuestame.utils.web.search.TweetPollSearchBean;
  */
 
 public abstract class AbstractBaseUnitBeans extends AbstractBase{
+	
+	/**
+	 * 
+	 * @param questionName
+	 * @return
+	 */
+	public CreatePollBean createPollBean(
+			final String questionName,
+			final String[] answer,
+			final String[] hashtag,
+			final String showComments,
+			final String showResults,
+			final Boolean multipleSelection,
+			final Long limitVotes,
+			final Long closeDate) {
+        //"ssss", this.answers, "ALL", "APPROVE" ,Boolean.TRUE, this.tagBeanList
+		final CreatePollBean createPollBean = new CreatePollBean();
+		createPollBean.setQuestionName(questionName);
+		createPollBean.setAnswers(answer);
+		createPollBean.setHashtags(hashtag);
+		createPollBean.setAllowAdd(Boolean.FALSE); //disable by default
+		createPollBean.setLimitVote(limitVotes);
+		createPollBean.setMultiple(multipleSelection);
+		createPollBean.setResults(showResults);
+		createPollBean.setShowComments(showComments);
+		createPollBean.setCloseDate(closeDate);
+		createPollBean.setFolder_name(null); //disable by default
+		return createPollBean;
+	}
 
     /**
      * Create Unit Question Helper.

@@ -792,8 +792,8 @@ public class ConvertDomainBean {
 
         pollSearch.setCreateDate(DateUtil.getFormatDate(poll.getCreateDate()));
         pollSearch.setCreateDateComparable(poll.getCreateDate());
-        pollSearch.setAllowLiveResults(poll.getShowResults() == null ? false
-                        : poll.getShowResults());
+        pollSearch.setAllowLiveResults(Boolean.TRUE);
+        //poll.getShowResults() == null ? false : poll.getShowResults()
 
         pollSearch.setModeratedComments(poll.getShowComments() == null ? false : (poll.getShowComments().equals(
         		CommentOptions.MODERATE) ? true : false));
@@ -896,8 +896,8 @@ public class ConvertDomainBean {
         }
         unitPoll.setTotalVotes(poll.getNumbervotes() == null ? EnMeUtils.VOTE_MIN
                 : Long.valueOf(poll.getNumbervotes()));
-        unitPoll.setShowResultsPoll(poll.getShowResults() == null ? false
-                : poll.getShowResults());
+        unitPoll.setShowResultsPoll(Boolean.TRUE);
+        //poll.getShowResults() == null ? false : poll.getShowResults()
         unitPoll.setLikeVote(poll.getLikeVote() == null ? EnMeUtils.LIKE_DEFAULT
                 : Long.valueOf(poll.getLikeVote()));
         unitPoll.setDislikeVote(poll.getDislikeVote() == null ? EnMeUtils.DISLIKE_DEFAULT
@@ -929,8 +929,6 @@ public class ConvertDomainBean {
         if (poll.getShowComments() != null) {
             unitPoll.setShowComments(poll.getShowComments().toString());
         }
-        unitPoll.setIsShowResults(poll.getShowResults() == null ? false : poll
-                .getShowResults());
         unitPoll.setFolderId(poll.getPollFolder() == null ? null : poll
                 .getPollFolder().getId());
         unitPoll.setIsCloseAfterDate(poll.getCloseAfterDate() == null ? false
@@ -1166,7 +1164,7 @@ public class ConvertDomainBean {
         unitSurvey.setClosedDate(survey.getClosedDate());
         unitSurvey.setCloseAfterquota(survey.getCloseAfterquota());
         unitSurvey.setClosedQuota(survey.getClosedQuota());
-        unitSurvey.setShowResults(survey.getShowResults());
+        unitSurvey.setShowResults(Boolean.TRUE); //survey.getShowResults()
         unitSurvey.setNumbervotes(survey.getNumbervotes());
         unitSurvey.setHits(survey.getHits() == null ? EnMeUtils.VOTE_MIN : survey
                 .getHits());

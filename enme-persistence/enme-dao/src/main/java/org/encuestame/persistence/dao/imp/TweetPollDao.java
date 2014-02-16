@@ -802,7 +802,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
             criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
             criteria.add(Restrictions.isNotNull("tweetId"));
             criteria.add(Restrictions.eq("status", Status.SUCCESS));
-            criteria.add(Restrictions.in("apiType", splist));
+            if (splist.size() > 0) {
+            	criteria.add(Restrictions.in("apiType", splist));
+            }
             if (socialAccounts.size() > 0) {
                 criteria.add(Restrictions.in("socialAccount", socialAccounts));
             }
