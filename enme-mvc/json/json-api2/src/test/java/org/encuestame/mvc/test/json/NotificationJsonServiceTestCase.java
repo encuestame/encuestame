@@ -17,7 +17,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.encuestame.mvc.controller.json.notifications.NotificationsJsonController;
+import org.encuestame.mvc.controller.json.v1.notifications.NotificationsJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.utils.categories.test.DefaultTest;

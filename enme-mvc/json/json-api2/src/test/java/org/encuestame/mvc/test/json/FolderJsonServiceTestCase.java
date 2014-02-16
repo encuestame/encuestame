@@ -17,7 +17,7 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 
-import org.encuestame.mvc.controller.json.survey.FolderJsonServiceController;
+import org.encuestame.mvc.controller.json.v1.survey.FolderJsonServiceController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.survey.Poll;

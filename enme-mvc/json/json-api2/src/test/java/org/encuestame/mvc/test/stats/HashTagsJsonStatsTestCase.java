@@ -20,7 +20,7 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 
-import org.encuestame.mvc.controller.json.statistics.HashTagStatsJsonController;
+import org.encuestame.mvc.controller.json.v1.statistics.HashTagStatsJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;

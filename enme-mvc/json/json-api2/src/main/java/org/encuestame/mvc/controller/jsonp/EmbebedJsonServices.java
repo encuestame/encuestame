@@ -14,7 +14,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.encuestame.core.security.util.WidgetUtil;
-import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.mvc.controller.jsonp.beans.JavascriptEmbebedBody;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class EmbebedJsonServices extends AbstractJsonController {
+public class EmbebedJsonServices extends AbstractJsonControllerV1 {
 	
 	/**
 	 * 

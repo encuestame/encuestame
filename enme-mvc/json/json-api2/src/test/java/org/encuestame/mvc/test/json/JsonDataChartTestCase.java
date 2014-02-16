@@ -21,7 +21,7 @@ import org.encuestame.business.service.PollService;
 import org.encuestame.business.service.TweetPollService;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
-import org.encuestame.mvc.controller.json.chart.JsonDataChart;
+import org.encuestame.mvc.controller.json.v1.chart.JsonDataChart;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;

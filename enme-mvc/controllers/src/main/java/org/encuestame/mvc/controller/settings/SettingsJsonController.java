@@ -25,7 +25,7 @@ import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.service.imp.SecurityOperations;
-import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -47,7 +47,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version $Id:$
  */
 @Controller
-public class SettingsJsonController extends AbstractJsonController{
+public class SettingsJsonController extends AbstractJsonControllerV1{
 
     /**
      * Log.

@@ -20,7 +20,7 @@ import javax.servlet.ServletException;
 
 import junit.framework.Assert;
 
-import org.encuestame.mvc.controller.json.survey.SurveyJsonController;
+import org.encuestame.mvc.controller.json.v1.survey.SurveyJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans; 
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;

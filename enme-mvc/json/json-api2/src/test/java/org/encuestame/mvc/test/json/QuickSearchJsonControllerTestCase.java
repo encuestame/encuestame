@@ -14,7 +14,7 @@ package org.encuestame.mvc.test.json;
 
 import junit.framework.Assert;
 
-import org.encuestame.mvc.controller.search.json.QuickSearchJsonController;
+import org.encuestame.mvc.controller.json.v1.search.QuickSearchJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
