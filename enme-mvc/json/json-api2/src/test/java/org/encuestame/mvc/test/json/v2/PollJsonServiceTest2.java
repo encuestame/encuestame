@@ -41,15 +41,15 @@ public class PollJsonServiceTest2 extends AbstractJsonMvcUnitBeans {
 		createPollBean.setCloseDate(null);
 		createPollBean.setFolder_name(null); //disable by default
 
-        ResultActions a = mockMvc.perform(post("/api/survey/poll")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(createPollBean)));
-                //.andExpect(status().is())
-                //.andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8));
-//                .andExpect(jsonPath("$.fieldErrors", hasSize(1)))
-//                .andExpect(jsonPath("$.fieldErrors[0].path", is("title")))
-//                .andExpect(jsonPath("$.fieldErrors[0].message", is("The title cannot be empty.")));
-        System.out.println("---->" + a.andReturn().getResponse().getContentAsString());
+//        ResultActions a = mockMvc.perform(post("/api/survey/poll")
+//                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+//                .content(TestUtil.convertObjectToJsonBytes(createPollBean)));
+//                //.andExpect(status().is())
+//                //.andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8));
+////                .andExpect(jsonPath("$.fieldErrors", hasSize(1)))
+////                .andExpect(jsonPath("$.fieldErrors[0].path", is("title")))
+////                .andExpect(jsonPath("$.fieldErrors[0].message", is("The title cannot be empty.")));
+//        System.out.println("---->" + a.andReturn().getResponse().getContentAsString());
         //verifyZeroInteractions(getWebApplicationContext());
     }
 }
