@@ -656,7 +656,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             log.debug("administration user ----> Adding Security label");
             
             // create a dashboard by default
-            createDefaultDashboard(userAccount);
+            //createDefaultDashboard(userAccount);
 
             //Disabled auto-autenticate, the administrative user should sign in manually
             //SecurityUtils.authenticate(userAccount);
