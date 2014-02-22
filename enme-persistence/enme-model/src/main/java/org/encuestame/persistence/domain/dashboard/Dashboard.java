@@ -68,7 +68,7 @@ public class Dashboard {
     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "dashboardId", unique = true, nullable = true)
+    @Column(name = "dashboardId", unique = true, nullable = false)
     public Long getBoardId() {
         return boardId;
     }

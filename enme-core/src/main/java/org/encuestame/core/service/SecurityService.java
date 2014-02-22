@@ -765,6 +765,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         board.setPageLayout(LayoutEnum.AB_COLUMN_BLOCK);
         board.setFavorite(true);
         board.setSelectedByDefault(true);
+        board.setBoardSequence(1);
+        board.setFavoriteCounter(1);
         getDashboardDao().saveOrUpdate(board);
     }
 

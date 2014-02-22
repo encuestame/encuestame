@@ -60,12 +60,12 @@
             <!--<groupId>org.encuestame</groupId>-->
             <!--<artifactId>enme-model</artifactId>-->
         <!--</dependency>-->
-        <!--<dependency> &lt;!&ndash; reuse src/test/java code from encuestame-core! &ndash;&gt;-->
-            <!--<groupId>org.encuestame</groupId>-->
-            <!--<artifactId>enme-dao</artifactId>-->
-            <!--<scope>test</scope>-->
-            <!--<classifier>tests</classifier>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>enme-dao</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>org.encuestame</groupId>-->
             <!--<artifactId>encuestame-utils</artifactId>-->
