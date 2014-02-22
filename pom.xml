@@ -145,7 +145,7 @@
         	Clover 2 Needed install on local host
         	http://confluence.atlassian.com/display/CLOVER/Clover+for+Maven+2+and+3+Developer+Guide
         -->
-        <maven-clover2-plugin>[3.1,)</maven-clover2-plugin>
+        <maven-clover2-plugin>3.2.0</maven-clover2-plugin>
         <maven-jar.plugin>2.4</maven-jar.plugin>
         <maven-compiler-plugin>2.3.2</maven-compiler-plugin>
         <aspectj-maven-plugin>1.2</aspectj-maven-plugin>
