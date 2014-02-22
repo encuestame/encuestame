@@ -759,15 +759,16 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     private void createDefaultDashboard(final UserAccount userAccount) {
     	 //FUTURE: this code must be in higher level {reuse code}
         final Dashboard board = new Dashboard();
-        board.setPageBoardName(EnMePlaceHolderConfigurer.getProperty("dashboard.default.name"));
-        board.setDescription(EnMePlaceHolderConfigurer.getProperty("dashboard.default.descr"));
+        board.setPageBoardName(EnMePlaceHolderConfigurer.getProperty("dashboard.default.name") == null ? "" : EnMePlaceHolderConfigurer.getProperty("dashboard.default.name"));
+        board.setDescription(EnMePlaceHolderConfigurer.getProperty("dashboard.default.descr") == null ? "" : EnMePlaceHolderConfigurer.getProperty("dashboard.default.descr")) ;
         board.setUserBoard(userAccount);
         board.setPageLayout(LayoutEnum.AB_COLUMN_BLOCK);
         board.setFavorite(true);
         board.setSelectedByDefault(true);
         board.setBoardSequence(1);
         board.setFavoriteCounter(1);
-        getDashboardDao().saveOrUpdate(board);
+        //FIXME: nested exception is org.hibernate.exception.ConstraintViolationException: could not insert: [org.encuestame.persistence.domain.dashboard.Dashboard]
+        //getDashboardDao().saveOrUpdate(board);
     }
 
     /**
