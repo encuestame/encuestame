@@ -23,7 +23,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.http.MediaType;
 
-@Category(DefaultTest.class)
+//@Category(DefaultTest.class)
 public class ScheduldedJSONTest extends APIv2ControllerConfig {
 	
 	@Test
