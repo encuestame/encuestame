@@ -17,10 +17,11 @@ If you want to download a build version of encuestame, they're hosted on the [So
 * [All Contributors](http://www.encuestame.org#contributors)
 
 ## Direct Download Last Releases
+* [1.147-M3](https://github.com/encuestame/encuestame/archive/1.147M3v101213.tar.gz)
+* [1.147-M2](https://github.com/encuestame/encuestame/archive/1.147M2v090913.tar.gz)
 * [1.147-M1](https://sourceforge.net/projects/encuestame/files/encuestame_beta/1.147/)
 * [1.146](http://sourceforge.net/projects/encuestame/files/encuestame_beta/1.146/encuestame-1.146-tomcat.zip/download)
 * [1.145](http://code.google.com/p/encuestame/downloads/detail?name=encuestame-1.145-release.zip&can=2&q=)
-* [1.144](http://sourceforge.net/projects/encuestame/files/encuestame_beta/1.144/encuestame-1.144-release.zip/download)
 
 
 ## Contributions
