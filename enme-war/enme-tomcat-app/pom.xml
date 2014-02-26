@@ -29,16 +29,16 @@
 								</manifest>
 							</archive>
 							<overlays>
-								<!-- <overlay>
-									<groupId>org.dojotoolkit</groupId>
+							    <overlay>
+									<groupId>org.encuestame</groupId>
 									<artifactId>dojo-war</artifactId>
 									<targetPath>resource/js</targetPath>
-								</overlay> -->
-								<!-- <overlay>
-									<groupId>org.dojotoolkit</groupId>
+								</overlay>
+								<overlay>
+									<groupId>org.encuestame</groupId>
 									<artifactId>dojo-war</artifactId>
 									<targetPath>resource/mobile-js</targetPath>
-								</overlay> -->
+								</overlay>
 								<overlay>
 									<groupId>org.encuestame</groupId>
 									<artifactId>enme-config</artifactId>
@@ -569,10 +569,10 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 		</dependency>
 
-		<!-- <dependency>
-			<groupId>org.dojotoolkit</groupId>
+		<dependency>
+			<groupId>org.encuestame</groupId>
 			<artifactId>dojo-war</artifactId>
-			<version>${dojo.version}</version>
+			<version>${encuestame.version}</version>
 			<type>war</type>
 			<exclusions>
 				<exclusion>
@@ -580,6 +580,6 @@
 					<groupId>dojo-shrinksafe</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency> -->
+		</dependency>
 	</dependencies>
 </project>

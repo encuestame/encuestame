@@ -7,6 +7,7 @@
     <version>1.147-RELEASE-SNAPSHOT</version>
   </parent>
 
+   <groupId>org.encuestame</groupId>
   <version>1.147-M4-SNAPSHOT</version>
   <artifactId>encuestame-js</artifactId>
   <packaging>pom</packaging>
@@ -14,7 +15,7 @@
 
   <modules>
     <module>deps</module>
-    <!--<module>dojo-maven</module>-->
+    <module>dojo-maven</module>
     <module>resources-enme-war</module>
   </modules>
   <build>
