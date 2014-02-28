@@ -10,9 +10,6 @@
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/me"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/me
 	url = git://github.com/encuestame/me.git
-[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/mobile"]
-	path = enme-js/resources-enme-war/src/main/resources/resource/js/mobile
-	url = git://github.com/encuestame/mobile-me.git
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/bootstrap"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/bootstrap
 	url = git://github.com/juanpicado/Dojo-Bootstrap.git
@@ -44,6 +41,3 @@
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/util"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/util
 	url = https://github.com/dojo/util.git
-[submodule "enme-js/dojo-maven"]
-	path = enme-js/dojo-maven
-	url = https://github.com/encuestame/dojo-maven.git
