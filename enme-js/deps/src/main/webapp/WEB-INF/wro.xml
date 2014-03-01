@@ -12,6 +12,7 @@
     <js>/commons/stomp.js</js>
     <js>/commons/offline.js</js>
     <js>/commons/alertify/dist/alertify.min.js</js>
+    <js>/chart/enme.chart.js</js>
   </group>
 
 
@@ -24,6 +25,7 @@
     <js>/commons/stomp.js</js>
     <js>/commons/offline.js</js>
     <js>/commons/alertify/dist/alertify.min.js</js>
+    <js>/chart/enme.chart.js</js>
   </group>
   
   <group name='maps'>

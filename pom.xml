@@ -135,7 +135,9 @@
         <javax.persistence>1.0.2</javax.persistence>
         <uadetector.version>2013.02</uadetector.version>
         <!-- Dojo http://www.mahieu.org/?p=3 -->
-        <dojo.version>1.9.2-SNAPSHOT</dojo.version>
+        <dojo.version>1.9.3</dojo.version>
+        <dojo.build.profile>standard</dojo.build.profile>
+        <dojo.build.action>release</dojo.build.action>
         <webresources.javascript.location>encuestame-war/src/main/webapp/js</webresources.javascript.location>
         <!--CometD -->
         <!-- <comet.version>2.5.1</comet.version> -->
