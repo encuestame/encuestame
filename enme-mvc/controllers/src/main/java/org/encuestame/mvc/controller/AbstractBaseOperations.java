@@ -716,19 +716,21 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     * @return
     */
    public Locale getUserAccountLocale(final String username) {
-	   try {	
+	   //try {	
 		   	final UserAccount account = getSecurityService().findUserByUserName(username);
 		   	if (account != null) {
 		   		final String language = account.getLanguage();
 				final Builder lang = new Locale.Builder().setLanguage(language);
 				return lang.build();
 		   	} else {	   		
-		   		throw new EnMeExpcetion("anonymous user does not have locale");
+		   		//throw new EnMeExpcetion("anonymous user does not have locale");
+		   		log.info(account + " user does not have locale");
+		   		return Locale.ENGLISH;
 		   	}
-		} catch (EnMeExpcetion e) {
-			log.warn(e.getMessage());
-			return Locale.ENGLISH;
-		}		
+		//} catch (EnMeExpcetion e) {
+			//log.warn(e.getMessage());
+			//return Locale.ENGLISH;
+		//}		
    }
 	
 	/**
