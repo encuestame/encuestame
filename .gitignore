@@ -2,6 +2,7 @@
 .svn*
 .idea
 obj/
+*.iml
 bin/
 *.suo
 *.user
