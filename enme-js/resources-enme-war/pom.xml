@@ -29,7 +29,6 @@
                         <configuration>
                             <serverId>dojotoolkit</serverId>
                             <url>http://download.dojotoolkit.org/release-${dojo.version}</url>
-                            <!--<fromFile>dojo-release-${dojo.version}.tar.gz</fromFile>-->
                             <fromFile>dojo-release-${dojo.version}-src.tar.gz</fromFile>
                             <toDir>${project.build.directory}</toDir>
                         </configuration>
@@ -49,7 +48,7 @@
                                    src="${project.build.directory}/dojo-release-${dojo.version}-src.tar.gz"
                                    dest="${project.build.directory}/temp" />
                             <!--<untar compression="gzip"-->
-                                   <!--src="/Users/{user}/bin/dojo-zip/dojo-release-1.9.3-src.tar.gz"-->
+                                   <!--src="/Users/xxx/bin/dojo-zip/dojo-release-${dojo.version}-src.tar.gz"-->
                                    <!--dest="${project.build.directory}/temp" />-->
                         </tasks>
                     </configuration>
