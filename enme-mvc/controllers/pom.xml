@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>controllers</artifactId>
 	<packaging>jar</packaging>
-	<name>encuestame MVC Controllers and Utils</name>
+	<name>Encuestame MVC Controllers and Utilities</name>
 	<dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>

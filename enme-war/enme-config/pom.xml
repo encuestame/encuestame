@@ -8,7 +8,7 @@
     </parent>
     <artifactId>enme-config</artifactId>
     <packaging>war</packaging>
-    <name>encuestame configuration war</name>
+    <name>Encuestame Webapp Configuration</name>
     <build>
         <filters>
             <filter>../../env/${env}.properties</filter>

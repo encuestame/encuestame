@@ -7,17 +7,14 @@
         <version>1.147-RELEASE-SNAPSHOT</version>
     </parent>
     <artifactId>encuestame-war</artifactId>
-  <version>1.147-M4-SNAPSHOT</version>
+    <version>1.147-M4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>encuestame app builders</name>
 
      <modules>
       <module>enme-config</module>
       <module>enme-views</module>
-      <module>enme-jetty-app</module>
-      <module>enme-tomcat-app</module>
-<!--       <module>enme-weblogic-app</module>
-      <module>enme-jboss-app</module> -->
+      <module>web-app</module>
     </modules>
   <build>
     <pluginManagement>
@@ -32,37 +29,4 @@
       </plugins>
     </pluginManagement>
   </build>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.encuestame</groupId>
-                <artifactId>json-api1</artifactId>
-                <version>${encuestame.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.encuestame</groupId>
-                <artifactId>json-api2</artifactId>
-                <version>${encuestame.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.encuestame</groupId>
-                <artifactId>websocket</artifactId>
-                <version>${encuestame.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.encuestame</groupId>
-                <artifactId>json-api1</artifactId>
-                <version>${encuestame.version}</version>
-                <scope>test</scope>
-                <classifier>tests</classifier>
-            </dependency>
-            <dependency>
-                <groupId>org.encuestame</groupId>
-                <artifactId>json-api2</artifactId>
-                <version>${encuestame.version}</version>
-                <scope>test</scope>
-                <classifier>tests</classifier>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>

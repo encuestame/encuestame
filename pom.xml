@@ -5,7 +5,7 @@
     <artifactId>encuestame</artifactId>
     <packaging>pom</packaging>
     <version>1.147-RELEASE-SNAPSHOT</version>
-    <name>encuestame</name>
+    <name>Encuestame</name>
     <description>
      Encuestame is an open source project based on Java 6 technology. You can use to create different
      types of surveys. Encuestame provides a full featured Survey Managed System.

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.encuestame</groupId>
+        <artifactId>web-app</artifactId>
+        <version>1.147-M4-SNAPSHOT</version>
+	</parent>
+	<artifactId>enme-jboss-app</artifactId>
+	<packaging>war</packaging>
+	<name>Encuestame Jboss WAR Webapp</name>
+	<profiles>
+		<profile>
+			<id>production</id>
+			<build>
+				<filters>
+					<filter>../../../env/${env}.properties</filter>
+				</filters>
+				<finalName>encuestame</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>${maven.war.plugin}</version>
+						<configuration>
+							<packagingExcludes>
+								WEB-INF/classes/rebel.xml, resource/js/dojo,resource/js/dojox, resource/js/dijit
+							</packagingExcludes>
+							<archive>
+								<manifest>
+									<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								</manifest>
+							</archive>
+							<overlays>
+								<overlay>
+									<groupId>org.encuestame</groupId>
+									<artifactId>resources-enme-war</artifactId>
+									<excludes>
+										<exclude>WEB-INF/web.xml</exclude>
+									</excludes>
+								</overlay>
+							</overlays>
+							<overlays>
+								<overlay>
+									<groupId>org.encuestame</groupId>
+									<artifactId>enme-config</artifactId>
+									<excludes>
+										<exclude>WEB-INF/web.xml</exclude>
+									</excludes>
+								</overlay>
+								<overlay>
+									<groupId>org.encuestame</groupId>
+									<artifactId>enme-views</artifactId>
+									<excludes>
+										<exclude>WEB-INF/web.xml</exclude>
+									</excludes>
+								</overlay>
+								<overlay>
+									<groupId>org.encuestame</groupId>
+									<artifactId>resources-enme-war</artifactId>
+									<excludes>
+										<exclude>WEB-INF/web.xml</exclude>
+									</excludes>
+								</overlay>
+							</overlays>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<version>${jetty-plugin-version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.mortbay.jetty</groupId>
+								<artifactId>jetty-ssl</artifactId>
+								<version>${jetty.ssl}</version>
+							</dependency>
+						</dependencies>
+						<configuration>
+							<systemProperties>
+								<systemProperty>
+									<name>encuestame.custom.config</name>
+									<value>${encuestame.local.properties}</value>
+								</systemProperty>
+							</systemProperties>
+							<connectors>
+								<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+									<port>${jetty.default.port}</port>
+								</connector>
+								<!--<connector implementation="org.mortbay.jetty.ssl.SslSelectChannelConnector"> 
+									<port>${jetty.default.ssl.port}</port> <keystore>${project.build.directory}/jetty-ssl.keystore</keystore> 
+									<password>jetty6</password> <keyPassword>jetty6</keyPassword> </connector> -->
+							</connectors>
+							<webAppConfig>
+								<contextPath>/encuestame</contextPath>
+								<!-- <baseResource implementation="org.mortbay.resource.ResourceCollection"> 
+									<resources> src/main/webapp,target/foo,E:/my/other/source,/home/johndoe/path/to/my/other/source 
+									</resources> </baseResource> -->
+							</webAppConfig>
+							<scanIntervalSeconds>0</scanIntervalSeconds>
+							<!-- <requestLog implementation="org.mortbay.jetty.NCSARequestLog"> 
+								<filename>target/encuestame.log</filename> <retainDays>90</retainDays> <append>true</append> 
+								<extended>false</extended> <logTimeZone>GMT</logTimeZone> </requestLog> -->
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>keytool-maven-plugin</artifactId>
+						<version>${keytool.maven.plugin}</version>
+						<executions>
+							<execution>
+								<phase>generate-resources</phase>
+								<id>clean</id>
+								<goals>
+									<goal>clean</goal>
+								</goals>
+							</execution>
+							<execution>
+								<phase>generate-resources</phase>
+								<id>genkey</id>
+								<goals>
+									<goal>genkey</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<keystore>${project.build.directory}/jetty-ssl.keystore</keystore>
+							<dname>cn=localhost</dname>
+							<keypass>jetty6</keypass>
+							<storepass>jetty6</storepass>
+							<alias>jetty6</alias>
+							<keyalg>RSA</keyalg>
+						</configuration>
+					</plugin>
+					<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>jasperreports-maven-plugin</artifactId> 
+						<version>${jasperreports-maven-plugin}</version> <configuration> <sourceDirectory>src/main/resources/report</sourceDirectory> 
+						<outputDirectory>src/main/webapp/WEB-INF/report</outputDirectory> </configuration> 
+						<executions> <execution> <goals> <goal>compile-reports</goal> </goals> </execution> 
+						</executions> <dependencies> <dependency> <groupId>jasperreports</groupId> 
+						<artifactId>jasperreports</artifactId> <version>${jasper.report}</version> 
+						</dependency> </dependencies> </plugin> -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-eclipse-plugin</artifactId>
+						<version>${maven-eclipse-plugin}</version>
+						<configuration>
+							<projectNameTemplate>[artifactId]</projectNameTemplate>
+							<wtpapplicationxml>true</wtpapplicationxml>
+							<wtpmanifest>false</wtpmanifest>
+							<wtpversion>1.5</wtpversion>
+							<additionalProjectFacets>
+								<jst.java>6.0</jst.java>
+								<jst.web>2.5</jst.web>
+							</additionalProjectFacets>
+							<additionalBuildcommands>
+								<buildcommand>org.eclipse.wst.common.project.facet.core.builder</buildcommand>
+								<buildcommand>org.eclipse.wst.jsdt.core.javascriptValidator</buildcommand>
+								<buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+								<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+							</additionalBuildcommands>
+							<additionalProjectnatures>
+								<projectnature>org.eclipse.jdt.core.javanature</projectnature>
+								<projectnature>org.eclipse.wst.jsdt.core.jsNature</projectnature>
+								<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+							</additionalProjectnatures>
+						</configuration>
+					</plugin>
+				</plugins>
+				<resources>
+					<resource>
+						<directory>src/main/resources/</directory>
+						<includes>
+							<include>*.*</include>
+						</includes>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+	</profiles>
+</project>

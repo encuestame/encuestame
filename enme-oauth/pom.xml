@@ -9,7 +9,7 @@
     <artifactId>encuestame-oauth</artifactId>
   <version>1.147-M4-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>encuestame oauth</name>
+    <name>Encuestame OAuth1, OAuth2</name>
     <dependencies>      
         <dependency>
             <groupId>org.encuestame</groupId>

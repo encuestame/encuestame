@@ -8,7 +8,7 @@
     </parent>
     <artifactId>enme-views</artifactId>
     <packaging>war</packaging>
-    <name>encuestame views</name>
+    <name>Encuestame Static Resources</name>
     <build>
         <filters>
             <filter>../../env/${env}.properties</filter>

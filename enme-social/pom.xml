@@ -9,7 +9,7 @@
     <artifactId>encuestame-social</artifactId>
   <version>1.147-M4-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>encuestame social</name>
+    <name>Encuestame Social Connectors</name>
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>

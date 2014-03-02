@@ -6,117 +6,53 @@
         <artifactId>encuestame-war</artifactId>
         <version>1.147-M4-SNAPSHOT</version>
     </parent>
-    <artifactId>enme-tomcat-app</artifactId>
-    <packaging>war</packaging>
-    <name>encuestame tomcat war</name>
-    <profiles>
-        <profile>
-            <id>production</id>
-            <build>
-                <filters>
-                    <filter>../../env/${env}.properties</filter>
-                </filters>
-                <finalName>encuestame</finalName>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>${maven.war.plugin}</version>
-                        <configuration>
-                            <archive>
-                                <manifest>
-                                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                                </manifest>
-                            </archive>
-                            <overlays>
-                                <overlay>
-                                    <groupId>org.encuestame</groupId>
-                                    <artifactId>enme-config</artifactId>
-                                    <excludes>
-                                        <exclude>WEB-INF/web.xml</exclude>
-                                    </excludes>
-                                </overlay>
-                                <overlay>
-                                    <groupId>org.encuestame</groupId>
-                                    <artifactId>enme-views</artifactId>
-                                    <excludes>
-                                        <exclude>WEB-INF/web.xml</exclude>
-                                    </excludes>
-                                </overlay>
-                                <overlay>
-                                    <groupId>org.encuestame</groupId>
-                                    <artifactId>resources-enme-war</artifactId>
-                                    <excludes>
-                                        <exclude>WEB-INF/web.xml</exclude>
-                                        <exclude>WEB-INF/lib</exclude>
-                                        <!--<exclude>resource/js/dojo</exclude>-->
-                                        <!--<exclude>resource/js/dojox</exclude>-->
-                                        <!--<exclude>resource/js/dijit</exclude>-->
-                                    </excludes>
-                                </overlay>
-                            </overlays>
-                        </configuration>
-                    </plugin>
-                </plugins>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources/</directory>
-                        <includes>
-                            <include>*.*</include>
-                        </includes>
-                        <filtering>true</filtering>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-    </profiles>
+    <groupId>org.encuestame</groupId>
+    <version>1.147-M4-SNAPSHOT</version>
+    <artifactId>web-app</artifactId>
+    <packaging>pom</packaging>
+    <name>Encuestame Webapp POM</name>
+
+    <modules>
+        <module>jetty-webapp</module>
+        <module>tomcat-webapp</module>
+        <!--<module>weblogic-webapp</module>-->
+        <!--<module>jboss-webapp</module>-->
+    </modules>
 
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-core</artifactId>
-        </dependency>
-        <!-- <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-utils</artifactId>
-        </dependency> -->
-        <!--<dependency>-->
-            <!--<groupId>org.encuestame</groupId>-->
-            <!--<artifactId>encuestame-mvc</artifactId>-->
-        <!--</dependency>-->
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>controllers</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
-            <groupId>org.encuestame</groupId>
             <artifactId>json-api1</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
+            <version>${encuestame.version}</version>
         </dependency>
-        <!-- <dependency> reuse src/test/java code from encuestame-mvc!
+        <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>json-api2</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency> -->
-        <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
+            <version>${encuestame.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>websocket</artifactId>
+            <version>${encuestame.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>json-api1</artifactId>
+            <version>${encuestame.version}</version>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>json-api2</artifactId>
+            <version>${encuestame.version}</version>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-core</artifactId>
             <exclusions>
                 <exclusion>
                     <artifactId>slf4j-api</artifactId>
@@ -126,27 +62,17 @@
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>enme-dao</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>enme-model</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-config</artifactId>
+            <artifactId>encuestame-utils</artifactId>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-business</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-oauth</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-social</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
@@ -171,14 +97,32 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -251,6 +195,12 @@
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
@@ -289,10 +239,6 @@
             <artifactId>rome-fetcher</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-oxm</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.opensymphony.quartz</groupId>
             <artifactId>quartz</artifactId>
         </dependency>
@@ -300,8 +246,6 @@
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-        <!-- <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-mapper-asl</artifactId>
-            </dependency> -->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
@@ -324,10 +268,6 @@
         <dependency>
             <groupId>org.springframework.webflow</groupId>
             <artifactId>spring-webflow</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.webflow</groupId>
-            <artifactId>spring-js</artifactId>
         </dependency>
         <!-- Spring Integration -->
         <dependency>
@@ -426,32 +366,16 @@
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-jsp</artifactId>
-            <exclusions>
-                <!-- Exclude Commons Logging in favor of SLF4j -->
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tiles</groupId>
-            <artifactId>tiles-extras</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.tiles</groupId>
-                    <artifactId>ctiles-freemarker</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tiles</groupId>
-            <artifactId>tiles-servlet</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-servlets</artifactId>
@@ -477,23 +401,17 @@
         <dependency>
             <groupId>com.googlecode.ehcache-spring-annotations</groupId>
             <artifactId>ehcache-spring-annotations</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>resources-enme-war</artifactId>
-            <version>1.147-M4-SNAPSHOT</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>enme-config</artifactId>
-            <version>1.147-M4-SNAPSHOT</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>enme-views</artifactId>
-            <version>1.147-M4-SNAPSHOT</version>
+            <version>${encuestame.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
@@ -501,42 +419,31 @@
             <artifactId>webutilities</artifactId>
             <exclusions>
                 <exclusion>
-                    <artifactId>args4j</artifactId>
-                    <groupId>args4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>com.yahoo.platform.yui</artifactId>
-                    <groupId>yuicompressor</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>com.google.javascript</artifactId>
-                    <groupId>closure-compiler</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>javax.servlet</artifactId>
-                    <groupId>jsp-api</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>${jsp-api}</version>
-        </dependency>
-
-        <!-- Required when using ReactorSubscribableChannel (vs ExecutorSubscribableChannel) -->
-        <dependency>
             <groupId>org.projectreactor</groupId>
             <artifactId>reactor-core</artifactId>
-
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
-        <!-- Required when the "stomp-broker-relay" profile is enabled -->
         <dependency>
             <groupId>org.projectreactor</groupId>
             <artifactId>reactor-tcp</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-messaging</artifactId>
@@ -545,16 +452,25 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-websocket</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ro.isdc.wro4j</groupId>
+            <artifactId>wro4j-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ro.isdc.wro4j</groupId>
+            <artifactId>wro4j-extensions</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -3,32 +3,32 @@
 try {
 
     <c:if test="${logged}">
-        socket = new Websocket({
-          url : '<%=request.getContextPath()%>/enme-ws'
-        });
+        //socket = new Websocket({
+        //  url : '<%=request.getContextPath()%>/enme-ws'
+        //});
 
-        socket.debug();
+        //socket.debug();
 
-        socket.connect({
-          notifications_updates : {
-            type : 'subscribe',
-            suffix : false,
-            callback : function(data) {
-              dojo.publish('/notifications/service/messages', data);
-            },
-            channel : '/topic/notification-updates.*'
-          }
-        });
+        //socket.connect({
+        //  notifications_updates : {
+        //    type : 'subscribe',
+        //    suffix : false,
+        //    callback : function(data) {
+        //      dojo.publish('/notifications/service/messages', data);
+        //    },
+        //    channel : '/topic/notification-updates.*'
+        //  }
+        //});
 
-        _ENME.setActivity(socket);
-        socket.subscribe({
-             type : 'subscribe',
-             suffix : false,
-             callback : function(data) {
-               console.error("/app/notifications", data);
-             },
-             channel : '/app/notifications'
-        });
+        //_ENME.setActivity(socket);
+        //socket.subscribe({
+        //     type : 'subscribe',
+        //    suffix : false,
+        //     callback : function(data) {
+        //       console.error("/app/notifications", data);
+        //     },
+        //     channel : '/app/notifications'
+        //});
     </c:if>
 
     Offline.options = {checks: {image: {url: 'my-image.gif'}}};

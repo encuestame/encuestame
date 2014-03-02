@@ -8,7 +8,7 @@
     </parent>
     <artifactId>websocket</artifactId>
     <packaging>jar</packaging>
-    <name>encuestame websocket </name>
+    <name>Encuestame Spring Websocket </name>
     <dependencies>
 
         <!--<dependency>-->

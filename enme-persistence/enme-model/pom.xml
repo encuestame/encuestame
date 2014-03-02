@@ -8,7 +8,7 @@
     </parent>
     <artifactId>enme-model</artifactId>
     <packaging>jar</packaging>
-    <name>encuestame persistence MODEL</name>
+    <name>Encuestame MODEL</name>
     <build>
         <plugins>
             <plugin>

@@ -9,7 +9,7 @@
     <artifactId>encuestame-utils</artifactId>
   <version>1.147-M4-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>encuestame utils</name>
+    <name>Encuestame Utilities</name>
     <build>
         <plugins>
             <plugin>

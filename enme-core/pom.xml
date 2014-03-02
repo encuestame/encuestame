@@ -9,7 +9,7 @@
     <artifactId>encuestame-core</artifactId>
   <version>1.147-M4-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>encuestame core</name>
+    <name>Encuestame Core</name>
     <build>
         <filters>
             <filter>../env/${env}.properties</filter>

@@ -8,7 +8,7 @@
     </parent>
     <artifactId>enme-dao</artifactId>
     <packaging>jar</packaging>
-    <name>encuestame persistence DAO</name>
+    <name>Encuestame DAO</name>
     <build>
         <plugins>
             <plugin>
