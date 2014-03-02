@@ -169,6 +169,8 @@ public class SecurityUtils {
 
     /**
      * Check is Session is Expired.
+     * Iterate the existing permission stored in the {@link Authentication} and check if at least
+     * the ENCUESTAME_USER exist and return true if this condition exist.
      * @param authentication
      * @return
      */
@@ -178,7 +180,7 @@ public class SecurityUtils {
             session = authentication.isAuthenticated();
             for (GrantedAuthority authority : authentication.getAuthorities()) {
                 SimpleGrantedAuthority auth = (SimpleGrantedAuthority) authority;
-                if(auth.getAuthority().toString() == EnMePermission.ENCUESTAME_USER.toString()){
+                if (auth.getAuthority().equals(EnMePermission.ENCUESTAME_USER.toString())) {
                     session = false;
                     break;
                 }
@@ -195,7 +197,7 @@ public class SecurityUtils {
      */
     public static boolean checkIsSessionIsAnonymousUser(final Authentication authentication){
         boolean anonymous = false;
-        if(authentication != null){
+        if (authentication != null) {
             if (EnMeUtils.ANONYMOUS_USER.equals(authentication.getName())) {
                 anonymous = true;
             }
