@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller.settings;
+package org.encuestame.mvc.controller.json.v1;
 
 import java.io.IOException;
 import java.util.HashMap;
