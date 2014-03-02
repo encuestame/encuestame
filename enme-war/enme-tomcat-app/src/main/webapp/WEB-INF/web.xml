@@ -153,12 +153,12 @@
 
     <error-page>
         <error-code>500</error-code>
-        <location>/error</location>
+        <location>/500.jsp</location>
     </error-page>
 
     <error-page>
         <error-code>400</error-code>
-        <location>/error</location>
+        <location>/400.jsp</location>
     </error-page>
 
     <error-page>
