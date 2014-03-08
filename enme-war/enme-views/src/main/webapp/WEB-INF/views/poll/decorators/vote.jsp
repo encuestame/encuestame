@@ -23,6 +23,7 @@
                    <input name="itemId" type="hidden" value="${poll.id}">
                    <input name="type" type="hidden" value="${poll.questionBean.pattern}">
                    <input name="slugName" type="hidden" value="${poll.questionBean.slugName}">
+                   <input name="type_form" type="hidden" value="NORMAL">
              </div>
             <p>
                <button class="btn  btn-large btn-block btn-success" type="submit">Vote</button>
