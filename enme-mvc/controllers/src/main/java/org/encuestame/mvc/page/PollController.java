@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractViewController;
+import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -31,7 +32,6 @@ import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.utils.enums.RequestSourceType;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.UnitAbstractSurvey.MultipleResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -96,18 +96,22 @@ public class PollController extends AbstractViewController {
 		return "poll/voted";
 	}
 
-	/**
-	 * Called when user vote from Vote Interface, validate the vote and return a
-	 * page for different cases.
-	 *
-	 * @param responses
-	 * @param password
-	 * @param usernameForm
-	 * @param req
-	 * @return
-	 * @throws UnknownHostException
-	 * @throws EnMeNoResultsFoundException
-	 */
+
+    /**
+     * Called when user vote from Vote Interface, validate the vote and return a
+     * page for different cases.
+     * @param responseId
+     * @param itemId
+     * @param multiplesVotes
+     * @param type
+     * @param type_form
+     * @param slugName
+     * @param req
+     * @param model
+     * @return
+     * @throws UnknownHostException
+     * @throws EnMeNoResultsFoundException
+     */
 	@RequestMapping(value = "/poll/vote/post", method = RequestMethod.POST)
 	public String submit(
 			@RequestParam(value = "poll", required = false) Long responseId,
@@ -178,7 +182,7 @@ public class PollController extends AbstractViewController {
 						model.put("pollAnswer", poll);						
 						final PollResult result = getPollService().validatePollIP(IP, poll);
 						if (result == null) {
-							if (poll.getMultipleResponse().equals(MultipleResponse.MULTIPLE)) {
+							if (poll.getMultipleResponse().equals(AbstractSurvey.MultipleResponse.MULTIPLE)) {
 								for (int i = 0; i < multiplesVotes.length; i++) {
 									try {
 										final Long responseIdMultiple = Long.valueOf(multiplesVotes[i]);
@@ -190,7 +194,7 @@ public class PollController extends AbstractViewController {
 									model.put("message", getMessage("poll.votes.thanks"));
 									pathVote = "poll/" + isEmbedded + "voted";
 								}
-							} else if(poll.getMultipleResponse().equals(MultipleResponse.SINGLE)) {								
+							} else if(poll.getMultipleResponse().equals(AbstractSurvey.MultipleResponse.SINGLE)) {
 									getPollService().vote(poll, slugName, IP,responseId);
 									model.put("message", getMessage("poll.votes.thanks"));
 									pathVote = "poll/" + isEmbedded + "voted";							
@@ -337,15 +341,14 @@ public class PollController extends AbstractViewController {
 		return "poll/new";
 	}
 
-	/**
-	 * Vote a {@link Poll}.
-	 *
-	 * @param model
-	 *            {@link Model}
-	 * @param tweetId
-	 * @param slug
-	 * @return
-	 */
+    /**
+     * Vote a {@link Poll}.
+     * @param model
+     * @param request
+     * @param id
+     * @param slug
+     * @return
+     */
 	@RequestMapping(value = "/poll/vote/{id}/{slug}", method = RequestMethod.GET)
 	public String pollVoteController(ModelMap model,
 			HttpServletRequest request, @PathVariable Long id,
