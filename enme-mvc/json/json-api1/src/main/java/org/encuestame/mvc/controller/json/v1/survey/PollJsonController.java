@@ -107,15 +107,6 @@ public class PollJsonController extends AbstractJsonControllerV1{
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         final PollSearchBean tpollSearchBean = new PollSearchBean();
         try {
-            log.debug("search.json" + typeSearch);
-            log.debug("search.json" + keyword);
-            log.debug("search.json" + max);
-            log.debug("search.json" + start);
-            log.debug("search.json socialNetworks" + socialNetworks);
-            log.debug("search.json socialAccountNetworks " + socialAccountNetworks);
-            log.debug("search.json isCompleted " + isPublished);
-            log.debug("search.json" + isCompleted);
-            log.debug("search.json favourite" + isFavourite);
             // Create TweetpollSearchBean
             tpollSearchBean.setIsComplete(isCompleted == null ? false : isCompleted);
             tpollSearchBean.setIsFavourite(isFavourite == null ? false : isFavourite);
@@ -131,7 +122,7 @@ public class PollJsonController extends AbstractJsonControllerV1{
             tpollSearchBean.setSocialAccounts(socialAccountNetworks == null ? ListUtils.EMPTY_LIST : socialAccountNetworks);
             final List<SearchBean> list = (List<SearchBean>) getPollService().filterSearchPollsByType(
                     tpollSearchBean, request);
-            log.debug("/api/survey/poll/search.json---------------->  "+ list.size());
+            //log.debug("/api/survey/poll/search.json---------------->  "+ list.size());
             jsonResponse.put("poll", list);
             setItemResponse(jsonResponse);
 

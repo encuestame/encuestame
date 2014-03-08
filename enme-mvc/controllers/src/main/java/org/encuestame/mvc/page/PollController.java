@@ -154,6 +154,7 @@ public class PollController extends AbstractViewController {
 				type = filterValue(type);
 				type_form = filterValue(type_form);
 				slugName = filterValue(slugName);
+                poll = getPollService().getPollByAnswerId(itemId, responseId, null);
 				// restrictions by date
 				final Boolean restrictVotesByDate = getPollService().restrictVotesByDate(poll);
 				// restrictions by quota
