@@ -10,7 +10,7 @@
 
     <files>
         <file>
-            <source>../enme-war/enme-jboss-app/target/encuestame.war</source>
+            <source>../enme-war/web-app/jboss-webapp/target/encuestame.war</source>
             <outputDirectory>encuestame-${artifact.version}-jboss-release/webapp</outputDirectory>
         </file>
 	    <file>
@@ -23,14 +23,6 @@
         </file>
         <file>
             <source>../LICENSE.txt</source>
-            <outputDirectory>encuestame-${artifact.version}-jboss-release</outputDirectory>
-        </file>
-        <file>
-            <source>../NOTICE.txt</source>
-            <outputDirectory>encuestame-${artifact.version}-jboss-release</outputDirectory>
-        </file>
-        <file>
-            <source>../AVISO.txt</source>
             <outputDirectory>encuestame-${artifact.version}-jboss-release</outputDirectory>
         </file>
     </files>

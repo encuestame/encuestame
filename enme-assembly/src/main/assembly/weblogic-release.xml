@@ -10,7 +10,7 @@
 
     <files>
         <file>
-            <source>../enme-war/enme-weblogic-app/target/encuestame.war</source>
+            <source>../enme-war/web-app/weblogic-webapp/target/encuestame.war</source>
             <outputDirectory>encuestame-${artifact.version}-release/webapp</outputDirectory>
         </file>
 	    <file>
@@ -23,14 +23,6 @@
         </file>
         <file>
             <source>../LICENSE.txt</source>
-            <outputDirectory>encuestame-${artifact.version}-release</outputDirectory>
-        </file>
-        <file>
-            <source>../NOTICE.txt</source>
-            <outputDirectory>encuestame-${artifact.version}-release</outputDirectory>
-        </file>
-        <file>
-            <source>../AVISO.txt</source>
             <outputDirectory>encuestame-${artifact.version}-release</outputDirectory>
         </file>
     </files>

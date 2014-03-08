@@ -10,7 +10,7 @@
 
     <files>
         <file>
-            <source>../enme-war/enme-tomcat-app/target/encuestame.war</source>
+            <source>../enme-war/web-app/tomcat-webapp/target/encuestame.war</source>
             <outputDirectory>encuestame-${artifact.version}-tomcat-release/webapp</outputDirectory>
         </file>
 	    <file>
@@ -25,15 +25,7 @@
             <source>../LICENSE.txt</source>
             <outputDirectory>encuestame-${artifact.version}-tomcat-release</outputDirectory>
         </file>
-        <file>
-            <source>../NOTICE.txt</source>
-            <outputDirectory>encuestame-${artifact.version}-tomcat-release</outputDirectory>
-        </file>
-        <file>
-            <source>../AVISO.txt</source>
-            <outputDirectory>encuestame-${artifact.version}-tomcat-release</outputDirectory>
-        </file>
-    </files>
+      </files>
     <fileSets>
          <fileSet>
           <directory>../enme-doc/dev</directory>

@@ -17,6 +17,11 @@
 			</includes>
 			<excludes>
 				<exclude>bin/**</exclude>
+                <exclude>**/*.war</exclude>
+                <exclude>**/dojo/**</exclude>
+                <exclude>**/dijit/**</exclude>
+                <exclude>**/util/**</exclude>
+                <exclude>**/dojox/**</exclude>
 				<exclude>lib/**</exclude>
 				<exclude>dist/**</exclude>
 				<exclude>**/target/**</exclude>
