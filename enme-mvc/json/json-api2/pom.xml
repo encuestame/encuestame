@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>json</artifactId>
-        <version>1.147-M4-SNAPSHOT</version>
+        <version>1.147</version>
     </parent>
     <artifactId>json-api2</artifactId>
     <packaging>jar</packaging>

@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame-js</artifactId>
-    <version>1.147-M4-SNAPSHOT</version>
+    <version>1.147</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -44,9 +44,7 @@
                     <id>unpack</id>
                     <configuration>
                         <tasks>
-                            <untar compression="gzip"
-                                   src="${project.build.directory}/dojo-release-${dojo.version}-src.tar.gz"
-                                   dest="${project.build.directory}/temp" />
+                            <untar compression="gzip" src="${project.build.directory}/dojo-release-${dojo.version}-src.tar.gz" dest="${project.build.directory}/temp" />
                             <!--<untar compression="gzip"-->
                                    <!--src="/Users/xxx/bin/dojo-zip/dojo-release-${dojo.version}-src.tar.gz"-->
                                    <!--dest="${project.build.directory}/temp" />-->
@@ -67,15 +65,15 @@
                   </classpath>
                   <target>
                      <move todir="${project.build.directory}/temp/dojo-src/js/">
-                             <fileset dir="${project.build.directory}/temp/dojo-release-${dojo.version}-src"/>
+                             <fileset dir="${project.build.directory}/temp/dojo-release-${dojo.version}-src" />
                      </move>
                      <echo message=" ************* COPY RESOURCES *************" />
                      <copy todir="${project.build.directory}/temp/dojo-src" verbose="false">
-                     <fileset dir="${basedir}/src/main/resources/resource/" >
-                          <exclude name="**/js/**/dojo/**"/>
-                          <exclude name="**/js/**/dojox/**"/>
-                          <exclude name="**/js/**/dijit/**"/>
-                          <exclude name="**/js/**/util/**"/>
+                     <fileset dir="${basedir}/src/main/resources/resource/">
+                          <exclude name="**/js/**/dojo/**" />
+                          <exclude name="**/js/**/dojox/**" />
+                          <exclude name="**/js/**/dijit/**" />
+                          <exclude name="**/js/**/util/**" />
                       </fileset>
                     </copy>
                     <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
@@ -155,13 +153,13 @@
     <dependency>
       <groupId>org.encuestame</groupId>
       <artifactId>encuestame-css</artifactId>
-      <version>1.147-M4-SNAPSHOT</version>
+      <version>1.147</version>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>org.encuestame</groupId>
       <artifactId>deps</artifactId>
-      <version>1.147-M4-SNAPSHOT</version>
+      <version>1.147</version>
       <type>war</type>
     </dependency>
     <dependency>
