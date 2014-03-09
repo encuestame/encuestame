@@ -4,7 +4,7 @@
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
     <packaging>pom</packaging>
-    <version>1.147-RELEASE-SNAPSHOT</version>
+    <version>1.5.0</version>
     <name>Encuestame</name>
     <description>
      Encuestame is an open source project based on Java 6 technology. You can use to create different
@@ -28,7 +28,7 @@
         <!-- Java version -->
         <java-version>1.7</java-version>
         <!-- encuestame version -->
-        <encuestame.version>1.147-M4-SNAPSHOT</encuestame.version>
+        <encuestame.version>1.5.0</encuestame.version>
         <spring.version>4.0.0.RELEASE</spring.version>
         <env>development</env>
         <javascript.minimize>false</javascript.minimize>

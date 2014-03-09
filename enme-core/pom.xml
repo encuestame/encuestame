@@ -4,10 +4,10 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.147-RELEASE-SNAPSHOT</version>
+        <version>1.5.0</version>
     </parent>
     <artifactId>encuestame-core</artifactId>
-  <version>1.147-M4-SNAPSHOT</version>
+  <version>1.5.0</version>
     <packaging>jar</packaging>
     <name>Encuestame Core</name>
     <build>
