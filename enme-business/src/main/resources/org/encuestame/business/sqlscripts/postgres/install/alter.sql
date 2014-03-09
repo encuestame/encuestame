@@ -1,12 +1,15 @@
+--
+-- TOC entry 2372 (class 2606 OID 16390)
+-- Name: access_rate_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+--
 
 ALTER TABLE ONLY access_rate
     ADD CONSTRAINT access_rate_pkey PRIMARY KEY (rateid);
 
 
 --
--- TOC entry 1974 (class 2606 OID 99433)
--- Dependencies: 1634 1634
--- Name: account_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2374 (class 2606 OID 16395)
+-- Name: account_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY account
@@ -14,9 +17,8 @@ ALTER TABLE ONLY account
 
 
 --
--- TOC entry 1978 (class 2606 OID 99449)
--- Dependencies: 1636 1636
--- Name: application_connection_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2378 (class 2606 OID 16411)
+-- Name: application_connection_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY application_connection
@@ -24,9 +26,8 @@ ALTER TABLE ONLY application_connection
 
 
 --
--- TOC entry 1976 (class 2606 OID 99441)
--- Dependencies: 1635 1635
--- Name: application_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2376 (class 2606 OID 16403)
+-- Name: application_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY application
@@ -34,9 +35,8 @@ ALTER TABLE ONLY application
 
 
 --
--- TOC entry 1980 (class 2606 OID 99454)
--- Dependencies: 1637 1637
--- Name: attachment_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2380 (class 2606 OID 16416)
+-- Name: attachment_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY attachment
@@ -44,9 +44,8 @@ ALTER TABLE ONLY attachment
 
 
 --
--- TOC entry 1982 (class 2606 OID 99462)
--- Dependencies: 1638 1638
--- Name: client_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2382 (class 2606 OID 16424)
+-- Name: client_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY client
@@ -54,9 +53,8 @@ ALTER TABLE ONLY client
 
 
 --
--- TOC entry 1984 (class 2606 OID 99470)
--- Dependencies: 1639 1639
--- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2384 (class 2606 OID 16432)
+-- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY comments
@@ -64,9 +62,8 @@ ALTER TABLE ONLY comments
 
 
 --
--- TOC entry 1986 (class 2606 OID 99478)
--- Dependencies: 1640 1640
--- Name: dashboard_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2386 (class 2606 OID 16440)
+-- Name: dashboard_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY dashboard
@@ -74,9 +71,8 @@ ALTER TABLE ONLY dashboard
 
 
 --
--- TOC entry 1988 (class 2606 OID 99488)
--- Dependencies: 1641 1641
--- Name: email_email_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2388 (class 2606 OID 16450)
+-- Name: email_email_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY email
@@ -84,9 +80,8 @@ ALTER TABLE ONLY email
 
 
 --
--- TOC entry 1990 (class 2606 OID 99486)
--- Dependencies: 1641 1641
--- Name: email_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2390 (class 2606 OID 16448)
+-- Name: email_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY email
@@ -94,9 +89,8 @@ ALTER TABLE ONLY email
 
 
 --
--- TOC entry 1992 (class 2606 OID 99496)
--- Dependencies: 1642 1642
--- Name: emaillist_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2392 (class 2606 OID 16458)
+-- Name: emaillist_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY emaillist
@@ -104,9 +98,8 @@ ALTER TABLE ONLY emaillist
 
 
 --
--- TOC entry 1994 (class 2606 OID 99501)
--- Dependencies: 1643 1643
--- Name: emailsubscribe_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2394 (class 2606 OID 16463)
+-- Name: emailsubscribe_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY emailsubscribe
@@ -114,9 +107,8 @@ ALTER TABLE ONLY emailsubscribe
 
 
 --
--- TOC entry 1996 (class 2606 OID 99509)
--- Dependencies: 1644 1644
--- Name: gadget_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2396 (class 2606 OID 16471)
+-- Name: gadget_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY gadget
@@ -124,9 +116,8 @@ ALTER TABLE ONLY gadget
 
 
 --
--- TOC entry 1998 (class 2606 OID 99517)
--- Dependencies: 1645 1645
--- Name: gadget_properties_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2398 (class 2606 OID 16479)
+-- Name: gadget_properties_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY gadget_properties
@@ -134,9 +125,8 @@ ALTER TABLE ONLY gadget_properties
 
 
 --
--- TOC entry 2002 (class 2606 OID 99533)
--- Dependencies: 1647 1647
--- Name: geopoint_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2402 (class 2606 OID 16495)
+-- Name: geopoint_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY geopoint_folder
@@ -144,9 +134,8 @@ ALTER TABLE ONLY geopoint_folder
 
 
 --
--- TOC entry 2000 (class 2606 OID 99525)
--- Dependencies: 1646 1646
--- Name: geopoint_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2400 (class 2606 OID 16487)
+-- Name: geopoint_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY geopoint
@@ -154,9 +143,8 @@ ALTER TABLE ONLY geopoint
 
 
 --
--- TOC entry 2004 (class 2606 OID 99538)
--- Dependencies: 1648 1648
--- Name: geopoint_type_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2404 (class 2606 OID 16500)
+-- Name: geopoint_type_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY geopoint_type
@@ -164,9 +152,8 @@ ALTER TABLE ONLY geopoint_type
 
 
 --
--- TOC entry 2006 (class 2606 OID 99543)
--- Dependencies: 1649 1649 1649
--- Name: group_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2406 (class 2606 OID 16505)
+-- Name: group_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY group_permission
@@ -174,9 +161,8 @@ ALTER TABLE ONLY group_permission
 
 
 --
--- TOC entry 2010 (class 2606 OID 99556)
--- Dependencies: 1651 1651 1651
--- Name: groups_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2410 (class 2606 OID 16518)
+-- Name: groups_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY groups_permission
@@ -184,9 +170,8 @@ ALTER TABLE ONLY groups_permission
 
 
 --
--- TOC entry 2008 (class 2606 OID 99551)
--- Dependencies: 1650 1650
--- Name: groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2408 (class 2606 OID 16513)
+-- Name: groups_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY groups
@@ -194,9 +179,8 @@ ALTER TABLE ONLY groups
 
 
 --
--- TOC entry 2012 (class 2606 OID 99561)
--- Dependencies: 1652 1652
--- Name: hash_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2412 (class 2606 OID 16523)
+-- Name: hash_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY hash_tags
@@ -204,9 +188,17 @@ ALTER TABLE ONLY hash_tags
 
 
 --
--- TOC entry 2014 (class 2606 OID 99566)
--- Dependencies: 1653 1653
--- Name: hits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2414 (class 2606 OID 16528)
+-- Name: hash_tags_ranking_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+--
+
+ALTER TABLE ONLY hash_tags_ranking
+    ADD CONSTRAINT hash_tags_ranking_pkey PRIMARY KEY (rank_id);
+
+
+--
+-- TOC entry 2416 (class 2606 OID 16533)
+-- Name: hits_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY hits
@@ -214,9 +206,8 @@ ALTER TABLE ONLY hits
 
 
 --
--- TOC entry 2016 (class 2606 OID 99574)
--- Dependencies: 1654 1654
--- Name: notification_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2418 (class 2606 OID 16541)
+-- Name: notification_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY notification
@@ -224,9 +215,8 @@ ALTER TABLE ONLY notification
 
 
 --
--- TOC entry 2018 (class 2606 OID 99582)
--- Dependencies: 1655 1655
--- Name: permission_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2420 (class 2606 OID 16549)
+-- Name: permission_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY permission
@@ -234,9 +224,8 @@ ALTER TABLE ONLY permission
 
 
 --
--- TOC entry 2024 (class 2606 OID 99597)
--- Dependencies: 1657 1657
--- Name: poll_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2426 (class 2606 OID 16564)
+-- Name: poll_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY poll_folder
@@ -244,9 +233,8 @@ ALTER TABLE ONLY poll_folder
 
 
 --
--- TOC entry 2026 (class 2606 OID 99602)
--- Dependencies: 1658 1658 1658
--- Name: poll_hashtags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2428 (class 2606 OID 16569)
+-- Name: poll_hashtags_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY poll_hashtags
@@ -254,9 +242,8 @@ ALTER TABLE ONLY poll_hashtags
 
 
 --
--- TOC entry 2020 (class 2606 OID 99590)
--- Dependencies: 1656 1656
--- Name: poll_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2422 (class 2606 OID 16557)
+-- Name: poll_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY poll
@@ -264,9 +251,8 @@ ALTER TABLE ONLY poll
 
 
 --
--- TOC entry 2022 (class 2606 OID 99592)
--- Dependencies: 1656 1656
--- Name: poll_poll_hash_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2424 (class 2606 OID 16559)
+-- Name: poll_poll_hash_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY poll
@@ -274,9 +260,8 @@ ALTER TABLE ONLY poll
 
 
 --
--- TOC entry 2028 (class 2606 OID 99607)
--- Dependencies: 1659 1659
--- Name: poll_result_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2430 (class 2606 OID 16574)
+-- Name: poll_result_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY poll_result
@@ -284,9 +269,8 @@ ALTER TABLE ONLY poll_result
 
 
 --
--- TOC entry 2032 (class 2606 OID 99620)
--- Dependencies: 1661 1661 1661
--- Name: project_geopoint_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2434 (class 2606 OID 16587)
+-- Name: project_geopoint_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY project_geopoint
@@ -294,9 +278,8 @@ ALTER TABLE ONLY project_geopoint
 
 
 --
--- TOC entry 2034 (class 2606 OID 99625)
--- Dependencies: 1662 1662 1662
--- Name: project_group_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2436 (class 2606 OID 16592)
+-- Name: project_group_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY project_group
@@ -304,9 +287,8 @@ ALTER TABLE ONLY project_group
 
 
 --
--- TOC entry 2036 (class 2606 OID 99630)
--- Dependencies: 1663 1663 1663
--- Name: project_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2438 (class 2606 OID 16597)
+-- Name: project_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY project_locations
@@ -314,9 +296,8 @@ ALTER TABLE ONLY project_locations
 
 
 --
--- TOC entry 2030 (class 2606 OID 99615)
--- Dependencies: 1660 1660
--- Name: project_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2432 (class 2606 OID 16582)
+-- Name: project_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY project
@@ -324,9 +305,8 @@ ALTER TABLE ONLY project
 
 
 --
--- TOC entry 2038 (class 2606 OID 99635)
--- Dependencies: 1664 1664
--- Name: question_category_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2440 (class 2606 OID 16602)
+-- Name: question_category_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY question_category
@@ -334,9 +314,8 @@ ALTER TABLE ONLY question_category
 
 
 --
--- TOC entry 2040 (class 2606 OID 99640)
--- Dependencies: 1665 1665 1665
--- Name: question_category_questions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2442 (class 2606 OID 16607)
+-- Name: question_category_questions_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY question_category_questions
@@ -344,9 +323,8 @@ ALTER TABLE ONLY question_category_questions
 
 
 --
--- TOC entry 2042 (class 2606 OID 99645)
--- Dependencies: 1666 1666
--- Name: question_collection_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2444 (class 2606 OID 16612)
+-- Name: question_collection_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY question_collection
@@ -354,9 +332,8 @@ ALTER TABLE ONLY question_collection
 
 
 --
--- TOC entry 2044 (class 2606 OID 99650)
--- Dependencies: 1667 1667
--- Name: question_dependence_survey_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2446 (class 2606 OID 16617)
+-- Name: question_dependence_survey_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY question_dependence_survey
@@ -364,9 +341,17 @@ ALTER TABLE ONLY question_dependence_survey
 
 
 --
--- TOC entry 2046 (class 2606 OID 99655)
--- Dependencies: 1668 1668 1668
--- Name: question_relations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2448 (class 2606 OID 16625)
+-- Name: question_preferences_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+--
+
+ALTER TABLE ONLY question_preferences
+    ADD CONSTRAINT question_preferences_pkey PRIMARY KEY (preferenceid);
+
+
+--
+-- TOC entry 2450 (class 2606 OID 16630)
+-- Name: question_relations_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY question_relations
@@ -374,9 +359,8 @@ ALTER TABLE ONLY question_relations
 
 
 --
--- TOC entry 2050 (class 2606 OID 99671)
--- Dependencies: 1670 1670
--- Name: questions_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2454 (class 2606 OID 16646)
+-- Name: questions_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY questions_answers
@@ -384,9 +368,8 @@ ALTER TABLE ONLY questions_answers
 
 
 --
--- TOC entry 2052 (class 2606 OID 99678)
--- Dependencies: 1671 1671
--- Name: questions_dependencies_descriptiondependence_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2456 (class 2606 OID 16653)
+-- Name: questions_dependencies_descriptiondependence_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY questions_dependencies
@@ -394,9 +377,8 @@ ALTER TABLE ONLY questions_dependencies
 
 
 --
--- TOC entry 2054 (class 2606 OID 99676)
--- Dependencies: 1671 1671
--- Name: questions_dependencies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2458 (class 2606 OID 16651)
+-- Name: questions_dependencies_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY questions_dependencies
@@ -404,9 +386,8 @@ ALTER TABLE ONLY questions_dependencies
 
 
 --
--- TOC entry 2056 (class 2606 OID 99680)
--- Dependencies: 1671 1671
--- Name: questions_dependencies_questionid_from_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2460 (class 2606 OID 16655)
+-- Name: questions_dependencies_questionid_from_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY questions_dependencies
@@ -414,9 +395,8 @@ ALTER TABLE ONLY questions_dependencies
 
 
 --
--- TOC entry 2058 (class 2606 OID 99682)
--- Dependencies: 1671 1671
--- Name: questions_dependencies_questionid_to_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2462 (class 2606 OID 16657)
+-- Name: questions_dependencies_questionid_to_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY questions_dependencies
@@ -424,19 +404,8 @@ ALTER TABLE ONLY questions_dependencies
 
 
 --
--- TOC entry 2060 (class 2606 OID 99690)
--- Dependencies: 1672 1672
--- Name: questions_pattern_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY questions_pattern
-    ADD CONSTRAINT questions_pattern_pkey PRIMARY KEY (pattenr_id);
-
-
---
--- TOC entry 2048 (class 2606 OID 99663)
--- Dependencies: 1669 1669
--- Name: questions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2452 (class 2606 OID 16638)
+-- Name: questions_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY questions
@@ -444,18 +413,35 @@ ALTER TABLE ONLY questions
 
 
 --
--- TOC entry 2062 (class 2606 OID 99698)
--- Dependencies: 1673 1673
--- Name: social_account_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2464 (class 2606 OID 16662)
+-- Name: scheduled_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+--
+
+ALTER TABLE ONLY scheduled
+    ADD CONSTRAINT scheduled_pkey PRIMARY KEY (publish_scheduled_id);
+
+
+--
+-- TOC entry 2466 (class 2606 OID 16670)
+-- Name: social_account_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY social_account
     ADD CONSTRAINT social_account_pkey PRIMARY KEY (social_account_id);
 
+
 --
--- TOC entry 2068 (class 2606 OID 99707)
--- Dependencies: 1674 1674
--- Name: survey_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2468 (class 2606 OID 16672)
+-- Name: social_account_social_profile_id_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+--
+
+ALTER TABLE ONLY social_account
+    ADD CONSTRAINT social_account_social_profile_id_key UNIQUE (social_profile_id);
+
+
+--
+-- TOC entry 2470 (class 2606 OID 16677)
+-- Name: survey_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY survey_folder
@@ -463,9 +449,8 @@ ALTER TABLE ONLY survey_folder
 
 
 --
--- TOC entry 2070 (class 2606 OID 99712)
--- Dependencies: 1675 1675
--- Name: survey_format_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2472 (class 2606 OID 16682)
+-- Name: survey_format_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY survey_format
@@ -473,9 +458,8 @@ ALTER TABLE ONLY survey_format
 
 
 --
--- TOC entry 2074 (class 2606 OID 99722)
--- Dependencies: 1677 1677 1677
--- Name: survey_group_format_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2476 (class 2606 OID 16692)
+-- Name: survey_group_format_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY survey_group_format
@@ -483,9 +467,8 @@ ALTER TABLE ONLY survey_group_format
 
 
 --
--- TOC entry 2072 (class 2606 OID 99717)
--- Dependencies: 1676 1676
--- Name: survey_group_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2474 (class 2606 OID 16687)
+-- Name: survey_group_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY survey_group
@@ -493,9 +476,8 @@ ALTER TABLE ONLY survey_group
 
 
 --
--- TOC entry 2076 (class 2606 OID 99727)
--- Dependencies: 1678 1678 1678
--- Name: survey_group_project_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2478 (class 2606 OID 16697)
+-- Name: survey_group_project_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY survey_group_project
@@ -503,9 +485,17 @@ ALTER TABLE ONLY survey_group_project
 
 
 --
--- TOC entry 2078 (class 2606 OID 99732)
--- Dependencies: 1679 1679
--- Name: survey_pagination_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2480 (class 2606 OID 16702)
+-- Name: survey_hashtags_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+--
+
+ALTER TABLE ONLY survey_hashtags
+    ADD CONSTRAINT survey_hashtags_pkey PRIMARY KEY (sid, hastag_id);
+
+
+--
+-- TOC entry 2482 (class 2606 OID 16707)
+-- Name: survey_pagination_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY survey_pagination
@@ -513,9 +503,8 @@ ALTER TABLE ONLY survey_pagination
 
 
 --
--- TOC entry 2080 (class 2606 OID 99737)
--- Dependencies: 1680 1680
--- Name: survey_result_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2484 (class 2606 OID 16712)
+-- Name: survey_result_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY survey_result
@@ -523,9 +512,8 @@ ALTER TABLE ONLY survey_result
 
 
 --
--- TOC entry 2082 (class 2606 OID 99742)
--- Dependencies: 1681 1681
--- Name: survey_section_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2486 (class 2606 OID 16720)
+-- Name: survey_section_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY survey_section
@@ -533,9 +521,26 @@ ALTER TABLE ONLY survey_section
 
 
 --
--- TOC entry 2084 (class 2606 OID 99750)
--- Dependencies: 1682 1682
--- Name: surveys_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2488 (class 2606 OID 16730)
+-- Name: survey_temporal_result_hash_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+--
+
+ALTER TABLE ONLY survey_temporal_result
+    ADD CONSTRAINT survey_temporal_result_hash_key UNIQUE (hash);
+
+
+--
+-- TOC entry 2490 (class 2606 OID 16728)
+-- Name: survey_temporal_result_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+--
+
+ALTER TABLE ONLY survey_temporal_result
+    ADD CONSTRAINT survey_temporal_result_pkey PRIMARY KEY (idtempresult);
+
+
+--
+-- TOC entry 2492 (class 2606 OID 16738)
+-- Name: surveys_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY surveys
@@ -543,9 +548,8 @@ ALTER TABLE ONLY surveys
 
 
 --
--- TOC entry 2088 (class 2606 OID 99760)
--- Dependencies: 1684 1684
--- Name: tweetpoll_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2496 (class 2606 OID 16748)
+-- Name: tweetpoll_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY tweetpoll_folder
@@ -553,9 +557,8 @@ ALTER TABLE ONLY tweetpoll_folder
 
 
 --
--- TOC entry 2092 (class 2606 OID 99773)
--- Dependencies: 1686 1686 1686
--- Name: tweetpoll_hashtags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2500 (class 2606 OID 16761)
+-- Name: tweetpoll_hashtags_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY tweetpoll_hashtags
@@ -563,9 +566,8 @@ ALTER TABLE ONLY tweetpoll_hashtags
 
 
 --
--- TOC entry 2086 (class 2606 OID 99755)
--- Dependencies: 1683 1683
--- Name: tweetpoll_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2494 (class 2606 OID 16743)
+-- Name: tweetpoll_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY tweetpoll
@@ -573,9 +575,17 @@ ALTER TABLE ONLY tweetpoll
 
 
 --
--- TOC entry 2094 (class 2606 OID 99778)
--- Dependencies: 1687 1687
--- Name: tweetpoll_result_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2502 (class 2606 OID 16766)
+-- Name: tweetpoll_rate_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+--
+
+ALTER TABLE ONLY tweetpoll_rate
+    ADD CONSTRAINT tweetpoll_rate_pkey PRIMARY KEY (tweetpollrateid);
+
+
+--
+-- TOC entry 2504 (class 2606 OID 16771)
+-- Name: tweetpoll_result_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY tweetpoll_result
@@ -583,9 +593,8 @@ ALTER TABLE ONLY tweetpoll_result
 
 
 --
--- TOC entry 2090 (class 2606 OID 99768)
--- Dependencies: 1685 1685
--- Name: tweetpoll_save_published_status_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2498 (class 2606 OID 16756)
+-- Name: tweetpoll_save_published_status_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY tweetpoll_save_published_status
@@ -593,9 +602,8 @@ ALTER TABLE ONLY tweetpoll_save_published_status
 
 
 --
--- TOC entry 2096 (class 2606 OID 99786)
--- Dependencies: 1688 1688
--- Name: tweetpoll_switch_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2506 (class 2606 OID 16779)
+-- Name: tweetpoll_switch_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY tweetpoll_switch
@@ -603,9 +611,8 @@ ALTER TABLE ONLY tweetpoll_switch
 
 
 --
--- TOC entry 2098 (class 2606 OID 99788)
--- Dependencies: 1688 1688
--- Name: tweetpoll_switch_tweet_code_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2508 (class 2606 OID 16781)
+-- Name: tweetpoll_switch_tweet_code_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY tweetpoll_switch
@@ -613,9 +620,8 @@ ALTER TABLE ONLY tweetpoll_switch
 
 
 --
--- TOC entry 2101 (class 2606 OID 99798)
--- Dependencies: 1689 1689
--- Name: useraccount_email_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2511 (class 2606 OID 16791)
+-- Name: useraccount_email_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY useraccount
@@ -623,9 +629,8 @@ ALTER TABLE ONLY useraccount
 
 
 --
--- TOC entry 2110 (class 2606 OID 99808)
--- Dependencies: 1690 1690 1690
--- Name: useraccount_followers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2520 (class 2606 OID 16800)
+-- Name: useraccount_followers_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY useraccount_followers
@@ -633,9 +638,8 @@ ALTER TABLE ONLY useraccount_followers
 
 
 --
--- TOC entry 2112 (class 2606 OID 99813)
--- Dependencies: 1691 1691 1691
--- Name: useraccount_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2522 (class 2606 OID 16805)
+-- Name: useraccount_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY useraccount_permission
@@ -643,9 +647,8 @@ ALTER TABLE ONLY useraccount_permission
 
 
 --
--- TOC entry 2103 (class 2606 OID 99796)
--- Dependencies: 1689 1689
--- Name: useraccount_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2513 (class 2606 OID 16789)
+-- Name: useraccount_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY useraccount
@@ -653,9 +656,8 @@ ALTER TABLE ONLY useraccount
 
 
 --
--- TOC entry 2114 (class 2606 OID 99818)
--- Dependencies: 1692 1692 1692
--- Name: useraccount_project_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2524 (class 2606 OID 16810)
+-- Name: useraccount_project_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY useraccount_project
@@ -663,9 +665,17 @@ ALTER TABLE ONLY useraccount_project
 
 
 --
--- TOC entry 2105 (class 2606 OID 99800)
--- Dependencies: 1689 1689
--- Name: useraccount_username_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2515 (class 2606 OID 16795)
+-- Name: useraccount_username_email_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+--
+
+ALTER TABLE ONLY useraccount
+    ADD CONSTRAINT useraccount_username_email_key UNIQUE (username, email);
+
+
+--
+-- TOC entry 2517 (class 2606 OID 16793)
+-- Name: useraccount_username_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
 --
 
 ALTER TABLE ONLY useraccount
@@ -673,20 +683,8 @@ ALTER TABLE ONLY useraccount
 
 
 --
--- TOC entry 2107 (class 2606 OID 99802)
--- Dependencies: 1689 1689 1689
--- Name: useraccount_username_key1; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY useraccount
-    ADD CONSTRAINT useraccount_username_key1 UNIQUE (username, email);
-
-
-
---
--- TOC entry 2177 (class 2606 OID 100129)
--- Dependencies: 2041 1668 1666
--- Name: fk217954de893521da; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2589 (class 2606 OID 17131)
+-- Name: fk217954de893521da; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY question_relations
@@ -694,9 +692,8 @@ ALTER TABLE ONLY question_relations
 
 
 --
--- TOC entry 2178 (class 2606 OID 100134)
--- Dependencies: 1668 2047 1669
--- Name: fk217954de8a76a0bd; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2590 (class 2606 OID 17136)
+-- Name: fk217954de8a76a0bd; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY question_relations
@@ -704,9 +701,8 @@ ALTER TABLE ONLY question_relations
 
 
 --
--- TOC entry 2153 (class 2606 OID 100009)
--- Dependencies: 1973 1654 1634
--- Name: fk237a88eb2b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2565 (class 2606 OID 17011)
+-- Name: fk237a88eb2b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY notification
@@ -714,9 +710,8 @@ ALTER TABLE ONLY notification
 
 
 --
--- TOC entry 2172 (class 2606 OID 100104)
--- Dependencies: 1663 1646 1999
--- Name: fk242951b835313189; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2583 (class 2606 OID 17101)
+-- Name: fk242951b835313189; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY project_locations
@@ -724,9 +719,8 @@ ALTER TABLE ONLY project_locations
 
 
 --
--- TOC entry 2171 (class 2606 OID 100099)
--- Dependencies: 1660 2029 1663
--- Name: fk242951b884536452; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2582 (class 2606 OID 17096)
+-- Name: fk242951b884536452; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY project_locations
@@ -734,9 +728,8 @@ ALTER TABLE ONLY project_locations
 
 
 --
--- TOC entry 2168 (class 2606 OID 100084)
--- Dependencies: 1661 1646 1999
--- Name: fk2599132535313189; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2579 (class 2606 OID 17081)
+-- Name: fk2599132535313189; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY project_geopoint
@@ -744,9 +737,8 @@ ALTER TABLE ONLY project_geopoint
 
 
 --
--- TOC entry 2167 (class 2606 OID 100079)
--- Dependencies: 1661 1660 2029
--- Name: fk2599132584536452; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2578 (class 2606 OID 17076)
+-- Name: fk2599132584536452; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY project_geopoint
@@ -754,9 +746,8 @@ ALTER TABLE ONLY project_geopoint
 
 
 --
--- TOC entry 2174 (class 2606 OID 100114)
--- Dependencies: 2047 1665 1669
--- Name: fk2ffe18457a068cb; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2585 (class 2606 OID 17111)
+-- Name: fk2ffe18457a068cb; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY question_category_questions
@@ -764,9 +755,8 @@ ALTER TABLE ONLY question_category_questions
 
 
 --
--- TOC entry 2173 (class 2606 OID 100109)
--- Dependencies: 2037 1665 1664
--- Name: fk2ffe1845b10e79be; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2584 (class 2606 OID 17106)
+-- Name: fk2ffe1845b10e79be; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY question_category_questions
@@ -774,9 +764,8 @@ ALTER TABLE ONLY question_category_questions
 
 
 --
--- TOC entry 2149 (class 2606 OID 99989)
--- Dependencies: 1653 2011 1652
--- Name: fk30df4019aa125; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2561 (class 2606 OID 16991)
+-- Name: fk30df4019aa125; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY hits
@@ -784,9 +773,17 @@ ALTER TABLE ONLY hits
 
 
 --
--- TOC entry 2151 (class 2606 OID 99999)
--- Dependencies: 1682 1653 2083
--- Name: fk30df4051153812; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2560 (class 2606 OID 16986)
+-- Name: fk30df40369f8b2c; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY hits
+    ADD CONSTRAINT fk30df40369f8b2c FOREIGN KEY (useraccount_uid) REFERENCES useraccount(uid);
+
+
+--
+-- TOC entry 2563 (class 2606 OID 17001)
+-- Name: fk30df4051153812; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY hits
@@ -794,9 +791,8 @@ ALTER TABLE ONLY hits
 
 
 --
--- TOC entry 2150 (class 2606 OID 99994)
--- Dependencies: 1653 2019 1656
--- Name: fk30df4063976e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2562 (class 2606 OID 16996)
+-- Name: fk30df4063976e9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY hits
@@ -804,21 +800,17 @@ ALTER TABLE ONLY hits
 
 
 --
--- TOC entry 2152 (class 2606 OID 100004)
--- Dependencies: 1653 2085 1683
--- Name: fk30df40953c854b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2564 (class 2606 OID 17006)
+-- Name: fk30df40953c854b; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY hits
     ADD CONSTRAINT fk30df40953c854b FOREIGN KEY (tweetpoll_tweet_poll_id) REFERENCES tweetpoll(tweet_poll_id);
 
 
-ALTER TABLE ONLY hits
-    ADD CONSTRAINT FK30DF40369F8B2C FOREIGN KEY (userAccount_uid) REFERENCES userAccount(uid);
 --
--- TOC entry 2155 (class 2606 OID 100019)
--- Dependencies: 1669 1656 2047
--- Name: fk3497bf50fe71f5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2567 (class 2606 OID 17021)
+-- Name: fk3497bf50fe71f5; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY poll
@@ -826,9 +818,8 @@ ALTER TABLE ONLY poll
 
 
 --
--- TOC entry 2154 (class 2606 OID 100014)
--- Dependencies: 1657 2023 1656
--- Name: fk3497bf89452cca; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2566 (class 2606 OID 17016)
+-- Name: fk3497bf89452cca; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY poll
@@ -836,9 +827,8 @@ ALTER TABLE ONLY poll
 
 
 --
--- TOC entry 2157 (class 2606 OID 100029)
--- Dependencies: 1656 1973 1634
--- Name: fk3497bf8e4a448b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2569 (class 2606 OID 17031)
+-- Name: fk3497bf8e4a448b; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY poll
@@ -846,9 +836,8 @@ ALTER TABLE ONLY poll
 
 
 --
--- TOC entry 2156 (class 2606 OID 100024)
--- Dependencies: 1689 2102 1656
--- Name: fk3497bfa64fb606; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2568 (class 2606 OID 17026)
+-- Name: fk3497bfa64fb606; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY poll
@@ -856,9 +845,8 @@ ALTER TABLE ONLY poll
 
 
 --
--- TOC entry 2145 (class 2606 OID 99969)
--- Dependencies: 1649 1655 2017
--- Name: fk362e6f8f43adb63d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2555 (class 2606 OID 16961)
+-- Name: fk362e6f8f43adb63d; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY group_permission
@@ -866,9 +854,8 @@ ALTER TABLE ONLY group_permission
 
 
 --
--- TOC entry 2144 (class 2606 OID 99964)
--- Dependencies: 2007 1649 1650
--- Name: fk362e6f8f45895aff; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2554 (class 2606 OID 16956)
+-- Name: fk362e6f8f45895aff; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY group_permission
@@ -876,9 +863,8 @@ ALTER TABLE ONLY group_permission
 
 
 --
--- TOC entry 2133 (class 2606 OID 99909)
--- Dependencies: 1643 1641 1989
--- Name: fk4b85010ee824035; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2543 (class 2606 OID 16901)
+-- Name: fk4b85010ee824035; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY emailsubscribe
@@ -886,9 +872,8 @@ ALTER TABLE ONLY emailsubscribe
 
 
 --
--- TOC entry 2132 (class 2606 OID 99904)
--- Dependencies: 1643 1642 1991
--- Name: fk4b85010eed78e617; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2542 (class 2606 OID 16896)
+-- Name: fk4b85010eed78e617; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY emailsubscribe
@@ -896,9 +881,8 @@ ALTER TABLE ONLY emailsubscribe
 
 
 --
--- TOC entry 2184 (class 2606 OID 100164)
--- Dependencies: 1973 1673 1634
--- Name: fk50078b5b5ece45a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2600 (class 2606 OID 17186)
+-- Name: fk50078b5b5ece45a2; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY social_account
@@ -906,9 +890,8 @@ ALTER TABLE ONLY social_account
 
 
 --
--- TOC entry 2185 (class 2606 OID 100169)
--- Dependencies: 1689 2102 1673
--- Name: fk50078b5bf2f411f2; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2601 (class 2606 OID 17191)
+-- Name: fk50078b5bf2f411f2; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY social_account
@@ -916,9 +899,8 @@ ALTER TABLE ONLY social_account
 
 
 --
--- TOC entry 2143 (class 2606 OID 99959)
--- Dependencies: 1634 1648 1973
--- Name: fk514326ba4075e3fd; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2553 (class 2606 OID 16951)
+-- Name: fk514326ba4075e3fd; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY geopoint_type
@@ -926,9 +908,8 @@ ALTER TABLE ONLY geopoint_type
 
 
 --
--- TOC entry 2182 (class 2606 OID 100154)
--- Dependencies: 2047 1669 1670
--- Name: fk539703837e6c7bbc; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2593 (class 2606 OID 17151)
+-- Name: fk539703837e6c7bbc; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY questions_answers
@@ -936,9 +917,8 @@ ALTER TABLE ONLY questions_answers
 
 
 --
--- TOC entry 2130 (class 2606 OID 99894)
--- Dependencies: 1642 1641 1991
--- Name: fk5c24b9ced78e617; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2540 (class 2606 OID 16886)
+-- Name: fk5c24b9ced78e617; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY email
@@ -946,9 +926,8 @@ ALTER TABLE ONLY email
 
 
 --
--- TOC entry 2120 (class 2606 OID 99844)
--- Dependencies: 1635 1634 1973
--- Name: fk5ca405505ece45a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2530 (class 2606 OID 16836)
+-- Name: fk5ca405505ece45a2; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY application
@@ -956,9 +935,8 @@ ALTER TABLE ONLY application
 
 
 --
--- TOC entry 2139 (class 2606 OID 99939)
--- Dependencies: 1647 1646 2001
--- Name: fk6c73c0bf34ef9a43; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2549 (class 2606 OID 16931)
+-- Name: fk6c73c0bf34ef9a43; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY geopoint
@@ -966,9 +944,8 @@ ALTER TABLE ONLY geopoint
 
 
 --
--- TOC entry 2138 (class 2606 OID 99934)
--- Dependencies: 1646 1634 1973
--- Name: fk6c73c0bf5ece45a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2548 (class 2606 OID 16926)
+-- Name: fk6c73c0bf5ece45a2; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY geopoint
@@ -976,9 +953,8 @@ ALTER TABLE ONLY geopoint
 
 
 --
--- TOC entry 2137 (class 2606 OID 99929)
--- Dependencies: 1646 2003 1648
--- Name: fk6c73c0bfbd91661d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2547 (class 2606 OID 16921)
+-- Name: fk6c73c0bfbd91661d; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY geopoint
@@ -986,9 +962,17 @@ ALTER TABLE ONLY geopoint
 
 
 --
--- TOC entry 2121 (class 2606 OID 99849)
--- Dependencies: 2102 1689 1636
--- Name: fk73d5d2d27e933d7; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2559 (class 2606 OID 16981)
+-- Name: fk71decda119aa125; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY hash_tags_ranking
+    ADD CONSTRAINT fk71decda119aa125 FOREIGN KEY (hashtag_hash_tag_id) REFERENCES hash_tags(hash_tag_id);
+
+
+--
+-- TOC entry 2531 (class 2606 OID 16841)
+-- Name: fk73d5d2d27e933d7; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY application_connection
@@ -996,9 +980,8 @@ ALTER TABLE ONLY application_connection
 
 
 --
--- TOC entry 2122 (class 2606 OID 99854)
--- Dependencies: 1975 1636 1635
--- Name: fk73d5d2d4402be26; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2532 (class 2606 OID 16846)
+-- Name: fk73d5d2d4402be26; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY application_connection
@@ -1006,9 +989,35 @@ ALTER TABLE ONLY application_connection
 
 
 --
--- TOC entry 2131 (class 2606 OID 99899)
--- Dependencies: 1634 1642 1973
--- Name: fk7e5f425a2b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2616 (class 2606 OID 17266)
+-- Name: fk7867cf546bf7a1c; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY survey_temporal_result
+    ADD CONSTRAINT fk7867cf546bf7a1c FOREIGN KEY (question_qid) REFERENCES questions(qid);
+
+
+--
+-- TOC entry 2617 (class 2606 OID 17271)
+-- Name: fk7867cf5496009b4; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY survey_temporal_result
+    ADD CONSTRAINT fk7867cf5496009b4 FOREIGN KEY (answer_q_answer_id) REFERENCES questions_answers(q_answer_id);
+
+
+--
+-- TOC entry 2618 (class 2606 OID 17276)
+-- Name: fk7867cf551153812; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY survey_temporal_result
+    ADD CONSTRAINT fk7867cf551153812 FOREIGN KEY (survey_sid) REFERENCES surveys(sid);
+
+
+--
+-- TOC entry 2541 (class 2606 OID 16891)
+-- Name: fk7e5f425a2b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY emaillist
@@ -1016,9 +1025,8 @@ ALTER TABLE ONLY emaillist
 
 
 --
--- TOC entry 2186 (class 2606 OID 100174)
--- Dependencies: 1634 1674 1973
--- Name: fk7ef958f32b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2602 (class 2606 OID 17196)
+-- Name: fk7ef958f32b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY survey_folder
@@ -1026,9 +1034,8 @@ ALTER TABLE ONLY survey_folder
 
 
 --
--- TOC entry 2187 (class 2606 OID 100179)
--- Dependencies: 1674 2102 1689
--- Name: fk7ef958f36ef241e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2603 (class 2606 OID 17201)
+-- Name: fk7ef958f36ef241e9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY survey_folder
@@ -1036,9 +1043,8 @@ ALTER TABLE ONLY survey_folder
 
 
 --
--- TOC entry 2148 (class 2606 OID 99984)
--- Dependencies: 2017 1655 1651
--- Name: fk7f1951a43adb63d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2558 (class 2606 OID 16976)
+-- Name: fk7f1951a43adb63d; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY groups_permission
@@ -1046,9 +1052,8 @@ ALTER TABLE ONLY groups_permission
 
 
 --
--- TOC entry 2147 (class 2606 OID 99979)
--- Dependencies: 2007 1650 1651
--- Name: fk7f1951a45895aff; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2557 (class 2606 OID 16971)
+-- Name: fk7f1951a45895aff; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY groups_permission
@@ -1056,9 +1061,8 @@ ALTER TABLE ONLY groups_permission
 
 
 --
--- TOC entry 2220 (class 2606 OID 100346)
--- Dependencies: 2102 1689 1690
--- Name: fk7f1957f8e53fbc6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2643 (class 2606 OID 17403)
+-- Name: fk7f1957f8e53fbc6; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY useraccount_followers
@@ -1066,9 +1070,8 @@ ALTER TABLE ONLY useraccount_followers
 
 
 --
--- TOC entry 2219 (class 2606 OID 100341)
--- Dependencies: 1690 2102 1689
--- Name: fk7f1957f8f44558e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2642 (class 2606 OID 17398)
+-- Name: fk7f1957f8f44558e9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY useraccount_followers
@@ -1076,9 +1079,8 @@ ALTER TABLE ONLY useraccount_followers
 
 
 --
--- TOC entry 2136 (class 2606 OID 99924)
--- Dependencies: 1995 1645 1644
--- Name: fk866b670629091b05; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2546 (class 2606 OID 16916)
+-- Name: fk866b670629091b05; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY gadget_properties
@@ -1086,9 +1088,8 @@ ALTER TABLE ONLY gadget_properties
 
 
 --
--- TOC entry 2135 (class 2606 OID 99919)
--- Dependencies: 1645 1689 2102
--- Name: fk866b6706369f8b2c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2545 (class 2606 OID 16911)
+-- Name: fk866b6706369f8b2c; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY gadget_properties
@@ -1096,9 +1097,8 @@ ALTER TABLE ONLY gadget_properties
 
 
 --
--- TOC entry 2214 (class 2606 OID 100314)
--- Dependencies: 1688 2095 1687
--- Name: fk8749c18cb9d39f98; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2637 (class 2606 OID 17371)
+-- Name: fk8749c18cb9d39f98; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll_result
@@ -1106,9 +1106,8 @@ ALTER TABLE ONLY tweetpoll_result
 
 
 --
--- TOC entry 2215 (class 2606 OID 100319)
--- Dependencies: 1683 1688 2085
--- Name: fk89f7b0a3550299a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2638 (class 2606 OID 17376)
+-- Name: fk89f7b0a3550299a; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll_switch
@@ -1116,9 +1115,8 @@ ALTER TABLE ONLY tweetpoll_switch
 
 
 --
--- TOC entry 2216 (class 2606 OID 100324)
--- Dependencies: 1688 2049 1670
--- Name: fk89f7b0a3ddd118b5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2639 (class 2606 OID 17381)
+-- Name: fk89f7b0a3ddd118b5; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll_switch
@@ -1126,9 +1124,8 @@ ALTER TABLE ONLY tweetpoll_switch
 
 
 --
--- TOC entry 2123 (class 2606 OID 99859)
--- Dependencies: 2029 1637 1660
--- Name: fk8af75923225a055; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2533 (class 2606 OID 16851)
+-- Name: fk8af75923225a055; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY attachment
@@ -1136,9 +1133,8 @@ ALTER TABLE ONLY attachment
 
 
 --
--- TOC entry 2199 (class 2606 OID 100239)
--- Dependencies: 1660 1682 2029
--- Name: fk9191445973ff13b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2620 (class 2606 OID 17286)
+-- Name: fk9191445973ff13b; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY surveys
@@ -1146,9 +1142,8 @@ ALTER TABLE ONLY surveys
 
 
 --
--- TOC entry 2201 (class 2606 OID 100249)
--- Dependencies: 1682 1634 1973
--- Name: fk919144598e4a448b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2622 (class 2606 OID 17296)
+-- Name: fk919144598e4a448b; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY surveys
@@ -1156,9 +1151,8 @@ ALTER TABLE ONLY surveys
 
 
 --
--- TOC entry 2198 (class 2606 OID 100234)
--- Dependencies: 2067 1682 1674
--- Name: fk91914459a3c7a06a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2619 (class 2606 OID 17281)
+-- Name: fk91914459a3c7a06a; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY surveys
@@ -1166,9 +1160,8 @@ ALTER TABLE ONLY surveys
 
 
 --
--- TOC entry 2200 (class 2606 OID 100244)
--- Dependencies: 1689 2102 1682
--- Name: fk91914459a64fb606; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2621 (class 2606 OID 17291)
+-- Name: fk91914459a64fb606; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY surveys
@@ -1176,9 +1169,8 @@ ALTER TABLE ONLY surveys
 
 
 --
--- TOC entry 2183 (class 2606 OID 100159)
--- Dependencies: 2049 1671 1670
--- Name: fk92e86adbddd118b5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2594 (class 2606 OID 17156)
+-- Name: fk92e86adbddd118b5; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY questions_dependencies
@@ -1186,9 +1178,8 @@ ALTER TABLE ONLY questions_dependencies
 
 
 --
--- TOC entry 2194 (class 2606 OID 100214)
--- Dependencies: 2047 1680 1669
--- Name: fk92ea04a246bf7a1c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2612 (class 2606 OID 17246)
+-- Name: fk92ea04a246bf7a1c; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY survey_result
@@ -1196,9 +1187,8 @@ ALTER TABLE ONLY survey_result
 
 
 --
--- TOC entry 2195 (class 2606 OID 100219)
--- Dependencies: 2049 1670 1680
--- Name: fk92ea04a2496009b4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2613 (class 2606 OID 17251)
+-- Name: fk92ea04a2496009b4; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY survey_result
@@ -1206,9 +1196,8 @@ ALTER TABLE ONLY survey_result
 
 
 --
--- TOC entry 2196 (class 2606 OID 100224)
--- Dependencies: 2083 1682 1680
--- Name: fk92ea04a251153812; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2614 (class 2606 OID 17256)
+-- Name: fk92ea04a251153812; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY survey_result
@@ -1216,9 +1205,8 @@ ALTER TABLE ONLY survey_result
 
 
 --
--- TOC entry 2179 (class 2606 OID 100139)
--- Dependencies: 1634 1669 1973
--- Name: fk95c5414d2b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2591 (class 2606 OID 17141)
+-- Name: fk95c5414d2b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY questions
@@ -1226,18 +1214,17 @@ ALTER TABLE ONLY questions
 
 
 --
--- TOC entry 2180 (class 2606 OID 100144)
--- Dependencies: 1681 2081 1669
--- Name: fk95c5414d39e97991; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2592 (class 2606 OID 17146)
+-- Name: fk95c5414d39e97991; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY questions
     ADD CONSTRAINT fk95c5414d39e97991 FOREIGN KEY (section_ssid) REFERENCES survey_section(ssid);
 
+
 --
--- TOC entry 2160 (class 2606 OID 100044)
--- Dependencies: 1652 2011 1658
--- Name: fk9d199ea7da98ffe1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2572 (class 2606 OID 17046)
+-- Name: fk9d199ea7da98ffe1; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY poll_hashtags
@@ -1245,9 +1232,8 @@ ALTER TABLE ONLY poll_hashtags
 
 
 --
--- TOC entry 2161 (class 2606 OID 100049)
--- Dependencies: 1656 1658 2019
--- Name: fk9d199ea7f0ed6769; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2573 (class 2606 OID 17051)
+-- Name: fk9d199ea7f0ed6769; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY poll_hashtags
@@ -1255,9 +1241,26 @@ ALTER TABLE ONLY poll_hashtags
 
 
 --
--- TOC entry 2206 (class 2606 OID 100274)
--- Dependencies: 1634 1684 1973
--- Name: fka027a9dd2b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2608 (class 2606 OID 17226)
+-- Name: fk9d62ed6c793d9e77; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY survey_hashtags
+    ADD CONSTRAINT fk9d62ed6c793d9e77 FOREIGN KEY (sid) REFERENCES surveys(sid);
+
+
+--
+-- TOC entry 2609 (class 2606 OID 17231)
+-- Name: fk9d62ed6cda98ffe1; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY survey_hashtags
+    ADD CONSTRAINT fk9d62ed6cda98ffe1 FOREIGN KEY (hastag_id) REFERENCES hash_tags(hash_tag_id);
+
+
+--
+-- TOC entry 2627 (class 2606 OID 17321)
+-- Name: fka027a9dd2b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll_folder
@@ -1265,9 +1268,8 @@ ALTER TABLE ONLY tweetpoll_folder
 
 
 --
--- TOC entry 2207 (class 2606 OID 100279)
--- Dependencies: 1684 1689 2102
--- Name: fka027a9dd6ef241e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2628 (class 2606 OID 17326)
+-- Name: fka027a9dd6ef241e9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll_folder
@@ -1275,9 +1277,8 @@ ALTER TABLE ONLY tweetpoll_folder
 
 
 --
--- TOC entry 2202 (class 2606 OID 100254)
--- Dependencies: 1683 1973 1634
--- Name: fka65b1d02b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2623 (class 2606 OID 17301)
+-- Name: fka65b1d02b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll
@@ -1285,9 +1286,8 @@ ALTER TABLE ONLY tweetpoll
 
 
 --
--- TOC entry 2204 (class 2606 OID 100264)
--- Dependencies: 2047 1669 1683
--- Name: fka65b1d050fe71f5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2625 (class 2606 OID 17311)
+-- Name: fka65b1d050fe71f5; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll
@@ -1295,9 +1295,8 @@ ALTER TABLE ONLY tweetpoll
 
 
 --
--- TOC entry 2205 (class 2606 OID 100269)
--- Dependencies: 1683 2102 1689
--- Name: fka65b1d0a64fb606; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2626 (class 2606 OID 17316)
+-- Name: fka65b1d0a64fb606; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll
@@ -1305,9 +1304,8 @@ ALTER TABLE ONLY tweetpoll
 
 
 --
--- TOC entry 2203 (class 2606 OID 100259)
--- Dependencies: 1683 2087 1684
--- Name: fka65b1d0d9ba7e54; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2624 (class 2606 OID 17306)
+-- Name: fka65b1d0d9ba7e54; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll
@@ -1315,9 +1313,26 @@ ALTER TABLE ONLY tweetpoll
 
 
 --
--- TOC entry 2217 (class 2606 OID 100329)
--- Dependencies: 1689 1973 1634
--- Name: fka7d56be25ece45a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2636 (class 2606 OID 17366)
+-- Name: fka76ed60f953c854b; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY tweetpoll_rate
+    ADD CONSTRAINT fka76ed60f953c854b FOREIGN KEY (tweetpoll_tweet_poll_id) REFERENCES tweetpoll(tweet_poll_id);
+
+
+--
+-- TOC entry 2635 (class 2606 OID 17361)
+-- Name: fka76ed60fe4669675; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY tweetpoll_rate
+    ADD CONSTRAINT fka76ed60fe4669675 FOREIGN KEY (user_uid) REFERENCES useraccount(uid);
+
+
+--
+-- TOC entry 2640 (class 2606 OID 17386)
+-- Name: fka7d56be25ece45a2; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY useraccount
@@ -1325,9 +1340,8 @@ ALTER TABLE ONLY useraccount
 
 
 --
--- TOC entry 2218 (class 2606 OID 100334)
--- Dependencies: 1689 1650 2007
--- Name: fka7d56be2b8eb1450; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2641 (class 2606 OID 17391)
+-- Name: fka7d56be2b8eb1450; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY useraccount
@@ -1335,9 +1349,8 @@ ALTER TABLE ONLY useraccount
 
 
 --
--- TOC entry 2124 (class 2606 OID 99864)
--- Dependencies: 1638 1660 2029
--- Name: fkaf12f3cb225a055; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2534 (class 2606 OID 16856)
+-- Name: fkaf12f3cb225a055; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY client
@@ -1345,9 +1358,8 @@ ALTER TABLE ONLY client
 
 
 --
--- TOC entry 2175 (class 2606 OID 100119)
--- Dependencies: 1634 1666 1973
--- Name: fkb4097c972b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2586 (class 2606 OID 17116)
+-- Name: fkb4097c972b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY question_collection
@@ -1355,9 +1367,8 @@ ALTER TABLE ONLY question_collection
 
 
 --
--- TOC entry 2188 (class 2606 OID 100184)
--- Dependencies: 1676 2071 1677
--- Name: fkb4df867c310e993c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2604 (class 2606 OID 17206)
+-- Name: fkb4df867c310e993c; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY survey_group_format
@@ -1365,9 +1376,8 @@ ALTER TABLE ONLY survey_group_format
 
 
 --
--- TOC entry 2189 (class 2606 OID 100189)
--- Dependencies: 2069 1675 1677
--- Name: fkb4df867cb1a6912c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2605 (class 2606 OID 17211)
+-- Name: fkb4df867cb1a6912c; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY survey_group_format
@@ -1375,9 +1385,8 @@ ALTER TABLE ONLY survey_group_format
 
 
 --
--- TOC entry 2134 (class 2606 OID 99914)
--- Dependencies: 1644 1640 1985
--- Name: fkb549144cb975b5f9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2544 (class 2606 OID 16906)
+-- Name: fkb549144cb975b5f9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY gadget
@@ -1385,9 +1394,8 @@ ALTER TABLE ONLY gadget
 
 
 --
--- TOC entry 2146 (class 2606 OID 99974)
--- Dependencies: 1973 1650 1634
--- Name: fkb63dd9d45ece45a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2556 (class 2606 OID 16966)
+-- Name: fkb63dd9d45ece45a2; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY groups
@@ -1395,9 +1403,8 @@ ALTER TABLE ONLY groups
 
 
 --
--- TOC entry 2176 (class 2606 OID 100124)
--- Dependencies: 2083 1682 1667
--- Name: fkbb424d49793d9e77; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2587 (class 2606 OID 17121)
+-- Name: fkbb424d49793d9e77; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY question_dependence_survey
@@ -1405,9 +1412,8 @@ ALTER TABLE ONLY question_dependence_survey
 
 
 --
--- TOC entry 2221 (class 2606 OID 100351)
--- Dependencies: 1691 2017 1655
--- Name: fkbe01ce4c43adb63d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2644 (class 2606 OID 17408)
+-- Name: fkbe01ce4c43adb63d; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY useraccount_permission
@@ -1415,9 +1421,8 @@ ALTER TABLE ONLY useraccount_permission
 
 
 --
--- TOC entry 2222 (class 2606 OID 100356)
--- Dependencies: 1691 1689 2102
--- Name: fkbe01ce4c5f77a117; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2645 (class 2606 OID 17413)
+-- Name: fkbe01ce4c5f77a117; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY useraccount_permission
@@ -1425,9 +1430,8 @@ ALTER TABLE ONLY useraccount_permission
 
 
 --
--- TOC entry 2193 (class 2606 OID 100209)
--- Dependencies: 1679 1681 2081
--- Name: fkbec9a99f1359b877; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2611 (class 2606 OID 17241)
+-- Name: fkbec9a99f1359b877; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY survey_pagination
@@ -1435,9 +1439,8 @@ ALTER TABLE ONLY survey_pagination
 
 
 --
--- TOC entry 2192 (class 2606 OID 100204)
--- Dependencies: 1682 2083 1679
--- Name: fkbec9a99f793d9e77; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2610 (class 2606 OID 17236)
+-- Name: fkbec9a99f793d9e77; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY survey_pagination
@@ -1445,9 +1448,8 @@ ALTER TABLE ONLY survey_pagination
 
 
 --
--- TOC entry 2129 (class 2606 OID 99889)
--- Dependencies: 2102 1640 1689
--- Name: fkc18aea949229bca5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2539 (class 2606 OID 16881)
+-- Name: fkc18aea949229bca5; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY dashboard
@@ -1455,9 +1457,8 @@ ALTER TABLE ONLY dashboard
 
 
 --
--- TOC entry 2118 (class 2606 OID 99834)
--- Dependencies: 2083 1633 1682
--- Name: fkc2760edb51153812; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2528 (class 2606 OID 16826)
+-- Name: fkc2760edb51153812; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY access_rate
@@ -1465,9 +1466,8 @@ ALTER TABLE ONLY access_rate
 
 
 --
--- TOC entry 2115 (class 2606 OID 99819)
--- Dependencies: 1983 1639 1633
--- Name: fkc2760edb546d76c9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2525 (class 2606 OID 16811)
+-- Name: fkc2760edb546d76c9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY access_rate
@@ -1475,9 +1475,8 @@ ALTER TABLE ONLY access_rate
 
 
 --
--- TOC entry 2116 (class 2606 OID 99824)
--- Dependencies: 1656 2019 1633
--- Name: fkc2760edb63976e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2526 (class 2606 OID 16816)
+-- Name: fkc2760edb63976e9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY access_rate
@@ -1485,9 +1484,8 @@ ALTER TABLE ONLY access_rate
 
 
 --
--- TOC entry 2119 (class 2606 OID 99839)
--- Dependencies: 2085 1683 1633
--- Name: fkc2760edb953c854b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2529 (class 2606 OID 16831)
+-- Name: fkc2760edb953c854b; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY access_rate
@@ -1495,9 +1493,8 @@ ALTER TABLE ONLY access_rate
 
 
 --
--- TOC entry 2117 (class 2606 OID 99829)
--- Dependencies: 1689 2102 1633
--- Name: fkc2760edbe4669675; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2527 (class 2606 OID 16821)
+-- Name: fkc2760edbe4669675; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY access_rate
@@ -1505,9 +1502,8 @@ ALTER TABLE ONLY access_rate
 
 
 --
--- TOC entry 2158 (class 2606 OID 100034)
--- Dependencies: 1634 1657 1973
--- Name: fkc5911cee2b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2570 (class 2606 OID 17036)
+-- Name: fkc5911cee2b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY poll_folder
@@ -1515,9 +1511,8 @@ ALTER TABLE ONLY poll_folder
 
 
 --
--- TOC entry 2159 (class 2606 OID 100039)
--- Dependencies: 2102 1689 1657
--- Name: fkc5911cee6ef241e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2571 (class 2606 OID 17041)
+-- Name: fkc5911cee6ef241e9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY poll_folder
@@ -1525,9 +1520,8 @@ ALTER TABLE ONLY poll_folder
 
 
 --
--- TOC entry 2169 (class 2606 OID 100089)
--- Dependencies: 2007 1650 1662
--- Name: fkc7652dd945895aff; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2580 (class 2606 OID 17086)
+-- Name: fkc7652dd945895aff; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY project_group
@@ -1535,9 +1529,8 @@ ALTER TABLE ONLY project_group
 
 
 --
--- TOC entry 2170 (class 2606 OID 100094)
--- Dependencies: 2029 1660 1662
--- Name: fkc7652dd984536452; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2581 (class 2606 OID 17091)
+-- Name: fkc7652dd984536452; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY project_group
@@ -1545,9 +1538,8 @@ ALTER TABLE ONLY project_group
 
 
 --
--- TOC entry 2210 (class 2606 OID 100294)
--- Dependencies: 1685 1682 2083
--- Name: fkd499a4b651153812; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2631 (class 2606 OID 17341)
+-- Name: fkd499a4b651153812; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll_save_published_status
@@ -1555,9 +1547,8 @@ ALTER TABLE ONLY tweetpoll_save_published_status
 
 
 --
--- TOC entry 2208 (class 2606 OID 100284)
--- Dependencies: 1685 2061 1673
--- Name: fkd499a4b65239d117; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2629 (class 2606 OID 17331)
+-- Name: fkd499a4b65239d117; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll_save_published_status
@@ -1565,9 +1556,8 @@ ALTER TABLE ONLY tweetpoll_save_published_status
 
 
 --
--- TOC entry 2209 (class 2606 OID 100289)
--- Dependencies: 1656 2019 1685
--- Name: fkd499a4b663976e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2630 (class 2606 OID 17336)
+-- Name: fkd499a4b663976e9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll_save_published_status
@@ -1575,9 +1565,8 @@ ALTER TABLE ONLY tweetpoll_save_published_status
 
 
 --
--- TOC entry 2211 (class 2606 OID 100299)
--- Dependencies: 1685 2085 1683
--- Name: fkd499a4b6953c854b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2632 (class 2606 OID 17346)
+-- Name: fkd499a4b6953c854b; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll_save_published_status
@@ -1585,9 +1574,17 @@ ALTER TABLE ONLY tweetpoll_save_published_status
 
 
 --
--- TOC entry 2163 (class 2606 OID 100059)
--- Dependencies: 1670 2049 1659
--- Name: fkd981c89dddd118b5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2588 (class 2606 OID 17126)
+-- Name: fkd540d01f46bf7a1c; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY question_preferences
+    ADD CONSTRAINT fkd540d01f46bf7a1c FOREIGN KEY (question_qid) REFERENCES questions(qid);
+
+
+--
+-- TOC entry 2574 (class 2606 OID 17056)
+-- Name: fkd981c89dddd118b5; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY poll_result
@@ -1595,9 +1592,8 @@ ALTER TABLE ONLY poll_result
 
 
 --
--- TOC entry 2164 (class 2606 OID 100064)
--- Dependencies: 2019 1656 1659
--- Name: fkd981c89df0ed6769; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2575 (class 2606 OID 17061)
+-- Name: fkd981c89df0ed6769; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY poll_result
@@ -1605,9 +1601,8 @@ ALTER TABLE ONLY poll_result
 
 
 --
--- TOC entry 2126 (class 2606 OID 99874)
--- Dependencies: 2083 1682 1639
--- Name: fkdc17ddf4793d9e77; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2536 (class 2606 OID 16866)
+-- Name: fkdc17ddf4793d9e77; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY comments
@@ -1615,9 +1610,8 @@ ALTER TABLE ONLY comments
 
 
 --
--- TOC entry 2127 (class 2606 OID 99879)
--- Dependencies: 2019 1639 1656
--- Name: fkdc17ddf4ce12cae8; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2537 (class 2606 OID 16871)
+-- Name: fkdc17ddf4ce12cae8; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY comments
@@ -1625,9 +1619,8 @@ ALTER TABLE ONLY comments
 
 
 --
--- TOC entry 2128 (class 2606 OID 99884)
--- Dependencies: 2085 1639 1683
--- Name: fkdc17ddf4d9aa8e98; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2538 (class 2606 OID 16876)
+-- Name: fkdc17ddf4d9aa8e98; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY comments
@@ -1635,9 +1628,8 @@ ALTER TABLE ONLY comments
 
 
 --
--- TOC entry 2125 (class 2606 OID 99869)
--- Dependencies: 1689 1639 2102
--- Name: fkdc17ddf4f44558e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2535 (class 2606 OID 16861)
+-- Name: fkdc17ddf4f44558e9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY comments
@@ -1645,9 +1637,8 @@ ALTER TABLE ONLY comments
 
 
 --
--- TOC entry 2166 (class 2606 OID 100074)
--- Dependencies: 1634 1660 1973
--- Name: fked904b194075e3fd; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2577 (class 2606 OID 17071)
+-- Name: fked904b194075e3fd; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY project
@@ -1655,9 +1646,8 @@ ALTER TABLE ONLY project
 
 
 --
--- TOC entry 2165 (class 2606 OID 100069)
--- Dependencies: 1689 1660 2102
--- Name: fked904b19514c1986; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2576 (class 2606 OID 17066)
+-- Name: fked904b19514c1986; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY project
@@ -1665,9 +1655,8 @@ ALTER TABLE ONLY project
 
 
 --
--- TOC entry 2140 (class 2606 OID 99944)
--- Dependencies: 1634 1973 1647
--- Name: fkf4a1d3ee2b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2550 (class 2606 OID 16936)
+-- Name: fkf4a1d3ee2b2a6ab4; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY geopoint_folder
@@ -1675,9 +1664,8 @@ ALTER TABLE ONLY geopoint_folder
 
 
 --
--- TOC entry 2142 (class 2606 OID 99954)
--- Dependencies: 2001 1647 1647
--- Name: fkf4a1d3ee6e4ed46d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2552 (class 2606 OID 16946)
+-- Name: fkf4a1d3ee6e4ed46d; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY geopoint_folder
@@ -1685,9 +1673,8 @@ ALTER TABLE ONLY geopoint_folder
 
 
 --
--- TOC entry 2141 (class 2606 OID 99949)
--- Dependencies: 2102 1647 1689
--- Name: fkf4a1d3ee6ef241e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2551 (class 2606 OID 16941)
+-- Name: fkf4a1d3ee6ef241e9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY geopoint_folder
@@ -1695,9 +1682,53 @@ ALTER TABLE ONLY geopoint_folder
 
 
 --
--- TOC entry 2212 (class 2606 OID 100304)
--- Dependencies: 1686 2085 1683
--- Name: fkf8c717d6286705d7; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2597 (class 2606 OID 17171)
+-- Name: fkf66bc0ad1366e48e; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY scheduled
+    ADD CONSTRAINT fkf66bc0ad1366e48e FOREIGN KEY (tpoll_tweet_poll_id) REFERENCES tweetpoll(tweet_poll_id);
+
+
+--
+-- TOC entry 2599 (class 2606 OID 17181)
+-- Name: fkf66bc0ad51153812; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY scheduled
+    ADD CONSTRAINT fkf66bc0ad51153812 FOREIGN KEY (survey_sid) REFERENCES surveys(sid);
+
+
+--
+-- TOC entry 2596 (class 2606 OID 17166)
+-- Name: fkf66bc0ad5239d117; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY scheduled
+    ADD CONSTRAINT fkf66bc0ad5239d117 FOREIGN KEY (socialaccount_social_account_id) REFERENCES social_account(social_account_id);
+
+
+--
+-- TOC entry 2598 (class 2606 OID 17176)
+-- Name: fkf66bc0ad63976e9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY scheduled
+    ADD CONSTRAINT fkf66bc0ad63976e9 FOREIGN KEY (poll_poll_id) REFERENCES poll(poll_id);
+
+
+--
+-- TOC entry 2595 (class 2606 OID 17161)
+-- Name: fkf66bc0ad9c14a5e7; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
+--
+
+ALTER TABLE ONLY scheduled
+    ADD CONSTRAINT fkf66bc0ad9c14a5e7 FOREIGN KEY (tpollsavedpublished_status_save_poll_id) REFERENCES tweetpoll_save_published_status(status_save_poll_id);
+
+
+--
+-- TOC entry 2633 (class 2606 OID 17351)
+-- Name: fkf8c717d6286705d7; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll_hashtags
@@ -1705,9 +1736,8 @@ ALTER TABLE ONLY tweetpoll_hashtags
 
 
 --
--- TOC entry 2213 (class 2606 OID 100309)
--- Dependencies: 2011 1686 1652
--- Name: fkf8c717d6da98ffe1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2634 (class 2606 OID 17356)
+-- Name: fkf8c717d6da98ffe1; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY tweetpoll_hashtags
@@ -1715,9 +1745,8 @@ ALTER TABLE ONLY tweetpoll_hashtags
 
 
 --
--- TOC entry 2224 (class 2606 OID 100366)
--- Dependencies: 1689 2102 1692
--- Name: fkfbc45bbc5f77a117; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2647 (class 2606 OID 17423)
+-- Name: fkfbc45bbc5f77a117; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY useraccount_project
@@ -1725,9 +1754,8 @@ ALTER TABLE ONLY useraccount_project
 
 
 --
--- TOC entry 2223 (class 2606 OID 100361)
--- Dependencies: 2029 1692 1660
--- Name: fkfbc45bbc84536452; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2646 (class 2606 OID 17418)
+-- Name: fkfbc45bbc84536452; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY useraccount_project
@@ -1735,9 +1763,8 @@ ALTER TABLE ONLY useraccount_project
 
 
 --
--- TOC entry 2190 (class 2606 OID 100194)
--- Dependencies: 2029 1678 1660
--- Name: fkfd028d3484536452; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2606 (class 2606 OID 17216)
+-- Name: fkfd028d3484536452; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY survey_group_project
@@ -1745,9 +1772,8 @@ ALTER TABLE ONLY survey_group_project
 
 
 --
--- TOC entry 2191 (class 2606 OID 100199)
--- Dependencies: 1676 2071 1678
--- Name: fkfd028d34b75f3482; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2607 (class 2606 OID 17221)
+-- Name: fkfd028d34b75f3482; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY survey_group_project
@@ -1755,34 +1781,11 @@ ALTER TABLE ONLY survey_group_project
 
 
 --
--- TOC entry 2197 (class 2606 OID 100229)
--- Dependencies: 2083 1682 1681
--- Name: fkfe5ad30051153812; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2615 (class 2606 OID 17261)
+-- Name: fkfe5ad30051153812; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY survey_section
     ADD CONSTRAINT fkfe5ad30051153812 FOREIGN KEY (survey_sid) REFERENCES surveys(sid);
 
 
-ALTER TABLE ONLY survey_temporal_result ADD CONSTRAINT FK7867CF546BF7A1C FOREIGN KEY (question_qid) REFERENCES questions;
-ALTER TABLE ONLY survey_temporal_result ADD CONSTRAINT FK7867CF5496009B4 FOREIGN KEY (answer_q_answer_id) REFERENCES questions_answers;
-ALTER TABLE ONLY survey_temporal_result ADD CONSTRAINT FK7867CF551153812 FOREIGN KEY (survey_sid) REFERENCES surveys;
-ALTER TABLE ONLY question_preferences ADD CONSTRAINT FKD540D01F46BF7A1C FOREIGN KEY (question_qid) REFERENCES questions;
-
-
-ALTER TABLE ONLY hash_tags_ranking
-  ADD CONSTRAINT FK71DECDA119AA125 FOREIGN KEY (hashTag_hash_tag_id) REFERENCES hash_tags (hash_tag_id);
-
- 
-ALTER TABLE ONLY scheduled ADD CONSTRAINT FKF66BC0AD1366E48E FOREIGN KEY (tpoll_tweet_poll_id) REFERENCES tweetpoll(tweet_poll_id);
-ALTER TABLE ONLY scheduled ADD CONSTRAINT FKF66BC0AD51153812 FOREIGN KEY (survey_sid) REFERENCES surveys(sid);
-ALTER TABLE ONLY scheduled ADD CONSTRAINT FKF66BC0AD5239D117 FOREIGN KEY (socialAccount_social_account_id) REFERENCES social_account(social_account_id);
-ALTER TABLE ONLY scheduled ADD CONSTRAINT FKF66BC0AD63976E9 FOREIGN KEY (poll_poll_id) REFERENCES poll(poll_id);
-ALTER TABLE ONLY scheduled ADD CONSTRAINT FKF66BC0AD9C14A5E7 FOREIGN KEY (tpollSavedPublished_status_save_poll_id) REFERENCES tweetPoll_save_published_status(status_save_poll_id);
-  
-
--- Completed on 2011-11-30 21:40:42 CET
-
---
--- PostgreSQL database dump complete
---
