@@ -8,6 +8,7 @@
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/list-tweetpoll.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
+        <put-attribute name="dojo-layers" expression="/WEB-INF/views/home/dojo-list.jsp" />
     </definition>
 
     <definition name="tweetpoll/new" extends="page-logged">
@@ -15,12 +16,14 @@
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/new.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
+        <put-attribute name="dojo-layers" expression="/WEB-INF/views/home/dojo-new.jsp" />
     </definition>
 
      <definition name="tweetpoll/detail" extends="page-logged">
         <put-attribute name="title" value="TweetPoll Detail" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/detail.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
+        <put-attribute name="dojo-layers" expression="/WEB-INF/views/home/dojo-detail.jsp" />
     </definition>
 
      <definition name="tweetpoll/social" extends="page-logged">

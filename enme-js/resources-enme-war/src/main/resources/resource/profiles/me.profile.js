@@ -10,6 +10,39 @@
  * Look to `util/build/buildControlDefault.js` for more information on available options and their default values.
  */
 
+var excludeDijit = [
+      "dijit/main",
+      "dijit/selection",
+      "dijit/typematic",
+      "dijit/_WidgetBase",
+      "dijit/_TemplatedMixin",
+      "dijit/_WidgetsInTemplateMixin",
+      "dijit/registry",
+      "dijit/Dialog",
+      "dijit/_Widget",
+      "dijit/focus",
+      "dijit/form/Button"
+];
+
+var emne_core = [
+    "me/main",
+    "me/core/enme",
+    "me/core/constants",
+    "me/core/IconSupport",
+    "me/core/Modernizr",
+    "me/core/URLServices",
+    "me/core/main_widgets/WidgetServices",
+    "me/core/main_widgets/PublicViewWidget",
+    "me/core/main_widgets/LoggedUtilities",
+    "me/core/main_widgets/EnmeMainLayoutWidget",
+    "me/core/support/ContextSupport",
+    "me/core/support/iosOverlay",
+    "me/core/support/moment",
+    "me/core/support/PublishSupport",
+    "me/core/support/Spinner",
+    "me/core/ui/Loading"
+];
+
 var profile = {
   // `basePath` is relative to the directory containing this profile file; in this case, it is being set to the
   // src/ directory, which is the same place as the `baseUrl` directory in the loader configuration. (If you change
@@ -55,7 +88,8 @@ var profile = {
   // http://dojotoolkit.org/reference-guide/1.8/dojo/query.html
   selectorEngine: 'lite',
 
-  packages:[{
+  packages:[
+        {
             name: "dojo",
             location: "dojo"
         },{
@@ -73,7 +107,8 @@ var profile = {
         },{
             name: "me",
             location: "me"
-        }],
+        }
+  ],
 
   // Builds can be split into multiple different JavaScript files called "layers". This allows applications to
   // defer loading large sections of code until they are actually required while still allowing multiple modules to
@@ -82,109 +117,164 @@ var profile = {
     // This is the main loader module. It is a little special because it is treated like an AMD module even though
     // it is actually just plain JavaScript. There is some extra magic in the build system specifically for this
     // module ID.
-//    'dojo/dojo': {
-//      // In addition to the loader `dojo/dojo` and the loader configuration file `app/run`, we are also including
-//      // the main application `app/main` and the `dojo/i18n` and `dojo/domReady` modules because, while they are
-//      // all conditional dependencies in `app/main`, we do not want to have to make extra HTTP requests for such
-//      // tiny files.
-//      include: [
-//       'dojo/i18n',
-//       'dojo/_base/declare',
-//       'dojo/parser',
-//       "dojo/ready",
-//       "dojo/dom",
-//       "dojo/html",
-//       'dojo/_base/unload',
-//       "dojo/_base/lang",
-//       'dojo/date/locale',
-//       "dojo/store/util/QueryResults",
-//       'dojo/domReady',
-//       'dojo/cache'
-//       //'me/main',
-//       //'me/run'
-//       ],
-//
-//      // By default, the build system will try to include `dojo/main` in the built `dojo/dojo` layer, which adds
-//      // a bunch of stuff we do not want or need. We want the initial script load to be as small and quick to
-//      // load as possible, so we configure it as a custom, bootable base.
-//      boot: true,
-//      customBase: true
-//    }
+    'dojo/dojo': {
+      // In addition to the loader `dojo/dojo` and the loader configuration file `app/run`, we are also including
+      // the main application `app/main` and the `dojo/i18n` and `dojo/domReady` modules because, while they are
+      // all conditional dependencies in `app/main`, we do not want to have to make extra HTTP requests for such
+      // tiny files.
+      include: [
+       'dojo/i18n',
+       'dojo/_base/declare',
+       'dojo/parser',
+       "dojo/ready",
+       "dojo/dom",
+       "dojo/html",
+       'dojo/_base/unload',
+       "dojo/_base/lang",
+       'dojo/date/locale',
+       "dojo/store/util/QueryResults",
+       'dojo/domReady',
+       'dojo/cache',
+       'dojo/store/util/SimpleQueryEngine',
+       'dojo/io/iframe',
+       'dojo/request/iframe',
+       'dojo/request/notify'
+       ],
+
+      // By default, the build system will try to include `dojo/main` in the built `dojo/dojo` layer, which adds
+      // a bunch of stuff we do not want or need. We want the initial script load to be as small and quick to
+      // load as possible, so we configure it as a custom, bootable base.
+      boot: true,
+      customBase: true
+    },
+
+    'dijit/dijit': {
+          // In addition to the loader `dojo/dojo` and the loader configuration file `app/run`, we are also including
+          // the main application `app/main` and the `dojo/i18n` and `dojo/domReady` modules because, while they are
+          // all conditional dependencies in `app/main`, we do not want to have to make extra HTTP requests for such
+          // tiny files.
+          include: [
+              //'dijit/dijit',
+              'dijit/main',
+              'dijit/_base',
+              'dijit/_base/scroll',
+              'dijit/_base/window',
+              'dijit/_base/sniff',
+              'dijit/typematic',
+              'dijit/_base/focus',
+              'dijit/layout/_LayoutWidget',
+              'dijit/_base/place',
+              'dijit/_base/popup',
+              'dijit/_base/wai',
+              'dijit/_Contained'
+          ]
+      },
 
     // In the demo application, we conditionally require `app/Dialog` on the client-side, so here we build a
     // separate layer containing just that client-side code. (Practically speaking, you would probably just want
     // to roll everything into a single layer, but this helps provide a basic illustration of multi-layer builds.)
     // Note that when you create a new layer, the module referenced by the layer is always included in the layer
     // (in this case, `app/Dialog`), so it does not need to be explicitly defined in the `include` array.
-//    'chart/raphael/raphael.amd': {
-//        include :['chart/eve/eve',
-//                  'chart/g.raphael/g.bar',
-//                  'chart/g.raphael/g.dot',
-//                  'chart/g.raphael/g.line',
-//                  'chart/g.raphael/g.pie',
-//                  'chart/g.raphael/g.raphael',
-//                  'chart/raphael/raphael.core',
-//                  'chart/raphael/raphael.svg',
-//                  'chart/raphael/raphael.vml'
-//                ]
-//    },
+    'chart/raphael/raphael.amd': {
+        include :[
+          'chart/eve/eve',
+          'chart/g.raphael/g.bar',
+          'chart/g.raphael/g.dot',
+          'chart/g.raphael/g.line',
+          'chart/g.raphael/g.pie',
+          'chart/g.raphael/g.raphael',
+          'chart/raphael/raphael.core',
+          'chart/raphael/raphael.svg',
+          'chart/raphael/raphael.vml'
+        ]
+    },
 
-//    'me/main' : {
-//         include :[
-////                   "me/core/enme",
-////                   "me/core/URLServices",
-////                   "me/core/main_widgets/WidgetServices",
-////                   "me/core/main_widgets/EnmeMainLayoutWidget",
-////                   "me/web/widget/dialog/ModalBox",
-////                   'dojo/store/util/SimpleQueryEngine',
-////                   'me/web/widget/ui/Toaster',
-////                   'me/web/widget/profile/ProfileMenu',
-////                   'me/web/widget/menu/DashBoardMenu',
-////                   'me/web/widget/menu/SearchMenu',
-////                   'me/web/widget/support/ToggleMenu',
-////                   'me/web/widget/menu/SearchSuggestItemSection',
-////                   'me/web/widget/menu/SearchSuggestItemsByType',
-////                   'me/web/widget/suggestion/Suggest',
-////                   'me/web/widget/suggestion/SuggestItem',
-////                   'me/core/ui/Loading',
-////                   'me/web/widget/stream/HashTagInfo',
-////                   'me/web/widget/pictures/AccountPicture',
-//                   //'me/activity/Activity',
-////                   "dijit/registry",
-////                   'dijit/Dialog',
-////                   "dijit/form/TextBox",
-////                   "dijit/form/Button",
-////                   "dijit/_WidgetBase",
-////                   "dijit/_TemplatedMixin",
-////                   'dijit/form/ValidationTextBox',
-////                   "dijit/_WidgetsInTemplateMixin",
-////                   "dojox/data/QueryReadStore",
-////                   'dojox/widget/Toaster',
-////                   'dojox/widget/UpgradeBar'
-//            ]
-//    },
+    'me/run' : {
+         include :[
+           'me/main',
+           "me/web/widget/dialog/ModalBox",
+           'me/web/widget/ui/Toaster',
+           'me/web/widget/profile/ProfileMenu',
+           'me/web/widget/menu/DashBoardMenu',
+           'me/web/widget/menu/SearchMenu',
+           'me/web/widget/support/ToggleMenu',
+           'me/web/widget/menu/SearchSuggestItemSection',
+           'me/web/widget/menu/SearchSuggestItemsByType',
+           'me/web/widget/suggestion/Suggest',
+           'me/web/widget/suggestion/SuggestItem',
+           'me/web/widget/stream/HashTagInfo',
+           'me/web/widget/pictures/AccountPicture',
+           'me/support/Offline',
+           'me/web/widget/signup/LoginDialog',
+           'me/support/Websocket',
+           'me/web/widget/ui/More',
+           'me/web/widget/utils/ToggleText',
+           'me/web/widget/data/CacheLinkedList',
+           'me/web/widget/menu/TimeRangeDropDownMenu'
+         ].concat(emne_core)
+    },
 
-    // 'me/web/widget/hashtags/Cloud' : {
-    //     include :[
-    //            "me/web/widget/utils/ToggleText",
-    //            "me/web/widget/hashtags/Cloud",
-    //            "me/web/widget/rated/Comment",
-    //            "me/web/widget/rated/Comments",
-    //            "me/web/widget/rated/UsersProfile",
-    //            "me/web/widget/rated/RatedProfile",
-    //            "me/web/widget/rated/Comments",
-    //            "me/web/widget/rated/LikeRate",
-    //            "me/web/widget/rated/RatedOperations"
-    //         ]
-    // },
+    "me/web/widget/stream/FrontEnd" : {
+          include :[
+              "me/web/widget/utils/ToggleText",
+              "me/web/widget/stream/FrontEndItem",
+              "me/web/widget/home/votes/ItemVote",
+              "me/web/widget/rated/Comments",
+              "me/web/widget/hashtags/Cloud",
+              "me/web/widget/rated/UsersProfile",
+              "me/web/widget/utils/ToggleText",
+              "me/web/widget/hashtags/Cloud",
+              "me/web/widget/rated/Comment",
+              "me/web/widget/rated/Comments",
+              "me/web/widget/rated/UsersProfile",
+              "me/web/widget/rated/RatedProfile",
+              "me/web/widget/rated/Comments",
+              "me/web/widget/rated/LikeRate",
+              "me/web/widget/rated/RatedOperations"
+          ],
+        exclude : excludeDijit.concat(emne_core)
+    },
 
-//    "me/web/widget/stream/FrontEnd" : {
-//      include :[
-//               "me/web/widget/utils/ToggleText",
-//               "me/web/widget/stream/FrontEndItem",
-//               "me/web/widget/home/votes/ItemVote"
-//            ]
-//    },
+     'me/web/widget/hashtags/HashTagGraph' : {
+         include :[
+            "me/web/widget/menu/TimeRangeDropDownMenu",
+            "dojox/gfx/path",
+            "dojox/gfx/svg"
+        ],
+         exclude : excludeDijit.concat(emne_core)
+     },
+
+     'me/web/widget/stats/TopProfiles' : {
+          include :[
+              "me/web/widget/rated/RatedProfile",
+              "me/web/widget/rated/Comment",
+              "me/web/widget/rated/RatedOperations",
+              "me/web/widget/rated/UsersProfile",
+              "me/web/widget/rated/LikeRate"
+          ],
+         exclude : excludeDijit.concat(emne_core)
+      },
+
+      "me/web/widget/social/LinksPublished" :{
+          include :[
+              "me/web/widget/data/CacheLinkedList",
+              "me/web/widget/social/LinksPublishedItem"
+          ],
+          exclude : excludeDijit.concat(emne_core)
+      },
+
+      "me/web/widget/stats/GenericStats" : {
+          include :[
+              "me/web/widget/chart/EnMeLineChart",
+              "me/web/widget/social/LinksPublishedItem",
+              "me/web/widget/hashtags/HashTagGraphStatsButton",
+              "me/web/widget/hashtags/HashTagGraphStatsUsageHandler",
+
+          ],
+          exclude : excludeDijit.concat(emne_core)
+      }
+
+      //
 
 //    'me/web/widget/menu/SettingsMenuSwitch' : {
 //       include :[
