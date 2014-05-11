@@ -5,7 +5,10 @@
 <title><tiles:insertAttribute name="title" defaultValue="encuestame mobile" /></title>
 <%@ include file="decorators/mobile-meta.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/mobile/css.jsp"%>
+    <tiles:insertAttribute name="dojo-layers" ignore="true" />
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
+    <tiles:insertAttribute name="dojo-layers" ignore="true" />
+
 <body class="mobil">
     
     <%@ include file="/WEB-INF/jsp/includes/decorators/mobile-header.jsp"%>

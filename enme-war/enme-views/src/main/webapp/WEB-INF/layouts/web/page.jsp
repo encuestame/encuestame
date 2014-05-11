@@ -33,6 +33,8 @@
      <div id="loading"></div>
   </c:if>
   <%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
+  JUAN
+  <tiles:insertAttribute name="dojo-layers" ignore="true" />
 </body>
 
 </html>
