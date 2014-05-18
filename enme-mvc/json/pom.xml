@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>enme-mvc</artifactId>
-        <version>1.147</version>
+        <version>1.5.0</version>
     </parent>
 
     <artifactId>json</artifactId>
