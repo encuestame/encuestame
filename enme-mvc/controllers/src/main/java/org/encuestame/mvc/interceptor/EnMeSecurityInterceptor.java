@@ -99,7 +99,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
                 request.setAttribute("isActivated", user.getInviteCode() == null ? true : false);
                 log.trace("Account User Interceptor "+user);
                 request.setAttribute("account", ConvertDomainBean.convertUserAccountToSignUpBean(user));
-                request.setAttribute("user_locale", user.getLanguage() == null ? WidgetUtil.getCurrentLocale(request): new Locale(user.getLanguage()).getLanguage());
+                request.setAttribute("user_locale", user.getLanguage() == null ? WidgetUtil.getCurrentLocale(request): WidgetUtil.validateLocale(user.getLanguage()));
                 Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
                 if(cookieName != null){
                     log.trace("Cookie "+cookieName.getName());

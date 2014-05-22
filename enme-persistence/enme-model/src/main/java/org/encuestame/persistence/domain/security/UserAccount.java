@@ -115,7 +115,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     /**
      * store the default language selected by the user.
      */
-    private String language = "en";
+    private String language = "en_US";
 
     /**
      * {@link String} Last ip registred in the last time logged
