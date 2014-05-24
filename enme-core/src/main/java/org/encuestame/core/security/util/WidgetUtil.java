@@ -68,7 +68,7 @@ public class WidgetUtil {
      * @return
      */
     public static String getCurrentLocale(final HttpServletRequest request) {
-    	return WidgetUtil.validateLocale(request.getLocale().getLanguage());
+    	return WidgetUtil.convertToDojoLocale(WidgetUtil.validateLocale(request.getLocale().getLanguage()));
     }
 
     /**
@@ -98,6 +98,15 @@ public class WidgetUtil {
         }
     }
 
+    public static Locale toLocale(final String language) {
+        try {
+            final Locale locale = parseLocale(language);
+            return locale;
+        } catch (Exception e) {
+            return new Locale("en", "US");
+        }
+    }
+
     /**
      *
      * @param language
@@ -110,6 +119,16 @@ public class WidgetUtil {
         } catch (Exception e) {
             return new Locale("en", "US").toString();
         }
+    }
+
+    /**
+     *
+     * @param language
+     * @return
+     */
+    public static String convertToDojoLocale(final String language) {
+            final String lang = WidgetUtil.validateLocale(language);
+            return lang.replace("_", "-").toLowerCase().toString();
     }
 
     /**

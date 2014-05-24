@@ -14,15 +14,20 @@ import org.junit.experimental.categories.Category;
 public class WidgetUtilTestCase extends AbstractBaseUtils {
 
     /**
-     * Slug test.
+     * Test validate locale
      */
     @Test
     public void testValidateLocale() {
         final String language1 = "en_US";
         final String lang = WidgetUtil.validateLocale(language1);
-        System.out.println(lang);
         Assert.assertEquals(lang, "en_US");
         Assert.assertEquals(WidgetUtil.validateLocale("us"), "en_US");
         Assert.assertEquals(WidgetUtil.validateLocale("en"), "en_US");
+    }
+
+    @Test
+    public void testConvertToDojo(){
+        final String lang = WidgetUtil.convertToDojoLocale("en");
+        Assert.assertEquals(lang, "en-us");
     }
 }
