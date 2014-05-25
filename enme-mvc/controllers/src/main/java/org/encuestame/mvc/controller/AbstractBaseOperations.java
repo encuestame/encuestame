@@ -39,6 +39,7 @@ import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.util.HTMLInputFilter;
+import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.service.AbstractSecurityContext;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.imp.GeoLocationSupport;
@@ -720,8 +721,8 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
 		   	final UserAccount account = getSecurityService().findUserByUserName(username);
 		   	if (account != null) {
 		   		final String language = account.getLanguage();
-				final Builder lang = new Locale.Builder().setLanguage(language);
-				return lang.build();
+				final Locale lang = WidgetUtil.toLocale(language);
+				return lang;
 		   	} else {	   		
 		   		//throw new EnMeExpcetion("anonymous user does not have locale");
 		   		log.info(account + " user does not have locale");

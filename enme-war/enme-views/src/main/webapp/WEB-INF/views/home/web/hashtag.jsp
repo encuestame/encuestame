@@ -96,7 +96,6 @@ path.area {
                   </div>
               </article>
 
-
                <article class="emne-box">
                        <h3>
                           <spring:message code="home.hashtag.tweets" />

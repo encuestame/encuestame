@@ -1,20 +1,9 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<!--[if lt IE 9]>
-     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-<script  src="<%=request.getContextPath()%>/resources/js/commons-mobile.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/enme.chart.js"></script>
 <%@ include file="/WEB-INF/jsp/includes/decorators/dojo-config.jsp"%>
 
-<c:if test="${!development}">
-    <script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/me/run.js"></script>
-</c:if>
-
-<c:if test="${development}">
-    <script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/me/run.js"></script>
-</c:if>
+<script  src="<%=request.getContextPath()%>/resources/js/commons-mobile.js"></script>
+<script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/me/run.js"></script>
 
 <script>
 require([
@@ -24,7 +13,7 @@ require([
     "dojo/ready",
     'me/support/Websocket',
     'me/support/Offline',
-    "me/core/enme",
+    "me/core/enme"
 ], function(dojo, declare, parser, ready,  Websocket, Offline, _ENME) {
     ready(function(){
         <%@ include file="/WEB-INF/jsp/includes/decorators/enme-init.jsp"%>
