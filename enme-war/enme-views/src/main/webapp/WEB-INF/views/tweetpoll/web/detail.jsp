@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
+d<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
 
 <article class="web-tweetpoll-detail web-wrapper-detail">

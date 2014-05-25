@@ -7,12 +7,14 @@
         <put-attribute name="title" value="Poll | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/poll.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/poll_css.jsp" />
+        <put-attribute name="dojo-layers" expression="/WEB-INF/views/home/dojo-detail.jsp" />
     </definition>
 
     <definition name="poll/vote" extends="main-vote">
         <put-attribute name="title" value="Poll Vote | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/decorators/vote.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/poll_css.jsp" />
+        <put-attribute name="dojo-layers" expression="/WEB-INF/views/home/dojo-vote.jsp" />
     </definition>
 
     <definition name="poll/voted" extends="main-vote">
@@ -50,6 +52,7 @@
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/poll-list.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/poll_css.jsp" />
+        <put-attribute name="dojo-layers" expression="/WEB-INF/views/home/dojo-list.jsp" />
     </definition>
 
      <definition name="poll/new" extends="page-logged">
@@ -57,6 +60,7 @@
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/new.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/poll_css.jsp" />
+        <put-attribute name="dojo-layers" expression="/WEB-INF/views/home/dojo-new.jsp" />
     </definition>
 
 

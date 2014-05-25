@@ -45,15 +45,15 @@
   background-image:         linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
 }
 
-/* line 42, ../../../../../css/resource/sass/alertify/_dialog.default.scss */
+/* line 41, ../../../../../css/resource/sass/alertify/_dialog.default.scss */
 .alertify-button:hover,
 .alertify-button:focus {
   outline: none;
-  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
-  background-image:    -moz-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
-  background-image:     -ms-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
-  background-image:      -o-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
-  background-image:         linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1), transparent);
+  background-image:    -moz-linear-gradient(top, rgba(0, 0, 0, 0.1), transparent);
+  background-image:     -ms-linear-gradient(top, rgba(0, 0, 0, 0.1), transparent);
+  background-image:      -o-linear-gradient(top, rgba(0, 0, 0, 0.1), transparent);
+  background-image:         linear-gradient(top, rgba(0, 0, 0, 0.1), transparent);
 }
 
 /* line 46, ../../../../../css/resource/sass/alertify/_dialog.default.scss */
@@ -67,7 +67,7 @@
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* line 55, ../../../../../css/resource/sass/alertify/_dialog.default.scss */
+/* line 53, ../../../../../css/resource/sass/alertify/_dialog.default.scss */
 .alertify-button-cancel,
 .alertify-button-cancel:hover,
 .alertify-button-cancel:focus {
@@ -75,7 +75,7 @@
   border: 1px solid #cb1500;
 }
 
-/* line 61, ../../../../../css/resource/sass/alertify/_dialog.default.scss */
+/* line 59, ../../../../../css/resource/sass/alertify/_dialog.default.scss */
 .alertify-button-ok,
 .alertify-button-ok:hover,
 .alertify-button-ok:focus {

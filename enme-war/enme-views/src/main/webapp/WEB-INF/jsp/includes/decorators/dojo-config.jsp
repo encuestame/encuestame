@@ -6,6 +6,7 @@
 	               { name: "dojo", location: "dojo" },
 	               { name: "dijit", location: "dijit" },
 	               { name: "dojox", location: "dojox" },
+                   { name: "hammer", location: "hammer" },
 	               { name: "me", location: "me" }
 	    ],
 	    has: {

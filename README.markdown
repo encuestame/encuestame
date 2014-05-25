@@ -8,31 +8,27 @@
 
 For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
 
-## Current Version (1.147-M3) Info
+## Current Version (1.147) Info
 
-The **last release versions** are defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
+The **last release versions** are defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME?report=com.atlassian.jirafisheyeplugin:fisheye-projectpanel&mode=changesets#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
-If you want to download a build version of encuestame, they're hosted on the [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
+If you want to download a build version of Encuestame, there are hosted on the [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
 
 ## Maintainers
 * [Diana Paola Morales](http://about.me/dianmorales)
 * [Juan Carlos Picado](http://www.jotadeveloper.me)
-* [All Contributors](http://www.encuestame.org#contributors)
+* [All Contributors](https://github.com/encuestame/encuestame/graphs/contributors)
 
 ## Direct Download Last Releases
-* [1.147-M3](https://github.com/encuestame/encuestame/archive/1.147M3v101213.tar.gz)
-* [1.147-M2](https://github.com/encuestame/encuestame/archive/1.147M2v090913.tar.gz)
-* [1.147-M1](https://sourceforge.net/projects/encuestame/files/encuestame_beta/1.147/)
-* [1.146](http://sourceforge.net/projects/encuestame/files/encuestame_beta/1.146/encuestame-1.146-tomcat.zip/download)
-* [1.145](http://code.google.com/p/encuestame/downloads/detail?name=encuestame-1.145-release.zip&can=2&q=)
-
+* [1.147](https://sourceforge.net/projects/encuestame/files/latest/download?source=files)
 
 ## Contributions
 Pull requests are, of course, very welcome! A few "todos", if anyone is [interested](http://www.encuestame.org/wiki/display/DEVELOPMENT/Commiters+Guidelines).
 
 ## Acknowledgments
 * Thanks to [Atlassian Open Source Program](http://www.atlassian.com/)
-* Thanks to you, for spent your time reviewing our job
+* Thanks Jetbrains for the [Open Source License](http://www.jetbrains.com/idea/buy/choose_edition.jsp?license=OPEN_SOURCE)
+* Thanks to you, for spend your time reviewing our job
 * All our friends
 
 ## Related Sites
@@ -47,10 +43,10 @@ Pull requests are, of course, very welcome! A few "todos", if anyone is [interes
 * [Facebook](https://www.facebook.com/encuestame)
 
 
-Copyright and license
+Copyright and License
 ---------------------
 
-Copyright 2013 encuestame
+Copyright 2014 Encuestame
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

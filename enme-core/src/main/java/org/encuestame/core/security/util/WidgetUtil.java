@@ -21,6 +21,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.LocaleUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -67,7 +68,67 @@ public class WidgetUtil {
      * @return
      */
     public static String getCurrentLocale(final HttpServletRequest request) {
-    	return request.getLocale().getLanguage();
+    	return WidgetUtil.convertToDojoLocale(WidgetUtil.validateLocale(request.getLocale().getLanguage()));
+    }
+
+    /**
+     *
+     * @param locale
+     * @return
+     */
+    public static Locale parseLocale(String locale) {
+        String[] parts = locale.split("_");
+        if (parts.length > 1) {
+            switch (parts.length) {
+                case 3: return new Locale(parts[0], parts[1], parts[2]);
+                case 2: return new Locale(parts[0], parts[1]);
+                case 1: return new Locale(parts[0]);
+                default: throw new IllegalArgumentException("Invalid locale: " + locale);
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid locale: " + locale);
+        }
+    }
+
+    public static boolean isValid(Locale locale) {
+        try {
+            return locale.getISO3Language() != null && locale.getISO3Country() != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static Locale toLocale(final String language) {
+        try {
+            final Locale locale = parseLocale(language);
+            return locale;
+        } catch (Exception e) {
+            return new Locale("en", "US");
+        }
+    }
+
+    /**
+     *
+     * @param language
+     * @return
+     */
+    public static String validateLocale(final String language) {
+        try {
+            final Locale locale = parseLocale(language);
+            return locale.toString();
+        } catch (Exception e) {
+            return new Locale("en", "US").toString();
+        }
+    }
+
+    /**
+     *
+     * @param language
+     * @return
+     */
+    public static String convertToDojoLocale(final String language) {
+            final String lang = WidgetUtil.validateLocale(language);
+            return lang.replace("_", "-").toLowerCase().toString();
     }
 
     /**
