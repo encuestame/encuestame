@@ -7566,7 +7566,7 @@ h4.enme, .title-enme {
 }
 
 /* line 218, ../../../../css/resource/sass/_common.scss */
-.col-left, .ui-image-wrapper, .ui-hits, .ui-comments, .ui-likes, .ui-dislike, #web-main-public-line .categoryMenu .nav-left, #web-main-public-line .web-item-wrapper, div.survey-status, div.countdown, div.socialAccountPicker div.account div.image, div.socialAccountPicker div.account div.detail, .single-response .single-response-handle, .web-generic-result .votes, div.web-default-menu li, .df-label, div.web-settings-account label, .panel-header header, .settingsWrapper .settingsGroup div.listSettings, .socialWrapperRow .sub-title-account .image {
+.col-left, #web-main-public-line .categoryMenu .nav-left, #web-main-public-line .web-item-wrapper, div.survey-status, div.countdown, div.socialAccountPicker div.account div.image, div.socialAccountPicker div.account div.detail, .single-response .single-response-handle, .web-generic-result .votes, div.web-default-menu li, .df-label, div.web-settings-account label, .panel-header header, .settingsWrapper .settingsGroup div.listSettings, .socialWrapperRow .sub-title-account .image {
   float: left;
 }
 
@@ -9042,7 +9042,7 @@ input:focus {
 }
 
 /** profile menu **/
-/* line 2, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 6, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel {
   display: none;
   position: absolute;
@@ -9064,22 +9064,22 @@ input:focus {
   -moz-border-radius: 0px 0px 5px 5px;
   -webkit-border-radius: 0px;
   border-radius: 0px 0px 5px 5px;
-  z-index: 99999;
+  z-index: 99998;
 }
 
-/* line 24, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 26, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profileOpenPanel {
   display: block;
 }
 
-/* line 28, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 30, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel ul {
   max-height: 350px;
   max-width: 100%;
   overflow: hidden;
 }
 
-/* line 34, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 36, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li {
   background-image: none;
   clear: both;
@@ -9092,38 +9092,38 @@ input:focus {
   padding: 6px 15px;
 }
 
-/* line 46, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 48, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li:hover {
   background-color: #FFF;
 }
 
-/* line 50, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 52, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li:hover a:link,
 .profilePanel li:hover a:visited {
   color: #444 !important;
 }
 
-/* line 55, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 57, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li a:link {
   color: #BABABA !important;
   font-weight: normal;
   text-decoration: none !important;
 }
 
-/* line 61, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 63, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li a:hover {
   color: white !important;
   text-decoration: none;
 }
 
-/* line 66, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 68, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li a {
   padding: 10px;
   color: #BABABA !important;
   font-weight: normal;
 }
 
-/* line 72, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 74, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .web-profile-menu {
   color: white;
   cursor: pointer;
@@ -9132,13 +9132,13 @@ input:focus {
   padding: 11px 0px 7px 0px;
 }
 
-/* line 80, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 82, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .web-profile-menu .image {
   float: left;
   margin-left: 5px;
 }
 
-/* line 85, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 87, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .web-profile-menu .real-name {
   line-height: 22px;
   margin-left: 40px;
