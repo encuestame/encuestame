@@ -84,6 +84,8 @@
         <!-- Test -->
         <junit.version>4.10</junit.version>
         <cactus.version>1.8.1</cactus.version>
+        <selenium.version>2.42.0</selenium.version>
+        <tomcat.version>7.0.54</tomcat.version>
         <!-- Site Path -->
         <apache>file:///tmp/encuestame</apache>
         <!-- Jetty -->
