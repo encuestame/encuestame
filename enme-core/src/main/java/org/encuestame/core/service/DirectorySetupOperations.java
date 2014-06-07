@@ -153,10 +153,13 @@ public class DirectorySetupOperations {
      * @throws EnmeFailOperation
      */
     public static String getHomeDirectory() {
-        String root = EnMePlaceHolderConfigurer.getProperty("encuestame.home");
+        //trying to get the home from the system, if not exist get the home directory from the config file
+        String root = System.getProperty("encuestame.home") == null ? EnMePlaceHolderConfigurer.getProperty("encuestame.home") : System.getProperty("encuestame.home") ;
         boolean system_home = EnMePlaceHolderConfigurer.getBooleanProperty("encuestame.system.home");
-        log.debug("getRootDirectory "+root);
+        log.debug("getRootDirectory: "+root);
         if (root == null && system_home) {
+            log.warn("home is not well defined, getting catalina home as default location");
+            //  if the others possibilities fails, get the catalina home as default
             root = System.getProperty("catalina.base");
             log.debug("catalina home " + root);
             root = (root == null ? (root + "/encuestame-store") : null);
@@ -168,7 +171,7 @@ public class DirectorySetupOperations {
             if (!root.endsWith("/")) {
                 root = root + "/";
             }
-            log.debug("getRootFolder:{" + root);
+            log.info("getRootFolder:{" + root);
            return root;
         }
     }
@@ -229,7 +232,7 @@ public class DirectorySetupOperations {
      * @throws EnMeStartupException
      */
     public static void validateInternalStructureDirectory(final boolean createIfNoExist) throws EnmeFailOperation {
-            log.debug("EnMe: validateInternalStructureDirectory."+createIfNoExist);
+            log.debug("EnMe: validateInternalStructureDirectory." + createIfNoExist);
             if (!DirectorySetupOperations.checkIfIndexedDirectoryExist(createIfNoExist)) {
                 log.debug("EnMe: index folder not found, creating one...");
             }
