@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.encuestame.core.config.AdministratorProfile;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.social.SocialNetworkBean;
 import org.encuestame.utils.web.UserAccountBean;
@@ -51,7 +52,7 @@ public interface SetupOperations {
 
     String getSQLExecuted();
 
-    String checkStatus();
+    String checkStatus() throws EnMeExpcetion;
 
     void validateInstall();
 

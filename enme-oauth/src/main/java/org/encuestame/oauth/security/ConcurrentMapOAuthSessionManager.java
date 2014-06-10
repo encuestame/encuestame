@@ -12,8 +12,7 @@
  */
 package org.encuestame.oauth.security;
 
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.TimeUnit;
+import java.util.WeakHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,12 +24,10 @@ import org.encuestame.persistence.utils.SecureRandomStringKeyGenerator;
 import org.encuestame.utils.oauth.OAuthSession;
 import org.encuestame.utils.oauth.StandardOAuthSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.google.common.collect.MapMaker;
 /**
  * Implementation to OAuth Session Manager.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 23, 2010 7:23:16 PM
- * @version $Id:$
  */
 public class ConcurrentMapOAuthSessionManager implements OAuthSessionManager {
 
@@ -42,7 +39,7 @@ public class ConcurrentMapOAuthSessionManager implements OAuthSessionManager {
     /**
      * Map of Sessions.
      */
-    private final ConcurrentMap<String, StandardOAuthSession> sessions;
+    private final WeakHashMap<String, StandardOAuthSession> sessions;
 
     /**
      * Dao Application.
@@ -59,7 +56,7 @@ public class ConcurrentMapOAuthSessionManager implements OAuthSessionManager {
      * Constructor.
      */
     public ConcurrentMapOAuthSessionManager() {
-        sessions = new MapMaker().softValues().expiration(2, TimeUnit.MINUTES).makeMap();
+    	sessions = new WeakHashMap<String, StandardOAuthSession>();
     }
 
     /**
