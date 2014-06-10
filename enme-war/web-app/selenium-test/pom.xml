@@ -17,6 +17,10 @@
             <build>
                 <plugins>
                     <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>${maven.war.plugin}</version>
+                    </plugin>
+                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <version>2.12</version>
@@ -29,7 +33,27 @@
                             </execution>
                         </executions>
                     </plugin>
-
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>${maven-antrun-plugin}</version>
+                        <executions>
+                            <execution>
+                                <id>home-enme</id>
+                                <phase>
+                                    compile
+                                </phase>
+                                <configuration>
+                                    <target>
+                                        <mkdir dir="${project.build.directory}/encuestame-home" />
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-maven-plugin</artifactId>
@@ -39,7 +63,7 @@
                             <id>start-jetty</id>
                                 <phase>pre-integration-test</phase>
                             <goals>
-                                <goal>run</goal>
+                                <goal>run-war</goal>
                             </goals>
                             <configuration>
                                  <scanIntervalSeconds>0</scanIntervalSeconds>
@@ -57,12 +81,6 @@
                         <configuration>
                             <stopKey>selenium</stopKey>
                             <stopPort>9999</stopPort>
-                            <systemProperties>
-                                <systemProperty>
-                                    <name>encuestame.custom.config</name>
-                                    <value>${encuestame.local.properties}</value>
-                                </systemProperty>
-                            </systemProperties>
                             <connectors>
                                 <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
                                     <port>${jetty.default.port}</port>
@@ -70,87 +88,12 @@
                             </connectors>
                             <webAppConfig>
                                 <contextPath>/encuestame</contextPath>
-                                <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
-                                    <resourcesAsCSV>src/main/webapp,../../enme-views/src/main/webapp,
-                                        ../../../enme-js/resources-enme-war/src/main/resources,
-                                        ../../../enme-css/src/main/webapp</resourcesAsCSV>
-                                </baseResource>
-                                <!-- http://stackoverflow.com/questions/5802096/duplicate-fragment-name-error-jetty-maven-plugin -->
                                 <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
                             </webAppConfig>
                             <scanIntervalSeconds>0</scanIntervalSeconds>
                             <daemon>true</daemon>
                         </configuration>
-                    </plugin>
-                  <!--<plugin>-->
-                    <!--<groupId>org.codehaus.cargo</groupId>-->
-                    <!--<artifactId>cargo-maven2-plugin</artifactId>-->
-                    <!--<version>1.2.0</version>-->
-                    <!--<configuration>-->
-                        <!--<container>-->
-                            <!--<containerId>tomcat7x</containerId>-->
-                            <!--<zipUrlInstaller>-->
-                                <!--<url>file:///Users/jpicado/bin/downloads/apache-tomcat-${tomcat.version}.zip-->
-                                <!--</url>-->
-                                <!--<downloadDir>${project.build.directory}/downloads</downloadDir>-->
-                                <!--<extractDir>${project.build.directory}/extracts</extractDir>-->
-                            <!--</zipUrlInstaller>-->
-                        <!--</container>-->
-                        <!--<configuration>-->
-                            <!--<home>${project.build.directory}/tomcat5x/container</home>-->
-                        <!--</configuration>-->
-                    <!--</configuration>-->
-                    <!--<executions>-->
-                        <!--<execution>-->
-                            <!--<id>start-tomcat</id>-->
-                            <!--<phase>pre-integration-test</phase>-->
-                            <!--<goals>-->
-                                <!--<goal>start</goal>-->
-                            <!--</goals>-->
-                        <!--</execution>-->
-                        <!--<execution>-->
-                            <!--<id>stop-tomcat</id>-->
-                            <!--<phase>post-integration-test</phase>-->
-                            <!--<goals>-->
-                                <!--<goal>stop</goal>-->
-                            <!--</goals>-->
-                        <!--</execution>-->
-                    <!--</executions>-->
-                <!--</plugin>-->
-                    <!--<plugin>-->
-                        <!--<groupId>org.apache.tomcat.maven</groupId>-->
-                        <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-                        <!--<version>2.1</version>-->
-                        <!--<configuration>-->
-                            <!--<path>/</path>-->
-                        <!--</configuration>-->
-                    <!--</plugin>-->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>selenium-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>start</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>start-server</goal>
-                                </goals>
-                                <configuration>
-                                    <debug>true</debug>
-                                    <background>true</background>
-                                    <logOutput>true</logOutput>
-                                    <multiWindow>false</multiWindow>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>stop</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop-server</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+                    </plugin>                    
                 </plugins>
                 <resources>
                     <resource>
@@ -164,13 +107,7 @@
             </build>
         </profile>
     </profiles>
-    <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.encuestame</groupId>-->
-            <!--<artifactId>enme-tomcat-app</artifactId>-->
-            <!--<version>${project.version}</version>-->
-            <!--<type>war</type>-->
-        <!--</dependency>-->
+    <dependencies>     
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>enme-config</artifactId>
@@ -209,10 +146,10 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--
-             Type "war" listed below makes this a WAR overlay (i.e., incorporating
-             another WAR into this project in making a new WAR, with any additional
-             WAR configuration provided (here, none) going into the new WAR.
-        -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+             <artifactId>httpclient</artifactId>
+            <version>4.3.2</version>    
+        </dependency>
     </dependencies>
 </project>
