@@ -59,30 +59,30 @@
                 <id>js</id>
                 <phase>compile</phase>
                 <configuration>
-                  <classpath>
-                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar" />
-                    <pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar" />
-                  </classpath>
-                  <target>
-                     <move todir="${project.build.directory}/temp/dojo-src/js/">
-                             <fileset dir="${project.build.directory}/temp/dojo-release-${dojo.version}-src" />
-                     </move>
-                     <echo message=" ************* COPY RESOURCES *************" />
-                     <copy todir="${project.build.directory}/temp/dojo-src" verbose="false">
-                     <fileset dir="${basedir}/src/main/resources/resource/">
-                          <exclude name="**/js/**/dojo/**" />
-                          <exclude name="**/js/**/dojox/**" />
-                          <exclude name="**/js/**/dijit/**" />
-                          <exclude name="**/js/**/util/**" />
-                      </fileset>
-                    </copy>
-                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-                    <echo message="$$$$$$ ENCUESTAME DOJO COMPILE PROCESS $$$$$$$$$$$" />
-                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-                    <echo message="$$$$$$$$$$$$$ DOJO IS THE ROCK !!! $$$$$$$$$$$$$$$" />
-                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-                    <mkdir dir="${project.build.directory}/dojo-compiled" />
-                    <java fork="true" failonerror="true" dir="${basedir}" classname="org.mozilla.javascript.tools.shell.Main">
+                    <classpath>
+                        <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar" />
+                        <pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar" />
+                    </classpath>
+                    <target>
+                        <move todir="${project.build.directory}/temp/dojo-src/js/">
+                            <fileset dir="${project.build.directory}/temp/dojo-release-${dojo.version}-src" />
+                        </move>
+                        <echo message=" ************* COPY RESOURCES *************" />
+                        <copy todir="${project.build.directory}/temp/dojo-src" verbose="false">
+                            <fileset dir="${basedir}/src/main/resources/resource/">
+                                <exclude name="**/js/**/dojo/**" />
+                                <exclude name="**/js/**/dojox/**" />
+                                <exclude name="**/js/**/dijit/**" />
+                                <exclude name="**/js/**/util/**" />
+                            </fileset>
+                        </copy>
+                        <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                        <echo message="$$$$$$ ENCUESTAME DOJO COMPILE PROCESS $$$$$$$$$$$" />
+                        <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                        <echo message="$$$$$$$$$$$$$ DOJO IS THE ROCK !!! $$$$$$$$$$$$$$$" />
+                        <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                        <mkdir dir="${project.build.directory}/dojo-compiled" />
+                        <java fork="true" failonerror="true" dir="${basedir}" classname="org.mozilla.javascript.tools.shell.Main">
                         <classpath>
                             <pathelement location="${project.build.directory}/temp/dojo-src/js/util/shrinksafe/js.jar" />
                             <pathelement location="${project.build.directory}/temp/dojo-src/js/util/closureCompiler/compiler.jar" />

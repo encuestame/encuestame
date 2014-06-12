@@ -17,17 +17,18 @@
         <module>tomcat-webapp</module>
         <!--<module>weblogic-webapp</module>-->
         <!--<module>jboss-webapp</module>-->
+        <module>selenium-test</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>json-api1</artifactId>
+            <artifactId>json-api2</artifactId>
             <version>${encuestame.version}</version>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>json-api2</artifactId>
+            <artifactId>json-api1</artifactId>
             <version>${encuestame.version}</version>
         </dependency>
         <dependency>
