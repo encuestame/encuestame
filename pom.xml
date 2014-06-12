@@ -154,7 +154,7 @@
         <maven-antrun-plugin>1.6</maven-antrun-plugin>
         <maven-resources-plugin>2.5</maven-resources-plugin>
         <cobertura.maven.plugin>2.5.1</cobertura.maven.plugin>
-        <maven-javadoc-plugin>2.8.1</maven-javadoc-plugin>
+        <maven-javadoc-plugin>2.9.1</maven-javadoc-plugin>
         <jasperreports-maven-plugin>1.0-beta-2</jasperreports-maven-plugin>
         <maven-pmd-plugin>2.3</maven-pmd-plugin>
         <maven-project-info-reports-plugin>2.2</maven-project-info-reports-plugin>
@@ -543,9 +543,30 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin}</version>
+
                     <configuration>
+                        <header>
+
+                           &lt;script type=&quot;text/javascript&quot;&gt;
+
+                              var _gaq = _gaq || [];
+                              _gaq.push([&#39;_setAccount&#39;, &#39;UA-2527438-15&#39;]);
+                              _gaq.push([&#39;_setDomainName&#39;, &#39;encuestame.org&#39;]);
+                              _gaq.push([&#39;_setAllowLinker&#39;, true]);
+                              _gaq.push([&#39;_trackPageview&#39;]);
+
+                              (function() {
+                                var ga = document.createElement(&#39;script&#39;); ga.type = &#39;text/javascript&#39;; ga.async = true;
+                                ga.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://ssl&#39; : &#39;http://www&#39;) + &#39;.google-analytics.com/ga.js&#39;;
+                                var s = document.getElementsByTagName(&#39;script&#39;)[0]; s.parentNode.insertBefore(ga, s);
+                              })();
+
+                            &lt;/script&gt;
+
+                        </header>
           			   <reportOutputDirectory>${project.reporting.outputDirectory}/apidoc</reportOutputDirectory>
                        <destDir>encuestame</destDir>
+                        <aggregate>true</aggregate>
                     </configuration>
                     <executions>
                         <execution>
