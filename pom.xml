@@ -43,7 +43,7 @@
         <spring.support>2.0.8</spring.support>
         <org.aspectj-version>1.6.9</org.aspectj-version>
         <org.slf4j-version>1.6.1</org.slf4j-version>
-        <google.guava>r07</google.guava>
+        <google.guava>15.0</google.guava>
         <scribe>1.0.9</scribe>
         <webutilities.version>0.0.6</webutilities.version>
         <wurfl>1.2</wurfl>
@@ -84,6 +84,8 @@
         <!-- Test -->
         <junit.version>4.10</junit.version>
         <cactus.version>1.8.1</cactus.version>
+        <selenium.version>2.42.0</selenium.version>
+        <tomcat.version>7.0.54</tomcat.version>
         <!-- Site Path -->
         <apache>file:///tmp/encuestame</apache>
         <!-- Jetty -->
@@ -1881,6 +1883,7 @@
                 <artifactId>mockito-all</artifactId>
                 <version>1.9.5</version>
             </dependency>
+
 
         </dependencies>
     </dependencyManagement>
