@@ -10,6 +10,7 @@ Log/
 log/
 *.db
 *.log*
+overlays
 *./*.log*
 *.releaseBackup
 .sass-cache
