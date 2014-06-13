@@ -95,9 +95,9 @@ var profile = {
     // 0.4.
     // If you do use this, you will need to update build.sh, too.
     //releaseDir : '/release',
-    releaseName: '2.0',
+    releaseName: '1.5.0',
 
-    version : "2.0",
+    version : "1.5.0",
 
     // Builds a new release.
     action: 'release',
