@@ -14,6 +14,7 @@
 package org.encuestame.utils.web.stats;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -64,6 +65,5 @@ public class ItemStatDetail implements Serializable{
 	public void setDate(final Date date) {
 		this.date = date;
 	}
-
 
 }

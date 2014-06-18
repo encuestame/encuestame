@@ -1,33 +1,29 @@
 /*
-Syntax error: Invalid CSS after "}/": expected identifier, was "/**"
-        on line 22 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/_common.scss
-        from line 4 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/_common_mobile.scss
-        from line 1 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/mobile_vote.scss
+Syntax error: Undefined mixin 'box-shadow'.
+        on line 19 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/web/components/_menu-profile.scss, in `box-shadow'
+        from line 19 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/web/components/_menu-profile.scss
+        from line 4 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/menu_logged.scss
 
 Backtrace:
-/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/_common.scss:22
-/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/_common_mobile.scss:4
-/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/mobile_vote.scss:1
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:1306:in `expected'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:1242:in `expected'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:1223:in `expr!'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:768:in `reference_combinator'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:762:in `combinator'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:747:in `_selector'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:722:in `selector'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:705:in `selector_sequence'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:627:in `ruleset'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:654:in `block_child'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:647:in `block_contents'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:117:in `stylesheet'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/scss/parser.rb:42:in `parse'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/engine.rb:402:in `_to_tree'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/engine.rb:306:in `to_tree'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:294:in `block in visit_import'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:88:in `block in with_import'
+/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/web/components/_menu-profile.scss:19:in `box-shadow'
+/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/web/components/_menu-profile.scss:19
+/Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/menu_logged.scss:4
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:325:in `block in visit_mixin'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:98:in `block in with_mixin'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:115:in `with_frame'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:88:in `with_import'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:293:in `visit_import'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:98:in `with_mixin'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:323:in `visit_mixin'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:153:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:79:in `block in with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:115:in `with_frame'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:79:in `with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:153:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:396:in `block (2 levels) in visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:396:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:396:in `block in visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:174:in `with_environment'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:394:in `visit_rule'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/base.rb:36:in `visit'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:153:in `block in visit'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:79:in `block in with_base'
@@ -75,7 +71,9 @@ Backtrace:
 /Library/Ruby/Gems/2.0.0/gems/compass-1.0.0.alpha.17/lib/compass/compiler.rb:127:in `block in run'
 /Library/Ruby/Gems/2.0.0/gems/compass-1.0.0.alpha.17/lib/compass/compiler.rb:153:in `timed'
 /Library/Ruby/Gems/2.0.0/gems/compass-1.0.0.alpha.17/lib/compass/compiler.rb:126:in `run'
-/Library/Ruby/Gems/2.0.0/gems/compass-1.0.0.alpha.17/lib/compass/commands/update_project.rb:49:in `perform'
+/Library/Ruby/Gems/2.0.0/gems/compass-1.0.0.alpha.17/lib/compass/watcher/compiler.rb:24:in `compile'
+/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/forwardable.rb:171:in `compile'
+/Library/Ruby/Gems/2.0.0/gems/compass-1.0.0.alpha.17/lib/compass/commands/watch_project.rb:47:in `perform'
 /Library/Ruby/Gems/2.0.0/gems/compass-1.0.0.alpha.17/lib/compass/commands/base.rb:18:in `execute'
 /Library/Ruby/Gems/2.0.0/gems/compass-1.0.0.alpha.17/lib/compass/commands/project_base.rb:19:in `execute'
 /Library/Ruby/Gems/2.0.0/gems/compass-1.0.0.alpha.17/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
@@ -89,4 +87,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Invalid CSS after \"}/\": expected identifier, was \"/**\"\A         on line 22 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/_common.scss\A         from line 4 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/_common_mobile.scss\A         from line 1 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/mobile_vote.scss"; }
+  content: "Syntax error: Undefined mixin 'box-shadow'.\A         on line 19 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/web/components/_menu-profile.scss, in `box-shadow'\A         from line 19 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/web/components/_menu-profile.scss\A         from line 4 of /Users/jpicado/Documents/workspace-enme/encuestame/encuestame.git/enme-css/src/css/resource/sass/menu_logged.scss"; }
