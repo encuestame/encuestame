@@ -84,11 +84,17 @@ public class TestCommentDao extends AbstractBase {
      */
     @Test
     public void testgetListCommentsByKeyword(){
+    	final DateTime dt = new DateTime();
         assertNotNull(this.comment);
+        createComment("Home alone", 25L, this.tpoll, null, null, user, 3L, dt.plusHours(2).toDate());
+        createComment("I was watching TV", 40L, this.tpoll, null, null, user, 50L, dt.plusHours(3).toDate());
+        createComment("I was at the beach", 0L, this.tpoll, null, null, user, 10L, dt.plusHours(1).toDate());
+	    createComment("I was working at home ", 3L, this.tpoll, null, null, user, 9L, dt.plusHours(1).toDate());
+       
         flushIndexes();
-        final String keyword = "working";
-        final List<Comment> commentList = getCommentsOperations().getCommentsByKeyword(keyword,10 ,null);
-        assertEquals("Should be equals", 1, commentList.size());
+        final String keyword = "work";  
+        final List<Comment> commentList = getCommentsOperations().getCommentsByKeyword(keyword,10 ,null); 
+        assertEquals("Should be equals", 2, commentList.size());
     }
 
     /**

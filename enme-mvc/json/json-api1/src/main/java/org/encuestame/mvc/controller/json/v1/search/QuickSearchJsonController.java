@@ -92,7 +92,8 @@ public class QuickSearchJsonController extends AbstractJsonControllerV1 {
             typesEnabled.add(TypeSearchResult.HASHTAG);
             typesEnabled.add(TypeSearchResult.POLL);
             typesEnabled.add(TypeSearchResult.PROFILE);
-            typesEnabled.add(TypeSearchResult.TWEETPOLL);
+            typesEnabled.add(TypeSearchResult.TWEETPOLL); 
+            typesEnabled.add(TypeSearchResult.COMMENT);  
             if (!keyword.isEmpty()) {
                  setItemReadStoreResponse("itemSearchTitle", "id", getSearchService()
                         .quickSearch(keyword, "English", 0, LIMIT_RESULTS, limitByItem, typesEnabled));

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.core.search.GlobalSearchItem;
+import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -160,4 +161,36 @@ public class UtilConvertToSearchItems {
         }
         return globalSearchItems;
     }
+    
+    /**
+     * Convert a {@link Comment} Array to {@link GlobalSearchItem} list.
+     * @param comments
+     * @return
+     */ 
+	public static List<GlobalSearchItem> convertCommentToSearchItem(
+			final List<Comment> comments) {
+		final List<GlobalSearchItem> globalSearchItems = new ArrayList<GlobalSearchItem>();
+		for (Comment comment : comments) {
+			globalSearchItems.add(UtilConvertToSearchItems
+					.convertCommentToSearchItem(comment));
+		}
+		return globalSearchItems;
+	}
+    
+    /**
+     * Convert {@link Comment} to {@link GlobalSearchItem}
+     * @param comment
+     * @return
+     */
+	public static GlobalSearchItem convertCommentToSearchItem(
+			final Comment comment) {
+		final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
+		globalSearchItem.setDateCreated(comment.getCreatedAt());
+		globalSearchItem.setId(comment.getCommentId());
+		globalSearchItem.setTypeSearchResult(TypeSearchResult.COMMENT);
+		globalSearchItem.setScore(100l);
+		globalSearchItem.setItemSearchTitle(comment.getComment());
+		return globalSearchItem;
+	}
+
 }
