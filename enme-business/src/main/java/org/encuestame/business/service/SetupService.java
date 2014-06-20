@@ -27,6 +27,8 @@ import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.SetupOperations;
 import org.encuestame.core.service.imp.SecurityOperations;
+import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.TypeDatabase;
@@ -34,6 +36,8 @@ import org.encuestame.utils.social.SocialNetworkBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import sun.misc.Regexp;
 
 /**
  * Define all setup operations.
@@ -162,29 +166,11 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     }
 
     /**
-     * Clean the version to possible extra string like, release, rc, m1, m2.
-     * @param version
-     * @return
-     */
-    private String cleanVersion(final String version) {
-        final Integer _ = version.indexOf("-");
-        log.debug("******************************************");
-        log.debug("cleanVersion " + _);
-        if (_ != -1) {
-            final String new_version = version.substring(0, _);
-            log.debug("cleanVersion " + new_version);
-            return new_version;
-        } else {
-            log.debug("cleanVersion NO CHANGES");
-            return version;
-        }
-    }
-
-    /**
      * Check status version.
      * @return the status.
+     * @throws EnMeExpcetion 
      */
-    public String checkStatus() {
+    public String checkStatus() throws EnMeExpcetion {
         //TODO: replace by ENUMs
         log.debug("Check Version Status");
         String status = "install";
@@ -193,12 +179,18 @@ public class SetupService extends AbstractBaseService implements SetupOperations
         final String installedVersion = EnMePlaceHolderConfigurer.getConfigurationManager().getInstalledVersion();
         log.debug("Installed Version : "+installedVersion);
         if (installedVersion != null) {
-            float f1 = Float.valueOf(cleanVersion(currentVersion));
-            log.debug("Current Version : "+f1);
-            float f2 = Float.valueOf(cleanVersion(installedVersion));
-            log.debug("Installed Version : "+f2);
-            if (f2 < f1) {
+        	final int[] versionAsArrayCurrent = EnMeUtils.cleanVersion(currentVersion);
+        	final int[] versionAsArrayInstalled = EnMeUtils.cleanVersion(installedVersion);            
+            if (versionAsArrayCurrent[0] > versionAsArrayInstalled[0]) {
                 status = "upgrade";
+            } else if (versionAsArrayCurrent[0] == versionAsArrayInstalled[0]) {
+            	 if (versionAsArrayCurrent[1] > versionAsArrayInstalled[1]) {
+                 	status = "upgrade";
+            	 } else if (versionAsArrayCurrent[1] == versionAsArrayInstalled[1]) {
+            		 if (versionAsArrayCurrent[2] > versionAsArrayInstalled[2]) {
+                      	status = "upgrade";
+                      }
+            	 }
             }
         }
         return status;

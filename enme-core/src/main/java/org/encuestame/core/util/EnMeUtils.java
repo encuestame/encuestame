@@ -31,6 +31,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Logger;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.net.XFordwardedInetAddressUtil;
 import org.encuestame.utils.web.HashTagBean;
 import org.w3c.dom.Document;
@@ -270,5 +271,27 @@ public class EnMeUtils {
     public static Double convertDegreesToRadians(final double degreesValue) {
         final Double radiansValue = Math.toRadians(degreesValue);
         return radiansValue;
+    }
+
+
+    /**
+     * Clean the version to possible extra string like, release, rc, m1, m2.
+     * @param version
+     * @return
+     * @throws EnMeExpcetion 
+     */
+    public static  int[] cleanVersion(final String version) throws EnMeExpcetion {
+        final String[] versionArray = version.split("\\.");
+        int[] arrayAsIng = new int[3];
+        //convert to int
+        for (int i = 0; i < versionArray.length; i++) {
+            arrayAsIng[i] = Integer.valueOf(versionArray[i]);
+        }
+        log.debug("******************************************");
+        if (arrayAsIng.length == 3) {
+            return arrayAsIng;
+        } else {
+            throw new EnMeExpcetion("version not valid  or not compatible");
+        }
     }
 }
