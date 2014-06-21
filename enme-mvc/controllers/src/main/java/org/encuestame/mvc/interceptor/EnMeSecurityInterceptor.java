@@ -12,8 +12,6 @@
  */
 package org.encuestame.mvc.interceptor;
 
-import java.util.Locale;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +22,7 @@ import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.joda.time.DateTimeZone;
 import org.springframework.security.core.Authentication;
@@ -95,7 +94,11 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
             } else {
                 //cookies
                 log.trace("session is valid");
-                final UserAccount user = getByUsername(getUserPrincipalUsername());
+            	final String username = getUserPrincipalUsername();
+                final UserAccount user = getByUsername(username);        	
+        		if (username != EnMeUtils.ANONYMOUS_USER) {
+        			getLocaleResolver().setLocale(request, response, getUserAccountLocale(user));			
+        		}
                 request.setAttribute("isActivated", user.getInviteCode() == null ? true : false);
                 log.trace("Account User Interceptor "+user);
                 request.setAttribute("account", ConvertDomainBean.convertUserAccountToSignUpBean(user));

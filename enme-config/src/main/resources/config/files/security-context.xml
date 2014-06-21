@@ -54,9 +54,12 @@
         use-expressions="true"
         entry-point-ref="authenticationEntryPoint"
         access-denied-page="${spring.sec.login.denied}">
-        <security:remember-me key="${spring.sec.rememberMe.key}"
+        <!-- 
+            FIXME: Remember me is not working properly, please check
+         -->
+        <!-- <security:remember-me key="${spring.sec.rememberMe.key}"
                               services-alias="_rememberMeServices"
-                              token-validity-seconds="10080" />
+                              token-validity-seconds="10080" /> -->
         <security:anonymous enabled="true" 
                             granted-authority="ENCUESTAME_ANONYMOUS" 
                             key="${spring.sec.anonymous.key}" />

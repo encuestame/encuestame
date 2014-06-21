@@ -55,6 +55,12 @@
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/resource/**"/>
             <mvc:exclude-mapping path="/resources/**"/>
+            <ref bean="setupInterceptor"/>
+          </mvc:interceptor>    
+          <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resource/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
             <ref bean="messagesInterceptor"/>
           </mvc:interceptor>
           <mvc:interceptor>
@@ -68,12 +74,6 @@
             <mvc:exclude-mapping path="/resource/**"/>
             <mvc:exclude-mapping path="/resources/**"/>
             <ref bean="enMeInterceptor"/>
-          </mvc:interceptor>
-          <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/resource/**"/>
-            <mvc:exclude-mapping path="/resources/**"/>
-            <ref bean="setupInterceptor"/>
           </mvc:interceptor>
           <mvc:interceptor>
             <mvc:mapping path="/**"/>
@@ -252,7 +252,6 @@
          <property name="interceptors">
             <list>
                 <ref bean="checkInstallInterceptor"/>
-                <ref bean="enMeInterceptor"/>
                 <ref bean="mobileInterceptor"/>
                 <ref bean="openSessionInViewInterceptor"/>
             </list>
