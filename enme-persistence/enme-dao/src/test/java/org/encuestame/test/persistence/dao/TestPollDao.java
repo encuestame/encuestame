@@ -507,4 +507,27 @@ public class TestPollDao extends AbstractBase {
 		final PollResult resultNull = getPollDao().validateVoteIP(ip2, poll1);
 		Assert.assertNull(resultNull);
 	}
+
+	/**
+	 * Retrieve folders by keyword.
+	 */
+	@Test
+	public void testGetPollFolderByName(){
+		createDefaultPoll(this.question, this.userAccount, this.initDate
+				.minusHours(5).toDate(), 25L, 15L);
+
+		final Question qq = createQuestion("Why the water is colorless?",
+				"html");
+		createDefaultPoll(qq, this.userAccount, this.initDate.minusHours(5)
+				.toDate(), 25L, 15L);
+
+		createPollFolder("Science", this.userAccount);
+		createPollFolder("Nature", this.userAccount);
+		createPollFolder("Geographic", this.userAccount);
+		createPollFolder("Technologie", this.userAccount);
+
+		final List<PollFolder> folders = getPollDao().getPollFolderByKeyword("ie", this.userAccount);
+		assertEquals("Should be equals", 2, folders.size());
+
+	}
 }
