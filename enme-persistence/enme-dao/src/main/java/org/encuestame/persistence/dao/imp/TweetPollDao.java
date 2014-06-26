@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
@@ -1129,4 +1130,24 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
 
         return getHibernateTemplate().findByCriteria(criteria);
     }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.ITweetPoll#getTweetPollFolderByKeyword
+	 * (java.lang.String,
+	 * org.encuestame.persistence.domain.security.UserAccount)
+	 */
+    @SuppressWarnings("unchecked")
+	public List<TweetPollFolder> getTweetPollFolderByKeyword(final String keyword,
+			final UserAccount userAcc) {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(TweetPollFolder.class);
+		criteria.add(Restrictions.eq("createdBy", userAcc));
+		criteria.add(Restrictions.ilike("folderName", keyword,
+				MatchMode.ANYWHERE));
+		return (List<TweetPollFolder>) filterByMaxorStart(criteria, 10, 0);
+	}
+
 }
