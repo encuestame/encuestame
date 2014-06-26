@@ -18,7 +18,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
+import org.apache.solr.util.ArraysUtils;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IStatisticsService;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -37,6 +39,7 @@ import org.encuestame.utils.enums.HashTagRate;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
+import org.encuestame.utils.web.stats.HashTagListGraphData;
 import org.encuestame.utils.web.stats.ItemStatDetail;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
@@ -451,7 +454,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
             throws EnMeNoResultsFoundException, EnMeSearchException {
         // Check if the hashtag exists
         final HashTag tag = this.getHashTag(hashTagName, true);
-        List<TweetPoll> tweetPollsByDateRange = new ArrayList<TweetPoll>();
+        List tweetPollsByDateRange = new ArrayList();
         List<Poll> pollsByDateRange = new ArrayList<Poll>();
         List<Survey> surveysByDateRange = new ArrayList<Survey>();
         List<ItemStatDetail> itemStatDetailByUsage = new ArrayList<ItemStatDetail>();
@@ -463,7 +466,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
                     tag.getHashTag(), period);
             surveysByDateRange = this.getTotalSurveyUsageByHashTagAndDateRange(
                     tag.getHashTag(), period);
-        itemStatDetailByUsage.addAll(ConvertDomainBean.convertTweetPollListToItemDetailBean(tweetPollsByDateRange));
+        itemStatDetailByUsage.addAll(ConvertDomainBean.convertObjectTweetPollListToItemDetailBean(tweetPollsByDateRange));
         itemStatDetailByUsage.addAll(ConvertDomainBean.convertPollListToItemDetailBean(pollsByDateRange));
         itemStatDetailByUsage.addAll(ConvertDomainBean.convertSurveyListToItemDetailBean(surveysByDateRange));
         tagDetailStatsByTagName = this.compareList(itemStatDetailByUsage,
@@ -910,5 +913,120 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
             }
         }
         return existLabel;
+    }
+
+    /**
+     *
+     * @param year
+     * @param value
+     * @param month
+     * @return
+     */
+    private HashTagListGraphData createHastagItemDetailGraph(
+             final Integer year,
+            final Long value,
+            final Integer month) {
+        final HashTagListGraphData tagDetails = new HashTagListGraphData();
+        tagDetails.setMonth(month);
+        tagDetails.setValue(value);
+        tagDetails.setYear(year);
+        return tagDetails;
+    }
+
+    /**
+        Methods V2 Stats --->>>>>
+     */
+
+
+    private final List<HashTagListGraphData> groupHashTagListGraphData(final List<HashTagListGraphData> graphDatas){
+        final List<HashTagListGraphData> newList = new ArrayList<HashTagListGraphData>();
+        for (HashTagListGraphData hashTagListGraphData : graphDatas) {
+            int positionCurrentElement = newList.indexOf(hashTagListGraphData);
+            if (positionCurrentElement != -1) {
+                final HashTagListGraphData internalElement = newList.get(positionCurrentElement);
+                internalElement.setValue(internalElement.getValue() + hashTagListGraphData.getValue());
+            } else {
+                newList.add(hashTagListGraphData);
+            }
+        }
+        return graphDatas;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.encuestame.core.service.imp.IStatisticsService#
+     * getTotalUsagebyHashtagAndDateRangeGraph(java.lang.String,
+     * org.encuestame.utils.enums.SearchPeriods,
+     * javax.servlet.http.HttpServletRequest)
+     */
+    public List<HashTagListGraphData> getTotalUsagebyHashtagAndDateRangeListGraph(
+            final String hashTagName, final SearchPeriods period,
+            final HttpServletRequest request)
+            throws EnMeNoResultsFoundException, EnMeSearchException {
+        // Check if the hashtag exists
+        /*
+            labels : ["January","February","March","April","May","June","July"],
+                    datasets : [
+                        {
+                            fillColor : "rgba(220,220,220,0.5)",
+                            strokeColor : "rgba(220,220,220,1)",
+                            pointColor : "rgba(220,220,220,1)",
+                            pointStrokeColor : "#fff",
+                            data : [65,59,90,81,56,55,40]
+                        }
+                    ]
+         */
+        final HashTag tag = this.getHashTag(hashTagName, true);
+        final List<Object[]> tweetPollsByDateRange = new ArrayList<Object[]>();
+        final List<Object[]> pollsByDateRange = new ArrayList<Object[]>();
+        final List<Object[]> surveysByDateRange = new ArrayList<Object[]>();
+        final List<ItemStatDetail> itemStatDetailByUsage = new ArrayList<ItemStatDetail>();
+        // If the tag exists then obtains the total
+        final List<HashTagListGraphData> tagDetailStatsByTagName = new ArrayList<HashTagListGraphData>();
+
+
+        // from database
+        tweetPollsByDateRange.addAll(this.getTweetPollsRangeStats(tag.getHashTag(),
+                period));
+        pollsByDateRange.addAll(this.getPollsRangeStats(tag.getHashTag(), period));
+        surveysByDateRange.addAll(this.getSurveysRangeStats(tag.getHashTag(), period));
+
+        // object conversion
+        itemStatDetailByUsage.addAll(ConvertDomainBean
+                .convertObjectListToItemDetailBean(tweetPollsByDateRange));
+        itemStatDetailByUsage.addAll(ConvertDomainBean
+                .convertObjectListToItemDetailBean(pollsByDateRange));
+        itemStatDetailByUsage.addAll(ConvertDomainBean
+                .convertObjectListToItemDetailBean(surveysByDateRange));
+
+        tagDetailStatsByTagName.addAll(this.getTotalUsagebyHashtagAndDateRangeListGraph(
+                itemStatDetailByUsage, period, request));
+
+
+        return tagDetailStatsByTagName;
+    }
+
+
+    //FUTURE: test case de este metodo
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IStatisticsService#getTotalUsagebyHashtagAndDateRangeListGraph(java.util.List, org.encuestame.utils.enums.SearchPeriods, javax.servlet.http.HttpServletRequest)
+     */
+    @Override
+    public List<HashTagListGraphData> getTotalUsagebyHashtagAndDateRangeListGraph(
+            final List<ItemStatDetail> itemList,
+            final SearchPeriods period,
+            final HttpServletRequest request)
+            throws EnMeNoResultsFoundException, EnMeSearchException {
+         final List<HashTagListGraphData> tagDetailStatsCompare = new ArrayList<HashTagListGraphData>();
+         for (ItemStatDetail item : itemList) {
+             int month = DateUtil.getValueCurrentMonthOfTheYear(item.getDate());
+             int year = DateUtil.getValueCurrentYear(item.getDate());
+             Long value = item.getItemId();
+             tagDetailStatsCompare.add(this.createHastagItemDetailGraph(year,value, month));
+         }
+         return this.groupHashTagListGraphData(tagDetailStatsCompare);
     }
 }
