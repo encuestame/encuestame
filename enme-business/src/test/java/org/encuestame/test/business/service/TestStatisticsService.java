@@ -630,7 +630,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         HashTagDetailStats detail = statisticsService
                 .getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
                         SearchPeriods.SEVENDAYS);
-        Assert.assertEquals("Should be equals", 35, detail.getValue()
+        Assert.assertEquals("Should be equals", 34, detail.getValue()
                 .intValue());
 
     }
@@ -651,7 +651,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
                 .getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
                         SearchPeriods.THIRTYDAYS);
 
-        Assert.assertEquals("Should be equals", 54, detail.getValue()
+        Assert.assertEquals("Should be equals", 34, detail.getValue()
                 .intValue());
     }
 
@@ -670,7 +670,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         HashTagDetailStats detail = statisticsService
                 .getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
                         SearchPeriods.ONEYEAR);
-        Assert.assertEquals("Should be equals", 85, detail.getValue()
+        Assert.assertEquals("Should be equals", 45, detail.getValue()
                 .intValue());
     }
 
@@ -689,7 +689,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         HashTagDetailStats detail = statisticsService
                 .getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
                         SearchPeriods.ALLTIME);
-        Assert.assertEquals("Should be equals", 90, detail.getValue()
+        Assert.assertEquals("Should be equals", 47, detail.getValue()
                 .intValue());
     }
 
