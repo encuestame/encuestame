@@ -576,7 +576,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                                 new String[] { "ipAddress", "poll" },
                                 new Object[] { ip, poll }));
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getListvalidateVoteIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
@@ -633,21 +633,21 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 			final Long userId) {
 		final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
 		this.criteriaAdvancedSearch(
-				"owner", 
+				"owner",
 				"uid",
 				userId,
-				criteria, 
+				criteria,
 				bean.getIsComplete(),
-				bean.getIsScheduled(), 
-				bean.getIsFavourite(), 
-				bean.getIsPublished(), 
-				bean.getKeyword(), 
+				bean.getIsScheduled(),
+				bean.getIsFavourite(),
+				bean.getIsPublished(),
+				bean.getKeyword(),
 				bean.getPeriod());
 		return (List<Poll>) filterByMaxorStart(criteria, bean.getMax(), bean.getStart());
 	}
-	
+
    /**
-    * 
+    *
     * @param property
     * @param property_value
     * @param itemId
@@ -661,28 +661,28 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     */
 	public void criteriaAdvancedSearch(
 			final String property,
-			final String property_value, 
+			final String property_value,
 			final Object itemId,
 			final DetachedCriteria criteria,
-			final Boolean isCompleted, 
+			final Boolean isCompleted,
 			final Boolean isScheduled,
-			final Boolean isFavourite, 
+			final Boolean isFavourite,
 			final Boolean isPublished,
-			final String keyword, 
+			final String keyword,
 			final String period) {
 		// criteria.add(Restrictions.eq("editorOwner.uid", userId)); -- POLL
 		criteria.createAlias(property, property);
-		criteria.add(Restrictions.eq(property + "." + property_value, itemId));		
+		criteria.add(Restrictions.eq(property + "." + property_value, itemId));
 		criteria.addOrder(Order.desc("createDate"));
 		this.advancedPollSearchOptions(
-				criteria, 
+				criteria,
 				isCompleted,
 				isScheduled,
-				isFavourite, 
-				isPublished, 
-				keyword, 
+				isFavourite,
+				isPublished,
+				keyword,
 				period);
-	}	
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -744,9 +744,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
        // To retrieve all and only scheduled Tweetpoll period should be = ALLTIME
        return useAvancedSearch(criteria, bean);
    }
-   
+
    /**
-    * 
+    *
     * @param criteria
     * @param bean
     * @return
@@ -756,4 +756,23 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 				bean.getIsPublished(), bean.getKeyword(), bean.getPeriod());
 	   return (List<Poll>) filterByMaxorStart(criteria, bean.getMax(), bean.getStart());
    }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.IPoll#getPollFolderByKeyword(java.lang
+	 * .String, org.encuestame.persistence.domain.security.UserAccount)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PollFolder> getPollFolderByKeyword(final String keyword,
+			final UserAccount userAcc) {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(PollFolder.class);
+
+		criteria.add(Restrictions.eq("createdBy", userAcc));
+		criteria.add(Restrictions.ilike("folderName", keyword,
+				MatchMode.ANYWHERE));
+		return (List<PollFolder>) filterByMaxorStart(criteria, 10, 0);
+	}
 }
