@@ -632,4 +632,13 @@ public interface ITweetPollService extends IMasterSurveyService{
 	  */
 	 List<TweetPollSavedPublishedStatus> retrieveTweetPollSavedPublished(final TweetPoll tweetPoll) throws EnMeNoResultsFoundException;
 
+	 /**
+	  * Retrieve Folders by keyword.
+	  * @param user
+	  * @param keyword
+	  * @return
+	  */
+	 List<TweetPollFolder> retrieveFoldersbyKeyword(
+				final UserAccount user, final String keyword);
+
 }
