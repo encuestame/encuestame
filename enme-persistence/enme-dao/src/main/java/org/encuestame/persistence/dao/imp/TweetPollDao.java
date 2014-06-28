@@ -1116,17 +1116,13 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         final DetachedCriteria criteria = DetachedCriteria.forClass(
                 TweetPoll.class, "tweetPoll");
         criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
-
         criteria.addOrder(Order.desc("tweetPoll.createDate"));
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
         ProjectionList projList = Projections.projectionList();
-         projList.add(Projections.groupProperty("createDate"));
-       //  projList.add(Projections.sqlGroupProjection("DATE({alias}.create_date) as fecha", "fecha", new String[] { "fecha" }, new Type[] { StandardBasicTypes.DATE }));
-
+        projList.add(Projections.groupProperty("createDate"));
         projList.add(Projections.rowCount());
         criteria.setProjection(projList);
-        //projectionList.add(Projections.sqlGroupProjection("date(dateCreated) as createdDate", "createdDate", new String[] { "createdDate" }, new Type[] { StandardBasicTypes.DATE }));
-       // calculateSearchPeriodsDates(period, criteria, "createDate");
+        calculateSearchPeriodsDates(period, criteria, "createDate");
 
         return getHibernateTemplate().findByCriteria(criteria);
     }

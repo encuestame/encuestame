@@ -217,6 +217,16 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     private IScheduled scheduleDao;
 
     /**
+     * Generate a Long random value.
+     * @return
+     */
+    private Long randomLongGenerator() {
+         Random randomno = new Random();
+         long value = randomno.nextLong();
+         return value;
+    }
+
+    /**
      * Get Property.
      * @param property
      * @return
@@ -508,11 +518,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Poll createDefaultPoll(final Question question,
             final UserAccount userAccount, final Date createdAt, final Long likeVote, final Long dislikeVote) {
-    	final Poll poll = createPoll(createdAt, question, userAccount, Boolean.TRUE,
+        final Poll poll = createPoll(createdAt, question, userAccount, Boolean.TRUE,
                 Boolean.TRUE);
-    	poll.setLikeVote(likeVote);
-    	poll.setDislikeVote(dislikeVote);
-    	getPollDao().saveOrUpdate(poll);
+        poll.setLikeVote(likeVote);
+        poll.setDislikeVote(dislikeVote);
+        getPollDao().saveOrUpdate(poll);
         return poll;
     }
 
@@ -574,21 +584,21 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     }
 
-	/**
-	 * Create Default {@link PollResult}.
-	 * @param questionAnswer
-	 * @param poll
-	 * @param ip
-	 * @return
-	 */
+    /**
+     * Create Default {@link PollResult}.
+     * @param questionAnswer
+     * @param poll
+     * @param ip
+     * @return
+     */
     public PollResult createDefaultPollResults(
-			final QuestionAnswer questionAnswer, final Poll poll,
-			final String ip) {
-		final PollResult result = this.createPollResults(questionAnswer, poll);
-		result.setIpaddress(ip);
-		getPollDao().saveOrUpdate(result);
-		return result;
-	}
+            final QuestionAnswer questionAnswer, final Poll poll,
+            final String ip) {
+        final PollResult result = this.createPollResults(questionAnswer, poll);
+        result.setIpaddress(ip);
+        getPollDao().saveOrUpdate(result);
+        return result;
+    }
 
     /**
      * Create project.
@@ -1222,7 +1232,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
              Boolean publishTweetPoll,
              Boolean scheduleTweetPoll,
              Date scheduleDate,
-             Date publicationDateTweet,
+             Date creationDate,
              Boolean completed,
              Account tweetOwner,
              Question question,
@@ -1236,9 +1246,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         tweetPoll.setQuestion(question);
         tweetPoll.setScheduleDate(scheduleDate);
         tweetPoll.setScheduleTweetPoll(scheduleTweetPoll);
-        tweetPoll.setCreateDate(publicationDateTweet);
+        // The create date always have to be the date of creation
+        tweetPoll.setCreateDate(creationDate);
         tweetPoll.setFavourites(Boolean.TRUE);
         tweetPoll.setTweetOwner(tweetOwner);
+        // The update date is the date when the tweetpoll has been updated, included the
+        // publication date
+        tweetPoll.setUpdatedDate(creationDate);
         tweetPoll.setEditorOwner(userAccount);
         tweetPoll.setRelevance(1L);
         getTweetPoll().saveOrUpdate(tweetPoll);
@@ -1252,7 +1266,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return {@link TweetPoll}
      */
     public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question){
-       return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question, null);
+       return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question, null);
     }
 
     /**
@@ -1263,7 +1277,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question, final Date dateTweet){
-        return createTweetPoll(12345L, false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question, null);
+        return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question, null);
      }
 
     /**
@@ -1273,7 +1287,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public TweetPoll createPublishedTweetPoll(final Question question, final UserAccount user) {
-        return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
+        return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
 
     /**
@@ -1412,12 +1426,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param secUsers
      * @return
      */
-	public GeoPointFolder createDefaultGeoPointFolder(final String folderName,
-			final Account secUsers) {
-		return this.createGeoPointFolder(GeoPointFolderType.POLYGON, secUsers,
-				folderName, null);
+    public GeoPointFolder createDefaultGeoPointFolder(final String folderName,
+            final Account secUsers) {
+        return this.createGeoPointFolder(GeoPointFolderType.POLYGON, secUsers,
+                folderName, null);
 
-	}
+    }
 
     /**
      * Helper Create Survey Section.
@@ -2201,8 +2215,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     * @return
     */
     public Hit createHashTagHit(final HashTag tag, final String ipAddress, final Date hitDate){
-    	final Hit visit = this.createHit(null, null, null, tag, ipAddress);
-    	visit.setHitDate(hitDate);
+        final Hit visit = this.createHit(null, null, null, tag, ipAddress);
+        visit.setHitDate(hitDate);
         return visit;
     }
 
@@ -2236,22 +2250,22 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
 
     /**
-	 * @return the scheduleDao
-	 */
-	public IScheduled getScheduleDao() {
-		return scheduleDao;
-	}
+     * @return the scheduleDao
+     */
+    public IScheduled getScheduleDao() {
+        return scheduleDao;
+    }
 
 
-	/**
-	 * @param scheduleDao the scheduleDao to set
-	 */
-	public void setScheduleDao(final IScheduled scheduleDao) {
-		this.scheduleDao = scheduleDao;
-	}
+    /**
+     * @param scheduleDao the scheduleDao to set
+     */
+    public void setScheduleDao(final IScheduled scheduleDao) {
+        this.scheduleDao = scheduleDao;
+    }
 
 
-	/**
+    /**
      * Create comment.
      * @param comm
      * @param likeVote
@@ -2582,37 +2596,37 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return isd;
     }
 
-	/**
-	 *
-	 * @param tpoll
-	 * @param survey
-	 * @param poll
-	 * @param scheduleDate
-	 * @param socialAccount
-	 * @param status
-	 * @param attempts
-	 * @param tpollSaved
-	 * @param tweetText
-	 * @return
-	 */
+    /**
+     *
+     * @param tpoll
+     * @param survey
+     * @param poll
+     * @param scheduleDate
+     * @param socialAccount
+     * @param status
+     * @param attempts
+     * @param tpollSaved
+     * @param tweetText
+     * @return
+     */
     public Schedule createScheduledItem(final TweetPoll tpoll,
-			final Survey survey, final Poll poll, final Date scheduleDate,
-			final SocialAccount socialAccount, final Status status,
-			final Integer attempts,
-			final TweetPollSavedPublishedStatus tpollSaved, final String tweetText, final TypeSearchResult typeSearch) {
-    	final Schedule schedule = new Schedule();
-    	schedule.setPublishAttempts(attempts);
-    	schedule.setPoll(poll);
-    	schedule.setScheduleDate(scheduleDate);
-    	schedule.setSocialAccount(socialAccount);
-    	schedule.setStatus(status);
-    	schedule.setSurvey(survey);
-    	schedule.setTpoll(tpoll);
-    	schedule.setTpollSavedPublished(tpollSaved);
-    	schedule.setTweetText(tweetText);
-    	schedule.setTypeSearch(typeSearch);
-    	getScheduleDao().saveOrUpdate(schedule);
-    	return schedule;
+            final Survey survey, final Poll poll, final Date scheduleDate,
+            final SocialAccount socialAccount, final Status status,
+            final Integer attempts,
+            final TweetPollSavedPublishedStatus tpollSaved, final String tweetText, final TypeSearchResult typeSearch) {
+        final Schedule schedule = new Schedule();
+        schedule.setPublishAttempts(attempts);
+        schedule.setPoll(poll);
+        schedule.setScheduleDate(scheduleDate);
+        schedule.setSocialAccount(socialAccount);
+        schedule.setStatus(status);
+        schedule.setSurvey(survey);
+        schedule.setTpoll(tpoll);
+        schedule.setTpollSavedPublished(tpollSaved);
+        schedule.setTweetText(tweetText);
+        schedule.setTypeSearch(typeSearch);
+        getScheduleDao().saveOrUpdate(schedule);
+        return schedule;
     }
 
     /**
@@ -2624,7 +2638,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public Schedule createTweetpollSchedule(final TweetPoll tpoll, final Date scheduleDate, final SocialAccount socialAccount, final Status status, final TypeSearchResult typeSearch){
-    	return this.createScheduledItem(tpoll, null, null, scheduleDate, socialAccount, status, 2 , null, "tweettext", typeSearch);
+        return this.createScheduledItem(tpoll, null, null, scheduleDate, socialAccount, status, 2 , null, "tweettext", typeSearch);
     }
 
     /**
@@ -2637,12 +2651,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public Schedule createTweetpollScheduleDefault(final TweetPoll tpoll,
-			final Date scheduleDate, final SocialAccount socialAccount,
-			final Status status, final TypeSearchResult typeSearch, final String tweetText) {
-		return this.createScheduledItem(tpoll, null, null, scheduleDate,
-				socialAccount, status, 2, null, tweetText, typeSearch);
+            final Date scheduleDate, final SocialAccount socialAccount,
+            final Status status, final TypeSearchResult typeSearch, final String tweetText) {
+        return this.createScheduledItem(tpoll, null, null, scheduleDate,
+                socialAccount, status, 2, null, tweetText, typeSearch);
 
-	}
+    }
 
     /**
      *
@@ -2655,10 +2669,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public Schedule createTweetpollScheduleDefault(final TweetPoll tpoll,
-			final Date scheduleDate, final SocialAccount socialAccount,
-			final Status status, final TypeSearchResult typeSearch, final Integer attempts) {
-		return this.createScheduledItem(tpoll, null, null, scheduleDate,
-				socialAccount, status, attempts, null, "tweettext", typeSearch);
+            final Date scheduleDate, final SocialAccount socialAccount,
+            final Status status, final TypeSearchResult typeSearch, final Integer attempts) {
+        return this.createScheduledItem(tpoll, null, null, scheduleDate,
+                socialAccount, status, attempts, null, "tweettext", typeSearch);
 
-	}
+    }
 }

@@ -187,4 +187,17 @@ public class HashTag {
 	public void setCreatedAt(final Date createdAt) {
 		this.createdAt = createdAt;
 	}
+
+    @Override
+    public String toString() {
+        return "HashTag{" +
+                "hashTagId=" + hashTagId +
+                ", hashTag='" + hashTag + '\'' +
+                ", hits=" + hits +
+                ", updatedDate=" + updatedDate +
+                ", tweetPoll=" + tweetPoll +
+                ", size=" + size +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
