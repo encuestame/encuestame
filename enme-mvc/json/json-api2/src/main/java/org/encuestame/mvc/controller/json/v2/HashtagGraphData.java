@@ -56,21 +56,14 @@ public class HashtagGraphData extends AbstractJsonControllerV1{
                 setError("Period not valid", response);
             } else {
                 if (filterType.equals(TypeSearchResult.HASHTAG)) {
-
                     tagStats = getStatisticsService().getTotalUsagebyHashtagAndDateRangeListGraph(tagName,
                                     searchPeriods, request);
                 } else if (filterType.equals(TypeSearchResult.SOCIALNETWORK)) {
-//                    tagStats = getStatisticsService()
-//                            .getTotalSocialLinksbyHashTagUsageAndDateRangeGraph(tagName,
-//                                    searchPeriods, request);
-//                } else if (filterType.equals(TypeSearchResult.HITS)) {
-//                    tagStats = getStatisticsService()
-//                            .getTotalHitsUsagebyHashTagAndDateRangeGraph(tagName,
-//                                    searchPeriods, request);
-//                } else if (filterType.equals(TypeSearchResult.VOTES)) {
-//                    tagStats = getStatisticsService()
-//                            .getTotalVotesbyHashTagUsageAndDateRangeGraph(tagName,
-//                                    searchPeriods, request);
+                    tagStats = getStatisticsService().getTotalSocialLinksbyHashTagUsageAndDateRangeListGraph(tagName, searchPeriods, request);
+                } else if (filterType.equals(TypeSearchResult.HITS)) {
+                    tagStats = getStatisticsService().getTotalHitsUsagebyHashTagAndDateRangeListGraph(tagName, searchPeriods, request);
+                } else if (filterType.equals(TypeSearchResult.VOTES)) {
+                    tagStats = getStatisticsService().getTotalVotesbyHashTagUsageAndDateRangeListGraph(tagName, searchPeriods, request);
                 }
                 jsonResponse.put("statsByRange", tagStats);
                 setItemResponse(jsonResponse);

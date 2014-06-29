@@ -101,8 +101,11 @@ public class HashTagListGraphData implements Serializable, Comparable<HashTagLis
      */
     @Override
     public int compareTo(HashTagListGraphData o) {
+        int day = this.day.compareTo(o.day);
         int year_ = this.year.compareTo(o.getYear());
-        return (year_ != 0 ? year_ : this.month.compareTo(o.getMonth()));
+        int month = this.month.compareTo(o.getMonth());
+        int second = (year_ == 0 ? month : year_);
+        return second == 0 ? second : day;
     }
 
     /* (non-Javadoc)
@@ -146,5 +149,14 @@ public class HashTagListGraphData implements Serializable, Comparable<HashTagLis
         } else if (!year.equals(other.year))
             return false;
         return true;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "HashTagListGraphData [month=" + month + ", value=" + value
+                + ", day=" + day + ", year=" + year + "]";
     }
 }

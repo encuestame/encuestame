@@ -1734,9 +1734,7 @@ public class ConvertDomainBean {
             final List<TweetPollSavedPublishedStatus> tpollSocialSavedPublished) {
         final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
         for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : tpollSocialSavedPublished) {
-            itemStatDetail
-                    .add(ConvertDomainBean
-                            .convertTweetPollSavedPublishedStatusToItemDetailBean(tweetPollSavedPublishedStatus));
+            itemStatDetail.add(ConvertDomainBean.convertTweetPollSavedPublishedStatusToItemDetailBean(tweetPollSavedPublishedStatus));
         }
         return itemStatDetail;
     }
@@ -1797,7 +1795,6 @@ public class ConvertDomainBean {
     public static final List<ItemStatDetail> convertObjectListToItemDetailBean(
             final List<Object[]> tpolls) {
          final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
-
        for (Object[] objects : tpolls) {
            final ItemStatDetail itemDetail = new ItemStatDetail();
            final Long inte1 = (Long) objects[1];

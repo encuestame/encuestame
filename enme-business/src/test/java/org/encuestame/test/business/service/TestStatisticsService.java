@@ -22,11 +22,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-
-
-
-
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.service.imp.IStatisticsService;
 import org.encuestame.core.util.EnMeUtils;
@@ -49,9 +44,9 @@ import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.PerformanceTest;
 import org.encuestame.utils.enums.SearchPeriods;
-import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
+import org.encuestame.utils.web.stats.HashTagListGraphData;
 import org.encuestame.utils.web.stats.ItemStatDetail;
 import org.joda.time.DateTime;
 import org.junit.Assert;
@@ -1418,6 +1413,52 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
                         this.initHashTag.getHashTag(), SearchPeriods.SEVENDAYS,
                         this.request);
         Assert.assertEquals("Should be equals", 2, detailStatsByWeek.size());
+    }
+
+    /**
+     * Testing GetTotalUsagebyHashtagAndDateRangeListGraph.
+     * @throws EnMeSearchException
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testGetTotalUsagebyHashtagAndDateRangeListGraph()
+            throws EnMeSearchException, EnMeNoResultsFoundException {
+        final Calendar currentDate = Calendar.getInstance();
+        final List<HashTagListGraphData> list = getStatisticsService().getTotalUsagebyHashtagAndDateRangeListGraph( this.initHashTag.getHashTag(),
+                    SearchPeriods.ONEYEAR, request);
+        Assert.assertEquals("Should be equals", 1, list.size());
+        final Question question = createQuestion("What is your favorite season?", "");
+        final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
+        tp.getHashTags().add(this.initHashTag);
+        getTweetPoll().saveOrUpdate(tp);
+        // Item 2
+        final Question question2 = createQuestion("What is your favorite holidays?", "");
+        final TweetPoll tp2 = createPublishedTweetPoll(question2, this.secondary);
+        tp2.getHashTags().add(this.initHashTag);
+        getTweetPoll().saveOrUpdate(tp2);
+        final List<HashTagListGraphData> list2 = getStatisticsService().getTotalUsagebyHashtagAndDateRangeListGraph( this.initHashTag.getHashTag(),
+                SearchPeriods.ONEYEAR, request);
+        Assert.assertEquals("Should be equals", 1, list2.size());
+        Assert.assertEquals("Should be equals", Long.valueOf(3), list2.get(0).getValue());
+        // poll 1
+        final Poll poll1 = createPoll(currentDate.getTime(), question, this.secondary, true, true);
+        poll1.getHashTags().add(initHashTag);
+        getPollDao().saveOrUpdate(poll1);
+        final List<HashTagListGraphData> list3 = getStatisticsService().getTotalUsagebyHashtagAndDateRangeListGraph( this.initHashTag.getHashTag(),
+                SearchPeriods.ONEYEAR, request);
+        Assert.assertEquals("Should be equals", 1, list3.size());
+        Assert.assertEquals("Should be equals", Long.valueOf(4), list3.get(0).getValue());
+        // poll 2
+        currentDate.add(Calendar.YEAR, -4);
+        final Poll poll2 = createPoll(currentDate.getTime(), question, this.secondary, true, true);
+        poll2.getHashTags().add(initHashTag);
+        getPollDao().saveOrUpdate(poll2);
+        final List<HashTagListGraphData> list4 = getStatisticsService().getTotalUsagebyHashtagAndDateRangeListGraph( this.initHashTag.getHashTag(),
+                SearchPeriods.ONEYEAR, request);
+        Assert.assertEquals("Should be equals", 1, list4.size());
+        Assert.assertEquals("Should be equals", Long.valueOf(4), list4.get(0).getValue());
+
+        //FUTURE: should be increased with SURVEY items
     }
 
     /**
