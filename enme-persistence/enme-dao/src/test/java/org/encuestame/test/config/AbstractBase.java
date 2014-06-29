@@ -2100,8 +2100,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public TweetPollSavedPublishedStatus createTweetPollSavedPublishedStatus(
             final TweetPoll tweetPoll, final String tweetId,
             final SocialAccount socialAccount, final String tweetText) {
-        return this.createSocialLinkSavedPublishedStatus(tweetPoll, null, null,
-                tweetId, socialAccount, tweetText);
+        return this.createSocialLinkSavedPublishedStatus(
+                tweetPoll,
+                null,
+                null,
+                tweetId,
+                socialAccount,
+                tweetText);
 
     }
 
@@ -2124,7 +2129,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         publishedStatus.setTweetContent(tweetText);
         publishedStatus.setSocialAccount(socialAccount);
         publishedStatus.setTweetId(RandomStringUtils.randomAlphabetic(18));
-        publishedStatus.setPublicationDateTweet(new Date());
+        publishedStatus.setPublicationDateTweet(Calendar.getInstance().getTime());
         publishedStatus.setPoll(poll);
         publishedStatus.setSurvey(survey);
         getTweetPoll().saveOrUpdate(publishedStatus);
