@@ -386,7 +386,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
             criteria.add(Restrictions.eq("publishTweetPoll", isPublished));
         }
     }
-    
+
     /**
     *
     * @param criteria
@@ -427,24 +427,24 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
        if (isPublished != null && isPublished) {
            criteria.add(Restrictions.eq("publish", isPublished));
        }
-   }    
-    
-	/**
-	 *
-	 * @param criteria
-	 * @param property
-	 * @param splist
-	 */
-	public void criteriaSearchSocialLinksByType(final DetachedCriteria criteria,  final List<SocialProvider> splist, final List<SocialAccount> socialAccounts){
+   }
+
+    /**
+     *
+     * @param criteria
+     * @param property
+     * @param splist
+     */
+    public void criteriaSearchSocialLinksByType(final DetachedCriteria criteria,  final List<SocialProvider> splist, final List<SocialAccount> socialAccounts){
           criteria.add(Restrictions.isNotNull("tweetId"));
           criteria.add(Restrictions.eq("status", Status.SUCCESS));
           if (splist.size() > 0) {
-        	  criteria.add(Restrictions.in("apiType", splist));
+              criteria.add(Restrictions.in("apiType", splist));
           }
           if (socialAccounts.size() > 0) {
               criteria.add(Restrictions.in("socialAccount", socialAccounts));
           }
-	}
+    }
 
     /**
      * Create query to get  {@link TweetPoll}, {@link Poll}, {@link Survey} by geolocation.

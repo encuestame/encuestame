@@ -85,7 +85,7 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
         if (!httpServletRequest.getRequestURI().toString().equals(path.toString())) {
             final String uuid = EnMePlaceHolderConfigurer.getConfigurationManager().getProperty("install.uuid");
             if (uuid == null) {
-                     log.trace("system not installed ...");
+                     log.info("system not installed ...");
                      final ModelAndView modelAndView = new ModelAndView("redirect:/setup");
                      throw new ModelAndViewDefiningException(modelAndView);
             }

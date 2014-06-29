@@ -5,27 +5,28 @@
 
    <group name='commons'>
     <js>/commons/moment.js</js>
-    <js>/commons/d3.v3.min.js</js>
-    <js>/commons/d3.layout.cloud.js</js>
+    <js>/commons/Chart.js</js>
+    <!--<js>/commons/d3.v3.min.js</js>-->
+    <!--<js>/commons/d3.layout.cloud.js</js>-->
     <!-- why ?? <js>/commons/underscore.js</js> -->
     <js>/commons/sockjs.js</js>
     <js>/commons/stomp.js</js>
     <js>/commons/offline.js</js>
     <js>/commons/alertify/dist/alertify.min.js</js>
-    <js>/chart/enme.chart.js</js>
+    <!--<js>/chart/enme.chart.js</js>-->
   </group>
 
 
   <group name='commons-mobile'>
     <js>/commons/moment.js</js>
-    <js>/commons/d3.v3.min.js</js>
+    <js>/commons/Chart.js</js>
     <!-- why ?? <js>/commons/d3.layout.cloud.js</js> -->
 <!-- why??? <js>/commons/underscore.js</js> -->
     <js>/commons/sockjs.js</js>
     <js>/commons/stomp.js</js>
     <js>/commons/offline.js</js>
     <js>/commons/alertify/dist/alertify.min.js</js>
-    <js>/chart/enme.chart.js</js>
+    <!--<js>/chart/enme.chart.js</js>-->
   </group>
   
   <group name='maps'>

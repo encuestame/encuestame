@@ -13,7 +13,6 @@
 package org.encuestame.mvc.controller.json.v1.statistics;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,9 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -38,6 +34,7 @@ import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -136,7 +133,6 @@ public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
-            //IFrontEndService service = getFrontService();
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                 final List<HashTagRankingBean> tagRankingBean =  getFrontService().getHashTagRanking(tagName);
             log.debug("HashTagJsonStats size --->" + tagRankingBean.size());
@@ -233,5 +229,7 @@ public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
             setError(e.getMessage(), response);
         }
         return returnData();
-    }    
+    }
+
+
 }

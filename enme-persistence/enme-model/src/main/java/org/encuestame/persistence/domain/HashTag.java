@@ -171,20 +171,20 @@ public class HashTag {
         this.updatedDate = updatedDate;
     }
 
-	/**
-	 * This property is exchanged with the update_date.
-	 * This property holds the date of the last update of cron.
-	 * @return the createdAt
-	 */
+    /**
+     * This property is exchanged with the update_date.
+     * This property holds the date of the last update of cron.
+     * @return the createdAt
+     */
     @Column(name = "created_updated")
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	/**
-	 * @param createdAt the createdAt to set
-	 */
-	public void setCreatedAt(final Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(final Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }
