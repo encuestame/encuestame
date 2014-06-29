@@ -15,11 +15,11 @@
     <url>http://www.encuestame.org</url>
     <issueManagement>
         <system>JIRA</system>
-        <url>http://issues.encuestame.org</url>
+        <url>http://www.encuestame.org/issues</url>
     </issueManagement>
     <ciManagement>
         <system>Bamboo</system>
-        <url>http://ci.encuestame.org</url>
+        <url>http://www.encuestame.org/build</url>
     </ciManagement>
     <inceptionYear>2008</inceptionYear>
     <properties>
