@@ -81,6 +81,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
      * @throws IOException
      */
     @Test
+    @Category(DefaultTest.class)
     public void testcreateFolder() throws ServletException, IOException{
         /** Create poll folder json. **/
          Assert.assertEquals(createJsonPollFolder("poll", "Education"), "Education");
@@ -208,7 +209,9 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
      * @throws ServletException
      * @throws IOException
      */
+
     @Test
+    @Category(DefaultTest.class)
     public void testRetrieveItemsbyFolder() throws ServletException, IOException{
         Assert.assertEquals("tweetpoll should be ",retrieveItemsbyFolder("tweetpoll").intValue(), 1);
         Assert.assertEquals("survey should be ", retrieveItemsbyFolder("survey").intValue(), 1);
@@ -229,5 +232,43 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
         final JSONObject success = getSucess(response);
         final JSONArray polls = (JSONArray) success.get("folders");
         return polls.size();
+    }
+
+	@Test
+	@Category(DefaultTest.class)
+    public void testRetrieveFolders() throws ServletException, IOException{
+		createPollFolder("Black", getSpringSecurityLoggedUserAccount());
+		createPollFolder("Rose", getSpringSecurityLoggedUserAccount());
+		createPollFolder("Yellow", getSpringSecurityLoggedUserAccount());
+		createPollFolder("Green", getSpringSecurityLoggedUserAccount());
+		createPollFolder("White", getSpringSecurityLoggedUserAccount());
+		createPollFolder("Blue", getSpringSecurityLoggedUserAccount());
+
+		createTweetPollFolder("Science", getSpringSecurityLoggedUserAccount());
+		createTweetPollFolder("Technologie",
+				getSpringSecurityLoggedUserAccount());
+		createTweetPollFolder("Mathemathic",
+				getSpringSecurityLoggedUserAccount());
+		Assert.assertEquals("Tweetpolls Folders should be ",
+				retrieveFoldersbyKeyword("tweetpoll", "Scie").intValue(), 1);
+	}
+
+
+    /**
+     * Run retrieve item to folder json service.
+     * @param actionType
+     * @param folderId
+     * @throws IOException
+     * @throws ServletException
+     */
+    public Integer retrieveFoldersbyKeyword(final String actionType, final String keyword) throws ServletException, IOException{
+    	initService("/api/survey/folder/"+actionType+"/searchbykeword.json", MethodJson.GET);
+    	setParameter("keyword", keyword);
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        Assert.assertNotNull(success.get("folders"));
+        final JSONArray foldersby = (JSONArray) success.get("folders");
+
+        return foldersby.size();
     }
 }
