@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/includes/meta.jsp"%>
+<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <c:forEach items="${i18n}" var="entry">
 	<input type="hidden" name="${entry.key}" value="${entry.value}"/>
 </c:forEach>

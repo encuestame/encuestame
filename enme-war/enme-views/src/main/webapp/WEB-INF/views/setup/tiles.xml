@@ -17,7 +17,7 @@
         <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
     </definition>
 
-    <definition name="displayError" extends="setup-page">
+    <definition name="displaySetupError" extends="setup-page">
         <put-attribute name="header" expression="/WEB-INF/layouts/standard/setup/header.jsp" />
         <put-attribute name="title" value="Error on Install | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/error.jsp" />

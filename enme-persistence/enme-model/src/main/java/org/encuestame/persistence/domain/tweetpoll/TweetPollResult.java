@@ -116,4 +116,14 @@ public class TweetPollResult extends AbstractGeoPoint{
     public void setIpVote(String ipVote) {
         this.ipVote = ipVote;
     }
+
+    @Override
+    public String toString() {
+        return "TweetPollResult{" +
+                "tweetPollResultId=" + tweetPollResultId +
+                ", tweetPollSwitch=" + tweetPollSwitch +
+                ", ipVote='" + ipVote + '\'' +
+                ", tweetResponseDate=" + tweetResponseDate +
+                '}';
+    }
 }

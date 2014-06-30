@@ -513,7 +513,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 					objects[3].toString(), (Double) objects[4]);
 			itemsGeoBeanList.add(itemGeoBean);
 		}
-		// TODO: It«s necessary to sort by distance
+		// TODO: It's necessary to sort by distance
 		return itemsGeoBeanList; 
 	}
 	

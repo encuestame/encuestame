@@ -1,43 +1,4 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<style>
-
-.web-ht-graph {
-  font: 10px sans-serif;
-  margin: 0;
-}
-
-path.line {
-  fill: none;
-  stroke: #666;
-  stroke-width: 1.5px;
-}
-
-path.area {
-  fill: #e7e7e7;
-}
-
-.axis {
-  shape-rendering: crispEdges;
-}
-
-.x.axis line {
-  stroke: #fff;
-}
-
-.x.axis .minor {
-  stroke-opacity: .5;
-}
-
-.x.axis path {
-  display: none;
-}
-
-.y.axis line, .y.axis path {
-  fill: none;
-  stroke: #000;
-}
-
-</style>
 
 <article class="web-hashtag-wrapper">
 
@@ -101,7 +62,7 @@ path.area {
                           <spring:message code="home.hashtag.tweets" />
                        </h3>
                   <section>
-                       <div data-dojo-type="me/web/widget/social/LinksPublished"
+                       <div ddata-dojo-type="me/web/widget/social/LinksPublished"
                             channel="/encuestame/hashtag/time/range/refresh/graph"
                             class="web-social-links"
                             itemId="${tagName.hashTagName}"
@@ -118,7 +79,7 @@ path.area {
                        <h3>
                          <spring:message code="home.hashtag.position" />
                        </h3>
-                       <section data-dojo-type="me/web/widget/stats/RatePosition"
+                       <section ddata-dojo-type="me/web/widget/stats/RatePosition"
                             tagName="${tagName.hashTagName}"
                             channel="/encuestame/hashtag/time/range/refresh/graph"
                             class="web-rated-position"
@@ -129,7 +90,7 @@ path.area {
                        <h3>
                           <spring:message code="home.hashtag.profile" />
                        </h3>
-                       <div data-dojo-type="me/web/widget/stats/TopProfiles"
+                       <div ddata-dojo-type="me/web/widget/stats/TopProfiles"
                             hasthag="${tagName.hashTagName}"
                             channel="/encuestame/hashtag/time/range/refresh/graph"
                             class="web-top-profile"

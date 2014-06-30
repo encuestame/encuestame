@@ -15,11 +15,11 @@
     <url>http://www.encuestame.org</url>
     <issueManagement>
         <system>JIRA</system>
-        <url>http://issues.encuestame.org</url>
+        <url>http://www.encuestame.org/issues</url>
     </issueManagement>
     <ciManagement>
         <system>Bamboo</system>
-        <url>http://ci.encuestame.org</url>
+        <url>http://www.encuestame.org/build</url>
     </ciManagement>
     <inceptionYear>2008</inceptionYear>
     <properties>
@@ -31,7 +31,8 @@
         <encuestame.version>1.5.0</encuestame.version>
         <spring.version>4.0.0.RELEASE</spring.version>
         <env>development</env>
-        <javascript.minimize>false</javascript.minimize>
+        <!-- js compress options -->
+        <compress.minimize>false</compress.minimize>
         <spring.webflow.version>2.4.0.BUILD-SNAPSHOT</spring.webflow.version>
         <spring.security.version>3.2.0.RELEASE</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
@@ -135,7 +136,7 @@
         <javax.persistence>1.0.2</javax.persistence>
         <uadetector.version>2013.02</uadetector.version>
         <!-- Dojo http://www.mahieu.org/?p=3 -->
-        <dojo.version>1.10.0-beta1</dojo.version>
+        <dojo.version>1.9.3</dojo.version>
         <dojo.build.profile>standard</dojo.build.profile>
         <dojo.build.action>release</dojo.build.action>
         <webresources.javascript.location>encuestame-war/src/main/webapp/js</webresources.javascript.location>
@@ -154,7 +155,7 @@
         <maven-antrun-plugin>1.6</maven-antrun-plugin>
         <maven-resources-plugin>2.5</maven-resources-plugin>
         <cobertura.maven.plugin>2.5.1</cobertura.maven.plugin>
-        <maven-javadoc-plugin>2.8.1</maven-javadoc-plugin>
+        <maven-javadoc-plugin>2.9.1</maven-javadoc-plugin>
         <jasperreports-maven-plugin>1.0-beta-2</jasperreports-maven-plugin>
         <maven-pmd-plugin>2.3</maven-pmd-plugin>
         <maven-project-info-reports-plugin>2.2</maven-project-info-reports-plugin>
@@ -168,8 +169,6 @@
         <maven.war.plugin>2.4</maven.war.plugin>
         <wro4j.version>1.6.3</wro4j.version>
         <maven-eclipse-plugin>2.9</maven-eclipse-plugin>
-        <!-- js compress options -->
-        <compress.minimize>true</compress.minimize>
     </properties>
 
     <modules>
@@ -543,9 +542,30 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin}</version>
+
                     <configuration>
+                        <header>
+
+                           &lt;script type=&quot;text/javascript&quot;&gt;
+
+                              var _gaq = _gaq || [];
+                              _gaq.push([&#39;_setAccount&#39;, &#39;UA-2527438-15&#39;]);
+                              _gaq.push([&#39;_setDomainName&#39;, &#39;encuestame.org&#39;]);
+                              _gaq.push([&#39;_setAllowLinker&#39;, true]);
+                              _gaq.push([&#39;_trackPageview&#39;]);
+
+                              (function() {
+                                var ga = document.createElement(&#39;script&#39;); ga.type = &#39;text/javascript&#39;; ga.async = true;
+                                ga.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://ssl&#39; : &#39;http://www&#39;) + &#39;.google-analytics.com/ga.js&#39;;
+                                var s = document.getElementsByTagName(&#39;script&#39;)[0]; s.parentNode.insertBefore(ga, s);
+                              })();
+
+                            &lt;/script&gt;
+
+                        </header>
           			   <reportOutputDirectory>${project.reporting.outputDirectory}/apidoc</reportOutputDirectory>
                        <destDir>encuestame</destDir>
+                        <aggregate>true</aggregate>
                     </configuration>
                     <executions>
                         <execution>

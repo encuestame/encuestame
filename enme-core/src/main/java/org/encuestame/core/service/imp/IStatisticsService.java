@@ -25,6 +25,7 @@ import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
+import org.encuestame.utils.web.stats.HashTagListGraphData;
 import org.encuestame.utils.web.stats.ItemStatDetail;
 
 /**
@@ -172,43 +173,108 @@ public interface IStatisticsService extends ServiceOperations{
                 final HttpServletRequest request) throws EnMeNoResultsFoundException, EnMeSearchException;
 
 
-	List<HashTagDetailStats> compareHashtagListGraph(
-			final List<ItemStatDetail> itemList, final SearchPeriods period,
-			final HttpServletRequest request) throws EnMeSearchException;
+    List<HashTagDetailStats> compareHashtagListGraph(
+            final List<ItemStatDetail> itemList, final SearchPeriods period,
+            final HttpServletRequest request) throws EnMeSearchException;
 
-	/**
-	 * Retrieve all social links by range.
-	 * @param tagName
-	 * @param period
-	 * @param request
-	 * @return
-	 * @throws EnMeSearchException
-	 */
-	List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRangeGraph(
-	           final String tagName, final SearchPeriods period, final HttpServletRequest request)
-	           throws EnMeSearchException;
+    /**
+     * Retrieve all social links by range.
+     * @param tagName
+     * @param period
+     * @param request
+     * @return
+     * @throws EnMeSearchException
+     */
+    List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRangeGraph(
+               final String tagName, final SearchPeriods period, final HttpServletRequest request)
+               throws EnMeSearchException;
 
-	/**
-	 *
-	 * @param tagName
-	 * @param period
-	 * @param request
-	 * @return
-	 * @throws EnMeSearchException
-	 */
-	List<HashTagDetailStats> getTotalVotesbyHashTagUsageAndDateRangeGraph(
+    /**
+     *
+     * @param tagName
+     * @param period
+     * @param request
+     * @return
+     * @throws EnMeSearchException
+     */
+    List<HashTagDetailStats> getTotalVotesbyHashTagUsageAndDateRangeGraph(
             final String tagName, final SearchPeriods period,
             final HttpServletRequest request) throws EnMeSearchException;
 
-	/**
-	 *
-	 * @param hashTagName
-	 * @param period
-	 * @param request
-	 * @return
-	 * @throws EnMeSearchException
-	 */
-	List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRangeGraph(
-			final String hashTagName, final SearchPeriods period,
-			final HttpServletRequest request) throws EnMeNoResultsFoundException, EnMeSearchException ;
+    /**
+     *
+     * @param hashTagName
+     * @param period
+     * @param request
+     * @return
+     * @throws EnMeSearchException
+     */
+    List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRangeGraph(
+            final String hashTagName, final SearchPeriods period,
+            final HttpServletRequest request) throws EnMeNoResultsFoundException, EnMeSearchException ;
+
+    /**
+        Methods V2 Stats --->>>>>
+        Methods V2 Stats --->>>>>
+        Methods V2 Stats --->>>>>
+        Methods V2 Stats --->>>>>
+        Methods V2 Stats --->>>>>
+     */
+
+    /**
+     *
+     * @param hashTagName
+     * @param period
+     * @param request
+     * @return
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeSearchException
+     */
+    public List<HashTagListGraphData> getTotalUsagebyHashtagAndDateRangeListGraph(
+            final String hashTagName, final SearchPeriods period,
+            final HttpServletRequest request)
+            throws EnMeNoResultsFoundException, EnMeSearchException;
+
+    /**
+     * Retrieve all social links by range.
+     * @param tagName
+     * @param period
+     * @param request
+     * @return
+     * @throws EnMeSearchException
+     * @throws EnMeNoResultsFoundException
+     */
+    public List<HashTagListGraphData> getTotalSocialLinksbyHashTagUsageAndDateRangeListGraph(
+               final String tagName,
+               final SearchPeriods period,
+               final HttpServletRequest request)
+               throws EnMeSearchException, EnMeNoResultsFoundException;
+
+
+    /**
+     *
+     * @param hashTagName
+     * @param period
+     * @param request
+     * @return
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeSearchException
+     */
+    List<HashTagListGraphData> getTotalHitsUsagebyHashTagAndDateRangeListGraph(
+            final String hashTagName, final SearchPeriods period,
+            final HttpServletRequest request) throws EnMeNoResultsFoundException, EnMeSearchException;
+
+    /**
+     *
+     * @param tagName
+     * @param period
+     * @param request
+     * @return
+     * @throws EnMeSearchException
+     * @throws EnMeNoResultsFoundException
+     */
+    List<HashTagListGraphData> getTotalVotesbyHashTagUsageAndDateRangeListGraph(
+            final String tagName, final SearchPeriods period,
+            final HttpServletRequest request) throws EnMeSearchException, EnMeNoResultsFoundException;
+
 }
