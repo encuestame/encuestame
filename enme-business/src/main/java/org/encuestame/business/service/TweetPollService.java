@@ -1735,12 +1735,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 	 * (org.encuestame.persistence.domain.security.UserAccount,
 	 * java.lang.String)
 	 */
-	public List<TweetPollFolder> retrieveFoldersbyKeyword(
-			final UserAccount user, final String keyword) {
+	public List<TweetPollFolder> retrieveFoldersbyKeyword(final String keyword) throws EnMeNoResultsFoundException {
 		 List<TweetPollFolder> folders = new ArrayList<TweetPollFolder>();
 		if(keyword!=null){
-			folders = getTweetPollDao().getTweetPollFolderByKeyword(keyword, getUserAccountonSecurityContext());
+			folders = getTweetPollDao().getTweetPollFolderByKeyword(keyword,  getUserAccount(getUserPrincipalUsername()));
 		}
-		return folders;
+ 		return folders;
 	}
 }
