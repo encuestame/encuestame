@@ -99,18 +99,18 @@
                         <arg value="${project.build.directory}/dojo-compiled" />
                     </java>
                     <delete includeEmptyDirs="true" verbose="false">
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="tests/**/" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/tests/**/" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/demos/**/" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="util/**" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.psd" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.fla" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.svg" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.as" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.swf" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dijit/themes/" excludes="**/claro/**/" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="**/package.json" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="**/package.js" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="tests/**/" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/tests/**/" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/demos/**/" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="util/**" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/*.psd" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/*.fla" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/*.svg" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/*.as" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/*.swf" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dijit/themes/" excludes="**/claro/**/" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}" includes="**/package.json" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}" includes="**/package.js" />
                     </delete>
                     <echo message="ENCUESTAME :: Dojo AMD optimized ::" />
                   </target>
@@ -138,7 +138,7 @@
               </archive>
               <webResources>
                 <resource>
-                  <directory>${project.build.directory}/dojo-compiled/2.0</directory>
+                  <directory>${project.build.directory}/dojo-compiled/${project.version}</directory>
                   <targetPath>resource/js</targetPath>
                 </resource>
               </webResources>
@@ -153,13 +153,13 @@
     <dependency>
       <groupId>org.encuestame</groupId>
       <artifactId>encuestame-css</artifactId>
-      <version>1.5.0</version>
+      <version>${project.version}</version>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>org.encuestame</groupId>
       <artifactId>deps</artifactId>
-      <version>1.5.0</version>
+      <version>${project.version}</version>
       <type>war</type>
     </dependency>
     <dependency>

@@ -37,7 +37,10 @@
                             has reached the maxInMemory limit.
 
      -->
-    <defaultCache eternal="true" maxElementsInMemory="100" overflowToDisk="false" />
+    <defaultCache
+                  maxElementsInMemory="1000"
+                  eternal="false"
+                  overflowToDisk="false" />
 
     <!-- Cache Directory. 
     <diskStore path="${user.home}/encuestame-store/cache/" />
@@ -126,6 +129,9 @@
     <cache name="org.encuestame.persistence.domain.HashTagHits"
         maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="300"
         timeToLiveSeconds="600" overflowToDisk="true" />
+    <cache name="org.encuestame.persistence.domain.Hit"
+           maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="300"
+           timeToLiveSeconds="600" overflowToDisk="true" />
 
     <!-- Spring ehcache annotations -->
     <cache name="searchUserByUsername" maxElementsInMemory="10" eternal="false" overflowToDisk="false" />

@@ -732,7 +732,7 @@ public class ConvertDomainBean {
                 .setResumeLiveResults(tweetPoll.getResumeLiveResults() == null ? false
                         : tweetPoll.getResumeLiveResults());
         unitTweetPoll.setModeratedComments(tweetPoll.getShowComments() == null ? false : (tweetPoll.getShowComments().equals(
-        		CommentOptions.MODERATE) ? true : false));
+                CommentOptions.MODERATE) ? true : false));
         unitTweetPoll
                 .setSchedule(tweetPoll.getScheduleTweetPoll() == null ? false
                         : tweetPoll.getScheduleTweetPoll());
@@ -796,7 +796,7 @@ public class ConvertDomainBean {
         //poll.getShowResults() == null ? false : poll.getShowResults()
 
         pollSearch.setModeratedComments(poll.getShowComments() == null ? false : (poll.getShowComments().equals(
-        		CommentOptions.MODERATE) ? true : false));
+                CommentOptions.MODERATE) ? true : false));
 
         pollSearch
                 .setResultNotification(poll.getNotifications() == null ? false
@@ -849,7 +849,7 @@ public class ConvertDomainBean {
             final List<Poll> poll) {
         final List<SearchBean> listPollSearchBeans = new ArrayList<SearchBean>();
         for (Poll pollList : poll) {
-        	listPollSearchBeans
+            listPollSearchBeans
                     .add(ConvertDomainBean.convertPollToSearchBean(pollList));
         }
         return listPollSearchBeans;
@@ -1734,9 +1734,7 @@ public class ConvertDomainBean {
             final List<TweetPollSavedPublishedStatus> tpollSocialSavedPublished) {
         final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
         for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : tpollSocialSavedPublished) {
-            itemStatDetail
-                    .add(ConvertDomainBean
-                            .convertTweetPollSavedPublishedStatusToItemDetailBean(tweetPollSavedPublishedStatus));
+            itemStatDetail.add(ConvertDomainBean.convertTweetPollSavedPublishedStatusToItemDetailBean(tweetPollSavedPublishedStatus));
         }
         return itemStatDetail;
     }
@@ -1771,6 +1769,25 @@ public class ConvertDomainBean {
     }
 
     /**
+    *
+    * @param tpolls
+    * @return
+    */
+   public static final List<ItemStatDetail> convertObjectTweetPollListToItemDetailBean(
+           final List<Object[]> tpolls) {
+       final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+       for (Object[] objects : tpolls) {
+           final ItemStatDetail itemDetail = new ItemStatDetail();
+           final Long inte1 = (Long) objects[1];
+           final Date date1 = (Date) objects[0];
+           itemDetail.setDate(date1	);
+           itemDetail.setItemId(inte1);
+           itemStatDetail.add(itemDetail);
+       }
+       return itemStatDetail;
+   }
+
+    /**
      *
      * @param tpolls
      * @return
@@ -1778,7 +1795,6 @@ public class ConvertDomainBean {
     public static final List<ItemStatDetail> convertObjectListToItemDetailBean(
             final List<Object[]> tpolls) {
          final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
-
        for (Object[] objects : tpolls) {
            final ItemStatDetail itemDetail = new ItemStatDetail();
            final Long inte1 = (Long) objects[1];
@@ -1966,9 +1982,9 @@ public class ConvertDomainBean {
 
         return sectionBean;
     }
-    	
+
     /**
-     * 
+     *
      * @param sections
      * @return
      */
@@ -1981,28 +1997,28 @@ public class ConvertDomainBean {
         }
         return surveySections;
     }
-    
+
     /**
-     * 
+     *
      * @param schedule
      * @return
      */
     public static final ScheduledItemBean convertScheduletoBean(final Schedule schedule) {
-    	final ScheduledItemBean scheduleItemBean = new ScheduledItemBean();
-    	scheduleItemBean.setId(schedule.getIdpub());
-    	scheduleItemBean.setDate(schedule.getScheduleDate());
-    	scheduleItemBean.setTweet(schedule.getTweetText());
-    	//scheduleItemBean.setTweetPollResultsBean(ConvertDomainBean.convertTweetPollSavedPublishedStatus(schedule.getTpollSavedPublished()));
-    	scheduleItemBean.setAccountBean(ConvertDomainBean.convertSocialAccountToBean(schedule.getSocialAccount()));
-    	scheduleItemBean.setTypeSearch(schedule.getTypeSearch().toString());
-    	if (TypeSearchResult.TWEETPOLL.equals(schedule.getTypeSearch())) {
-    		scheduleItemBean.setItemId(schedule.getTpoll().getTweetPollId());
-    	} else if(TypeSearchResult.POLL.equals(schedule.getTypeSearch())) {
-    		scheduleItemBean.setItemId(schedule.getPoll().getPollId());
-    	} else if(TypeSearchResult.SURVEY.equals(schedule.getTypeSearch())) {
-    		scheduleItemBean.setItemId(schedule.getSurvey().getSid());
-    	}
-    	return scheduleItemBean;
+        final ScheduledItemBean scheduleItemBean = new ScheduledItemBean();
+        scheduleItemBean.setId(schedule.getIdpub());
+        scheduleItemBean.setDate(schedule.getScheduleDate());
+        scheduleItemBean.setTweet(schedule.getTweetText());
+        //scheduleItemBean.setTweetPollResultsBean(ConvertDomainBean.convertTweetPollSavedPublishedStatus(schedule.getTpollSavedPublished()));
+        scheduleItemBean.setAccountBean(ConvertDomainBean.convertSocialAccountToBean(schedule.getSocialAccount()));
+        scheduleItemBean.setTypeSearch(schedule.getTypeSearch().toString());
+        if (TypeSearchResult.TWEETPOLL.equals(schedule.getTypeSearch())) {
+            scheduleItemBean.setItemId(schedule.getTpoll().getTweetPollId());
+        } else if(TypeSearchResult.POLL.equals(schedule.getTypeSearch())) {
+            scheduleItemBean.setItemId(schedule.getPoll().getPollId());
+        } else if(TypeSearchResult.SURVEY.equals(schedule.getTypeSearch())) {
+            scheduleItemBean.setItemId(schedule.getSurvey().getSid());
+        }
+        return scheduleItemBean;
     }
 
     /**
@@ -2046,13 +2062,13 @@ public class ConvertDomainBean {
     public static final List<CommentOptions> convertToCommentsOptions(
             final List<String> options) {
         final List<CommentOptions> comments = new ArrayList<CommentOptions>();
-    	CommentOptions commentRestriction;
-    	for (String restrictOption : options) {
-    		commentRestriction = CommentOptions.getCommentOption(restrictOption);
-    		if(commentRestriction !=null){
-    			comments.add(commentRestriction);
-    		}
-		}
-    	return comments;
+        CommentOptions commentRestriction;
+        for (String restrictOption : options) {
+            commentRestriction = CommentOptions.getCommentOption(restrictOption);
+            if(commentRestriction !=null){
+                comments.add(commentRestriction);
+            }
+        }
+        return comments;
      }
 }

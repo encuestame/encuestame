@@ -69,7 +69,7 @@ public class PermissionDaoImp extends AbstractHibernateDaoSupport implements IPe
         criteria.add(Restrictions.eq("permission", permission) );
         final List permissions = getHibernateTemplate().findByCriteria(criteria);
         if (permissions.size() >= 1) {
-            log.warn("two permissions with the same name ");
+            log.debug("two permissions with the same name ");
             if (log.isDebugEnabled()) {
                 for (Permission permission2 : (List<Permission>) permissions) {
                     log.debug(permission2.getPermission() + ""+permission2.getPermissionDescription());
