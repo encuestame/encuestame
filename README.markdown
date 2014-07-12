@@ -8,7 +8,7 @@
 
 For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
 
-## Current Version (1.147) Info
+## Current Version (1.5.0) Info
 
 The **last release versions** are defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME?report=com.atlassian.jirafisheyeplugin:fisheye-projectpanel&mode=changesets#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
