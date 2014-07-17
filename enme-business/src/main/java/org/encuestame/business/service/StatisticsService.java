@@ -605,7 +605,8 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         totalVotesbyPoll = this.retrievePollTotalVotesByHashTag(tagName,
                 periods);
         log.debug("Total poll votes by hashtag name : " + totalVotesbyPoll);
-        totalHashTagUsedOnItemsVoted = totalVotesbyTweetPoll + totalVotesbyPoll;
+
+         totalHashTagUsedOnItemsVoted = totalVotesbyTweetPoll + totalVotesbyPoll;
         log.debug("Total HashTag used votes : " + totalHashTagUsedOnItemsVoted);
         final HashTagDetailStats detailStatItem = this
                 .createHashTagDetailButtonStats(HashTagRate.LBL_VOTES,
@@ -625,16 +626,16 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         Long totalPollVotes = 0L;
         final List<Poll> polls = this.getPollsByHashTag(tagName, null, null,
                 TypeSearchResult.HASHTAG, period);
-        for (Poll poll : polls) {
-            totalPollVotes = totalPollVotes
-                    + getPollDao().retrievePollResults(poll).size();
-
+         for (Poll poll : polls) {
+        	//TODO : Change method retrieve Poll Result by a counter polls
+        	final int votesByPoll = getPollDao().retrievePollResults(poll).size();
+			totalPollVotes = totalPollVotes + votesByPoll;
         }
-        return totalPollVotes;
+         return totalPollVotes;
     }
 
     /**
-     *
+     * Return total votes by tweetpoll filtered by hashtag.
      * @param tagName
      * @param period
      * @return
@@ -642,15 +643,17 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
     private Long retrieveTweetPollTotalVotesByHashTag(final String tagName,
             final SearchPeriods period) {
         Long totalTweetPollVotes = 0L;
+        // 1- Retrieve a tweetpoll list filtered by hashtag and specific period
         final List<TweetPoll> tweetPolls = this.getTweetPollsByHashTag(tagName,
                 null, null, TypeSearchResult.HASHTAG, period);
 
         log.debug("TweetPolls by HashTag ****************************************** " + tweetPolls.size() + "Period ***********************" + period.toString());
+        // 2-  Iterate tweetpoll list and sum of votes for each tweetpoll
         for (TweetPoll tweetPoll : tweetPolls) {
+        	final Long votesByTweetPoll = getTweetPollDao().getTotalVotesByTweetPollId(tweetPoll.getTweetPollId());
 
             totalTweetPollVotes = totalTweetPollVotes
-                    + getTweetPollDao().getTotalVotesByTweetPollId(
-                            tweetPoll.getTweetPollId());
+                    + votesByTweetPoll.intValue();
         }
          log.debug("Total Votes by Tweetpoll ******************************************" + totalTweetPollVotes);
         return totalTweetPollVotes;
