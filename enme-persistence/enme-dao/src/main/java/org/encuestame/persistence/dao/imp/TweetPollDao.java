@@ -505,11 +505,14 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     public Long getTotalVotesByTweetPollId(final Long tweetPollId) {
         Long totalvotes = 0L;
         // Type YES-NO
+        //1- Retrieve TweetpollSwitch list with answers for this tweetpoll
         final List<TweetPollSwitch> answers = this
                 .getListAnswesByTweetPoll(this.getTweetPollById(tweetPollId));
         for (TweetPollSwitch tweetPollSwitch : answers) {
+        	//2 - Total votes by answers already voted.
             final List<Long> answerResult = this
                     .getVotesByAnswer(tweetPollSwitch); // Count
+            // Sum already votes
             for (Long objects : answerResult) {
                 if (objects != null) {
                     totalvotes += objects;

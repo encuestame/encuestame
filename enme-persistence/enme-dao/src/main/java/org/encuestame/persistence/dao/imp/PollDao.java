@@ -36,6 +36,7 @@ import org.encuestame.utils.web.search.PollSearchBean;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
@@ -756,4 +757,23 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                 bean.getIsPublished(), bean.getKeyword(), bean.getPeriod());
        return (List<Poll>) filterByMaxorStart(criteria, bean.getMax(), bean.getStart());
    }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.IPoll#getPollFolderByKeyword(java.lang
+	 * .String, org.encuestame.persistence.domain.security.UserAccount)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PollFolder> getPollFolderByKeyword(final String keyword,
+			final UserAccount userAcc) {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(PollFolder.class);
+
+		criteria.add(Restrictions.eq("createdBy", userAcc));
+		criteria.add(Restrictions.ilike("folderName", keyword,
+				MatchMode.ANYWHERE));
+		return (List<PollFolder>) filterByMaxorStart(criteria, 10, 0);
+	}
 }
