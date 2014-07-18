@@ -489,13 +489,20 @@ public interface IPollService extends IMasterSurveyService{
 	 */
 	Boolean restrictVotesByQuota(final Poll poll);
 
-	
+
 	/**
-	 * 
+	 *
 	 * @param ip
 	 * @param poll
 	 * @return
 	 */
 	public List<PollResult> getListvalidateVoteIP(final String ip, final Poll poll);
 
+	/**
+	 * Retrieve all folders searched by keyword.
+	 * @param keyword
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	List<PollFolder> retrieveFoldersbyKeyword(final String keyword) throws EnMeNoResultsFoundException;
 }

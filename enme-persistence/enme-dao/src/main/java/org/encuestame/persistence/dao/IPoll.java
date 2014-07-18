@@ -364,4 +364,13 @@ public interface IPoll extends IBaseDao {
 	List<PollResult> getListvalidateVoteIP(
 	            final String ip,
 	            final Poll poll);
+
+	/**
+	 *  Retrieve Folders by keyword.
+	 * @param keyword
+	 * @param userAcc
+	 * @return
+	 */
+	List<PollFolder> getPollFolderByKeyword(final String keyword,
+			final UserAccount userAcc);
 }

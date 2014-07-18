@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
@@ -504,11 +505,14 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     public Long getTotalVotesByTweetPollId(final Long tweetPollId) {
         Long totalvotes = 0L;
         // Type YES-NO
+        //1- Retrieve TweetpollSwitch list with answers for this tweetpoll
         final List<TweetPollSwitch> answers = this
                 .getListAnswesByTweetPoll(this.getTweetPollById(tweetPollId));
         for (TweetPollSwitch tweetPollSwitch : answers) {
+        	//2 - Total votes by answers already voted.
             final List<Long> answerResult = this
                     .getVotesByAnswer(tweetPollSwitch); // Count
+            // Sum already votes
             for (Long objects : answerResult) {
                 if (objects != null) {
                     totalvotes += objects;
@@ -1126,4 +1130,24 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
 
         return getHibernateTemplate().findByCriteria(criteria);
     }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.ITweetPoll#getTweetPollFolderByKeyword
+	 * (java.lang.String,
+	 * org.encuestame.persistence.domain.security.UserAccount)
+	 */
+    @SuppressWarnings("unchecked")
+	public List<TweetPollFolder> getTweetPollFolderByKeyword(final String keyword,
+			final UserAccount userAcc) {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(TweetPollFolder.class);
+		criteria.add(Restrictions.eq("createdBy", userAcc));
+		criteria.add(Restrictions.ilike("folderName", keyword,
+				MatchMode.ANYWHERE));
+		return (List<TweetPollFolder>) filterByMaxorStart(criteria, 10, 0);
+	}
+
 }

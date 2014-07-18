@@ -530,4 +530,13 @@ public interface ITweetPoll extends IBaseDao{
 
 	List<TweetPollSavedPublishedStatus> searchSocialLinksbyType(
 	            final TweetPoll tweetPoll,  final Poll poll, final TypeSearchResult itemType, final List<SocialProvider> splist, final List<SocialAccount> socialAccounts);
+
+	/**
+	 * Retrieve {@link TweetPollFolder} by keyword
+	 * @param keyword
+	 * @param userAcc
+	 * @return
+	 */
+	List<TweetPollFolder> getTweetPollFolderByKeyword(final String keyword,
+			final UserAccount userAcc);
 }
