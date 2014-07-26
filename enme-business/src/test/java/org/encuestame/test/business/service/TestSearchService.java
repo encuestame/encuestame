@@ -23,10 +23,13 @@ import junit.framework.Assert;
 import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.imp.SearchServiceOperations;
+import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Test;
@@ -38,7 +41,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Picado, Juan juanATencuestame.org
  */
 @Category(DefaultTest.class)
-public class TestSearchService extends AbstractServiceBase {
+public class TestSearchService extends AbstractSpringSecurityContext {
 
     /**
      *
@@ -51,25 +54,48 @@ public class TestSearchService extends AbstractServiceBase {
      */
     @Test
     public void testQuickService() throws IOException, EnMeNoResultsFoundException, ParseException{
-        final Account account = createAccount();
-        //final UserAccount userAccount = createUserAccount("jota", account);
+        
+    	final Account account = createAccount();
+        final UserAccount userAccount = getSpringSecurityLoggedUserAccount();
+        
         createHashTag("nicaragua");
         final Question question = createQuestion("Has scala great future as program language?", account);
         createQuestion("What is your favorite program language?", account);
-        createTweetPoll(1234567L, true, true, true, true, null, null, new Date(), false, account, question, null);
+		
+        final TweetPoll tp = createTweetPoll(1234567L, true, true, true, true,
+				null, null, new Date(), false, account, question, null);
+        
+        createComment("I dont have favorite programs", 30L, tp, null, null,
+				userAccount, 25L, new Date());
+        
+        createComment("I dont have  favorite languages", 25L, tp, null, null,
+				userAccount, 15L, new Date());
+		 
+        
         flushIndexes();
+        
         List<TypeSearchResult> resultsAllowed = new ArrayList<TypeSearchResult>();
         resultsAllowed.add(TypeSearchResult.QUESTION);
         resultsAllowed.add(TypeSearchResult.ATTACHMENT);
         resultsAllowed.add(TypeSearchResult.HASHTAG);
         resultsAllowed.add(TypeSearchResult.TWEETPOLL);
+        resultsAllowed.add(TypeSearchResult.COMMENT	);
+        
+	
+       
         final Map<String, List<GlobalSearchItem>> d1 = this.searchServiceOperations.quickSearch("ni", "English", 0, 10, 10, resultsAllowed);
-        final List<GlobalSearchItem> hashtag = d1.get("tags");
+        final List<GlobalSearchItem> hashtag = d1.get("tags"); 
         Assert.assertEquals(hashtag.size(), 1);
+        
         final Map<String, List<GlobalSearchItem>> d2 = this.searchServiceOperations.quickSearch("future", "English", 0, 10, 10, resultsAllowed);
-        final List<GlobalSearchItem> questions = d2.get("questions");
+        final List<GlobalSearchItem> questions = d2.get("questions"); 
         Assert.assertEquals(questions.size(), 1);
-        //TODO: continue with  poll, profile,
+        //TODO: continue with  poll, profile, 
+		
+        
+        final Map<String, List<GlobalSearchItem>> c1 = this.searchServiceOperations.quickSearch("favorite", "Spanish", 0, 10, 10, resultsAllowed);
+        final List<GlobalSearchItem> comments = c1.get("comments"); 
+        Assert.assertEquals(comments.size(), 2);
     }
 
 

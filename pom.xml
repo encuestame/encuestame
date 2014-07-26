@@ -15,11 +15,11 @@
     <url>http://www.encuestame.org</url>
     <issueManagement>
         <system>JIRA</system>
-        <url>http://issues.encuestame.org</url>
+        <url>http://www.encuestame.org/issues</url>
     </issueManagement>
     <ciManagement>
         <system>Bamboo</system>
-        <url>http://ci.encuestame.org</url>
+        <url>http://www.encuestame.org/build</url>
     </ciManagement>
     <inceptionYear>2008</inceptionYear>
     <properties>
@@ -31,7 +31,8 @@
         <encuestame.version>1.5.0</encuestame.version>
         <spring.version>4.0.0.RELEASE</spring.version>
         <env>development</env>
-        <javascript.minimize>false</javascript.minimize>
+        <!-- js compress options -->
+        <compress.minimize>false</compress.minimize>
         <spring.webflow.version>2.4.0.BUILD-SNAPSHOT</spring.webflow.version>
         <spring.security.version>3.2.0.RELEASE</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
@@ -135,7 +136,7 @@
         <javax.persistence>1.0.2</javax.persistence>
         <uadetector.version>2013.02</uadetector.version>
         <!-- Dojo http://www.mahieu.org/?p=3 -->
-        <dojo.version>1.10.0-beta1</dojo.version>
+        <dojo.version>1.9.3</dojo.version>
         <dojo.build.profile>standard</dojo.build.profile>
         <dojo.build.action>release</dojo.build.action>
         <webresources.javascript.location>encuestame-war/src/main/webapp/js</webresources.javascript.location>
@@ -168,8 +169,6 @@
         <maven.war.plugin>2.4</maven.war.plugin>
         <wro4j.version>1.6.3</wro4j.version>
         <maven-eclipse-plugin>2.9</maven-eclipse-plugin>
-        <!-- js compress options -->
-        <compress.minimize>true</compress.minimize>
     </properties>
 
     <modules>

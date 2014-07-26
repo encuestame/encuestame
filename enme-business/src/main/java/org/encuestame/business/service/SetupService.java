@@ -21,8 +21,8 @@ import org.apache.log4j.Logger;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.business.setup.install.demo.CSVParser;
 import org.encuestame.core.config.AdministratorProfile;
-import org.encuestame.core.config.XMLConfigurationFileSupport;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.config.XMLConfigurationFileSupport;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.SetupOperations;
@@ -36,8 +36,6 @@ import org.encuestame.utils.social.SocialNetworkBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import sun.misc.Regexp;
 
 /**
  * Define all setup operations.

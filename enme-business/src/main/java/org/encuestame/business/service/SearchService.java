@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,6 +30,7 @@ import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Attachment;
+import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -134,10 +134,17 @@ public class SearchService extends AbstractIndexService implements
             hashset.put("attachments", attachments);
         }
         
-        if (resultsAllowed.indexOf(TypeSearchResult.COMMENT) != -1) {
-        	//TODO: add comment search implementation
-        	hashset.put("comments", ListUtils.EMPTY_LIST);
-        }
+		if (resultsAllowed.indexOf(TypeSearchResult.COMMENT) != -1) {
+			// TODO: add comment search implementation+
+			List<GlobalSearchItem> comments = UtilConvertToSearchItems
+					.convertCommentToSearchItem(getCommentsOperations()
+							.getCommentsByKeyword(keyword, 10, null));
+			if (limitByItem != 0 && comments.size() > limitByItem) {
+				comments = comments.subList(0, limitByItem);
+			}
+			log.debug("Comments " + comments.size());
+			hashset.put("comments", comments);
+		}
        // List<GlobalSearchItem> totalItems = new ArrayList<GlobalSearchItem>(hashset);
 
         //TODO: order by rated or something.

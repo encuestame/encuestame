@@ -1726,4 +1726,20 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 			getScheduledDao().delete(schedule);
 		}
 	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.core.service.imp.ITweetPollService#retrieveFoldersbyKeyword
+	 * (org.encuestame.persistence.domain.security.UserAccount,
+	 * java.lang.String)
+	 */
+	public List<TweetPollFolder> retrieveFoldersbyKeyword(final String keyword) throws EnMeNoResultsFoundException {
+		 List<TweetPollFolder> folders = new ArrayList<TweetPollFolder>();
+		if(keyword!=null){
+			folders = getTweetPollDao().getTweetPollFolderByKeyword(keyword,  getUserAccount(getUserPrincipalUsername()));
+		}
+ 		return folders;
+	}
 }

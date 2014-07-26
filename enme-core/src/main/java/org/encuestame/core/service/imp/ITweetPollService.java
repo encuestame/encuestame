@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Schedule;
-import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -631,5 +630,14 @@ public interface ITweetPollService extends IMasterSurveyService{
 	  * @throws EnMeNoResultsFoundException
 	  */
 	 List<TweetPollSavedPublishedStatus> retrieveTweetPollSavedPublished(final TweetPoll tweetPoll) throws EnMeNoResultsFoundException;
+
+	 /**
+	  * Retrieve Folders by keyword.
+	  * @param user
+	  * @param keyword
+	  * @return
+	 * @throws EnMeNoResultsFoundException
+	  */
+	 List<TweetPollFolder> retrieveFoldersbyKeyword(  final String keyword) throws EnMeNoResultsFoundException;
 
 }

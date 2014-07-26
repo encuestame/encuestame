@@ -42,7 +42,7 @@
 
     <decision-state id="try-again-decision">
         <if then="install-setup" test="flowScope.databaseStatus == true" />
-        <if then="install-setup" test="flowScope.databaseStatus == false" else="displayError"/>
+        <if then="install-setup" test="flowScope.databaseStatus == false" else="displaySetupError"/>
     </decision-state>
 
     <action-state id="remove-tables">
@@ -52,7 +52,7 @@
 
     <decision-state id="check-removed-tables-state">
         <if then="install-setup" test="flowScope.removed == true" />
-        <if then="displayError" test="flowScope.removed == false" else="displayError"/>
+        <if then="displaySetupError" test="flowScope.removed == false" else="displaySetupError"/>
     </decision-state>
 
     <action-state id="create-tables">
@@ -99,19 +99,21 @@
     <view-state id="review-admon">
         <transition on="welcome" to="welcome-page"/>  
         <!-- <transition on="edit-user" to="editAdmon" /> TODO: wish list. -->
+        <transition on-exception="java.lang.Exception" to="displaySetupError"></transition>
     </view-state>
 
     <view-state id="install-check">
 <!--         <secured attributes="ENCUESTAME_ADMIN" match="all"/> -->
         <transition on="customize" to="add-social-networks"></transition> <!-- TODO: future. -->
         <transition on="finish" to="welcome-page"></transition>
-        <transition on-exception="java.lang.Exception" to="displayError"></transition>
+        <transition on-exception="java.lang.Exception" to="displaySetupError"></transition>
     </view-state>
     
     <view-state id="welcome-page">
         <transition on="finish" to="finish-state">
         	<evaluate expression="setupService.validateInstall()"></evaluate>
         </transition>
+        <transition on-exception="java.lang.Exception" to="displaySetupError"></transition>
     </view-state>    
 
     <!-- TODO: future. -->
@@ -134,7 +136,7 @@
         <transition on="home" to="home"></transition>
     </view-state>
 
-    <view-state id="displayError"/>
+    <view-state id="displaySetupError"/>
 
     <end-state id="home" view="externalRedirect:contextRelative:/home"/>
 

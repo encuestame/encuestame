@@ -27,6 +27,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.SurveyBean;
@@ -305,4 +307,44 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
         }
         return returnData();
     }
+
+    /**
+     *  Search folders
+     * @param actionType
+     * @param keyword
+     * @param request
+     * @param response
+     * @return
+     */
+	@PreAuthorize("hasRole('ENCUESTAME_USER')")
+	@RequestMapping(value = "/api/survey/folder/{actionType}/searchbykeword.json", method = RequestMethod.GET)
+	public @ResponseBody ModelMap retrieveItemsbyKeyword(
+			@PathVariable String actionType,
+			@RequestParam(value = "keyword", required = true) String keyword,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+		 final TypeSearchResult typ = TypeSearchResult.getTypeSearchResult(actionType);
+			if (keyword != null) {
+		try {
+
+				if (typ.equals(TypeSearchResult.TWEETPOLL)) {
+					jsonResponse.put("folders", getTweetPollService()
+							.retrieveFoldersbyKeyword( keyword));
+					setItemResponse(jsonResponse);
+				} else if (typ.equals(TypeSearchResult.POLL)) {
+					jsonResponse.put("folders", getPollService()
+							.retrieveFoldersbyKeyword(keyword));
+
+				} else if (typ.equals(TypeSearchResult.SURVEY)) {
+					// TODO: Missing service to retrieve surveys folder
+				}
+
+		} catch (Exception e) {
+			log.error(e);
+			setError(e.getMessage(), response);
+		}
+		}
+		return returnData();
+	}
 }

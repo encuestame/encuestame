@@ -36,6 +36,7 @@ import org.encuestame.utils.web.search.PollSearchBean;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
@@ -196,13 +197,13 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.encuestame.persistence.dao.IPoll#getPollsRangeStats(java.lang.String,
-	 * org.encuestame.utils.enums.SearchPeriods)
-	 */
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.persistence.dao.IPoll#getPollsRangeStats(java.lang.String,
+     * org.encuestame.utils.enums.SearchPeriods)
+     */
     @SuppressWarnings("unchecked")
     public List getPollsRangeStats(
             final String tagName, final SearchPeriods period) {
@@ -221,9 +222,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                 Poll.class, "poll");
         criteria.add(Subqueries.propertyIn("poll.pollId", detached));
         criteria.addOrder(Order.desc("poll.createDate"));
-        //calculateSearchPeriodsDates(period, criteria, "createdAt");
-        criteria.add(Restrictions.eq("publish", Boolean.TRUE));
 
+        criteria.add(Restrictions.eq("publish", Boolean.TRUE));
+        calculateSearchPeriodsDates(period, criteria, "createDate");
         ProjectionList projList = Projections.projectionList();
         projList.add(Projections.groupProperty("createDate"));
         projList.add(Projections.rowCount());
@@ -295,14 +296,14 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getTotalVotesByPollIdAndDateRange(java.lang.Long, org.encuestame.utils.enums.SearchPeriods)
      */
     public Long getTotalVotesByPollIdAndDateRange(
-    			final Long pollId,
-    			final SearchPeriods period) {
+                final Long pollId,
+                final SearchPeriods period) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(PollResult.class);
         criteria.setProjection(Projections.rowCount());
         criteria.add(Restrictions.eq("poll.pollId", pollId));
         if (period != null) {
-        	calculateSearchPeriodsDates(period, criteria, "votationDate");
+            calculateSearchPeriodsDates(period, criteria, "votationDate");
         }
         List results = getHibernateTemplate().findByCriteria(criteria);
         return (Long) (results.get(0) == null ? 0 : results.get(0));
@@ -446,7 +447,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     @SuppressWarnings("unchecked")
     public List<Poll> retrievePollsByUserId(
-    		final UserAccount userAcc,
+            final UserAccount userAcc,
             final Integer maxResults,
             final Integer start){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
@@ -576,7 +577,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                                 new String[] { "ipAddress", "poll" },
                                 new Object[] { ip, poll }));
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getListvalidateVoteIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
@@ -618,36 +619,36 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
        return myObject;
 }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.encuestame.persistence.dao.IPoll#retrievePollsByUserId(java.lang.
-	 * String, java.lang.Long, java.lang.Integer, java.lang.Integer,
-	 * java.lang.Boolean, java.lang.Boolean, java.lang.Boolean,
-	 * java.lang.Boolean, java.lang.String)
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Poll> retrievePollsByUserId(
-			final PollSearchBean bean,
-			final Long userId) {
-		final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-		this.criteriaAdvancedSearch(
-				"owner", 
-				"uid",
-				userId,
-				criteria, 
-				bean.getIsComplete(),
-				bean.getIsScheduled(), 
-				bean.getIsFavourite(), 
-				bean.getIsPublished(), 
-				bean.getKeyword(), 
-				bean.getPeriod());
-		return (List<Poll>) filterByMaxorStart(criteria, bean.getMax(), bean.getStart());
-	}
-	
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.persistence.dao.IPoll#retrievePollsByUserId(java.lang.
+     * String, java.lang.Long, java.lang.Integer, java.lang.Integer,
+     * java.lang.Boolean, java.lang.Boolean, java.lang.Boolean,
+     * java.lang.Boolean, java.lang.String)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Poll> retrievePollsByUserId(
+            final PollSearchBean bean,
+            final Long userId) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+        this.criteriaAdvancedSearch(
+                "owner",
+                "uid",
+                userId,
+                criteria,
+                bean.getIsComplete(),
+                bean.getIsScheduled(),
+                bean.getIsFavourite(),
+                bean.getIsPublished(),
+                bean.getKeyword(),
+                bean.getPeriod());
+        return (List<Poll>) filterByMaxorStart(criteria, bean.getMax(), bean.getStart());
+    }
+
    /**
-    * 
+    *
     * @param property
     * @param property_value
     * @param itemId
@@ -659,83 +660,83 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     * @param keyword
     * @param period
     */
-	public void criteriaAdvancedSearch(
-			final String property,
-			final String property_value, 
-			final Object itemId,
-			final DetachedCriteria criteria,
-			final Boolean isCompleted, 
-			final Boolean isScheduled,
-			final Boolean isFavourite, 
-			final Boolean isPublished,
-			final String keyword, 
-			final String period) {
-		// criteria.add(Restrictions.eq("editorOwner.uid", userId)); -- POLL
-		criteria.createAlias(property, property);
-		criteria.add(Restrictions.eq(property + "." + property_value, itemId));		
-		criteria.addOrder(Order.desc("createDate"));
-		this.advancedPollSearchOptions(
-				criteria, 
-				isCompleted,
-				isScheduled,
-				isFavourite, 
-				isPublished, 
-				keyword, 
-				period);
-	}	
+    public void criteriaAdvancedSearch(
+            final String property,
+            final String property_value,
+            final Object itemId,
+            final DetachedCriteria criteria,
+            final Boolean isCompleted,
+            final Boolean isScheduled,
+            final Boolean isFavourite,
+            final Boolean isPublished,
+            final String keyword,
+            final String period) {
+        // criteria.add(Restrictions.eq("editorOwner.uid", userId)); -- POLL
+        criteria.createAlias(property, property);
+        criteria.add(Restrictions.eq(property + "." + property_value, itemId));
+        criteria.addOrder(Order.desc("createDate"));
+        this.advancedPollSearchOptions(
+                criteria,
+                isCompleted,
+                isScheduled,
+                isFavourite,
+                isPublished,
+                keyword,
+                period);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.persistence.dao.IPoll#retrievePollsToday(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long)
-	 */
-	public List<Poll> retrievePollsToday(final PollSearchBean bean, final Long userId) {
-		final Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		return retrievePollByDate(bean, userId, cal.getTime());
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#retrievePollsToday(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long)
+     */
+    public List<Poll> retrievePollsToday(final PollSearchBean bean, final Long userId) {
+        final Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return retrievePollByDate(bean, userId, cal.getTime());
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.persistence.dao.IPoll#retrievePollByDate(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long, java.util.Date)
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Poll> retrievePollByDate(final PollSearchBean bean, final Long userId, final Date initDate) {
-		final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-		criteria.createAlias("owner", "owner");
-		criteria.add(Restrictions.eq("owner.id", userId));
-		criteria.add(Restrictions.between("createDate", initDate,
-				getNextDayMidnightDate()));
-		return useAvancedSearch(criteria, bean);
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#retrievePollByDate(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long, java.util.Date)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Poll> retrievePollByDate(final PollSearchBean bean, final Long userId, final Date initDate) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+        criteria.createAlias("owner", "owner");
+        criteria.add(Restrictions.eq("owner.id", userId));
+        criteria.add(Restrictions.between("createDate", initDate,
+                getNextDayMidnightDate()));
+        return useAvancedSearch(criteria, bean);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.persistence.dao.IPoll#retrievePollsLastWeek(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long)
-	 */
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#retrievePollsLastWeek(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long)
+     */
    public List<Poll> retrievePollsLastWeek(final PollSearchBean bean, final Long userId) {
          final Date initDate = DateUtil.decreaseDateAsWeek(Calendar.getInstance().getTime());
         return retrievePollByDate(bean, userId, initDate);
    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.persistence.dao.IPoll#retrieveFavouritesPoll(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long)
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Poll> retrieveFavouritesPoll(final PollSearchBean bean, final Long userId) {
-		final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-		criteria.createAlias("owner", "owner");
-		criteria.add(Restrictions.eq("owner.uid", userId));
-		return useAvancedSearch(criteria, bean);
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#retrieveFavouritesPoll(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Poll> retrieveFavouritesPoll(final PollSearchBean bean, final Long userId) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+        criteria.createAlias("owner", "owner");
+        criteria.add(Restrictions.eq("owner.uid", userId));
+        return useAvancedSearch(criteria, bean);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.persistence.dao.IPoll#retrieveScheduledPoll(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long)
-	 */
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#retrieveScheduledPoll(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long)
+     */
    @SuppressWarnings("unchecked")
    public List<Poll> retrieveScheduledPoll(final PollSearchBean bean, final Long userId) {
        final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
@@ -744,16 +745,35 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
        // To retrieve all and only scheduled Tweetpoll period should be = ALLTIME
        return useAvancedSearch(criteria, bean);
    }
-   
+
    /**
-    * 
+    *
     * @param criteria
     * @param bean
     * @return
     */
    private List<Poll> useAvancedSearch(final DetachedCriteria criteria, final PollSearchBean bean){
-	   advancedPollSearchOptions(criteria, bean.getIsComplete(), bean.getIsScheduled(), bean.getIsFavourite(),
-				bean.getIsPublished(), bean.getKeyword(), bean.getPeriod());
-	   return (List<Poll>) filterByMaxorStart(criteria, bean.getMax(), bean.getStart());
+       advancedPollSearchOptions(criteria, bean.getIsComplete(), bean.getIsScheduled(), bean.getIsFavourite(),
+                bean.getIsPublished(), bean.getKeyword(), bean.getPeriod());
+       return (List<Poll>) filterByMaxorStart(criteria, bean.getMax(), bean.getStart());
    }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.IPoll#getPollFolderByKeyword(java.lang
+	 * .String, org.encuestame.persistence.domain.security.UserAccount)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PollFolder> getPollFolderByKeyword(final String keyword,
+			final UserAccount userAcc) {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(PollFolder.class);
+
+		criteria.add(Restrictions.eq("createdBy", userAcc));
+		criteria.add(Restrictions.ilike("folderName", keyword,
+				MatchMode.ANYWHERE));
+		return (List<PollFolder>) filterByMaxorStart(criteria, 10, 0);
+	}
 }

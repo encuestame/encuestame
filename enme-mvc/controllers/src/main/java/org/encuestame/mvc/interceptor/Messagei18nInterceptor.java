@@ -12,23 +12,14 @@
  */
 package org.encuestame.mvc.interceptor;
 
-import java.util.Locale;
-import java.util.Locale.Builder;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
-import org.encuestame.persistence.domain.security.UserAccount;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 public class Messagei18nInterceptor extends AbstractBaseOperations implements HandlerInterceptor {
 
@@ -42,10 +33,10 @@ public class Messagei18nInterceptor extends AbstractBaseOperations implements Ha
 	public boolean preHandle(HttpServletRequest request, 
 			HttpServletResponse response, Object handler)
 		    throws Exception {	 
-		final String username = getUserPrincipalUsername();
-		if (username != EnMeUtils.ANONYMOUS_USER) {
-			getLocaleResolver().setLocale(request, response, getUserAccountLocale(username));			
-		}		
+//		final String username = getUserPrincipalUsername();
+//		if (username != EnMeUtils.ANONYMOUS_USER) {
+//			getLocaleResolver().setLocale(request, response, getUserAccountLocale(username));			
+//		}		
 		return true;
 	}
 	
@@ -77,9 +68,9 @@ public class Messagei18nInterceptor extends AbstractBaseOperations implements Ha
 	public void postHandle(HttpServletRequest request, 
 			HttpServletResponse response,
 			Object arg2, ModelAndView arg3) throws Exception {
-		final String username = getUserPrincipalUsername();
-		if (username != EnMeUtils.ANONYMOUS_USER) {
-			getLocaleResolver().setLocale(request, response, getUserAccountLocale(username));			
-		}
+//		final String username = getUserPrincipalUsername();
+//		if (username != EnMeUtils.ANONYMOUS_USER) {
+//			getLocaleResolver().setLocale(request, response, getUserAccountLocale(username));			
+//		}
 	}
 }

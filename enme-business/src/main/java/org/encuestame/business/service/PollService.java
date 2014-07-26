@@ -64,7 +64,6 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.PollDetailBean;
-import org.encuestame.utils.web.UnitAbstractSurvey.MultipleResponse;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.search.PollSearchBean;
 import org.springframework.stereotype.Service;
@@ -1191,5 +1190,20 @@ public class PollService extends AbstractSurveyService implements IPollService{
 		return limitVote;
 	}
 
-
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.core.service.imp.IPollService#retrieveFoldersbyKeyword
+	 * (java.lang.String)
+	 */
+	public List<PollFolder> retrieveFoldersbyKeyword(final String keyword)
+			throws EnMeNoResultsFoundException {
+		List<PollFolder> folders = new ArrayList<PollFolder>();
+		if (keyword != null) {
+			folders = getPollDao().getPollFolderByKeyword(keyword,
+					getUserAccount(getUserPrincipalUsername()));
+		}
+		return folders;
+	}
 }

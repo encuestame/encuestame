@@ -79,7 +79,7 @@ public class Poll extends AbstractSurvey {
      * {@link Folder}.
      */
     private PollFolder pollFolder;
-    
+
     /**
      * Hash Tags.
      **/
@@ -102,7 +102,7 @@ public class Poll extends AbstractSurvey {
      */
     public void setPollId(Long pollId) {
         this.pollId = pollId;
-    } 
+    }
 
     /**
      * @return the pollCompleted
@@ -184,7 +184,7 @@ public class Poll extends AbstractSurvey {
     public void setPollFolder(PollFolder pollFolder) {
         this.pollFolder = pollFolder;
     }
-    
+
     /**
      * @return the hashTags
      */
@@ -202,4 +202,48 @@ public class Poll extends AbstractSurvey {
     public void setHashTags(Set<HashTag> hashTags) {
         this.hashTags = hashTags;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Poll [pollId=" + pollId + ", pollCompleted=" + pollCompleted
+                + ", pollHash=" + pollHash + ", question=" + question
+                + ", publish=" + publish + ", pollFolder=" + pollFolder
+                + ", hashTags=" + hashTags + ", getCreateDate()="
+                + getCreateDate() + ", getCustomMessage()="
+                + getCustomMessage() + ", getCustomStartMessages()="
+                + getCustomStartMessages() + ", getOptionalTitle()="
+                + getOptionalTitle() + ", getPasswordRestrictions()="
+                + getPasswordRestrictions() + ", getIpRestriction()="
+                + getIpRestriction() + ", getPassProtection()="
+                + getPassProtection() + ", getIpProtection()="
+                + getIpProtection() + ", getCloseAfterDate()="
+                + getCloseAfterDate() + ", getClosedDate()=" + getClosedDate()
+                + ", getCloseAfterquota()=" + getCloseAfterquota()
+                + ", getClosedQuota()=" + getClosedQuota()
+                + ", getCustomFinalMessage()=" + getCustomFinalMessage()
+                + ", getMultipleResponse()=" + getMultipleResponse()
+                + ", getShowResults()=" + getShowResults()
+                + ", getShowComments()=" + getShowComments()
+                + ", getShowAdditionalInfo()=" + getShowAdditionalInfo()
+                + ", getAdditionalInfo()=" + getAdditionalInfo()
+                + ", getNotifications()=" + getNotifications()
+                + ", getNumbervotes()=" + getNumbervotes() + ", getHits()="
+                + getHits() + ", getName()=" + getName()
+                + ", getEditorOwner()=" + getEditorOwner()
+                + ", getRelevance()=" + getRelevance() + ", getLikeVote()="
+                + getLikeVote() + ", getDislikeVote()=" + getDislikeVote()
+                + ", getFavourites()=" + getFavourites() + ", getEndDate()="
+                + getEndDate() + ", getUpdatedDate()=" + getUpdatedDate()
+                + ", getOwner()=" + getOwner() + ", getScheduled()="
+                + getScheduled() + ", getScheduleDate()=" + getScheduleDate()
+                + ", getLocationLatitude()=" + getLocationLatitude()
+                + ", getLocationLongitude()=" + getLocationLongitude()
+                + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+                + ", toString()=" + super.toString() + "]";
+    }
+
+
 }

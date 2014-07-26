@@ -629,7 +629,11 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     		final HttpServletRequest request,
     		final HttpServletResponse response) {
     	log.debug("--- after addi18nProperty -->" + request.getLocale().toLanguageTag());
-		getLocaleResolver().setLocale(request, response, getUserAccountLocale(getUserPrincipalUsername()));
+		try {
+			getLocaleResolver().setLocale(request, response, getUserAccountLocale(getByUsername(getUserPrincipalUsername())));
+		} catch (EnMeNoResultsFoundException e) { 
+			// 	FIXME: just ignore the locale, for now.		
+		}
 		log.debug("--- before addi18nProperty -->" + request.getLocale().toLanguageTag());
         @SuppressWarnings("unchecked")
         HashMap<String, String> i18n = (HashMap<String, String>) model.get("i18n");
@@ -716,9 +720,9 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     * 
     * @return
     */
-   public Locale getUserAccountLocale(final String username) {
+   public Locale getUserAccountLocale(final UserAccount account) {
 	   //try {	
-		   	final UserAccount account = getSecurityService().findUserByUserName(username);
+		   	//final UserAccount account = getSecurityService().findUserByUserName(username);
 		   	if (account != null) {
 		   		final String language = account.getLanguage();
 				final Locale lang = WidgetUtil.toLocale(language);
