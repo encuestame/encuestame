@@ -62,7 +62,7 @@
                           <spring:message code="home.hashtag.tweets" />
                        </h3>
                   <section>
-                       <div ddata-dojo-type="me/web/widget/social/LinksPublished"
+                       <div data-dojo-type="me/web/widget/social/LinksPublished"
                             channel="/encuestame/hashtag/time/range/refresh/graph"
                             class="web-social-links"
                             itemId="${tagName.hashTagName}"
@@ -79,7 +79,7 @@
                        <h3>
                          <spring:message code="home.hashtag.position" />
                        </h3>
-                       <section ddata-dojo-type="me/web/widget/stats/RatePosition"
+                       <section data-dojo-type="me/web/widget/stats/RatePosition"
                             tagName="${tagName.hashTagName}"
                             channel="/encuestame/hashtag/time/range/refresh/graph"
                             class="web-rated-position"
@@ -90,7 +90,7 @@
                        <h3>
                           <spring:message code="home.hashtag.profile" />
                        </h3>
-                       <div ddata-dojo-type="me/web/widget/stats/TopProfiles"
+                       <div data-dojo-type="me/web/widget/stats/TopProfiles"
                             hasthag="${tagName.hashTagName}"
                             channel="/encuestame/hashtag/time/range/refresh/graph"
                             class="web-top-profile"

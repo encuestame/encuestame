@@ -1869,7 +1869,7 @@ public class ConvertDomainBean {
      */
     public static final ItemStatDetail convertHitsToItemDetailBean(final Hit hit) {
         final ItemStatDetail itemDetail = new ItemStatDetail();
-        itemDetail.setItemId(hit.getId());
+        itemDetail.setItemId(1L); //by default one hit is one vote
         itemDetail.setDate(hit.getHitDate());
         return itemDetail;
     }
