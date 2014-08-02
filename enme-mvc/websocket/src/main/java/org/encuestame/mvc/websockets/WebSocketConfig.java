@@ -12,7 +12,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @EnableWebSocketMessageBroker
 @EnableScheduling
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+public abstract class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void configureClientInboundChannel(ChannelRegistration arg0) {		
