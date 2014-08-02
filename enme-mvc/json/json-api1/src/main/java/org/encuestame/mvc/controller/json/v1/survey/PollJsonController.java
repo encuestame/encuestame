@@ -23,8 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainToJson;
@@ -41,9 +39,7 @@ import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.web.CreatePollBean;
-import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
-import org.encuestame.utils.web.ScheduledTweetPoll;
 import org.encuestame.utils.web.search.PollSearchBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -54,6 +50,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 /**
  * Poll Json Controller.
@@ -72,7 +71,7 @@ public class PollJsonController extends AbstractJsonControllerV1{
      *
      */
     private final Integer POLL_PUBLISH_STRING_LIMIT = 100;
-      
+
 
     /**
      * Search polls.
@@ -129,7 +128,7 @@ public class PollJsonController extends AbstractJsonControllerV1{
         } catch (EnMeExpcetion e) {
              log.error(e);
              setError(e.getMessage(), response);
-        }     
+        }
         return returnData();
      }
 
@@ -310,11 +309,11 @@ public class PollJsonController extends AbstractJsonControllerV1{
 
     /**
      * Create a poll
-     * @param questionName the question string 
+     * @param questionName the question string
      * @param answers list of answers
      * @param showResults define the how the result should be shown
      * @param showComments define the comments restrictions
-     * @param notification 
+     * @param notification
      * @param limitVote define if this poll will have a limit of votes
      * @param closeAfter
      * @param blockIp
@@ -329,13 +328,13 @@ public class PollJsonController extends AbstractJsonControllerV1{
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll", method = RequestMethod.POST)
     public @ResponseBody ModelMap createPoll(
-    		@RequestBody CreatePollBean bean,
+            @RequestBody CreatePollBean bean,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
                final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                jsonResponse.put("pollBean", ConvertDomainBean.convertPollDomainToBean(getPollService().createPoll(bean)));
-               setItemResponse(jsonResponse);               
+               setItemResponse(jsonResponse);
           } catch (Exception e) {
               e.printStackTrace();
               log.error(e);

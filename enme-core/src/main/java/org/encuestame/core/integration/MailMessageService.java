@@ -15,8 +15,8 @@ package org.encuestame.core.integration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.integration.Message;
 import org.springframework.integration.support.MessageBuilder;
+import org.springframework.messaging.Message;
 
 /**
  * Mail message service.

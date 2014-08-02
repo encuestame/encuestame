@@ -10,10 +10,6 @@
     <packaging>jar</packaging>
     <name>Encuestame JSON API v2</name>
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.encuestame</groupId>-->
-            <!--<artifactId>controllers</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>controllers</artifactId>
@@ -187,11 +183,7 @@
             <groupId>rome</groupId>
             <artifactId>rome-fetcher</artifactId>
         </dependency>
-<!--         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-        </dependency>
- -->        <dependency>
+        <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
         </dependency>
@@ -373,6 +365,10 @@
             <artifactId>spring-messaging</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
