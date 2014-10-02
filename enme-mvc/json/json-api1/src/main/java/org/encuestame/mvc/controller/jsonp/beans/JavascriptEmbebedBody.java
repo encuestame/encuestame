@@ -5,24 +5,26 @@ import java.io.Serializable;
 public class JavascriptEmbebedBody implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -4135597482148246813L;
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private String body;
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private String config;
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private String header;
+
+	private Object aditionalInfo;
 
 	/**
 	 * @return the body
@@ -68,5 +70,22 @@ public class JavascriptEmbebedBody implements Serializable {
 	public void setHeader(String header) {
 		this.header = header;
 	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public Object getAditionalInfo() {
+		return aditionalInfo;
+	}
+
+	/**
+	 *
+	 * @param aditionalInfo
+	 */
+	public void setAditionalInfo(Object aditionalInfo) {
+		this.aditionalInfo = aditionalInfo;
+	}
+
 
 }
