@@ -1254,4 +1254,20 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 .getUserAccounts(status);
         return userListAvailable;
     }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.core.service.imp.SecurityOperations#getUserbyId(java.lang
+	 * .Long)
+	 */
+    public UserAccount getUserbyId (final Long id) throws EnMeNoResultsFoundException{
+    	final UserAccount user = getAccountDao().getUserAccountById(id);
+         if (user == null) {
+        	 throw new EnMeNoResultsFoundException("confirmation code not found");
+         }
+    	return user;
+
+    }
 }
