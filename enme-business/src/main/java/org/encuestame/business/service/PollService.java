@@ -39,6 +39,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -64,6 +65,7 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.PollDetailBean;
+import org.encuestame.utils.web.TweetPollDetailBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.search.PollSearchBean;
 import org.springframework.stereotype.Service;
@@ -154,9 +156,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
 		log.debug("Poll Search Items : " + list.size());
 		return list;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param pollSearch
 	 * @return
 	 * @throws EnMeNoResultsFoundException
@@ -170,16 +172,16 @@ public class PollService extends AbstractSurveyService implements IPollService{
 //				pollSearch.getPeriod());
 //		return polls;
 //	}
- 	
+
 	private List<SearchBean> getAllPollSearch(
 			final String username,
 			final HttpServletRequest httpServletRequest,
 			final PollSearchBean pollSearch) throws EnMeNoResultsFoundException {
 		List<Poll> pollsSearchResult = new ArrayList<Poll>();
-		final List<Poll> polls = getPollDao().retrievePollsByUserId(pollSearch, getUserAccountId(username));				
+		final List<Poll> polls = getPollDao().retrievePollsByUserId(pollSearch, getUserAccountId(username));
 		pollsSearchResult = this.getPollSearchResult(polls, pollSearch.getProviders(), pollSearch.getSocialAccounts());
 		return ConvertDomainBean.convertPollListToSearchBean(pollsSearchResult);
-	}	
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -286,7 +288,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 			final PollSearchBean pollSearchBean) throws EnMeExpcetion {
 		List<Poll> pollSearchResult = new ArrayList<Poll>();
 		final List<Poll> polls = getPollDao().retrievePollsToday(pollSearchBean, getUserAccountId(username));
-		//FIXME: java use ref variables, we don't need create multiple list, just reuse the first one 
+		//FIXME: java use ref variables, we don't need create multiple list, just reuse the first one
 		pollSearchResult = this.getPollSearchResult(polls,
 				pollSearchBean.getProviders(),
 				pollSearchBean.getSocialAccounts());
@@ -381,12 +383,12 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setDislikeVote(EnMeUtils.DISLIKE_DEFAULT);
             pollDomain.setNumbervotes(EnMeUtils.VOTE_MIN);
             pollDomain.setEditorOwner(user);
-            pollDomain.setOwner(user.getAccount()); 
+            pollDomain.setOwner(user.getAccount());
             // Type of results display
             pollDomain.setShowResults(showResultsOptions);
             // Comments restrictions
             pollDomain.setShowComments(commentOpt);
-            pollDomain.setPublish(Boolean.TRUE);  
+            pollDomain.setPublish(Boolean.TRUE);
             // multiple votes enabled or not
             if (createPollBean.getMultiple()) {
             	pollDomain.setMultipleResponse(org.encuestame.persistence.domain.AbstractSurvey.MultipleResponse.MULTIPLE);
@@ -414,7 +416,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             // Add answers
             this.createQuestionAnswers(createPollBean.getAnswers(), question);
             this.getPollDao().saveOrUpdate(pollDomain);
-            
+
             this.createPollNotification(pollDomain);
             }
         } catch (Exception e) {
@@ -1136,6 +1138,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final Poll poll = getPoll(pollId);
         detail.setPollBean(ConvertDomainBean.convertPollDomainToBean(poll));
         detail.setResults(this.getResultVotes(poll));
+        //FIXME: Next line is repeated, please review
         this.calculatePercents(detail.getResults());
         //set the list of answers
         detail.setListAnswers(ConvertDomainBean
@@ -1153,7 +1156,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
     public PollResult validatePollIP(final String ip, final Poll poll) {
         return getPollDao().validateVoteIP(ip, poll);
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#getListvalidateVoteIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
