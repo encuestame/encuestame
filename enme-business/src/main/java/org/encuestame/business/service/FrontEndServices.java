@@ -221,6 +221,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             final Boolean showUnSharedItems,
             final HttpServletRequest request) throws EnMeNoResultsFoundException {
             //get tweetpolls
+    	// TODO: parameter showUnSharedItems not used
         final UserAccount user = getUserAccount(username);
         log.debug("getLastItemsPublishedFromUserAccount: "+user.getUsername());
         final List<TweetPoll> lastTp = getTweetPollDao().getTweetPollByUsername(maxResults, user);
@@ -1311,6 +1312,34 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
           final Long totalPollPublished;
           totalPollPublished = getPollDao().getTotalPollsbyUser(user, status);
         return totalPollPublished;
+    }
+
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.core.service.imp.IFrontEndService#getTotalItemsPublishedByType
+	 * (org.encuestame.persistence.domain.security.UserAccount,
+	 * java.lang.Boolean, org.encuestame.utils.enums.TypeSearchResult)
+	 */
+	public Long getTotalItemsPublishedByType(
+			final UserAccount user,
+			final Boolean status,
+			final TypeSearchResult typeSearch)
+			throws EnMeSearchException {
+    	Long totalBy = 0L;
+    	if(typeSearch.equals(TypeSearchResult.TWEETPOLL)){
+    		totalBy = getTotalTweetPollPublished(user, status);
+    	} else if (typeSearch.equals(TypeSearchResult.POLL)){
+    		totalBy = getTotalPollPublished(user, status);
+    	} else if (typeSearch.equals(TypeSearchResult.SURVEY)){
+    		// TODO: Create method to retrieve survey by user
+    		totalBy = 1L;
+    	} else {
+    		throw new EnMeSearchException("Type search parameter not valid: ");
+    	}
+    	return totalBy;
     }
 
     /**

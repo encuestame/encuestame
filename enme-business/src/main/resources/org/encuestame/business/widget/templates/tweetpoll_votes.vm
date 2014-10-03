@@ -1,0 +1,18 @@
+<div>
+	<div>
+	<h2><a href=$tpoll_url>$question</h2>
+	</div>
+	<div class="answers">
+ 		<ul>
+        #foreach( $answer in $answersList )
+            <li>
+                <label>
+                    $answer.answers
+
+                </label>
+            </li>
+        #end
+        </ul>
+	</div>
+	<div class="range_stats"> </div>
+</div>

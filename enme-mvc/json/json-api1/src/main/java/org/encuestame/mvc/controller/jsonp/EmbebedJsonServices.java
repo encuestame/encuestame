@@ -3,6 +3,7 @@ package org.encuestame.mvc.controller.jsonp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,13 +15,19 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.encuestame.core.security.util.WidgetUtil;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.mvc.controller.jsonp.beans.JavascriptEmbebedBody;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.enums.EmbeddedType;
+import org.encuestame.utils.enums.PictureType;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.PollDetailBean;
+import org.encuestame.utils.web.TweetPollDetailBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.velocity.VelocityEngineUtils;
@@ -31,24 +38,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class EmbebedJsonServices extends AbstractJsonControllerV1 {
-	
+
 	/**
-	 * 
+	 *
 	 */
     @Autowired
     private VelocityEngine velocityEngine;
-    
+
     /**
-     * 
+     *
      */
     private final String CODE_TEMPLATES = "/org/encuestame/business/widget/code/templates/";
-    
+
     /**
-     * 
+     *
      */
     private final String HTML_TEMPLATES = "/org/encuestame/business/widget/templates";
-    
-    
+
+
 	/**
 	 * Generate the body of selected item.
 	 * @param itemId
@@ -72,12 +79,12 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
 		String text = "";
 		try {
 	        @SuppressWarnings("rawtypes")
-	        final Map model = new HashMap();	       
+	        final Map model = new HashMap();
 			final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
 			final EmbeddedType embeddedType = EmbeddedType.getEmbeddedType(embedded);
-			final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();			
+			final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();
 			final ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-			response.setContentType("text/javascript; charset=UTF-8");			
+			response.setContentType("text/javascript; charset=UTF-8");
 			model.put("domain", WidgetUtil.getDomain(request, false));
 			model.put("embedded_type", embeddedType.toString().toLowerCase());
 			model.put("typeItem", typeItem.toString().toLowerCase());
@@ -87,7 +94,7 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
 			text = VelocityEngineUtils.mergeTemplateIntoString(
 					velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
 			+ typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);
-			} else if (TypeSearchResult.POLL.equals(typeItem)) { 
+			} else if (TypeSearchResult.POLL.equals(typeItem)) {
 				final Poll poll = getPollService().getPollById(itemId);
 				model.put("url_poll", WidgetUtil.getDomain(request, true) +
 						 "/poll/" + poll.getPollId() + "/" + poll.getQuestion().getSlugQuestion());
@@ -97,7 +104,7 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
 			} else if (TypeSearchResult.HASHTAG.equals(typeItem)) {
 				text = VelocityEngineUtils.mergeTemplateIntoString(
 						velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
-						+ typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);				
+						+ typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);
 			} else if (TypeSearchResult.PROFILE.equals(typeItem)) {
 				text = VelocityEngineUtils.mergeTemplateIntoString(
 						velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
@@ -105,14 +112,14 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
 			}
 			String string = new String(text.getBytes("UTF-8"));
 	        embebedBody.setBody(string);
-			final String json = ow.writeValueAsString(embebedBody);			
+			final String json = ow.writeValueAsString(embebedBody);
 			out.print(callback + "(" + json + ")");
 		} catch (Exception e) {
 			e.printStackTrace();
 			out.print(callback + "(" + Boolean.FALSE + ")");
 		}
-	}	    
-	
+	}
+
 	/**
 	 * Generate the body of selected item.
 	 * @param pollId
@@ -126,6 +133,7 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/api/jsonp/{type}/embedded", method = RequestMethod.GET)
 	public void typeJavascriptJSONP(
+			// :TODO: Change parameter name pollId to id.
 			@RequestParam(value = "id", required = true) Long pollId,
 			@PathVariable final String type,
 			@RequestParam(value = "callback", required = true) String callback,
@@ -133,11 +141,12 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
 			throws JsonGenerationException, JsonMappingException, IOException {
 		PrintWriter out = response.getWriter();
 		String text = "";
+		final int max_results = 1;
 		try {
 	        @SuppressWarnings("rawtypes")
-	        final Map model = new HashMap();	       
+	        final Map model = new HashMap();
 			final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
-			final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();			
+			final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();
 			final ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 			response.setContentType("text/javascript; charset=UTF-8");
 			if (TypeSearchResult.TWEETPOLL.equals(typeItem)) {
@@ -145,7 +154,7 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
 				model.put("hellow", "world");
 				text = VelocityEngineUtils.mergeTemplateIntoString(
 						velocityEngine, HTML_TEMPLATES + "/tweetpoll_form.vm", "utf-8", model);
-				 
+
 			} else if (TypeSearchResult.POLL.equals(typeItem)) {
 				// generate poll body
 				final Poll poll = getPollService().getPollById(pollId);
@@ -158,25 +167,44 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
 				text = VelocityEngineUtils.mergeTemplateIntoString(
 						velocityEngine, HTML_TEMPLATES + "/poll_form.vm", "utf-8", model);
 			} else if (TypeSearchResult.HASHTAG.equals(typeItem)) {
-				// generate hashtag body 
+				// generate hashtag body
 				model.put("hellow", "world");
 				text = VelocityEngineUtils.mergeTemplateIntoString(
 						velocityEngine, HTML_TEMPLATES + "/hashtag.vm", "utf-8", model);
-			}				
+			} else if (TypeSearchResult.PROFILE.equals(typeItem)) {
+				final UserAccount user = getSecurityService().getUserbyId(pollId);
+				model.put("profile", user.getUsername());
+				model.put("url_profile", WidgetUtil.getDomain(request, true) +
+						 "/profile/" + user.getUsername());
+				model.put("picture", getPictureService().getProfilePicture(user.getUsername(), PictureType.DEFAULT));
+				model.put("total_tweets", getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.TWEETPOLL));
+				model.put("total_poll",  getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.POLL));
+				model.put("total_survey",  getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.SURVEY));
+				final List<HomeBean> lastPublication = getFrontService().getLastItemsPublishedFromUserAccount(
+						user.getUsername(),
+						max_results,
+						Boolean.FALSE,
+						request);
+				model.put("last_publication", lastPublication.get(0));
+
+
+				text = VelocityEngineUtils.mergeTemplateIntoString(
+						velocityEngine, HTML_TEMPLATES + "/profile.vm", "utf-8", model);
+			}
 			//final String d = new String(text.toString(), "UTF-8");
 			String string = new String(text.getBytes("UTF-8"));
 	        embebedBody.setBody(string);
-			final String json = ow.writeValueAsString(embebedBody);			
+			final String json = ow.writeValueAsString(embebedBody);
 			out.print(callback + "(" + json + ")");
 			// buffer.append(callback + "(" + Boolean.TRUE + ")");
 		} catch (Exception e) {
 			e.printStackTrace();
 			out.print(callback + "(" + Boolean.FALSE + ")");
 		}
-	}	
-	
+	}
+
 	/**
-	 * 
+	 *
 	 * @param pollId
 	 * @param callback
 	 * @param request
@@ -201,9 +229,9 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
 			out.print(callback + "(" + Boolean.FALSE + ")");
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param username
 	 * @param callback
 	 * @param request
@@ -227,8 +255,8 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
 		} catch (EnMeExpcetion e) {
 			out.print(callback + "(" + Boolean.FALSE + ")");
 		}
-	}	
-	
+	}
+
     /**
      * @return the velocityEngine
      */
@@ -241,5 +269,5 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
      */
     public void setVelocityEngine(final VelocityEngine velocityEngine) {
         this.velocityEngine = velocityEngine;
-    }	
+    }
 }

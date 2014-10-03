@@ -44,6 +44,7 @@ import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.TweetPollScheduledBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.TweetPollDetailBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.search.TweetPollSearchBean;
 
@@ -639,5 +640,14 @@ public interface ITweetPollService extends IMasterSurveyService{
 	 * @throws EnMeNoResultsFoundException
 	  */
 	 List<TweetPollFolder> retrieveFoldersbyKeyword(  final String keyword) throws EnMeNoResultsFoundException;
+
+	 /**
+	  * Get {@link TweetPollDetailBean} info.
+	  * @param tpollId
+	  * @return
+	  * @throws EnMeNoResultsFoundException
+	  */
+	 TweetPollDetailBean getTweetPollDetailInfo(final Long tpollId)
+				throws EnMeNoResultsFoundException;
 
 }
