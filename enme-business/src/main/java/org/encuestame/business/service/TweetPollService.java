@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
- import java.util.List;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -69,7 +69,9 @@ import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.TweetPollScheduledBean;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.PollDetailBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.TweetPollDetailBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.search.TweetPollSearchBean;
 import org.joda.time.DateTime;
@@ -1711,6 +1713,21 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 			}
 		}
  	}
+
+	public TweetPollDetailBean getTweetPollDetailInfo(final Long tpollId)
+			throws EnMeNoResultsFoundException {
+		final TweetPollDetailBean tpollDetail = new TweetPollDetailBean();
+
+		final TweetPoll tpoll = getTweetPollById(tpollId);
+		tpollDetail.setTpollBean(ConvertDomainBean
+				.convertTweetPollToBean(tpoll));
+		tpollDetail.setResults(this.getResultsByTweetPollId(tpoll
+				.getTweetPollId()));
+		tpollDetail.setListAnswers(ConvertDomainBean
+				.convertAnswersToQuestionAnswerBean(getQuestionDao()
+						.getAnswersByQuestionId(tpoll.getQuestion().getQid())));
+		return tpollDetail;
+	}
 
 	/*
 	 * (non-Javadoc)

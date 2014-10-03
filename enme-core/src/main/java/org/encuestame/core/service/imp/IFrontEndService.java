@@ -12,7 +12,6 @@
  */
 package org.encuestame.core.service.imp;
 
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -266,4 +265,16 @@ public interface IFrontEndService extends ServiceOperations {
      * @return
      */
     Status registerVote(final Long itemId, final TypeSearchResult searchResult,  final String ipAddress);
+
+    /**
+     * Retrieve total items published by User
+     * @param user
+     * @param status
+     * @param typeSearch
+     * @return
+     * @throws EnMeSearchException
+     */
+    Long getTotalItemsPublishedByType(final UserAccount user,
+			final Boolean status, final TypeSearchResult typeSearch)
+			throws EnMeSearchException;
 }

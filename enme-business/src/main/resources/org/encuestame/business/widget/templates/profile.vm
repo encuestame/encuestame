@@ -1,0 +1,23 @@
+<div>
+	<div class="profile_data">
+	<!-- Include userprofile name -->
+		<span>
+			 <a href=$url_profile>
+			 	$profile
+			 </a>
+		</span>
+
+		<span>
+			$total_tweets
+		</span>
+		<span>
+			$total_poll
+		</span>
+		<span>
+			$total_survey
+		</span>
+	</div>
+	<div class="last_publications">
+		$last_publication.questionBean.questionName
+	</div>
+</div>
