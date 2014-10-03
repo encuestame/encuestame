@@ -276,7 +276,7 @@ public interface SecurityOperations extends ServiceOperations {
      * SingUp User
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UserAccountBean}.
-     * @throws EnMeNoResultsFoundException 
+     * @throws EnMeNoResultsFoundException
      */
     UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail) throws EnMeNoResultsFoundException;
 
@@ -495,4 +495,12 @@ public interface SecurityOperations extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      */
     List<UserAccount> getUserAccountsAvailable(final Boolean status) throws EnMeNoResultsFoundException;
+
+    /**
+     * Get user by id.
+     * @param id
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    UserAccount getUserbyId (final Long id) throws EnMeNoResultsFoundException;
 }

@@ -31,6 +31,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Logger;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.net.XFordwardedInetAddressUtil;
 import org.encuestame.utils.web.HashTagBean;
@@ -293,5 +295,28 @@ public class EnMeUtils {
         } else {
             throw new EnMeExpcetion("version not valid  or not compatible");
         }
+    }
+
+    /**
+     *
+     * @param poll
+     * @return
+     */
+    public static String createUrlPollAccess(final Poll poll) {
+        StringBuffer urlBuffer = new StringBuffer("/poll/");
+        urlBuffer.append(poll.getPollHash());
+        urlBuffer.append("/");
+        urlBuffer.append(poll.getPollId());
+        urlBuffer.append("/");
+        urlBuffer.append(poll.getQuestion().getSlugQuestion());
+        return urlBuffer.toString();
+    }
+
+    public static String createTweetPollUrlAccess(final TweetPoll tweetPoll){
+        final StringBuilder builder = new StringBuilder("/tweetpoll/");
+        builder.append(tweetPoll.getTweetPollId());
+        builder.append("/");
+        builder.append(tweetPoll.getQuestion().getSlugQuestion());
+        return builder.toString();
     }
 }
