@@ -1,0 +1,13 @@
+<div>
+	<div>
+		<h2>
+			Hashtag Name
+		</h2>
+	</div>
+	<div class="type_stats">
+		<!-- Include button or Selectbox to show stats by use or social networks -->
+	</div>
+	<div class="range_stats">
+		<!-- Include button or Selectbox to show stats by Range date -->
+	 </div>
+</div>
