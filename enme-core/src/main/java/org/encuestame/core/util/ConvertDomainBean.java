@@ -1648,6 +1648,13 @@ public class ConvertDomainBean {
         answer.setQuestionId(question.getQid());
         result.setAnswerBean(answer);
         result.setResult(resultVotes);
+        //FIXME: these properties are repeated, we need to update and unify these properties.
+        result.setAnswerName(answer.getAnswers());
+        result.setVotes(resultVotes);
+        result.setColor(answer.getColor());
+        result.setUrl(answer.getUrl());
+        result.setShortUrl(answer.getShortUrl());
+        result.setAnswerId(answerId);
         return result;
     }
 
@@ -1656,31 +1663,33 @@ public class ConvertDomainBean {
      * @param tweetPollResult
      * @return
      */
-    public static final TweetPollResultsBean convertTweetPollResultToBean(
-            final TweetPollResult tweetPollResult) {
-        final TweetPollResultsBean tpResultsBean = new TweetPollResultsBean();
-        tpResultsBean.setAnswerId(1L);
-        tpResultsBean.setAnswerName("aa");
-        tpResultsBean.setColor("bb");
-        tpResultsBean.setPercent("DD");
-        tpResultsBean.setVotes(2L);
-        return tpResultsBean;
-    }
+    //TODO: marked to be removed
+//    public static final TweetPollResultsBean convertTweetPollResultToBean(
+//            final TweetPollResult tweetPollResult) {
+//        final TweetPollResultsBean tpResultsBean = new TweetPollResultsBean();
+//        tpResultsBean.setAnswerId(1L);
+//        tpResultsBean.setAnswerName("aa");
+//        tpResultsBean.setColor("bb");
+//        tpResultsBean.setPercent("DD");
+//        tpResultsBean.setVotes(2L);
+//        return tpResultsBean;
+//    }
 
     /**
      *
      * @param tpollResults
      * @return
      */
-    public static final List<TweetPollResultsBean> convertTweetPollResultsToBean(
-            final List<TweetPollResult> tpollResults) {
-        final List<TweetPollResultsBean> loadTweetPollResults = new ArrayList<TweetPollResultsBean>();
-        for (TweetPollResult tweetPollResult : tpollResults) {
-            loadTweetPollResults.add(ConvertDomainBean
-                    .convertTweetPollResultToBean(tweetPollResult));
-        }
-        return loadTweetPollResults;
-    }
+      //TODO: marked to be removed
+//    public static final List<TweetPollResultsBean> convertTweetPollResultsToBean(
+//            final List<TweetPollResult> tpollResults) {
+//        final List<TweetPollResultsBean> loadTweetPollResults = new ArrayList<TweetPollResultsBean>();
+//        for (TweetPollResult tweetPollResult : tpollResults) {
+//            loadTweetPollResults.add(ConvertDomainBean
+//                    .convertTweetPollResultToBean(tweetPollResult));
+//        }
+//        return loadTweetPollResults;
+//    }
 
     /**
      *
@@ -1869,7 +1878,7 @@ public class ConvertDomainBean {
      */
     public static final ItemStatDetail convertHitsToItemDetailBean(final Hit hit) {
         final ItemStatDetail itemDetail = new ItemStatDetail();
-        itemDetail.setItemId(hit.getId());
+        itemDetail.setItemId(1L); //by default one hit is one vote
         itemDetail.setDate(hit.getHitDate());
         return itemDetail;
     }

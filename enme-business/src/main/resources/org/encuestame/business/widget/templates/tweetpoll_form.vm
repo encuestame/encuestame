@@ -1,0 +1,50 @@
+<div class="widget tweetpoll-form">
+        <blockquote class="" data-id="$itemId" cite="$owner_profile_url">
+            #parse("/org/encuestame/business/widget/templates/header_widget.vm")
+            <div class="content enme-title">
+                <p class="title">
+                    $body_text
+                </p>
+                <div class="dateline">
+                    <a class="u-url"
+                       href="$url_tpoll">
+                       <time pubdate=""
+                             class="enme-time"
+                             datetime="$date_published"
+                             title="$date_published">
+                             $date_published
+                       </time>
+                    </a>
+                </div>
+            </div>
+            <div class="footer ">
+                  <span class="">
+                      <span class="stats">
+                          <a href="$owner_profile_url">
+                            <span class="">
+                              <strong>
+                                  $votes
+                              </strong>
+                                votes
+                            </span>
+                          </a>
+                      </span>
+                  </span>
+                <span class="">
+                      <span class="stats">
+                          <a href="$owner_profile_url">
+                            <span class="">
+                              <strong>
+                                  $hits
+                              </strong>
+                              hits
+                            </span>
+                          </a>
+                      </span>
+                  </span>
+                  <footer>
+                      #parse("/org/encuestame/business/widget/templates/footer_logo.vm")
+                  </footer>
+            </div>
+        </blockquote>
+</div>

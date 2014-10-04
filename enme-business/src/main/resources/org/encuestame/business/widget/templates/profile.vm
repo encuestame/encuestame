@@ -1,23 +1,63 @@
-<div>
-	<div class="profile_data">
-	<!-- Include userprofile name -->
-		<span>
-			 <a href=$url_profile>
-			 	$profile
-			 </a>
-		</span>
-
-		<span>
-			$total_tweets
-		</span>
-		<span>
-			$total_poll
-		</span>
-		<span>
-			$total_survey
-		</span>
-	</div>
-	<div class="last_publications">
-		$last_publication.questionBean.questionName
-	</div>
+<div class="widget profile">
+    <blockquote class="" data-id="$itemId" cite="$owner_profile_url">
+        #parse("/org/encuestame/business/widget/templates/header_widget.vm")
+            <div class="content">
+                #if ($last_publication)
+                    <blockquote>
+                        <span class="bqstart">&#8220;</span>
+                            <div class="last_publications">
+                                <a href="" target="_blank">
+                                    $last_publication.questionBean.questionName
+                                 </a>
+                            </div>
+                        <span class="bqend">&#8221;
+                        </span>
+                    </blockquote>
+                #end
+                #if (!$last_publication)
+                    <!-- no publications body -->
+                #end
+            </div>
+            <div class="footer profile_data">
+                  <span class="">
+                      <span class="stats">
+                          <a href="$owner_profile_url">
+                            <span class="">
+                              <strong>
+                                  $total_tweets
+                              </strong>
+                                TweetPolls
+                            </span>
+                          </a>
+                      </span>
+                  </span>
+                 <span>
+                      <span class="stats">
+                          <a href="$owner_profile_url">
+                            <span class="">
+                              <strong>
+                                  $total_poll
+                              </strong>
+                              Polls
+                            </span>
+                          </a>
+                      </span>
+                  </span>
+                  <span class="">
+                      <span class="stats">
+                          <a href="$owner_profile_url">
+                            <span class="">
+                              <strong>
+                                  $total_survey
+                              </strong>
+                              Surveys
+                            </span>
+                          </a>
+                      </span>
+                  </span>
+                <footer>
+                    #parse("/org/encuestame/business/widget/templates/footer_logo.vm")
+                </footer>
+            </div>
+    </blockquote>
 </div>

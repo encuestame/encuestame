@@ -47,7 +47,6 @@ import org.hibernate.search.annotations.Store;
  * Security User Secondary.
  * @author Picado, Juan juanATencuestame.org
  * @since 08/12/2009 19:01:26
- * @version $Id$
  */
 @Entity
 @Table(name = "userAccount",

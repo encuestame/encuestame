@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.HashTagListGraphData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

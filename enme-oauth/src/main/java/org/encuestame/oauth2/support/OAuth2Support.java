@@ -23,7 +23,7 @@ import org.encuestame.utils.oauth.AccessGrant;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriTemplate;
@@ -63,7 +63,7 @@ public class OAuth2Support extends AbstractOAuthSupport implements OAuth2RestOpe
                  return clazz.equals(Map.class) && mediaType != null && mediaType.getType().equals("text")
                          && mediaType.getSubtype().equals("plain");
              }
-         }, new MappingJacksonHttpMessageConverter()));
+         }, new MappingJackson2HttpMessageConverter()));
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.authorizeUrlTemplate = new UriTemplate(authorizeUrl);

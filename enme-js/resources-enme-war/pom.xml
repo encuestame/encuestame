@@ -73,6 +73,8 @@
                                 <exclude name="**/js/**/dojo/**" />
                                 <exclude name="**/js/**/dojox/**" />
                                 <exclude name="**/js/**/dijit/**" />
+                                <exclude name="**/js/**/node_modules/**" />
+                                <exclude name="**/js/**/GruntFile.js" />
                                 <exclude name="**/js/**/util/**" />
                             </fileset>
                         </copy>

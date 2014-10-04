@@ -1,0 +1,21 @@
+<div class="header">
+    <div class="enme-author">
+        <a class="u-url profile" href="$owner_profile_url"
+           aria-label="$editorOwner.username">
+            <img class="avatar"
+                 alt="$editorOwner.username"
+                 src="$owner_picture"
+                 data-src="$owner_picture">
+            <div class="full-name">
+                          <span class="enme-name">
+                              $editorOwner.completeName
+                          </span>
+            </div>
+            <div class="enme-username">
+                <b>
+                    $editorOwner.username
+                </b>
+            </div>
+        </a>
+    </div>
+</div>
