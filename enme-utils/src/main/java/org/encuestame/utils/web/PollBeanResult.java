@@ -12,6 +12,7 @@
  */
 package org.encuestame.utils.web;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,11 +26,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @since  April 01, 2010
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PollBeanResult {
+public class PollBeanResult extends AbstractResultBean implements Serializable {
 
-	/**
-	 * Label of answer.
-	 */
+    private static final long serialVersionUID = -8437551135621750551L;
+
+    /**
+     * Label of answer.
+     */
     @JsonProperty(value = "answer")
     private QuestionAnswerBean answerBean;
 
@@ -44,13 +47,13 @@ public class PollBeanResult {
      */
     @JsonIgnore
     private Date votedDate;
-    
+
     /**
      * Percent of result.
      */
     @JsonProperty(value = "percent")
-    private String percent; 
-    
+    private String percent;
+
     /**
      * @return the answerBean
      */
@@ -58,14 +61,14 @@ public class PollBeanResult {
     public QuestionAnswerBean getAnswerBean() {
         return answerBean;
     }
-    
+
     /**
      * @param answerBean the answerBean to set
      */
     public void setAnswerBean(QuestionAnswerBean answerBean) {
         this.answerBean = answerBean;
     }
-    
+
     /**
      * @return the result
      */
@@ -73,14 +76,14 @@ public class PollBeanResult {
     public Long getResult() {
         return result;
     }
-    
+
     /**
      * @param result the result to set
      */
     public void setResult(final Long result) {
         this.result = result;
     }
-    
+
     /**
      * @return the votedDate
      */
@@ -88,38 +91,38 @@ public class PollBeanResult {
     public Date getVotedDate() {
         return votedDate;
     }
-    
+
     /**
      * @param votedDate the votedDate to set
      */
     public void setVotedDate(final Date votedDate) {
         this.votedDate = votedDate;
     }
-    
-    
+
+
     /**
      * Get percent.
      * @return
      */
     public String getPercent() {
-		return percent;
-	}
+        return percent;
+    }
 
     /**
      * Set percent.
      * @param percent
      */
-	public void setPercent(String percent) {
-		this.percent = percent;
-	}
+    public void setPercent(String percent) {
+        this.percent = percent;
+    }
 
-	/*
+    /*
      * (non-Javadoc)
      * @see java.lang.Object#toString()
      */
-	@Override
-	public String toString() {
-		return "PollBeanResult [answerBean=" + answerBean + ", result="
-				+ result + ", votedDate=" + votedDate + "]";
-	}
+    @Override
+    public String toString() {
+        return "PollBeanResult [answerBean=" + answerBean + ", result="
+                + result + ", votedDate=" + votedDate + "]";
+    }
 }

@@ -22,20 +22,25 @@ import java.io.StringReader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Logger;
+import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.net.XFordwardedInetAddressUtil;
 import org.encuestame.utils.web.HashTagBean;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -289,7 +294,6 @@ public class EnMeUtils {
         for (int i = 0; i < versionArray.length; i++) {
             arrayAsIng[i] = Integer.valueOf(versionArray[i]);
         }
-        log.debug("******************************************");
         if (arrayAsIng.length == 3) {
             return arrayAsIng;
         } else {
@@ -298,22 +302,85 @@ public class EnMeUtils {
     }
 
     /**
-     *
+     * Create a tweetpoll body as html, links included.
+     * @param tweetPoll TweetPoll
+     * @param question
+     * @param answers list of QuestionAnswer
+     * @param hashTags list of HashTag
+     * @return
+     */
+    public static String generateBodyTweetPollasHtml(
+            final String domain,
+            final TweetPoll tweetPoll,
+            final String question,
+            final List<TweetPollSwitch> answers,
+            final Set<HashTag> hashTags){
+        StringBuffer buffer = new StringBuffer();
+        String q = tweetPoll.getQuestion().getQuestion();
+        buffer.append("<b class=\"q-enme\">");
+        buffer.append(q);
+        buffer.append("</b>");
+        buffer.append(" ");
+        for (TweetPollSwitch answer : answers) {
+            buffer.append("<b class=\"answer\">");
+            buffer.append(answer.getAnswers().getAnswer());
+            buffer.append("</b>");
+            buffer.append(" ");
+            buffer.append(" <a target=\"_blank\" href=\"");
+            buffer.append(answer.getShortUrl());
+            buffer.append("\">");
+            buffer.append(answer.getShortUrl());
+            buffer.append("");
+            buffer.append("</a>");
+        }
+        for (HashTag hashTag : hashTags) {
+            buffer.append(" ");
+            buffer.append("<a target=\"_blank\" href=\"");
+            buffer.append(domain + "\\tag\\");
+            buffer.append(hashTag.getHashTag());
+            buffer.append("\">");
+            buffer.append("#");
+            buffer.append(hashTag.getHashTag());
+            buffer.append("</a>");
+        }
+        return buffer.toString();
+    }
+
+    /**
+     * Return a format date as string.
+     * @param date
+     * @param format
+     * @return
+     */
+    public static String formatDate(final Date date, final String format) {
+        DateTime convertDate = new DateTime(date);
+        DateTimeFormatter fmt = DateTimeFormat.forPattern(format);
+        return convertDate.toString(fmt);
+    }
+
+    /**
+     * Return a default poll url
      * @param poll
      * @return
      */
-    public static String createUrlPollAccess(final Poll poll) {
-        StringBuffer urlBuffer = new StringBuffer("/poll/");
-        urlBuffer.append(poll.getPollHash());
-        urlBuffer.append("/");
+    public static String createUrlPollAccess(final String domain, final Poll poll) {
+        StringBuffer urlBuffer = new StringBuffer(domain);
+        urlBuffer.append("/poll/");
         urlBuffer.append(poll.getPollId());
         urlBuffer.append("/");
         urlBuffer.append(poll.getQuestion().getSlugQuestion());
         return urlBuffer.toString();
     }
 
-    public static String createTweetPollUrlAccess(final TweetPoll tweetPoll){
-        final StringBuilder builder = new StringBuilder("/tweetpoll/");
+    /**
+     * Return a TweetPoll url
+     * @param domain
+     * @param tweetPoll
+     * @return
+     */
+    public static String createTweetPollUrlAccess(final String domain, final TweetPoll tweetPoll) {
+        final StringBuilder builder = new StringBuilder(domain);
+        builder.append("/tweetpoll/");
         builder.append(tweetPoll.getTweetPollId());
         builder.append("/");
         builder.append(tweetPoll.getQuestion().getSlugQuestion());
