@@ -382,6 +382,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     @SuppressWarnings("unchecked")
     public List getResultsByTweetPoll(final TweetPoll tweetPoll,
             final QuestionAnswer answers) {
+        //FIXME: please add short url of the list into the select sentence
         return getHibernateTemplate()
                 .findByNamedParam(
                         "select tweetPollSwitch.answers.answer, count(tweetPollResultId) from TweetPollResult "
@@ -509,7 +510,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         final List<TweetPollSwitch> answers = this
                 .getListAnswesByTweetPoll(this.getTweetPollById(tweetPollId));
         for (TweetPollSwitch tweetPollSwitch : answers) {
-        	//2 - Total votes by answers already voted.
+            //2 - Total votes by answers already voted.
             final List<Long> answerResult = this
                     .getVotesByAnswer(tweetPollSwitch); // Count
             // Sum already votes
@@ -1131,23 +1132,23 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.encuestame.persistence.dao.ITweetPoll#getTweetPollFolderByKeyword
-	 * (java.lang.String,
-	 * org.encuestame.persistence.domain.security.UserAccount)
-	 */
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.persistence.dao.ITweetPoll#getTweetPollFolderByKeyword
+     * (java.lang.String,
+     * org.encuestame.persistence.domain.security.UserAccount)
+     */
     @SuppressWarnings("unchecked")
-	public List<TweetPollFolder> getTweetPollFolderByKeyword(final String keyword,
-			final UserAccount userAcc) {
-		final DetachedCriteria criteria = DetachedCriteria
-				.forClass(TweetPollFolder.class);
-		criteria.add(Restrictions.eq("createdBy", userAcc));
-		criteria.add(Restrictions.ilike("folderName", keyword,
-				MatchMode.ANYWHERE));
-		return (List<TweetPollFolder>) filterByMaxorStart(criteria, 10, 0);
-	}
+    public List<TweetPollFolder> getTweetPollFolderByKeyword(final String keyword,
+            final UserAccount userAcc) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPollFolder.class);
+        criteria.add(Restrictions.eq("createdBy", userAcc));
+        criteria.add(Restrictions.ilike("folderName", keyword,
+                MatchMode.ANYWHERE));
+        return (List<TweetPollFolder>) filterByMaxorStart(criteria, 10, 0);
+    }
 
 }

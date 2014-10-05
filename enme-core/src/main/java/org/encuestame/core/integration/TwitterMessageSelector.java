@@ -12,8 +12,8 @@
  */
 package org.encuestame.core.integration;
 
-import org.springframework.integration.Message;
 import org.springframework.integration.core.MessageSelector;
+import org.springframework.messaging.Message;
 
 /**
  * Twitter message selector.

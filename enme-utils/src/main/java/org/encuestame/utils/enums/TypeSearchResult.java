@@ -60,7 +60,7 @@ public enum TypeSearchResult {
         else if (type.equals(POLL)) { return "poll"; }
         else if (type.equals(SURVEY)) { return "survey"; }
         else if (type.equals(HASHTAG)) { return "tag"; }
-        else if (type.equals(HASHTAGRATED)) { return "hashtagRated"; }
+        else if (type.equals(HASHTAGRATED)) { return "hashtagrated"; }
         else if (type.equals(SOCIALNETWORK)) { return "socialnetwork"; }
         else if (type.equals(HITS)) { return "hits"; }
         else if (type.equals(VOTES)) { return "votes"; }

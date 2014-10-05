@@ -12,15 +12,16 @@
  */
 package org.encuestame.core.util;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import java.io.IOException;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 
 /**
  * JSON utilities..
@@ -34,10 +35,10 @@ public class JSONUtils {
      * @param object
      * @return
      * @throws IOException
-     * @throws JsonMappingException
-     * @throws JsonGenerationException
+     * @throws com.fasterxml.jackson.databind.JsonMappingException
+     * @throws com.fasterxml.jackson.core.JsonGenerationException
      */
-    public static String convertObjectToJsonString(Object object) throws JsonGenerationException, JsonMappingException, IOException{
+    public static String convertObjectToJsonString(Object object) throws IOException{
          final JsonFactory factory = new JsonFactory();
          final ObjectMapper mapper = new ObjectMapper(factory);
          return mapper.writeValueAsString(object);
@@ -53,7 +54,7 @@ public class JSONUtils {
      * @throws IOException
      */
     @SuppressWarnings("unchecked")
-    public static Object convertJsonToObject(final String json, final Class clazz) throws JsonParseException, JsonMappingException, IOException{
+    public static Object convertJsonToObject(final String json, final Class clazz) throws IOException{
         final JsonFactory factory = new JsonFactory();
         ObjectMapper mapper = new ObjectMapper(factory);
         return mapper.readValue(json, clazz);
@@ -67,7 +68,7 @@ public class JSONUtils {
      * @throws JsonMappingException
      * @throws IOException
      */
-    public static Map<String, Object> convertJsonToObject(final String json) throws JsonParseException, JsonMappingException, IOException{
+    public static Map<String, Object> convertJsonToObject(final String json) throws IOException{
         final JsonFactory factory = new JsonFactory();
         ObjectMapper mapper = new ObjectMapper(factory);
         return mapper.readValue(json, new TypeReference<Map<String, Object>>() {});
