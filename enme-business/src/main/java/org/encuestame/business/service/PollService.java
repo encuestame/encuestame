@@ -39,7 +39,6 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -65,7 +64,6 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.PollDetailBean;
-import org.encuestame.utils.web.TweetPollDetailBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.search.PollSearchBean;
 import org.springframework.stereotype.Service;
@@ -372,6 +370,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final String hashPoll = MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500));
             final CommentOptions commentOpt = CommentOptions.getCommentOption(createPollBean.getShowComments());
             final ShowResultsOptions showResultsOptions = ShowResultsOptions.getShowResults(createPollBean.getShowComments());
+            final Boolean isPollProtected =  createPollBean.getIsPasswordProtected();
             pollDomain.setEditorOwner(user);
             pollDomain.setCreateDate(Calendar.getInstance().getTime());
             pollDomain.setPollHash(hashPoll);
@@ -390,6 +389,13 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setShowComments(commentOpt);
             pollDomain.setPublish(Boolean.TRUE);
             // multiple votes enabled or not
+            //TODO: ENCUESTAME-664
+            pollDomain.setIsHidden(createPollBean.getIsHidden());
+            pollDomain.setIsPasswordProtected(isPollProtected);
+            if(isPollProtected)  {
+            //TODO: Generate random password with maximun 4 characthers
+                pollDomain.setPassword("generateRandomPassword");
+            }
             if (createPollBean.getMultiple()) {
             	pollDomain.setMultipleResponse(org.encuestame.persistence.domain.AbstractSurvey.MultipleResponse.MULTIPLE);
             } else {

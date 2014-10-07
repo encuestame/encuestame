@@ -10,44 +10,53 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class CreatePollBean implements Serializable{
 
 	/**
-	 * 
+	 *
 	 */
-	private static  long serialVersionUID = -7561028976907252715L;	
-	
+	private static  long serialVersionUID = -7561028976907252715L;
+
 	/**
-	 * 
+	 *
 	 */
 	public CreatePollBean() {}
 
 	@JsonProperty(value = "questionName")
 	public  String questionName;
-	
+
 	@JsonProperty(value = "listAnswers")
 	public   String[] answers;
-		
+
 	@JsonProperty(value = "results")
-	public   String results; 
-	
+	public   String results;
+
 	@JsonProperty(value = "showComments")
 	public   String showComments;
-		
+
 	@JsonProperty(value = "limit_votes")
 	public Long limitVote;
-	
+
 	@JsonProperty(value = "close_date")
 	public   Long close_date;
-	
+
 	@JsonProperty(value = "folder_name")
-	public   String folder_name;          
-	
+	public   String folder_name;
+
 	@JsonProperty(value = "multiple")
 	public   Boolean multiple;
-	
+
 	@JsonProperty(value = "hashtags")
-	public   String[] hashtags;	
-	
+	public   String[] hashtags;
+
 	@JsonProperty(value="allow_add")
 	public Boolean allowAdd;
+
+	@JsonProperty(value="isHidden")
+	public Boolean isHidden;
+
+	@JsonProperty(value="isPasswordProtected")
+	public Boolean isPasswordProtected;
+
+	@JsonProperty(value="pollPassword")
+	public String pollPassword;
 
 	/**
 	 * @return the questionName
@@ -198,7 +207,47 @@ public class CreatePollBean implements Serializable{
 	public void setAllowAdd(Boolean allowAdd) {
 		this.allowAdd = allowAdd;
 	}
-	
-	
-	
+
+	/**
+	 * @return the isHidden
+	 */
+	public Boolean getIsHidden() {
+		return isHidden;
+	}
+
+	/**
+	 * @param isHidden the isHidden to set
+	 */
+	public void setIsHidden(final Boolean isHidden) {
+		this.isHidden = isHidden;
+	}
+
+	/**
+	 * @return the isPasswordProtected
+	 */
+	public Boolean getIsPasswordProtected() {
+		return isPasswordProtected;
+	}
+
+	/**
+	 * @param isPasswordProtected the isPasswordProtected to set
+	 */
+	public void setIsPasswordProtected(final Boolean isPasswordProtected) {
+		this.isPasswordProtected = isPasswordProtected;
+	}
+
+	/**
+	 * @return the pollPassword
+	 */
+	public String getPollPassword() {
+		return pollPassword;
+	}
+
+	/**
+	 * @param pollPassword the pollPassword to set
+	 */
+	public void setPollPassword(final String pollPassword) {
+		this.pollPassword = pollPassword;
+	}
+
 }
