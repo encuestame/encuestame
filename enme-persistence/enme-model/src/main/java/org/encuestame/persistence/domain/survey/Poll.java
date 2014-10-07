@@ -85,6 +85,15 @@ public class Poll extends AbstractSurvey {
      **/
     private Set<HashTag> hashTags = new HashSet<HashTag>();
 
+    /** **/
+    private Boolean isHidden;
+
+    /** **/
+    private Boolean isPasswordProtected;
+
+    /** **/
+    private String password;
+
 
     /**
      * @return the poll_id
@@ -203,7 +212,49 @@ public class Poll extends AbstractSurvey {
         this.hashTags = hashTags;
     }
 
-    /* (non-Javadoc)
+    /**
+	 * @return the isHidden
+	 */
+	public Boolean getIsHidden() {
+		return isHidden;
+	}
+
+	/**
+	 * @param isHidden the isHidden to set
+	 */
+	public void setIsHidden(Boolean isHidden) {
+		this.isHidden = isHidden;
+	}
+
+	/**
+	 * @return the isPasswordProtected
+	 */
+	public Boolean getIsPasswordProtected() {
+		return isPasswordProtected;
+	}
+
+	/**
+	 * @param isPasswordProtected the isPasswordProtected to set
+	 */
+	public void setIsPasswordProtected(Boolean isPasswordProtected) {
+		this.isPasswordProtected = isPasswordProtected;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
