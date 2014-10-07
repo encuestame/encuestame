@@ -124,6 +124,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         criteria.addOrder(Order.desc("relevance"));
         criteria.add(Restrictions.eq("publish", Boolean.TRUE)); //should be published
         criteria.addOrder(Order.desc("createDate"));
+        criteria.add(Restrictions.eq("isHidden", Boolean.FALSE));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
         //return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
     }
