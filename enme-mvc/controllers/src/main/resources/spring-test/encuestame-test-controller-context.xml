@@ -91,11 +91,11 @@
                 </bean> -->
 
                 <!-- This must come after our image converter
-                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
                 -->
             </list>
         </property>
   </bean>
-  
+
   <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
 </beans>

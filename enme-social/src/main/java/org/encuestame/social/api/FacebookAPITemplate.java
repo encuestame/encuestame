@@ -28,7 +28,7 @@ import org.encuestame.utils.social.SocialUserProfile;
 import org.jfree.util.Log;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -61,7 +61,7 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
     public FacebookAPITemplate(String accessToken) {
         setRestTemplate(ProtectedResourceClientFactory.draft10(accessToken));
         // facebook returns JSON data with text/javascript content type
-        final MappingJacksonHttpMessageConverter json = new MappingJacksonHttpMessageConverter();
+        final MappingJackson2HttpMessageConverter json = new MappingJackson2HttpMessageConverter();
         json.setSupportedMediaTypes(Arrays.asList(new MediaType("text", "javascript")));
         getRestTemplate().getMessageConverters().add(json);
     }

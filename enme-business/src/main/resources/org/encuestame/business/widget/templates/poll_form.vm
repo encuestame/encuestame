@@ -1,24 +1,47 @@
 <div class="widget poll-form">
-    <h3>
-        $title
-    </h3>
-    <form action="$action" method="POST">
-        <ul>
-        #foreach( $answer in $detailBean.listAnswers )
-            <li>
-                <label> 
-                    $answer.answers
-                    <input type="radio" name="poll" value="$answer.answerId" class="web-radio-button" id="_input_$answer.answerId">
-                </label>
-            </li>
-        #end
-        </ul>
-        <button>
-            $vote_title
-        </button>
-        <input name="itemId" type="hidden" value="$poll.pollId">
-        <input name="type" type="hidden" value="$poll.question.questionPattern">
-        <input name="type_form" type="hidden" value="embedded">
-        <input name="slugName" type="hidden" value="$poll.question.slugQuestion">
-    </form>
+    <blockquote class="" data-id="$itemId" cite="$owner_profile_url">
+        #parse("/org/encuestame/business/widget/templates/header_widget.vm")
+        <div class="title">
+            $title
+        </div>
+        <div class="content">
+            <form action="$action" method="POST">
+                <ul>
+                #foreach( $answer in $detailBean.listAnswers )
+                    <li>
+                        <label>
+                            $answer.answers
+                            <input type="radio" name="poll" value="$answer.answerId" class="web-radio-button" id="_input_$answer.answerId">
+                        </label>
+                    </li>
+                #end
+                </ul>
+                <div class="poll-submit">
+                    <button>
+                        $vote_title
+                    </button>
+                    <input name="itemId" type="hidden" value="$poll.pollId">
+                    <input name="type" type="hidden" value="$poll.question.questionPattern">
+                    <input name="type_form" type="hidden" value="embedded">
+                    <input name="slugName" type="hidden" value="$poll.question.slugQuestion">
+                </div>
+            </form>
+        </div>
+        <div class="footer">
+            <div class="dateline">
+                <a class="u-url"
+                   href="$url" target="_blank">
+                    <time pubdate=""
+                          class="enme-time"
+                          datetime="$date_published"
+                          title="$date_published">
+                        $date_published
+                    </time>
+                </a>
+            </div>
+            <footer>
+                #parse("/org/encuestame/business/widget/templates/footer_logo.vm")
+            </footer>
+        </div>
+    </blockquote>
 </div>

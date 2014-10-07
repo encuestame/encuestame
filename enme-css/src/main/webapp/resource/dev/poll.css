@@ -148,37 +148,37 @@
   right: -300px;
 }
 
-/* line 4, ../../../../css/resource/sass/resources.scss */
+/* line 3, ../../../../css/resource/sass/resources.scss */
 .enme-web-context {
   background-color: #FDFDFD;
 }
 
-/* line 9, ../../../../css/resource/sass/resources.scss */
+/* line 8, ../../../../css/resource/sass/resources.scss */
 .web-position-down {
   background: url("../images/icons/enme_down.png") no-repeat scroll 0 0 transparent;
 }
 
-/* line 12, ../../../../css/resource/sass/resources.scss */
+/* line 11, ../../../../css/resource/sass/resources.scss */
 .web-position-up {
   background: url("../images/icons/enme_up.png") no-repeat scroll 0 0 transparent;
 }
 
-/* line 15, ../../../../css/resource/sass/resources.scss */
+/* line 14, ../../../../css/resource/sass/resources.scss */
 .web-position-equal {
   background: url("../images/icons/enme_equals.png") no-repeat scroll 0 0 transparent;
 }
 
-/* line 18, ../../../../css/resource/sass/resources.scss */
+/* line 17, ../../../../css/resource/sass/resources.scss */
 .ellipsis {
   -moz-binding: url("assets/xml/ellipsis.xml#ellipsis");
 }
 
-/* line 22, ../../../../css/resource/sass/resources.scss */
+/* line 21, ../../../../css/resource/sass/resources.scss */
 .modal-box-im {
   background: url("../images/background-mobalbox.png") repeat-x scroll left bottom transparent;
 }
 
-/* line 26, ../../../../css/resource/sass/resources.scss */
+/* line 25, ../../../../css/resource/sass/resources.scss */
 .loading-icon {
   background-image: url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==);
   width: 25px;
@@ -187,22 +187,22 @@
   background-repeat: no-repeat;
 }
 
-/* line 34, ../../../../css/resource/sass/resources.scss */
+/* line 33, ../../../../css/resource/sass/resources.scss */
 div.options .saveButton {
   background-image: url(../../images/icons/add.png);
 }
 
-/* line 38, ../../../../css/resource/sass/resources.scss */
+/* line 37, ../../../../css/resource/sass/resources.scss */
 div.publishWrapper div.itemPublish .account {
   background-image: url(../../images/icons/twitter-logo-small.png);
 }
 
-/* line 42, ../../../../css/resource/sass/resources.scss */
+/* line 41, ../../../../css/resource/sass/resources.scss */
 div.web-folder-wrapper .web-folder-item .icon-folder {
   background-image: url("../images/icons/enme_folder.png");
 }
 
-/* line 48, ../../../../css/resource/sass/resources.scss */
+/* line 47, ../../../../css/resource/sass/resources.scss */
 .ui-image-wrapper, .ui-hits, .ui-comments, .ui-likes, .ui-dislike {
   background-repeat: no-repeat;
   display: inline-block;
@@ -9050,7 +9050,7 @@ input:focus {
 }
 
 /** profile menu **/
-/* line 2, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 6, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel {
   display: none;
   position: absolute;
@@ -9072,22 +9072,22 @@ input:focus {
   -moz-border-radius: 0px 0px 5px 5px;
   -webkit-border-radius: 0px;
   border-radius: 0px 0px 5px 5px;
-  z-index: 99999;
+  z-index: 99998;
 }
 
-/* line 24, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 26, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profileOpenPanel {
   display: block;
 }
 
-/* line 28, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 30, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel ul {
   max-height: 350px;
   max-width: 100%;
   overflow: hidden;
 }
 
-/* line 34, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 36, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li {
   background-image: none;
   clear: both;
@@ -9100,38 +9100,38 @@ input:focus {
   padding: 6px 15px;
 }
 
-/* line 46, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 48, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li:hover {
   background-color: #FFF;
 }
 
-/* line 50, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 52, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li:hover a:link,
 .profilePanel li:hover a:visited {
   color: #444 !important;
 }
 
-/* line 55, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 57, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li a:link {
   color: #BABABA !important;
   font-weight: normal;
   text-decoration: none !important;
 }
 
-/* line 61, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 63, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li a:hover {
   color: white !important;
   text-decoration: none;
 }
 
-/* line 66, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 68, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li a {
   padding: 10px;
   color: #BABABA !important;
   font-weight: normal;
 }
 
-/* line 72, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 74, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .web-profile-menu {
   color: white;
   cursor: pointer;
@@ -9140,13 +9140,13 @@ input:focus {
   padding: 11px 0px 7px 0px;
 }
 
-/* line 80, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 82, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .web-profile-menu .image {
   float: left;
   margin-left: 5px;
 }
 
-/* line 85, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 87, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .web-profile-menu .real-name {
   line-height: 22px;
   margin-left: 40px;
@@ -9308,7 +9308,7 @@ input:focus {
 }
 
 /* line 20, ../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-wrapper .web-suggest-noresults {
+.web-search-wrapper .web-suggest-noresults, .web-suggest-noresults {
   background-color: #444444;
   color: white;
   line-height: 19px;

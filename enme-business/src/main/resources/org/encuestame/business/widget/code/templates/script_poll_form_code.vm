@@ -9,7 +9,7 @@
             p=/^http:/.test(d.location)?'http':'https';
         if(!d.getElementById(id)){
             js=d.createElement(s);
-            js.id=id;js.src=p+":///${domain}/resources/js/widget/widget.js";
+            js.id=id;js.src=p+":///${domain}/resources/js/widget/dist/widget.js";
             fjs.parentNode.insertBefore(js,fjs);
         }
     }(document,"script","widget-enme-js");

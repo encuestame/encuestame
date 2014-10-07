@@ -1,18 +1,48 @@
-<div>
-	<div>
-	<h2><a href=$tpoll_url>$question</h2>
-	</div>
-	<div class="answers">
- 		<ul>
-        #foreach( $answer in $answersList )
-            <li>
-                <label>
-                    $answer.answers
-
-                </label>
-            </li>
-        #end
-        </ul>
-	</div>
-	<div class="range_stats"> </div>
+<div class="widget tweetpoll-results">
+    <blockquote class="" data-id="$itemId" cite="$owner_profile_url">
+        #parse("/org/encuestame/business/widget/templates/header_widget.vm")
+        <div class="content">
+                <a href="$url" target="_blank">
+                    <div class="title">
+                        $question.question
+                    </div>
+                </a>
+                <div class="answers">
+                    <ul>
+                    #foreach( $answer in $answersList )
+                        <li>
+                            <div class="answer-color" data-id="$answer.answerId">
+                                <div class="color-code" style="background-color: $answer.color"></div>
+                                 <span>
+                                        <a>
+                                            $answer.answerName
+                                        </a>
+                                        <span class="percent">
+                                            ($answer.percent)
+                                        </span>
+                                 </span>
+                            </div>
+                        </li>
+                    #end
+                    </ul>
+                </div>
+                <div class="range_stats"></div>
+         </div>
+         <div class="footer">
+             <div class="dateline">
+                 <a class="u-url"
+                    href="$url" target="_blank">
+                     <time pubdate=""
+                           class="enme-time"
+                           datetime="$date_published"
+                           title="$date_published">
+                         $date_published
+                     </time>
+                 </a>
+            </div>
+            <footer>
+                #parse("/org/encuestame/business/widget/templates/footer_logo.vm")
+            </footer>
+         </div>
+    </blockquote>
 </div>

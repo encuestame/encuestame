@@ -18,7 +18,7 @@ package org.encuestame.utils.enums;
  * @since Mar 23, 2011
  */
 public enum TypeSearchResult {
-    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG, HASHTAGRATED, SOCIALNETWORK, HITS, VOTES, ALL, COMMENT, TWEETPOLLRESULT,
+    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG, HASHTAGRATED, SOCIALNETWORK, HITS, VOTES, ALL, COMMENT, TWEETPOLLRESULT, POLLRESULT,
 
     TypeSearchResult(){
 
@@ -42,6 +42,7 @@ public enum TypeSearchResult {
         else if (this == HITS) { type = "HITS"; }
         else if (this == VOTES) { type = "VOTES"; }
         else if (this == TWEETPOLLRESULT) { type = "TWEETPOLLRESULT"; }
+        else if (this == POLLRESULT) { type = "POLLRESULT"; }
         else if (this == ALL) { type = "ALL"; }
         return type;
     }
@@ -59,11 +60,12 @@ public enum TypeSearchResult {
         else if (type.equals(POLL)) { return "poll"; }
         else if (type.equals(SURVEY)) { return "survey"; }
         else if (type.equals(HASHTAG)) { return "tag"; }
-        else if (type.equals(HASHTAGRATED)) { return "hashtagRated"; }
+        else if (type.equals(HASHTAGRATED)) { return "hashtagrated"; }
         else if (type.equals(SOCIALNETWORK)) { return "socialnetwork"; }
         else if (type.equals(HITS)) { return "hits"; }
         else if (type.equals(VOTES)) { return "votes"; }
         else if (type.equals(TWEETPOLLRESULT)) { return "tweetpollresult"; }
+        else if (type.equals(POLLRESULT)) { return "pollresult"; }
         else if (type.equals(ALL)) { return "all"; }
         else return null;
     }
@@ -88,6 +90,7 @@ public enum TypeSearchResult {
         else if (type.equalsIgnoreCase("HITS")) { return HITS; }
         else if (type.equalsIgnoreCase("VOTES")) { return VOTES; }
         else if (type.equalsIgnoreCase("TWEETPOLLRESULT")) { return TWEETPOLLRESULT; }
+        else if (type.equalsIgnoreCase("POLLRESULT")) { return POLLRESULT; }
         else if (type.equalsIgnoreCase("ALL")) { return ALL; }
         else return null;
     }

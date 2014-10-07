@@ -1,4 +1,4 @@
-/*
+ /*
  ************************************************************************************
  * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
@@ -30,15 +30,15 @@ public class SendNotificationsJob {
 
 	private static final Log logger = LogFactory.getLog(SendNotificationsJob.class);
 
-	@Autowired
-    private SimpMessageSendingOperations messagingTemplate;
+	//@Autowired
+    //private SimpMessageSendingOperations messagingTemplate;
 
 	/**
 	 * @param messagingTemplate the messagingTemplate to set
 	 */
-	public void setMessagingTemplate(final SimpMessageSendingOperations messagingTemplate) {
-		this.messagingTemplate = messagingTemplate;
-	}
+	//public void setMessagingTemplate(final SimpMessageSendingOperations messagingTemplate) {
+	//	this.messagingTemplate = messagingTemplate;
+	//}
 
 	/**
 	 *
@@ -50,16 +50,16 @@ public class SendNotificationsJob {
 			final NotificationResume notificationResume = new NotificationResume();
 			notificationResume.setTotalNewNot(RandomUtils.nextLong());
 			notificationResume.setTotalNot(RandomUtils.nextLong());
-			this.messagingTemplate.convertAndSend("/topic/notification-updates." + username, notificationResume);
+			//this.messagingTemplate.convertAndSend("/topic/notification-updates." + username, notificationResume);
 		}
 	}
 
 	/**
 	 * @return the messagingTemplate
 	 */
-	public SimpMessageSendingOperations getMessagingTemplate() {
-		return messagingTemplate;
-	}
+	//public SimpMessageSendingOperations getMessagingTemplate() {
+	//	return messagingTemplate;
+	//}
 
 
 }

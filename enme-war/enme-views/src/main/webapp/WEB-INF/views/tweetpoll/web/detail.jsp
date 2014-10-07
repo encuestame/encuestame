@@ -51,6 +51,7 @@
               <div class="web-tweetpoll-answer-chart">
                   <div id="chart" data-dojo-type="me/web/widget/tweetpoll/detail/TweetPollChartDetail"
                        tweetPollid="${tweetpoll.id}"
+                       question="${tweetpoll.questionBean.questionName}"
                        completed="${tweetpoll.completed}"
                        username="${tweetpoll.ownerUsername}"></div>
               </div>
@@ -81,14 +82,6 @@
                  </c:forEach>
               </div>
             </div>
-       </section>
-       <section class="web-buttdon-wrapper">
-            <button class="btn">
-                <img src="<%=request.getContextPath()%>/resources/images/icons/enme_pie.png" width="20" height="20">
-            </button>
-           <button class="btn">
-                <img src="<%=request.getContextPath()%>/resources/images/icons/enme_bar.png">
-            </button>
        </section>
    </article>
 

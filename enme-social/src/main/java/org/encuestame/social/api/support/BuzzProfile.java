@@ -15,17 +15,18 @@ package org.encuestame.social.api.support;
 import java.io.Serializable;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonMethod;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 
 /**
  * Buzz Profile.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 20, 2011
  */
-@JsonAutoDetect(value=JsonMethod.FIELD)
+//@JsonAutoDetect(value=JsonMethod.FIELD)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuzzProfile  implements Serializable{
 

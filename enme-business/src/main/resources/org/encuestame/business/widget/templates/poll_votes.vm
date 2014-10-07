@@ -1,0 +1,35 @@
+<div class="widget tweetpoll-results poll-results">
+    <blockquote class="" data-id="$itemId" cite="$owner_profile_url">
+        #parse("/org/encuestame/business/widget/templates/header_widget.vm")
+        <div class="content">
+            <a href="$poll_url">
+                <div class="title">
+                    $question.question
+                </div>
+            </a>
+            <div class="answers">
+                <ul>
+                    #foreach( $answer in $answersList )
+                        <li>
+                            <!-- $answer -->
+                            <div class="answer-color" data-id="$answer.answerId">
+                                <div class="color-code" style="background-color: $answer.color"></div>
+                                 <span>
+                                        <a href="$domain/$answer.url" target="_blank" data-dojo-attach-point="_url">
+                                            $answer.answers
+                                        </a>
+                                 </span>
+                            </div>
+                        </li>
+                    #end
+                </ul>
+            </div>
+            <div class="range_stats"></div>
+        </div>
+        <div class="footer">
+            <footer>
+                #parse("/org/encuestame/business/widget/templates/footer_logo.vm")
+            </footer>
+        </div>
+    </blockquote>
+</div>
