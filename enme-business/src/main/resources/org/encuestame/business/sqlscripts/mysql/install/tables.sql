@@ -439,6 +439,10 @@ CREATE TABLE IF NOT EXISTS `poll` (
   `schedule_date_tweet` datetime DEFAULT NULL,
   `schedule` bit(1) DEFAULT NULL,
   `qid` bigint(20) NOT NULL,
+  `is_hidden` bit(1) DEFAULT NULL,
+  `is_password_protected` bit(1) DEFAULT NULL,
+  `poll_password` varchar(255) NOT NULL,
+
   PRIMARY KEY (`poll_id`),
   UNIQUE KEY `poll_id` (`poll_id`),
   UNIQUE KEY `poll_hash` (`poll_hash`),

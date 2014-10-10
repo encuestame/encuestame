@@ -285,7 +285,10 @@ CREATE TABLE poll (
   editor bigint,
   owner_id bigint,
   poll_folder bigint,
-  qid bigint NOT NULL
+  qid bigint NOT NULL,
+  is_hidden boolean,
+  is_password_protected boolean,
+  poll_password character varying(255) NULL
 );
 
 
