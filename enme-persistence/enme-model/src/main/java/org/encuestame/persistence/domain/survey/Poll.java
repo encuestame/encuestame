@@ -215,6 +215,7 @@ public class Poll extends AbstractSurvey {
     /**
 	 * @return the isHidden
 	 */
+    @Column(name = "is_hidden", nullable = false)
 	public Boolean getIsHidden() {
 		return isHidden;
 	}
@@ -229,6 +230,7 @@ public class Poll extends AbstractSurvey {
 	/**
 	 * @return the isPasswordProtected
 	 */
+	@Column(name = "is_password_protected", nullable = false)
 	public Boolean getIsPasswordProtected() {
 		return isPasswordProtected;
 	}
@@ -243,6 +245,7 @@ public class Poll extends AbstractSurvey {
 	/**
 	 * @return the password
 	 */
+	 @Column(name = "poll_password", nullable = false)
 	public String getPassword() {
 		return password;
 	}
