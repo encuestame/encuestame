@@ -71,6 +71,22 @@ public enum TypeSearchResult {
     }
 
     /**
+     * The css class to be appended into the embed code.
+      * @param type
+     * @return
+     */
+    public static String getCSSClass(final TypeSearchResult type ){
+        if (null == type) { return null; }
+        else if (type.equals(POLL)) { return "enme-poll-form"; }
+        else if (type.equals(POLLRESULT)) { return "enme-poll-vote"; }
+        else if (type.equals(TWEETPOLLRESULT)) { return "enme-tp-vote"; }
+        else if (type.equals(TWEETPOLL)) { return "enme-tp-form"; }
+        else if (type.equals(PROFILE)) { return "enme-profile"; }
+        else if (type.equals(HASHTAG)) { return "enme-hashtag"; }
+        else return null;
+    }
+
+    /**
      *
      * @param layout
      * @return
