@@ -1,6 +1,6 @@
 <a data-id="${itemId}"
-   class="enme-poll-form"
-   data-url="${url_poll}"
+   class="${class_type}"
+   data-url="${url}"
    target="_blank"/>
 <script>
     !function(d,s,id){
