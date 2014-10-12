@@ -85,36 +85,39 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
         try {
             @SuppressWarnings("rawtypes")
             final Map model = new HashMap();
+            final String domain = WidgetUtil.getDomain(request, true);
             final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
             final EmbeddedType embeddedType = EmbeddedType.getEmbeddedType(embedded);
             final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();
             final ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             response.setContentType("text/javascript; charset=UTF-8");
-            model.put("domain", WidgetUtil.getDomain(request, false));
+            model.put("domain", domain);
             model.put("embedded_type", embeddedType.toString().toLowerCase());
             model.put("typeItem", typeItem.toString().toLowerCase());
             model.put("itemId", itemId);
+            model.put("class_type", TypeSearchResult.getCSSClass(typeItem));
             model.put("domain_config", WidgetUtil.getDomain(request, true));
             if (TypeSearchResult.TWEETPOLL.equals(typeItem)) {
-            text = VelocityEngineUtils.mergeTemplateIntoString(
-                    velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
-            + typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);
+                final TweetPoll tp = getTweetPollService().getTweetPollById(itemId);
+                model.put("url", EnMeUtils.createTweetPollUrlAccess(domain, tp));
             } else if (TypeSearchResult.POLL.equals(typeItem)) {
                 final Poll poll = getPollService().getPollById(itemId);
-                model.put("url_poll", WidgetUtil.getDomain(request, true) +
-                         "/poll/" + poll.getPollId() + "/" + poll.getQuestion().getSlugQuestion());
-                text = VelocityEngineUtils.mergeTemplateIntoString(
-                        velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
-                        + typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);
+                model.put("url", EnMeUtils.createUrlPollAccess(domain, poll));
+            } else if (TypeSearchResult.TWEETPOLLRESULT.equals(typeItem)) {
+                final TweetPoll tp = getTweetPollService().getTweetPollById(itemId);
+                model.put("url", EnMeUtils.createTweetPollUrlAccess(domain, tp));
+            } else if (TypeSearchResult.POLLRESULT.equals(typeItem)) {
+                final Poll poll = getPollService().getPollById(itemId);
+                model.put("url", EnMeUtils.createUrlPollAccess(domain, poll));
             } else if (TypeSearchResult.HASHTAG.equals(typeItem)) {
-                text = VelocityEngineUtils.mergeTemplateIntoString(
-                        velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
-                        + typeItem.toString().toLowerCase() +"_form_code.vm", "utf-8", model);
+                //FUTURE:
+                model.put("url", "");
             } else if (TypeSearchResult.PROFILE.equals(typeItem)) {
-                text = VelocityEngineUtils.mergeTemplateIntoString(
-                        velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() + "_"
-                        + typeItem.toString().toLowerCase() +"_code.vm", "utf-8", model);
+                final UserAccount user = getSecurityService().getUserbyId(itemId);
+                model.put("url", domain + "/profile/" + user.getUsername());
             }
+            text = VelocityEngineUtils.mergeTemplateIntoString(
+                    velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() +"_code.vm", "utf-8", model);
             String string = new String(text.getBytes("UTF-8"));
             embebedBody.setBody(string);
             final String json = ow.writeValueAsString(embebedBody);
@@ -232,8 +235,6 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
                 model.put("editorOwner", user);
                 model.put("profile", user.getUsername());
                 model.put("owner_profile_url", domain + "/profile/" + user.getUsername());
-//                model.put("url_profile", WidgetUtil.getDomain(request, true) +
-//                         "/profile/" + user.getUsername());
                 model.put("picture", getPictureService().getProfilePicture(user.getUsername(), PictureType.DEFAULT));
                 model.put("total_tweets", getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.TWEETPOLL));
                 model.put("total_poll",  getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.POLL));
@@ -243,18 +244,16 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
                         max_results,
                         Boolean.FALSE,
                         request);
-                if (lastPublication.size() >= 1){
+                if (lastPublication.size() >= 1) {
                     model.put("last_publication", lastPublication.get(0));
                 }
                 text = VelocityEngineUtils.mergeTemplateIntoString(
                         velocityEngine, HTML_TEMPLATES + "/profile.vm", "utf-8", model);
             }
-            //final String d = new String(text.toString(), "UTF-8");
-            String string = new String(text.getBytes("UTF-8"));
+            final String string = new String(text.getBytes("UTF-8"));
             embebedBody.setBody(string);
             final String json = ow.writeValueAsString(embebedBody);
             out.print(callback + "(" + json + ")");
-            // buffer.append(callback + "(" + Boolean.TRUE + ")");
         } catch (Exception e) {
             e.printStackTrace();
             out.print(callback + "(" + Boolean.FALSE + ")");
