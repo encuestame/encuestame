@@ -108,33 +108,33 @@ public class TweetPollController extends AbstractViewController {
                         pathVote = "completeTweetVote";
                         // Validate Limit Votes
                     } else if(validateLimitVotes) {
-                     	log.debug("tweetpoll reached limit votes");
+                         log.debug("tweetpoll reached limit votes");
                          model.put("message", getMessage("tweetpoll.votes.limited"));
                          pathVote = "LimitTweetVote";
                     } else {
-                    	log.info("Validate Votting");
-                    	log.info("IP" + IP);
-					try {
-						getTweetPollService().validateIpVote(IP,
-								tweetPoll.getTweetPoll());
-						if (!tweetPoll.getTweetPoll().getCaptcha()) {
-							getTweetPollService().tweetPollVote(tweetPoll, IP,
-									Calendar.getInstance().getTime());
-							model.put("message", getMessage("tweetpoll.votes.acepted"));
-							pathVote = "tweetVoted";
-							log.debug("VOTED");
-						} else {
-							this.createCaptcha(model, tweetId);
-							log.debug("VOTE WITH CAPTCHA");
-							pathVote = "voteCaptcha";
-						}
-					} catch (Exception e) {
-						// TODO: handle exception
-						log.error("");
-						pathVote = "repeatedTweetVote";
-					}
-				}
-			}
+                        log.info("Validate Votting");
+                        log.info("IP" + IP);
+                    try {
+                        getTweetPollService().validateIpVote(IP,
+                                tweetPoll.getTweetPoll());
+                        if (!tweetPoll.getTweetPoll().getCaptcha()) {
+                            getTweetPollService().tweetPollVote(tweetPoll, IP,
+                                    Calendar.getInstance().getTime());
+                            model.put("message", getMessage("tweetpoll.votes.acepted"));
+                            pathVote = "tweetVoted";
+                            log.debug("VOTED");
+                        } else {
+                            this.createCaptcha(model, tweetId);
+                            log.debug("VOTE WITH CAPTCHA");
+                            pathVote = "voteCaptcha";
+                        }
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                        log.error("");
+                        pathVote = "repeatedTweetVote";
+                    }
+                }
+            }
             log.info("redirect template WHERE "+pathVote);
         }
         return pathVote;
@@ -240,10 +240,11 @@ public class TweetPollController extends AbstractViewController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/tweetpoll/list", method = RequestMethod.GET)
     public String tweetPollController(
-    		final ModelMap model,
-    		HttpServletRequest request,
-    		HttpServletResponse response) {
+            final ModelMap model,
+            HttpServletRequest request,
+            HttpServletResponse response) {
         addItemsManangeMessages(model, request, response);
+        addi18nProperty(model, "loading_messages", request, response);
         addi18nProperty(model, "tweetpoo_detail_tab_detail", request, response);
         addi18nProperty(model, "tweetpoo_detail_tab_stats", request, response);
         addi18nProperty(model, "tweetpoo_detail_tab_comments", request, response);
@@ -264,6 +265,7 @@ public class TweetPollController extends AbstractViewController {
         addi18nProperty(model, "commons_favourite", request, response);
         addi18nProperty(model, "e_023", request, response);
         addi18nProperty(model, "commons_no_results", request, response);
+        addi18nProperty(model, "common_open_embebed", request, response);
         addi18nProperty(model, "commons_unfavourite", request, response);
         return "tweetpoll";
     }
@@ -302,6 +304,7 @@ public class TweetPollController extends AbstractViewController {
         log.debug("newTweetPollController "+path);
         //log.debug("tweetpoll new");
         addi18nProperty(model, "leave_mesage", request, response);
+        addi18nProperty(model, "common_show", request, response);
         addi18nProperty(model, "tp_write_questions", request, response);
         addi18nProperty(model, "tp_add_answer", request, response);
         addi18nProperty(model, "tp_add_hashtag", request, response);
@@ -369,22 +372,22 @@ public class TweetPollController extends AbstractViewController {
             final TweetPoll tweetPoll = getTweetPollService().getTweetPollByIdSlugName(id, slug);
             // if the tweetpoll is not published we send a 404 page
             if (tweetPoll.getPublishTweetPoll()) {
-	            this.checkTweetPollStatus(tweetPoll);
-	            boolean tweetPollVisite = getFrontService().checkPreviousHit(ipAddress, tweetPoll.getTweetPollId(), TypeSearchResult.TWEETPOLL);
-	            // TODO: Check that previous hash Tag hit has been visited the same day.
-	            if (!tweetPollVisite) {
-	                getFrontService().registerHit(tweetPoll, null, null, null, ipAddress, HitCategory.VISIT);
-	            }
-	            model.addAttribute("tweetpoll", ConvertDomainBean.convertTweetPollToBean(tweetPoll));
-	            final List<HashTag> hashtagsBean = new ArrayList<HashTag>(tweetPoll.getHashTags());
-	            model.addAttribute("hashtags", ConvertDomainBean.convertListHashTagsToBean(hashtagsBean));
-	            model.addAttribute("isModerated", tweetPoll.getShowComments() == null ? false : (tweetPoll.getShowComments().equals(CommentOptions.MODERATE) ? true : false));
-	            //answers.
-	            final List<TweetPollSwitch> answers = getTweetPollService().getTweetPollSwitch(tweetPoll);
-	            model.addAttribute("answers", answers);
-	            return "tweetpoll/detail";
+                this.checkTweetPollStatus(tweetPoll);
+                boolean tweetPollVisite = getFrontService().checkPreviousHit(ipAddress, tweetPoll.getTweetPollId(), TypeSearchResult.TWEETPOLL);
+                // TODO: Check that previous hash Tag hit has been visited the same day.
+                if (!tweetPollVisite) {
+                    getFrontService().registerHit(tweetPoll, null, null, null, ipAddress, HitCategory.VISIT);
+                }
+                model.addAttribute("tweetpoll", ConvertDomainBean.convertTweetPollToBean(tweetPoll));
+                final List<HashTag> hashtagsBean = new ArrayList<HashTag>(tweetPoll.getHashTags());
+                model.addAttribute("hashtags", ConvertDomainBean.convertListHashTagsToBean(hashtagsBean));
+                model.addAttribute("isModerated", tweetPoll.getShowComments() == null ? false : (tweetPoll.getShowComments().equals(CommentOptions.MODERATE) ? true : false));
+                //answers.
+                final List<TweetPollSwitch> answers = getTweetPollService().getTweetPollSwitch(tweetPoll);
+                model.addAttribute("answers", answers);
+                return "tweetpoll/detail";
             } else {
-            	return "404"; //FIXME: replace by ENUM
+                return "404"; //FIXME: replace by ENUM
             }
         } catch (EnMeTweetPollNotFoundException e) {
             log.error(e);
