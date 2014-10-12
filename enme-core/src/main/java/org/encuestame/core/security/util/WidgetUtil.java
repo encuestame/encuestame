@@ -61,14 +61,14 @@ public class WidgetUtil {
         domain.append(PathUtil.profileUserImage);
         return domain.toString();
     }
-    
+
     /**
      * Get the current locale, get the language from the {@link UserDetails} if is missing get the locale from the context
      * @param request {@link HttpServletRequest}
      * @return
      */
     public static String getCurrentLocale(final HttpServletRequest request) {
-    	return WidgetUtil.convertToDojoLocale(WidgetUtil.validateLocale(request.getLocale().getLanguage()));
+        return WidgetUtil.convertToDojoLocale(WidgetUtil.validateLocale(request.getLocale().getLanguage()));
     }
 
     /**
@@ -164,8 +164,8 @@ public class WidgetUtil {
             } else if (provider.equals(ShortUrlProvider.NONE)) {
                 urlShort = url;
             } else if (provider.equals(ShortUrlProvider.YOURLS)) {
-            	urlShort = SocialUtils.getYourls(url);
-            } else if (provider.equals(ShortUrlProvider.TINYURL)) {            	
+                urlShort = SocialUtils.getYourls(url);
+            } else if (provider.equals(ShortUrlProvider.TINYURL)) {
                 urlShort = SocialUtils.getTinyUrl(url);
             } else if (provider.equals(ShortUrlProvider.BITLY)) {
                  urlShort = SocialUtils.getBitLy(url,
@@ -184,6 +184,7 @@ public class WidgetUtil {
      * @return
      */
     public static final String getDomain(final HttpServletRequest request) {
+        //FIXME: and HTTPS?
         final StringBuffer domain = new StringBuffer(WidgetUtil.URL);
         domain.append(request.getServerName());
         if (request.getServerPort() != WidgetUtil.REQUEST_SERVER_PORT) {
@@ -194,9 +195,26 @@ public class WidgetUtil {
         domain.append(request.getContextPath());
         return domain.toString();
     }
-    
+
     /**
-     * 
+     *
+     * @param request
+     * @return
+     */
+    public static final String getRelativeDomain(final HttpServletRequest request) {
+        //FIXME: and HTTPS?
+        final StringBuffer domain = new StringBuffer();
+        domain.append(request.getServerName());
+        if (request.getServerPort() != WidgetUtil.REQUEST_SERVER_PORT) {
+            domain.append(":");
+            domain.append(request.getServerPort());
+        }
+        domain.append(request.getContextPath());
+        return domain.toString();
+    }
+
+    /**
+     *
      * @param request
      * @param addHttp
      * @return
@@ -211,7 +229,7 @@ public class WidgetUtil {
         // buffer.append("//");
         domain.append(request.getContextPath());
         return domain.toString();
-    }    
+    }
 
     /**
      * Build correctly period filter url.

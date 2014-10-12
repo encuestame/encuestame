@@ -85,7 +85,7 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
         try {
             @SuppressWarnings("rawtypes")
             final Map model = new HashMap();
-            final String domain = WidgetUtil.getDomain(request, true);
+            final String domain = WidgetUtil.getRelativeDomain(request);
             final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
             final EmbeddedType embeddedType = EmbeddedType.getEmbeddedType(embedded);
             final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();
@@ -235,8 +235,6 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
                 model.put("editorOwner", user);
                 model.put("profile", user.getUsername());
                 model.put("owner_profile_url", domain + "/profile/" + user.getUsername());
-//                model.put("url_profile", WidgetUtil.getDomain(request, true) +
-//                         "/profile/" + user.getUsername());
                 model.put("picture", getPictureService().getProfilePicture(user.getUsername(), PictureType.DEFAULT));
                 model.put("total_tweets", getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.TWEETPOLL));
                 model.put("total_poll",  getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.POLL));
