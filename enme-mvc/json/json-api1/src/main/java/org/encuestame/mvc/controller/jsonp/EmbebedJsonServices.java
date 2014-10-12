@@ -85,7 +85,7 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
         try {
             @SuppressWarnings("rawtypes")
             final Map model = new HashMap();
-            final String domain = WidgetUtil.getDomain(request, true);
+            final String domain = WidgetUtil.getRelativeDomain(request);
             final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
             final EmbeddedType embeddedType = EmbeddedType.getEmbeddedType(embedded);
             final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();
