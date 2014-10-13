@@ -91,16 +91,6 @@
                      </div>
                 </article>
             </div>
-
-
-       </section>
-       <section class="web-buttdon-wrapper">
-            <button class="btn">
-                <img src="<%=request.getContextPath()%>/resources/images/icons/enme_pie.png" width="20" height="20">
-            </button>
-           <button class="btn">
-                <img src="<%=request.getContextPath()%>/resources/images/icons/enme_bar.png">
-            </button>
        </section>
    </article>
    <article class="emne-box">
