@@ -1,6 +1,7 @@
-<iframe src="${domain_config}/display/${typeItem}/${itemId}/${embedded_type}" 
-        scrolling="no" 
-        frameborder="0" 
-        style="border:none; overflow:hidden; width:450px; height:80px;" 
+<iframe src="http://${domain}/embebed/iframe/preview/${class_type}/${itemId}"
+        width="640"
+        scrolling="no"
+        frameborder="0"
+        height="450"
         allowTransparency="true">
 </iframe>

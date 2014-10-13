@@ -22,6 +22,7 @@ import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
@@ -29,6 +30,7 @@ import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -196,14 +198,37 @@ public class HomeController extends AbstractViewController {
             @PathVariable String slug,
             HttpServletRequest request,
             HttpServletResponse response) {
-    		try {
-				model.put("question", getSearchService().getQuestionInfo(Long.valueOf(id)));
-			} catch (EnMeNoResultsFoundException | NumberFormatException e) {
-				 e.printStackTrace();
-	             log.error(e);
-	            return "500";
-			}
+            try {
+                model.put("question", getSearchService().getQuestionInfo(Long.valueOf(id)));
+            } catch (EnMeNoResultsFoundException | NumberFormatException e) {
+                 e.printStackTrace();
+                 log.error(e);
+                return "500";
+            }
             return "question/detail";
+    }
+
+    /**
+     *
+     * @param model
+     * @param type
+     * @param id
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/embebed/iframe/preview/{type}/{id}", method = RequestMethod.GET)
+    public String embebedPreviewIframe(
+            final ModelMap model,
+            @PathVariable String type,
+            @PathVariable String id,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+            model.put("id", id);
+            model.put("class_type", TypeSearchResult.getCSSClass(TypeSearchResult.getTypeSearchResult(type)));
+            model.put("domain", WidgetUtil.getRelativeDomain(request));
+            model.put("url", "#");
+            return "display/iframe";
     }
 
     /**
