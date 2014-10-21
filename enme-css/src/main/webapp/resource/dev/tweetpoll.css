@@ -10443,14 +10443,22 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options {
   box-shadow: #000000 -5px 0 5px -6px inset;
 }
 
-/* line 44, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 40, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel {
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* line 45, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem {
   clear: both;
   padding: 7px;
   width: 171px;
 }
 
-/* line 51, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 52, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItemSelected {
   background-color: #888888;
   -moz-box-shadow: #888888 0 1px 3px inset;
@@ -10458,39 +10466,39 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.opt
   box-shadow: #888888 0 1px 3px inset;
 }
 
-/* line 66, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 67, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span {
   padding-left: 10px;
   text-decoration: none;
   color: #999;
 }
 
-/* line 77, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 78, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:hover {
   text-decoration: none;
 }
 
-/* line 82, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 83, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
   border-left: 1px solid #616161;
   margin-left: 185px;
 }
 
 /** Filter Options **/
-/* line 89, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 90, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu {
   padding: 5px;
   position: relative;
 }
 
-/* line 94, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 95, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu .web-list-filter-clean {
   position: absolute;
   top: 5px;
   right: 10px;
   color: #999;
 }
-/* line 100, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 101, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu .web-list-filter-clean:hover {
   color: #FFFFFF;
   -webkit-transition: color 0.5s ease-in;
@@ -10503,7 +10511,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
   transition: color 0.5s ease-out;
 }
 
-/* line 113, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 114, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item {
   min-height: 35px;
   border-bottom: 1px solid #e5e5e5;
@@ -10511,7 +10519,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetp
   width: 101%;
 }
 
-/* line 120, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 121, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item .hashTags {
   color: #616161;
   margin-bottom: 10px;
@@ -10520,7 +10528,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetp
   padding: 2px;
 }
 
-/* line 128, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 129, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item .hashTags .tag {
   margin-right: 6px !important;
 }
@@ -12300,12 +12308,16 @@ div.web-support-embebed textarea {
 .embedded textarea {
   width: 465px;
 }
-/* line 8, ../../../../css/resource/sass/small-components/_embedded.scss */
+/* line 7, ../../../../css/resource/sass/small-components/_embedded.scss */
+.embedded iframe {
+  border: 0;
+}
+/* line 12, ../../../../css/resource/sass/small-components/_embedded.scss */
 .embedded nav ul {
   overflow: auto;
   margin: 5px 0;
 }
-/* line 13, ../../../../css/resource/sass/small-components/_embedded.scss */
+/* line 17, ../../../../css/resource/sass/small-components/_embedded.scss */
 .embedded nav li {
   text-transform: uppercase;
   list-style: none;
