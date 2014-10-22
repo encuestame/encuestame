@@ -76,7 +76,7 @@
 .alertify-button-cancel,
 .alertify-button-cancel:hover,
 .alertify-button-cancel:focus {
-  background-color: #fe1a00;
+  background-color: #FE1A00;
   border: 1px solid #cb1500;
 }
 
@@ -84,7 +84,7 @@
 .alertify-button-ok,
 .alertify-button-ok:hover,
 .alertify-button-ok:focus {
-  background-color: #5cb811;
+  background-color: #5CB811;
   border: 1px solid #45890d;
 }
 
@@ -262,9 +262,11 @@ html, body {
 
 /* line 7, ../../../../css/resource/sass/_layout.scss */
 .main_header_colors {
-  background: black;
+  background: #000000;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSI0MiUiIHN0b3AtY29sb3I9IiMwMDAwMDAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxMTExMTEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(42%, #000000), color-stop(100%, #111111));
   background-image: -moz-linear-gradient(#000000 42%, #111111 100%);
-  background-image: -o-linear-gradient(#000000 42%, #111111 100%);
   background-image: -webkit-linear-gradient(#000000 42%, #111111 100%);
   background-image: linear-gradient(#000000 42%, #111111 100%);
 }
@@ -637,7 +639,7 @@ div.panel-bar-item .panel-bar-item-content {
 /* line 148, ../../../../css/resource/sass/web/_public.scss */
 div.panel-bar-item div.panel-bar-item-title {
   background-color: #C9C9C9;
-  color: black;
+  color: #000000;
   cursor: pointer;
   font-size: 160%;
   border: 1px solid #D7D7D7;
@@ -647,7 +649,7 @@ div.panel-bar-item div.panel-bar-item-title {
 
 /* line 158, ../../../../css/resource/sass/web/_public.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.listItemTweetSeleted {
-  background-color: white;
+  background-color: #FFFFFF;
 }
 
 /* line 162, ../../../../css/resource/sass/web/_public.scss */
@@ -808,9 +810,9 @@ div.socialAccountPicker div.account div.icon {
 .web-ht-button-wrapper .selected {
   background: white !important;
   color: #222222;
-  -moz-box-shadow: #888888 0 7px 5px -6px inset;
-  -webkit-box-shadow: #888888 0 7px 5px -6px inset;
-  box-shadow: #888888 0 7px 5px -6px inset;
+  -moz-box-shadow: #888 0 7px 5px -6px inset;
+  -webkit-box-shadow: #888 0 7px 5px -6px inset;
+  box-shadow: #888 0 7px 5px -6px inset;
 }
 
 /* line 318, ../../../../css/resource/sass/web/_public.scss */
@@ -883,7 +885,7 @@ div.web-layout ul.column {
 
 /* line 384, ../../../../css/resource/sass/web/_public.scss */
 li.over {
-  border: 2px dashed black;
+  border: 2px dashed #000000;
 }
 
 /* line 388, ../../../../css/resource/sass/web/_public.scss */
@@ -1114,12 +1116,12 @@ li.over {
 
 /* line 49, ../../../../css/resource/sass/web/_default.scss */
 .success-message {
-  color: #55986d;
+  color: #55986D;
 }
 
 /* line 54, ../../../../css/resource/sass/web/_default.scss */
 .error-message {
-  color: #ba3b3b;
+  color: #BA3B3B;
 }
 
 /* line 59, ../../../../css/resource/sass/web/_default.scss */
@@ -1162,19 +1164,19 @@ li.over {
 .gradient-yellow {
   background: #ffffff;
   /* Old browsers */
-  background: -moz-linear-gradient(top, white 0%, #d0d67c 100%);
+  background: -moz-linear-gradient(top, #ffffff 0%, #D0D67C 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #d0d67c));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #D0D67C));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, white 0%, #d0d67c 100%);
+  background: -webkit-linear-gradient(top, #ffffff 0%, #D0D67C 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, white 0%, #d0d67c 100%);
+  background: -o-linear-gradient(top, #ffffff 0%, #D0D67C 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, white 0%, #d0d67c 100%);
+  background: -ms-linear-gradient(top, #ffffff 0%, #D0D67C 100%);
   /* IE10+ */
   background: linear-gradient(to bottom, #ffffff 0%, #d0d67c 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#D0D67C',GradientType=0 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#D0D67C',GradientType=0 );
   /* IE6-9 */
 }
 
@@ -1182,19 +1184,19 @@ li.over {
 .gradient-green {
   background: #ffffff;
   /* Old browsers */
-  background: -moz-linear-gradient(top, white 0%, #d0d67c 100%);
+  background: -moz-linear-gradient(top, #ffffff 0%, #D0D67C 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #d0d67c));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #D0D67C));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, white 0%, #d0d67c 100%);
+  background: -webkit-linear-gradient(top, #ffffff 0%, #D0D67C 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, white 0%, #d0d67c 100%);
+  background: -o-linear-gradient(top, #ffffff 0%, #D0D67C 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, white 0%, #d0d67c 100%);
+  background: -ms-linear-gradient(top, #ffffff 0%, #D0D67C 100%);
   /* IE10+ */
   background: linear-gradient(to bottom, #ffffff 0%, #d0d67c 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#D0D67C',GradientType=0 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#D0D67C',GradientType=0 );
   /* IE6-9 */
 }
 
@@ -1202,19 +1204,19 @@ li.over {
 .gradient-red {
   background: #ffffff;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #923f3f 0%, #e67862 100%);
+  background: -moz-linear-gradient(top, #923F3F 0%, #E67862 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #923f3f), color-stop(100%, #e67862));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #923F3F), color-stop(100%, #E67862));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #923f3f 0%, #e67862 100%);
+  background: -webkit-linear-gradient(top, #923F3F 0%, #E67862 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #923f3f 0%, #e67862 100%);
+  background: -o-linear-gradient(top, #923F3F 0%, #E67862 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #923f3f 0%, #e67862 100%);
+  background: -ms-linear-gradient(top, #923F3F 0%, #E67862 100%);
   /* IE10+ */
   background: linear-gradient(to bottom, #923f3f 0%, #e67862 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#923F3F', endColorstr='#E67862',GradientType=0 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#923F3F', endColorstr='#E67862',GradientType=0 );
   /* IE6-9 */
 }
 
@@ -1234,7 +1236,7 @@ li.over {
   /* IE10+ */
   background: linear-gradient(to bottom, #110b0b 0%, #767676 98%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#110b0b', endColorstr='#767676',GradientType=0 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#110b0b', endColorstr='#767676',GradientType=0 );
   /* IE6-9 */
 }
 
@@ -1268,7 +1270,7 @@ li.over {
 
 /* line 162, ../../../../css/resource/sass/web/_default.scss */
 .default-sidebar-menu-sub {
-  background-color: #999999;
+  background-color: #999;
   font-size: 100%;
   min-height: 21px;
   padding: 5px 10px;
@@ -1278,8 +1280,8 @@ li.over {
 /* line 176, ../../../../css/resource/sass/web/_default.scss */
 .suggestBox {
   position: absolute;
-  border: 1px solid black;
-  background-color: white;
+  border: 1px solid #000000;
+  background-color: #FFFFFF;
 }
 /* line 182, ../../../../css/resource/sass/web/_default.scss */
 .suggestBox .suggesItem {
@@ -1368,9 +1370,9 @@ div.subHeader {
 div.web-default-menu {
   background: none repeat scroll 0 0 #EFEFEF;
   border: 1px solid #FFFFFF;
-  -moz-box-shadow: #cccccc 0 0 2px inset;
-  -webkit-box-shadow: #cccccc 0 0 2px inset;
-  box-shadow: #cccccc 0 0 2px inset;
+  -moz-box-shadow: #CCCCCC 0 0 2px inset;
+  -webkit-box-shadow: #CCCCCC 0 0 2px inset;
+  box-shadow: #CCCCCC 0 0 2px inset;
   height: 44px;
 }
 
@@ -1444,7 +1446,7 @@ div.web-default-menu li.first {
 /** agrupa el grafico y preguntas **/
 /* line 339, ../../../../css/resource/sass/web/_default.scss */
 .web-wrapper-detail .web-wrapper-detail-wrapper {
-  background-color: white;
+  background-color: #FFFFFF;
   min-height: 300px;
 }
 
@@ -4140,10 +4142,10 @@ button.close {
   cursor: pointer;
   background-color: #f5f5f5;
   *background-color: #e6e6e6;
-  background-image: -moz-linear-gradient(top, white, #e6e6e6);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#e6e6e6));
-  background-image: -webkit-linear-gradient(top, white, #e6e6e6);
-  background-image: -o-linear-gradient(top, white, #e6e6e6);
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
   background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
   background-repeat: repeat-x;
   border: 1px solid #cccccc;
@@ -5472,10 +5474,10 @@ input[type="submit"].btn.btn-mini {
   padding-right: 20px;
   padding-left: 20px;
   background-color: #fafafa;
-  background-image: -moz-linear-gradient(top, white, #f2f2f2);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#f2f2f2));
-  background-image: -webkit-linear-gradient(top, white, #f2f2f2);
-  background-image: -o-linear-gradient(top, white, #f2f2f2);
+  background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
+  background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
   background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
   background-repeat: repeat-x;
   border: 1px solid #d4d4d4;
@@ -5631,7 +5633,7 @@ input[type="submit"].btn.btn-mini {
 .navbar-search {
   position: relative;
   float: left;
-  margin-top: 5px;
+  margin-top: 10px;
   margin-bottom: 0;
 }
 
@@ -7023,56 +7025,41 @@ a.badge:focus {
 }
 
 @-webkit-keyframes progress-bar-stripes {
-  /* line 5727, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
   from {
     background-position: 40px 0;
   }
-
-  /* line 5730, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
   to {
     background-position: 0 0;
   }
 }
 @-moz-keyframes progress-bar-stripes {
-  /* line 5736, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
   from {
     background-position: 40px 0;
   }
-
-  /* line 5739, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
   to {
     background-position: 0 0;
   }
 }
 @-ms-keyframes progress-bar-stripes {
-  /* line 5745, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
   from {
     background-position: 40px 0;
   }
-
-  /* line 5748, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
   to {
     background-position: 0 0;
   }
 }
 @-o-keyframes progress-bar-stripes {
-  /* line 5754, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
   from {
     background-position: 0 0;
   }
-
-  /* line 5757, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
   to {
     background-position: 40px 0;
   }
 }
 @keyframes progress-bar-stripes {
-  /* line 5763, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
   from {
     background-position: 40px 0;
   }
-
-  /* line 5766, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
   to {
     background-position: 0 0;
   }
@@ -7083,10 +7070,10 @@ a.badge:focus {
   margin-bottom: 20px;
   overflow: hidden;
   background-color: #f7f7f7;
-  background-image: -moz-linear-gradient(top, whitesmoke, #f9f9f9);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(whitesmoke), to(#f9f9f9));
-  background-image: -webkit-linear-gradient(top, whitesmoke, #f9f9f9);
-  background-image: -o-linear-gradient(top, whitesmoke, #f9f9f9);
+  background-image: -moz-linear-gradient(top, #f5f5f5, #f9f9f9);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#f9f9f9));
+  background-image: -webkit-linear-gradient(top, #f5f5f5, #f9f9f9);
+  background-image: -o-linear-gradient(top, #f5f5f5, #f9f9f9);
   background-image: linear-gradient(to bottom, #f5f5f5, #f9f9f9);
   background-repeat: repeat-x;
   -webkit-border-radius: 4px;
@@ -7388,12 +7375,12 @@ h4.enme, .title-enme {
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
   border-radius: 50px;
-  background-color: #ffb952;
+  background-color: #FFB952;
   font-size: 10px;
   padding: 15px;
   width: 40px;
   text-align: center;
-  color: white;
+  color: #FFFFFF;
 }
 /* line 68, ../../../../css/resource/sass/_common.scss */
 .enme-rating .count {
@@ -7444,7 +7431,7 @@ h4.enme, .title-enme {
 
 /* line 104, ../../../../css/resource/sass/_common.scss */
 .df-txt-shadow {
-  text-shadow: white 1px 1px 1px;
+  text-shadow: #FFFFFF 1px 1px 1px;
 }
 
 /* line 108, ../../../../css/resource/sass/_common.scss */
@@ -7537,7 +7524,7 @@ h4.enme, .title-enme {
 
 /* line 178, ../../../../css/resource/sass/_common.scss */
 .text-white, div.web-header span.link a, .text-color, .default-sidebar-menu, .default-sidebar-menu-sub, .suggestBox .suggesItem:hover, div.subHeader, .web-folder-wrapper .web-folder-item:hover, .web-folder-wrapper .web-folder-item span:hover, .web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail, .web-tweetpoll-answer-table > div > span, #web-tweetpoll-wrapper div.web-tweetpoll-menu a, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItemSelected span, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem:hover span, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span:hover, .addAnswers .addNewHashTag, .web-filters-wrapper .dijitRuleMark, .web-social-filter .web-social-filter-counter, .web-social-filter-items .web-social-filter-item .web-social-filter-name {
-  color: white !important;
+  color: #FFFFFF !important;
 }
 
 /* line 182, ../../../../css/resource/sass/_common.scss */
@@ -7553,7 +7540,7 @@ h4.enme, .title-enme {
 
 /* line 192, ../../../../css/resource/sass/_common.scss */
 .text-black, .addAnswers .answerItem {
-  color: black !important;
+  color: #000000 !important;
 }
 
 /* line 196, ../../../../css/resource/sass/_common.scss */
@@ -7585,7 +7572,7 @@ h4.enme, .title-enme {
 
 /* line 229, ../../../../css/resource/sass/_common.scss */
 .border-main-box, .web-wrapper-detail {
-  background-color: white;
+  background-color: #FFFFFF;
 }
 
 /* line 233, ../../../../css/resource/sass/_common.scss */
@@ -7743,7 +7730,7 @@ a.point {
   /* IE10+ */
   background: linear-gradient(to bottom, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, #000000 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 );
   /* IE6-9 */
 }
 
@@ -7763,15 +7750,17 @@ a.point {
   /* IE10+ */
   background: linear-gradient(to bottom, #eeeeee 0%, #cccccc 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 );
   /* IE6-9 */
 }
 
 /* line 372, ../../../../css/resource/sass/_common.scss */
 .enme-ui-gradient-header-color {
   background: #222222;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzIyMjIyMiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzExMTExMSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #222222), color-stop(100%, #111111));
   background-image: -moz-linear-gradient(#222222, #111111);
-  background-image: -o-linear-gradient(#222222, #111111);
   background-image: -webkit-linear-gradient(#222222, #111111);
   background-image: linear-gradient(#222222, #111111);
 }
@@ -7784,13 +7773,13 @@ a.point {
 /* line 392, ../../../../css/resource/sass/_common.scss */
 .success-color {
   background-color: #B1ECB1;
-  color: black;
+  color: #000000;
 }
 
 /* line 397, ../../../../css/resource/sass/_common.scss */
 .red-color {
   background-color: red;
-  color: white;
+  color: #FFFFFF;
 }
 
 /* line 402, ../../../../css/resource/sass/_common.scss */
@@ -7821,7 +7810,7 @@ a.point {
 
 /* line 424, ../../../../css/resource/sass/_common.scss */
 .likeRate {
-  color: white;
+  color: #FFFFFF;
   width: 3em;
 }
 
@@ -7848,7 +7837,7 @@ a.point {
 }
 
 /* line 447, ../../../../css/resource/sass/_common.scss */
-.t-light, .dbootstrap .dijitDialogTitleBar, .default-sidebar-menu-sub span, h4.enme, .title-enme, .web-search-container-wrapper .web-search-section-label, .web-search-container-wrapper .web-search-section-container .web-search-item h5, .web-tweetpoll-list-item-title, .web-poll-list-item-title, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail > div:first-child label, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span, .web-filters-options nav {
+.t-light, .dbootstrap .dijitDialogTitleBar, .default-sidebar-menu-sub span, h4.enme, .title-enme, .web-tweetpoll-list-item-title, .web-poll-list-item-title, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail > div:first-child label, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span, .web-filters-options nav {
   font-weight: 100;
 }
 
@@ -7872,7 +7861,7 @@ input:focus {
 
 /* line 474, ../../../../css/resource/sass/_common.scss */
 .drop-down-menu-select .drop-down-item {
-  background: -moz-linear-gradient(center top, white, #efefef) repeat scroll 0 0 #f6f6f6;
+  background: -moz-linear-gradient(center top, #FFFFFF, #EFEFEF) repeat scroll 0 0 #F6F6F6;
   border: 1px solid #CCCCCC;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -7915,20 +7904,20 @@ input:focus {
 
 /* line 509, ../../../../css/resource/sass/_common.scss */
 .enme-dropdown-menu-wrapper li.dropdown-item {
-  color: white;
+  color: #FFFFFF;
   font-size: 12px;
   line-height: 15px;
   list-style: none outside none;
   padding: 5px 7px;
-  text-shadow: black 0 1px;
+  text-shadow: #000000 0 1px;
   width: auto;
 }
 
 /* line 521, ../../../../css/resource/sass/_common.scss */
 .enme-dropdown-menu-wrapper li.dropdown-item:hover {
-  background-color: white;
-  color: black;
-  text-shadow: white 0 1px;
+  background-color: #FFFFFF;
+  color: #000000;
+  text-shadow: #FFFFFF 0 1px;
 }
 
 /* line 527, ../../../../css/resource/sass/_common.scss */
@@ -7974,7 +7963,7 @@ input:focus {
 
 /* line 568, ../../../../css/resource/sass/_common.scss */
 .yellow-bk {
-  background-color: #f9f9c2;
+  background-color: #F9F9C2;
 }
 /* line 570, ../../../../css/resource/sass/_common.scss */
 .yellow-bk h2 {
@@ -7983,7 +7972,7 @@ input:focus {
 
 /* line 575, ../../../../css/resource/sass/_common.scss */
 .green-bk {
-  background-color: #c9f5c8;
+  background-color: #C9F5C8;
 }
 /* line 577, ../../../../css/resource/sass/_common.scss */
 .green-bk h2 {
@@ -7992,7 +7981,7 @@ input:focus {
 
 /* line 582, ../../../../css/resource/sass/_common.scss */
 .red-bk {
-  background-color: #febeb2;
+  background-color: #FEBEB2;
 }
 /* line 584, ../../../../css/resource/sass/_common.scss */
 .red-bk h2 {
@@ -8019,7 +8008,7 @@ input:focus {
 }
 /* line 603, ../../../../css/resource/sass/_common.scss */
 .picture img {
-  border: 1px solid #c9f5c8;
+  border: 1px solid #C9F5C8;
   -moz-border-radius: 140px;
   -webkit-border-radius: 140px;
   border-radius: 140px;
@@ -8066,10 +8055,10 @@ input:focus {
 .ui-upgrade-bar .ui-up-content {
   padding: 15px;
   background-color: #ffb548;
-  background-image: -moz-linear-gradient(top, #ffb952, #ffaf39);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffb952), to(#ffaf39));
-  background-image: -webkit-linear-gradient(top, #ffb952, #ffaf39);
-  background-image: -o-linear-gradient(top, #ffb952, #ffaf39);
+  background-image: -moz-linear-gradient(top, #FFB952, #ffaf39);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FFB952), to(#ffaf39));
+  background-image: -webkit-linear-gradient(top, #FFB952, #ffaf39);
+  background-image: -o-linear-gradient(top, #FFB952, #ffaf39);
   background-image: linear-gradient(to bottom, #ffb952, #ffaf39);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffb74d', endColorstr='#ffad33', GradientType=0);
@@ -8147,10 +8136,10 @@ input:focus {
 /* line 67, ../../../../css/resource/sass/small-components/_sub_menu.scss */
 .main-nav {
   background-color: #1A1A1A;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #1a1a1a), color-stop(100%, #303030));
-  background-image: -webkit-linear-gradient(top, #1a1a1a 0%, #303030 100%);
-  background-image: -moz-linear-gradient(top, #1a1a1a 0%, #303030 100%);
-  background-image: -o-linear-gradient(top, #1a1a1a 0%, #303030 100%);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #1A1A1A), color-stop(100%, #303030));
+  background-image: -webkit-linear-gradient(top, #1A1A1A 0%, #303030 100%);
+  background-image: -moz-linear-gradient(top, #1A1A1A 0%, #303030 100%);
+  background-image: -o-linear-gradient(top, #1A1A1A 0%, #303030 100%);
   background-image: linear-gradient(to bottom, #1a1a1a 0%, #303030 100%);
   z-index: 1;
 }
@@ -8315,157 +8304,116 @@ input:focus {
 }
 
 @-webkit-keyframes offline-fadein {
-  /* line 60, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     opacity: 0;
   }
-
-  /* line 63, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     opacity: 1;
   }
 }
 @-moz-keyframes offline-fadein {
-  /* line 67, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     opacity: 0;
   }
-
-  /* line 70, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     opacity: 1;
   }
 }
 @-ms-keyframes offline-fadein {
-  /* line 74, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     opacity: 0;
   }
-
-  /* line 77, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     opacity: 1;
   }
 }
 @-o-keyframes offline-fadein {
-  /* line 81, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     opacity: 0;
   }
-
-  /* line 84, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     opacity: 1;
   }
 }
 @keyframes offline-fadein {
-  /* line 88, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     opacity: 0;
   }
-
-  /* line 91, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     opacity: 1;
   }
 }
 @-webkit-keyframes offline-fadeout-and-hide {
-  /* line 95, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     opacity: 1;
     display: block;
   }
-
-  /* line 99, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   99% {
     opacity: 0;
     display: block;
   }
-
-  /* line 103, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     opacity: 0;
     display: none;
   }
 }
 @-moz-keyframes offline-fadeout-and-hide {
-  /* line 108, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     opacity: 1;
     display: block;
   }
-
-  /* line 112, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   99% {
     opacity: 0;
     display: block;
   }
-
-  /* line 116, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     opacity: 0;
     display: none;
   }
 }
 @-ms-keyframes offline-fadeout-and-hide {
-  /* line 121, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     opacity: 1;
     display: block;
   }
-
-  /* line 125, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   99% {
     opacity: 0;
     display: block;
   }
-
-  /* line 129, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     opacity: 0;
     display: none;
   }
 }
 @-o-keyframes offline-fadeout-and-hide {
-  /* line 134, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     opacity: 1;
     display: block;
   }
-
-  /* line 138, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   99% {
     opacity: 0;
     display: block;
   }
-
-  /* line 142, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     opacity: 0;
     display: none;
   }
 }
 @keyframes offline-fadeout-and-hide {
-  /* line 147, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     opacity: 1;
     display: block;
   }
-
-  /* line 151, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   99% {
     opacity: 0;
     display: block;
   }
-
-  /* line 155, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     opacity: 0;
     display: none;
   }
 }
 @-webkit-keyframes offline-rotation {
-  /* line 160, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -8473,8 +8421,6 @@ input:focus {
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 167, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -8484,7 +8430,6 @@ input:focus {
   }
 }
 @-moz-keyframes offline-rotation {
-  /* line 175, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -8492,8 +8437,6 @@ input:focus {
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 182, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -8503,7 +8446,6 @@ input:focus {
   }
 }
 @-ms-keyframes offline-rotation {
-  /* line 190, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -8511,8 +8453,6 @@ input:focus {
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 197, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -8522,7 +8462,6 @@ input:focus {
   }
 }
 @-o-keyframes offline-rotation {
-  /* line 205, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -8530,8 +8469,6 @@ input:focus {
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 212, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -8541,7 +8478,6 @@ input:focus {
   }
 }
 @keyframes offline-rotation {
-  /* line 220, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -8549,8 +8485,6 @@ input:focus {
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 227, ../../../../css/resource/sass/small-components/_offline-theme-slide.scss */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -8708,56 +8642,41 @@ input:focus {
 }
 
 @-webkit-keyframes ios-overlay-show {
-  /* line 50, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   0% {
     opacity: 0;
   }
-
-  /* line 51, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   100% {
     opacity: 1;
   }
 }
 @-moz-keyframes ios-overlay-show {
-  /* line 54, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   0% {
     opacity: 0;
   }
-
-  /* line 55, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   100% {
     opacity: 1;
   }
 }
 @-ms-keyframes ios-overlay-show {
-  /* line 58, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   0% {
     opacity: 0;
   }
-
-  /* line 59, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   100% {
     opacity: 1;
   }
 }
 @-o-keyframes ios-overlay-show {
-  /* line 62, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   0% {
     opacity: 0;
   }
-
-  /* line 63, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   100% {
     opacity: 1;
   }
 }
 @keyframes ios-overlay-show {
-  /* line 66, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   0% {
     opacity: 0;
   }
-
-  /* line 67, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   100% {
     opacity: 1;
   }
@@ -8782,63 +8701,48 @@ input:focus {
 }
 
 @-webkit-keyframes ios-overlay-hide {
-  /* line 89, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   0% {
     opacity: 1;
   }
-
-  /* line 90, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   100% {
     opacity: 0;
   }
 }
 @-moz-keyframes ios-overlay-hide {
-  /* line 93, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   0% {
     opacity: 1;
   }
-
-  /* line 94, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   100% {
     opacity: 0;
   }
 }
 @-ms-keyframes ios-overlay-hide {
-  /* line 97, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   0% {
     opacity: 1;
   }
-
-  /* line 98, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   100% {
     opacity: 0;
   }
 }
 @-o-keyframes ios-overlay-hide {
-  /* line 101, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   0% {
     opacity: 1;
   }
-
-  /* line 102, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   100% {
     opacity: 0;
   }
 }
 @keyframes ios-overlay-hide {
-  /* line 105, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   0% {
     opacity: 1;
   }
-
-  /* line 106, ../../../../css/resource/sass/small-components/_notification_ios.scss */
   100% {
     opacity: 0;
   }
 }
 /* line 24, ../../../../css/resource/sass/_common_web.scss */
 .web-items-no-results {
-  color: #918f8f;
+  color: #918F8F;
   font-weight: 100;
   width: 60%;
   font-size: 24px;
@@ -9057,10 +8961,10 @@ input:focus {
   min-height: 120px;
   min-width: 202px;
   background: #222;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444444), color-stop(100%, #222222));
-  background: -webkit-linear-gradient(#444444, #222222);
-  background: -moz-linear-gradient(#444444, #222222);
-  background: -o-linear-gradient(#444444, #222222);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444), color-stop(100%, #222));
+  background: -webkit-linear-gradient(#444, #222);
+  background: -moz-linear-gradient(#444, #222);
+  background: -o-linear-gradient(#444, #222);
   background: linear-gradient(#444444, #222222);
   right: 0px;
   left: 0px;
@@ -9133,7 +9037,7 @@ input:focus {
 
 /* line 74, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .web-profile-menu {
-  color: white;
+  color: #FFFFFF;
   cursor: pointer;
   height: 25px;
   vertical-align: middle;
@@ -9287,85 +9191,85 @@ input:focus {
 }
 
 /** search items **/
-/* line 6, ../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-wrapper .suggest {
-  position: relative;
-  width: auto;
-}
-
-/* line 11, ../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-wrapper .suggestBox {
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: #444444 0 0 2px 1px;
-  -webkit-box-shadow: #444444 0 0 2px 1px;
-  box-shadow: #444444 0 0 2px 1px;
-  min-height: 20px;
-  right: 0;
-  z-index: 9999;
-  top: 25px;
-}
-
-/* line 20, ../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-wrapper .web-suggest-noresults, .web-suggest-noresults {
-  background-color: #444444;
-  color: white;
+/* line 3, ../../../../css/resource/sass/web/components/_suggestion.scss */
+.web-suggest-noresults {
+  background-color: #222222;
+  color: #616161;
   line-height: 19px;
   min-height: 20px;
   padding: 3px;
   right: 15px;
   width: 245px;
   z-index: 600;
-  margin-top: 5px;
+}
+/* line 12, ../../../../css/resource/sass/web/components/_suggestion.scss */
+.web-suggest-noresults span {
+  color: #FFFFFF;
 }
 
-/* line 32, ../../../../css/resource/sass/web/components/_suggestion.scss */
-.web-search-wrapper .web-suggest-noresults > span {
-  color: gray;
+/* line 19, ../../../../css/resource/sass/web/components/_suggestion.scss */
+.web-search-wrapper .suggest {
+  position: relative;
+  width: auto;
+}
+/* line 24, ../../../../css/resource/sass/web/components/_suggestion.scss */
+.web-search-wrapper .suggestBox {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-box-shadow: #222222 0 0 2px 1px;
+  -webkit-box-shadow: #222222 0 0 2px 1px;
+  box-shadow: #222222 0 0 2px 1px;
+  min-height: 20px;
+  right: 0;
+  z-index: 9999;
+  top: 25px;
+}
+/* line 33, ../../../../css/resource/sass/web/components/_suggestion.scss */
+.web-search-wrapper .web-suggest-noresults > span, .web-search-wrapper .suggestBox > span {
+  color: #FFFFFF;
 }
 
-/* line 36, ../../../../css/resource/sass/web/components/_suggestion.scss */
+/* line 40, ../../../../css/resource/sass/web/components/_suggestion.scss */
 .web-search-container-wrapper {
   width: 290px;
 }
-
-/* line 44, ../../../../css/resource/sass/web/components/_suggestion.scss */
+/* line 43, ../../../../css/resource/sass/web/components/_suggestion.scss */
 .web-search-container-wrapper .web-search-section {
   clear: both;
   display: inline-block;
   padding: 0;
   width: 100%;
 }
-
-/* line 51, ../../../../css/resource/sass/web/components/_suggestion.scss */
+/* line 50, ../../../../css/resource/sass/web/components/_suggestion.scss */
 .web-search-container-wrapper .web-search-section-label {
-  color: white;
-  float: left;
+  color: #FFFFFF;
+  position: absolute;
   line-height: 5px;
-  padding: 7px 4px;
-  width: 66px;
+  padding: 10px 5px;
+  width: 60px;
 }
-
-/* line 60, ../../../../css/resource/sass/web/components/_suggestion.scss */
+/* line 58, ../../../../css/resource/sass/web/components/_suggestion.scss */
 .web-search-container-wrapper .web-search-section-container {
   background-color: white;
   margin-left: 75px;
 }
-
-/* line 65, ../../../../css/resource/sass/web/components/_suggestion.scss */
+/* line 63, ../../../../css/resource/sass/web/components/_suggestion.scss */
 .web-search-container-wrapper .web-search-section-container .selected {
   background-color: #B7B7B7;
-  color: white;
+  color: #FFFFFF;
 }
-
-/* line 70, ../../../../css/resource/sass/web/components/_suggestion.scss */
+/* line 68, ../../../../css/resource/sass/web/components/_suggestion.scss */
 .web-search-container-wrapper .web-search-section-container .web-search-item {
   border-bottom: 1px dotted #EBEBEB;
   cursor: pointer;
   display: inline-block;
-  padding: 0 5px;
-  width: 205px;
+  padding: 5px 0;
+  width: 100%;
+}
+/* line 74, ../../../../css/resource/sass/web/components/_suggestion.scss */
+.web-search-container-wrapper .web-search-section-container .web-search-item span {
+  padding: 5px;
 }
 
 /** drop down menu **/
@@ -9373,7 +9277,7 @@ input:focus {
 .drop-down-menu-select-title {
   background: none repeat scroll 0 0 #6C6D6F;
   border-radius: 13px 13px 13px 13px;
-  color: white;
+  color: #FFFFFF;
   font-size: 13px;
   font-weight: bold;
   line-height: 20px;
@@ -9678,7 +9582,7 @@ input:focus {
 
 /* line 41, ../../../../css/resource/sass/web/components/_admon-list-rows.scss */
 .web-tweetpoll-list-item-title, .web-poll-list-item-title {
-  color: #918f8f;
+  color: #918F8F;
   font-size: 14px;
   line-height: 25px;
 }
@@ -9699,8 +9603,10 @@ div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite {
   padding: 5px;
   background: #e5e5e5;
   /* Old browsers */
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2U1ZTVlNSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
   background-image: -moz-linear-gradient(#ffffff 0%, #e5e5e5 100%);
-  background-image: -o-linear-gradient(#ffffff 0%, #e5e5e5 100%);
   background-image: -webkit-linear-gradient(#ffffff 0%, #e5e5e5 100%);
   background-image: linear-gradient(#ffffff 0%, #e5e5e5 100%);
 }
@@ -9779,7 +9685,7 @@ div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite {
   min-height: 500px;
   margin-top: 20px;
   width: 970px;
-  background-color: white;
+  background-color: #FFFFFF;
 }
 
 /* line 12, ../../../../css/resource/sass/web/components/_poll-admon.scss */
@@ -9804,9 +9710,9 @@ div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite {
   min-height: 340px;
   padding: 10px;
   background-color: white;
-  -moz-box-shadow: #e0e0e0 0px 0px 4px;
-  -webkit-box-shadow: #e0e0e0 0px 0px 4px;
-  box-shadow: #e0e0e0 0px 0px 4px;
+  -moz-box-shadow: #E0E0E0 0px 0px 4px;
+  -webkit-box-shadow: #E0E0E0 0px 0px 4px;
+  box-shadow: #E0E0E0 0px 0px 4px;
 }
 
 /* line 35, ../../../../css/resource/sass/web/components/_poll-admon.scss */
@@ -10089,7 +9995,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
   -webkit-border-radius: 0px;
   border-radius: 0px 5px 5px 5px;
   border: 1px solid #DCDCDC;
-  background-color: white;
+  background-color: #FFFFFF;
   overflow: auto;
   margin-top: 4px;
 }
@@ -10178,7 +10084,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
 /* line 197, ../../../../css/resource/sass/web/components/_tweetpoll-detail.scss */
 .web-tweetpoll-answer-table .answer-header {
   background-color: black;
-  color: white;
+  color: #FFFFFF;
 }
 /* line 204, ../../../../css/resource/sass/web/components/_tweetpoll-detail.scss */
 .web-tweetpoll-answer-table .row {
@@ -10376,19 +10282,27 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options {
   background-color: #222222;
   margin-right: 0px;
   border-right: 1px solid #484848;
-  -moz-box-shadow: black -5px 0 5px -6px inset;
-  -webkit-box-shadow: black -5px 0 5px -6px inset;
-  box-shadow: black -5px 0 5px -6px inset;
+  -moz-box-shadow: #000000 -5px 0 5px -6px inset;
+  -webkit-box-shadow: #000000 -5px 0 5px -6px inset;
+  box-shadow: #000000 -5px 0 5px -6px inset;
 }
 
-/* line 44, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 40, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel {
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* line 45, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem {
   clear: both;
   padding: 7px;
   width: 171px;
 }
 
-/* line 51, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 52, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItemSelected {
   background-color: #888888;
   -moz-box-shadow: #888888 0 1px 3px inset;
@@ -10396,41 +10310,41 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.opt
   box-shadow: #888888 0 1px 3px inset;
 }
 
-/* line 66, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 67, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span {
   padding-left: 10px;
   text-decoration: none;
-  color: #999999;
+  color: #999;
 }
 
-/* line 77, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 78, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:hover {
   text-decoration: none;
 }
 
-/* line 82, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 83, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
   border-left: 1px solid #616161;
   margin-left: 185px;
 }
 
 /** Filter Options **/
-/* line 89, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 90, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu {
   padding: 5px;
   position: relative;
 }
 
-/* line 94, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 95, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu .web-list-filter-clean {
   position: absolute;
   top: 5px;
   right: 10px;
-  color: #999999;
+  color: #999;
 }
-/* line 100, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 101, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu .web-list-filter-clean:hover {
-  color: white;
+  color: #FFFFFF;
   -webkit-transition: color 0.5s ease-in;
   -moz-transition: color 0.5s ease-in;
   -o-transition: color 0.5s ease-in;
@@ -10441,15 +10355,15 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
   transition: color 0.5s ease-out;
 }
 
-/* line 113, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 114, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item {
   min-height: 35px;
   border-bottom: 1px solid #e5e5e5;
-  background-color: white;
+  background-color: #FFFFFF;
   width: 101%;
 }
 
-/* line 120, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 121, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item .hashTags {
   color: #616161;
   margin-bottom: 10px;
@@ -10458,7 +10372,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetp
   padding: 2px;
 }
 
-/* line 128, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
+/* line 129, ../../../../css/resource/sass/web/components/_tweetpoll-admon.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item .hashTags .tag {
   margin-right: 6px !important;
 }
@@ -10748,9 +10662,11 @@ div.web-tweetpoll-section div.web-tweetpoll-section-title,
   color: #252525;
   border-bottom: 1px solid #888888;
   background: #e5e5e5;
-  background-color: white;
+  background-color: #FFFFFF;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2U1ZTVlNSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
   background-image: -moz-linear-gradient(#ffffff 0%, #e5e5e5 100%);
-  background-image: -o-linear-gradient(#ffffff 0%, #e5e5e5 100%);
   background-image: -webkit-linear-gradient(#ffffff 0%, #e5e5e5 100%);
   background-image: linear-gradient(#ffffff 0%, #e5e5e5 100%);
 }
@@ -10784,7 +10700,7 @@ div.web-tweetpoll-section .counterGlobal {
 .web-tweetpoll-wrapper div.tweetPollSecondQuestion {
   clear: left;
   min-height: 160px;
-  background-color: white;
+  background-color: #FFFFFF;
   padding: 10px 0 20px 20px;
   width: 90%;
   border-color: #E5E5E5;
@@ -10952,13 +10868,13 @@ div.tweetPollPublishButton .cancel-button {
 
 /* line 248, ../../../../css/resource/sass/web/components/_tweetpoll-create.scss */
 .web-tweetpoll-wrapper div.previewWrapperContent .previewQuestion {
-  background-color: #f9f9c2;
+  background-color: #F9F9C2;
   border: 1px solid #dada15;
 }
 
 /* line 254, ../../../../css/resource/sass/web/components/_tweetpoll-create.scss */
 .web-tweetpoll-wrapper div.previewWrapperContent .previewAnswer {
-  background-color: #c9f5c8;
+  background-color: #C9F5C8;
   border: 1px solid #4add47;
 }
 
@@ -10971,7 +10887,7 @@ div.tweetPollPublishButton .cancel-button {
 
 /* line 264, ../../../../css/resource/sass/web/components/_tweetpoll-create.scss */
 .web-tweetpoll-wrapper div.previewWrapperContent .previewHashTag {
-  background-color: #febeb2;
+  background-color: #FEBEB2;
   border: 1px solid #fd694d;
 }
 
@@ -11002,7 +10918,7 @@ div.tweetPollPublishButton .cancel-button {
 }
 /* line 307, ../../../../css/resource/sass/web/components/_tweetpoll-create.scss */
 .addAnswers .answerItem .title {
-  color: black;
+  color: #000000;
   font-size: 14px;
 }
 /* line 314, ../../../../css/resource/sass/web/components/_tweetpoll-create.scss */
@@ -11051,7 +10967,7 @@ div.tweetPollPublishButton .cancel-button {
 .addAnswers .addNewAnswer .label, .addAnswers .addNewAnswer .embedded nav .selected-script, .embedded nav .addAnswers .addNewAnswer .selected-script {
   min-width: 100px;
   margin: 10px;
-  color: black;
+  color: #000000;
 }
 
 /** TweetPoll HELP **/
@@ -11114,9 +11030,11 @@ div.tweetPollPublishButton .cancel-button {
 /** option-menu */
 /* line 6, ../../../../css/resource/sass/web/components/_option-menu.scss */
 .option-menu .icon {
-  background-color: white;
+  background-color: #FFFFFF;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2U1ZTVlNSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
   background-image: -moz-linear-gradient(#ffffff 0%, #e5e5e5 100%);
-  background-image: -o-linear-gradient(#ffffff 0%, #e5e5e5 100%);
   background-image: -webkit-linear-gradient(#ffffff 0%, #e5e5e5 100%);
   background-image: linear-gradient(#ffffff 0%, #e5e5e5 100%);
   border: 1px solid #e5e5e5;
@@ -11130,9 +11048,11 @@ div.tweetPollPublishButton .cancel-button {
 }
 /* line 16, ../../../../css/resource/sass/web/components/_option-menu.scss */
 .option-menu .menu-items {
-  background-color: white;
+  background-color: #FFFFFF;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2U1ZTVlNSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
   background-image: -moz-linear-gradient(#ffffff 0%, #e5e5e5 100%);
-  background-image: -o-linear-gradient(#ffffff 0%, #e5e5e5 100%);
   background-image: -webkit-linear-gradient(#ffffff 0%, #e5e5e5 100%);
   background-image: linear-gradient(#ffffff 0%, #e5e5e5 100%);
   border: 1px solid #e5e5e5;
@@ -11146,7 +11066,7 @@ div.tweetPollPublishButton .cancel-button {
   padding: 5px;
   position: absolute;
   width: 100px;
-  color: black;
+  color: #000000;
   cursor: pointer;
 }
 /* line 30, ../../../../css/resource/sass/web/components/_option-menu.scss */
@@ -11183,22 +11103,22 @@ div.tweetPollPublishButton .cancel-button {
   margin: 10px 2px;
   min-height: 105px;
   padding: 13px 17px 10px;
-  color: black;
+  color: #000000;
   -moz-box-shadow: #252525 1px 0px 4px 2px inset;
   -webkit-box-shadow: #252525 1px 0px 4px 2px inset;
   box-shadow: #252525 1px 0px 4px 2px inset;
-  background-color: #918f8f;
+  background-color: #918F8F;
 }
 
 /* line 33, ../../../../css/resource/sass/web/components/_list_filters.scss */
 .web-filters-wrapper label {
-  color: white;
+  color: #FFFFFF;
   margin-bottom: 3px;
 }
 
 /* line 37, ../../../../css/resource/sass/web/components/_list_filters.scss */
 .web-filters-wrapper .dijitRuleLabel {
-  color: white !important;
+  color: #FFFFFF !important;
 }
 
 /* line 41, ../../../../css/resource/sass/web/components/_list_filters.scss */
@@ -11651,7 +11571,7 @@ div.web-support-embebed textarea {
 /* line 5, ../../../../css/resource/sass/shared-components/_detail-tp-hashtag.scss */
 .web-tweetpoll-hashtags {
   padding: 20px;
-  background-color: white;
+  background-color: #FFFFFF;
 }
 
 /* line 10, ../../../../css/resource/sass/shared-components/_detail-tp-hashtag.scss */
@@ -11683,7 +11603,7 @@ div.web-support-embebed textarea {
 
 /* line 13, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
 .web-tweetpoll-vote-options .red h1, .web-tweetpoll-vote-options .red h2 {
-  color: black;
+  color: #000000;
 }
 
 /* line 18, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
@@ -11708,7 +11628,7 @@ div.web-support-embebed textarea {
 /* line 36, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
 .web-tweetpoll-vote-options h4, .web-tweetpoll-vote-options h5 {
   font-weight: 100;
-  color: white;
+  color: #FFFFFF;
 }
 /* line 39, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
 .web-tweetpoll-vote-options h4 b, .web-tweetpoll-vote-options h5 b {
@@ -11935,7 +11855,7 @@ div.web-support-embebed textarea {
 }
 /* line 29, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
 .web-response-single-response .span5 h4 {
-  color: black;
+  color: #000000;
   margin-left: 10px;
   font-weight: 100;
 }
@@ -11943,7 +11863,7 @@ div.web-support-embebed textarea {
 /** social links references **/
 /* line 2, ../../../../css/resource/sass/shared-components/_social-links.scss */
 .web-social-links {
-  background-color: white;
+  background-color: #FFFFFF;
 }
 
 /* line 11, ../../../../css/resource/sass/shared-components/_social-links.scss */
@@ -12012,7 +11932,7 @@ div.web-support-embebed textarea {
   border-radius: 4px;
   border: 1px solid #e5e5e5;
   padding: 5px;
-  background-color: #fafafa;
+  background-color: #FAFAFA;
 }
 /* line 19, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comment-login .span2 .picture img {
@@ -12047,7 +11967,7 @@ div.web-support-embebed textarea {
 /* line 54, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments {
   overflow: auto;
-  background-color: white;
+  background-color: #FFFFFF;
 }
 /* line 63, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper {
@@ -12132,12 +12052,16 @@ div.web-support-embebed textarea {
 .embedded textarea {
   width: 465px;
 }
-/* line 8, ../../../../css/resource/sass/small-components/_embedded.scss */
+/* line 7, ../../../../css/resource/sass/small-components/_embedded.scss */
+.embedded iframe {
+  border: 0;
+}
+/* line 12, ../../../../css/resource/sass/small-components/_embedded.scss */
 .embedded nav ul {
   overflow: auto;
   margin: 5px 0;
 }
-/* line 13, ../../../../css/resource/sass/small-components/_embedded.scss */
+/* line 17, ../../../../css/resource/sass/small-components/_embedded.scss */
 .embedded nav li {
   text-transform: uppercase;
   list-style: none;
@@ -12148,7 +12072,7 @@ div.web-support-embebed textarea {
   font-size: 11.844px;
   font-weight: bold;
   line-height: 14px;
-  background-color: white;
+  background-color: #FFFFFF;
   white-space: nowrap;
   vertical-align: baseline;
   -moz-border-radius: 3px;
