@@ -3,93 +3,67 @@
 <article class="web-tweetpoll-detail web-wrapper-detail">
 
    <div class="container">
-
-    <div class="row web-generic-stats">
-        <div class="span12" id="generic" widgetid="generic">
-          <div class="row">
-            <div class="span1">
-              <div class="enme-rating">
-                <div class="vote">
-                    <div class="count">
-                      ${tweetpoll.totalVotes}
-                    </div>
-                    vote(s)
-                </div>
-                <div class="count-sub" data-dojo-attach-point="_vote">
-                  ${tweetpoll.hits}
-                  average</div>
-              </div>
-            </div>
-            <div class="span10">
-              <div>
-                <h2>
-                  ${tweetpoll.questionBean.questionName}
-                </h2>
-                <span class="badge badge-success" data-dojo-attach-point="_badge">
-                  ${tweetpoll.relevance}
-                </span>
-              </div>
-            </div>
-
-          </div>
-            <div>
-              <c:if test="${!empty hashtags}">
-                 <c:forEach items="${hashtags}" var="h">
-                         <span data-dojo-type="me/web/widget/stream/HashTagInfo"
-                          url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
-                          hashTagName="${h.hashTagName}"></span>
-                 </c:forEach>
-               </c:if>
-          </div>
-        </div>
-
-      </div>
-
-   <article class="emne-box">
-        <section class="row web-tweetpoll-answer-wrapper web-wrapper-detail-wrapper">
-            <div class="span6">
+   <article>
+        <section class="web-tweetpoll-answer-wrapper web-wrapper-detail-wrapper">
               <div class="web-tweetpoll-answer-chart">
+                  <div class="wrapper-detail-title">
+                      <h4 data-relevance="${tweetpoll.relevance}">
+                          ${tweetpoll.questionBean.questionName}
+                      </h4>
+                      <span class="badge badge-success">Votes ${tweetpoll.totalVotes}</span>
+                      <span class="badge badge-warning">Hits ${tweetpoll.hits}</span>
+
+                  </div>
                   <div id="chart" data-dojo-type="me/web/widget/tweetpoll/detail/TweetPollChartDetail"
-                       tweetPollid="${tweetpoll.id}"
-                       question="${tweetpoll.questionBean.questionName}"
-                       completed="${tweetpoll.completed}"
-                       username="${tweetpoll.ownerUsername}"></div>
+                         tweetPollid="${tweetpoll.id}"
+                         question="${tweetpoll.questionBean.questionName}"
+                         completed="${tweetpoll.completed}"
+                         username="${tweetpoll.ownerUsername}">
+                    </div>
               </div>
-            </div>
-            <div class="span6">
-              <div class="web-tweetpoll-answer-answer row">
-                  <header>
-                       <div class="answer-label span3">
+              <div class="web-tweetpoll-answer-answer">
+                  <div class="header-answers">
+                       <div class="answer-label">
                              <spring:message code="commons_detail_answer" />
                        </div>
-                       <div class="answer-votes span1">
+                       <div class="answer-votes">
                               <spring:message code="commons_detail_total_votes" />
                        </div>
-                       <div class="answer-percent span1">
+                       <div class="answer-percent">
                              <spring:message code="commons_detail_percent" />
                        </div>
-                  </header>
-                  <c:forEach items="${answers}" var="a">
-                      <div class="answer"
-                           data-dojo-type="me/web/widget/tweetpoll/detail/TweetPollAnswer"
-                           aId="${a.answers.questionAnswerId}"
-                           color="${a.answers.color}"
-                           label="${a.answers.answer}"
-                           owner="${tweetpoll.ownerUsername}"
-                           completed="${tweetpoll.completed}"
-                           url="<%=request.getContextPath()%>${a.relativeUrl}">
-                       </div>
-                 </c:forEach>
+                  </div>
+                  <div class="group-answers">
+                      <c:forEach items="${answers}" var="a">
+                          <div class="answer"
+                               data-dojo-type="me/web/widget/tweetpoll/detail/TweetPollAnswer"
+                               aId="${a.answers.questionAnswerId}"
+                               color="${a.answers.color}"
+                               label="${a.answers.answer}"
+                               owner="${tweetpoll.ownerUsername}"
+                               completed="${tweetpoll.completed}"
+                               url="<%=request.getContextPath()%>${a.relativeUrl}">
+                           </div>
+                     </c:forEach>
+                 </div>
+                  <c:if test="${!empty hashtags}">
+                      <div class="hashtag-detail-group hashtag-invert">
+                          <c:forEach items="${hashtags}" var="h">
+                                <span data-dojo-type="me/web/widget/stream/HashTagInfo"
+                                      url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
+                                      hashTagName="${h.hashTagName}"></span>
+                          </c:forEach>
+                      </div>
+                  </c:if>
               </div>
-            </div>
        </section>
    </article>
 
 
    <article class="emne-box">
-       <h3>
+       <h5>
           <spring:message code="options.links" />
-       </h3>
+       </h5>
        <section>
               <div data-dojo-type="me/web/widget/social/LinksPublished"
                  more="false"
@@ -101,9 +75,9 @@
    </article>
 
    <section class="web-tweetpoll-comments emne-box">
-      <h3>
+      <h5>
             <spring:message code="options.comments" />
-      </h3>
+      </h5>
 
       <c:if test="${logged}">
             <div name="comments" data-dojo-type="me/web/widget/comments/AddComment"
@@ -114,18 +88,16 @@
                  username="${account.username}"></div>
       </c:if>
       <c:if test="${!logged}">
-          <div class="row comment-login">
-              <div class="picture span2">
+          <div class="comment-login">
+              <div class="picture">
                   <img src="<%=request.getContextPath()%>/resources/images/default.png" width="60" height="60"/>
               </div>
-              <div class="span4">
-                  <div class="login">
-                      <a href="<%=request.getContextPath()%>/user/signin">
-                        <h4 class="enme">
-                            <spring:message code="comments.login.post.comment" />
-                        </h4>
-                      </a>
-                  </div>
+              <div class="form-area">
+                  <a href="<%=request.getContextPath()%>/user/signin">
+                    <h6>
+                        <spring:message code="comments.login.post.comment" />
+                    </h6>
+                  </a>
               </div>
             </a>
           </div>

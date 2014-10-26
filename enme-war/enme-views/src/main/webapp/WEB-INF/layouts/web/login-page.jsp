@@ -28,7 +28,7 @@
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
 <tiles:insertAttribute name="rss" ignore="true" />
 </head>
-<body class="enme-web-context dbootstrap">
+<body class="enme-web-context dbootstrap login-page">
   <%@ include file="decorators/ui_bar.jsp"%>
   <div id="mainWrapper" class="page container">
     <header id="header" class="header_input_hidden">
