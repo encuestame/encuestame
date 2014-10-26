@@ -6,9 +6,9 @@
             <div class="section-signup" title="Sign Up with Username"
                 collapsed="false">
                 <div class="web-form-singup-container">
-                    <h2>
+                    <h3>
                         <spring:message code="forgot.username" />
-                    </h2>
+                    </h3>
                     <fieldset class="textbox">
                         <div class="section">
                             <div class="validator-wrapper" id="rm" widgetid="rm">
