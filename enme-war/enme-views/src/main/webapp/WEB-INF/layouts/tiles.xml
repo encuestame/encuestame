@@ -17,7 +17,7 @@
         <put-attribute name="footer" expression="/WEB-INF/layouts/footer.jsp" />
     </definition>
 
-    <definition name="login-page" templateExpression="/WEB-INF/layouts/page.jsp">
+    <definition name="login-page" templateExpression="/WEB-INF/layouts/login-page.jsp">
         <put-attribute name="header" expression="/WEB-INF/layouts/header.jsp" />
         <put-attribute name="footer" expression="/WEB-INF/layouts/footer.jsp" />
     </definition>
