@@ -35,7 +35,7 @@ import org.hibernate.search.annotations.Indexed;
 @Entity
 @Table(name = "tweetPoll_Folder")
 @Indexed(index="TweetPollFolder")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TweetPollFolder extends AbstractFolder implements IFolder{
 
     /**

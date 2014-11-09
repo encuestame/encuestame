@@ -698,6 +698,8 @@ CREATE TABLE useraccount (
   email character varying(150) NOT NULL,
   userprofilepicture character varying(255),
   status boolean,
+  welcome_page boolean,
+  help_links boolean,
   username character varying(30) NOT NULL,
   account_uid bigint,
   groupid bigint

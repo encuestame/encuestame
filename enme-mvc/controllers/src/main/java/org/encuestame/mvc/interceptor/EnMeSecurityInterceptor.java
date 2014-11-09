@@ -84,6 +84,8 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
     	request.setAttribute("user_locale", WidgetUtil.getCurrentLocale(request));
+        request.setAttribute("hide_header_menu", false);
+        request.setAttribute("help_links", false);
         final Authentication auth = getSecCtx().getAuthentication();
         log.trace("preHandle security auth "+auth);
         if (!SecurityUtils.checkIsSessionIsExpired(auth)) {
@@ -100,13 +102,14 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
         			getLocaleResolver().setLocale(request, response, getUserAccountLocale(user));			
         		}
                 request.setAttribute("isActivated", user.getInviteCode() == null ? true : false);
+                request.setAttribute("help_links", user.getHelpLinks());
                 log.trace("Account User Interceptor "+user);
                 request.setAttribute("account", ConvertDomainBean.convertUserAccountToSignUpBean(user));
                 final String lang = WidgetUtil.convertToDojoLocale(user.getLanguage());
                 log.debug("Language --->" + lang);
                 request.setAttribute("user_locale", user.getLanguage() == null ? WidgetUtil.getCurrentLocale(request): lang);
                 Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
-                if(cookieName != null){
+                if (cookieName != null) {
                     log.trace("Cookie "+cookieName.getName());
                     cookieName.setValue(RandomStringUtils.random(4)); //TODO: testing cookies.
                 }

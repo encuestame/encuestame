@@ -8,6 +8,7 @@
     <js>/commons/sockjs.js</js>
     <js>/commons/stomp.js</js>
     <js>/commons/offline.js</js>
+    <js>/commons/intro.js</js>
     <js>/commons/alertify/dist/alertify.min.js</js>
   </group>
 

@@ -1047,6 +1047,8 @@ CREATE TABLE IF NOT EXISTS `userAccount` (
   `email` varchar(150) NOT NULL,
   `userProfilePicture` varchar(255) DEFAULT NULL,
   `status` bit(1) DEFAULT NULL,
+  `welcome_page` bit(1) DEFAULT NULL,
+  `help_links` bit(1) DEFAULT NULL,
   `username` varchar(30) NOT NULL,
   `account_uid` bigint(20) DEFAULT NULL,
   `groupId` bigint(20) DEFAULT NULL,

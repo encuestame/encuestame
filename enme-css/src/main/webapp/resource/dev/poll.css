@@ -388,29 +388,30 @@ div.web-header span.link a:hover {
 
 /* line 127, ../../../../css/resource/sass/_layout.scss */
 #content-container {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
+  padding: 0;
   border: 1px solid #d4d4d4;
   background-color: #FFFFFF;
 }
 
-/* line 133, ../../../../css/resource/sass/_layout.scss */
+/* line 134, ../../../../css/resource/sass/_layout.scss */
 .login-page #content-container {
   border: 0;
   background-color: transparent;
 }
 
-/* line 139, ../../../../css/resource/sass/_layout.scss */
+/* line 140, ../../../../css/resource/sass/_layout.scss */
 #content-container #enme-content .ui-corner-bottom {
   -moz-border-radius: 0 0 4px 4px;
   -webkit-border-radius: 0;
   border-radius: 0 0 4px 4px;
 }
 
-/* line 144, ../../../../css/resource/sass/_layout.scss */
+/* line 145, ../../../../css/resource/sass/_layout.scss */
 #content-container #enme-content a:link {
   text-decoration: none;
 }
-/* line 147, ../../../../css/resource/sass/_layout.scss */
+/* line 148, ../../../../css/resource/sass/_layout.scss */
 #content-container #enme-content a:hover {
   text-decoration: underline;
 }
@@ -949,19 +950,39 @@ li.over {
   right: 0;
 }
 
-/* line 3, ../../../../css/resource/sass/shared-components/_suggest.scss */
+/** Suggest. **/
+/* line 5, ../../../../css/resource/sass/shared-components/_suggest.scss */
+.suggestBox {
+  position: absolute;
+  border: 1px solid #000000;
+  background-color: #FFFFFF;
+  z-index: 99999;
+}
+/* line 13, ../../../../css/resource/sass/shared-components/_suggest.scss */
+.suggestBox .suggesItem {
+  padding: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+/* line 20, ../../../../css/resource/sass/shared-components/_suggest.scss */
+.suggestBox .suggesItem:hover {
+  background-color: #939397;
+}
+
+/* line 26, ../../../../css/resource/sass/shared-components/_suggest.scss */
 .searchMenu input {
   padding: 0 !important;
   margin: 0 !important;
 }
 
-/* line 8, ../../../../css/resource/sass/shared-components/_suggest.scss */
+/* line 31, ../../../../css/resource/sass/shared-components/_suggest.scss */
 .suggest .wrapper-suggest {
   max-width: 400px;
   position: relative;
 }
 
-/* line 17, ../../../../css/resource/sass/shared-components/_suggest.scss */
+/* line 40, ../../../../css/resource/sass/shared-components/_suggest.scss */
 .suggest .wrapper-suggest .suggestBox {
   border: 1px solid #E0D6D6;
   left: 0;
@@ -972,7 +993,7 @@ li.over {
 }
 
 /** Suggest. **/
-/* line 28, ../../../../css/resource/sass/shared-components/_suggest.scss */
+/* line 51, ../../../../css/resource/sass/shared-components/_suggest.scss */
 .suggest .wrapper-suggest .suggestBox {
   background-color: #FFFFFF;
   border: 1px solid #CCC;
@@ -983,14 +1004,14 @@ li.over {
   position: absolute;
 }
 
-/* line 38, ../../../../css/resource/sass/shared-components/_suggest.scss */
+/* line 61, ../../../../css/resource/sass/shared-components/_suggest.scss */
 .suggest .wrapper-suggest .suggestBox .suggesItem {
   cursor: pointer;
   font-size: 12px;
   font-weight: bold;
 }
 
-/* line 44, ../../../../css/resource/sass/shared-components/_suggest.scss */
+/* line 67, ../../../../css/resource/sass/shared-components/_suggest.scss */
 .suggest .wrapper-suggest .suggestBox .suggesItem > span {
   display: inline-block;
   font-size: 120%;
@@ -998,7 +1019,7 @@ li.over {
   padding: 2px;
 }
 
-/* line 51, ../../../../css/resource/sass/shared-components/_suggest.scss */
+/* line 74, ../../../../css/resource/sass/shared-components/_suggest.scss */
 .suggest .wrapper-suggest .suggestBox .suggesItem:hover, .suggest-selected {
   background-color: #939397;
   color: #FFF;
@@ -1224,37 +1245,17 @@ li.over {
   padding: 5px 10px;
 }
 
-/** Suggest. **/
-/* line 176, ../../../../css/resource/sass/web/_default.scss */
-.suggestBox {
-  position: absolute;
-  border: 1px solid #000000;
-  background-color: #FFFFFF;
-  z-index: 99999;
-}
-/* line 183, ../../../../css/resource/sass/web/_default.scss */
-.suggestBox .suggesItem {
-  padding: 5px;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
-}
-/* line 190, ../../../../css/resource/sass/web/_default.scss */
-.suggestBox .suggesItem:hover {
-  background-color: #939397;
-}
-
-/* line 196, ../../../../css/resource/sass/web/_default.scss */
-div.yesNoWrapper {
+/* line 174, ../../../../css/resource/sass/web/_default.scss */
+.yesNoWrapper {
   padding: 1px;
 }
 
-/* line 201, ../../../../css/resource/sass/web/_default.scss */
-div.yesNoWrapper div.label, div.yesNoWrapper .embedded nav div.selected-script, .embedded nav div.yesNoWrapper div.selected-script {
+/* line 179, ../../../../css/resource/sass/web/_default.scss */
+.yesNoWrapper div.label, .yesNoWrapper .embedded nav div.selected-script, .embedded nav .yesNoWrapper div.selected-script {
   color: #BC870D;
 }
 
-/* line 205, ../../../../css/resource/sass/web/_default.scss */
+/* line 183, ../../../../css/resource/sass/web/_default.scss */
 .empty-common, .emptyFavourite, .selectedFavourite {
   background-repeat: no-repeat;
   min-height: 16px;
@@ -1262,45 +1263,45 @@ div.yesNoWrapper div.label, div.yesNoWrapper .embedded nav div.selected-script, 
   width: 16px;
 }
 
-/* line 212, ../../../../css/resource/sass/web/_default.scss */
+/* line 190, ../../../../css/resource/sass/web/_default.scss */
 .emptyFavourite {
   background-image: url(data:image/gif;base64,R0lGODlhEAAQAMYAAP////j4+Pv7+/f39/n5+fr6+vb29vLy8vT09PPz8/7+/vz8/N3d3c3Nze/v762trevr6/39/efn5+zs7O3t7bi4uNDQ0PHx8dXV1ejo6MnJyeXl5dzc3KioqN7e3sfHx9LS0r6+vrq6utnZ2fDw8MzMzOrq6sXFxbm5ueTk5OPj4+Li4tHR0bCwsMHBwbW1tdvb28vLy+7u7sPDw/X19crKytjY2Le3t6SkpKurq7S0tOHh4ebm5tbW1qenp56enunp6aysrK6urtra2sLCws/Pz8DAwL29vby8vN/f37Ozs9PT09fX1////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////yH5BAEAAH8ALAAAAAAQABAAAAeagH+Cg38lAYSIhDUADImJFB4Ah46EkQAADZR/NBABlwAbGYgvBZ8ACgqmAA4af0IDC5cREQsRqQALBx9/Bjc8AQUCwsIEARcPK4JGLzTABc8FAw4NKoQEHAMB2toDFRuJDAEDBuQDAyKOFAgJCQfsCBYQiAoyBw4qMTAHBxggiDArLLQoUcBGhxkYHiDK0CHIhEEYdOAIoaliIAA7);
 }
 
-/* line 217, ../../../../css/resource/sass/web/_default.scss */
+/* line 195, ../../../../css/resource/sass/web/_default.scss */
 .selectedFavourite {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oMCQUHOdEG60YAAAIrSURBVDjLnZPPS5RhEMc/8/5Sdzd3dVvL2kyj1KRDHcSkQ0FEv+51DA9Cf0CX7JoGQUdPeegQJBJUIHULvES3sPJH6lopaWq4irn77r77vtNhRY3VogaGZ56B+cw8X+aBXUxfxY/oy+pBHYwn+YMZJYUDiWJQMHppaLqKW3j8TwC5toT2J04ikUuEapTyqlZ9Ut38V4AO1G5ls4Ve6hphzRNq60ME5p3dAKJ9+0I4JFA/DJIEOU042sWx5jI8HxxTSY0La+kOAiYQWUYkS0aW5OZCRvTpoVFc5wCJeIRIpYmv4FRAoKCAYSjqge8JlsDycp6llSxO7iN77csWvqSpSR6nLKZ4wcYTAKQIEASxQWzIAaGkTX3M4ftEgXSQN8gbF5n/+o6lb0LOVFwD8hvubZw5AzICrgnrq8LM52dgX5DrMznZFLG34Q2Vh9upjBW7/6YUEKiy8kNwZ4fI7DlPPOPLjWksfXgU6ZyCNFeYmR6mra2OwC+V2/WEybkP3P1yTmSrgSWdU8VoVR08HAoGeAqq2yYQUBt8u2578eYeaFcTZPwoVTVR3ADcAMorlP0xsMuVnIJagBXV+y3hEoD0fIK8JAjHK/BNiJTB+PAqr4fekhr5iSWAreQEFrwzO69ydbiViAWzk/B++AFuoUV6ptpZz51ibOQRc9PCwThY5tmdAWK+IJXqJ5tvlO7RW6g5DyDdYym5N9ZBeq2JxcXnGFZf6de9feK/778AUbfZ0CaDxH4AAAAASUVORK5CYII=);
 }
 
-/* line 222, ../../../../css/resource/sass/web/_default.scss */
+/* line 200, ../../../../css/resource/sass/web/_default.scss */
 div.updateProfile .pictureWrapper {
   min-height: 128px;
   min-width: 95px;
 }
 
-/* line 227, ../../../../css/resource/sass/web/_default.scss */
+/* line 205, ../../../../css/resource/sass/web/_default.scss */
 div.updateProfile .pictureProfileNew {
   padding: 10px;
   width: 400px;
 }
 
-/* line 233, ../../../../css/resource/sass/web/_default.scss */
+/* line 211, ../../../../css/resource/sass/web/_default.scss */
 div.updateProfile .profileItem {
   padding: 5px;
 }
 
-/* line 237, ../../../../css/resource/sass/web/_default.scss */
+/* line 215, ../../../../css/resource/sass/web/_default.scss */
 div.updateProfile .profileItem label {
   font-size: 12px;
   font-weight: bold;
 }
 
-/* line 242, ../../../../css/resource/sass/web/_default.scss */
+/* line 220, ../../../../css/resource/sass/web/_default.scss */
 .defaultMarginWrapper .dijitTabContainerTop-container {
   border: 0 none !important;
 }
 
-/* line 246, ../../../../css/resource/sass/web/_default.scss */
+/* line 224, ../../../../css/resource/sass/web/_default.scss */
 div.header {
   font-size: 1.6em;
   padding: 4px;
@@ -1308,14 +1309,14 @@ div.header {
   color: #FFF;
 }
 
-/* line 253, ../../../../css/resource/sass/web/_default.scss */
+/* line 231, ../../../../css/resource/sass/web/_default.scss */
 div.subHeader {
   font-size: 1em;
   padding: 4px;
   margin: 1px;
 }
 
-/* line 260, ../../../../css/resource/sass/web/_default.scss */
+/* line 238, ../../../../css/resource/sass/web/_default.scss */
 div.web-default-menu {
   background: none repeat scroll 0 0 #EFEFEF;
   border: 1px solid #FFFFFF;
@@ -1325,20 +1326,20 @@ div.web-default-menu {
   height: 44px;
 }
 
-/* line 267, ../../../../css/resource/sass/web/_default.scss */
+/* line 245, ../../../../css/resource/sass/web/_default.scss */
 div.web-default-menu ul {
   margin: 0;
   padding: 0;
 }
 
-/* line 272, ../../../../css/resource/sass/web/_default.scss */
+/* line 250, ../../../../css/resource/sass/web/_default.scss */
 div.web-default-menu li {
   background: none repeat scroll 0 0 transparent;
   height: 44px;
   list-style: none outside none;
 }
 
-/* line 279, ../../../../css/resource/sass/web/_default.scss */
+/* line 257, ../../../../css/resource/sass/web/_default.scss */
 div.web-default-menu li.first {
   padding: 0px 2px 0px 5px;
 }
@@ -1347,48 +1348,48 @@ div.web-default-menu li.first {
   This class to increase size on dijitTextBox
   poll - single response widget.
 */
-/* line 287, ../../../../css/resource/sass/web/_default.scss */
+/* line 265, ../../../../css/resource/sass/web/_default.scss */
 .input-d .dijitTextBox {
   padding: 3px;
   font-size: 130%;
   width: 840px;
 }
 
-/* line 297, ../../../../css/resource/sass/web/_default.scss */
+/* line 275, ../../../../css/resource/sass/web/_default.scss */
 .emne-box a:link, .emne-box a:visited {
   color: #222222;
   text-decoration: none;
 }
 
-/* line 303, ../../../../css/resource/sass/web/_default.scss */
+/* line 281, ../../../../css/resource/sass/web/_default.scss */
 .emne-box {
   overflow: auto;
   padding: 10px;
 }
-/* line 306, ../../../../css/resource/sass/web/_default.scss */
+/* line 284, ../../../../css/resource/sass/web/_default.scss */
 .emne-box > h1, .emne-box > h2, .emne-box > h3, .emne-box h4, .emne-box h5 {
   font-weight: 500;
   color: #424242;
   text-transform: uppercase;
 }
-/* line 312, ../../../../css/resource/sass/web/_default.scss */
+/* line 290, ../../../../css/resource/sass/web/_default.scss */
 .emne-box .non-items {
   color: #c1c1c1;
 }
-/* line 316, ../../../../css/resource/sass/web/_default.scss */
+/* line 294, ../../../../css/resource/sass/web/_default.scss */
 .emne-box > h3 {
   margin-top: 40px;
   margin-bottom: 10px;
 }
 
-/* line 322, ../../../../css/resource/sass/web/_default.scss */
+/* line 300, ../../../../css/resource/sass/web/_default.scss */
 .emne-box > header .rss {
   position: relative;
   right: 10px;
   top: 2px;
 }
 
-/* line 329, ../../../../css/resource/sass/web/_default.scss */
+/* line 307, ../../../../css/resource/sass/web/_default.scss */
 .emne-box h3.no-results {
   color: #CCCCCC;
   font-size: 1.2em;
@@ -1396,19 +1397,19 @@ div.web-default-menu li.first {
 }
 
 /** dialog **/
-/* line 338, ../../../../css/resource/sass/web/_default.scss */
+/* line 316, ../../../../css/resource/sass/web/_default.scss */
 .web-generic-dialog-content {
   font-size: 12px;
   font-weight: bold;
 }
 
-/* line 344, ../../../../css/resource/sass/web/_default.scss */
+/* line 322, ../../../../css/resource/sass/web/_default.scss */
 .web-generic-dialog-content .button {
   text-align: right;
   padding-right: 10px;
 }
 
-/* line 349, ../../../../css/resource/sass/web/_default.scss */
+/* line 327, ../../../../css/resource/sass/web/_default.scss */
 #web-background-overlay {
   position: absolute;
   margin: auto;
@@ -7228,6 +7229,443 @@ a.badge:focus {
   position: fixed;
 }
 
+/* line 1, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-overlay {
+  position: absolute;
+  z-index: 999999;
+  background-color: #000;
+  opacity: 0;
+  background: -moz-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0, 0, 0, 0.4)), color-stop(100%, rgba(0, 0, 0, 0.9)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
+  background: radial-gradient(ellipse cover at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.9) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#66000000',endColorstr='#e6000000',GradientType=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+/* line 22, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-fixParent {
+  z-index: auto !important;
+  opacity: 1.0 !important;
+  position: absolute !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  transform: none !important;
+}
+
+/* line 33, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-showElement,
+tr.introjs-showElement > td,
+tr.introjs-showElement > th {
+  z-index: 9999999 !important;
+}
+
+/* line 39, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-disableInteraction {
+  z-index: 99999999 !important;
+  position: absolute;
+}
+
+/* line 44, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-relativePosition,
+tr.introjs-showElement > td,
+tr.introjs-showElement > th {
+  position: relative;
+}
+
+/* line 50, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-helperLayer {
+  position: absolute;
+  z-index: 9999998;
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #777;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+/* line 66, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-tooltipReferenceLayer {
+  position: absolute;
+  z-index: 10000000;
+  background-color: transparent;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+/* line 77, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-helperLayer *,
+.introjs-helperLayer *:before,
+.introjs-helperLayer *:after {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -ms-box-sizing: content-box;
+  -o-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* line 87, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-helperNumberLayer {
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  z-index: 9999999999 !important;
+  padding: 2px;
+  font-family: Arial, verdana, tahoma;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  background: #ff3019;
+  /* Old browsers */
+  background: -webkit-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff3019), color-stop(100%, #cf0404));
+  /* Chrome,Safari4+ */
+  background: -moz-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+  /* FF3.6+ */
+  background: -ms-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+  /* IE10+ */
+  background: -o-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+  /* Opera 11.10+ */
+  background: linear-gradient(to bottom, #ff3019 0%, #cf0404 100%);
+  /* W3C */
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border: 3px solid white;
+  border-radius: 50%;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3019', endColorstr='#cf0404', GradientType=0);
+  /* IE6-9 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(direction=135, strength=2, color=ff0000);
+  /* IE10 text shadows */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* line 116, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-arrow {
+  border: 5px solid white;
+  content: '';
+  position: absolute;
+}
+
+/* line 121, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-arrow.top {
+  top: -10px;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: white;
+  border-left-color: transparent;
+}
+
+/* line 128, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-arrow.top-right {
+  top: -10px;
+  right: 10px;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: white;
+  border-left-color: transparent;
+}
+
+/* line 136, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-arrow.top-middle {
+  top: -10px;
+  left: 50%;
+  margin-left: -5px;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: white;
+  border-left-color: transparent;
+}
+
+/* line 145, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-arrow.right, div.socialAccountPicker div.introjs-arrow.resume, .introjs-arrow.df-label, .introjs-arrow.dialog-close-button, .introjs-arrow.web-poll-options-button, #web-tweetpoll-wrapper div.introjs-arrow.web-tweetpoll-menu, div.introjs-arrow.tweetPollPublishButton, .web-social-filter > div.introjs-arrow {
+  right: -10px;
+  top: 10px;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: white;
+}
+
+/* line 153, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-arrow.right-bottom {
+  bottom: 10px;
+  right: -10px;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: white;
+}
+
+/* line 161, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-arrow.bottom {
+  bottom: -10px;
+  border-top-color: white;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+
+/* line 168, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-arrow.left, .introjs-arrow.web-folder-wrapper {
+  left: -10px;
+  top: 10px;
+  border-top-color: transparent;
+  border-right-color: white;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+
+/* line 176, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-arrow.left-bottom {
+  left: -10px;
+  bottom: 10px;
+  border-top-color: transparent;
+  border-right-color: white;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+
+/* line 185, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-tooltip {
+  position: absolute;
+  padding: 10px;
+  background-color: white;
+  min-width: 200px;
+  max-width: 300px;
+  border-radius: 3px;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+  -webkit-transition: opacity 0.1s ease-out;
+  -moz-transition: opacity 0.1s ease-out;
+  -ms-transition: opacity 0.1s ease-out;
+  -o-transition: opacity 0.1s ease-out;
+  transition: opacity 0.1s ease-out;
+}
+
+/* line 200, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-tooltipbuttons {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/*
+ Buttons style by http://nicolasgallagher.com/lab/css3-github-buttons/
+ Changed by Afshin Mehrabani
+*/
+/* line 209, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-button {
+  position: relative;
+  overflow: visible;
+  display: inline-block;
+  padding: 0.3em 0.8em;
+  border: 1px solid #d4d4d4;
+  margin: 0;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 #fff;
+  font: 11px/normal sans-serif;
+  color: #333;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  background-color: #ececec;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
+  background-image: -moz-linear-gradient(#f4f4f4, #ececec);
+  background-image: -o-linear-gradient(#f4f4f4, #ececec);
+  background-image: linear-gradient(#f4f4f4, #ececec);
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  -o-background-clip: padding-box;
+  /*background-clip: padding-box;*/
+  /* commented out due to Opera 11.10 bug */
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  /* IE hacks */
+  zoom: 1;
+  *display: inline;
+  margin-top: 10px;
+}
+
+/* line 241, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-button:hover {
+  border-color: #bcbcbc;
+  text-decoration: none;
+  box-shadow: 0px 1px 1px #e3e3e3;
+}
+
+/* line 247, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-button:focus,
+.introjs-button:active {
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ececec), to(#f4f4f4));
+  background-image: -moz-linear-gradient(#ececec, #f4f4f4);
+  background-image: -o-linear-gradient(#ececec, #f4f4f4);
+  background-image: linear-gradient(#ececec, #f4f4f4);
+}
+
+/* overrides extra padding on button elements in Firefox */
+/* line 256, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* line 261, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-skipbutton {
+  margin-right: 5px;
+  color: #7a7a7a;
+}
+
+/* line 266, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-prevbutton {
+  -webkit-border-radius: 0.2em 0 0 0.2em;
+  -moz-border-radius: 0.2em 0 0 0.2em;
+  border-radius: 0.2em 0 0 0.2em;
+  border-right: none;
+}
+
+/* line 273, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-nextbutton {
+  -webkit-border-radius: 0 0.2em 0.2em 0;
+  -moz-border-radius: 0 0.2em 0.2em 0;
+  border-radius: 0 0.2em 0.2em 0;
+}
+
+/* line 279, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-disabled, .introjs-disabled:hover, .introjs-disabled:focus {
+  color: #9a9a9a;
+  border-color: #d4d4d4;
+  box-shadow: none;
+  cursor: default;
+  background-color: #f4f4f4;
+  background-image: none;
+  text-decoration: none;
+}
+
+/* line 289, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-bullets {
+  text-align: center;
+}
+
+/* line 292, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-bullets ul {
+  clear: both;
+  margin: 15px auto 0;
+  padding: 0;
+  display: inline-block;
+}
+
+/* line 298, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-bullets ul li {
+  list-style: none;
+  float: left;
+  margin: 0 2px;
+}
+
+/* line 303, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-bullets ul li a {
+  display: block;
+  width: 6px;
+  height: 6px;
+  background: #ccc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  text-decoration: none;
+}
+
+/* line 313, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-bullets ul li a:hover {
+  background: #999;
+}
+
+/* line 316, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-bullets ul li a.active {
+  background: #999;
+}
+
+/* line 320, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-progress {
+  overflow: hidden;
+  height: 10px;
+  margin: 10px 0 5px 0;
+  border-radius: 4px;
+  background-color: #ecf0f1;
+}
+
+/* line 327, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjs-progressbar {
+  float: left;
+  width: 0%;
+  height: 100%;
+  font-size: 10px;
+  line-height: 10px;
+  text-align: center;
+  background-color: #08c;
+}
+
+/* line 337, ../../../../css/resource/sass/intro/_introjs.scss */
+.introjsFloatingElement {
+  position: absolute;
+  height: 0;
+  width: 0;
+  left: 50%;
+  top: 50%;
+}
+
+/* line 1, ../../../../css/resource/sass/intro/_introjs-rtl.scss */
+.introjs-tooltipbuttons {
+  text-align: left;
+}
+
+/* line 4, ../../../../css/resource/sass/intro/_introjs-rtl.scss */
+.introjs-skipbutton {
+  margin-left: 5px;
+}
+
+/* line 7, ../../../../css/resource/sass/intro/_introjs-rtl.scss */
+.introjs-tooltip {
+  direction: rtl;
+}
+
+/* line 10, ../../../../css/resource/sass/intro/_introjs-rtl.scss */
+.introjs-prevbutton {
+  border: 1px solid #d4d4d4;
+  border-left: none;
+  -webkit-border-radius: 0 0.2em 0.2em 0;
+  -moz-border-radius: 0 0.2em 0.2em 0;
+  border-radius: 0 0.2em 0.2em 0;
+}
+
+/* line 17, ../../../../css/resource/sass/intro/_introjs-rtl.scss */
+.introjs-nextbutton {
+  border: 1px solid #d4d4d4;
+  -webkit-border-radius: 0.2em 0 0 0.2em;
+  -moz-border-radius: 0.2em 0 0 0.2em;
+  border-radius: 0.2em 0 0 0.2em;
+}
+
 /* line 1, ../../../../css/resource/sass/_common.scss */
 a {
   text-decoration: none;
@@ -7444,7 +7882,7 @@ h4.enme, .title-enme {
 }
 
 /* line 177, ../../../../css/resource/sass/_common.scss */
-.text-white, div.web-header span.link a, .text-color, .default-sidebar-menu, .default-sidebar-menu-sub, .suggestBox .suggesItem:hover, div.subHeader, .web-folder-wrapper .web-folder-item:hover, .web-folder-wrapper .web-folder-item span:hover, #web-tweetpoll-wrapper div.web-tweetpoll-menu a, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItemSelected span, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem:hover span, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span:hover, .addAnswers .addNewHashTag, .web-filters-wrapper .dijitRuleMark, .web-social-filter .web-social-filter-counter, .web-social-filter-items .web-social-filter-item .web-social-filter-name, .web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail {
+.text-white, div.web-header span.link a, .text-color, .suggestBox .suggesItem:hover, .default-sidebar-menu, .default-sidebar-menu-sub, div.subHeader, .web-folder-wrapper .web-folder-item:hover, .web-folder-wrapper .web-folder-item span:hover, #web-tweetpoll-wrapper div.web-tweetpoll-menu a, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItemSelected span, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem:hover span, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span:hover, .addAnswers .addNewHashTag, .web-filters-wrapper .dijitRuleMark, .web-social-filter .web-social-filter-counter, .web-social-filter-items .web-social-filter-item .web-social-filter-name, .web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail {
   color: #FFFFFF !important;
 }
 
@@ -7465,7 +7903,7 @@ h4.enme, .title-enme {
 }
 
 /* line 195, ../../../../css/resource/sass/_common.scss */
-.pointer, div.socialAccountPicker .pick, .stats-button, div.yesNoWrapper, .togglePointer, .btn-default:hover, .drop-down-menu-select .drop-down-item, .enme-dropdown-menu-wrapper li.dropdown-item, .pagination, .web-list-more, #web-tweetpoll-wrapper div.web-tweetpoll-menu a, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem:hover, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:hover, .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu .web-list-filter-clean, div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item:hover, div.tweetPollPublishButton .cancel-button, .tp-help .help-option, .web-social-filter-items .web-social-filter-item {
+.pointer, div.socialAccountPicker .pick, .stats-button, .yesNoWrapper, .togglePointer, .btn-default:hover, .drop-down-menu-select .drop-down-item, .enme-dropdown-menu-wrapper li.dropdown-item, .pagination, .web-list-more, #web-tweetpoll-wrapper div.web-tweetpoll-menu a, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem:hover, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:hover, .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu .web-list-filter-clean, div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item:hover, div.tweetPollPublishButton .cancel-button, .tp-help .help-option, .web-social-filter-items .web-social-filter-item {
   cursor: pointer;
 }
 
@@ -8614,11 +9052,11 @@ input:focus {
     opacity: 0;
   }
 }
-/* line 25, ../../../../css/resource/sass/_common_web.scss */
+/* line 27, ../../../../css/resource/sass/_common_web.scss */
 .enme-web-context {
   padding-top: 25px;
 }
-/* line 27, ../../../../css/resource/sass/_common_web.scss */
+/* line 29, ../../../../css/resource/sass/_common_web.scss */
 .enme-web-context .navbar-inner {
   -moz-border-radius: 4px 4px 0px 0px;
   -webkit-border-radius: 4px;
@@ -8626,7 +9064,7 @@ input:focus {
   border-bottom: 0;
 }
 
-/* line 34, ../../../../css/resource/sass/_common_web.scss */
+/* line 36, ../../../../css/resource/sass/_common_web.scss */
 .web-items-no-results {
   color: #918F8F;
   font-weight: 100;
@@ -11885,46 +12323,44 @@ div.web-support-embebed textarea {
 }
 /* line 38, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .add-comment .footer-comments {
-  margin-right: 40px;
-  float: right;
   margin-top: 10px;
   text-align: right;
 }
-/* line 45, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 43, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .add-comment .header-comment .picture {
   float: left;
   text-align: center;
-  width: 90px;
+  width: 60px;
   margin-top: 10px;
   margin-left: 20px;
 }
-/* line 52, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 50, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .add-comment .header-comment .text-form {
   margin-left: 100px;
 }
 
-/* line 58, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 56, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments {
   overflow: auto;
   background-color: #FFFFFF;
 }
-/* line 67, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 65, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper {
   margin: 0;
 }
-/* line 70, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 68, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment {
   clear: both;
   overflow: auto;
   padding: 5px;
   position: relative;
 }
-/* line 77, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 75, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-image {
   float: left;
   width: 45px;
 }
-/* line 83, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 81, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper-no-content {
   clear: both;
   color: #A09F9D;
@@ -11933,12 +12369,12 @@ div.web-support-embebed textarea {
   text-align: center;
   width: auto;
 }
-/* line 92, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 90, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-form {
   margin-top: 10px;
   margin-bottom: 5px;
 }
-/* line 99, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 97, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data {
   float: left;
   height: auto;
@@ -11946,43 +12382,43 @@ div.web-support-embebed textarea {
   padding: 10px;
   width: 95%;
 }
-/* line 107, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 105, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment:hover {
   box-shadow: 0 1px 2px #CCC;
   background-color: #F8F8F8;
   border: 1px solid #EFEFEF;
   cursor: pointer;
 }
-/* line 115, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 113, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data .comment-info-data {
   font-size: 0.9em;
   font-weight: bold;
   padding: 1px;
 }
-/* line 121, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 119, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data .comment-info-data .date {
   margin-left: 10px;
 }
-/* line 125, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 123, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data .comment-info-data .date a {
   color: black;
   text-decoration: none;
 }
-/* line 130, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 128, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment a {
   color: #070691;
   font-weight: 500;
 }
-/* line 135, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 133, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data .comment-date a {
   color: #A3A3A3;
   font-size: 10px;
 }
-/* line 140, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 138, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data .comment-body {
   padding: 3px;
 }
-/* line 145, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
+/* line 143, ../../../../css/resource/sass/shared-components/_detail-comments.scss */
 .comments .comment-wrapper .comment .comment-data .comment-body p {
   margin: 5px 0;
 }

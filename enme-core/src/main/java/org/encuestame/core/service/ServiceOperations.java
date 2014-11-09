@@ -21,18 +21,6 @@ package org.encuestame.core.service;
  */
 public interface ServiceOperations{
 
-//    /**
-//     * Getter.
-//     * @return {@link MessageSourceFactoryBean}
-//     */
-//    public MessageSource getMessageSource();
-//
-//    /**
-//     * Setter.
-//     * @param messageSource {@link MessageSourceFactoryBean}
-//     */
-//    public void setMessageSource(MessageSource messageSource);
-
     /**
      * Getter by propertie Id.
      * @param propertieId propertieId

@@ -25,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.core.security.SecurityUtils;
-import org.encuestame.core.service.MailService;
 import org.encuestame.core.service.imp.MailServiceOperations;
+import org.encuestame.core.service.startup.MailService;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.dao.INotification;
@@ -78,7 +78,6 @@ public abstract class AbstractJsonControllerV1 extends AbstractBaseOperations{
     /**
      *  {@link MailService}.
      */
-    //@Resource()    
     private MailServiceOperations mailService;
 
     /**
@@ -385,8 +384,7 @@ public abstract class AbstractJsonControllerV1 extends AbstractBaseOperations{
 
     /**
      * @return the mailServiceOperations
-     */    
-    @Autowired
+     */
     public MailServiceOperations getMailService() {
         return mailService;
     }
@@ -394,6 +392,7 @@ public abstract class AbstractJsonControllerV1 extends AbstractBaseOperations{
     /**
      * @param mailServiceOperations the mailServiceOperations to set
      */
+    @Autowired
     public void setMailService(final MailServiceOperations mailServiceOperations) {
         this.mailService = mailServiceOperations;
     }

@@ -975,11 +975,16 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         log.debug("updating accoutn profile :" + property + " whith value "
                 + value);
         final UserAccount account = getUserAccount(getUserPrincipalUsername());
-        if (Profile.USERNAME.equals(property)) {
+       if (Profile.USERNAME.equals(property)) {
             account.setUsername(value.trim());
             //TODO: we need update authorities
-        } else if (Profile.EMAIL.equals(property)) {
+       } else if (Profile.EMAIL.equals(property)) {
             account.setUserEmail(value.trim());
+       } else if (Profile.WELCOME.equals(property)) {
+           account.setWelcomePage(Boolean.TRUE);
+       } else if (Profile.PAGE_INFO.equals(property)) {
+           // save the opossite that already had saved previously
+           account.setHelpLinks(!account.getHelpLinks());
        } else if (Profile.PICTURE.equals(property)) {
            PictureSource picture = PictureSource.findPictureSource(value);
            if (picture != null) {

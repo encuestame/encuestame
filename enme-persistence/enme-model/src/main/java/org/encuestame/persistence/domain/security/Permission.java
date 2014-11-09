@@ -41,16 +41,16 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "permission")
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+//@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Permission implements Serializable{
 
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7022618496782629901L;
-	
-	private Long idPermission;
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7022618496782629901L;
+
+    private Long idPermission;
     private EnMePermission permission;
     private String permissionDescription;
     private Set<Group> groups = new HashSet<Group>();

@@ -48,7 +48,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Indexed(index="HashTag")
 @Table(name = "hash_tags")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class HashTag {
 
     /** Hash Tag Id. **/

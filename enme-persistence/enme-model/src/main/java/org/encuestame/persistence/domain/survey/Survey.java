@@ -50,7 +50,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Indexed(index="Survey")
 @Table(name = "surveys")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Survey extends AbstractSurvey {
 
     /****/
@@ -87,7 +87,7 @@ public class Survey extends AbstractSurvey {
 
      /** Survey slug name**/
      private String surveySlugName;
-     
+
      /**
       * Hash Tags.
       **/
@@ -249,7 +249,7 @@ public class Survey extends AbstractSurvey {
     public void setSurveySlugName(final String surveySlugName) {
         this.surveySlugName = surveySlugName;
     }
-    
+
     /**
      * @return the hashTags
      */

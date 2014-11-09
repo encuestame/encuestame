@@ -257,9 +257,9 @@ public class SearchUtils {
         final Directory directory = directoryStore.getDirectory();
         log.debug("Get Directory ----------" + directory.toString());
         if (indexWriter != null){
-        indexWriter.close();
+            indexWriter.close();
         }
-        log.debug("Index Directory is locked?  ----------> " + indexWriter.isLocked(directory));
+        //log.debug("Index Directory is locked?  ----------> " + indexWriter.isLocked(directory));
         indexWriter = new IndexWriter(directory, new StandardAnalyzer(
                 SearchUtils.LUCENE_VERSION), true,
                 IndexWriter.MaxFieldLength.UNLIMITED);

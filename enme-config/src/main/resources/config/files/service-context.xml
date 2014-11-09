@@ -8,28 +8,20 @@
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
   <!-- Scans for application @Components to deploy -->
-  <context:component-scan base-package="org.encuestame.business.service" />
+<!--   <context:component-scan base-package="org.encuestame.business.service" />
   <context:component-scan base-package="org.encuestame.business.setup" />
   <context:component-scan base-package="org.encuestame.core.service" />
-  <context:component-scan base-package="org.encuestame.social.connect.service" />
+  <context:component-scan base-package="org.encuestame.social.connect.service" /> -->
 
   <!-- Social Support -->
   <!-- <import resource="encuestame-service-social-context.xml"/> -->
 
- <!-- Message Resources -->
-    <bean id="messageSource"
-        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-         <property name="basename" value="/WEB-INF/messages/messages" />
-          <property name="defaultEncoding" value="UTF-8"/>
-          <property name="cacheSeconds" value="1"/>
-    </bean>
-
     <!-- Startup Support -->
-    <bean id="install" class="org.encuestame.business.setup.install.DatabaseInstall"
+    <!-- <bean id="install" class="org.encuestame.business.setup.install.DatabaseInstall"
+        scope="singleton" /> -->
+    <!-- <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup"
         scope="singleton" />
-    <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup"
-        scope="singleton" />
-
+ -->
     <!--  Gadget Support -->
     <bean id="gadgetLoader" init-method="load" class="org.encuestame.business.gadgets.GadgetsLoader" scope="singleton">
        <property name="gadgets">
