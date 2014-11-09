@@ -16,6 +16,11 @@
     <div class="alert">
         <spring:message code="setup.step2.waring.database"></spring:message>
     </div>
+    <div class="alert alert-info">
+        <a target="_blank" href="http://encuestame.org/wiki/display/DOC/Installation+commons+errors">
+            http://encuestame.org/wiki/display/DOC/Installation+commons+errors
+        </a>
+    </div>
     <div>
         <form:form method="post">
             <div class="default-rigth-aling">

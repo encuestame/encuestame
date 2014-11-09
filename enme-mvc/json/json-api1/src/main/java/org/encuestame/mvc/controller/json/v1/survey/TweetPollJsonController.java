@@ -192,7 +192,7 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
             @RequestParam(value = "id", required = true) final Long tweetPollId,
             @RequestParam(value = "answer", required = false) final String answer,
             @RequestParam(value = "answerId", required = false) final Long answerId,
-            @RequestParam(value = "shortUrl", required = false) final String shortUrl,
+            @RequestParam(value = "shortUrl", required = false) String shortUrl,
             @PathVariable final String type,
             HttpServletRequest request,
             HttpServletResponse response)
@@ -209,10 +209,13 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
             if(!tweetPoll.getPublishTweetPoll()){
             log.debug("action ANSWER--->"+type);
             if ("add".equals(type)) {
-                if((answer.isEmpty()) || (answer == null)){
+                if ((answer.isEmpty()) || (answer == null)) {
                        throw new EnmeFailOperation("Answer can not valid");
                 } else {
                      final QuestionAnswerBean answerBean = new QuestionAnswerBean(answer);
+                     if (shortUrl == null || shortUrl.isEmpty()) {
+                         shortUrl = EnMePlaceHolderConfigurer.getProperty("short.default");
+                     }
                      answerBean.setShortUrlType(ShortUrlProvider.get(shortUrl));
                      log.debug("new answer bean:{ "+answerBean.toString());
                      final TweetPollSwitch tweetPollSwitch = getTweetPollService()
@@ -427,8 +430,8 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
                 setItemResponse(jsonResponse);
                 //create notification for each TweetPollSavedPublished
                 for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : results) {
-                	getTweetPollService().createTweetPollNotification(tweetPollSavedPublishedStatus);
-				}
+                    getTweetPollService().createTweetPollNotification(tweetPollSavedPublishedStatus);
+                }
 
             }
         } catch (Exception e) {
@@ -524,14 +527,14 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
             url = filterValue(url);
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             if (InternetUtils.validateUrl(url)) {
-	            if ("google".equals(type)) {
-	                jsonResponse.put("url", SocialUtils.getGoGl(url, EnMePlaceHolderConfigurer.getProperty("short.google.key")));
-	            } else if ("tinyurl".equals(type)){
-	                jsonResponse.put("url", SocialUtils.getTinyUrl(url));
-	            } else if ("yourls".equals(type)){
-	            	jsonResponse.put("url", SocialUtils.getYourls(url));
-	            }
-	            setItemResponse(jsonResponse);
+                if ("google".equals(type)) {
+                    jsonResponse.put("url", SocialUtils.getGoGl(url, EnMePlaceHolderConfigurer.getProperty("short.google.key")));
+                } else if ("tinyurl".equals(type)){
+                    jsonResponse.put("url", SocialUtils.getTinyUrl(url));
+                } else if ("yourls".equals(type)){
+                    jsonResponse.put("url", SocialUtils.getYourls(url));
+                }
+                setItemResponse(jsonResponse);
             } else {
                 setError("url malformed", response);
             }
@@ -551,21 +554,21 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
      * @throws JsonMappingException
      * @throws IOException
      */
-	@RequestMapping(value = "/api/survey/tweetpoll/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody
-	ModelMap getRemoveTweet(
-			@PathVariable Long id,
-			HttpServletRequest request, HttpServletResponse response)
-			throws JsonGenerationException, JsonMappingException, IOException {
-		try {
-		final TweetPoll tpoll = getTweetPollService().getTweetPollById(id);
-			getTweetPollService().removeTweetPoll(tpoll);
-			setSuccesResponse();
-		} catch (Exception e) {
-			setError(e.getMessage(), response);
-		}
-		return returnData();
-	}
+    @RequestMapping(value = "/api/survey/tweetpoll/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    ModelMap getRemoveTweet(
+            @PathVariable Long id,
+            HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+        final TweetPoll tpoll = getTweetPollService().getTweetPollById(id);
+            getTweetPollService().removeTweetPoll(tpoll);
+            setSuccesResponse();
+        } catch (Exception e) {
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 }
 
 /**

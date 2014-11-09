@@ -26,8 +26,8 @@ import org.springframework.stereotype.Service;
  * @author Picado, Juan juanATencuestame.org
  * @since 12/05/2009 9:17:43
  */
-
-public class MessageSourceFactoryBean implements MessageSource {
+@Service
+public class MessageSourceFactoryBean  implements MessageSource{
 
     /**
      * Log.
@@ -37,22 +37,21 @@ public class MessageSourceFactoryBean implements MessageSource {
     /**
      *
      */
-    @Autowired
     private MessageSource messageSource;
-    
+
     /**
-     * 
+     *
      */
     public MessageSourceFactoryBean() {}
 
     /**
-     * 
+     *
      * @param messageSource
      */
     public MessageSourceFactoryBean(MessageSource messageSource) {
-		super();
-		this.messageSource = messageSource;
-	}
+        super();
+        this.messageSource = messageSource;
+    }
 
 
     /**
@@ -105,19 +104,20 @@ public class MessageSourceFactoryBean implements MessageSource {
     }
 
     /**
-     * 
+     *
      * @return
      */
-	public MessageSource getMessageSource() {
-		return messageSource;
-	}
-	
-	/**
-	 * 
-	 * @param messageSource
-	 */
-	public void setMessageSource(MessageSource messageSource) {
-		this.messageSource = messageSource;
-	}
-    
+    public MessageSource getMessageSource() {
+        return messageSource;
+    }
+
+    /**
+     *
+     * @param messageSource
+     */
+    @Autowired
+    public void setMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
 }

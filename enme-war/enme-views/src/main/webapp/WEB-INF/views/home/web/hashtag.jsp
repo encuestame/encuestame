@@ -42,25 +42,25 @@
 
          <div class="span9 web-wrapper-ddetail web-dht-detail-wrapper">
              <article class="emne-box">
-                  <h3>
+                  <h5>
                     <spring:message code="home.hashtag.lastpub" />
-                  </h3>
+                  </h5>
                   <div class="web-pup-wrapper">
                   <c:forEach items="${tweetPolls}" var="item">
                       <%@ include file="detail_item.jsp"%>
                   </c:forEach>
                   <c:if test="${empty tweetPolls}">
-                      <h3>
+                      <h5>
                          <spring:message code="home.hashtag.nolink" />
-                      </h3>
+                      </h5>
                   </c:if>
                   </div>
               </article>
 
                <article class="emne-box">
-                       <h3>
+                       <h5>
                           <spring:message code="home.hashtag.tweets" />
-                       </h3>
+                       </h5>
                   <section>
                        <div data-dojo-type="me/web/widget/social/LinksPublished"
                             channel="/encuestame/hashtag/time/range/refresh/graph"
@@ -76,9 +76,9 @@
           <div class="span3 aside">
               <aside class="web-ht-wrapper-top web-wrapper-detail">
                   <article class="emne-box">
-                       <h3>
+                       <h5>
                          <spring:message code="home.hashtag.position" />
-                       </h3>
+                       </h5>
                        <section data-dojo-type="me/web/widget/stats/RatePosition"
                             tagName="${tagName.hashTagName}"
                             channel="/encuestame/hashtag/time/range/refresh/graph"
@@ -87,9 +87,9 @@
                        </section>
                   </article>
                   <article class="emne-box">
-                       <h3>
+                       <h5>
                           <spring:message code="home.hashtag.profile" />
-                       </h3>
+                       </h5>
                        <div data-dojo-type="me/web/widget/stats/TopProfiles"
                             hasthag="${tagName.hashTagName}"
                             channel="/encuestame/hashtag/time/range/refresh/graph"

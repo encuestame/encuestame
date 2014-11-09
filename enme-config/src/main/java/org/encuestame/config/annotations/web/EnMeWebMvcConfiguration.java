@@ -1,81 +1,221 @@
-package org.encuestame.config.annotations;
+package org.encuestame.config.annotations.web;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import org.encuestame.business.images.ImageThumbnailGeneratorImpl;
-import org.encuestame.business.images.ThumbnailGenerator;
-import org.encuestame.business.images.ThumbnailGeneratorEngineImpl;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.service.MessageSourceFactoryBean;
-import org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter;
+import org.encuestame.business.cron.PublishScheduled;
+import org.encuestame.business.cron.RemoveSpamCommentsJob;
+import org.encuestame.business.cron.RemoveUnconfirmedAccountJob;
+import org.encuestame.business.cron.SendNotificationsJob;
+import org.encuestame.business.search.IndexFSDirectory;
+import org.encuestame.business.search.IndexWriterManager;
+import org.encuestame.business.search.IndexerManager;
+import org.encuestame.business.search.ReIndexAttachmentsJob;
+import org.encuestame.business.search.SearchAttachmentManager;
+import org.encuestame.core.cron.CalculateHashTagSize;
+import org.encuestame.core.cron.CalculateRelevance;
+import org.encuestame.core.cron.IndexRebuilder;
+import org.encuestame.core.cron.ReIndexJob;
 import org.encuestame.mvc.interceptor.CheckInstallInterceptor;
-import org.encuestame.mvc.interceptor.EnMeMobileInterceptor;
-import org.encuestame.mvc.interceptor.EnMeSecurityInterceptor;
-import org.encuestame.mvc.interceptor.Messagei18nInterceptor;
-import org.encuestame.mvc.interceptor.SetupInterceptor;
-import org.encuestame.mvc.interceptor.SignInInterceptor;
-import org.hibernate.SessionFactory;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.format.FormatterRegistry;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.ByteArrayHttpMessageConverter;
-import org.springframework.http.converter.FormHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.http.converter.xml.SourceHttpMessageConverter;
-import org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.util.Assert;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-import org.springframework.web.servlet.mvc.WebContentInterceptor;
-import org.springframework.web.servlet.view.BeanNameViewResolver;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
-import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
-import org.springframework.web.servlet.view.tiles3.TilesView;
 
 
 //@EnableWebMvc
 @Configuration
-@ImportResource({"classpath:/config/files/mvc-context.xml"})
-public class EnMeMVC extends WebMvcConfigurerAdapter {
-	
+@EnableScheduling
+@ComponentScan(basePackages = "org.encuestame")
+@EnableAsync
+@ImportResource({
+    "classpath:/config/files/mvc-context.xml",
+    "classpath:/config/files/web-flow-context.xml",
+    "classpath:/config/files/websocket-context.xml"
+    })
+public class EnMeWebMvcConfiguration extends WebMvcConfigurerAdapter {
+
 
 //	/**
-//	 * 
+//	 *
 //	 */
 //	@Autowired
 //	private OpenSessionInViewInterceptor openSessionInViewInterceptor;
-//	
+//
 //	@Autowired
 //	private EnMeMobileInterceptor enMeMobileInterceptor;
-//	
+//
+
+
+   /**
+     *
+     */
+    @Autowired(required=true)
+    private IndexFSDirectory indexFSDirectory;
+
+    /**
+     *
+     * @return
+     * @throws EnMeExpcetion
+     */
+    @Scope("singleton")
+    @Bean(name = "indexWriter", initMethod="openIndexWriter", destroyMethod="closeIndexWriter")
+    public  IndexWriterManager indexWriterManager() throws EnMeExpcetion {
+        final IndexWriterManager searchAttachmentManager = new IndexWriterManager();
+        Assert.notNull(this.indexFSDirectory, "Index FSD Directory is null");
+        searchAttachmentManager.setDirectoryStore(this.indexFSDirectory);
+        return searchAttachmentManager;
+    }
+
+    /**
+     *
+     * @return
+     * @throws EnMeExpcetion
+     */
+    @Scope("singleton")
+    @Bean(name = "searchManager")
+    public  SearchAttachmentManager searchAttachmentManager() throws EnMeExpcetion {
+        final SearchAttachmentManager searchAttachmentManager = new SearchAttachmentManager();
+        searchAttachmentManager.setDirectoryIndexStore(this.indexFSDirectory);
+        return searchAttachmentManager;
+    }
+
+    /**
+     *
+     * @return
+     * @throws EnMeExpcetion
+     */
+    @Scope("singleton")
+    public @Bean(name = "indexerManager") IndexerManager indexerManager() throws EnMeExpcetion {
+        final IndexerManager indexerManager = new IndexerManager();
+        final java.util.List<String> list = new ArrayList<String>();
+        list.add("docx");
+        list.add("pdf");
+        list.add("xls");
+        list.add("txt");
+        indexerManager.setExtensionFilesAllowed(list);
+        return indexerManager;
+    }
+
+
+    /**
+     *
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public @Bean(name = "reindexAttachmentJob")
+    ReIndexAttachmentsJob reIndexAttachmentsJob() throws EnMeExpcetion {
+        return new ReIndexAttachmentsJob();
+    }
+
+    /**
+     *
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public @Bean(name = "sendNotificationsJob")
+    SendNotificationsJob sendNotificationsJob() throws EnMeExpcetion {
+        return new SendNotificationsJob();
+    }
+
+    /**
+     *
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public @Bean(name = "calculateHashTagSize")
+    CalculateHashTagSize calculateHashTagSize() throws EnMeExpcetion {
+        return new CalculateHashTagSize();
+    }
+
+    /**
+     *
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public @Bean(name = "calculateRelevance")
+    CalculateRelevance calculateRelevance() throws EnMeExpcetion {
+        return new CalculateRelevance();
+    }
+
+    /**
+     *
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public @Bean(name = "removeAccountJob")
+    RemoveUnconfirmedAccountJob removeUnconfirmedAccountJob()
+            throws EnMeExpcetion {
+        return new RemoveUnconfirmedAccountJob();
+    }
+
+    /**
+     *
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public @Bean(name = "removeSpamCommentJob")
+    RemoveSpamCommentsJob removeSpamCommentsJob() throws EnMeExpcetion {
+        return new RemoveSpamCommentsJob();
+    }
+
+    /**
+     *
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public @Bean(name = "publishScheduled")
+    PublishScheduled publishScheduled() throws EnMeExpcetion {
+        return new PublishScheduled();
+    }
+
     /**
     *
+    * @return
     */
-   @Autowired
-   private MessageSource messageSource;
+   public @Bean(name="checkInstallInterceptor") CheckInstallInterceptor checkInstallInterceptor(){
+       return new CheckInstallInterceptor();
+   }
+
+    /**
+     *
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public @Bean(name = "reindexJob")
+    ReIndexJob reIndexJob() throws EnMeExpcetion {
+        ReIndexJob indexJob = new ReIndexJob();
+        indexJob.setIndexRebuilder(new IndexRebuilder());
+        return indexJob;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public IndexFSDirectory getIndexFSDirectory() {
+        return indexFSDirectory;
+    }
+
+    /**
+     *
+     * @param indexFSDirectory
+     */
+    public void setIndexFSDirectory(IndexFSDirectory indexFSDirectory) {
+        this.indexFSDirectory = indexFSDirectory;
+    }
+
 //
-//	
+//
 //	@Autowired
 //	private CheckInstallInterceptor checkInstallInterceptor;
-//	
+//
 //	@Autowired
 //	private EnMeSecurityInterceptor enMeSecurityInterceptor;
 //
@@ -87,18 +227,18 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 //    }
-//	
+//
 //	/*
 //	 * (non-Javadoc)
 //	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#addViewControllers(org.springframework.web.servlet.config.annotation.ViewControllerRegistry)
 //	 */
 //	@Override
-//	public void addViewControllers(ViewControllerRegistry registry) { 
+//	public void addViewControllers(ViewControllerRegistry registry) {
 //		registry.addViewController("/").setViewName("home");
-//	}	
-//		
+//	}
+//
 //	/**
-//	 * 
+//	 *
 //	 * @return
 //	 */
 //	private WebContentInterceptor getWebContentInterceptor(){
@@ -109,7 +249,7 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 //		contentInterceptor.setUseCacheControlNoStore(Boolean.valueOf(EnMePlaceHolderConfigurer.getProperty("ache.useCacheControlNoStore")));
 //		return contentInterceptor;
 //	}
-//	
+//
 //	/*
 //	 * (non-Javadoc)
 //	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry)
@@ -121,10 +261,10 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 //		registry.addInterceptor(new SetupInterceptor()).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
 //		registry.addInterceptor(new SignInInterceptor()).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
 //		registry.addInterceptor(this.checkInstallInterceptor).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
-//		registry.addInterceptor(getWebContentInterceptor()).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;		
+//		registry.addInterceptor(getWebContentInterceptor()).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");;
 //		registry.addWebRequestInterceptor(openSessionInViewInterceptor).excludePathPatterns("/resource/**").excludePathPatterns("/resources/**");
-//	}	
-//	
+//	}
+//
 //	/*
 //	 * (non-Javadoc)
 //	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#configureMessageConverters(java.util.List)
@@ -137,9 +277,9 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 //		final List<MediaType> supportedMediaTypes = new ArrayList<MediaType>();
 //		supportedMediaTypes.add(MediaType.IMAGE_JPEG);
 //		arrayHttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes);
-//			
+//
 //		//json
-//		final MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();		
+//		final MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
 //		final List<MediaType> jsonSupportedMediaTypes = new ArrayList<MediaType>();
 //		jsonSupportedMediaTypes.add(MediaType.APPLICATION_JSON);
 //		jackson2HttpMessageConverter.setSupportedMediaTypes(jsonSupportedMediaTypes);
@@ -148,24 +288,24 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 //		//converters
 //		converters.add(arrayHttpMessageConverter);
 //		converters.add(new StringHttpMessageConverter());
-//		converters.add(new FormHttpMessageConverter());		
+//		converters.add(new FormHttpMessageConverter());
 //		converters.add(new SourceHttpMessageConverter());
-//		converters.add(new EnhancedBufferedImageHttpMessageConverter());	
+//		converters.add(new EnhancedBufferedImageHttpMessageConverter());
 //		converters.add(jackson2HttpMessageConverter);
 //	}
-//	
-//	
+//
+//
 // 	@Override
 // 	public void addFormatters(FormatterRegistry formatterRegistry) {
 // 		//formatterRegistry.addConverter(new MyConverter());
 // 	}
-// 	
-//	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {		
-//		
+//
+//	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+//
 //	}
-// 	
+//
 // 	/**
-// 	 * 
+// 	 *
 // 	 * @return
 // 	 */
 // 	@Bean(name="tilesResolver")
@@ -174,9 +314,9 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 //		viewResolver.setViewClass(TilesView.class);
 //		return viewResolver;
 //	}
-//	
+//
 // 	/**
-// 	 * 
+// 	 *
 // 	 * @return
 // 	 */
 //// 	public @Bean(name="tilesResolver") TilesViewResolver tilesViewResolver() {
@@ -184,7 +324,7 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 ////    }
 //
 // 	/**
-// 	 * 
+// 	 *
 // 	 * @return
 // 	 */
 //    public @Bean(name="tilesConfigurer") TilesConfigurer tilesConfigurer() {
@@ -193,9 +333,9 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 //        ret.setDefinitions(new String[] { "/WEB-INF/layouts/tiles.xml,/WEB-INF/views/**/tiles.xml" });
 //        return ret;
 //    }
-//        
+//
 //    /**
-//     * 
+//     *
 //     * @return
 //     */
 //    public @Bean(name="multipartResolver") CommonsMultipartResolver setMultiPart(){
@@ -203,18 +343,18 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 //    		commonsMultipartResolver.setMaxUploadSize(Integer.valueOf(EnMePlaceHolderConfigurer.getProperty("application.file.upload.limit")));
 //    		return commonsMultipartResolver;
 //    }
-// 	
+//
 //    /**
-//     * 
+//     *
 //     * @return
 //     */
 //    public @Bean(name="beanNameViewResolver") BeanNameViewResolver beanNameViewResolver(){
-//    	final BeanNameViewResolver beanNameViewResolver = new BeanNameViewResolver();    
+//    	final BeanNameViewResolver beanNameViewResolver = new BeanNameViewResolver();
 //    	return beanNameViewResolver;
 //    }
 //
 //    /**
-//     * 
+//     *
 //     * @return
 //     */
 //    public @Bean(name="localeResolver") CookieLocaleResolver cookieLocaleResolver(){
@@ -223,22 +363,19 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 //    		cookieLocaleResolver.setCookieMaxAge(30);
 //    		return cookieLocaleResolver;
 //    }
-//    
+//
 //    /**
-//     * 
+//     *
 //     * @return
 //     */
 //    public @Bean(name="jsonView") MappingJackson2JsonView jsonView(){
 //    	return new MappingJackson2JsonView();
 //    }
-//    
-    @Lazy
-    public @Bean(name="messageSourceFactoryBean") MessageSourceFactoryBean messageSourceFactoryBean(){
-    	return new MessageSourceFactoryBean(this.messageSource);
-    }
-//    
+//
+
+//
 //    /**
-//     * 
+//     *
 //     * @return
 //     */
 //    public @Bean(name="thumbnailGeneratorEngine") ThumbnailGeneratorEngineImpl generatorEngineImpl(){
@@ -263,7 +400,7 @@ public class EnMeMVC extends WebMvcConfigurerAdapter {
 //    	map.put("image/bmp", generatorImpl);
 //    	thumbnailGeneratorEngineImpl.setThumbnailGenerators(map);
 //    	thumbnailGeneratorEngineImpl.setDefaultThumbnailGenerator(generatorImpl);
-//		return thumbnailGeneratorEngineImpl;    	
+//		return thumbnailGeneratorEngineImpl;
 //    }
-//   
+//
 }

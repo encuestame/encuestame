@@ -208,6 +208,23 @@ public class HomeController extends AbstractViewController {
             return "question/detail";
     }
 
+
+    @RequestMapping(value = "/user/welcome", method = RequestMethod.GET)
+    public String welcome(
+            final ModelMap model,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+
+            final Boolean welcome = true;
+            if (welcome) {
+                request.setAttribute("hide_header_menu", true);
+                return "user/welcome";
+            } else {
+                return "redirect:/user/dashboard";
+            }
+
+    }
+
     /**
      *
      * @param model

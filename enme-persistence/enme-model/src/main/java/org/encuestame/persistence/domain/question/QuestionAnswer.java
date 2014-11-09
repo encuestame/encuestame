@@ -46,7 +46,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Table(name = "questions_answers")
 @Indexed(index="QuestionAnswer")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class QuestionAnswer {
 
     /** questionAnswerId. **/

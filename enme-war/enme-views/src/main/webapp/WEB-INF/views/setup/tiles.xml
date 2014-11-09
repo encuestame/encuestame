@@ -31,6 +31,13 @@
         <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
     </definition>
 
+    <definition name="check-fail" extends="setup-page">
+        <put-attribute name="header" expression="/WEB-INF/layouts/standard/setup/header.jsp" />
+        <put-attribute name="title" value="Fail Check Installation | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/fail-check.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
+    </definition>
+
     <definition name="demo-install" extends="setup-page">
         <put-attribute name="header" expression="/WEB-INF/layouts/standard/setup/header.jsp" />
         <put-attribute name="title" value="Demo Install Data | encuestame" />

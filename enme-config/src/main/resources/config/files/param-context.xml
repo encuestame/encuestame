@@ -11,13 +11,19 @@
     <property name="locations">
         <list>
           <value>classpath:/org/encuestame/core/config/encuestame-config.properties</value>
-          <!-- Email configuration moved to email config properties -->
-          <!-- <value>classpath:email-config.properties</value> -->
           <value>classpath:encuestame-config-custom.properties</value>
           <value>classpath:/org/encuestame/core/config/version.properties</value>
         </list>
     </property>
   </bean>
+
+   <!-- Message Resources -->
+    <bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+         <property name="basename" value="/WEB-INF/messages/messages" />
+          <property name="defaultEncoding" value="UTF-8"/>
+          <property name="cacheSeconds" value="1"/>
+    </bean>
 
    <!--  <bean id="log4jInitializer"
         class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">

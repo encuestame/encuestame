@@ -12,12 +12,20 @@
             <evaluate expression="setupService.checkStatus()" result="flowScope.status"></evaluate>
         </on-entry>
         <transition on="upgrade-submit" to="upgrade-setup" />
-        <transition on="install-submit" to="install-setup" />
+        <transition on="check-submit" to="check-status" />
     </view-state>
 
     <view-state id="upgrade-setup">
         <transition on="next" to="dashboard" history="discard" />
     </view-state>
+
+    <action-state id="check-status">
+        <evaluate expression="setupService.preCheckSetup()"></evaluate>
+        <transition on="yes" to="install-setup" />
+        <transition on="no" to="check-fail" />
+    </action-state>
+
+    <view-state id="check-fail"></view-state>
 
     <view-state id="install-setup">
         <on-entry>

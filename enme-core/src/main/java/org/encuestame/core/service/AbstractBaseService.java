@@ -31,6 +31,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.MailServiceOperations;
+import org.encuestame.core.service.startup.DirectorySetupOperations;
+import org.encuestame.core.service.startup.MailService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
@@ -86,13 +88,11 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     /**
      * {@link MessageSourceFactoryBean}.
      */
-    @Autowired
     private MessageSourceFactoryBean messageSourceFactoryBean;
 
     /**
      *  {@link MailService}.
      */
-    @Resource()
     private MailServiceOperations mailService;
 
     /**
@@ -438,6 +438,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * Setter.
      * @param messageSource {@link MessageSourceFactoryBean}
      */
+    @Autowired
     public void setMessageSourceFactoryBean(final MessageSourceFactoryBean messageSourceFactoryBean) {
         this.messageSourceFactoryBean = messageSourceFactoryBean;
     }
@@ -775,7 +776,6 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     /**
      * @return the mailServiceOperations
      */
-    @Autowired
     public MailServiceOperations getMailService() {
         return mailService;
     }
@@ -783,6 +783,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     /**
      * @param mailServiceOperations the mailServiceOperations to set
      */
+    @Resource(name= "mailService")
     public void setMailService(final MailServiceOperations mailServiceOperations) {
         this.mailService = mailServiceOperations;
     }
@@ -848,15 +849,15 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     }
 
     public HashTagDetailStats createHastagItemDetailGraph(final String label,
-			final Long value, final String subLabel, final Long milisec, final DateTime dateTimeLabel) {
-		final HashTagDetailStats tagDetails = new HashTagDetailStats();
-		tagDetails.setLabel(label);
-		tagDetails.setValue(value);
-		tagDetails.setSubLabel(subLabel);
-		tagDetails.setMilisecondsDate(milisec);
-		tagDetails.setDateValue(dateTimeLabel);
-		return tagDetails;
-	}
+            final Long value, final String subLabel, final Long milisec, final DateTime dateTimeLabel) {
+        final HashTagDetailStats tagDetails = new HashTagDetailStats();
+        tagDetails.setLabel(label);
+        tagDetails.setValue(value);
+        tagDetails.setSubLabel(subLabel);
+        tagDetails.setMilisecondsDate(milisec);
+        tagDetails.setDateValue(dateTimeLabel);
+        return tagDetails;
+    }
 
 
 }

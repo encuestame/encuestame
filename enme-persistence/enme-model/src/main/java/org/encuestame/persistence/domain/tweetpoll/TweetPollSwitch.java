@@ -41,7 +41,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "tweetpoll_switch")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TweetPollSwitch {
 
     /**
@@ -73,7 +73,7 @@ public class TweetPollSwitch {
      * Short URL.
      */
     private String shortUrl;
-    
+
     /**
      * The relative time.
      */
@@ -178,25 +178,25 @@ public class TweetPollSwitch {
     public void setDateUpdated(Date dateUpdated) {
         this.dateUpdated = dateUpdated;
     }
-    
-    
+
+
 
     /**
-	 * @return the relativeUrl
-	 */
+     * @return the relativeUrl
+     */
     @Column(name = "relative_url", nullable = true, length = 400)
-	public String getRelativeUrl() {
-		return relativeUrl;
-	}
+    public String getRelativeUrl() {
+        return relativeUrl;
+    }
 
-	/**
-	 * @param relativeUrl the relativeUrl to set
-	 */
-	public void setRelativeUrl(final String relativeUrl) {
-		this.relativeUrl = relativeUrl;
-	}
+    /**
+     * @param relativeUrl the relativeUrl to set
+     */
+    public void setRelativeUrl(final String relativeUrl) {
+        this.relativeUrl = relativeUrl;
+    }
 
-	/* (non-Javadoc)
+    /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override

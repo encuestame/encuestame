@@ -12,19 +12,20 @@
       </a>
       <div class="nav-collapse collapse">
           <ul class="nav pull-right center-search">
-            <c:if test="${logged}">
+            <c:if test="${logged && !hide_header_menu}">
                <li>
                 <a href="<%=request.getContextPath()%>/home">
                     <spring:message code="header.public.line" /> </a>
                </li>
             </c:if>
-            <c:if test="${logged}">
+            <c:if test="${logged && !hide_header_menu}">
                <li>
                     <a data-dojo-type="me/web/widget/menu/DashBoardMenu"
                        contextPath="<%=request.getContextPath()%>">
                     </a>
                </li>
             </c:if>
+
               <c:if test="${!logged}">
                   <li class="">
                         <a href="<%=request.getContextPath()%>/user/signin">
@@ -32,9 +33,12 @@
                         </a>
                   </li>
               </c:if>
-              <form class="navbar-search pull-left" action="">
-                         <div data-dojo-type="me/web/widget/menu/SearchMenu"></div>
-              </form>
+
+              <c:if test="${!hide_header_menu}">
+                  <form class="navbar-search pull-left" action="">
+                             <div data-dojo-type="me/web/widget/menu/SearchMenu"></div>
+                  </form>
+              </c:if>
             </ul>
         </div>
     </div>

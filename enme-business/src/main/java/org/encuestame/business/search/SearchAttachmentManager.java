@@ -29,7 +29,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.encuestame.core.search.DirectoryIndexStore;
-import org.encuestame.core.service.DirectorySetupOperations;
+import org.encuestame.core.service.startup.DirectorySetupOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 
 /**

@@ -45,8 +45,8 @@ import org.hibernate.search.annotations.Store;
  */
 @Entity
 @Indexed(index="access_rate")
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "access_rate")
 public class AccessRate {
 
