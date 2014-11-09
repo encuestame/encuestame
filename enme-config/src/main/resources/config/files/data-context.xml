@@ -54,6 +54,7 @@
                 <value>org.encuestame.persistence.domain.security.Account</value>
                 <value>org.encuestame.persistence.domain.security.SocialAccount</value>
                 <value>org.encuestame.persistence.domain.security.UserAccount</value>
+                <value>org.encuestame.persistence.domain.security.HelpPage</value>
                 <value>org.encuestame.persistence.domain.survey.Poll</value>
                 <value>org.encuestame.persistence.domain.survey.PollResult</value>
                 <value>org.encuestame.persistence.domain.question.Question</value>
@@ -101,15 +102,9 @@
                 <prop key="hibernate.hbm2ddl.delimiter">${datasource.delimited}</prop>
                 <prop key="hibernate.search.default.directory_provider">${hibernate.search.provider}</prop>
                 <prop key="hibernate.search.default.indexBase">${encuestame.home}/indexes/domain</prop>
-
                 <!-- Check this properties, seems alter results on test cases -->
                 <prop key="hibernate.search.worker.execution">async</prop>
                 <prop key="hibernate.search.worker.buffer_queue.max">100</prop>
-                <!-- Check this properties, seems alter results on test cases -->
-
-                <prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</prop>
-                <prop key="hibernate.cache.use_second_level_cache">true</prop>
-                <prop key="hibernate.cache.use_query_cache">true</prop>
             </props>
         </property>
     </bean>
@@ -148,18 +143,5 @@
     </aop:config>
 
     <!-- This annotation allow declarative transactions.  -->
-    <tx:annotation-driven  transaction-manager="transactionManager"/>    
-
-    <!-- Ehcache Configuration
-
-    <ehcache:annotation-driven />
-
-     <ehcache:config cache-manager="cacheManager">
-        <ehcache:evict-expired-elements interval="60" />
-     </ehcache:config>
-
-    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation"  value="classpath:ehcache.xml"/>
-    </bean>
-    -->
+    <tx:annotation-driven  transaction-manager="transactionManager"/>
 </beans>

@@ -38,7 +38,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Table(name = "survey_section")
 @Indexed(index="SurveySection")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SurveySection {
 
     /** **/
@@ -49,7 +49,7 @@ public class SurveySection {
 
     /** **/
     private Survey survey;
-    
+
     /** **/
     private String sectionName;
 
@@ -101,20 +101,20 @@ public class SurveySection {
         this.survey = survey;
     }
 
-	/**
-	 * @return the sectionName
-	 */
+    /**
+     * @return the sectionName
+     */
     @Column(name = "section_name")
-	public String getSectionName() {
-		return sectionName;
-	}
+    public String getSectionName() {
+        return sectionName;
+    }
 
-	/**
-	 * @param sectionName the sectionName to set
-	 */
-	public void setSectionName(final String sectionName) {
-		this.sectionName = sectionName;
-	} 
+    /**
+     * @param sectionName the sectionName to set
+     */
+    public void setSectionName(final String sectionName) {
+        this.sectionName = sectionName;
+    }
 
     /**
      * @return the questionSection

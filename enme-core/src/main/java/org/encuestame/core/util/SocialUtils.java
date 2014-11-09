@@ -161,9 +161,6 @@ public class SocialUtils {
         params.setConnectionManagerTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
         params.setSoTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
         HttpClient httpclient = new HttpClient(params); //TODO: time out??
-        //httpclient.setConnectionTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
-        //log.debug("tiny url timeout "+EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
-        //httpclient.setParams(params);
         HttpMethod method = new GetMethod(EnMePlaceHolderConfigurer.getProperty("short.yourls.path"));
         method.setQueryString(new NameValuePair[] {
         		new NameValuePair("url", string),

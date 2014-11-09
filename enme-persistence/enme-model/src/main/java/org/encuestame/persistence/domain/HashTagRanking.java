@@ -35,95 +35,95 @@ import org.hibernate.search.annotations.Store;
 
 /**
  * HashTag Ranking history Dao.
- * 
+ *
  * @author Morales Diana Paola, paolaATencuestame.org
  * @since January 11, 2012
  */
 @Entity
 @Indexed(index = "HashTagRanking")
 @Table(name = "hash_tags_ranking")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class HashTagRanking {
 
-	/** **/
-	private Long rankId;
+    /** **/
+    private Long rankId;
 
-	/** {@link HashTag}.**/
-	private HashTag hashTag;
+    /** {@link HashTag}.**/
+    private HashTag hashTag;
 
-	/** **/
-	private Date rankingDate;
+    /** **/
+    private Date rankingDate;
 
-	/** **/
-	private Double average;
- 
+    /** **/
+    private Double average;
 
-	/**
-	 * @return the rankId
-	 */
-	@Id
-	@DocumentId
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "rank_id", unique = true, nullable = false)
-	public Long getRankId() {
-		return rankId;
-	}
 
-	/**
-	 * @param rankId
-	 *            the rankId to set
-	 */
-	public void setRankId(final Long rankId) {
-		this.rankId = rankId;
-	}
+    /**
+     * @return the rankId
+     */
+    @Id
+    @DocumentId
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "rank_id", unique = true, nullable = false)
+    public Long getRankId() {
+        return rankId;
+    }
 
-	/**
-	 * @return the hashTag
-	 */
-	@ManyToOne(cascade = CascadeType.MERGE)
-	public HashTag getHashTag() {
-		return hashTag;
-	}
+    /**
+     * @param rankId
+     *            the rankId to set
+     */
+    public void setRankId(final Long rankId) {
+        this.rankId = rankId;
+    }
 
-	/**
-	 * @param hashTag
-	 *            the hashTag to set
-	 */
-	public void setHashTag(final HashTag hashTag) {
-		this.hashTag = hashTag;
-	}
+    /**
+     * @return the hashTag
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public HashTag getHashTag() {
+        return hashTag;
+    }
 
-	/**
-	 * @return the rankingDate
-	 */
-	@Temporal(TemporalType.DATE)
+    /**
+     * @param hashTag
+     *            the hashTag to set
+     */
+    public void setHashTag(final HashTag hashTag) {
+        this.hashTag = hashTag;
+    }
+
+    /**
+     * @return the rankingDate
+     */
+    @Temporal(TemporalType.DATE)
     @Field(index=Index.TOKENIZED, store=Store.YES)
     @Column(name = "ranking_updated", nullable = true)
-	public Date getRankingDate() {
-		return rankingDate;
-	}
+    public Date getRankingDate() {
+        return rankingDate;
+    }
 
-	/**
-	 * @param rankingDate
-	 *            the rankingDate to set
-	 */
-	public void setRankingDate(final Date rankingDate) {
-		this.rankingDate = rankingDate;
-	}
+    /**
+     * @param rankingDate
+     *            the rankingDate to set
+     */
+    public void setRankingDate(final Date rankingDate) {
+        this.rankingDate = rankingDate;
+    }
 
-	/**
-	 * @return the average
-	 */
-	@Column(name = "average")
-	public Double getAverage() {
-		return average;
-	}
+    /**
+     * @return the average
+     */
+    @Column(name = "average")
+    public Double getAverage() {
+        return average;
+    }
 
-	/**
-	 * @param average
-	 *            the average to set
-	 */
-	public void setAverage(final Double average) {
-		this.average = average;
-	} 
+    /**
+     * @param average
+     *            the average to set
+     */
+    public void setAverage(final Double average) {
+        this.average = average;
+    }
 }

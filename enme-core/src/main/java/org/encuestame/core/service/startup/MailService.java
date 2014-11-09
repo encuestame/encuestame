@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.service;
+package org.encuestame.core.service.startup;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -22,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.mail.InvitationBean;
@@ -53,7 +54,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
     /** email to  no-response. **/
     @Value("${mail.noresponse}") private String noEmailResponse;
     /** mail sender. **/
-    @Autowired
+
     private JavaMailSenderImpl mailSender;
     /** template of message. **/
     @Autowired
@@ -84,6 +85,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
      * setter mail sender.
      * @param mailSender mail sender
      */
+    @Autowired
     public void setMailSender(JavaMailSenderImpl mailSender) {
         this.mailSender = mailSender;
     }
@@ -283,7 +285,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
    /**
     * Sent a email after system startup.
     */
-    public void sendStartUpNotification( final String startupMessage){
+    public void sendStartUpNotification( final String startupMessage) throws MailSendException{
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
@@ -525,7 +527,6 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
      */
     public void send(final MimeMessagePreparator preparator) throws MailSendException {
         this.mailSender.send(preparator);
-        //log.debug("mail.succesful");
     }
 
 
