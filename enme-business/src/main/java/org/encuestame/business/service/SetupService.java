@@ -154,6 +154,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
         try {
             getMailService().sendStartUpNotification("testing email installation");
         } catch (Exception ex) {
+            RequestSessionMap.setErrorMessage(ex.getMessage());
             ex.printStackTrace();
             return "no";
         }

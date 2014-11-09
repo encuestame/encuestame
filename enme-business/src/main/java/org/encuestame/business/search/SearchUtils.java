@@ -259,7 +259,6 @@ public class SearchUtils {
         if (indexWriter != null){
             indexWriter.close();
         }
-        System.out.println("Juan");
         //log.debug("Index Directory is locked?  ----------> " + indexWriter.isLocked(directory));
         indexWriter = new IndexWriter(directory, new StandardAnalyzer(
                 SearchUtils.LUCENE_VERSION), true,
