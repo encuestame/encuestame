@@ -21,17 +21,18 @@ import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.HelpPage;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.social.SocialProvider;
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -322,10 +323,23 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getUserAccounts(java.lang.Boolean)
      */
-    public List getUserAccounts(final Boolean status){
+    public List getUserAccounts(final Boolean status) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("userStatus", status));
         return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    /**
+     *
+     * @param pagePath
+     * @param user
+     * @return
+     */
+    public List<HelpPage> getHelpReference(final String pagePath, final UserAccount user) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(HelpPage.class);
+        criteria.add(Restrictions.eq("userAccount", user));
+        criteria.add(Restrictions.eq("pagePath", pagePath));
+        return (List<HelpPage>) getHibernateTemplate().findByCriteria(criteria);
     }
 
 

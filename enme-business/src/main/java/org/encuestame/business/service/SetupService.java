@@ -40,6 +40,7 @@ import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSendException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -49,6 +50,7 @@ import javax.annotation.Resource;
  * @since Sep 9, 2011
  */
 @Service(value = "setupService")
+@Transactional
 public class SetupService extends AbstractBaseService implements SetupOperations {
 
     /** Log. **/

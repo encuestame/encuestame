@@ -127,14 +127,17 @@
     <!-- Scans the classpath of this application for @Repository Daos-->
     <context:component-scan base-package="org.encuestame.persistence.dao" />
 
+
     <context:annotation-config/>
+
+    <tx:annotation-driven/>
 
    <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="delete*" propagation="REQUIRED"/>
             <tx:method name="save*"  propagation="REQUIRED"/>
             <tx:method name="update*"  propagation="REQUIRED"/>
-            <tx:method name="*"   propagation="SUPPORTS"/>
+            <tx:method name="*" propagation="SUPPORTS" />
         </tx:attributes>
     </tx:advice>
 

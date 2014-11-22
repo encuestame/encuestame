@@ -30,14 +30,15 @@ import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.enums.PictureType;
 import org.encuestame.utils.exception.EnMeGenericException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Picture / Image Service.
  * @author Picado, Juan juanATencuestame.org
  * @since Jan 16, 2011 4:12:19 PM
- * @version $Id:$
  */
 @Service
+@Transactional
 public class PictureService extends AbstractBaseService implements IPictureService{
 
     /**
