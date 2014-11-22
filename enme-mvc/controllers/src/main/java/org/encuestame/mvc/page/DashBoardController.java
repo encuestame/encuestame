@@ -62,6 +62,16 @@ public class DashBoardController extends AbstractViewController {
         addi18nProperty(model, "gadgets_activity_description", request, response);
         addi18nProperty(model, "gadgets_comments_description", request, response);
         addi18nProperty(model, "gadgets_tweetpoll_description", request, response);
+        //help links
+        addi18nProperty(model, "help_center_search", request, response);
+        addi18nProperty(model, "help_menu_search", request, response);
+        addi18nProperty(model, "help_home_menu", request, response);
+        addi18nProperty(model, "help_counter_notification", request, response);
+        addi18nProperty(model, "help_profile_menu", request, response);
+        addi18nProperty(model, "help_change_layout_button", request, response);
+        addi18nProperty(model, "help_change_gadget_button", request, response);
+        addi18nProperty(model, "help_dashboard_tool", request, response);
+        addi18nProperty(model, "help_dashboards_columns", request, response);
         return "dashboard";
     }
 }

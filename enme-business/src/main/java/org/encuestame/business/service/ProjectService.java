@@ -31,6 +31,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -40,6 +41,7 @@ import org.springframework.stereotype.Service;
  * @version $Id:$
  */
 @Service
+@Transactional
 public class ProjectService extends AbstractBaseService implements IProjectService {
 
      /** Log. */

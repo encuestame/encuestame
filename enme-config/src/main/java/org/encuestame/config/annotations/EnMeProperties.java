@@ -1,5 +1,6 @@
 package org.encuestame.config.annotations;
 
+import com.google.common.collect.Lists;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -7,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @ImportResource({"classpath:/config/files/param-context.xml"})
@@ -30,5 +34,23 @@ public class EnMeProperties {
 //		pspc.setLocations(VERSION_PROPERTIES);
 //		return pspc;
 //	}
+
+    /**
+     * List of paths where the help will be available
+     * @return List
+     */
+    @Bean(name = "helpsLinks")
+    public List<String> helpsPaths() {
+        final List<String> paths = new ArrayList<String>();
+        paths.add("/user/dashboard");
+        paths.add("/admon/members");
+        paths.add("/user/tweetpoll/list");
+        paths.add("/user/tweetpoll/new");
+        paths.add("/user/poll/list");
+        paths.add("/user/poll/new");
+        paths.add("/settings/configuration");
+        paths.add("/settings/social");
+        return paths;
+    }
 
 }

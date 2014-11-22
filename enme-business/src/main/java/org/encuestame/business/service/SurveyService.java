@@ -46,7 +46,8 @@ import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UnitSurveySection;
 import org.hibernate.HibernateException;
-import org.springframework.stereotype.Service; 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Survey Service.
@@ -55,6 +56,7 @@ import org.springframework.stereotype.Service;
  * @version $Id$
  */
 @Service
+@Transactional
 public class SurveyService extends AbstractSurveyService implements ISurveyService {
 
     /**

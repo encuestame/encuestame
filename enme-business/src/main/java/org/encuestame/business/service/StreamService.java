@@ -36,6 +36,7 @@ import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service realed with stream activity and notifications.
@@ -44,8 +45,8 @@ import org.springframework.stereotype.Service;
  * @since 12/08/2011
  */
 @Service
-public class StreamService extends AbstractBaseService implements
-        StreamOperations {
+@Transactional
+public class StreamService extends AbstractBaseService implements StreamOperations {
 
     /**
      * Log.
@@ -248,14 +249,14 @@ public class StreamService extends AbstractBaseService implements
     public UtilNotification convertNotificationToBean(
             final Notification notification, final HttpServletRequest request) {
         final UtilNotification utilNotification = new UtilNotification();
-		// If the creation date is within the range of 48 hours shown the
-		// relative date otherwise the original date.
+        // If the creation date is within the range of 48 hours shown the
+        // relative date otherwise the original date.
         if(DateUtil.isWithinCurrentDate(notification.getCreated())){
-        	utilNotification.setDate(this.convertRelativeTimeToString(notification.getCreated(), request));
+            utilNotification.setDate(this.convertRelativeTimeToString(notification.getCreated(), request));
         }
         else {
-        	utilNotification.setDate(DateUtil.SIMPLE_DATE_FORMAT
-        	        .format(notification.getCreated()));
+            utilNotification.setDate(DateUtil.SIMPLE_DATE_FORMAT
+                    .format(notification.getCreated()));
         }
         utilNotification.setDescription(this.convertNotificationMessage(
                 notification.getDescription(), request, new Object[] {}));

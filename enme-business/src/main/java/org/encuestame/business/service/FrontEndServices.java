@@ -14,8 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.imp.IFrontEndService;
-import org.encuestame.core.service.imp.SecurityOperations;
+import org.encuestame.core.service.imp.*;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.RecentItemsComparator;
@@ -56,6 +55,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @since Oct 17, 2010 11:29:38 AM
  */
 @Service
+@Transactional
 public class FrontEndServices  extends AbstractBaseService implements IFrontEndService {
 
      /** Front End Service Log. **/
@@ -65,19 +65,15 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     private final Integer MAX_RESULTS = 15;
 
     /** **/
-    @Autowired
-    private TweetPollService tweetPollService;
+    private ITweetPollService tweetPollService;
 
     /** {@link PollService} **/
-    @Autowired
-    private PollService pollService;
+    private IPollService pollService;
 
     /** {@link SurveyService} **/
-    @Autowired
-    private SurveyService surveyService;
+    private ISurveyService surveyService;
 
     /** {@link SecurityOperations} **/
-    @Autowired
     private SecurityOperations securityService;
 
     /**
@@ -221,7 +217,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             final Boolean showUnSharedItems,
             final HttpServletRequest request) throws EnMeNoResultsFoundException {
             //get tweetpolls
-    	// TODO: parameter showUnSharedItems not used
+        // TODO: parameter showUnSharedItems not used
         final UserAccount user = getUserAccount(username);
         log.debug("getLastItemsPublishedFromUserAccount: "+user.getUsername());
         final List<TweetPoll> lastTp = getTweetPollDao().getTweetPollByUsername(maxResults, user);
@@ -1315,31 +1311,31 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     }
 
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.encuestame.core.service.imp.IFrontEndService#getTotalItemsPublishedByType
-	 * (org.encuestame.persistence.domain.security.UserAccount,
-	 * java.lang.Boolean, org.encuestame.utils.enums.TypeSearchResult)
-	 */
-	public Long getTotalItemsPublishedByType(
-			final UserAccount user,
-			final Boolean status,
-			final TypeSearchResult typeSearch)
-			throws EnMeSearchException {
-    	Long totalBy = 0L;
-    	if(typeSearch.equals(TypeSearchResult.TWEETPOLL)){
-    		totalBy = getTotalTweetPollPublished(user, status);
-    	} else if (typeSearch.equals(TypeSearchResult.POLL)){
-    		totalBy = getTotalPollPublished(user, status);
-    	} else if (typeSearch.equals(TypeSearchResult.SURVEY)){
-    		// TODO: Create method to retrieve survey by user
-    		totalBy = 1L;
-    	} else {
-    		throw new EnMeSearchException("Type search parameter not valid: ");
-    	}
-    	return totalBy;
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.core.service.imp.IFrontEndService#getTotalItemsPublishedByType
+     * (org.encuestame.persistence.domain.security.UserAccount,
+     * java.lang.Boolean, org.encuestame.utils.enums.TypeSearchResult)
+     */
+    public Long getTotalItemsPublishedByType(
+            final UserAccount user,
+            final Boolean status,
+            final TypeSearchResult typeSearch)
+            throws EnMeSearchException {
+        Long totalBy = 0L;
+        if(typeSearch.equals(TypeSearchResult.TWEETPOLL)){
+            totalBy = getTotalTweetPollPublished(user, status);
+        } else if (typeSearch.equals(TypeSearchResult.POLL)){
+            totalBy = getTotalPollPublished(user, status);
+        } else if (typeSearch.equals(TypeSearchResult.SURVEY)){
+            // TODO: Create method to retrieve survey by user
+            totalBy = 1L;
+        } else {
+            throw new EnMeSearchException("Type search parameter not valid: ");
+        }
+        return totalBy;
     }
 
     /**
@@ -1384,7 +1380,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     /**
      * @return the tweetPollService
      */
-    public TweetPollService getTweetPollService() {
+    public ITweetPollService getTweetPollService() {
         return tweetPollService;
     }
 
@@ -1392,14 +1388,16 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param tweetPollService
      *            the tweetPollService to set
      */
-    public void setTweetPollService(TweetPollService tweetPollService) {
+    @Autowired
+    public void setTweetPollService(ITweetPollService tweetPollService) {
         this.tweetPollService = tweetPollService;
+
     }
 
     /**
      * @return the pollService
      */
-    public PollService getPollService() {
+    public IPollService getPollService() {
         return pollService;
     }
 
@@ -1407,14 +1405,15 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param pollService
      *            the pollService to set
      */
-    public void setPollService(final PollService pollService) {
+    @Autowired
+    public void setPollService(final IPollService pollService) {
         this.pollService = pollService;
     }
 
     /**
      * @return the surveyService
      */
-    public SurveyService getSurveyService() {
+    public ISurveyService getSurveyService() {
         return surveyService;
     }
 
@@ -1422,7 +1421,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param surveyService
      *            the surveyService to set
      */
-    public void setSurveyService(final SurveyService surveyService) {
+    @Autowired
+    public void setSurveyService(final ISurveyService surveyService) {
         this.surveyService = surveyService;
     }
 
@@ -1437,6 +1437,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param securityService
      *            the securityService to set
      */
+    @Autowired
     public void setSecurityService(SecurityOperations securityService) {
         this.securityService = securityService;
     }

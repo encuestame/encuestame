@@ -197,4 +197,31 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
             }
             return returnData();
     }
+
+    /**
+     * Update the help status of a page
+     * @param path the path to change the status
+     * @param status
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/api/help/status", method = RequestMethod.PUT)
+    public @ResponseBody ModelMap voteHome(
+            @RequestParam(value = "path", required = true) String path,
+            @RequestParam(value = "status", required = true) Boolean status) throws IOException {
+        System.out.println("path-->"+ path);
+        System.out.println("status-->"+ status);
+        try {
+            if(getListPaths().indexOf(path) != -1)
+            getSecurityService().updateHelpStatus(path, getUserAccount(), status);
+            setFailedResponse();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e);
+            setFailedResponse();
+        }
+        return returnData();
+    }
 }

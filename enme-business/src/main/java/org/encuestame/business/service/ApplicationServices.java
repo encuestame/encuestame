@@ -31,6 +31,7 @@ import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.service.imp.StreamOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Application Service.
@@ -39,47 +40,39 @@ import org.springframework.stereotype.Service;
  * @version $Id$
  */
 @Service
+@Transactional
 public class ApplicationServices extends AbstractBaseService implements IApplicationServices {
 
     /** {@link SecurityService}. **/
-    @Autowired
     private SecurityOperations securityService;
     /** {@link SurveyService}. **/
-    @Autowired
     private ISurveyService surveyService;
     /** {@link PollService}. **/
-    @Autowired
     private IPollService pollService;
     /** {@link TweetPollService}. **/
-    @Autowired
     private ITweetPollService tweetPollService;
     /** {@link GeoLocationService}. **/
-    @Autowired
     private GeoLocationSupport locationService;
     /** {@link ProjectService}. **/
-    @Autowired
     private IProjectService projectService;
     /** {@link ChartService}. **/
-    @Autowired
     private IChartService chartService;
     /** {@link FrontEndCoreService}. **/
-    @Autowired
     private IFrontEndService frontEndService;
     /** {@link PictureService}. **/
-    @Autowired
     private IPictureService pictureService;
     /** {@link SearchServiceOperations}. **/
-    @Autowired
+
     private SearchServiceOperations searchService;
-    @Autowired
+
     private IDashboardService dashboardService;
-    @Autowired
+
     private StreamOperations streamOperations;
-    @Autowired
+
     private ICommentService commentService;
-    
+
     /** **/
-    @Autowired
+
     private IStatisticsService statisticService;
 
     /**
@@ -92,6 +85,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param securityService the securityService to set
      */
+    @Autowired
     public void setSecurityService(SecurityOperations securityService) {
         this.securityService = securityService;
     }
@@ -106,6 +100,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param surveyService the surveyService to set
      */
+    @Autowired
     public void setSurveyService(final ISurveyService surveyService) {
         this.surveyService = surveyService;
     }
@@ -120,6 +115,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param pollService the pollService to set
      */
+    @Autowired
     public void setPollService(final IPollService pollService) {
         this.pollService = pollService;
     }
@@ -134,6 +130,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param tweetPollService the tweetPollService to set
      */
+    @Autowired
     public void setTweetPollService(final ITweetPollService tweetPollService) {
         this.tweetPollService = tweetPollService;
     }
@@ -148,6 +145,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param locationService the locationService to set
      */
+    @Autowired
     public void setLocationService(final GeoLocationSupport locationService) {
         this.locationService = locationService;
     }
@@ -162,6 +160,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param projectService the projectService to set
      */
+    @Autowired
     public void setProjectService(final IProjectService projectService) {
         this.projectService = projectService;
     }
@@ -176,6 +175,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param chartService the chartService to set
      */
+    @Autowired
     public void setChartService(final IChartService chartService) {
         this.chartService = chartService;
     }
@@ -190,6 +190,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param frontEndService the frontEndService to set
      */
+    @Autowired
     public void setFrontEndService(final IFrontEndService frontEndService) {
         this.frontEndService = frontEndService;
     }
@@ -204,6 +205,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param pictureService the pictureService to set
      */
+    @Autowired
     public void setPictureService(IPictureService pictureService) {
         this.pictureService = pictureService;
     }
@@ -218,6 +220,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param searchService the searchService to set
      */
+    @Autowired
     public void setSearchService(SearchServiceOperations searchService) {
         this.searchService = searchService;
     }
@@ -232,6 +235,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param dashboardService the dashboardService to set
      */
+    @Autowired
     public void setDashboardService(final IDashboardService dashboardService) {
         this.dashboardService = dashboardService;
     }
@@ -246,6 +250,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param streamOperations the streamOperations to set
      */
+    @Autowired
     public void setStreamOperations(final StreamOperations streamOperations) {
         this.streamOperations = streamOperations;
     }
@@ -260,21 +265,23 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @param commentService the commentService to set
      */
+    @Autowired
     public void setCommentService(final ICommentService commentService) {
         this.commentService = commentService;
     }
 
-	/**
-	 * @return the statisticService
-	 */
-	public IStatisticsService getStatisticService() {
-		return statisticService;
-	}
+    /**
+     * @return the statisticService
+     */
+    public IStatisticsService getStatisticService() {
+        return statisticService;
+    }
 
-	/**
-	 * @param statisticService the statisticService to set
-	 */
-	public void setStatisticService(final IStatisticsService statisticService) {
-		this.statisticService = statisticService;
-	} 
+    /**
+     * @param statisticService the statisticService to set
+     */
+    @Autowired
+    public void setStatisticService(final IStatisticsService statisticService) {
+        this.statisticService = statisticService;
+    }
 }

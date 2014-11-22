@@ -41,6 +41,7 @@ import org.encuestame.utils.web.stats.HashTagListGraphData;
 import org.encuestame.utils.web.stats.ItemStatDetail;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Statistics Service.
@@ -48,6 +49,7 @@ import org.springframework.stereotype.Service;
  * @since April 25, 2012
  */
 @Service
+@Transactional
 public class StatisticsService extends AbstractBaseService implements IStatisticsService {
 
      /** Statistics Service Log. **/
