@@ -168,16 +168,18 @@ public class FeedUtils {
 	}
 
 	/**
-	 * Convert bean to RSS Item.
-	 * 
-	 * @param createdAt
-	 * @param questionName
-	 * @param pubDate
-	 * @param urlLink
+	 * Convert bean to RSS Item
+	 * @param createdAt date as a Date
+	 * @param questionName question descriptiob
+	 * @param pubDate publication date as a Date
+	 * @param urlLink url as string
 	 * @return
 	 */
-	public static final Item convertBeanToRSSItem(final Date createdAt,
-			final String questionName, final Date pubDate, final String url) {
+	public static final Item convertBeanToRSSItem(
+            final Date createdAt,
+			final String questionName,
+            final Date pubDate,
+            final String url) {
 		final Item item = new Item();
 		final String formatDate = FeedUtils.formattedDate("yyyy-MM-dd",
 				createdAt);
@@ -189,26 +191,27 @@ public class FeedUtils {
 	}
 
 	/**
-	 * 
-	 * @param createdAt
-	 * @param questionName
-	 * @param pubDate
-	 * @param url
+     * Convert bean to RSS Item
+     * @param createdAt date as String
+     * @param questionName question descriptiob
+     * @param pubDate publication date as String
+     * @param urlLink url as string
 	 * @return
 	 */
-	public static final Item convertBeanToRSSItem(final String createdAt,
-			final String questionName, final Date pubDate, final String url) {
+	public static final Item convertBeanToRSSItem(
+            final String createdAt,
+			final String questionName,
+            final Date pubDate,
+            final String url) {
 		final Item item = new Item();
-		item.setTitle(String.format("On %s, %s publish", createdAt,
-				questionName));
+		item.setTitle(String.format("On %s, %s publish", createdAt, questionName));
 		item.setPubDate(pubDate);
 		item.setLink(url);
 		return item;
 	}
 
 	/**
-	 * Convert bean to Atom entry.
-	 * 
+	 * Convert bean to Atom entry
 	 * @param createdAt
 	 * @param questionName
 	 * @param pubDate
