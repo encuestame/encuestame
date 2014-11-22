@@ -34,11 +34,7 @@ import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
-import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.Group;
-import org.encuestame.persistence.domain.security.Permission;
-import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.security.*;
 import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -63,6 +59,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.googlecode.ehcache.annotations.Cacheable;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Security Service Implementation.
@@ -70,6 +67,7 @@ import com.googlecode.ehcache.annotations.Cacheable;
  * @since 27/04/2009 11:35:01
  */
 @Service
+@Transactional
 public class SecurityService extends AbstractBaseService implements SecurityOperations {
 
     /**
@@ -1275,4 +1273,44 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     	return user;
 
     }
+
+    /**
+     *
+     * @param currentPath
+     * @param userAccount
+     * @return
+     */
+    public Boolean checkHelpURL(final String currentPath, final UserAccount userAccount) {
+        List items = this.getAccountDao().getHelpReference(currentPath, userAccount);
+        return items.size() == 0 ? true : false;
+    }
+
+    /**
+     *
+     * @param path
+     * @param userAccount
+     * @param status
+     */
+    @Transactional(readOnly = false)
+    public void updateHelpStatus(final String path,
+                                 final UserAccount userAccount,
+                                 final Boolean status) {
+        final List<HelpPage> links = getAccountDao().getHelpReference(path, userAccount);
+        System.out.println("found help page " + links.size());
+        if (links.size() > 0 && !status) { // previous exist
+            for (HelpPage page  : links) {
+                System.out.println("removed help page " + page.getPagePath());
+                getAccountDao().delete(page);
+            }
+        } else { // we have to create a new link
+            if (status) {
+                final HelpPage page = new HelpPage();
+                page.setPagePath(path);
+                page.setUserAccount(userAccount);
+                getAccountDao().saveOrUpdate(page);
+                System.out.println("created help page " + path);
+            }
+        }
+    }
+
 }

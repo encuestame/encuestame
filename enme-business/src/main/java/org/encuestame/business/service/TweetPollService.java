@@ -76,6 +76,7 @@ import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.search.TweetPollSearchBean;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 /**
@@ -84,7 +85,8 @@ import org.springframework.util.Assert;
  * @since  April 02, 2010
  */
 @Service
-public class TweetPollService extends AbstractSurveyService implements ITweetPollService{
+@Transactional
+public class TweetPollService extends AbstractSurveyService implements ITweetPollService {
 
     /**
      * Log.

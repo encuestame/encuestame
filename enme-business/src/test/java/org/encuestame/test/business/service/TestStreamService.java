@@ -21,6 +21,7 @@ import java.util.Locale;
 import junit.framework.Assert;
 
 import org.encuestame.business.service.StreamService;
+import org.encuestame.core.service.imp.StreamOperations;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
@@ -51,13 +52,13 @@ public class TestStreamService extends AbstractSpringSecurityContext {
      * {@link StreamService}.
      */
     @Autowired
-    private StreamService streamService;
+    private StreamOperations streamService;
 
     /**
      * Mock HttpServletRequest.
      */
     MockHttpServletRequest request;
-	private Question question;
+    private Question question;
 
      /**
      * Run before each test.
@@ -69,40 +70,40 @@ public class TestStreamService extends AbstractSpringSecurityContext {
         request.addPreferredLocale(Locale.ENGLISH);
         this.question = createDefaultQuestion("Default Question ");
 
-		final TweetPoll tp = createDefaultTweetPollPublicated(Boolean.TRUE,
-				Boolean.TRUE, Boolean.FALSE,
-				getSpringSecurityLoggedUserAccount(), question,
-				DateUtil.getCalendarDate().getTime());
+        final TweetPoll tp = createDefaultTweetPollPublicated(Boolean.TRUE,
+                Boolean.TRUE, Boolean.FALSE,
+                getSpringSecurityLoggedUserAccount(), question,
+                DateUtil.getCalendarDate().getTime());
 
-		createNotification2(tp.getQuestion().getQuestion(),
-				getSpringSecurityLoggedUserAccount().getAccount(),
-				NotificationEnum.TWEETPOL_CREATED, false,
-				DateUtil.getCalendarDate().getTime());
+        createNotification2(tp.getQuestion().getQuestion(),
+                getSpringSecurityLoggedUserAccount().getAccount(),
+                NotificationEnum.TWEETPOL_CREATED, false,
+                DateUtil.getCalendarDate().getTime());
 
-		DateUtil.getCalendarDate().add(Calendar.HOUR, -3);
-		final TweetPoll tp1 = createDefaultTweetPollPublicated(Boolean.TRUE,
-				Boolean.TRUE, Boolean.FALSE,
-				getSpringSecurityLoggedUserAccount(), question, DateUtil
-						.getCalendarDate().getTime());
+        DateUtil.getCalendarDate().add(Calendar.HOUR, -3);
+        final TweetPoll tp1 = createDefaultTweetPollPublicated(Boolean.TRUE,
+                Boolean.TRUE, Boolean.FALSE,
+                getSpringSecurityLoggedUserAccount(), question, DateUtil
+                        .getCalendarDate().getTime());
 
-		createNotification2(tp1.getQuestion().getQuestion(),
-				getSpringSecurityLoggedUserAccount().getAccount(),
-				NotificationEnum.TWEETPOL_CREATED, false,
-				DateUtil.getCurrentCalendarDate());
+        createNotification2(tp1.getQuestion().getQuestion(),
+                getSpringSecurityLoggedUserAccount().getAccount(),
+                NotificationEnum.TWEETPOL_CREATED, false,
+                DateUtil.getCurrentCalendarDate());
 
-		DateUtil.getCalendarDate().add(Calendar.DATE, -1);
- 		final Poll poll1 = createDefaultPoll(question, getSpringSecurityLoggedUserAccount());
-		createNotification2(poll1.getQuestion().getQuestion(),
-				getSpringSecurityLoggedUserAccount().getAccount(),
-				NotificationEnum.POLL_CREATED, false,
-				DateUtil.getCurrentCalendarDate());
+        DateUtil.getCalendarDate().add(Calendar.DATE, -1);
+         final Poll poll1 = createDefaultPoll(question, getSpringSecurityLoggedUserAccount());
+        createNotification2(poll1.getQuestion().getQuestion(),
+                getSpringSecurityLoggedUserAccount().getAccount(),
+                NotificationEnum.POLL_CREATED, false,
+                DateUtil.getCurrentCalendarDate());
 
- 	 	DateUtil.getCalendarDate().add(Calendar.DATE, -8);
- 	 	final Poll poll2 = createDefaultPoll(question, getSpringSecurityLoggedUserAccount());
-		createNotification2(poll2.getQuestion().getQuestion(),
-				getSpringSecurityLoggedUserAccount().getAccount(),
-				NotificationEnum.POLL_CREATED, false,
-				DateUtil.getCurrentCalendarDate());
+          DateUtil.getCalendarDate().add(Calendar.DATE, -8);
+          final Poll poll2 = createDefaultPoll(question, getSpringSecurityLoggedUserAccount());
+        createNotification2(poll2.getQuestion().getQuestion(),
+                getSpringSecurityLoggedUserAccount().getAccount(),
+                NotificationEnum.POLL_CREATED, false,
+                DateUtil.getCurrentCalendarDate());
     }
 
     /**
@@ -117,19 +118,19 @@ public class TestStreamService extends AbstractSpringSecurityContext {
         final List<UtilNotification> list2 = this.streamService.retrieveLastNotifications(10, false, this.request);
         //TODO: review, this method should retrieve 0 items.
         Assert.assertEquals(list2.size(), 4);
-		final TweetPoll tp4 = createDefaultTweetPollPublicated(Boolean.TRUE,
-				Boolean.TRUE, Boolean.FALSE,
-				getSpringSecurityLoggedUserAccount(), question, DateUtil
-						.getCalendarDate().getTime());
+        final TweetPoll tp4 = createDefaultTweetPollPublicated(Boolean.TRUE,
+                Boolean.TRUE, Boolean.FALSE,
+                getSpringSecurityLoggedUserAccount(), question, DateUtil
+                        .getCalendarDate().getTime());
 
-		createNotification2(tp4.getQuestion().getQuestion(),
-				getSpringSecurityLoggedUserAccount().getAccount(),
-				NotificationEnum.TWEETPOL_CREATED, true, DateUtil
-						.getCalendarDate().getTime());
+        createNotification2(tp4.getQuestion().getQuestion(),
+                getSpringSecurityLoggedUserAccount().getAccount(),
+                NotificationEnum.TWEETPOL_CREATED, true, DateUtil
+                        .getCalendarDate().getTime());
 
-		final List<UtilNotification> list3 = this.streamService.retrieveLastNotifications(10, true, this.request);
-		// if parameter onlyReaded is true, so return all notifications with property readed = false
-		Assert.assertEquals(4, list3.size());
+        final List<UtilNotification> list3 = this.streamService.retrieveLastNotifications(10, true, this.request);
+        // if parameter onlyReaded is true, so return all notifications with property readed = false
+        Assert.assertEquals(4, list3.size());
     }
 
     /**

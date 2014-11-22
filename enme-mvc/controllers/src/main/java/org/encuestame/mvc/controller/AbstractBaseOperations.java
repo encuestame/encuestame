@@ -129,8 +129,21 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     /**
      * {@link ServiceManager}.
      */
-    @Autowired
     private IServiceManager serviceManager;
+
+    /**
+     *
+     */
+    @Resource(name = "helpsLinks")
+    List<String> listPaths;
+
+    /**
+     *
+     * @return
+     */
+    public List<String> getListPaths() {
+        return listPaths;
+    }
 
 
     private MessageSourceFactoryBean messageSourceFactoryBean;
@@ -435,6 +448,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param serviceManager
      *            the serviceManager to set
      */
+    @Autowired
     public void setServiceManager(IServiceManager serviceManager) {
         this.serviceManager = serviceManager;
     }

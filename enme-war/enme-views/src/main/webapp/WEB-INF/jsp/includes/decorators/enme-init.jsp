@@ -6,6 +6,7 @@ _ENME.init({
         delay : 1800000,
         helpLinks : ${help_links},
         isMobile: ${detectedDevice},
+        currentPath: '${mappedPath}',
         locale: '${user_locale}',
         debug : <%=EnMePlaceHolderConfigurer.getProperty("application.debug.mode")%>,
         message_delay : 5000,

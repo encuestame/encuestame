@@ -69,6 +69,7 @@ import org.encuestame.utils.web.TweetPollDetailBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.search.PollSearchBean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 /**
@@ -77,6 +78,7 @@ import org.springframework.util.Assert;
  * @since  April 01, 2010
  */
 @Service
+@Transactional
 public class PollService extends AbstractSurveyService implements IPollService{
 
     /**

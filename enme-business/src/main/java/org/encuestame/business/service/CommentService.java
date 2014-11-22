@@ -42,6 +42,7 @@ import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * {@link Comment} service support.
@@ -49,6 +50,7 @@ import org.springframework.stereotype.Service;
  * @since  August 14, 2011
  */
 @Service
+@Transactional
 public class CommentService extends AbstractBaseService implements ICommentService{
 
     /**

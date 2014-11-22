@@ -35,6 +35,7 @@ import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 /**
@@ -43,6 +44,7 @@ import org.springframework.util.Assert;
  * @since July 29, 2011
  */
 @Service
+@Transactional
 public class DashboardService extends AbstractBaseService implements IDashboardService{
 
      private Log log = LogFactory.getLog(this.getClass());

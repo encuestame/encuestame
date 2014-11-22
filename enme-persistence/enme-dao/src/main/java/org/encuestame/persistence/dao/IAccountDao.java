@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.HelpPage;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -315,4 +316,12 @@ public interface IAccountDao extends IBaseDao {
      * @return
      */
     List<UserAccount> retrieveListUserUnconfirmedByAccount(final Account account);
+
+    /**
+     *
+     * @param pagePath
+     * @param user
+     * @return
+     */
+    List<HelpPage> getHelpReference(final String pagePath, final UserAccount user);
 }

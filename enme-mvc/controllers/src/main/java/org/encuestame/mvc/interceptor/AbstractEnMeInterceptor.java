@@ -12,10 +12,14 @@
  */
 package org.encuestame.mvc.interceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abstract EnMe interceptor.
@@ -23,6 +27,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @since
  */
 public abstract class AbstractEnMeInterceptor extends AbstractBaseOperations implements HandlerInterceptor {
+
 
 
     /**
@@ -38,4 +43,5 @@ public abstract class AbstractEnMeInterceptor extends AbstractBaseOperations imp
         //cookie.setMaxAge(expiry)
         //response.addCookie(cookie);
     }
+
 }
