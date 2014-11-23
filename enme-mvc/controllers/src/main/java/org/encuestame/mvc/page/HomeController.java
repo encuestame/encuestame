@@ -173,16 +173,6 @@ public class HomeController extends AbstractViewController {
     }
 
     /**
-     * Help View.
-     * @param model model
-     * @return template
-     */
-    @RequestMapping(value = "/user/help", method = RequestMethod.GET)
-    public String dashBoardController(ModelMap model, UserAccount account) {
-        return "user/help";
-    }
-
-    /**
      * Display a question view.
      * @param model {@link Model}
      * @param id the question id

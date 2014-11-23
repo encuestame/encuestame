@@ -12,20 +12,26 @@
  */
 package org.encuestame.mvc.controller.syndication;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
+import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.FeedUtils;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.search.TweetPollSearchBean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sun.syndication.feed.atom.Entry;
 import com.sun.syndication.feed.rss.Item;
@@ -37,6 +43,13 @@ import com.sun.syndication.feed.rss.Item;
  * @version $Id:$
  */
 public abstract class AbstractFeedController extends AbstractBaseOperations{
+
+
+   /**
+    *
+    */
+   @Autowired
+   private VelocityEngine velocityEngine;
 
     /**
      * Log.
@@ -70,39 +83,44 @@ public abstract class AbstractFeedController extends AbstractBaseOperations{
      * @param request
      * @return
      * @throws EnMeNoResultsFoundException
+     * @throws UnsupportedEncodingException
      */
     @SuppressWarnings("unchecked")
     public List<Item> getItemRssFeed(
             final String username,
             final HttpServletRequest request,
-            final String itemType,
-            final Integer limits) throws EnMeNoResultsFoundException{
+            final TypeSearchResult itemType,
+            final Integer limits) throws EnMeNoResultsFoundException, UnsupportedEncodingException{
         List<Item> item = new ArrayList<Item>();
         log.debug("getItemRssFeed username "+username);
         log.debug("getItemRssFeed itemType "+itemType);
         log.debug("getItemRssFeed limits "+limits);
-        if (itemType.equals("tweetPolls")) {
+        if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
             item = FeedUtils.convertTweetPollBeanToItemRSS(
-                    getTweetPolls(username, request), InternetUtils.getDomain(request));
-        } else if (itemType.equals("polls")) {
+                    getTweetPolls(username, request),
+                    InternetUtils.getDomain(request),
+                    velocityEngine);
+        } else if (itemType.equals(TypeSearchResult.POLL)) {
             item = FeedUtils.convertPollBeanToItemRSS(getPolls(username),
-                    InternetUtils.getDomain(request));
-
-        } else if (itemType.equals("surveys")) {
+                    InternetUtils.getDomain(request),
+                    velocityEngine);
+        } else if (itemType.equals(TypeSearchResult.SURVEY)) {
             item = ListUtils.EMPTY_LIST;
-        } else if (itemType.equals("profiles")) {
+        } else if (itemType.equals(TypeSearchResult.PROFILE)) {
             item = FeedUtils.convertHomeBeanToItemRSS(getFrontService()
                 .getLastItemsPublishedFromUserAccount(username, limits, false,
                         request),
-                        InternetUtils.getDomain(request));
-        } else if (itemType.equals("projects")) {
-            item = ListUtils.EMPTY_LIST;
-        } else if (itemType.equals("frontend")) {
+                        InternetUtils.getDomain(request),
+                        velocityEngine);
+//        } else if (itemType.equals("projects")) {
+//            item = ListUtils.EMPTY_LIST;
+        } else if (itemType.equals(TypeSearchResult.ALL)) {
             try {
                 item = FeedUtils.convertHomeBeanToItemRSS(
                         getFrontService().getFrontEndItems("all",
                                 EnMeUtils.DEFAULT_START, limits, request),
-                        InternetUtils.getDomain(request));
+                        InternetUtils.getDomain(request),
+                        velocityEngine);
             } catch (EnMeSearchException e) {
                 log.error("Error on retrieve RSS home items ", e);
                 item = ListUtils.EMPTY_LIST;
@@ -118,37 +136,38 @@ public abstract class AbstractFeedController extends AbstractBaseOperations{
      * @param request
      * @return
      * @throws EnMeNoResultsFoundException
+     * @throws UnsupportedEncodingException
      */
     public List<Entry> getEntryAtomFeed(
             final String username,
             final HttpServletRequest request,
-            final String entryType,
-            final Integer limits) throws EnMeNoResultsFoundException{
+            final TypeSearchResult entryType,
+            final Integer limits) throws EnMeNoResultsFoundException, UnsupportedEncodingException{
         List<Entry> entry = new ArrayList<Entry>();
-        if (entryType.equals("tweetPolls")){
+        if (entryType.equals(TypeSearchResult.TWEETPOLL)) {
             entry = FeedUtils.convertTweetPollBeanToEntryAtom(
                     getTweetPolls(username, request),
-                    InternetUtils.getDomain(request));
-        }else if(entryType.equals("polls")){
-            entry = FeedUtils.convertTweetPollBeanToEntryAtom(
-                      getTweetPolls(username, request),
-                      InternetUtils.getDomain(request));
+                    InternetUtils.getDomain(request), velocityEngine);
+        }else if(entryType.equals(TypeSearchResult.POLL)) {
+            entry = FeedUtils.convertPollBeanToEntryAtom(
+                      getPolls(username),
+                      InternetUtils.getDomain(request), velocityEngine);
 
-        }else if(entryType.equals("surveys")){
+        }else if(entryType.equals(TypeSearchResult.SURVEY)) {
             entry = FeedUtils.convertTweetPollBeanToEntryAtom(
                      getTweetPolls(username, request),
-                     InternetUtils.getDomain(request));
+                     InternetUtils.getDomain(request), velocityEngine);
         }
-        else if(entryType.equals("profiles")){
+        else if(entryType.equals(TypeSearchResult.PROFILE)) {
             entry = FeedUtils.convertTweetPollBeanToEntryAtom(
                      getTweetPolls(username, request),
-                     InternetUtils.getDomain(request));
+                     InternetUtils.getDomain(request), velocityEngine);
         }
-        else if(entryType.equals("projects")){
-            entry = FeedUtils.convertTweetPollBeanToEntryAtom(
-                     getTweetPolls(username, request),
-                     InternetUtils.getDomain(request));
-        }
+//        else if(entryType.equals("projects")){
+//            entry = FeedUtils.convertTweetPollBeanToEntryAtom(
+//                     getTweetPolls(username, request),
+//                     InternetUtils.getDomain(request));
+//        }
         else if(entryType.equals("frontend")){
 //            entry = FeedUtils.convertHomeBeanToItemRSS(
 //					getFrontService().getFrontEndItems("all",
@@ -156,5 +175,21 @@ public abstract class AbstractFeedController extends AbstractBaseOperations{
 //					InternetUtils.getDomain(request));
         }
         return entry;
+    }
+
+
+    /**
+     * @return the velocityEngine
+     */
+    public VelocityEngine getVelocityEngine() {
+        return velocityEngine;
+    }
+
+    /**
+     * @param velocityEngine the velocityEngine to set
+     */
+    @Autowired
+    public void setVelocityEngine(final VelocityEngine velocityEngine) {
+        this.velocityEngine = velocityEngine;
     }
 }

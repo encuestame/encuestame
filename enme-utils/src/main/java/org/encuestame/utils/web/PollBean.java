@@ -15,6 +15,7 @@ package org.encuestame.utils.web;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -79,6 +80,12 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /** **/
     @JsonProperty(value = "short_url")
     private String shortUrl;
+
+    /**
+     *
+     */
+    @JsonProperty(value = "poll_results")
+    private List<PollBeanResult> resultsBean;
 
     /**
      * @return the id
@@ -243,6 +250,20 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
      */
     public void setShortUrl(final String shortUrl) {
         this.shortUrl = shortUrl;
+    }
+
+    /**
+     * @return the resultsBean
+     */
+    public List<PollBeanResult> getResultsBean() {
+        return resultsBean;
+    }
+
+    /**
+     * @param resultsBean the resultsBean to set
+     */
+    public void setResultsBean(List<PollBeanResult> resultsBean) {
+        this.resultsBean = resultsBean;
     }
 
     /* (non-Javadoc)

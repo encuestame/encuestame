@@ -424,12 +424,12 @@ public class TestPollService extends AbstractSpringSecurityContext{
 			if (pollBeanResult.getAnswerBean().getAnswerId()
 					.equals(qansw.getQuestionAnswerId())) {
 				assertEquals("For answer1 should be equals",
-						pollBeanResult.getResult().toString(), "7");
+						pollBeanResult.getVotes().toString(), "7");
 			}
 			if (pollBeanResult.getAnswerBean().getAnswerId()
 					.equals(qansw2.getQuestionAnswerId())) {
 				assertEquals("For answer2 should be equals",
-						pollBeanResult.getResult().toString(), "3");
+						pollBeanResult.getVotes().toString(), "3");
 			}
 		}
 
