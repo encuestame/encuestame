@@ -938,17 +938,21 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.IPollService#getPollsByUserName(java.lang.String, java.lang.Integer, java.lang.Integer)
      */
-
     public List<PollBean> getPollsByUserName(
             final String username,
             final Integer maxResults,
             final Integer start) throws EnMeNoResultsFoundException{
         log.debug("Poll username "+username);
-        final List<Poll> polls = getPollDao()
-             .retrievePollsByUserId(getUserAccount(username), maxResults, start);
+        final List<Poll> polls = getPollDao().retrievePollsByUserId(getUserAccount(username), maxResults, start);
+        final List<PollBean> pollBeans = new ArrayList<PollBean>();
+        for (Poll poll : polls) {
+            final List<PollBeanResult> results = getResultVotes(poll);
+            final PollBean pollBean = ConvertDomainBean.convertPollDomainToBean(poll);
+            pollBean.setResultsBean(results);
+            pollBeans.add(pollBean);
+        }
          log.info("Polls size "+ polls.size());
-         final List<PollBean> pollBean = ConvertDomainBean.convertSetToPollBean(polls);
-        return pollBean;
+        return pollBeans;
     }
 
     /*
@@ -1124,10 +1128,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
     private void calculatePercents(final List<PollBeanResult> beanResults) {
         double totalVotes = 0;
         for (PollBeanResult pollBeanResult : beanResults) {
-            totalVotes = totalVotes + pollBeanResult.getResult();
+            totalVotes = totalVotes + pollBeanResult.getVotes();
         }
         for (PollBeanResult pollBeanResult : beanResults) {
-            pollBeanResult.setPercent(EnMeUtils.calculatePercent(totalVotes, pollBeanResult.getResult()));
+            pollBeanResult.setPercent(EnMeUtils.calculatePercent(totalVotes, pollBeanResult.getVotes()));
         }
     }
 

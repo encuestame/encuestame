@@ -12,6 +12,7 @@
  */
 package org.encuestame.mvc.controller.syndication;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,15 +77,18 @@ public class SyndicationController extends AbstractFeedController {
      * @param model
      * @param request
      * @return
+     * @throws UnsupportedEncodingException
      */
     @RequestMapping(value = "/feed/{username}/tweetpoll.atom", method = RequestMethod.GET)
-    public String tweetPollAtom(@PathVariable String username, Model model, HttpServletRequest request) {
+    public String tweetPollAtom(@PathVariable String username, Model model, HttpServletRequest request) throws UnsupportedEncodingException {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
                 model.addAttribute("items", this.getEntryAtomFeed(username, request, TypeSearchResult.TWEETPOLL, rssDisplayItems));
             } catch (EnMeExpcetion e) {
                 log.error(e);
+                e.printStackTrace();
+                model.addAttribute("items",ListUtils.EMPTY_LIST);
             }
         }
         return "tweetPollAtomFeedView";
@@ -115,8 +119,10 @@ public class SyndicationController extends AbstractFeedController {
         if (secUserSecondary != null) {
              try {
                 model.addAttribute("items", this.getItemRssFeed(username, request, TypeSearchResult.TWEETPOLL, rssDisplayItems));
-             } catch (EnMeNoResultsFoundException e) {
+             } catch (Exception e) {
                  log.error(e);
+                 e.printStackTrace();
+                 model.addAttribute("items",ListUtils.EMPTY_LIST);
              }
         }
         return "tweetPollRssFeedView";
@@ -149,8 +155,10 @@ public class SyndicationController extends AbstractFeedController {
                 final List<Item> items = this.getItemRssFeed(username, request, TypeSearchResult.PROFILE, rssDisplayItems);
                 log.debug("/feed/{username}/profile.rss items size "+items.size());
                 model.addAttribute("items", items);
-             } catch (EnMeNoResultsFoundException e) {
+             } catch (Exception e) {
                  log.error(e);
+                 e.printStackTrace();
+                 model.addAttribute("items",ListUtils.EMPTY_LIST);
              }
         }
         return "profileRssFeedView";
@@ -162,9 +170,10 @@ public class SyndicationController extends AbstractFeedController {
      * @param model
      * @param request
      * @return
+     * @throws UnsupportedEncodingException
      */
     @RequestMapping(value = "/feed/{username}/profile.atom", method = RequestMethod.GET)
-    public String profileAtom(@PathVariable String username, Model model, HttpServletRequest request) {
+    public String profileAtom(@PathVariable String username, Model model, HttpServletRequest request) throws UnsupportedEncodingException {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
@@ -172,6 +181,8 @@ public class SyndicationController extends AbstractFeedController {
                 this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
             } catch (EnMeExpcetion e) {
                 log.error(e);
+                e.printStackTrace();
+                model.addAttribute("items",ListUtils.EMPTY_LIST);
             }
         }
         return "profileAtomFeedView";
@@ -183,9 +194,10 @@ public class SyndicationController extends AbstractFeedController {
      * @param model
      * @param request
      * @return
+     * @throws UnsupportedEncodingException
      */
     @RequestMapping(value = "/feed/{username}/survey.atom", method = RequestMethod.GET)
-    public String surveyAtom(@PathVariable String username, Model model, HttpServletRequest request) {
+    public String surveyAtom(@PathVariable String username, Model model, HttpServletRequest request) throws UnsupportedEncodingException {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
@@ -222,8 +234,10 @@ public class SyndicationController extends AbstractFeedController {
         if(secUserSecondary != null){
              try {
                 model.addAttribute("items", this.getItemRssFeed(username, request, TypeSearchResult.SURVEY, rssDisplayItems));
-             } catch (EnMeNoResultsFoundException e) {
+             } catch (Exception e) {
                  log.error(e);
+                 e.printStackTrace();
+                 model.addAttribute("items",ListUtils.EMPTY_LIST);
              }
         }
         return "surveyRssFeedView";
@@ -247,9 +261,10 @@ public class SyndicationController extends AbstractFeedController {
      * @param model
      * @param request
      * @return
+     * @throws UnsupportedEncodingException
      */
-    @RequestMapping(value = "/feed/{username}/polls.atom", method = RequestMethod.GET)
-    public String pollAtom(@PathVariable String username, Model model, HttpServletRequest request) {
+    @RequestMapping(value = "/feed/{username}/poll.atom", method = RequestMethod.GET)
+    public String pollAtom(@PathVariable String username, Model model, HttpServletRequest request) throws UnsupportedEncodingException {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
@@ -287,7 +302,7 @@ public class SyndicationController extends AbstractFeedController {
         if(secUserSecondary != null){
              try {
                 model.addAttribute("items", this.getItemRssFeed(username, request, TypeSearchResult.POLL, rssDisplayItems));
-             } catch (EnMeNoResultsFoundException e) {
+             } catch (Exception e) {
                  log.error(e);
              }
         }
@@ -378,11 +393,12 @@ public class SyndicationController extends AbstractFeedController {
      * @param model
      * @param request
      * @return
+     * @throws UnsupportedEncodingException
      */
     @RequestMapping(value = "/feed/home.atom", method = RequestMethod.GET)
     public String frontendAtom(
         Model model,
-        HttpServletRequest request) {
+        HttpServletRequest request) throws UnsupportedEncodingException {
             try {
                 model.addAttribute("items", this.getEntryAtomFeed("", request, TypeSearchResult.ALL, rssDisplayItems));
             } catch (EnMeExpcetion e) {
@@ -405,8 +421,10 @@ public class SyndicationController extends AbstractFeedController {
             HttpServletRequest request) {
              try {
                 model.addAttribute("items", this.getItemRssFeed(null, request, TypeSearchResult.ALL, rssDisplayItems));
-             } catch (EnMeNoResultsFoundException e) {
+             } catch (Exception e) {
                  log.error(e);
+                 e.printStackTrace();
+                 model.addAttribute("items",ListUtils.EMPTY_LIST);
              }
         return "frontEndRssFeedView";
     }
