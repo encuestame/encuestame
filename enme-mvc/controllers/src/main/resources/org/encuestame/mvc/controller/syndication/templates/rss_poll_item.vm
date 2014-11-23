@@ -1,0 +1,39 @@
+    <div id="container" style="padding:44px 20px 30px 20px;background-color:#f9dba6;font-size:13px;color:#666666;line-height:150%;font-family:lucida grande,helvetica,arial">
+        <div id="containerBody" style="background-color:#ffffff;width:560;border:0;margin-left: auto ;margin-right: auto ; padding:22px 18px 10px 18px">
+             #parse("/org/encuestame/business/mail/templates/header.vm")
+                <h2>
+                    ${question}
+                </h2>
+                    <hr/>
+                <div>
+                    #foreach( $answer in $anwers )
+                       <div style="clear: both;font-size: 14px;color: #616161; padding: 5px;overflow:auto;">
+                        <div class="answer-color" style="line-height: 20px;text-align: left;padding:10px;width: 150px;float:left;">
+                            <div class="color-code" style="background-color: $answer.answerBean.color;border-radius: 10px;display: inline-block;height: 20px;margin-right: 10px;width: 20px;float:left;"></div>
+                               <span>
+                                   $answer.answerBean.answers
+                               </span>
+                            </div>
+                            <div class="answer-votes" style="line-height: 20px;text-align: left;padding:10px;width: 150px;float:left;">
+                                $answer.votes
+                            </div>
+                            <div class="answer-percent" style="line-height: 20px;text-align: left;padding:10px;width: 150px;float:left;">
+                                $answer.percent
+                            </div>
+                        </div>
+                    #end
+                </div>
+                    <hr/>
+                <iframe scrolling="no" frameborder="0"
+                 allowtransparency="true"
+                 height="550"
+                 style="width: 380px; border: none; max-width: 450px; min-width: 180px;"
+                 width="400"
+                 scrolling="no"
+                 src="${domain}/embebed/iframe/preview/${type}/${type_id}"></iframe>
+            </div>
+            #parse("/org/encuestame/business/mail/templates/greeting.vm")
+            <div id="extras" style="font-size:12px;font-weight:normal; color:#ffffff; width:560;border:0;margin-left: auto ;margin-right: auto ; padding:9px 18px 0 18px;font-family:lucida grande,helvetica,arial;">
+                #parse("/org/encuestame/business/mail/templates/footer.vm")
+            </div>
+ </div>

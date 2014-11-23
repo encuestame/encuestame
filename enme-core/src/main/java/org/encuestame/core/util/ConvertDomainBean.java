@@ -1647,7 +1647,7 @@ public class ConvertDomainBean {
         answer.setColor(color);
         answer.setQuestionId(question.getQid());
         result.setAnswerBean(answer);
-        result.setResult(resultVotes);
+        result.setVotes(resultVotes);
         //FIXME: these properties are repeated, we need to update and unify these properties.
         result.setAnswerName(answer.getAnswers());
         result.setVotes(resultVotes);

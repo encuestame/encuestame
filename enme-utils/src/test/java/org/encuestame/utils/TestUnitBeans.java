@@ -286,10 +286,10 @@ public class TestUnitBeans extends AbstractBaseUtils {
     public void testUnitPollResult(){
         final PollBeanResult pollResult =  new PollBeanResult();
         pollResult.setAnswerBean(new QuestionAnswerBean());
-        pollResult.setResult(1L);
+        pollResult.setVotes(1L);
         pollResult.setVotedDate(new Date());
         assertNotNull(pollResult.getAnswerBean());
-        assertNotNull(pollResult.getResult());
+        assertNotNull(pollResult.getVotes());
         assertNotNull(pollResult.getVotedDate());
     }
 
