@@ -240,7 +240,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return
      * @throws EnMeExpcetion
      */
-    private List<TweetPollBean> setTweetPollListAnswers(
+    public List<TweetPollBean> setTweetPollListAnswers(
             final List<TweetPoll> listTweetPolls,
             final Boolean results,
             final HttpServletRequest httpServletRequest){
@@ -1126,8 +1126,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 tweetPollResult.setShortUrl(answer.getUrlAnswer());
                 tweetPollResult.setUrl(answer.getUrlAnswer());
                 tweetPollResult.setVotes(Long.valueOf(objects[2].toString()));
+
             }
         }
+        tweetPollResult.setAnswerBean(ConvertDomainBean.convertAnswerToBean(answer));
         return tweetPollResult;
     }
 

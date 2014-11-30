@@ -44,7 +44,6 @@ import org.encuestame.utils.web.search.PollSearchBean;
  * Poll Service Interface.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since May 16, 2010
- * @version $Id: $
  */
 public interface IPollService extends IMasterSurveyService{
 
@@ -229,7 +228,7 @@ public interface IPollService extends IMasterSurveyService{
      * @deprecated in favor of IPollService.filterSearchPollsByType
      */
     List<PollBean> filterPollByItemsByType(
-    		final TypeSearch typeSearch,
+            final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
             throws EnMeNoResultsFoundException, EnMeExpcetion;
 
@@ -367,142 +366,149 @@ public interface IPollService extends IMasterSurveyService{
      * @param pollId
      * @throws EnMeNoResultsFoundException
      */
-	void removePoll(final Long pollId) throws EnMeNoResultsFoundException;
+    void removePoll(final Long pollId) throws EnMeNoResultsFoundException;
 
-	/**
-	 * Add {@link HashTag} to {@link Poll}.
-	 * @param poll
-	 * @param tagBean
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	HashTag addHashTagToPoll(final Poll poll, final HashTagBean tagBean)
-			throws EnMeNoResultsFoundException;
+    /**
+     * Add {@link HashTag} to {@link Poll}.
+     * @param poll
+     * @param tagBean
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    HashTag addHashTagToPoll(final Poll poll, final HashTagBean tagBean)
+            throws EnMeNoResultsFoundException;
 
-	/**
-	 * Update {@link Poll}
-	 * @param pollBean
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	Poll updatePoll(final PollBean pollBean)
-			throws EnMeNoResultsFoundException;
+    /**
+     * Update {@link Poll}
+     * @param pollBean
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Poll updatePoll(final PollBean pollBean)
+            throws EnMeNoResultsFoundException;
 
-	/**
-	 *
-	 * @param pollId
-	 * @param answerId
-	 * @param account
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	Poll getPollByAnswerId(final Long pollId, final Long answerId,
-			final UserAccount account) throws EnMeNoResultsFoundException;
+    /**
+     *
+     * @param pollId
+     * @param answerId
+     * @param account
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Poll getPollByAnswerId(final Long pollId, final Long answerId,
+            final UserAccount account) throws EnMeNoResultsFoundException;
 
-	/**
-	 *
-	 * @param pollSearch
-	 * @param httpServletRequest
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 * @throws EnMeExpcetion
-	 */
-	List<SearchBean> filterSearchPollsByType(
-			final PollSearchBean pollSearch,
-			final HttpServletRequest httpServletRequest)
-			throws EnMeNoResultsFoundException, EnMeExpcetion;
+    /**
+     *
+     * @param pollSearch
+     * @param httpServletRequest
+     * @return
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeExpcetion
+     */
+    List<SearchBean> filterSearchPollsByType(
+            final PollSearchBean pollSearch,
+            final HttpServletRequest httpServletRequest)
+            throws EnMeNoResultsFoundException, EnMeExpcetion;
 
-	/**
-	 *
-	 * @param username
-	 * @param httpServletRequest
-	 * @param pollSearch
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	List<SearchBean> getPollsByUserNameSearch(
-	            final String username,
-	            final HttpServletRequest httpServletRequest,
-	            final PollSearchBean pollSearch)
-	            throws EnMeNoResultsFoundException;
+    /**
+     *
+     * @param username
+     * @param httpServletRequest
+     * @param pollSearch
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<SearchBean> getPollsByUserNameSearch(
+                final String username,
+                final HttpServletRequest httpServletRequest,
+                final PollSearchBean pollSearch)
+                throws EnMeNoResultsFoundException;
 
-	/**
-	 *
-	 * @param username
-	 * @param httpServletRequest
-	 * @param pollSearchBean
-	 * @return
-	 * @throws EnMeExpcetion
-	 */
-	List<SearchBean> searchPollsToday(
-	            final String username,
-	            final HttpServletRequest httpServletRequest, final PollSearchBean pollSearchBean) throws EnMeExpcetion;
+    /**
+     *
+     * @param username
+     * @param httpServletRequest
+     * @param pollSearchBean
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<SearchBean> searchPollsToday(
+                final String username,
+                final HttpServletRequest httpServletRequest, final PollSearchBean pollSearchBean) throws EnMeExpcetion;
 
-	/**
-	 *
-	 * @param username
-	 * @param httpServletRequest
-	 * @param pollSearchBean
-	 * @return
-	 * @throws EnMeExpcetion
-	 */
-	List<SearchBean> searchPollsLastWeek(final String username,
-			final HttpServletRequest httpServletRequest,
-			final PollSearchBean pollSearchBean) throws EnMeExpcetion;
-
-	/**
-	 *
-	 * @param username
-	 * @param httpServletRequest
-	 * @param pollSearchBean
-	 * @return
-	 * @throws EnMeExpcetion
-	 */
-	List<SearchBean> searchPollFavourites(final String username,
-			final HttpServletRequest httpServletRequest,
-			final PollSearchBean pollSearchBean) throws EnMeExpcetion;
-
-	/**
-	 *
-	 * @param username
-	 * @param httpServletRequest
-	 * @param pollSearchBean
-	 * @return
-	 * @throws EnMeExpcetion
-	 */
-	List<SearchBean> searchPollScheduled(
-			final String username,
+    /**
+     *
+     * @param username
+     * @param httpServletRequest
+     * @param pollSearchBean
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<SearchBean> searchPollsLastWeek(final String username,
             final HttpServletRequest httpServletRequest,
             final PollSearchBean pollSearchBean) throws EnMeExpcetion;
 
-	/**
-	 * Restrict votes by date.
-	 * @param poll
-	 * @return
-	 */
-	Boolean restrictVotesByDate(final Poll poll);
+    /**
+     *
+     * @param username
+     * @param httpServletRequest
+     * @param pollSearchBean
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<SearchBean> searchPollFavourites(final String username,
+            final HttpServletRequest httpServletRequest,
+            final PollSearchBean pollSearchBean) throws EnMeExpcetion;
 
-	/**
-	 * Restrict votation by Quota.
-	 * @param poll
-	 * @return
-	 */
-	Boolean restrictVotesByQuota(final Poll poll);
+    /**
+     *
+     * @param username
+     * @param httpServletRequest
+     * @param pollSearchBean
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<SearchBean> searchPollScheduled(
+            final String username,
+            final HttpServletRequest httpServletRequest,
+            final PollSearchBean pollSearchBean) throws EnMeExpcetion;
+
+    /**
+     * Restrict votes by date.
+     * @param poll
+     * @return
+     */
+    Boolean restrictVotesByDate(final Poll poll);
+
+    /**
+     * Restrict votation by Quota.
+     * @param poll
+     * @return
+     */
+    Boolean restrictVotesByQuota(final Poll poll);
 
 
-	/**
-	 *
-	 * @param ip
-	 * @param poll
-	 * @return
-	 */
-	public List<PollResult> getListvalidateVoteIP(final String ip, final Poll poll);
+    /**
+     *
+     * @param ip
+     * @param poll
+     * @return
+     */
+    public List<PollResult> getListvalidateVoteIP(final String ip, final Poll poll);
 
-	/**
-	 * Retrieve all folders searched by keyword.
-	 * @param keyword
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	List<PollFolder> retrieveFoldersbyKeyword(final String keyword) throws EnMeNoResultsFoundException;
+    /**
+     * Retrieve all folders searched by keyword.
+     * @param keyword
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<PollFolder> retrieveFoldersbyKeyword(final String keyword) throws EnMeNoResultsFoundException;
+
+    /**
+     *
+     * @param pollsResults
+     * @return
+     */
+    List<PollBean> getAnswersVotesByPoll(final List<Poll> pollsResults);
 }

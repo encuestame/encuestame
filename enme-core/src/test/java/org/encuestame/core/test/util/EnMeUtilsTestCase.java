@@ -71,10 +71,10 @@ public class EnMeUtilsTestCase extends TestCase {
         int[] d2 = EnMeUtils.cleanVersion(v2);
         assertEquals(d2.length, 3);
     }
-    
+
     @Test(expected = EnMeExpcetion.class)
     public void testCleanVersionException() throws EnMeExpcetion{
         final String v1 = "1.3";
-        EnMeUtils.cleanVersion(v1);;
+        EnMeUtils.cleanVersion(v1);
     }
 }
