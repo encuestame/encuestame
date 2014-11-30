@@ -1,6 +1,6 @@
 --
 -- TOC entry 2372 (class 2606 OID 16390)
--- Name: access_rate_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: access_rate_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY access_rate
@@ -9,7 +9,7 @@ ALTER TABLE ONLY access_rate
 
 --
 -- TOC entry 2374 (class 2606 OID 16395)
--- Name: account_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: account_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY account
@@ -18,7 +18,7 @@ ALTER TABLE ONLY account
 
 --
 -- TOC entry 2378 (class 2606 OID 16411)
--- Name: application_connection_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: application_connection_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY application_connection
@@ -27,7 +27,7 @@ ALTER TABLE ONLY application_connection
 
 --
 -- TOC entry 2376 (class 2606 OID 16403)
--- Name: application_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: application_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY application
@@ -36,7 +36,7 @@ ALTER TABLE ONLY application
 
 --
 -- TOC entry 2380 (class 2606 OID 16416)
--- Name: attachment_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: attachment_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY attachment
@@ -45,7 +45,7 @@ ALTER TABLE ONLY attachment
 
 --
 -- TOC entry 2382 (class 2606 OID 16424)
--- Name: client_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: client_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY client
@@ -54,7 +54,7 @@ ALTER TABLE ONLY client
 
 --
 -- TOC entry 2384 (class 2606 OID 16432)
--- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY comments
@@ -63,7 +63,7 @@ ALTER TABLE ONLY comments
 
 --
 -- TOC entry 2386 (class 2606 OID 16440)
--- Name: dashboard_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: dashboard_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY dashboard
@@ -72,7 +72,7 @@ ALTER TABLE ONLY dashboard
 
 --
 -- TOC entry 2388 (class 2606 OID 16450)
--- Name: email_email_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: email_email_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY email
@@ -81,7 +81,7 @@ ALTER TABLE ONLY email
 
 --
 -- TOC entry 2390 (class 2606 OID 16448)
--- Name: email_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: email_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY email
@@ -90,7 +90,7 @@ ALTER TABLE ONLY email
 
 --
 -- TOC entry 2392 (class 2606 OID 16458)
--- Name: emaillist_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: emaillist_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY emaillist
@@ -99,7 +99,7 @@ ALTER TABLE ONLY emaillist
 
 --
 -- TOC entry 2394 (class 2606 OID 16463)
--- Name: emailsubscribe_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: emailsubscribe_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY emailsubscribe
@@ -108,7 +108,7 @@ ALTER TABLE ONLY emailsubscribe
 
 --
 -- TOC entry 2396 (class 2606 OID 16471)
--- Name: gadget_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: gadget_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY gadget
@@ -117,7 +117,7 @@ ALTER TABLE ONLY gadget
 
 --
 -- TOC entry 2398 (class 2606 OID 16479)
--- Name: gadget_properties_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: gadget_properties_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY gadget_properties
@@ -126,7 +126,7 @@ ALTER TABLE ONLY gadget_properties
 
 --
 -- TOC entry 2402 (class 2606 OID 16495)
--- Name: geopoint_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: geopoint_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY geopoint_folder
@@ -135,7 +135,7 @@ ALTER TABLE ONLY geopoint_folder
 
 --
 -- TOC entry 2400 (class 2606 OID 16487)
--- Name: geopoint_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: geopoint_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY geopoint
@@ -144,7 +144,7 @@ ALTER TABLE ONLY geopoint
 
 --
 -- TOC entry 2404 (class 2606 OID 16500)
--- Name: geopoint_type_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: geopoint_type_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY geopoint_type
@@ -153,7 +153,7 @@ ALTER TABLE ONLY geopoint_type
 
 --
 -- TOC entry 2406 (class 2606 OID 16505)
--- Name: group_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: group_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY group_permission
@@ -162,7 +162,7 @@ ALTER TABLE ONLY group_permission
 
 --
 -- TOC entry 2410 (class 2606 OID 16518)
--- Name: groups_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: groups_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY groups_permission
@@ -171,7 +171,7 @@ ALTER TABLE ONLY groups_permission
 
 --
 -- TOC entry 2408 (class 2606 OID 16513)
--- Name: groups_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: groups_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY groups
@@ -180,7 +180,7 @@ ALTER TABLE ONLY groups
 
 --
 -- TOC entry 2412 (class 2606 OID 16523)
--- Name: hash_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: hash_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY hash_tags
@@ -189,7 +189,7 @@ ALTER TABLE ONLY hash_tags
 
 --
 -- TOC entry 2414 (class 2606 OID 16528)
--- Name: hash_tags_ranking_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: hash_tags_ranking_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY hash_tags_ranking
@@ -198,7 +198,7 @@ ALTER TABLE ONLY hash_tags_ranking
 
 --
 -- TOC entry 2416 (class 2606 OID 16533)
--- Name: hits_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: hits_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY hits
@@ -207,7 +207,7 @@ ALTER TABLE ONLY hits
 
 --
 -- TOC entry 2418 (class 2606 OID 16541)
--- Name: notification_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: notification_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY notification
@@ -216,7 +216,7 @@ ALTER TABLE ONLY notification
 
 --
 -- TOC entry 2420 (class 2606 OID 16549)
--- Name: permission_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: permission_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY permission
@@ -225,7 +225,7 @@ ALTER TABLE ONLY permission
 
 --
 -- TOC entry 2426 (class 2606 OID 16564)
--- Name: poll_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: poll_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY poll_folder
@@ -234,7 +234,7 @@ ALTER TABLE ONLY poll_folder
 
 --
 -- TOC entry 2428 (class 2606 OID 16569)
--- Name: poll_hashtags_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: poll_hashtags_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY poll_hashtags
@@ -243,7 +243,7 @@ ALTER TABLE ONLY poll_hashtags
 
 --
 -- TOC entry 2422 (class 2606 OID 16557)
--- Name: poll_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: poll_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY poll
@@ -252,7 +252,7 @@ ALTER TABLE ONLY poll
 
 --
 -- TOC entry 2424 (class 2606 OID 16559)
--- Name: poll_poll_hash_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: poll_poll_hash_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY poll
@@ -261,7 +261,7 @@ ALTER TABLE ONLY poll
 
 --
 -- TOC entry 2430 (class 2606 OID 16574)
--- Name: poll_result_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: poll_result_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY poll_result
@@ -270,7 +270,7 @@ ALTER TABLE ONLY poll_result
 
 --
 -- TOC entry 2434 (class 2606 OID 16587)
--- Name: project_geopoint_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: project_geopoint_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY project_geopoint
@@ -279,7 +279,7 @@ ALTER TABLE ONLY project_geopoint
 
 --
 -- TOC entry 2436 (class 2606 OID 16592)
--- Name: project_group_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: project_group_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY project_group
@@ -288,7 +288,7 @@ ALTER TABLE ONLY project_group
 
 --
 -- TOC entry 2438 (class 2606 OID 16597)
--- Name: project_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: project_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY project_locations
@@ -297,7 +297,7 @@ ALTER TABLE ONLY project_locations
 
 --
 -- TOC entry 2432 (class 2606 OID 16582)
--- Name: project_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: project_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY project
@@ -306,7 +306,7 @@ ALTER TABLE ONLY project
 
 --
 -- TOC entry 2440 (class 2606 OID 16602)
--- Name: question_category_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: question_category_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY question_category
@@ -315,7 +315,7 @@ ALTER TABLE ONLY question_category
 
 --
 -- TOC entry 2442 (class 2606 OID 16607)
--- Name: question_category_questions_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: question_category_questions_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY question_category_questions
@@ -324,7 +324,7 @@ ALTER TABLE ONLY question_category_questions
 
 --
 -- TOC entry 2444 (class 2606 OID 16612)
--- Name: question_collection_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: question_collection_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY question_collection
@@ -333,7 +333,7 @@ ALTER TABLE ONLY question_collection
 
 --
 -- TOC entry 2446 (class 2606 OID 16617)
--- Name: question_dependence_survey_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: question_dependence_survey_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY question_dependence_survey
@@ -342,7 +342,7 @@ ALTER TABLE ONLY question_dependence_survey
 
 --
 -- TOC entry 2448 (class 2606 OID 16625)
--- Name: question_preferences_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: question_preferences_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY question_preferences
@@ -351,7 +351,7 @@ ALTER TABLE ONLY question_preferences
 
 --
 -- TOC entry 2450 (class 2606 OID 16630)
--- Name: question_relations_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: question_relations_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY question_relations
@@ -360,7 +360,7 @@ ALTER TABLE ONLY question_relations
 
 --
 -- TOC entry 2454 (class 2606 OID 16646)
--- Name: questions_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: questions_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY questions_answers
@@ -369,7 +369,7 @@ ALTER TABLE ONLY questions_answers
 
 --
 -- TOC entry 2456 (class 2606 OID 16653)
--- Name: questions_dependencies_descriptiondependence_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: questions_dependencies_descriptiondependence_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY questions_dependencies
@@ -378,7 +378,7 @@ ALTER TABLE ONLY questions_dependencies
 
 --
 -- TOC entry 2458 (class 2606 OID 16651)
--- Name: questions_dependencies_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: questions_dependencies_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY questions_dependencies
@@ -387,7 +387,7 @@ ALTER TABLE ONLY questions_dependencies
 
 --
 -- TOC entry 2460 (class 2606 OID 16655)
--- Name: questions_dependencies_questionid_from_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: questions_dependencies_questionid_from_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY questions_dependencies
@@ -396,7 +396,7 @@ ALTER TABLE ONLY questions_dependencies
 
 --
 -- TOC entry 2462 (class 2606 OID 16657)
--- Name: questions_dependencies_questionid_to_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: questions_dependencies_questionid_to_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY questions_dependencies
@@ -405,7 +405,7 @@ ALTER TABLE ONLY questions_dependencies
 
 --
 -- TOC entry 2452 (class 2606 OID 16638)
--- Name: questions_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: questions_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY questions
@@ -414,7 +414,7 @@ ALTER TABLE ONLY questions
 
 --
 -- TOC entry 2464 (class 2606 OID 16662)
--- Name: scheduled_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: scheduled_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY scheduled
@@ -423,7 +423,7 @@ ALTER TABLE ONLY scheduled
 
 --
 -- TOC entry 2466 (class 2606 OID 16670)
--- Name: social_account_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: social_account_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY social_account
@@ -432,7 +432,7 @@ ALTER TABLE ONLY social_account
 
 --
 -- TOC entry 2468 (class 2606 OID 16672)
--- Name: social_account_social_profile_id_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: social_account_social_profile_id_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY social_account
@@ -441,7 +441,7 @@ ALTER TABLE ONLY social_account
 
 --
 -- TOC entry 2470 (class 2606 OID 16677)
--- Name: survey_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: survey_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY survey_folder
@@ -450,7 +450,7 @@ ALTER TABLE ONLY survey_folder
 
 --
 -- TOC entry 2472 (class 2606 OID 16682)
--- Name: survey_format_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: survey_format_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY survey_format
@@ -459,7 +459,7 @@ ALTER TABLE ONLY survey_format
 
 --
 -- TOC entry 2476 (class 2606 OID 16692)
--- Name: survey_group_format_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: survey_group_format_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY survey_group_format
@@ -468,7 +468,7 @@ ALTER TABLE ONLY survey_group_format
 
 --
 -- TOC entry 2474 (class 2606 OID 16687)
--- Name: survey_group_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: survey_group_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY survey_group
@@ -477,7 +477,7 @@ ALTER TABLE ONLY survey_group
 
 --
 -- TOC entry 2478 (class 2606 OID 16697)
--- Name: survey_group_project_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: survey_group_project_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY survey_group_project
@@ -486,7 +486,7 @@ ALTER TABLE ONLY survey_group_project
 
 --
 -- TOC entry 2480 (class 2606 OID 16702)
--- Name: survey_hashtags_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: survey_hashtags_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY survey_hashtags
@@ -495,7 +495,7 @@ ALTER TABLE ONLY survey_hashtags
 
 --
 -- TOC entry 2482 (class 2606 OID 16707)
--- Name: survey_pagination_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: survey_pagination_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY survey_pagination
@@ -504,7 +504,7 @@ ALTER TABLE ONLY survey_pagination
 
 --
 -- TOC entry 2484 (class 2606 OID 16712)
--- Name: survey_result_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: survey_result_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY survey_result
@@ -513,7 +513,7 @@ ALTER TABLE ONLY survey_result
 
 --
 -- TOC entry 2486 (class 2606 OID 16720)
--- Name: survey_section_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: survey_section_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY survey_section
@@ -522,7 +522,7 @@ ALTER TABLE ONLY survey_section
 
 --
 -- TOC entry 2488 (class 2606 OID 16730)
--- Name: survey_temporal_result_hash_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: survey_temporal_result_hash_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY survey_temporal_result
@@ -531,7 +531,7 @@ ALTER TABLE ONLY survey_temporal_result
 
 --
 -- TOC entry 2490 (class 2606 OID 16728)
--- Name: survey_temporal_result_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: survey_temporal_result_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY survey_temporal_result
@@ -540,7 +540,7 @@ ALTER TABLE ONLY survey_temporal_result
 
 --
 -- TOC entry 2492 (class 2606 OID 16738)
--- Name: surveys_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: surveys_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY surveys
@@ -549,7 +549,7 @@ ALTER TABLE ONLY surveys
 
 --
 -- TOC entry 2496 (class 2606 OID 16748)
--- Name: tweetpoll_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: tweetpoll_folder_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY tweetpoll_folder
@@ -558,7 +558,7 @@ ALTER TABLE ONLY tweetpoll_folder
 
 --
 -- TOC entry 2500 (class 2606 OID 16761)
--- Name: tweetpoll_hashtags_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: tweetpoll_hashtags_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY tweetpoll_hashtags
@@ -567,7 +567,7 @@ ALTER TABLE ONLY tweetpoll_hashtags
 
 --
 -- TOC entry 2494 (class 2606 OID 16743)
--- Name: tweetpoll_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: tweetpoll_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY tweetpoll
@@ -576,7 +576,7 @@ ALTER TABLE ONLY tweetpoll
 
 --
 -- TOC entry 2502 (class 2606 OID 16766)
--- Name: tweetpoll_rate_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: tweetpoll_rate_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY tweetpoll_rate
@@ -585,7 +585,7 @@ ALTER TABLE ONLY tweetpoll_rate
 
 --
 -- TOC entry 2504 (class 2606 OID 16771)
--- Name: tweetpoll_result_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: tweetpoll_result_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY tweetpoll_result
@@ -594,7 +594,7 @@ ALTER TABLE ONLY tweetpoll_result
 
 --
 -- TOC entry 2498 (class 2606 OID 16756)
--- Name: tweetpoll_save_published_status_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: tweetpoll_save_published_status_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY tweetpoll_save_published_status
@@ -603,7 +603,7 @@ ALTER TABLE ONLY tweetpoll_save_published_status
 
 --
 -- TOC entry 2506 (class 2606 OID 16779)
--- Name: tweetpoll_switch_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: tweetpoll_switch_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY tweetpoll_switch
@@ -612,7 +612,7 @@ ALTER TABLE ONLY tweetpoll_switch
 
 --
 -- TOC entry 2508 (class 2606 OID 16781)
--- Name: tweetpoll_switch_tweet_code_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: tweetpoll_switch_tweet_code_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY tweetpoll_switch
@@ -621,7 +621,7 @@ ALTER TABLE ONLY tweetpoll_switch
 
 --
 -- TOC entry 2511 (class 2606 OID 16791)
--- Name: useraccount_email_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: useraccount_email_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY useraccount
@@ -630,7 +630,7 @@ ALTER TABLE ONLY useraccount
 
 --
 -- TOC entry 2520 (class 2606 OID 16800)
--- Name: useraccount_followers_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: useraccount_followers_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY useraccount_followers
@@ -639,7 +639,7 @@ ALTER TABLE ONLY useraccount_followers
 
 --
 -- TOC entry 2522 (class 2606 OID 16805)
--- Name: useraccount_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: useraccount_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY useraccount_permission
@@ -648,7 +648,7 @@ ALTER TABLE ONLY useraccount_permission
 
 --
 -- TOC entry 2513 (class 2606 OID 16789)
--- Name: useraccount_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: useraccount_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY useraccount
@@ -657,7 +657,7 @@ ALTER TABLE ONLY useraccount
 
 --
 -- TOC entry 2524 (class 2606 OID 16810)
--- Name: useraccount_project_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: useraccount_project_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY useraccount_project
@@ -666,7 +666,7 @@ ALTER TABLE ONLY useraccount_project
 
 --
 -- TOC entry 2515 (class 2606 OID 16795)
--- Name: useraccount_username_email_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: useraccount_username_email_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY useraccount
@@ -675,7 +675,7 @@ ALTER TABLE ONLY useraccount
 
 --
 -- TOC entry 2517 (class 2606 OID 16793)
--- Name: useraccount_username_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace: 
+-- Name: useraccount_username_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
 --
 
 ALTER TABLE ONLY useraccount
@@ -1788,4 +1788,11 @@ ALTER TABLE ONLY survey_group_project
 ALTER TABLE ONLY survey_section
     ADD CONSTRAINT fkfe5ad30051153812 FOREIGN KEY (survey_sid) REFERENCES surveys(sid);
 
+
+ALTER TABLE ONLY helppage
+    ADD CONSTRAINT helppage_pkey PRIMARY KEY (help_page_id);
+
+
+ALTER TABLE ONLY helppage
+    ADD CONSTRAINT fkd0eb1d70436027aa FOREIGN KEY (help_user_id) REFERENCES useraccount(uid);
 

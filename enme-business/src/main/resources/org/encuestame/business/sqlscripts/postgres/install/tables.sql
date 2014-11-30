@@ -722,3 +722,10 @@ CREATE TABLE useraccount_project (
   sec_id_secondary bigint NOT NULL,
   cat_id_project bigint NOT NULL
 );
+
+
+CREATE TABLE helppage (
+    help_page_id bigint NOT NULL,
+    url_path character varying(255),
+    help_user_id bigint
+);
