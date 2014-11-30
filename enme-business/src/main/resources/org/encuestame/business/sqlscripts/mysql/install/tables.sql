@@ -1180,7 +1180,7 @@ CREATE TABLE IF NOT EXISTS `scheduled` (
 CREATE TABLE IF NOT EXISTS `helpPage` (
   `help_page_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `url_path` VARCHAR(255) DEFAULT NULL,
-  `user` BIGINT(20) DEFAULT NULL,
+  `help_user_id` BIGINT(20) DEFAULT NULL,
   PRIMARY KEY (`help_page_id`),
   UNIQUE KEY `help_page_id` (`help_page_id`),
   KEY `FKD0EB1D70F47A8064` (`help_user_id`)
