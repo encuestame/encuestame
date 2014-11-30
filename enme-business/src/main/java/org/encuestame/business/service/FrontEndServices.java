@@ -76,20 +76,28 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     /** {@link SecurityOperations} **/
     private SecurityOperations securityService;
 
-    /**
-     * Search Items By tweetPoll.
-     *
-     * @param maxResults
-     *            limit of results to return.
-     * @return result of the search.
-     * @throws EnMeSearchException
-     *             search exception.
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#searchItemsByTweetPoll(java.lang.String, java.lang.Integer, java.lang.Integer, javax.servlet.http.HttpServletRequest)
      */
     public List<TweetPollBean> searchItemsByTweetPoll(
             final String period,
             final Integer start,
             Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException {
+        return this.searchItemsByTweetPoll(period, start, maxResults, request, false);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#searchItemsByTweetPoll(java.lang.String, java.lang.Integer, java.lang.Integer, javax.servlet.http.HttpServletRequest, java.lang.Boolean)
+     */
+    public List<TweetPollBean> searchItemsByTweetPoll(
+            final String period,
+            final Integer start,
+            Integer maxResults,
+            final HttpServletRequest request,
+            final Boolean addResults) throws EnMeSearchException {
         final List<TweetPollBean> results = new ArrayList<TweetPollBean>();
         if (maxResults == null) {
             maxResults = this.MAX_RESULTS;
@@ -115,7 +123,11 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
                 items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(
                         start, maxResults));
             }
-            results.addAll(ConvertDomainBean.convertListToTweetPollBean(items));
+            if (addResults) {
+                results.addAll(getTweetPollService().setTweetPollListAnswers(items, true, request));
+            } else {
+                results.addAll(ConvertDomainBean.convertListToTweetPollBean(items));
+            }
             for (TweetPollBean tweetPoll : results) {
                 // log.debug("Iterate Home TweetPoll id: "+tweetPoll.getId());
                 // log.debug("Iterate Home Tweetpoll Hashtag Size: "+tweetPoll.getHashTags().size());
@@ -181,16 +193,29 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             final String period,
             final Integer start,
             final Integer maxResults,
-            final HttpServletRequest request) throws EnMeSearchException {
-        // Sorted list based comparable interface
+            final HttpServletRequest request) throws EnMeSearchException, EnMeNoResultsFoundException {
+       return this.getFrontEndItems(period, start, maxResults, false, request);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#getFrontEndItems(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Boolean, javax.servlet.http.HttpServletRequest)
+     */
+    public List<HomeBean> getFrontEndItems(
+            final String period,
+            final Integer start,
+            final Integer maxResults,
+            final Boolean addResults,
+            final HttpServletRequest request) throws EnMeSearchException, EnMeNoResultsFoundException {
+          // Sorted list based comparable interface
         List<HomeBean> allItems = new ArrayList<HomeBean>();
         final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(
-                period, start, maxResults, request);
+                period, start, maxResults, request, addResults);
         log.debug("FrontEnd TweetPoll items size  :" + tweetPollItems.size());
         allItems.addAll(ConvertDomainBean
                 .convertTweetPollListToHomeBean(tweetPollItems));
         final List<PollBean> pollItems = this.searchItemsByPoll(period, start,
-                maxResults);
+                maxResults, request, true);
         log.debug("FrontEnd Poll items size  :" + pollItems.size());
         allItems.addAll(ConvertDomainBean.convertPollListToHomeBean(pollItems));
         final List<SurveyBean> surveyItems = this.searchItemsBySurvey(period,
@@ -242,16 +267,28 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         return totalItems;
     }
 
-    /**
-     * Search items by poll.
-     *
-     * @param period
-     * @param maxResults
-     * @return
-     * @throws EnMeSearchException
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#searchItemsByPoll(java.lang.String, java.lang.Integer, java.lang.Integer)
      */
-    public List<PollBean> searchItemsByPoll(final String period,
-            final Integer start, Integer maxResults) throws EnMeSearchException {
+    public List<PollBean> searchItemsByPoll(
+            final String period,
+            final Integer start,
+            Integer maxResults,
+            final HttpServletRequest request) throws EnMeSearchException{
+        return this.searchItemsByPoll(period, start, maxResults, request, false);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#searchItemsByPoll(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Boolean)
+     */
+    public List<PollBean> searchItemsByPoll(
+            final String period,
+            final Integer start,
+            Integer maxResults,
+            final HttpServletRequest request,
+            final Boolean addResults) throws EnMeSearchException {
         final List<PollBean> results = new ArrayList<PollBean>();
         log.debug("searchItemsByPoll period " + period);
         log.debug("searchItemsByPoll start " + period);
@@ -277,8 +314,14 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
                 items.addAll(getFrontEndDao().getPollFrontEndAllTime(start,
                         maxResults));
             }
-            log.debug("Poll:--> " + items.size());
-            results.addAll(ConvertDomainBean.convertListToPollBean((items)));
+            // if is required add results for each poll
+            if (addResults) {
+                // here the conversion to bean is made it inside the method
+                results.addAll(getPollService().getAnswersVotesByPoll(items));
+            } else {
+                results.addAll(ConvertDomainBean.convertListToPollBean((items)));
+            }
+            // add comments info
             for (PollBean pollbean : results) {
                 pollbean.setTotalComments(this.getTotalCommentsbyType(
                         pollbean.getId(), TypeSearchResult.POLL));

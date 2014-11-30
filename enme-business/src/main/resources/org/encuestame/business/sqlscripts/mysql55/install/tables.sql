@@ -1155,18 +1155,31 @@ CREATE TABLE IF NOT EXISTS `survey_temporal_result` (
 --
 
 CREATE TABLE IF NOT EXISTS `scheduled` (
-	`publish_scheduled_id` bigint(20) NOT NULL AUTO_INCREMENT,
-	`tweetPoll_tweet_poll_id` bigint(20) DEFAULT NULL,
-	`poll_poll_id` bigint(20) DEFAULT NULL,
- 	`survey_sid` bigint(20) DEFAULT NULL,
- 	`tweet_text` varchar(255) DEFAULT NULL,
-	`scheduled_date` datetime DEFAULT NULL,
-	`socialAccount_social_account_id` bigint(20) DEFAULT NULL,
-	`status` int(11) DEFAULT NULL,
-	`publish_attempts` int(11) DEFAULT NULL,
-	`tweetPoll_save_published_status_status_save_poll_id` bigint(20) DEFAULT NULL,
-	`type_search` int(11) DEFAULT NULL,
-	`publication_date` datetime DEFAULT NULL,
+    `publish_scheduled_id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `tweetPoll_tweet_poll_id` bigint(20) DEFAULT NULL,
+    `poll_poll_id` bigint(20) DEFAULT NULL,
+     `survey_sid` bigint(20) DEFAULT NULL,
+     `tweet_text` varchar(255) DEFAULT NULL,
+    `scheduled_date` datetime DEFAULT NULL,
+    `socialAccount_social_account_id` bigint(20) DEFAULT NULL,
+    `status` int(11) DEFAULT NULL,
+    `publish_attempts` int(11) DEFAULT NULL,
+    `tweetPoll_save_published_status_status_save_poll_id` bigint(20) DEFAULT NULL,
+    `type_search` int(11) DEFAULT NULL,
+    `publication_date` datetime DEFAULT NULL,
   PRIMARY KEY (`scheduled_id`),
   UNIQUE KEY `scheduled_id` (`scheduled_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+
+--
+-- Table structure for table `helpPage`
+--
+
+CREATE TABLE IF NOT EXISTS `helpPage` (
+  `help_page_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `url_path` varchar(255) DEFAULT NULL,
+  `user` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`help_page_id`),
+  UNIQUE KEY `help_page_id` (`help_page_id`),
+  KEY `FKD0EB1D70F47A8064` (`help_user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;

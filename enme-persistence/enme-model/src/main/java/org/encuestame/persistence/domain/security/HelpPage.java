@@ -20,6 +20,7 @@ package org.encuestame.persistence.domain.security;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,7 +30,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "helpPage")
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Indexed(index="help_page")
 public class HelpPage implements Serializable {
 
     /**
@@ -53,7 +54,7 @@ public class HelpPage implements Serializable {
     }
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "help_user_id")
     public UserAccount getUserAccount() {
         return userAccount;
     }

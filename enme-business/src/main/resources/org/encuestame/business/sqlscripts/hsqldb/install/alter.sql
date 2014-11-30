@@ -121,3 +121,4 @@ alter table userAccount_permission add constraint FKBE01CE4C43ADB63D foreign key
 alter table userAccount_permission add constraint FKBE01CE4C5F77A117 foreign key (sec_id_secondary) references userAccount
 alter table userAccount_project add constraint FKFBC45BBC84536452 foreign key (cat_id_project) references project
 alter table userAccount_project add constraint FKFBC45BBC5F77A117 foreign key (sec_id_secondary) references userAccount
+alter table helpPage add constraint FKD0EB1D70436027AA foreign key (help_user_id) references userAccount

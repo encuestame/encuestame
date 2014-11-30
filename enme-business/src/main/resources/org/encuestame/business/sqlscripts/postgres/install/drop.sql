@@ -230,6 +230,7 @@ DROP TABLE public.email;
 DROP TABLE public.dashboard;
 DROP TABLE public.comments;
 DROP TABLE public.client;
+DROP TABLE public.helppage;
 DROP TABLE public.attachment;
 DROP TABLE public.application_connection;
 DROP TABLE public.application;

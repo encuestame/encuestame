@@ -62,17 +62,52 @@ public interface IFrontEndService extends ServiceOperations {
             throws EnMeSearchException;
 
      /**
+      * Search Items By TweetPoll.
+      * @param period period of time to limit results
+      * @param start pagination start
+      * @param maxResults limit of results
+      * @param request {@link HttpServletRequest}
+      * @param addResults define if the search will add results (this makes it slower the operation)
+      * @return
+      * @throws EnMeSearchException
+      */
+     List<TweetPollBean> searchItemsByTweetPoll(
+             final String period,
+             final Integer start,
+             Integer maxResults,
+             final HttpServletRequest request,
+             final Boolean addResults) throws EnMeSearchException;
+
+     /**
       * Search items by poll.
-      * @param period
-      * @param maxResults
+      * @param period period of time to limit results
+      * @param start pagination start
+      * @param maxResults limit of results
       * @return
       * @throws EnMeSearchException
       */
     List<PollBean> searchItemsByPoll(
              final String period,
              final Integer start,
-             Integer maxResults)
+             Integer maxResults,
+             final HttpServletRequest request)
              throws EnMeSearchException;
+
+    /**
+     * Search items by poll.
+     * @param period period of time to limit results
+     * @param start pagination start
+     * @param maxResults limit of results
+     * @param addResults define if the search will add results (this makes it slower the operation)
+     * @return
+     * @throws EnMeSearchException
+     */
+    List<PollBean> searchItemsByPoll(
+            final String period,
+            final Integer start,
+            Integer maxResults,
+            final HttpServletRequest request,
+            final Boolean addResults) throws EnMeSearchException;
 
     /**
      * List Hash tags
@@ -113,10 +148,29 @@ public interface IFrontEndService extends ServiceOperations {
      * @param request
      * @return
      * @throws EnMeSearchException
+     * @throws EnMeNoResultsFoundException
      */
     List<HomeBean> getFrontEndItems(final String period, final Integer start,
             Integer maxResults, final HttpServletRequest request)
-            throws EnMeSearchException;
+            throws EnMeSearchException, EnMeNoResultsFoundException;
+
+    /**
+     * Return a collection of all items
+     * @param period period of time to limit results
+     * @param start pagination start
+     * @param maxResults limit of results
+     * @param request {@link HttpServletRequest}
+     * @param addResults define if the search will add results (this makes it slower the operation)
+     * @return
+     * @throws EnMeSearchException
+     * @throws EnMeNoResultsFoundException
+     */
+    List<HomeBean> getFrontEndItems(
+            final String period,
+            final Integer start,
+            final Integer maxResults,
+            final Boolean addResults,
+            final HttpServletRequest request) throws EnMeSearchException, EnMeNoResultsFoundException;
 
     /**
      * Check previous item hit.
@@ -275,6 +329,6 @@ public interface IFrontEndService extends ServiceOperations {
      * @throws EnMeSearchException
      */
     Long getTotalItemsPublishedByType(final UserAccount user,
-			final Boolean status, final TypeSearchResult typeSearch)
-			throws EnMeSearchException;
+            final Boolean status, final TypeSearchResult typeSearch)
+            throws EnMeSearchException;
 }

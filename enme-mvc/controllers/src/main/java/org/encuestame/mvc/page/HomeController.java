@@ -111,7 +111,7 @@ public class HomeController extends AbstractViewController {
                                 ConvertDomainBean
                                         .convertPollListToHomeBean(service
                                                 .searchItemsByPoll(period, EnMeUtils.DEFAULT_START,
-                                                        this.homeMaxItems)));
+                                                        this.homeMaxItems, request)));
                     } else if ("survey".equals(view)) {
                         //TODO: ENCUESTAME-345
                         model.addAttribute("items", ListUtils.EMPTY_LIST);
@@ -125,7 +125,7 @@ public class HomeController extends AbstractViewController {
                 model.addAttribute("hashTags", service.getHashTags(this.homeHashtagMaxItems, EnMeUtils.DEFAULT_START, ""));
                 //TODO: search hashtags and other information.
                 //TODO: comments: ENCUESTAME-346
-            } catch (EnMeSearchException e) {
+            } catch (EnMeSearchException | EnMeNoResultsFoundException e) {
                 log.error(e);
                 return "error";
             }

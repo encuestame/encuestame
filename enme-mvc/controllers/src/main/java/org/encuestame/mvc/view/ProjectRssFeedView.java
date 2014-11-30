@@ -15,6 +15,7 @@ package org.encuestame.mvc.view;
 import java.util.Date;
 
 import org.encuestame.core.rss.AbstractBaseRssFeedView;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
 import com.sun.syndication.feed.rss.Channel;
@@ -33,9 +34,9 @@ public class ProjectRssFeedView extends AbstractBaseRssFeedView{
         channel.setPubDate(new Date());
         channel.setDescription("RSS Description");
         channel.setTitle("Project published");
-        channel.setLink("link");
-        channel.setCopyright("2011");
-        channel.setPubDate(new Date());
+        final DateTime time = new DateTime();
+        channel.setCopyright(String.valueOf(time.getYear()));
+        channel.setPubDate(time.toDate());
         return  channel;
     }
 }

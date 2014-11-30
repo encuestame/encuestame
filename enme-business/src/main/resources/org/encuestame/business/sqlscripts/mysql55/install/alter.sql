@@ -157,7 +157,7 @@ ALTER TABLE `poll_folder`
 --
 -- Constraints for table `poll_hashtags`
 --
-ALTER TABLE `poll_hashtags` 
+ALTER TABLE `poll_hashtags`
   ADD CONSTRAINT `FK9D199EA7DA98FFE1` FOREIGN KEY (`hastag_id`) REFERENCES `hash_tags` (`hash_tag_id`),
   ADD CONSTRAINT `FK9D199EA7F0ED6769` FOREIGN KEY (`poll_id`) REFERENCES `poll` (`poll_id`);
 
@@ -371,25 +371,31 @@ ALTER TABLE `userAccount_permission`
 ALTER TABLE `userAccount_project`
   ADD CONSTRAINT `FKFBC45BBC5F77A117` FOREIGN KEY (`sec_id_secondary`) REFERENCES `userAccount` (`uid`),
   ADD CONSTRAINT `FKFBC45BBC84536452` FOREIGN KEY (`cat_id_project`) REFERENCES `project` (`project_id`);
-  
+
 ALTER TABLE `survey_hashtags`
   ADD CONSTRAINT `FK9D62ED6C793D9E77` FOREIGN KEY (`sid`) REFERENCES `surveys` (`sid`),
   ADD CONSTRAINT `FK9D62ED6CDA98FFE1` FOREIGN KEY (`hastag_id`) REFERENCES `hash_tags` (`hash_tag_id`);
-  
+
 
 ALTER TABLE `hash_tags_ranking`
   ADD CONSTRAINT `FK71DECDA119AA125` FOREIGN KEY (`hashTag_hash_tag_id`) REFERENCES `hash_tags` (`hash_tag_id`);
-  
+
 --
 -- Constraints for table `question_preferences`
---  
+--
 ALTER TABLE `question_preferences`
   ADD CONSTRAINT `FKD540D01F46BF7A1C` FOREIGN KEY (`question_qid`) REFERENCES `questions` (`qid`);
-  
+
 --
 -- Constraints for table `survey_temporal_result`
---  
+--
 ALTER TABLE `survey_temporal_result`
   ADD CONSTRAINT `FK7867CF551153812` FOREIGN KEY (`survey_sid`) REFERENCES `surveys` (`sid`),
   ADD CONSTRAINT `FK7867CF546BF7A1C` FOREIGN KEY (`question_qid`) REFERENCES `questions` (`qid`),
   ADD CONSTRAINT `FK7867CF5496009B4` FOREIGN KEY (`answer_q_answer_id`) REFERENCES `questions_answers` (`q_answer_id`);
+
+--
+-- Constraints for table `helpPage`
+--
+ALTER TABLE `helpPage`
+  ADD CONSTRAINT `FKD0EB1D70F47A8064` FOREIGN KEY (`help_user_id`) REFERENCES `userAccount` (`uid`);

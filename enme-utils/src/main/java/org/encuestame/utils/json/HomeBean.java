@@ -13,10 +13,14 @@
 package org.encuestame.utils.json;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.AbstractUnitSurvey;
+import org.encuestame.utils.web.HomeResultBean;
+import org.encuestame.utils.web.ResultBean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -34,6 +38,15 @@ public class HomeBean extends AbstractUnitSurvey implements Serializable, Compar
     @JsonProperty(value = "id")
     private Long id;
 
+    /**
+    *
+    */
+   @JsonIgnore
+   private List<ResultBean> resultsBean;
+
+   /**
+    *
+    */
     @JsonProperty(value = "question")
     private QuestionBean questionBean = new QuestionBean();
 
@@ -86,6 +99,22 @@ public class HomeBean extends AbstractUnitSurvey implements Serializable, Compar
      */
     public void setUserId(final Long userId) {
         this.userId = userId;
+    }
+
+    /**
+     * @return the resultsBean
+     */
+   @JsonIgnore
+    public List<ResultBean> getResultsBean() {
+        return resultsBean;
+    }
+
+    /**
+     * @param resultsBean the resultsBean to set
+     */
+   @JsonIgnore
+    public void setResultsBean(List<ResultBean> resultsBean) {
+        this.resultsBean = resultsBean;
     }
 
     /**

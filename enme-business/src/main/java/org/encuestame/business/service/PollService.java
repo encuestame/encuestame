@@ -1083,6 +1083,23 @@ public class PollService extends AbstractSurveyService implements IPollService{
 
     /*
      * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#getAnswersVotesByPoll(java.util.List)
+     */
+    public List<PollBean> getAnswersVotesByPoll(final List<Poll> pollsResults) {
+        final List<PollBean> result = new ArrayList<PollBean>();
+        for (Poll poll : pollsResults) {
+                final List<PollBeanResult> pollBeanResult = this
+                        .getResultVotes(poll);
+                // Calculate votes percents
+                final PollBean pollB = ConvertDomainBean.convertPollDomainToBean(poll);
+                pollB.setResultsBean(pollBeanResult);
+                result.add(pollB);
+        }
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#getResultVotes(org.encuestame.persistence.domain.survey.Poll)
      */
     public List<PollBeanResult> getResultVotes(final Poll poll) {

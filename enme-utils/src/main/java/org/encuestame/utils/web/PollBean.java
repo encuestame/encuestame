@@ -14,6 +14,7 @@
 package org.encuestame.utils.web;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -85,7 +86,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
      *
      */
     @JsonProperty(value = "poll_results")
-    private List<PollBeanResult> resultsBean;
+    private List<PollBeanResult> resultsBean = new ArrayList<PollBeanResult>();
 
     /**
      * @return the id

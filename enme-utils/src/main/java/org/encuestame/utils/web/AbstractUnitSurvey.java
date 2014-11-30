@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.encuestame.utils.enums.TypeSearchResult;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -35,6 +37,17 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /** List of HashTags. **/
     @JsonProperty(value = "hashtags")
     private List<HashTagBean> hashTags = new ArrayList<HashTagBean>();
+
+    //Ignored for now due ENCUESTAME-669
+    //@JsonProperty(value = "comments")
+    @JsonIgnore
+    private List<CommentBean> comments = new ArrayList<CommentBean>();
+
+    /**
+     * Define the type.
+     */
+    @JsonProperty(value = "type_item")
+    private TypeSearchResult typeSearchResult;
 
     /**
      * Define if the abstract survey is restricted by password.
@@ -605,4 +618,35 @@ public abstract class AbstractUnitSurvey implements Serializable {
     public String getShowResults() {
         return showResults;
     }
+
+    /**
+     * @return the typeSearchResult
+     */
+    @JsonIgnore
+    public TypeSearchResult getTypeSearchResult() {
+        return typeSearchResult;
+    }
+
+    /**
+     * @param typeSearchResult the typeSearchResult to set
+     */
+    public void setTypeSearchResult(TypeSearchResult typeSearchResult) {
+        this.typeSearchResult = typeSearchResult;
+    }
+
+    /**
+     * @return the comments
+     */
+    @JsonIgnore
+    public List<CommentBean> getComments() {
+        return comments;
+    }
+
+    /**
+     * @param comments the comments to set
+     */
+    public void setComments(List<CommentBean> comments) {
+        this.comments = comments;
+    }
+
 }
