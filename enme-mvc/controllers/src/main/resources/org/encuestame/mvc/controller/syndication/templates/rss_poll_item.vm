@@ -14,10 +14,10 @@
                                    $answer.answerBean.answers
                                </span>
                             </div>
-                            <div class="answer-votes" style="line-height: 20px;text-align: left;padding:10px;width: 150px;float:left;">
+                            <div class="answer-votes" style="line-height: 20px;text-align: left;padding:10px;width: 50px;float:left;">
                                 $answer.votes
                             </div>
-                            <div class="answer-percent" style="line-height: 20px;text-align: left;padding:10px;width: 150px;float:left;">
+                            <div class="answer-percent" style="line-height: 20px;text-align: left;padding:10px;width: 50px;float:left;">
                                 $answer.percent
                             </div>
                         </div>
