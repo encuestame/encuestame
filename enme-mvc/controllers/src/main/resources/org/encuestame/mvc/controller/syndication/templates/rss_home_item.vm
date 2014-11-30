@@ -26,8 +26,6 @@
                     </div>
                     <hr/>
                 #end
-                tipo: ${type}
-                ${domain}/embebed/iframe/preview/${type}/${type_id}
                 <iframe scrolling="no" frameborder="0"
                  allowtransparency="true"
                  height="550"
