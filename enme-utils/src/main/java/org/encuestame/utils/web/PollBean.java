@@ -272,23 +272,44 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
      */
     @Override
     public String toString() {
-        return "PollBean ["
-                + (id != null ? "id=" + id + ", " : "")
-                + (completedPoll != null ? "completedPoll=" + completedPoll
-                        + ", " : "")
-                + (creationDate != null ? "creationDate=" + creationDate + ", "
-                        : "")
-                + (questionBean != null ? "questionBean=" + questionBean + ", "
-                        : "")
-                + (finishDate != null ? "finishDate=" + finishDate + ", " : "")
-                + (publishPoll != null ? "publishPoll=" + publishPoll + ", "
-                        : "")
-                + (closeNotification != null ? "closeNotification="
-                        + closeNotification + ", " : "")
-                + (showResultsPoll != null ? "showResultsPoll="
-                        + showResultsPoll + ", " : "")
-                + (updatedDate != null ? "updatedDate=" + updatedDate + ", "
-                        : "") + (url != null ? "url=" + url + ", " : "")
-                + (shortUrl != null ? "shortUrl=" + shortUrl : "") + "]";
+        return "PollBean [id=" + id + ", completedPoll=" + completedPoll
+                + ", creationDate=" + creationDate + ", questionBean="
+                + questionBean + ", finishDate=" + finishDate
+                + ", publishPoll=" + publishPoll + ", closeNotification="
+                + closeNotification + ", showResultsPoll=" + showResultsPoll
+                + ", updatedDate=" + updatedDate + ", url=" + url
+                + ", shortUrl=" + shortUrl + ", resultsBean=" + resultsBean
+                + ", getHashTags()=" + getHashTags() + ", getOwnerUsername()="
+                + getOwnerUsername() + ", getRelativeTime()="
+                + getRelativeTime() + ", getTotalVotes()=" + getTotalVotes()
+                + ", getItemType()=" + getItemType() + ", getLikeVote()="
+                + getLikeVote() + ", getDislikeVote()=" + getDislikeVote()
+                + ", getCreateDate()=" + getCreateDate() + ", getRelevance()="
+                + getRelevance() + ", getFavorite()=" + getFavorite()
+                + ", getHits()=" + getHits() + ", getLatitude()="
+                + getLatitude() + ", getLongitude()=" + getLongitude()
+                + ", getAdditionalInfo()=" + getAdditionalInfo()
+                + ", getShowComments()=" + getShowComments()
+                + ", getFolderId()=" + getFolderId()
+                + ", getIsShowAdditionalInfo()=" + getIsShowAdditionalInfo()
+                + ", getIsCloseAfterDate()=" + getIsCloseAfterDate()
+                + ", getClosedDate()=" + getClosedDate()
+                + ", getIsCloseAfterQuota()=" + getIsCloseAfterQuota()
+                + ", getClosedQuota()=" + getClosedQuota()
+                + ", getIsIpRestricted()=" + getIsIpRestricted()
+                + ", getIpRestricted()=" + getIpRestricted()
+                + ", getMultipleResponse()=" + getMultipleResponse()
+                + ", getIsShowResults()=" + getIsShowResults()
+                + ", getTotalComments()=" + getTotalComments()
+                + ", getHashtagAsString()=" + getHashtagAsString()
+                + ", getIsPasswordRestriction()=" + getIsPasswordRestriction()
+                + ", getCreateDateComparable()=" + getCreateDateComparable()
+                + ", getShowResults()=" + getShowResults()
+                + ", getTypeSearchResult()=" + getTypeSearchResult()
+                + ", getComments()=" + getComments() + ", getClass()="
+                + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+                + super.toString() + "]";
     }
+
+
 }

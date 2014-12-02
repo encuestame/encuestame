@@ -23,6 +23,7 @@ import java.util.Locale;
 import org.encuestame.business.service.PollService;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.HashTag;
@@ -37,9 +38,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.InternetTest;
-import org.encuestame.utils.enums.SearchPeriods;
-import org.encuestame.utils.enums.TypeSearch;
-import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.enums.*;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SearchBean;
@@ -67,11 +66,11 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
      /** {@link Account} **/
     private Account user;
-    
-	/**
-	 * Mock HttpServletRequest.
-	 */
-	MockHttpServletRequest request;    
+
+    /**
+     * Mock HttpServletRequest.
+     */
+    MockHttpServletRequest request;
 
     /** {@link Question} **/
     private Question question;
@@ -107,13 +106,13 @@ public class TestPollService extends AbstractSpringSecurityContext{
     private HashTag tag1;
 
     /** **/
-	private HashTag tag2;
+    private HashTag tag2;
 
     /** **/
-	private HashTag tag3;
+    private HashTag tag3;
 
     /** **/
-	private HashTag tag4;
+    private HashTag tag4;
 
     /** {@link HashTagBean} list. **/
     private List<HashTagBean> tagBeanList = new ArrayList<HashTagBean>();
@@ -146,43 +145,118 @@ public class TestPollService extends AbstractSpringSecurityContext{
         this.answers[3] = "answer Four";
 
         // HashTags
-		this.tag1 = createHashTag("one");
-		this.tag2 = createHashTag("two");
-		this.tag3 = createHashTag("three");
-		this.tag4 = createHashTag("four");
+        this.tag1 = createHashTag("one");
+        this.tag2 = createHashTag("two");
+        this.tag3 = createHashTag("three");
+        this.tag4 = createHashTag("four");
 
-		// HashtagBean List
-		tagBeanList.add(ConvertDomainBean
-				.convertHashTagDomain(this.tag1));
-		tagBeanList.add(ConvertDomainBean
-				.convertHashTagDomain(this.tag2));
-		tagBeanList.add(ConvertDomainBean
-				.convertHashTagDomain(this.tag3));
-		tagBeanList.add(ConvertDomainBean
-				.convertHashTagDomain(this.tag4));
-		
-		//fake request
-		request = new MockHttpServletRequest();
-		request.addPreferredLocale(Locale.ENGLISH);
+        // HashtagBean List
+        tagBeanList.add(ConvertDomainBean
+                .convertHashTagDomain(this.tag1));
+        tagBeanList.add(ConvertDomainBean
+                .convertHashTagDomain(this.tag2));
+        tagBeanList.add(ConvertDomainBean
+                .convertHashTagDomain(this.tag3));
+        tagBeanList.add(ConvertDomainBean
+                .convertHashTagDomain(this.tag4));
+
+        //fake request
+        request = new MockHttpServletRequest();
+        request.addPreferredLocale(Locale.ENGLISH);
      }
 
     /**
-     * Test createPoll.
+     * Test single createPoll.
      * @throws Exception exception
      */
     @Test
     public void testcreatePoll() throws Exception{
-        final QuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
-        final PollBean unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
-        unitPoll.setQuestionBean(question);
-        //"ssss", this.answers, "ALL", "APPROVE" ,Boolean.TRUE, this.tagBeanList
         final String[] answer = {"a", "b"};
         final String[] hashtag = {"hastag1", "hastag2"};
-        final CreatePollBean cb = createPollBean("ssssssssssss",answer, hashtag, "MODERATE", "ALL", true, null, null);
+        /*
+         * questionName
+            answer
+            hashtag
+            showComments
+            showResults
+            multipleSelection
+            limitVotes
+            closeDate
+         */
+        final CreatePollBean cb = createPollBean(
+                "Question",
+                answer,
+                hashtag,
+                "MODERATE",
+                "ALL",
+                true,
+                null,
+                null);
+        System.out.println(cb);
         final Poll myPoll = this.pollService.createPoll(cb);
         Assert.assertNotNull(myPoll);
+        assertEquals(myPoll.getQuestion().getQuestion(), "Question");
+        assertEquals(myPoll.getHashTags().size(), 2);
+        assertEquals(myPoll.getPollCompleted(), false);
+        assertEquals(myPoll.getPublish(), true);
+        assertEquals(myPoll.getMultipleResponse(), AbstractSurvey.MultipleResponse.MULTIPLE);
+        assertEquals(myPoll.getCloseAfterquota(), false);
+        assertEquals(myPoll.getCloseAfterDate(), false);
+        assertEquals(myPoll.getShowResults(), ShowResultsOptions.ALL);
+        assertEquals(myPoll.getAllowRepeatedVotes(), false);
+        assertEquals(myPoll.getShowComments(), CommentOptions.MODERATE);
     }
 
+     /**
+      * Test createPoll with limits vote by IP.
+      * @throws Exception exception
+      */
+     @Test
+     public void testcreatePollLimtIP() throws Exception{
+         final String[] answer = {"a", "b"};
+         final String[] hashtag = {"hastag1", "hastag2"};
+        /*
+         * questionName
+            answer
+            hashtag
+            showComments
+            showResults
+            multipleSelection
+            limitVotes
+            closeDate
+         */
+         final CreatePollBean cb = createPollBean(
+                 "Question",
+                 answer,
+                 hashtag,
+                 "MODERATE",
+                 "ALL",
+                 true,
+                 null,
+                 null);
+         cb.setRepeatedVotes(5);
+         cb.setMultiple(false);
+         cb.setLimitVote(10);
+         System.out.println(cb);
+         final Poll myPoll = this.pollService.createPoll(cb);
+         Assert.assertNotNull(myPoll);
+         assertEquals(myPoll.getQuestion().getQuestion(), "Question");
+         assertEquals(myPoll.getHashTags().size(), 2);
+         assertEquals(myPoll.getPollCompleted(), false);
+         assertEquals(myPoll.getPublish(), true);
+         assertEquals(myPoll.getAllowRepeatedVotes(), true);
+         assertEquals(myPoll.getLimitVotesEnabled(), true);
+         assertEquals(myPoll.getMultipleResponse(), AbstractSurvey.MultipleResponse.SINGLE);
+         assertEquals(myPoll.getCloseAfterquota(), false);
+         assertEquals(myPoll.getCloseAfterDate(), false);
+         assertEquals(myPoll.getShowResults(), ShowResultsOptions.ALL);
+         assertEquals(myPoll.getShowComments(), CommentOptions.MODERATE);
+     }
+
+     @Test
+     public void testfilterPollByItemsByType(){
+
+     }
 
 
     /**
@@ -257,7 +331,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * Test Find Polls By User.
      * @throws EnMeNoResultsFoundException
      **/
-    @Test 
+    @Test
     public void testFindAllPollByUserId() throws EnMeNoResultsFoundException{
         List<PollBean> unitPoll =  new ArrayList<PollBean>();
         unitPoll = pollService.listPollByUser(5, 0);
@@ -307,143 +381,143 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * Test remove poll
      * @throws EnMeExpcetion
      */
-	@Test
-	public void testRemovePoll() throws EnMeExpcetion {
-		//this.answers[3] = "answer Four";
-		final String[] answer = {"a", "b"};
+    @Test
+    public void testRemovePoll() throws EnMeExpcetion {
+        //this.answers[3] = "answer Four";
+        final String[] answer = {"a", "b"};
         final String[] hashtag = {"hastag1", "hastag2"};
         final CreatePollBean cb = createPollBean("ssssssssssss",answer, hashtag, "APPROVE", "ALL", true, null, null);
-		final Poll newPollService = this.pollService.createPoll(cb);
+        final Poll newPollService = this.pollService.createPoll(cb);
 
-		final List<QuestionAnswer> beforeAnswers = getQuestionDaoImp()
-				.getAnswersByQuestionId(newPollService.getQuestion().getQid());
-		assertEquals(beforeAnswers.size(), 2);
+        final List<QuestionAnswer> beforeAnswers = getQuestionDaoImp()
+                .getAnswersByQuestionId(newPollService.getQuestion().getQid());
+        assertEquals(beforeAnswers.size(), 2);
 
-		this.pollService.removePoll(newPollService.getPollId());
+        this.pollService.removePoll(newPollService.getPollId());
 
-		/*
-		 * final Poll checkPoll = this.pollService.getPollById(newPollService
-		 * .getPollId());
-		 *
-		 * assertEquals("Should be equals", "poll invalid with this id" +
-		 * newPollService.getPollId(), checkPoll);
-		 */
+        /*
+         * final Poll checkPoll = this.pollService.getPollById(newPollService
+         * .getPollId());
+         *
+         * assertEquals("Should be equals", "poll invalid with this id" +
+         * newPollService.getPollId(), checkPoll);
+         */
 
-		final List<QuestionAnswer> afterAnswers = getQuestionDaoImp()
-				.getAnswersByQuestionId(newPollService.getQuestion().getQid());
-		assertEquals(afterAnswers.size(), 0);
+        final List<QuestionAnswer> afterAnswers = getQuestionDaoImp()
+                .getAnswersByQuestionId(newPollService.getQuestion().getQid());
+        assertEquals(afterAnswers.size(), 0);
 
-	}
+    }
 
-	/**
-	 * Test Remove HashTags from Poll.
-	 * @throws EnMeExpcetion
-	 */
-	//@Test
-	public void testRemoveHashTagsFromPoll() throws EnMeExpcetion {
-		final QuestionBean question = ConvertDomainBean
-				.convertQuestionsToBean(this.question);
-		final PollBean unitPoll = ConvertDomainBean
-				.convertPollDomainToBean(this.poll);
-		unitPoll.setQuestionBean(question);
-		
-		
-		final String[] answer = {"a", "b"};
+    /**
+     * Test Remove HashTags from Poll.
+     * @throws EnMeExpcetion
+     */
+    //@Test
+    public void testRemoveHashTagsFromPoll() throws EnMeExpcetion {
+        final QuestionBean question = ConvertDomainBean
+                .convertQuestionsToBean(this.question);
+        final PollBean unitPoll = ConvertDomainBean
+                .convertPollDomainToBean(this.poll);
+        unitPoll.setQuestionBean(question);
+
+
+        final String[] answer = {"a", "b"};
         final String[] hashtag = {"hastag1", "hastag2"};
         final CreatePollBean cb = createPollBean("dddd",answer, hashtag, "APPROVE", "ALL", true, null, null);
-		final Poll myPoll = this.pollService.createPoll(cb);
+        final Poll myPoll = this.pollService.createPoll(cb);
 
-		Assert.assertNotNull(myPoll);
-		final String[] answer1 = {"a", "b"};
+        Assert.assertNotNull(myPoll);
+        final String[] answer1 = {"a", "b"};
         final String[] hashtag2 = {"hastag3", "hastag4"};
         final CreatePollBean cb2 = createPollBean("dddd",answer1, hashtag2, "APPROVE", "ALL", true, null, null);
-		final Poll myPoll2 = this.pollService.createPoll(cb2);
-		Assert.assertNotNull(myPoll2);
+        final Poll myPoll2 = this.pollService.createPoll(cb2);
+        Assert.assertNotNull(myPoll2);
 
-		final List<Poll> retrievePollsbyTagBeforeRemove = getPollDao()
-				.getPollByHashTagName(this.tag1.getHashTag(), this.START,
-						this.MAX_RESULTS, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
-		assertEquals(retrievePollsbyTagBeforeRemove.size(), 2);
+        final List<Poll> retrievePollsbyTagBeforeRemove = getPollDao()
+                .getPollByHashTagName(this.tag1.getHashTag(), this.START,
+                        this.MAX_RESULTS, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
+        assertEquals(retrievePollsbyTagBeforeRemove.size(), 2);
 
-		// Remove hashtag
-		myPoll.getHashTags().remove(tag1);
-		getPollDao().saveOrUpdate(myPoll);
+        // Remove hashtag
+        myPoll.getHashTags().remove(tag1);
+        getPollDao().saveOrUpdate(myPoll);
 
-		final List<Poll> retrievePollsbyTagAfterRemove = getPollDao()
-				.getPollByHashTagName(this.tag1.getHashTag(), this.START,
-						this.MAX_RESULTS, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
-		assertEquals(retrievePollsbyTagAfterRemove.size(), 1);
-	}
+        final List<Poll> retrievePollsbyTagAfterRemove = getPollDao()
+                .getPollByHashTagName(this.tag1.getHashTag(), this.START,
+                        this.MAX_RESULTS, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
+        assertEquals(retrievePollsbyTagAfterRemove.size(), 1);
+    }
 
-	/**
-	 * Get poll by answer
-	 * @throws EnMeNoResultsFoundException
-	 */
-	@Test
-	public void testGetPollByAnswerId() throws EnMeNoResultsFoundException {
-		final Question q = createDefaultQuestion("question 1");
-		final Question q1 = createDefaultQuestion("question 2");
-		final QuestionAnswer a = createQuestionAnswer("Yes", q, "1234DF");
-		final QuestionAnswer a1 = createQuestionAnswer("No", q, "5678MG");
-		final QuestionAnswer a2 = createQuestionAnswer("Maybe", q1, "9101112");
-		final Poll p = createDefaultPoll(q, userAccount);
+    /**
+     * Get poll by answer
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testGetPollByAnswerId() throws EnMeNoResultsFoundException {
+        final Question q = createDefaultQuestion("question 1");
+        final Question q1 = createDefaultQuestion("question 2");
+        final QuestionAnswer a = createQuestionAnswer("Yes", q, "1234DF");
+        final QuestionAnswer a1 = createQuestionAnswer("No", q, "5678MG");
+        final QuestionAnswer a2 = createQuestionAnswer("Maybe", q1, "9101112");
+        final Poll p = createDefaultPoll(q, userAccount);
 
-		final Poll mp = this.pollService.getPollByAnswerId(p.getPollId(),
-				a.getQuestionAnswerId(), null);
-		Assert.assertNotNull(mp);
- 		// final Poll mp2 = this.pollService.getPollByAnswerId(p.getPollId(), a2.getQuestionAnswerId(), null);
+        final Poll mp = this.pollService.getPollByAnswerId(p.getPollId(),
+                a.getQuestionAnswerId(), null);
+        Assert.assertNotNull(mp);
+         // final Poll mp2 = this.pollService.getPollByAnswerId(p.getPollId(), a2.getQuestionAnswerId(), null);
 
-	}
+    }
 
-	/*
-	 * Test for retrieve poll results.
-	 */
-	@Test
-	public void testGetResultVotes(){
-	        final Question quest = createQuestion("Do you like action movies", "Yes/No");
-	        final Poll poll = createPoll(new Date(), quest, "ACTMOV", this.userAccount, Boolean.TRUE, Boolean.TRUE);
-	        final QuestionAnswer qansw = createQuestionAnswer("Yes", quest, "2023");
-	        final QuestionAnswer qansw2 =createQuestionAnswer("No", quest, "2024");
-	        // Create poll results for QuestionAnswer2 = 3
-	        createPollResults(qansw2, poll);
-	        createPollResults(qansw2, poll);
-	        createPollResults(qansw2, poll);
-	        // Create poll results for QuestionAnswer1 = 7
-	        createPollResults(qansw, poll);
-	        createPollResults(qansw, poll);
-	        createPollResults(qansw, poll);
-	        createPollResults(qansw, poll);
-	        createPollResults(qansw, poll);
-	        createPollResults(qansw, poll);
-	        createPollResults(qansw, poll);
+    /*
+     * Test for retrieve poll results.
+     */
+    @Test
+    public void testGetResultVotes(){
+            final Question quest = createQuestion("Do you like action movies", "Yes/No");
+            final Poll poll = createPoll(new Date(), quest, "ACTMOV", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+            final QuestionAnswer qansw = createQuestionAnswer("Yes", quest, "2023");
+            final QuestionAnswer qansw2 =createQuestionAnswer("No", quest, "2024");
+            // Create poll results for QuestionAnswer2 = 3
+            createPollResults(qansw2, poll);
+            createPollResults(qansw2, poll);
+            createPollResults(qansw2, poll);
+            // Create poll results for QuestionAnswer1 = 7
+            createPollResults(qansw, poll);
+            createPollResults(qansw, poll);
+            createPollResults(qansw, poll);
+            createPollResults(qansw, poll);
+            createPollResults(qansw, poll);
+            createPollResults(qansw, poll);
+            createPollResults(qansw, poll);
 
-		final List<PollBeanResult> pollbean = this.pollService
-				.getResultVotes(poll);
-		assertEquals(pollbean.size(), 2);
-		for (PollBeanResult pollBeanResult : pollbean) {
-			if (pollBeanResult.getAnswerBean().getAnswerId()
-					.equals(qansw.getQuestionAnswerId())) {
-				assertEquals("For answer1 should be equals",
-						pollBeanResult.getVotes().toString(), "7");
-			}
-			if (pollBeanResult.getAnswerBean().getAnswerId()
-					.equals(qansw2.getQuestionAnswerId())) {
-				assertEquals("For answer2 should be equals",
-						pollBeanResult.getVotes().toString(), "3");
-			}
-		}
+        final List<PollBeanResult> pollbean = this.pollService
+                .getResultVotes(poll);
+        assertEquals(pollbean.size(), 2);
+        for (PollBeanResult pollBeanResult : pollbean) {
+            if (pollBeanResult.getAnswerBean().getAnswerId()
+                    .equals(qansw.getQuestionAnswerId())) {
+                assertEquals("For answer1 should be equals",
+                        pollBeanResult.getVotes().toString(), "7");
+            }
+            if (pollBeanResult.getAnswerBean().getAnswerId()
+                    .equals(qansw2.getQuestionAnswerId())) {
+                assertEquals("For answer2 should be equals",
+                        pollBeanResult.getVotes().toString(), "3");
+            }
+        }
 
-	}	
-	
-	/**
-	 * Test for PollService.filterSearchPollsByType()
-	 * @throws EnMeExpcetion
-	 */
-	@Test
+    }
+
+    /**
+     * Test for PollService.filterSearchPollsByType()
+     * @throws EnMeExpcetion
+     */
+    @Test
     public void testfilterSearchPollsByType() throws EnMeExpcetion{
-		final PollSearchBean bean = new PollSearchBean();
-		//all
-		bean.setTypeSearch(TypeSearch.ALL);
+        final PollSearchBean bean = new PollSearchBean();
+        //all
+        bean.setTypeSearch(TypeSearch.ALL);
         List<SearchBean> pollAll = this.pollService.filterSearchPollsByType(bean, this.request);
         assertEquals(pollAll.size(), 1);
         //by onwer
@@ -457,11 +531,11 @@ public class TestPollService extends AbstractSpringSecurityContext{
        //last week
        bean.setTypeSearch(TypeSearch.LASTWEEK);
        List<SearchBean> pollAll4 = this.pollService.filterSearchPollsByType(bean, this.request);
-       assertEquals(pollAll4.size(), 1);       
+       assertEquals(pollAll4.size(), 1);
        //last 30 days
        bean.setTypeSearch(TypeSearch.FAVOURITES);
        List<SearchBean> pollAll5 = this.pollService.filterSearchPollsByType(bean, this.request);
-       assertEquals(pollAll5.size(), 1);            
-    }	
+       assertEquals(pollAll5.size(), 1);
+    }
 
 }

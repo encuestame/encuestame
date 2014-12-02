@@ -569,13 +569,11 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#validateVoteIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
      */
     @SuppressWarnings("unchecked")
-    public PollResult validateVoteIP(
+    public Integer validateVoteIP(
             final String ip,
             final Poll poll) {
-        return (PollResult) DataAccessUtils.uniqueResult(getHibernateTemplate().findByNamedParam(
-                                "from PollResult where ipAddress= :ipAddress and  poll = :poll",
-                                new String[] { "ipAddress", "poll" },
-                                new Object[] { ip, poll }));
+        final List total = this.getListvalidateVoteIP(ip, poll);
+        return total.size();
     }
 
     /*
@@ -758,22 +756,22 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
        return (List<Poll>) filterByMaxorStart(criteria, bean.getMax(), bean.getStart());
    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.encuestame.persistence.dao.IPoll#getPollFolderByKeyword(java.lang
-	 * .String, org.encuestame.persistence.domain.security.UserAccount)
-	 */
-	@SuppressWarnings("unchecked")
-	public List<PollFolder> getPollFolderByKeyword(final String keyword,
-			final UserAccount userAcc) {
-		final DetachedCriteria criteria = DetachedCriteria
-				.forClass(PollFolder.class);
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.persistence.dao.IPoll#getPollFolderByKeyword(java.lang
+     * .String, org.encuestame.persistence.domain.security.UserAccount)
+     */
+    @SuppressWarnings("unchecked")
+    public List<PollFolder> getPollFolderByKeyword(final String keyword,
+            final UserAccount userAcc) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(PollFolder.class);
 
-		criteria.add(Restrictions.eq("createdBy", userAcc));
-		criteria.add(Restrictions.ilike("folderName", keyword,
-				MatchMode.ANYWHERE));
-		return (List<PollFolder>) filterByMaxorStart(criteria, 10, 0);
-	}
+        criteria.add(Restrictions.eq("createdBy", userAcc));
+        criteria.add(Restrictions.ilike("folderName", keyword,
+                MatchMode.ANYWHERE));
+        return (List<PollFolder>) filterByMaxorStart(criteria, 10, 0);
+    }
 }

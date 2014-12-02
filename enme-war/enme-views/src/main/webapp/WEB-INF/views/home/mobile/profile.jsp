@@ -69,9 +69,9 @@
                      <%@ include file="detail_item.jsp"%>
                 </c:forEach>
                 <c:if test="${empty lastItems}">
-                       <h3 class="no-results">
+                       <h5 class="no-results">
                         <spring:message code="results.noresults" />
-                      </h3>
+                      </h5>
                 </c:if>
             </section>
           </article>

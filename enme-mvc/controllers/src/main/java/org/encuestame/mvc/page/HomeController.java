@@ -216,29 +216,6 @@ public class HomeController extends AbstractViewController {
     }
 
     /**
-     *
-     * @param model
-     * @param type
-     * @param id
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping(value = "/embebed/iframe/preview/{type}/{id}", method = RequestMethod.GET)
-    public String embebedPreviewIframe(
-            final ModelMap model,
-            @PathVariable String type,
-            @PathVariable String id,
-            HttpServletRequest request,
-            HttpServletResponse response) {
-            model.put("id", id);
-            model.put("class_type", TypeSearchResult.getCSSClass(TypeSearchResult.getTypeSearchResult(type)));
-            model.put("domain", WidgetUtil.getRelativeDomain(request));
-            model.put("url", "#");
-            return "display/iframe";
-    }
-
-    /**
      * Display the user profile.
      * @param model
      * @param username

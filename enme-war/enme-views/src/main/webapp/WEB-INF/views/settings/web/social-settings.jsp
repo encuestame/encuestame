@@ -13,11 +13,10 @@
        <div class="tb-left">
             <h3>
                <spring:message code="settings.social.title" />
-               <!--  <spring:message code="tweetpoll.list.title" /> -->
             </h3>
             <p>
                <!-- <spring:message code="tweetpoll.list.subtitle" /> -->
-               Manage your social network
+               Manage your socials accounts
             </p>
        </div>
     </div>
