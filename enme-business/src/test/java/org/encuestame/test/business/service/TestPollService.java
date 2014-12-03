@@ -13,6 +13,7 @@
 package org.encuestame.test.business.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,13 +43,10 @@ import org.encuestame.utils.enums.*;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SearchBean;
-import org.encuestame.utils.web.CreatePollBean;
-import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.PollBean;
-import org.encuestame.utils.web.PollBeanResult;
-import org.encuestame.utils.web.UnitLists;
+import org.encuestame.utils.web.*;
 import org.encuestame.utils.web.search.PollSearchBean;
 import org.hibernate.HibernateException;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -215,18 +213,62 @@ public class TestPollService extends AbstractSpringSecurityContext{
      public void testcreatePollLimtIP() throws Exception{
          final String[] answer = {"a", "b"};
          final String[] hashtag = {"hastag1", "hastag2"};
-        /*
-         * questionName
-            answer
-            hashtag
-            showComments
-            showResults
-            multipleSelection
-            limitVotes
-            closeDate
-         */
          final CreatePollBean cb = createPollBean(
                  "Question",
+                 answer,
+                 hashtag,
+                 "MODERATE",
+                 "ALL",
+                 true,
+                 null,
+                 null);
+         cb.setRepeatedVotes(4);
+         cb.setMultiple(false);
+         cb.setLimitVote(null);
+         //System.out.println(cb);
+         final Poll myPoll = this.pollService.createPoll(cb);
+         Assert.assertNotNull(myPoll);
+         assertEquals(myPoll.getQuestion().getQuestion(), "Question");
+         assertEquals(myPoll.getHashTags().size(), 2);
+         assertEquals(myPoll.getPollCompleted(), false);
+         assertEquals(myPoll.getPublish(), true);
+         assertEquals(myPoll.getAllowRepeatedVotes(), true);
+         assertEquals(myPoll.getLimitVotesEnabled(), false);
+         assertEquals(myPoll.getMultipleResponse(), AbstractSurvey.MultipleResponse.SINGLE);
+         assertEquals(myPoll.getCloseAfterquota(), false);
+         assertEquals(myPoll.getCloseAfterDate(), false);
+         assertEquals(myPoll.getShowResults(), ShowResultsOptions.ALL);
+         assertEquals(myPoll.getShowComments(), CommentOptions.MODERATE);
+         Boolean valid1 = this.pollService.checkLimitVotesByIP("0.0.0.0.2", myPoll);
+         assertEquals(valid1, false);
+         List<QuestionAnswerBean> answers = this.pollService.retrieveAnswerByQuestionId(myPoll.getQuestion().getQid());
+         assertEquals(answers.size(), 2);
+         if (answers.size() > 1) {
+             QuestionAnswerBean answer1 = answers.get(0);
+             this.pollService.vote(myPoll, myPoll.getQuestion().getSlugQuestion(), "0.0.0.0.2", answer1.getAnswerId());
+             this.pollService.vote(myPoll, myPoll.getQuestion().getSlugQuestion(), "0.0.0.0.2", answer1.getAnswerId());
+             this.pollService.vote(myPoll, myPoll.getQuestion().getSlugQuestion(), "0.0.0.0.2", answer1.getAnswerId());
+             this.pollService.vote(myPoll, myPoll.getQuestion().getSlugQuestion(), "0.0.0.0.2", answer1.getAnswerId());
+             this.pollService.vote(myPoll, myPoll.getQuestion().getSlugQuestion(), "0.0.0.0.2", answer1.getAnswerId());
+             this.pollService.vote(myPoll, myPoll.getQuestion().getSlugQuestion(), "0.0.0.0.2", answer1.getAnswerId());
+             Boolean quota2 = this.pollService.checkLimitVotesByIP("0.0.0.0.2", myPoll);
+             assertEquals(quota2, Boolean.TRUE);
+         } else {
+             assertEquals(true, false);
+         }
+     }
+
+     /**
+      *
+      * @param question
+      * @return
+      * @throws EnMeExpcetion
+      */
+     private Poll createQuickPoll(String question)  throws EnMeExpcetion{
+         final String[] answer = {"a", "b"};
+         final String[] hashtag = {"hastag1", "hastag2"};
+         final CreatePollBean cb = createPollBean(
+                 question,
                  answer,
                  hashtag,
                  "MODERATE",
@@ -237,27 +279,164 @@ public class TestPollService extends AbstractSpringSecurityContext{
          cb.setRepeatedVotes(5);
          cb.setMultiple(false);
          cb.setLimitVote(10);
-         System.out.println(cb);
-         final Poll myPoll = this.pollService.createPoll(cb);
-         Assert.assertNotNull(myPoll);
-         assertEquals(myPoll.getQuestion().getQuestion(), "Question");
-         assertEquals(myPoll.getHashTags().size(), 2);
-         assertEquals(myPoll.getPollCompleted(), false);
-         assertEquals(myPoll.getPublish(), true);
-         assertEquals(myPoll.getAllowRepeatedVotes(), true);
-         assertEquals(myPoll.getLimitVotesEnabled(), true);
-         assertEquals(myPoll.getMultipleResponse(), AbstractSurvey.MultipleResponse.SINGLE);
-         assertEquals(myPoll.getCloseAfterquota(), false);
-         assertEquals(myPoll.getCloseAfterDate(), false);
-         assertEquals(myPoll.getShowResults(), ShowResultsOptions.ALL);
-         assertEquals(myPoll.getShowComments(), CommentOptions.MODERATE);
+         return this.pollService.createPoll(cb);
      }
 
+     /**
+      *
+      * @throws EnMeExpcetion
+      */
      @Test
-     public void testfilterPollByItemsByType(){
+     public void testfilterPollByItemsByType() throws EnMeExpcetion{
+         Poll p1 =  this.createQuickPoll("test1");
+         Poll p2 = this.createQuickPoll("test2");
+         Poll p3 = this.createQuickPoll("test3");
+         Poll p4 = this.createQuickPoll("juan");
+         flushIndexes();
+         //all items
+         List<PollBean> allItems =  this.pollService.filterPollByItemsByType(
+                 TypeSearch.ALL,
+                 "t",
+                 200,
+                 0);
+         assertEquals(allItems.size(), 5);
+         // no items by keyword
+         List<PollBean> keyItems =  this.pollService.filterPollByItemsByType(
+                 TypeSearch.KEYWORD,
+                 "a",
+                 200,
+                 0);
+         assertEquals(keyItems.size(), 0);
+         List<PollBean> keyItems1 =  this.pollService.filterPollByItemsByType(
+                 TypeSearch.KEYWORD,
+                 "test",
+                 200,
+                 0);
+         assertEquals(keyItems1.size(), 3);
+         //
+         final DateTime d = new DateTime(Calendar.getInstance().getTime());
+         d.minusDays(3);
+         p1.setCreateDate(d.toDate());
+         getPollDao().saveOrUpdate(p1);
+         flushIndexes();
+         List<PollBean> keyItems2 =  this.pollService.filterPollByItemsByType(
+                 TypeSearch.LASTDAY,
+                 "test",
+                 200,
+                 0);
+         assertEquals(keyItems2.size(), 0);
+         final DateTime d2 = new DateTime(Calendar.getInstance().getTime());
+         d.minusWeeks(3);
+         p1.setCreateDate(d2.toDate());
+         getPollDao().saveOrUpdate(p1);
+         flushIndexes();
+         List<PollBean> keyItems3 =  this.pollService.filterPollByItemsByType(
+                 TypeSearch.LASTWEEK,
+                 "",
+                 200,
+                 0);
+         assertEquals(keyItems3.size(), 0);
+
+         //
+         p1.setFavourites(true);
+         getPollDao().saveOrUpdate(p1);
+         flushIndexes();
+         List<PollBean> keyItems4 =  this.pollService.filterPollByItemsByType(
+                 TypeSearch.FAVOURITES,
+                 "",
+                 200,
+                 0);
+         assertEquals(keyItems4.size(), 2);
 
      }
 
+     /**
+      *
+      * @throws EnMeExpcetion
+      */
+     //@Test
+     public void testfilterSearchPollsByType2() throws EnMeExpcetion{
+         final PollSearchBean pollSearchBean = new PollSearchBean();
+         List<SearchBean> items =  this.pollService.filterSearchPollsByType(pollSearchBean, request);
+     }
+
+     /**
+      *
+      * @throws EnMeExpcetion
+      */
+     @Test
+     public void testretrieveFoldersbyKeyword() throws EnMeExpcetion{
+         List<PollFolder> folders = this.pollService.retrieveFoldersbyKeyword("test");
+         assertEquals(folders.size(), 0);
+         this.pollService.createPollFolder("test1");
+         List<PollFolder> folders1 = this.pollService.retrieveFoldersbyKeyword("test");
+         assertEquals(folders1.size(), 1);
+         List<PollFolder> folders2 = this.pollService.retrieveFoldersbyKeyword("facebook");
+         assertEquals(folders2.size(), 0);
+         this.pollService.createPollFolder("facebook");
+         this.pollService.createPollFolder("twitter");
+         List<PollFolder> folders3 = this.pollService.retrieveFoldersbyKeyword("facebook");
+         assertEquals(folders3.size(), 1);
+     }
+
+     /**
+      *
+      * @throws EnMeExpcetion
+      */
+     @Test
+     public void testrestrictVotesByQuota()  throws EnMeExpcetion {
+            Poll pQuota =  this.createQuickPoll("test1 testrestrictVotesByQuota");
+            pQuota.setAllowRepeatedVotes(true);
+            pQuota.setLimitVotes(4);
+            pQuota.setClosedQuota(2);
+            assertNotNull(pQuota.getQuestion());
+            QuestionAnswer q1 = createQuestionAnswer("aaa", pQuota.getQuestion(), "");
+            assertNotNull(q1);
+            QuestionAnswer q2 = createQuestionAnswer("bb", pQuota.getQuestion(), "");
+            assertNotNull(q2);
+            getPollDao().saveOrUpdate(pQuota);
+            Boolean quota = this.pollService.restrictVotesByQuota(pQuota);
+            assertNotNull(quota);
+            assertEquals(quota, Boolean.FALSE);
+            List<QuestionAnswerBean> answers = this.pollService.retrieveAnswerByQuestionId(pQuota.getQuestion().getQid());
+            assertEquals(answers.size(), 4);
+            if (answers.size() > 1) {
+                QuestionAnswerBean answer1 = answers.get(0);
+                this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+                this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+                this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+                this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+                this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+                this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+                Boolean quota2 = this.pollService.restrictVotesByQuota(pQuota);
+                assertEquals(quota2, Boolean.TRUE);
+            } else {
+               assertEquals(true, false);
+            }
+     }
+
+
+     /**
+      *
+      * @throws EnMeExpcetion
+      */
+     @Test
+     public void testrestrictVotesByDate()  throws EnMeExpcetion {
+         Poll p1 =  this.createQuickPoll("test1");
+         p1.setCloseAfterDate(true);
+         DateTime close = new DateTime();
+         close.plusDays(3);
+         p1.setClosedDate(close.toDate());
+         p1.setClosedQuota(2);
+         getPollDao().saveOrUpdate(p1);
+         Boolean quota = this.pollService.restrictVotesByDate(p1);
+         assertEquals(quota, Boolean.FALSE);
+         p1.setCloseAfterDate(false);
+         p1.setClosedDate(null);
+         getPollDao().saveOrUpdate(p1);
+         Boolean quota2 = this.pollService.restrictVotesByDate(p1);
+         assertEquals(quota2, Boolean.FALSE);
+     }
 
     /**
      * Test getPollsByFolder.
