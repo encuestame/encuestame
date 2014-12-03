@@ -607,7 +607,6 @@ public abstract class AbstractBaseService extends AbstractDataSource {
             final UserAccount account) throws EnMeNoResultsFoundException{
         final Notification notification = new Notification();
         notification.setDescription(description);
-        System.out.println("JUAN--> " + account);
         notification.setAccount(account.getAccount());
         notification.setAdditionalDescription(additional);
         notification.setUrlReference(urlReference);

@@ -47,6 +47,9 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  *
  * @author Picado, Juan juanATencuestame.org
@@ -112,6 +115,9 @@ public abstract class AbstractJsonV1MvcUnitBeans extends AbstractSpringSecurityC
         Assert.assertNotNull(url);
         Assert.assertNotNull(method);
         this.request = new MockHttpServletRequest(method.name(), url);
+        this.request.setRequestURI(url);
+        this.request.setMethod(method.name());
+        this.request.setContentType("application/json");
         this.response = new MockHttpServletResponse();
     }
 
@@ -154,6 +160,18 @@ public abstract class AbstractJsonV1MvcUnitBeans extends AbstractSpringSecurityC
         Assert.assertNotNull(responseAsString);
         log.debug(responseAsString);
         return (JSONObject) JSONValue.parse(responseAsString);
+    }
+
+    /**
+     *
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    public String callJsonServiceAsString() throws ServletException, IOException{
+        final String responseAsString = this.callStringService();
+        Assert.assertNotNull(responseAsString);
+        return responseAsString;
     }
 
     /**
@@ -223,9 +241,8 @@ public abstract class AbstractJsonV1MvcUnitBeans extends AbstractSpringSecurityC
      * @return
      */
     public JSONObject getSucess(final JSONObject response) {
-        //System.out.println(response);
         Assert.assertNotNull("You need call first callJsonService", this.response);
-        if(response.get("success") == null) {
+        if (response.get("success") == null) {
             return new JSONObject();
         } else {
             return (JSONObject) response.get("success");
@@ -240,6 +257,20 @@ public abstract class AbstractJsonV1MvcUnitBeans extends AbstractSpringSecurityC
     public void setParameter(final String param, final String value){
         Assert.assertNotNull(request);
         this.request.setParameter(param, value);
+    }
+
+    /**
+     *
+     * @param param
+     * @throws JsonProcessingException
+     */
+    public void setParameter(final Object param) throws JsonProcessingException{
+        Assert.assertNotNull(request);
+        // http://stackoverflow.com/questions/12607140/how-to-test-post-spring-mvc
+        ObjectMapper mapper = new ObjectMapper();
+        //set o converted as JSON to the request body
+        this.request.setContent(mapper.writeValueAsString(param).getBytes());
+        //this.request.setAttribute("bean", param); //in case you are trying to set a model attribute.
     }
 
 

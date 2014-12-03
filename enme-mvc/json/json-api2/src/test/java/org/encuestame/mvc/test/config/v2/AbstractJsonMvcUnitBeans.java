@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.test.config;
+package org.encuestame.mvc.test.config.v2;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -32,6 +32,7 @@ import org.json.simple.JSONValue;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -40,6 +41,9 @@ import org.springframework.mock.web.MockServletConfig;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
@@ -56,11 +60,18 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 @RunWith(SpringJUnit4ClassRunner.class)
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
-@Scope("singleton")
-@ContextConfiguration(locations = {"classpath:spring-test/encuestame-test-json-controller-context.xml",
+@WebAppConfiguration
+@ContextConfiguration(locations = {
+    "classpath:spring-test/encuestame-test-json-controller-context.xml",
     "classpath:spring-test/encuestame-test-rss-context.xml",
     "classpath:spring-test/encuestame-test-upload-context.xml"})
 public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityContext {
+
+
+    @Autowired
+    private WebApplicationContext wac;
+
+    public MockMvc mockMvc;
 
     /**
      * Fake Request.
@@ -171,7 +182,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
 
     /**
      *
-     * @param response
+     * @param
      * @return
      * @throws ServletException
      * @throws IOException
@@ -183,7 +194,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
 
     /**
      *
-     * @param response
+     * @param
      * @return
      * @throws ServletException
      * @throws IOException
@@ -250,30 +261,30 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      */
     @Before
     public void initDispatcherServlet() {
-
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
         /** Servlet. **/
-        this.servlet = new DispatcherServlet() {
-
-            /** Serial. **/
-            private static final long serialVersionUID = 34324324332432L;
-
-            /**
-             * Web Application Context.
-             */
-            @Override
-            protected WebApplicationContext createWebApplicationContext(
-                    final WebApplicationContext parent) throws BeansException {
-                final GenericWebApplicationContext gwac = new GenericWebApplicationContext();
-                gwac.setParent(applicationContext);
-                gwac.refresh();
-                return gwac;
-            }
-        };
-        XMLUnit.setIgnoreComments(true);
-        XMLUnit.setIgnoreWhitespace(true);
-        XMLUnit.setIgnoreAttributeOrder(true);
-        XMLUnit.setNormalizeWhitespace(true);
-        XMLUnit.setNormalize(true);
+//        this.servlet = new DispatcherServlet() {
+//
+//            /** Serial. **/
+//            private static final long serialVersionUID = 34324324332432L;
+//
+//            /**
+//             * Web Application Context.
+//             */
+//            @Override
+//            protected WebApplicationContext createWebApplicationContext(
+//                    final WebApplicationContext parent) throws BeansException {
+//                final GenericWebApplicationContext gwac = new GenericWebApplicationContext();
+//                gwac.setParent(applicationContext);
+//                gwac.refresh();
+//                return gwac;
+//            }
+//        };
+//        XMLUnit.setIgnoreComments(true);
+//        XMLUnit.setIgnoreWhitespace(true);
+//        XMLUnit.setIgnoreAttributeOrder(true);
+//        XMLUnit.setNormalizeWhitespace(true);
+//        XMLUnit.setNormalize(true);
     }
 
     /**
