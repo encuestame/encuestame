@@ -242,7 +242,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    private List<Poll> getPollSearchResult(final List<Poll> polls,
+    private List<Poll> getPollSearchResult(
+            final List<Poll> polls,
             final List<SocialProvider> socialNetworks,
             final List<Long> socialAccounts) throws EnMeNoResultsFoundException {
         List<Poll> tpollsbysocialNetwork = new ArrayList<Poll>();
@@ -250,10 +251,12 @@ public class PollService extends AbstractSurveyService implements IPollService{
         if ((socialNetworks.size() > 0) || (socialAccounts.size() > 0)) {
             tpollsbysocialNetwork = this.retrievePollsPostedOnSocialNetworks(
                     polls, socialNetworks, socialAccounts);
+            //System.out.println("JUAN --> tpollsbysocialNetwork size: " + tpollsbysocialNetwork.size());
         } else {
             tpollsbysocialNetwork = polls;
         }
         log.info("tweetPoll size: " + polls.size());
+        //System.out.println("JUAN --> tweetPoll size: " + polls.size());
         return tpollsbysocialNetwork;
     }
 
@@ -354,9 +357,11 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final PollSearchBean pollSearchBean) throws EnMeExpcetion {
         List<Poll> pollSearchResult = new ArrayList<Poll>();
         final List<Poll> polls = getPollDao().retrieveScheduledPoll(pollSearchBean, getUserAccountId(username));
+        //System.out.println("JOTA dsadsadsa-------->"+polls.size());
         pollSearchResult = this.getPollSearchResult(polls,
                 pollSearchBean.getProviders(),
                 pollSearchBean.getSocialAccounts());
+        //System.out.println("pollSearchResult-------->"+pollSearchResult.size());
         return ConvertDomainBean.convertPollListToSearchBean(pollSearchResult);
     }
 

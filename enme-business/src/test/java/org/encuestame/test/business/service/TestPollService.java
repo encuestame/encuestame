@@ -31,6 +31,7 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
@@ -258,6 +259,54 @@ public class TestPollService extends AbstractSpringSecurityContext{
          }
      }
 
+     @Test
+     public void testvalidatePollIP() throws EnMeExpcetion {
+            Poll pQuota =  this.createQuickPoll("test1");
+            Integer status1 = this.pollService.validatePollIP("0.0.0.0.1", pQuota);
+            assertEquals(status1, new Integer(0));
+            List<QuestionAnswerBean> answers = this.pollService.retrieveAnswerByQuestionId(pQuota.getQuestion().getQid());
+            assertEquals(answers.size(), 2);
+            QuestionAnswerBean answer1 = answers.get(0);
+            this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+            this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+            this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+            this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+            this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+            this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+            Integer status2 = this.pollService.validatePollIP("0.0.0.0.1", pQuota);
+            assertEquals(status2, new Integer(6));
+     }
+
+     @Test
+     public void testgetPollDetailInfo() throws EnMeExpcetion {
+         Poll pQuota =  this.createQuickPoll("test1");
+         //step1
+         final PollDetailBean detail = this.pollService.getPollDetailInfo(pQuota.getPollId());
+         assertNotNull(detail);
+         assertEquals(detail.getListAnswers().size(), 2);
+         assertEquals(detail.getResults().size(), 2);
+         //step2
+         List<QuestionAnswerBean> answers = this.pollService.retrieveAnswerByQuestionId(pQuota.getQuestion().getQid());
+         assertEquals(answers.size(), 2);
+         QuestionAnswerBean answer1 = answers.get(0);
+         this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+         this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+         this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+         this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+         this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+         this.pollService.vote(pQuota, pQuota.getQuestion().getSlugQuestion(), "0.0.0.0.1", answer1.getAnswerId());
+         final PollDetailBean detail2 = this.pollService.getPollDetailInfo(pQuota.getPollId());
+         assertEquals(detail2.getResults().size(), 2);
+         PollBeanResult re1 = detail2.getResults().get(0);
+         PollBeanResult re2 = detail2.getResults().get(1);
+         assertEquals(re1.getVotes(), new Long(6));
+         assertEquals(re1.getPercent(), "100%");
+         assertEquals(re2.getVotes(), new Long(0));
+         assertEquals(re2.getPercent(), "0.00%");
+         assertNotNull(detail2.getPollBean());
+         assertNotNull(detail2.getPollBean().getId());
+     }
+
      /**
       *
       * @param question
@@ -348,6 +397,54 @@ public class TestPollService extends AbstractSpringSecurityContext{
                  0);
          assertEquals(keyItems4.size(), 2);
 
+         //
+         List<PollBean> keyItems5 =  this.pollService.filterPollByItemsByType(
+                 TypeSearch.BYOWNER,
+                 "",
+                 200,
+                 0);
+         assertEquals(keyItems5.size(), 5);
+     }
+
+     /**
+      *
+      * @throws EnMeExpcetion
+      */
+     @Test(expected = EnMeExpcetion.class)
+     public void testfilterPollByItemsByTypeException() throws EnMeExpcetion{
+         List<PollBean> keyItems5 =  this.pollService.filterPollByItemsByType(
+                 TypeSearch.getSearchString("dsda"),
+                 "",
+                 200,
+                 0);
+     }
+
+     @Test
+     public void testsearchPollsToday()  throws EnMeExpcetion {
+        final SocialAccount social1 = createDefaultSettedSocialAccount(getSpringSecurityLoggedUserAccount());
+        PollSearchBean searchBean = new PollSearchBean();
+        final List<Long> sa = new ArrayList<Long>();
+        sa.add(social1.getId());
+        searchBean.setSocialAccounts(sa);
+        List<SearchBean> list = this.pollService.searchPollsToday(getUsernameLogged(), request, searchBean);
+        assertEquals(list.size(), 0);
+     }
+
+     @Test
+     public void testsearchPollScheduled() throws EnMeExpcetion {
+         Poll p1 = this.createQuickPoll("secheduled1");
+         Poll p2 = this.createQuickPoll("secheduled2");
+         p1.setScheduled(true);
+         final DateTime d1 = new DateTime();
+         d1.plusDays(4);
+         p1.setScheduleDate(d1.toDate());
+         final SocialAccount social1 = createDefaultSettedSocialAccount(getSpringSecurityLoggedUserAccount());
+         PollSearchBean searchBean = new PollSearchBean();
+         final List<Long> sa = new ArrayList<Long>();
+         sa.add(social1.getId());
+         searchBean.setSocialAccounts(sa);
+         List<SearchBean> list = this.pollService.searchPollScheduled(getUsernameLogged(), request, searchBean);
+         assertEquals(list.size(), 0);
      }
 
      /**

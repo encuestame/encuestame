@@ -1686,7 +1686,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                     // Set Status PROCESSING
                     schedule.setStatus(Status.PROCESSING);
                     getScheduledDao().saveOrUpdate(schedule);
-
                     tpollSaved = this
                             .publishTweetBySocialAccountId(schedule
                                     .getSocialAccount().getId(), schedule
@@ -1713,11 +1712,17 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         schedule.setStatus(Status.SUCCESS);
                         schedule.setPublicationDate(currentDate);
                         getScheduledDao().saveOrUpdate(schedule);
-                        createNotification(NotificationEnum.WELCOME_SIGNUP,
+                        createNotification(
+                                NotificationEnum.WELCOME_SIGNUP,
                                 getMessageProperties("notification.tweetpoll.scheduled.success",
-                                          Locale.ENGLISH, //FIXME: fix this, locale is fixed
-                                          new Object[] {tpollSaved.getTweetPoll().getQuestion().getQuestion(), currentDate.toString()}), //FIXME: currentDate shouldbe passed as ISO date.
-                                null, false, tpollSaved.getTweetPoll().getEditorOwner());
+                                  Locale.ENGLISH, //FIXME: fix this, locale is fixed
+                                  new Object[] {
+                                          tpollSaved.getTweetPoll().getQuestion().getQuestion(),
+                                          currentDate.toString()
+                                  }), //FIXME: currentDate shouldbe passed as ISO date.
+                                  null,
+                                false,
+                                tpollSaved.getTweetPoll().getEditorOwner());
                     }
                 }
             }

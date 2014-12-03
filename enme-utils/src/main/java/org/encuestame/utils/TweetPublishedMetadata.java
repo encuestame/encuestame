@@ -33,6 +33,8 @@ public class TweetPublishedMetadata {
 
     private Date datePublished;
 
+    private Long statusCode;
+
     public TweetPublishedMetadata() {
     }
 
@@ -126,14 +128,32 @@ public class TweetPublishedMetadata {
         this.provider = provider;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
      *
-     * @see java.lang.Object#toString()
+     * @return
      */
+    public Long getStatusCode() {
+        return statusCode;
+    }
+
+    /**
+     *
+     * @param statusCode
+     */
+    public void setStatusCode(Long statusCode) {
+        this.statusCode = statusCode;
+    }
+
     @Override
     public String toString() {
-        return "StatusTweetPublished [tweetId=" + tweetId + ", textTweeted="
-                + textTweeted + ", datePublished=" + datePublished + "]";
+        return "TweetPublishedMetadata{" +
+                "tweetId='" + tweetId + '\'' +
+                ", socialAccountId=" + socialAccountId +
+                ", socialAccountName='" + socialAccountName + '\'' +
+                ", provider='" + provider + '\'' +
+                ", textTweeted='" + textTweeted + '\'' +
+                ", datePublished=" + datePublished +
+                ", statusCode=" + statusCode +
+                '}';
     }
 }

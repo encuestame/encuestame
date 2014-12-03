@@ -1234,7 +1234,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
              Date scheduleDate,
              Date creationDate,
              Boolean completed,
-             Account tweetOwner,
+             UserAccount tweetOwner,
              Question question,
              final UserAccount userAccount){
         final TweetPoll tweetPoll = new TweetPoll();
@@ -1245,11 +1245,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         tweetPoll.setPublishTweetPoll(publishTweetPoll);
         tweetPoll.setQuestion(question);
         tweetPoll.setScheduleDate(scheduleDate);
+        tweetPoll.setEditorOwner(userAccount);
         tweetPoll.setScheduleTweetPoll(scheduleTweetPoll);
         // The create date always have to be the date of creation
         tweetPoll.setCreateDate(creationDate);
         tweetPoll.setFavourites(Boolean.TRUE);
-        tweetPoll.setTweetOwner(tweetOwner);
+        tweetPoll.setTweetOwner(tweetOwner.getAccount());
         // The update date is the date when the tweetpoll has been updated, included the
         // publication date
         tweetPoll.setUpdatedDate(creationDate);
@@ -1265,7 +1266,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param question question
      * @return {@link TweetPoll}
      */
-    public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question){
+    public TweetPoll createPublishedTweetPoll(final UserAccount tweetOwner, final Question question){
        return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question, null);
     }
 
@@ -1276,7 +1277,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param dateTweet
      * @return
      */
-    public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question, final Date dateTweet){
+    public TweetPoll createPublishedTweetPoll(final UserAccount tweetOwner, final Question question, final Date dateTweet){
         return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question, null);
      }
 
@@ -1287,7 +1288,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public TweetPoll createPublishedTweetPoll(final Question question, final UserAccount user) {
-        return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
+        return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), new Date(), false, user, question, user);
      }
 
     /**
@@ -1298,7 +1299,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public TweetPoll createPublishedTweetPoll(final Long id, final Question question, final UserAccount user) {
-        return createTweetPoll(id, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
+        return createTweetPoll(id, false, false, false, true, true, new Date(), new Date(), false, user, question, user);
      }
 
     /**
@@ -1311,7 +1312,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param creationDate
      * @return
      */
-    public TweetPoll createAdvancedTweetPoll(final Account tweetOwner,
+    public TweetPoll createAdvancedTweetPoll(final UserAccount tweetOwner,
             final Question question, final Boolean isPublished,
             final Boolean isComplete, final Boolean isScheduled,
             final Date creationDate) {
@@ -1326,7 +1327,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param question question
      * @return {@link TweetPoll}
      */
-    public TweetPoll createNotPublishedTweetPoll(final Account tweetOwner, final Question question){
+    public TweetPoll createNotPublishedTweetPoll(final UserAccount tweetOwner, final Question question){
        return createTweetPoll(null, false, false, false, false, false, new Date(), null, false, tweetOwner, question, null);
     }
 
@@ -1383,7 +1384,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final Question question = createQuestion("who I am?", "");
         final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
         final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "12346");
-        final TweetPoll tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question);
+        final TweetPoll tweetPoll = createPublishedTweetPoll(secondary, question);
         final TweetPollSwitch pollSwitch1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
         final TweetPollSwitch pollSwitch2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
         createTweetPollResult(pollSwitch1, "192.168.0.1");
@@ -2532,7 +2533,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-    public TweetPoll createTweetPollItems(final Date randomDate, final Account tweetOwner,
+    public TweetPoll createTweetPollItems(final Date randomDate, final UserAccount tweetOwner,
             final Boolean isCompleted, final Boolean isFavourites,
             final Boolean isScheduled, final Boolean isPublished)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
