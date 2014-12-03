@@ -21,6 +21,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -28,6 +29,8 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.PollBean;
@@ -278,31 +281,40 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
             @RequestParam(value = "folderId", required = false) Long folderId,
             HttpServletRequest request, HttpServletResponse response) {
         log.debug("type:{ " + actionType);
+        logPrint(actionType);
+        logPrint(folderId);
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-
+        TypeSearchResult type = TypeSearchResult.getTypeSearchResult(actionType);
         try {
-            if ("poll".equals(actionType)) {
+            logPrint(type);
+            if (type.equals(TypeSearchResult.POLL)) {
                 final List<PollBean> pollsByFolder = getPollService()
-                        .searchPollsByFolder(folderId,
-                                getUserPrincipalUsername());
-                jsonResponse.put("PollsByFolder", pollsByFolder);
-            } else if ("tweetpoll".equals(actionType)) {
+                      .searchPollsByFolder(folderId, getUserPrincipalUsername());
+                    jsonResponse.put("pollsByFolder", pollsByFolder);
+                logPrint("jota::"+pollsByFolder.size());
+            } else if (type.equals(TypeSearchResult.TWEETPOLL)) {
                 final List<TweetPollBean> tweetPollsByFolder = getTweetPollService()
-                        .searchTweetPollsByFolder(folderId,
-                                getUserPrincipalUsername());
-                jsonResponse.put("TweetPollsByFolder", tweetPollsByFolder);
-            } else if ("survey".equals(actionType)) {
+                      .searchTweetPollsByFolder(folderId, getUserPrincipalUsername());
+                jsonResponse.put("tweetPollsByFolder", tweetPollsByFolder);
+                logPrint("jota2::"+tweetPollsByFolder.size());
+            } else if (type.equals(TypeSearchResult.SURVEY)) {
                 final List<SurveyBean> surveyBeanList = new ArrayList<SurveyBean>();
-                final List<Survey> surveysByFolder = getSurveyService()
-                        .retrieveSurveyByFolder(
-                                getUserAccountonSecurityContext().getUid(),
-                                folderId);
+                final List<Survey> surveysByFolder = getSurveyService().retrieveSurveyByFolder(
+                              getUserAccount().getUid(),
+                              folderId);
                 surveyBeanList.addAll(ConvertDomainBean
                         .convertListSurveyToBean(surveysByFolder));
                 jsonResponse.put("surveysByFolder", surveyBeanList);
+            } else {
+                jsonResponse.put("surveysByFolder", ListUtils.EMPTY_LIST);
+                jsonResponse.put("TweetPollsByFolder", ListUtils.EMPTY_LIST);
+                jsonResponse.put("PollsByFolder", ListUtils.EMPTY_LIST);
+                throw new EnMeExpcetion("type not valid");
             }
+            setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

@@ -1582,7 +1582,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
         } else {
             tweetPollsbyFolder = getTweetPollDao().retrieveTweetPollByFolder(
-                    getUserAccountonSecurityContext().getUid(), folderId);
+                    getUserAccount(getUserPrincipalUsername()).getUid(),
+                    folderId);
         }
         log.info("search polls by folder size " + tweetPollsbyFolder.size());
         return ConvertDomainBean.convertListToTweetPollBean(tweetPollsbyFolder);
