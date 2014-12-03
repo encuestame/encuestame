@@ -114,6 +114,8 @@ public abstract class AbstractJsonV1MvcUnitBeans extends AbstractSpringSecurityC
     public void initService(final String url, final MethodJson method){
         Assert.assertNotNull(url);
         Assert.assertNotNull(method);
+        logPrint(url);
+        logPrint(method.name());
         this.request = new MockHttpServletRequest(method.name(), url);
         this.request.setRequestURI(url);
         this.request.setMethod(method.name());
@@ -157,6 +159,7 @@ public abstract class AbstractJsonV1MvcUnitBeans extends AbstractSpringSecurityC
      */
     public JSONObject callJsonService() throws ServletException, IOException{
         final String responseAsString = this.callStringService();
+        logPrint("::RESPONSE::"+responseAsString);
         Assert.assertNotNull(responseAsString);
         log.debug(responseAsString);
         return (JSONObject) JSONValue.parse(responseAsString);
@@ -254,8 +257,9 @@ public abstract class AbstractJsonV1MvcUnitBeans extends AbstractSpringSecurityC
      * @param param param
      * @param value value
      */
-    public void setParameter(final String param, final String value){
+    public void setParameter(final String param, final String value) {
         Assert.assertNotNull(request);
+        logPrint("::new-param["+param+"]=="+value);
         this.request.setParameter(param, value);
     }
 

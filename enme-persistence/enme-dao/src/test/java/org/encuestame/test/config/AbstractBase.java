@@ -2513,9 +2513,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public Question createQuestionRandom() throws NoSuchAlgorithmException,
             UnsupportedEncodingException {
         final Question randomQuestion = createQuestion(
-                "What is your favorite season? "
-                        + MD5Utils
-                                .md5(RandomStringUtils.randomAlphanumeric(15)),
+                "What is your favorite season? " + MD5Utils.md5(RandomStringUtils.randomAlphanumeric(15)),
                 "");
         return randomQuestion;
     }

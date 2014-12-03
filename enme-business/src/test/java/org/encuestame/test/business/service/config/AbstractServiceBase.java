@@ -35,4 +35,12 @@ public abstract class AbstractServiceBase extends AbstractBaseUnitBeans{
      */
     public AbstractServiceBase() {
     }
+
+    /**
+     *
+     * @param o
+     */
+    public void logPrint(Object o){
+        System.out.println("debug::==>::" + o);
+    }
 }

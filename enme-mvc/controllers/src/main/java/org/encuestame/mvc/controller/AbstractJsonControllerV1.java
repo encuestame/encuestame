@@ -396,4 +396,8 @@ public abstract class AbstractJsonControllerV1 extends AbstractBaseOperations{
     public void setMailService(final MailServiceOperations mailServiceOperations) {
         this.mailService = mailServiceOperations;
     }
+
+    public void logPrint(Object o){
+        System.out.println("debug::json::==>::" + o);
+    }
 }
