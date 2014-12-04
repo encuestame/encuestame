@@ -17,10 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
@@ -139,6 +136,15 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
      */
     public static String getProperty(final String name) {
         return propertiesMap.get(name);
+    }
+
+    /**
+     * Set property
+     * @param name
+     * @return
+     */
+    public static String setProperty(final String name, final String value) {
+        return propertiesMap.put(name, value);
     }
 
     /**

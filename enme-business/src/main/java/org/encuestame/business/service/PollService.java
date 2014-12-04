@@ -925,8 +925,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
     public Poll getPollByAnswerId(final Long pollId, final Long answerId,
             final UserAccount account) throws EnMeNoResultsFoundException {
         final Poll poll = this.getPollById(pollId);
-        QuestionAnswer qA = getQuestionDao().retrieveAnswersByQuestionId(
-                poll.getQuestion(), answerId);
+        QuestionAnswer qA = getQuestionDao().retrieveAnswersByQuestionId(poll.getQuestion(), answerId);
         if (qA == null) {
             throw new EnMeNoResultsFoundException("Answer not found");
         }

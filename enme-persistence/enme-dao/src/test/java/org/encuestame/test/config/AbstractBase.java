@@ -1013,7 +1013,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Question createQuestion(
             final String question,
-            final String pattern){
+            final String pattern) {
         final Question questions = new Question();
         questions.setQidKey("1");
         questions.setQuestion(question);

@@ -146,31 +146,6 @@ public class HomeController extends AbstractViewController {
         return "redirect:/home";
     }
 
-    /**
-     * Humans Txt Definition.
-     * @param model
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping(value = "/humans.txt", method = RequestMethod.GET)
-    public String humansTxT(ModelMap model, HttpServletRequest request,
-            HttpServletResponse response) {
-        return "redirect:/home";
-    }
-
-    /**
-     * Robots Txt Definition.
-     * @param model
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping(value = "/robots.txt", method = RequestMethod.GET)
-    public String robotsTxT(ModelMap model, HttpServletRequest request,
-            HttpServletResponse response) {
-        return "redirect:/home";
-    }
 
     /**
      * Display a question view.
@@ -191,9 +166,8 @@ public class HomeController extends AbstractViewController {
             try {
                 model.put("question", getSearchService().getQuestionInfo(Long.valueOf(id)));
             } catch (EnMeNoResultsFoundException | NumberFormatException e) {
-                 e.printStackTrace();
                  log.error(e);
-                return "500";
+                return "404";
             }
             return "question/detail";
     }
