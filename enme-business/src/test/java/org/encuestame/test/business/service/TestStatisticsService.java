@@ -42,7 +42,6 @@ import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.categories.test.DefaultTest;
-import org.encuestame.utils.categories.test.PerformanceTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
@@ -123,7 +122,6 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         createTweetPollResult(initTweetPollSwicht, "192.168.0.1");
         createTweetPollResult(initTweetPollSwicht, "192.168.0.2");
         this.initSocialAccount = createDefaultSettedSocialAccount(this.secondary);
-
         request = new MockHttpServletRequest();
         request.addPreferredLocale(Locale.ENGLISH);
     }
@@ -615,7 +613,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-  	@Category(PerformanceTest.class)
+  	@Category(DefaultTest.class)
 	@Test
     public void testGetHashTagUsedOnItemsVotedbySevenDaysPeriod()
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -636,7 +634,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-    @Category(PerformanceTest.class)
+    @Category(DefaultTest.class)
    // @Test
     public void testGetHashTagUsedOnItemsVotedbyThirtyDayPeriod()
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -655,7 +653,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-    @Category(PerformanceTest.class)
+    @Category(DefaultTest.class)
   //  @Test
     public void testGetHashTagUsedOnItemsVotedbyOneYearPeriod()
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -675,7 +673,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-    @Category(PerformanceTest.class)
+    @Category(DefaultTest.class)
 	@Test
     public void testGetHashTagUsedOnItemsVotedbyAllPeriod()
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -694,7 +692,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-	@Category(PerformanceTest.class)
+	@Category(DefaultTest.class)
 	@Test
     public void testGetHashTagUsedOnItemsVotedbyTwentyFourHoursPeriod()
             throws NoSuchAlgorithmException, UnsupportedEncodingException {

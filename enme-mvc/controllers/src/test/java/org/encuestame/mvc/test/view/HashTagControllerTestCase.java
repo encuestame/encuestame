@@ -42,11 +42,6 @@ public class HashTagControllerTestCase extends AbstractMvcUnitBeans{
 
      }
 
-    @Test
-    public void test(){
-        Assert.assertEquals(true, true);
-    }
-
     /**
      *
      * @throws Exception

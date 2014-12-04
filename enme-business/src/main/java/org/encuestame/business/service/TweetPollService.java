@@ -1183,7 +1183,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         if (tweetPoll.getLimitVotesEnabled() != null && tweetPoll.getLimitVotesEnabled()) {
             final Long totalVotes = getTweetPollDao()
                     .getTotalVotesByTweetPollId(tweetPoll.getTweetPollId());
-            if (Long.valueOf(tweetPoll.getLimitVotes()) == totalVotes) {
+            if (totalVotes >= Long.valueOf(tweetPoll.getLimitVotes())  ) {
                 limitVote = Boolean.TRUE;
             }
 

@@ -102,6 +102,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
+import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.GadgetType;
@@ -1016,7 +1017,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final Question questions = new Question();
         questions.setQidKey("1");
         questions.setQuestion(question);
-        questions.setSlugQuestion(question.replace(" ", "-"));
+        questions.setSlugQuestion(RestFullUtil.slugify(question));
         questions.setSharedQuestion(Boolean.TRUE);
         questions.setAccountQuestion(this.createAccount());
         getQuestionDaoImp().saveOrUpdate(questions);
@@ -2023,10 +2024,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param userAccount
      */
     public void createFakesTweetPoll(final UserAccount userAccount){
-        final Question question = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
-        final Question question1 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
-        final Question question2 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
-        final Question question3 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
+        final Question question = createQuestion("Real Madrid or Barcelona", userAccount.getAccount());
+        final Question question1 = createQuestion("Real Madrid or Barcelona", userAccount.getAccount());
+        final Question question2 = createQuestion("Real Madrid or Barcelona", userAccount.getAccount());
+        final Question question3 = createQuestion("Real Madrid or Barcelona", userAccount.getAccount());
         createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question);
         createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question1);
         createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question2);
