@@ -1,4 +1,4 @@
-package org.encuestame.mvc.controller.jsonp.beans;
+package org.encuestame.mvc.page.jsonp;
 
 import java.io.Serializable;
 

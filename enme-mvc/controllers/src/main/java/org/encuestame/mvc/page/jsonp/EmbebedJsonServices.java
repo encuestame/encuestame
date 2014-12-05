@@ -1,4 +1,4 @@
-package org.encuestame.mvc.controller.jsonp;
+package org.encuestame.mvc.page.jsonp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -20,7 +22,7 @@ import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
-import org.encuestame.mvc.controller.jsonp.beans.JavascriptEmbebedBody;
+import org.encuestame.mvc.page.jsonp.JavascriptEmbebedBody;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -60,6 +62,10 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
      */
     private final String HTML_TEMPLATES = "/org/encuestame/business/widget/templates";
 
+    /**
+     * Log.
+     */
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Generate the body of selected item.
@@ -82,50 +88,76 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
             throws JsonGenerationException, JsonMappingException, IOException {
         PrintWriter out = response.getWriter();
         String text = "";
+        final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();
+        final Map model = new HashMap();
+        final ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
             @SuppressWarnings("rawtypes")
-            final Map model = new HashMap();
             final String domain = WidgetUtil.getRelativeDomain(request);
             final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
-            final EmbeddedType embeddedType = EmbeddedType.getEmbeddedType(embedded);
-            final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();
-            final ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            response.setContentType("text/javascript; charset=UTF-8");
-            model.put("domain", domain);
-            model.put("embedded_type", embeddedType.toString().toLowerCase());
-            model.put("typeItem", typeItem.toString().toLowerCase());
-            model.put("itemId", itemId);
-            model.put("class_type", TypeSearchResult.getCSSClass(typeItem));
-            model.put("domain_config", WidgetUtil.getDomain(request, true));
-            if (TypeSearchResult.TWEETPOLL.equals(typeItem)) {
-                final TweetPoll tp = getTweetPollService().getTweetPollById(itemId);
-                model.put("url", EnMeUtils.createTweetPollUrlAccess(domain, tp));
-            } else if (TypeSearchResult.POLL.equals(typeItem)) {
-                final Poll poll = getPollService().getPollById(itemId);
-                model.put("url", EnMeUtils.createUrlPollAccess(domain, poll));
-            } else if (TypeSearchResult.TWEETPOLLRESULT.equals(typeItem)) {
-                final TweetPoll tp = getTweetPollService().getTweetPollById(itemId);
-                model.put("url", EnMeUtils.createTweetPollUrlAccess(domain, tp));
-            } else if (TypeSearchResult.POLLRESULT.equals(typeItem)) {
-                final Poll poll = getPollService().getPollById(itemId);
-                model.put("url", EnMeUtils.createUrlPollAccess(domain, poll));
-            } else if (TypeSearchResult.HASHTAG.equals(typeItem)) {
-                //FUTURE:
-                model.put("url", "");
-            } else if (TypeSearchResult.PROFILE.equals(typeItem)) {
-                final UserAccount user = getSecurityService().getUserbyId(itemId);
-                model.put("url", domain + "/profile/" + user.getUsername());
+            if(typeItem != null) {
+                final EmbeddedType embeddedType = EmbeddedType.getEmbeddedType(embedded);
+                response.setContentType("text/javascript; charset=UTF-8");
+                model.put("domain", domain);
+                model.put("embedded_type", embeddedType.toString().toLowerCase());
+                model.put("typeItem", typeItem.toString().toLowerCase());
+                model.put("itemId", itemId);
+                model.put("class_type", TypeSearchResult.getCSSClass(typeItem));
+                model.put("domain_config", WidgetUtil.getDomain(request, true));
+                if (TypeSearchResult.TWEETPOLL.equals(typeItem)) {
+                    final TweetPoll tp = getTweetPollService().getTweetPollById(itemId);
+                    model.put("url", EnMeUtils.createTweetPollUrlAccess(domain, tp));
+                } else if (TypeSearchResult.POLL.equals(typeItem)) {
+                    final Poll poll = getPollService().getPollById(itemId);
+                    model.put("url", EnMeUtils.createUrlPollAccess(domain, poll));
+                } else if (TypeSearchResult.TWEETPOLLRESULT.equals(typeItem)) {
+                    final TweetPoll tp = getTweetPollService().getTweetPollById(itemId);
+                    model.put("url", EnMeUtils.createTweetPollUrlAccess(domain, tp));
+                } else if (TypeSearchResult.POLLRESULT.equals(typeItem)) {
+                    final Poll poll = getPollService().getPollById(itemId);
+                    model.put("url", EnMeUtils.createUrlPollAccess(domain, poll));
+                } else if (TypeSearchResult.HASHTAG.equals(typeItem)) {
+                    //FUTURE:
+                    model.put("url", "");
+                } else if (TypeSearchResult.PROFILE.equals(typeItem)) {
+                    //FUTURE: should be username instead ID
+                    final UserAccount user = getSecurityService().getUserbyId(itemId);
+                    model.put("url", domain + "/profile/" + user.getUsername());
+                }
+                text = VelocityEngineUtils.mergeTemplateIntoString(
+                        velocityEngine, CODE_TEMPLATES + embeddedType.toString().toLowerCase() + "_code.vm", "utf-8", model);
+                String string = new String(text.getBytes("UTF-8"));
+                embebedBody.setBody(string);
+                final String json = ow.writeValueAsString(embebedBody);
+                out.print(callback + "(" + json + ")");
+            } else {
+                createWrongBody(model, embebedBody);
+                final String json = ow.writeValueAsString(embebedBody);
+                out.print(callback + "(" + json + ")");
             }
-            text = VelocityEngineUtils.mergeTemplateIntoString(
-                    velocityEngine, CODE_TEMPLATES  + embeddedType.toString().toLowerCase() +"_code.vm", "utf-8", model);
-            String string = new String(text.getBytes("UTF-8"));
-            embebedBody.setBody(string);
-            final String json = ow.writeValueAsString(embebedBody);
-            out.print(callback + "(" + json + ")");
         } catch (Exception e) {
-            e.printStackTrace();
-            out.print(callback + "(" + Boolean.FALSE + ")");
+            try {
+                createWrongBody(model, embebedBody);
+                final String json = ow.writeValueAsString(embebedBody);
+                out.print(callback + "(" + json + ")");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                log.fatal("creating wrong body has failed");
+            }
         }
+    }
+
+    /**
+     * Create a wrong body template.
+     * @param model
+     * @param embebedBody
+     * @return
+     */
+    private void createWrongBody(Map model, JavascriptEmbebedBody embebedBody) throws Exception{
+        String text = VelocityEngineUtils.mergeTemplateIntoString(
+                velocityEngine, CODE_TEMPLATES + "wrong_type.vm", "utf-8", model);
+        String string = new String(text.getBytes("UTF-8"));
+        embebedBody.setBody(string);
     }
 
     /**
@@ -250,8 +282,7 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
                 text = VelocityEngineUtils.mergeTemplateIntoString(
                         velocityEngine, HTML_TEMPLATES + "/profile.vm", "utf-8", model);
             }
-            final String string = new String(text.getBytes("UTF-8"));
-            embebedBody.setBody(string);
+            final String string = new String(text.getBytes("UTF-8"));            embebedBody.setBody(string);
             final String json = ow.writeValueAsString(embebedBody);
             out.print(callback + "(" + json + ")");
         } catch (Exception e) {
