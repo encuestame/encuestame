@@ -203,7 +203,7 @@ public class HomeController extends AbstractViewController {
             HttpServletResponse response) {
         username = filterValue(username);
         try {
-        final UserAccountBean accountBean = getSecurityService().searchUserByUsername(username);
+            final UserAccountBean accountBean = getSecurityService().searchUserByUsername(username);
             if (accountBean == null) {
                 return "404";
             } else {
@@ -211,38 +211,17 @@ public class HomeController extends AbstractViewController {
                 //2 - hashtag created by {username}
                 //3 - social link published by {username}
                 //4 - last comments
-                log.debug("user --> "+accountBean);
+                log.debug("user --> " + accountBean);
                 model.put("profile", accountBean);
                 final List<HomeBean> lastItems = getFrontService().getLastItemsPublishedFromUserAccount(username, this.profileDefaultItems, false,
-                                     request);
+                        request);
                 model.put("lastItems", lastItems);
                 return "profile/view";
             }
         } catch (EnMeNoResultsFoundException e) {
-             e.printStackTrace();
-             log.error(e);
+            e.printStackTrace();
+            log.error(e);
             return "500";
         }
-    }
-
-    /**
-     * @param profileDefaultItems the profileDefaultItems to set
-     */
-    public void setProfileDefaultItems(final Integer profileDefaultItems) {
-        this.profileDefaultItems = profileDefaultItems;
-    }
-
-    /**
-     * @param homeMaxItems the homeMaxItems to set
-     */
-    public void setHomeMaxItems(final Integer homeMaxItems) {
-        this.homeMaxItems = homeMaxItems;
-    }
-
-    /**
-     * @param homeHashtagMaxItems the homeHashtagMaxItems to set
-     */
-    public void setHomeHashtagMaxItems(final Integer homeHashtagMaxItems) {
-        this.homeHashtagMaxItems = homeHashtagMaxItems;
     }
 }

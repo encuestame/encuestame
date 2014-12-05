@@ -76,18 +76,6 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
         }
 
         /**
-         * home view.
-         * @throws Exception exception
-         */
-        //@Test
-        public void testHome() throws Exception {
-            final HomeController controller = new HomeController();
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/home");
-            final ModelAndView mav = handlerAdapter.handle(request, response, controller);
-            assertViewName(mav, "redirect:/user/signin");
-        }
-
-        /**
          * Index view.
          * @throws Exception exception
          */
@@ -114,39 +102,12 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
         }
 
         /**
-         * Test {@link AdmonController}.
-         * @throws Exception
-         */
-        //@Test
-        public void testAdmonController() throws Exception {
-            final AdmonController controller = new AdmonController();
-            //location
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/admon/location");
-            final ModelAndView mav = handlerAdapter.handle(request, response,
-                controller);
-            assertViewName(mav, "location");
-
-            //members
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/admon/members");
-            final ModelAndView mav2 = handlerAdapter.handle(request, response,
-                controller);
-            assertViewName(mav2, "members");
-            //project
-            //members
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/admon/project");
-            final ModelAndView mav3 = handlerAdapter.handle(request, response,
-                controller);
-            assertViewName(mav3, "project");
-        }
-
-        /**
          * Test {@link SignInController}.
          * @throws Exception exception.
          */
         @Test
         public void testLoginController() throws Exception {
             final SignInController controller = new SignInController();
-            //"/user/signin
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/signin");
             final ModelAndView mav = handlerAdapter.handle(request, response,
                 controller);
@@ -180,8 +141,7 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
     @Test
     public void testSurveyPublicController() throws Exception {
         SurveyController controller = new SurveyController();
-        request = new MockHttpServletRequest(MethodJson.GET.toString(),
-                "/survey/1/slug/");
+        request = new MockHttpServletRequest(MethodJson.GET.toString(), "/survey/1/slug/");
         final ModelAndView mav = handlerAdapter.handle(request, response,
                 controller);
         assertViewName(mav, "survey");
@@ -201,25 +161,43 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
         assertViewName(mav, "signup");
     }
 
-/*
- * 	TODO: fix testProcessSubmit(org.encuestame.mvc.test.view.ViewControllerTestCase): Required String parameter 'realName' is not present
+    /**
+     * Sign up valid
+     * @throws Exception
+     */
     @Test
     public void testProcessSubmit() throws Exception {
         final String realName = "Jhon Smith";
         final String password = "smith1234";
         final String username = "jhonsmith";
         final String email = "jhonsmith@encuestame.org";
+        request = new MockHttpServletRequest(MethodJson.POST.toString(), "/user/signup/create");
         request.setParameter("realName", realName);
         request.setParameter("password", password);
         request.setParameter("username", username);
         request.setParameter("email", email);
-        SignUpController controller = new SignUpController();
-        request = new MockHttpServletRequest(MethodJson.POST.toString(),
-                "/user/signup/create");
-        final ModelAndView mav = handlerAdapter.handle(request, response,
-                controller);
-        assertViewName(mav, "redirect:/user/dashboard");
-    }*/
+        final ModelAndView mav = handlerAdapter.handle(request, response, signupController);
+        assertViewName(mav, "/user/created");
+    }
+
+    /**
+     * Sign up not valid
+     * @throws Exception
+     */
+    @Test
+    public void testProcessSubmitNonValid() throws Exception {
+        final String realName = "Jhon Smith";
+        final String password = "1";
+        final String username = "jhonsmith";
+        final String email = "jhonsmithALTencuestame.org";
+        request = new MockHttpServletRequest(MethodJson.POST.toString(), "/user/signup/create");
+        request.setParameter("realName", realName);
+        request.setParameter("password", password);
+        request.setParameter("username", username);
+        request.setParameter("email", email);
+        final ModelAndView mav = handlerAdapter.handle(request, response, signupController);
+        assertViewName(mav, "redirect:/user/signup");
+    }
 
     /**
      * Test confirmation account
@@ -272,6 +250,17 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
                 "/profile/"+ badUsername );
         final ModelAndView mavBadUser = handlerAdapter.handle(request, response, homeController);
         assertViewName(mavBadUser, "404");
+    }
+
+
+    @Test
+    @Ignore
+    //No matching handler method found for servlet request: path '/user/confirm/email/refresh/code', method 'GET', parameters map[[empty]]
+    public void testrefreshCodeController() throws Exception {
+        this.quickLogin();
+        request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/confirm/email/refresh/code");
+        final ModelAndView mav = handlerAdapter.handle(request, response, homeController);
+        assertViewName(mav, "redirect:/user/tweetpoll/list");
     }
 
     /**

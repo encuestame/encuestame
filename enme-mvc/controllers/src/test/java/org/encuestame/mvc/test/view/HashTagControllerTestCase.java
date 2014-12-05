@@ -49,12 +49,18 @@ public class HashTagControllerTestCase extends AbstractMvcUnitBeans{
     @Test
     public void testHashTagController() throws Exception {
         final HashTag hashTag = createHashTag("software", 50L);
-        final String ipAddress = "192.168.1.99";
+        final String ipAddress = "192.168.2.99";
         createHashTagHit(hashTag, ipAddress);
         request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tag/software");
-        final ModelAndView mav = handlerAdapter.handle(request, response,
-                hashTagController);
+        final ModelAndView mav = handlerAdapter.handle(request, response, hashTagController);
         assertViewName(mav, "tag/detail");
+    }
+
+    @Test
+    public void testHashTagController404() throws Exception {
+        request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tag/xxxxx");
+        final ModelAndView mav = handlerAdapter.handle(request, response, hashTagController);
+        assertViewName(mav, "404");
         //System.out.println("Test hash Tag Controller");
 
     }

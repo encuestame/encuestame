@@ -69,15 +69,10 @@ public class SearchController extends AbstractViewController {
      * @return
      */
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String searchGet(
-           ModelMap model,
-            final HttpServletRequest request,
-            final HttpServletResponse response) {
+    public String searchGet(final HttpServletRequest request) {
         final String keyword = request.getParameter("q");
         String redirect =  "redirect:/search?q=";
-        if(keyword != null){
-            redirect += keyword;
-        } else {
+        if (keyword == null) {
             redirect += "a";
         }
         return redirect;
