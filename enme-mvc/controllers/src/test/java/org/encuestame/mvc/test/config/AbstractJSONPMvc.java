@@ -22,6 +22,7 @@ import org.encuestame.mvc.page.jsonp.EmbebedJsonServices;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -62,30 +63,107 @@ public abstract class AbstractJSONPMvc  extends AbstractMvcUnitBeans{
 
     /**
      *
+     * @param body
+     */
+    public void validBody(final String body, final String word) {
+        Assert.assertTrue(body.contains(word));
+    }
+
+    /**
+     *
+     * @param body
+     */
+    public void validWordpres(final String body) {
+        validBody(body.toString(), "[iframe");
+    }
+
+    /**
+     *
+     * @param body
+     */
+    public void validScript(final String body) {
+        validBody(body.toString(), "widget.js");
+        validBody(body.toString(), "script");
+        validBody(body.toString(), "<a");
+    }
+
+    /**
+     *
+     * @param body
+     */
+    public void validIframe(final String body) {
+        validBody(body.toString(), "iframe");
+    }
+
+    /**
+     *
+     * @param body
+     */
+    public void validWrongBody(final String body) {
+        Assert.assertTrue(body.contains("Wrong"));
+    }
+
+    /**
+     *
+     * @param body
+     */
+    public void validHTMLBody(final String body) {
+        logPrint(body);
+        Assert.assertTrue(body.contains("class=\"widget"));
+    }
+
+    /**
+     *
      * @param formatWidget
      * @param mp
      * @return
      * @throws Exception
      */
-    public JSONObject getWidget(
+    public JSONObject getCodeWidget(
             final String type,
             final String formatWidget,
             HashMap<String, String> mp) throws Exception{
         String functionName = "functionYes";
         String path = "/api/jsonp/generate/code/{type}/embedded";
         path = path.replace("{type}", type);
+        logPrint(formatWidget);
         request = new MockHttpServletRequest(MethodJson.GET.toString(), path);
         Iterator it = mp.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pairs = (Map.Entry)it.next();
-            logPrint(pairs.getKey() + " = " + pairs.getValue());
             it.remove();
             request.setParameter(pairs.getKey().toString(), pairs.getValue().toString());
         }
         request.setParameter("callback", functionName);
         request.setParameter("embedded_type", formatWidget);
         handlerAdapter.handle(request, response, embebedJsonServices);
-        logPrint(response.getContentAsString());
         return getJSON(response.getContentAsString(), functionName);
+    }
+
+    /**
+     *
+     * @param type
+     * @param mp
+     * @return
+     * @throws Exception
+     */
+    public String getWidget(
+            String type,
+            HashMap<String, String> mp) throws Exception{
+        String functionName = "functionYes";
+        String path = "/api/jsonp/{type}/embedded";
+        path = path.replace("{type}", type);
+        request = new MockHttpServletRequest(MethodJson.GET.toString(), path);
+        Iterator it = mp.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+            it.remove();
+            request.setParameter(pairs.getKey().toString(), pairs.getValue().toString());
+        }
+        request.setParameter("callback", functionName);
+        handlerAdapter.handle(request, response, embebedJsonServices);
+        logPrint(response.getContentAsString());
+        JSONObject body = getJSON(response.getContentAsString(), functionName);
+        return body.get("body").toString();
     }
 }

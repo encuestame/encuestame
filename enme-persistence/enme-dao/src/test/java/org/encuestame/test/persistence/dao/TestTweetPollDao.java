@@ -848,7 +848,7 @@ public class TestTweetPollDao extends AbstractBase {
         assertNotNull(tp);
         final Long totalTweets = getTweetPoll().getTotalTweetPoll(
                 this.secondary, Boolean.TRUE);
-        Assert.assertEquals("Should be", 1, totalTweets.intValue());
+        Assert.assertEquals("Should be", 2, totalTweets.intValue());
     }
 
     /**

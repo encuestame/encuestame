@@ -1268,7 +1268,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return {@link TweetPoll}
      */
     public TweetPoll createPublishedTweetPoll(final UserAccount tweetOwner, final Question question){
-       return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question, null);
+       return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question, tweetOwner);
     }
 
     /**
@@ -1279,7 +1279,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public TweetPoll createPublishedTweetPoll(final UserAccount tweetOwner, final Question question, final Date dateTweet){
-        return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question, null);
+        return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question, tweetOwner);
      }
 
     /**

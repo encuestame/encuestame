@@ -1,3 +1,21 @@
+/*
+ *
+ *  * Copyright 2014 encuestame
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *       http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *
+ */
+
 package org.encuestame.mvc.page.jsonp;
 
 import java.io.IOException;
@@ -95,7 +113,7 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
             @SuppressWarnings("rawtypes")
             final String domain = WidgetUtil.getRelativeDomain(request);
             final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
-            if(typeItem != null) {
+            if (typeItem != null) {
                 final EmbeddedType embeddedType = EmbeddedType.getEmbeddedType(embedded);
                 response.setContentType("text/javascript; charset=UTF-8");
                 model.put("domain", domain);
@@ -182,112 +200,125 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
         PrintWriter out = response.getWriter();
         String text = "";
         final int max_results = 1;
+        final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
+        final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();
+        final ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        @SuppressWarnings("rawtypes")
+        final Map model = new HashMap();
         try {
-            @SuppressWarnings("rawtypes")
-            final Map model = new HashMap();
-            final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
-            final JavascriptEmbebedBody embebedBody = new JavascriptEmbebedBody();
-            final ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            final String domain = WidgetUtil.getDomain(request, true);
-            final String logo = EnMePlaceHolderConfigurer.getProperty("application.logo.icon");
-            model.put("logo_enme", domain + "/resources/" + logo);
-            model.put("domain", domain);
-            model.put("typeItem", typeItem.toString().toLowerCase());
-            model.put("itemId", pollId);
-            model.put("domain_config", domain);
-            response.setContentType("text/javascript; charset=UTF-8");
-            if (TypeSearchResult.TWEETPOLL.equals(typeItem)) {
-                // generate tweetpoll body
-                // generate tweetpoll body
-                final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(pollId);
-                model.put("tp", tweetPoll);
-                model.put("editorOwner", tweetPoll.getEditorOwner());
-                model.put("votes", tweetPoll.getLikeVote());
-                model.put("hits", tweetPoll.getHits());
-                model.put("date_published", EnMeUtils.formatDate(tweetPoll.getCreateDate(), "HH:mm - d MMMM yyyy"));
-                model.put("owner_picture", domain + "/picture/profile/" + tweetPoll.getEditorOwner().getUsername() + "/thumbnail");
-                model.put("owner_profile_url", domain + "/profile/" + tweetPoll.getEditorOwner().getUsername());
-                StringBuffer buffer = new StringBuffer();
-                String q = tweetPoll.getQuestion().getQuestion();
-                final List<TweetPollSwitch> answers = getTweetPollService().getTweetPollSwitch(tweetPoll);
-                final Set<HashTag> hashTags = tweetPoll.getHashTags();
-                buffer.append(EnMeUtils.generateBodyTweetPollasHtml(domain, tweetPoll, q,answers, hashTags));
-                model.put("body_text", buffer.toString());
-                model.put("url_tpoll", domain +
-                        "/tweetpoll/" + tweetPoll.getTweetPollId() + "/" + tweetPoll.getQuestion().getSlugQuestion());
-                text = VelocityEngineUtils.mergeTemplateIntoString(
-                        velocityEngine, HTML_TEMPLATES + "/tweetpoll_form.vm", "utf-8", model);
-            } else if (TypeSearchResult.TWEETPOLLRESULT.equals(typeItem)) {
-                final TweetPoll tpoll = getTweetPollService().getTweetPollById(pollId);
-                final TweetPollDetailBean tpollDetail = getTweetPollService().getTweetPollDetailInfo(pollId);
-                model.put("owner_picture", domain + "/picture/profile/" + tpoll.getEditorOwner().getUsername() + "/thumbnail");
-                model.put("editorOwner", tpoll.getEditorOwner());
-                model.put("question", tpoll.getQuestion());
-                model.put("url", EnMeUtils.createTweetPollUrlAccess(domain, tpoll));
-                model.put("answersList", tpollDetail.getResults());
-                model.put("date_published", EnMeUtils.formatDate(tpoll.getCreateDate(), "HH:mm - d MMMM yyyy"));
-                text = VelocityEngineUtils.mergeTemplateIntoString(
-                        velocityEngine, HTML_TEMPLATES + "/tweetpoll_votes.vm", "utf-8", model);
-                embebedBody.setAditionalInfo(tpollDetail.getResults());
-            } else if (TypeSearchResult.POLL.equals(typeItem)) {
-                // generate poll body
-                final Poll poll = getPollService().getPollById(pollId);
-                final PollDetailBean detailBean = getPollService().getPollDetailInfo(poll.getPollId());
-                model.put("owner_picture", domain + "/picture/profile/" + poll.getEditorOwner().getUsername() + "/thumbnail");
-                model.put("editorOwner", poll.getEditorOwner());
-                model.put("title", poll.getQuestion().getQuestion());
-                model.put("date_published", EnMeUtils.formatDate(poll.getCreateDate(), "HH:mm - d MMMM yyyy"));
-                model.put("poll", poll);
-                model.put("action", WidgetUtil.getDomain(request) + "/poll/vote/post");
-                model.put("detailBean", detailBean);
-                model.put("vote_title", "Vote");
-                text = VelocityEngineUtils.mergeTemplateIntoString(
-                        velocityEngine, HTML_TEMPLATES + "/poll_form.vm", "utf-8", model);
-            }  else if (TypeSearchResult.POLLRESULT.equals(typeItem)) {
-                // generate poll body
-                final Poll poll = getPollService().getPollById(pollId);
-                final PollDetailBean detailBean = getPollService().getPollDetailInfo(poll.getPollId());
-                model.put("owner_picture", domain + "/picture/profile/" + poll.getEditorOwner().getUsername() + "/thumbnail");
-                model.put("editorOwner", poll.getEditorOwner());
-                model.put("question", poll.getQuestion());
-                model.put("url", EnMeUtils.createUrlPollAccess(domain, poll));
-                model.put("answersList", detailBean.getResults());
-                model.put("date_published", EnMeUtils.formatDate(poll.getCreateDate(), "HH:mm - d MMMM yyyy"));
-                text = VelocityEngineUtils.mergeTemplateIntoString(
-                        velocityEngine, HTML_TEMPLATES + "/tweetpoll_votes.vm", "utf-8", model);
-                embebedBody.setAditionalInfo(detailBean.getResults());
-            } else if (TypeSearchResult.HASHTAG.equals(typeItem)) {
-                // generate hashtag body
-                model.put("hellow", "world");
-                text = VelocityEngineUtils.mergeTemplateIntoString(
-                        velocityEngine, HTML_TEMPLATES + "/hashtag.vm", "utf-8", model);
-            } else if (TypeSearchResult.PROFILE.equals(typeItem)) {
-                final UserAccount user = getSecurityService().getUserbyId(pollId);
-                model.put("owner_picture", domain + "/picture/profile/" + user.getUsername() + "/thumbnail");
-                model.put("editorOwner", user);
-                model.put("profile", user.getUsername());
-                model.put("owner_profile_url", domain + "/profile/" + user.getUsername());
-                model.put("picture", getPictureService().getProfilePicture(user.getUsername(), PictureType.DEFAULT));
-                model.put("total_tweets", getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.TWEETPOLL));
-                model.put("total_poll",  getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.POLL));
-                model.put("total_survey",  getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.SURVEY));
-                final List<HomeBean> lastPublication = getFrontService().getLastItemsPublishedFromUserAccount(
-                        user.getUsername(),
-                        max_results,
-                        Boolean.FALSE,
-                        request);
-                if (lastPublication.size() >= 1) {
-                    model.put("last_publication", lastPublication.get(0));
+            if (embebedBody != null) {
+                final String domain = WidgetUtil.getDomain(request, true);
+                final String logo = EnMePlaceHolderConfigurer.getProperty("application.logo.icon");
+                model.put("logo_enme", domain + "/resources/" + logo);
+                model.put("domain", domain);
+                model.put("typeItem", typeItem.toString().toLowerCase());
+                model.put("itemId", pollId);
+                model.put("domain_config", domain);
+                response.setContentType("text/javascript; charset=UTF-8");
+                if (TypeSearchResult.TWEETPOLL.equals(typeItem)) {
+                    // generate tweetpoll body
+                    // generate tweetpoll body
+                    final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(pollId);
+                    model.put("tp", tweetPoll);
+                    model.put("editorOwner", tweetPoll.getEditorOwner());
+                    model.put("votes", tweetPoll.getLikeVote());
+                    model.put("hits", tweetPoll.getHits());
+                    model.put("date_published", EnMeUtils.formatDate(tweetPoll.getCreateDate(), "HH:mm - d MMMM yyyy"));
+                    model.put("owner_picture", domain + "/picture/profile/" + tweetPoll.getEditorOwner().getUsername() + "/thumbnail");
+                    model.put("owner_profile_url", domain + "/profile/" + tweetPoll.getEditorOwner().getUsername());
+                    StringBuffer buffer = new StringBuffer();
+                    String q = tweetPoll.getQuestion().getQuestion();
+                    final List<TweetPollSwitch> answers = getTweetPollService().getTweetPollSwitch(tweetPoll);
+                    final Set<HashTag> hashTags = tweetPoll.getHashTags();
+                    buffer.append(EnMeUtils.generateBodyTweetPollasHtml(domain, tweetPoll, q,answers, hashTags));
+                    model.put("body_text", buffer.toString());
+                    model.put("url_tpoll", domain +
+                            "/tweetpoll/" + tweetPoll.getTweetPollId() + "/" + tweetPoll.getQuestion().getSlugQuestion());
+                    text = VelocityEngineUtils.mergeTemplateIntoString(
+                            velocityEngine, HTML_TEMPLATES + "/tweetpoll_form.vm", "utf-8", model);
+                } else if (TypeSearchResult.TWEETPOLLRESULT.equals(typeItem)) {
+                    final TweetPoll tpoll = getTweetPollService().getTweetPollById(pollId);
+                    final TweetPollDetailBean tpollDetail = getTweetPollService().getTweetPollDetailInfo(pollId);
+                    model.put("owner_picture", domain + "/picture/profile/" + tpoll.getEditorOwner().getUsername() + "/thumbnail");
+                    model.put("editorOwner", tpoll.getEditorOwner());
+                    model.put("question", tpoll.getQuestion());
+                    model.put("url", EnMeUtils.createTweetPollUrlAccess(domain, tpoll));
+                    model.put("answersList", tpollDetail.getResults());
+                    model.put("date_published", EnMeUtils.formatDate(tpoll.getCreateDate(), "HH:mm - d MMMM yyyy"));
+                    text = VelocityEngineUtils.mergeTemplateIntoString(
+                            velocityEngine, HTML_TEMPLATES + "/tweetpoll_votes.vm", "utf-8", model);
+                    embebedBody.setAditionalInfo(tpollDetail.getResults());
+                } else if (TypeSearchResult.POLL.equals(typeItem)) {
+                    // generate poll body
+                    final Poll poll = getPollService().getPollById(pollId);
+                    final PollDetailBean detailBean = getPollService().getPollDetailInfo(poll.getPollId());
+                    model.put("owner_picture", domain + "/picture/profile/" + poll.getEditorOwner().getUsername() + "/thumbnail");
+                    model.put("editorOwner", poll.getEditorOwner());
+                    model.put("title", poll.getQuestion().getQuestion());
+                    model.put("date_published", EnMeUtils.formatDate(poll.getCreateDate(), "HH:mm - d MMMM yyyy"));
+                    model.put("poll", poll);
+                    model.put("action", WidgetUtil.getDomain(request) + "/poll/vote/post");
+                    model.put("detailBean", detailBean);
+                    model.put("vote_title", "Vote");
+                    text = VelocityEngineUtils.mergeTemplateIntoString(
+                            velocityEngine, HTML_TEMPLATES + "/poll_form.vm", "utf-8", model);
+                }  else if (TypeSearchResult.POLLRESULT.equals(typeItem)) {
+                    // generate poll body
+                    final Poll poll = getPollService().getPollById(pollId);
+                    final PollDetailBean detailBean = getPollService().getPollDetailInfo(poll.getPollId());
+                    model.put("owner_picture", domain + "/picture/profile/" + poll.getEditorOwner().getUsername() + "/thumbnail");
+                    model.put("editorOwner", poll.getEditorOwner());
+                    model.put("question", poll.getQuestion());
+                    model.put("url", EnMeUtils.createUrlPollAccess(domain, poll));
+                    model.put("answersList", detailBean.getResults());
+                    model.put("date_published", EnMeUtils.formatDate(poll.getCreateDate(), "HH:mm - d MMMM yyyy"));
+                    text = VelocityEngineUtils.mergeTemplateIntoString(
+                            velocityEngine, HTML_TEMPLATES + "/tweetpoll_votes.vm", "utf-8", model);
+                    embebedBody.setAditionalInfo(detailBean.getResults());
+                } else if (TypeSearchResult.HASHTAG.equals(typeItem)) {
+                    // generate hashtag body
+                    model.put("hellow", "world");
+                    text = VelocityEngineUtils.mergeTemplateIntoString(
+                            velocityEngine, HTML_TEMPLATES + "/hashtag.vm", "utf-8", model);
+                } else if (TypeSearchResult.PROFILE.equals(typeItem)) {
+                    final UserAccount user = getSecurityService().getUserbyId(pollId);
+                    model.put("owner_picture", domain + "/picture/profile/" + user.getUsername() + "/thumbnail");
+                    model.put("editorOwner", user);
+                    model.put("profile", user.getUsername());
+                    model.put("owner_profile_url", domain + "/profile/" + user.getUsername());
+                    model.put("picture", getPictureService().getProfilePicture(user.getUsername(), PictureType.DEFAULT));
+                    model.put("total_tweets", getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.TWEETPOLL));
+                    model.put("total_poll", getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.POLL));
+                    model.put("total_survey", getFrontService().getTotalItemsPublishedByType(user, Boolean.TRUE, TypeSearchResult.SURVEY));
+                    final List<HomeBean> lastPublication = getFrontService().getLastItemsPublishedFromUserAccount(
+                            user.getUsername(),
+                            max_results,
+                            Boolean.FALSE,
+                            request);
+                    if (lastPublication.size() >= 1) {
+                        model.put("last_publication", lastPublication.get(0));
+                    }
+                    text = VelocityEngineUtils.mergeTemplateIntoString(
+                            velocityEngine, HTML_TEMPLATES + "/profile.vm", "utf-8", model);
+                } else {
+                    createWrongBody(model, embebedBody);
+                    final String json = ow.writeValueAsString(embebedBody);
+                    out.print(callback + "(" + json + ")");
                 }
-                text = VelocityEngineUtils.mergeTemplateIntoString(
-                        velocityEngine, HTML_TEMPLATES + "/profile.vm", "utf-8", model);
             }
             final String string = new String(text.getBytes("UTF-8"));            embebedBody.setBody(string);
             final String json = ow.writeValueAsString(embebedBody);
             out.print(callback + "(" + json + ")");
         } catch (Exception e) {
             e.printStackTrace();
-            out.print(callback + "(" + Boolean.FALSE + ")");
+            try {
+                createWrongBody(model, embebedBody);
+                final String json = ow.writeValueAsString(embebedBody);
+                out.print(callback + "(" + json + ")");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                log.fatal("creating wrong body has failed");
+            }
         }
     }
 
@@ -301,22 +332,22 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
      * @throws JsonMappingException
      * @throws IOException
      */
-    @RequestMapping(value = "/api/jsonp/poll.json", method = RequestMethod.GET)
-    public void pollJSONP(
-            @RequestParam(value = "id", required = true) Long pollId,
-            @RequestParam(value = "callback", required = true) String callback,
-            HttpServletRequest request, HttpServletResponse response)
-            throws JsonGenerationException, JsonMappingException, IOException {
-        PrintWriter out = response.getWriter();
-        try {
-            response.setContentType("text/javascript; charset=UTF-8");
-            getPollService().getPollById(pollId);
-            out.print(callback + "(" + Boolean.TRUE + ")");
-            // buffer.append(callback + "(" + Boolean.TRUE + ")");
-        } catch (EnMeExpcetion e) {
-            out.print(callback + "(" + Boolean.FALSE + ")");
-        }
-    }
+//    @RequestMapping(value = "/api/jsonp/poll.json", method = RequestMethod.GET)
+//    public void pollJSONP(
+//            @RequestParam(value = "id", required = true) Long pollId,
+//            @RequestParam(value = "callback", required = true) String callback,
+//            HttpServletRequest request, HttpServletResponse response)
+//            throws JsonGenerationException, JsonMappingException, IOException {
+//        PrintWriter out = response.getWriter();
+//        try {
+//            response.setContentType("text/javascript; charset=UTF-8");
+//            getPollService().getPollById(pollId);
+//            out.print(callback + "(" + Boolean.TRUE + ")");
+//            // buffer.append(callback + "(" + Boolean.TRUE + ")");
+//        } catch (EnMeExpcetion e) {
+//            out.print(callback + "(" + Boolean.FALSE + ")");
+//        }
+//    }
 
     /**
      *
@@ -328,34 +359,20 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
      * @throws JsonMappingException
      * @throws IOException
      */
-    @RequestMapping(value = "/api/jsonp/user.json", method = RequestMethod.GET)
-    public void userJSONP(
-            @RequestParam(value = "id", required = true) String username,
-            @RequestParam(value = "callback", required = true) String callback,
-            HttpServletRequest request, HttpServletResponse response)
-            throws JsonGenerationException, JsonMappingException, IOException {
-        PrintWriter out = response.getWriter();
-        try {
-            response.setContentType("text/javascript; charset=UTF-8");
-            getSecurityService().getUserAccount(username);
-            out.print(callback + "(" + Boolean.TRUE + ")");
-            // buffer.append(callback + "(" + Boolean.TRUE + ")");
-        } catch (EnMeExpcetion e) {
-            out.print(callback + "(" + Boolean.FALSE + ")");
-        }
-    }
-
-    /**
-     * @return the velocityEngine
-     */
-    public VelocityEngine getVelocityEngine() {
-        return velocityEngine;
-    }
-
-    /**
-     * @param velocityEngine the velocityEngine to set
-     */
-    public void setVelocityEngine(final VelocityEngine velocityEngine) {
-        this.velocityEngine = velocityEngine;
-    }
+    //@RequestMapping(value = "/api/jsonp/user.json", method = RequestMethod.GET)
+//    public void userJSONP(
+//            @RequestParam(value = "id", required = true) String username,
+//            @RequestParam(value = "callback", required = true) String callback,
+//            HttpServletRequest request, HttpServletResponse response)
+//            throws JsonGenerationException, JsonMappingException, IOException {
+//        PrintWriter out = response.getWriter();
+//        try {
+//            response.setContentType("text/javascript; charset=UTF-8");
+//            getSecurityService().getUserAccount(username);
+//            out.print(callback + "(" + Boolean.TRUE + ")");
+//            // buffer.append(callback + "(" + Boolean.TRUE + ")");
+//        } catch (EnMeExpcetion e) {
+//            out.print(callback + "(" + Boolean.FALSE + ")");
+//        }
+//    }
 }

@@ -19,6 +19,7 @@
 package org.encuestame.mvc.test.view;
 
 import org.encuestame.mvc.test.config.AbstractJSONPMvc;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -27,11 +28,10 @@ import org.encuestame.utils.enums.TypeSearchResult;
 import org.joda.time.DateTime;
 import org.json.simple.JSONObject;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import java.util.HashMap;
-
-import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
 
 /**
  * Created by jpicado on 05/12/14.
@@ -53,6 +53,11 @@ public class EmbebedJsonServicesTestCase extends AbstractJSONPMvc {
      *
      */
     UserAccount userAccount;
+
+    /**
+     *
+     */
+    HashTag hashTag;
 
     /**
      *
@@ -81,6 +86,7 @@ public class EmbebedJsonServicesTestCase extends AbstractJSONPMvc {
                 true,
                 true);
         this.tweetPoll = createFastTweetPollVotes();
+        this.hashTag = createHashTag("test");
     }
 
     /// Block of test to generate code
@@ -89,108 +95,108 @@ public class EmbebedJsonServicesTestCase extends AbstractJSONPMvc {
     public void testJSONPollController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", poll.getPollId().toString());
-        JSONObject data = getWidget(TypeSearchResult.POLL.toWidget(), SCRIPT, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.POLL.toWidget(), SCRIPT, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validScript(body.toString());
     }
 
     @Test
     public void testJSONPollWordpressController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", poll.getPollId().toString());
-        JSONObject data = getWidget(TypeSearchResult.POLL.toWidget(), SCRIPT, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.POLL.toWidget(), SCRIPT, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validScript(body.toString());
     }
 
     @Test
     public void testJSONPollIframeController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", poll.getPollId().toString());
-        JSONObject data = getWidget(TypeSearchResult.POLL.toWidget(), WORDPRESS, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.POLL.toWidget(), WORDPRESS, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validWordpres(body.toString());
     }
 
     @Test
     public void testJSONPollResultsScriptController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", poll.getPollId().toString());
-        JSONObject data = getWidget(TypeSearchResult.POLLRESULT.toWidget(), SCRIPT, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.POLLRESULT.toWidget(), SCRIPT, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validScript(body.toString());
     }
 
     @Test
     public void testJSONPollResultsWordpressController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", poll.getPollId().toString());
-        JSONObject data = getWidget(TypeSearchResult.POLLRESULT.toWidget(), WORDPRESS, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.POLLRESULT.toWidget(), WORDPRESS, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validWordpres(body.toString());
     }
 
     @Test
     public void testJSONPollResultsIframeController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", poll.getPollId().toString());
-        JSONObject data = getWidget(TypeSearchResult.POLLRESULT.toWidget(), IFRAME, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.POLLRESULT.toWidget(), IFRAME, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validIframe(body.toString());
     }
 
     @Test
     public void testJSONTweetPollResultsIframeController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", tweetPoll.getTweetPollId().toString());
-        JSONObject data = getWidget(TypeSearchResult.TWEETPOLLRESULT.toWidget(), IFRAME, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.TWEETPOLLRESULT.toWidget(), IFRAME, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validBody(body.toString(), "iframe");
     }
 
     @Test
     public void testJSONTweetPollResultsWordpressController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", tweetPoll.getTweetPollId().toString());
-        JSONObject data = getWidget(TypeSearchResult.TWEETPOLLRESULT.toWidget(), WORDPRESS, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.TWEETPOLLRESULT.toWidget(), WORDPRESS, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validWordpres(body.toString());
     }
 
     @Test
     public void testJSONTweetPollResultsScriptController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", tweetPoll.getTweetPollId().toString());
-        JSONObject data = getWidget(TypeSearchResult.TWEETPOLLRESULT.toWidget(), SCRIPT, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.TWEETPOLLRESULT.toWidget(), SCRIPT, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validScript(body.toString());
     }
 
     @Test
     public void testJSONTweetPollIframeController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", tweetPoll.getTweetPollId().toString());
-        JSONObject data = getWidget(TypeSearchResult.TWEETPOLL.toWidget(), IFRAME, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.TWEETPOLL.toWidget(), IFRAME, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validBody(body.toString(), "iframe");
     }
 
     @Test
     public void testJSONTweetPollWordpressController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", tweetPoll.getTweetPollId().toString());
-        JSONObject data = getWidget(TypeSearchResult.TWEETPOLL.toWidget(), WORDPRESS, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.TWEETPOLL.toWidget(), WORDPRESS, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validWordpres(body.toString());
     }
 
     @Test
     public void testJSONTweetPollScriptController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", tweetPoll.getTweetPollId().toString());
-        JSONObject data = getWidget(TypeSearchResult.TWEETPOLL.toWidget(), SCRIPT, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.TWEETPOLL.toWidget(), SCRIPT, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validScript(body.toString());
     }
 
     //profile
@@ -199,9 +205,9 @@ public class EmbebedJsonServicesTestCase extends AbstractJSONPMvc {
     public void testJSONProfileIframeController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", this.userAccount.getUid().toString());
-        JSONObject data = getWidget(TypeSearchResult.PROFILE.toWidget(), IFRAME, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.PROFILE.toWidget(), IFRAME, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validBody(body.toString(), "iframe");
     }
 
 
@@ -209,9 +215,9 @@ public class EmbebedJsonServicesTestCase extends AbstractJSONPMvc {
     public void testJSONProfileWordpressController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", this.userAccount.getUid().toString());
-        JSONObject data = getWidget(TypeSearchResult.PROFILE.toWidget(), WORDPRESS, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.PROFILE.toWidget(), WORDPRESS, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validWordpres(body.toString());
     }
 
 
@@ -219,9 +225,9 @@ public class EmbebedJsonServicesTestCase extends AbstractJSONPMvc {
     public void testJSONProfileScriptController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", this.userAccount.getUid().toString());
-        JSONObject data = getWidget(TypeSearchResult.PROFILE.toWidget(), SCRIPT, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.PROFILE.toWidget(), SCRIPT, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validScript(body.toString());
     }
 
     //hashtag
@@ -230,9 +236,9 @@ public class EmbebedJsonServicesTestCase extends AbstractJSONPMvc {
     public void testJSONHashtagIframeController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", this.userAccount.getUid().toString());
-        JSONObject data = getWidget(TypeSearchResult.HASHTAG.toWidget(), IFRAME, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.HASHTAG.toWidget(), IFRAME, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validBody(body.toString(), "iframe");
     }
 
 
@@ -240,9 +246,9 @@ public class EmbebedJsonServicesTestCase extends AbstractJSONPMvc {
     public void testJSONHashtagWordpressController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", this.userAccount.getUid().toString());
-        JSONObject data = getWidget(TypeSearchResult.HASHTAG.toWidget(), WORDPRESS, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.HASHTAG.toWidget(), WORDPRESS, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validWordpres(body.toString());
     }
 
 
@@ -250,9 +256,9 @@ public class EmbebedJsonServicesTestCase extends AbstractJSONPMvc {
     public void testJSONHashtagScriptController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", this.userAccount.getUid().toString());
-        JSONObject data = getWidget(TypeSearchResult.HASHTAG.toWidget(), SCRIPT, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.HASHTAG.toWidget(), SCRIPT, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validScript(body.toString());
     }
 
 
@@ -262,29 +268,97 @@ public class EmbebedJsonServicesTestCase extends AbstractJSONPMvc {
     public void testJSONWrongBodyController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", this.userAccount.getUid().toString());
-        JSONObject data = getWidget("wrong", SCRIPT, hashMap);
+        JSONObject data = getCodeWidget("wrong", SCRIPT, hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        validWrongBody(body.toString());
     }
 
     @Test
     public void testJSONWrongTypeController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", this.userAccount.getUid().toString());
-        JSONObject data = getWidget(TypeSearchResult.PROFILE.toWidget(), "typeWrong", hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.PROFILE.toWidget(), "typeWrong", hashMap);
         String body = (String) data.get("body");
-        logPrint(body.toString());
+        logPrint("jota "+body);
+        validWrongBody(body.toString());
     }
 
     @Test
     public void testJSONWrongUserIdController() throws Exception {
         final HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("id", "23456");
-        JSONObject data = getWidget(TypeSearchResult.PROFILE.toWidget(), SCRIPT, hashMap);
+        JSONObject data = getCodeWidget(TypeSearchResult.PROFILE.toWidget(), SCRIPT, hashMap);
         String body = (String) data.get("body");
-        logPrint("JUANNNNNNNNNNNN");
-        logPrint(body.toString());
-        logPrint("JUANNNNNNNNNNNN");
+        validWrongBody(body.toString());
+    }
+
+    //generating widgets
+
+    @Test
+    public void testJSONWidgetPoll() throws Exception {
+        final HashMap<String, String> hashMap = new HashMap<String, String>();
+        hashMap.put("id", poll.getPollId().toString());
+        validHTMLBody(getWidget(TypeSearchResult.POLL.toWidget(), hashMap));
+    }
+
+    @Test
+    public void testJSONWidgetPollResults() throws Exception {
+        final HashMap<String, String> hashMap = new HashMap<String, String>();
+        hashMap.put("id", poll.getPollId().toString());
+        validHTMLBody(getWidget(TypeSearchResult.POLLRESULT.toWidget(), hashMap));
+    }
+
+    @Test
+    public void testJSONWidgetTPoll() throws Exception {
+        final HashMap<String, String> hashMap = new HashMap<String, String>();
+        hashMap.put("id", tweetPoll.getTweetPollId().toString());
+        validHTMLBody(getWidget(TypeSearchResult.TWEETPOLL.toWidget(), hashMap));
+    }
+
+    @Test
+    public void testJSONWidgetProfile() throws Exception {
+        final HashMap<String, String> hashMap = new HashMap<String, String>();
+        hashMap.put("id", userAccount.getUid().toString());
+        validHTMLBody(getWidget(TypeSearchResult.PROFILE.toWidget(), hashMap));
+    }
+
+    @Test
+    public void testJSONWidgetTPResults() throws Exception {
+        final HashMap<String, String> hashMap = new HashMap<String, String>();
+        hashMap.put("id", tweetPoll.getTweetPollId().toString());
+        validHTMLBody(getWidget(TypeSearchResult.TWEETPOLLRESULT.toWidget(), hashMap));
+    }
+
+    @Test
+    @Ignore
+    //FUTURE: hashtag has not been implemented yet
+    public void testJSONWidgetHashtag() throws Exception {
+        final HashMap<String, String> hashMap = new HashMap<String, String>();
+        hashMap.put("id", this.hashTag.getHashTagId().toString());
+        validHTMLBody(getWidget(TypeSearchResult.HASHTAG.toWidget(), hashMap));
+    }
+
+    /// error managagment
+
+    @Test
+    public void testJSONWidgetPollWrongType() throws Exception {
+        final HashMap<String, String> hashMap = new HashMap<String, String>();
+        hashMap.put("id", poll.getPollId().toString());
+        validWrongBody(getWidget("wrongType", hashMap));
+    }
+
+    @Test
+    public void testJSONWidgetPollWrongId() throws Exception {
+        final HashMap<String, String> hashMap = new HashMap<String, String>();
+        hashMap.put("id", "124456");
+        validWrongBody(getWidget(TypeSearchResult.TWEETPOLLRESULT.toWidget(), hashMap));
+    }
+
+    @Test
+    public void testJSONWidgetPollWrongIdAndType() throws Exception {
+        final HashMap<String, String> hashMap = new HashMap<String, String>();
+        hashMap.put("id", "124456");
+        validWrongBody(getWidget("xxxxxx", hashMap));
     }
 
 }
