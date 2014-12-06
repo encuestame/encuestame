@@ -57,7 +57,6 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans{
     public void testGetMyDashBoards() throws ServletException, IOException {
         initService("/api/common/dashboard", MethodJson.GET);
         final JSONObject response = callJsonService();
-        // {"error":{},"success":{"cloud":[]}}
         final JSONObject success = getSucess(response);
         final JSONArray items = (JSONArray) success.get("items");
         final String label = (String) success.get("label");
@@ -74,9 +73,9 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans{
      * @throws ServletException
      * @throws IOException
      */
-    //@Test
+    @Test
     public void testGetDirectory() throws ServletException, IOException {
-        initService("/api/common/gadgets/directory.json", MethodJson.GET);
+        initService("/api/common/gadgets/directory/list.json", MethodJson.GET);
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONArray items = (JSONArray) success.get("gadgets");
@@ -84,8 +83,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans{
         final JSONObject gadget = (JSONObject) items.get(0);
         final String gadgetId = (String) gadget.get("id");
         //add gadgets to dashboard
-        initService("/api/common/gadgets/add.json", MethodJson.GET);
-        setParameter("gadgetId", gadgetId);
+        initService("/api/common/" + gadgetId + "/gadget.json", MethodJson.POST);
         final Dashboard db = createDashboard("dashboard 1", true, getSpringSecurityLoggedUserAccount());
         setParameter("boardId", db.getBoardId().toString());
         final JSONObject response2 = callJsonService();
