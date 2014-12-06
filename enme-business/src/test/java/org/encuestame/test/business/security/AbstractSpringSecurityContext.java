@@ -15,6 +15,7 @@ package org.encuestame.test.business.security;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.enums.EnMePermission;
@@ -94,6 +95,23 @@ public abstract class AbstractSpringSecurityContext extends AbstractServiceBase 
         SecurityContextHolder.getContext().setAuthentication(token);
         //System.out.println("creando SecurityContextHolder "+SecurityContextHolder.getContext().getAuthentication());
         setUsernameLogged(this.springSecurityLoggedUserAccount.getUsername());
+    }
+
+    /**
+     *
+     */
+    public UserAccount quickLogin() {
+        UserAccount d = createUserAccount("quick_user_"+ RandomStringUtils.randomAlphabetic(3), createAccount());
+        final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        //Add permissions.
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_USER.name()));
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_ADMIN.name()));
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_WRITE.name()));
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_OWNER.name()));
+        TestingAuthenticationToken token = new TestingAuthenticationToken(d.getUsername(), "12345", authorities);
+        token.setAuthenticated(true);
+        SecurityContextHolder.getContext().setAuthentication(token);
+        return d;
     }
 
     /**

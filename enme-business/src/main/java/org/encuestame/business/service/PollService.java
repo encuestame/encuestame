@@ -93,35 +93,40 @@ public class PollService extends AbstractSurveyService implements IPollService{
      */
     public List<PollBean> filterPollByItemsByType(
             final TypeSearch typeSearch,
-            String keyword, Integer max, Integer start)
+            String keyword,
+            Integer max,
+            Integer start)
             throws EnMeNoResultsFoundException, EnMeExpcetion {
         final List<PollBean> list = new ArrayList<PollBean>();
+        final UserAccount user = getUserAccount(getUserPrincipalUsername());
         if (TypeSearch.KEYWORD.equals(typeSearch)) {
             list.addAll(this.searchPollByKeyword(keyword, max, start));
         } else if (TypeSearch.BYOWNER.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao()
                     .findAllPollByEditorOwner(
-                            getUserAccount(getUserPrincipalUsername()), max,
+                            user, max,
                             start)));
         } else if (TypeSearch.LASTDAY.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(this
                     .getPollDao().retrievePollToday(
-                            getUserAccount(getUserPrincipalUsername())
-                                    .getAccount(), max, start,
+                            user.getAccount(),
+                            max,
+                            start,
                             DateUtil.getNextDayMidnightDate())));
         } else if (TypeSearch.LASTWEEK.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(this
                     .getPollDao().retrievePollLastWeek(
-                            getUserAccount(getUserPrincipalUsername())
-                                    .getAccount(), max, start,
+                            user.getAccount(), max, start,
                             DateUtil.getNextDayMidnightDate())));
         } else if (TypeSearch.FAVOURITES.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao()
                     .retrieveFavouritesPoll(
-                            getUserAccount(getUserPrincipalUsername()), max,
+                            user, max,
                             start)));
         } else if (TypeSearch.ALL.equals(typeSearch)) {
-            list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao().retrievePollsByUserId(getUserAccountonSecurityContext(), max, start)));
+            list.addAll(ConvertDomainBean
+                    .convertListToPollBean(getPollDao().retrievePollsByUserId(
+                            user, max, start)));
         } else {
             throw new EnMeExpcetion("operation not valid");
         }
@@ -205,6 +210,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 
     /**
      * FIXME: Is used?
+     *
      * @param pollsResults
      * @param results
      * @param request
@@ -236,7 +242,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    private List<Poll> getPollSearchResult(final List<Poll> polls,
+    private List<Poll> getPollSearchResult(
+            final List<Poll> polls,
             final List<SocialProvider> socialNetworks,
             final List<Long> socialAccounts) throws EnMeNoResultsFoundException {
         List<Poll> tpollsbysocialNetwork = new ArrayList<Poll>();
@@ -244,10 +251,12 @@ public class PollService extends AbstractSurveyService implements IPollService{
         if ((socialNetworks.size() > 0) || (socialAccounts.size() > 0)) {
             tpollsbysocialNetwork = this.retrievePollsPostedOnSocialNetworks(
                     polls, socialNetworks, socialAccounts);
+            //System.out.println("JUAN --> tpollsbysocialNetwork size: " + tpollsbysocialNetwork.size());
         } else {
             tpollsbysocialNetwork = polls;
         }
         log.info("tweetPoll size: " + polls.size());
+        //System.out.println("JUAN --> tweetPoll size: " + polls.size());
         return tpollsbysocialNetwork;
     }
 
@@ -348,9 +357,11 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final PollSearchBean pollSearchBean) throws EnMeExpcetion {
         List<Poll> pollSearchResult = new ArrayList<Poll>();
         final List<Poll> polls = getPollDao().retrieveScheduledPoll(pollSearchBean, getUserAccountId(username));
+        //System.out.println("JOTA dsadsadsa-------->"+polls.size());
         pollSearchResult = this.getPollSearchResult(polls,
                 pollSearchBean.getProviders(),
                 pollSearchBean.getSocialAccounts());
+        //System.out.println("pollSearchResult-------->"+pollSearchResult.size());
         return ConvertDomainBean.convertPollListToSearchBean(pollSearchResult);
     }
 
@@ -362,6 +373,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final UserAccount user = getUserAccount(getUserPrincipalUsername());
         final Poll pollDomain = new Poll();
         try {
+            if (log.isInfoEnabled()) {
+                log.info("createPollBean->"+createPollBean.toString());
+            }
             final QuestionBean questionBean = new QuestionBean();
             questionBean.setQuestionName(createPollBean.getQuestionName());
             final Question question = createQuestion(questionBean, user, QuestionPattern.CUSTOMIZABLE_SELECTION);
@@ -373,7 +387,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             else{
             final String hashPoll = MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500));
             final CommentOptions commentOpt = CommentOptions.getCommentOption(createPollBean.getShowComments());
-            final ShowResultsOptions showResultsOptions = ShowResultsOptions.getShowResults(createPollBean.getShowComments());
+            final ShowResultsOptions showResultsOptions = ShowResultsOptions.getShowResults(createPollBean.getResults());
             pollDomain.setEditorOwner(user);
             pollDomain.setCreateDate(Calendar.getInstance().getTime());
             pollDomain.setPollHash(hashPoll);
@@ -397,14 +411,27 @@ public class PollService extends AbstractSurveyService implements IPollService{
             } else {
                 pollDomain.setMultipleResponse(org.encuestame.persistence.domain.AbstractSurvey.MultipleResponse.SINGLE);
             }
-            // set limit of votes by user
-            if (createPollBean.getLimitVote() != null) {
-                pollDomain.setNumbervotes(createPollBean.getLimitVote());
+            // set limit of votes by IP (the IP is reviewed in the json service)
+            if (createPollBean.getRepeatedVotes() != null) {
+                pollDomain.setAllowRepeatedVotes(true);
+                pollDomain.setClosedQuota(createPollBean.getRepeatedVotes());
+            } else {
+                pollDomain.setAllowRepeatedVotes(false);
+            }
+            // repeated votes in total (eg: if the user defines 5K)
+            if(createPollBean.getLimitVote() != null) {
+                pollDomain.setLimitVotesEnabled(true);
+                pollDomain.setLimitVotes(createPollBean.getLimitVote());
+            } else {
+                pollDomain.setLimitVotesEnabled(false);
             }
             // define the closed date
             if (createPollBean.getCloseDate() != null) {
                 final Date closedDate = new Date(createPollBean.getCloseDate());
+                pollDomain.setCloseAfterDate(true);
                 pollDomain.setClosedDate(closedDate);
+            } else {
+                pollDomain.setCloseAfterDate(false);
             }
             // notifications enabled by default
             pollDomain.setNotifications(Boolean.TRUE);
@@ -580,8 +607,11 @@ public class PollService extends AbstractSurveyService implements IPollService{
         if (keywordQuestion == null) {
             throw new EnMeExpcetion("keyword is mandatory");
         } else {
-            polls = getPollDao().getPollsByQuestionKeyword(keywordQuestion,
-                    getUserAccount(getUserPrincipalUsername()), maxResults, start);
+            polls = getPollDao().getPollsByQuestionKeyword(
+                    keywordQuestion,
+                    getUserAccount(getUserPrincipalUsername()),
+                    maxResults,
+                    start);
         }
         log.debug("search keyword polls size "+polls.size());
         return ConvertDomainBean.convertListToPollBean(polls);
@@ -895,8 +925,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
     public Poll getPollByAnswerId(final Long pollId, final Long answerId,
             final UserAccount account) throws EnMeNoResultsFoundException {
         final Poll poll = this.getPollById(pollId);
-        QuestionAnswer qA = getQuestionDao().retrieveAnswersByQuestionId(
-                poll.getQuestion(), answerId);
+        QuestionAnswer qA = getQuestionDao().retrieveAnswersByQuestionId(poll.getQuestion(), answerId);
         if (qA == null) {
             throw new EnMeNoResultsFoundException("Answer not found");
         }
@@ -1176,16 +1205,23 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#validatePollIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
      */
-    public PollResult validatePollIP(final String ip, final Poll poll) {
+    public Integer validatePollIP(final String ip, final Poll poll) {
         return getPollDao().validateVoteIP(ip, poll);
     }
 
     /*
      * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.IPollService#getListvalidateVoteIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
+     * @see org.encuestame.core.service.imp.IPollService#checkLimitVotesByIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
      */
-    public List<PollResult> getListvalidateVoteIP(final String ip, final Poll poll) {
-        return getPollDao().getListvalidateVoteIP(ip, poll);
+    public Boolean checkLimitVotesByIP(final String ip, final Poll poll) {
+        List<PollResult> listItems = getPollDao().getListvalidateVoteIP(ip, poll);
+        if ((poll.getAllowRepeatedVotes() != null && poll.getAllowRepeatedVotes()) && (poll.getClosedQuota() != null && poll.getClosedQuota() <= listItems.size())) {
+            log.info("checkLimitVotesByIP TRUE");
+            return true;  // is not allowed to vote, the limit has been reached
+        } else {
+            log.info("checkLimitVotesByIP FALSE");
+            return false;//that means is allowed and is allowed to vote more with that IP
+        }
     }
 
     /**
@@ -1207,9 +1243,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
      */
     public Boolean restrictVotesByQuota(final Poll poll) {
         Boolean limitVote = Boolean.FALSE;
-        if (poll.getCloseAfterquota() != null && poll.getCloseAfterquota()) {
+        if (poll.getLimitVotes() != null && poll.getLimitVotesEnabled()) {
             final Long totalVotes = getPollDao().getTotalVotesByPollIdAndDateRange(poll.getPollId(), null);
-            if (Long.valueOf(poll.getClosedQuota()) == totalVotes) {
+            log.info("restrictVotesByQuota totalVotes=>"+totalVotes);
+            if (Long.valueOf(poll.getLimitVotes()) <= totalVotes) {
                 limitVote = Boolean.TRUE;
             }
         }

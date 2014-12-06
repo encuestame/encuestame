@@ -102,6 +102,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
+import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.GadgetType;
@@ -1012,11 +1013,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Question createQuestion(
             final String question,
-            final String pattern){
+            final String pattern) {
         final Question questions = new Question();
         questions.setQidKey("1");
         questions.setQuestion(question);
-        questions.setSlugQuestion(question.replace(" ", "-"));
+        questions.setSlugQuestion(RestFullUtil.slugify(question));
         questions.setSharedQuestion(Boolean.TRUE);
         questions.setAccountQuestion(this.createAccount());
         getQuestionDaoImp().saveOrUpdate(questions);
@@ -1234,7 +1235,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
              Date scheduleDate,
              Date creationDate,
              Boolean completed,
-             Account tweetOwner,
+             UserAccount tweetOwner,
              Question question,
              final UserAccount userAccount){
         final TweetPoll tweetPoll = new TweetPoll();
@@ -1245,11 +1246,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         tweetPoll.setPublishTweetPoll(publishTweetPoll);
         tweetPoll.setQuestion(question);
         tweetPoll.setScheduleDate(scheduleDate);
+        tweetPoll.setEditorOwner(userAccount);
         tweetPoll.setScheduleTweetPoll(scheduleTweetPoll);
         // The create date always have to be the date of creation
         tweetPoll.setCreateDate(creationDate);
         tweetPoll.setFavourites(Boolean.TRUE);
-        tweetPoll.setTweetOwner(tweetOwner);
+        tweetPoll.setTweetOwner(tweetOwner.getAccount());
         // The update date is the date when the tweetpoll has been updated, included the
         // publication date
         tweetPoll.setUpdatedDate(creationDate);
@@ -1265,8 +1267,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param question question
      * @return {@link TweetPoll}
      */
-    public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question){
-       return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question, null);
+    public TweetPoll createPublishedTweetPoll(final UserAccount tweetOwner, final Question question){
+       return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question, tweetOwner);
     }
 
     /**
@@ -1276,8 +1278,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param dateTweet
      * @return
      */
-    public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question, final Date dateTweet){
-        return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question, null);
+    public TweetPoll createPublishedTweetPoll(final UserAccount tweetOwner, final Question question, final Date dateTweet){
+        return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question, tweetOwner);
      }
 
     /**
@@ -1287,7 +1289,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public TweetPoll createPublishedTweetPoll(final Question question, final UserAccount user) {
-        return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
+        return createTweetPoll(randomLongGenerator(), false, false, false, true, true, new Date(), new Date(), false, user, question, user);
      }
 
     /**
@@ -1298,7 +1300,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public TweetPoll createPublishedTweetPoll(final Long id, final Question question, final UserAccount user) {
-        return createTweetPoll(id, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
+        return createTweetPoll(id, false, false, false, true, true, new Date(), new Date(), false, user, question, user);
      }
 
     /**
@@ -1311,7 +1313,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param creationDate
      * @return
      */
-    public TweetPoll createAdvancedTweetPoll(final Account tweetOwner,
+    public TweetPoll createAdvancedTweetPoll(final UserAccount tweetOwner,
             final Question question, final Boolean isPublished,
             final Boolean isComplete, final Boolean isScheduled,
             final Date creationDate) {
@@ -1326,7 +1328,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param question question
      * @return {@link TweetPoll}
      */
-    public TweetPoll createNotPublishedTweetPoll(final Account tweetOwner, final Question question){
+    public TweetPoll createNotPublishedTweetPoll(final UserAccount tweetOwner, final Question question){
        return createTweetPoll(null, false, false, false, false, false, new Date(), null, false, tweetOwner, question, null);
     }
 
@@ -1383,7 +1385,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final Question question = createQuestion("who I am?", "");
         final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
         final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "12346");
-        final TweetPoll tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question);
+        final TweetPoll tweetPoll = createPublishedTweetPoll(secondary, question);
         final TweetPollSwitch pollSwitch1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
         final TweetPollSwitch pollSwitch2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
         createTweetPollResult(pollSwitch1, "192.168.0.1");
@@ -2022,10 +2024,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param userAccount
      */
     public void createFakesTweetPoll(final UserAccount userAccount){
-        final Question question = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
-        final Question question1 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
-        final Question question2 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
-        final Question question3 = createQuestion("Real Madrid or Barcelona?", userAccount.getAccount());
+        final Question question = createQuestion("Real Madrid or Barcelona", userAccount.getAccount());
+        final Question question1 = createQuestion("Real Madrid or Barcelona", userAccount.getAccount());
+        final Question question2 = createQuestion("Real Madrid or Barcelona", userAccount.getAccount());
+        final Question question3 = createQuestion("Real Madrid or Barcelona", userAccount.getAccount());
         createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question);
         createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question1);
         createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), userAccount, question2);
@@ -2512,9 +2514,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public Question createQuestionRandom() throws NoSuchAlgorithmException,
             UnsupportedEncodingException {
         final Question randomQuestion = createQuestion(
-                "What is your favorite season? "
-                        + MD5Utils
-                                .md5(RandomStringUtils.randomAlphanumeric(15)),
+                "What is your favorite season? " + MD5Utils.md5(RandomStringUtils.randomAlphanumeric(15)),
                 "");
         return randomQuestion;
     }
@@ -2532,7 +2532,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-    public TweetPoll createTweetPollItems(final Date randomDate, final Account tweetOwner,
+    public TweetPoll createTweetPollItems(final Date randomDate, final UserAccount tweetOwner,
             final Boolean isCompleted, final Boolean isFavourites,
             final Boolean isScheduled, final Boolean isPublished)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {

@@ -343,7 +343,7 @@ public interface IPollService extends IMasterSurveyService{
      * @param poll {@link Poll}.
      * @return
      */
-    PollResult validatePollIP(final String ip, final Poll poll);
+    Integer validatePollIP(final String ip, final Poll poll);
 
     /**
      * Return a list of {@link PollBeanResult} with votes of a {@link Poll}.
@@ -490,12 +490,12 @@ public interface IPollService extends IMasterSurveyService{
 
 
     /**
-     *
-     * @param ip
-     * @param poll
+     * Return a flag if the IP is allowed to post a vote
+     * @param ip user IP
+     * @param poll {@link Poll}
      * @return
      */
-    public List<PollResult> getListvalidateVoteIP(final String ip, final Poll poll);
+    public Boolean checkLimitVotesByIP(final String ip, final Poll poll);
 
     /**
      * Retrieve all folders searched by keyword.

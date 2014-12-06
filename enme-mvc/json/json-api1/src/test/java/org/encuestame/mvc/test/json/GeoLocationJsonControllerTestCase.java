@@ -60,7 +60,7 @@ public class GeoLocationJsonControllerTestCase extends AbstractJsonV1MvcUnitBean
 		this.tag = createHashTag("real madrid"); 
 		final Calendar myCalendarDate = Calendar.getInstance(); 
 		this.initTweetPoll = createPublishedTweetPoll(
-				this.userAcc.getAccount(),
+				this.userAcc,
 				createQuestion("What is your favorite futboll team?",
 						this.userAcc.getAccount()), myCalendarDate.getTime());
 
@@ -122,7 +122,7 @@ public class GeoLocationJsonControllerTestCase extends AbstractJsonV1MvcUnitBean
 	public void testRetrieveHashTagUsebyGeoLoc() throws ServletException,
 			IOException {
 		final TweetPoll tp2 = this.createPublishedTweetPoll(
-				this.userAcc.getAccount(),
+				this.userAcc,
 				createQuestion("What is your favorite television show?",
 						this.userAcc.getAccount()), new Date());
 
@@ -149,7 +149,7 @@ public class GeoLocationJsonControllerTestCase extends AbstractJsonV1MvcUnitBean
 	public void testRetrieveSocialNetworksPublicationsbyGeoLocation()
 			throws ServletException, IOException {
 		final TweetPoll tp2 = this.createPublishedTweetPoll(
-				this.userAcc.getAccount(),
+				this.userAcc,
 				createQuestion("What is your favorite television show?",
 						this.userAcc.getAccount()), new Date());
 

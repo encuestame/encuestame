@@ -26,7 +26,7 @@ public enum RequestSourceType {
         //If last 24 hours
         if (this == EMBEDDED) { period = "embedded"; }
         //If last 7 days
-        else if (this == NORMAL) { period = "nomal"; }
+        else if (this == NORMAL) { period = "normal"; }
         //If last 30 days
         return period;
     }

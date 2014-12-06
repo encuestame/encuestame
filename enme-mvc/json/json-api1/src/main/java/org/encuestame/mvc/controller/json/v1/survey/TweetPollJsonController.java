@@ -24,14 +24,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
+
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainToJson;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
@@ -203,9 +206,8 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
          log.debug("tweetpoll shortUrl"+shortUrl);
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try {
-            final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(
-                    tweetPollId);
-            log.debug("tweetpoll"+tweetPoll.getTweetPollId());
+            final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(tweetPollId);
+            log.debug("tweetpoll" + tweetPoll.getTweetPollId());
             if(!tweetPoll.getPublishTweetPoll()){
             log.debug("action ANSWER--->"+type);
             if ("add".equals(type)) {
@@ -227,8 +229,15 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
                 }
 
             } else if("remove".equals(type)) {
-                getTweetPollService().removeQuestionAnswer(getTweetPollService().getQuestionAnswerById(answerId));
-                setSuccesResponse();
+                QuestionAnswer answerO = getTweetPollService().getQuestionAnswerById(answerId);
+                logPrint(answerO.toString());
+                if (answerO != null) {
+                    logPrint(answerO.getQuestionAnswerId());
+                    getTweetPollService().removeQuestionAnswer(answerO);
+                    setSuccesResponse();
+                } else {
+                    throw new EnMeNoResultsFoundException("answer not found");
+                }
             } else {
                 throw new EnmeFailOperation("operation not valid");
             }
@@ -356,12 +365,12 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
         tweetPollBean.setAllowLiveResults(options.getLiveResults());
         //repeated votes
         tweetPollBean.setAllowRepeatedVotes(options.getRepeatedVotes());
-        if (options.getRepeatedVotes()) {
+        if (options.getRepeatedVotes() != null && options.getRepeatedVotes()) {
             tweetPollBean.setMaxRepeatedVotes(options.getMaxRepeatedVotes());
         }
         //scheduled
         tweetPollBean.setSchedule(options.getScheduled());
-        if (options.getScheduled()) {
+        if (options.getScheduled() != null && options.getScheduled()) {
             //eg. format 5/25/11 10:45:00
             final StringBuilder builder = new StringBuilder(options.getScheduledDate());
             builder.append(" ");
@@ -370,7 +379,7 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
         }
         //limit votes
         tweetPollBean.setLimitVotesEnabled(options.getLimitVotes());
-        if (options.getLimitVotes()) {
+        if (options.getLimitVotes() != null && options.getLimitVotes()) {
             tweetPollBean.setLimitVotes(options.getMaxLimitVotes());
         }
         //question

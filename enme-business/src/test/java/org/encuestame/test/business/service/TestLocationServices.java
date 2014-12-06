@@ -88,7 +88,7 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
         this.initHashTag = createHashTag("developer");
         this.initDate = new DateTime();
         this.initTweetPoll = createPublishedTweetPoll(
-				this.secondary.getAccount(),
+				this.secondary,
 				createQuestion("What is your favorite futboll team?",
 						secondary.getAccount()), this.initDate.toDate());
     }
@@ -171,7 +171,7 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
 	public void testRetrieveItemsByGeo() {
 		final Calendar myCalendarDate = Calendar.getInstance();
 		final TweetPoll tweetPoll = createPublishedTweetPoll(
-				this.secondary.getAccount(),
+				this.secondary,
 				createQuestion("What is your favorite futboll team?",
 						secondary.getAccount()), myCalendarDate.getTime());
 
@@ -310,7 +310,7 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
 		final Question question = createQuestion(
 				"What is your favorite futboll team22?", this.secondary.getAccount());
 		final TweetPoll tweetPoll = createPublishedTweetPoll(
-				this.secondary.getAccount(), question, creationDate);
+				this.secondary, question, creationDate);
 		return tweetPoll;
 	}
     

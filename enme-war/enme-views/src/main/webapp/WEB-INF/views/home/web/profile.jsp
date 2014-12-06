@@ -14,54 +14,43 @@
           </h3>
       </div>
     </div>
-    <div class="row">
-        <div class="span2">
+    <div>
+            <div>
+               <article class="emne-box">
+                  <header>
+                      <div class="rss-right">
 
-              <ul class="rss">
-                    <li>
-                        <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png">
-                        <a href="<%=request.getContextPath()%>/feed/${profile.username}/tweetpoll.rss">
-                            <spring:message code="home.type.tweetpoll" /> </a>
-                        </a>
-                    </li>
-                     <li>
-                        <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png">
-                         <a href="<%=request.getContextPath()%>/feed/${profile.username}/poll.rss">
-                             <spring:message code="home.type.poll" />
-                         </a>
-                    </li>
-                    <li>
-                        <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png">
-                        <a href="<%=request.getContextPath()%>/feed/${profile.username}/project.rss">
-                            Projects
-                        </a>
-                    </li>
-              </ul>
-            </div>
-            <div class="span10">
-               <article class="enme-box">
-                      <header>
-                          <h3>
-                             <spring:message code="home.profile.lastpub" />
-                          </h3>
-                          <div class="rss-right">
-                            <a href="<%=request.getContextPath()%>/feed/${profile.username}/tweetpoll.rss">
-                              <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png">
-                              </a>
-                          </div>
-                      </header>
-               <div class="web-pup-wrapper emne-box-gray">
-               <c:forEach items="${lastItems}" var="item">
-                   <%@ include file="detail_item.jsp"%>
-              </c:forEach>
-              <c:if test="${empty lastItems}">
-                 <h3 class="no-results">
-                  <spring:message code="results.noresults" />
-                </h3>
-              </c:if>
-              </div>
+                      </div>
+                  </header>
+                   <div class="web-pup-wrapper emne-box-gray">
+                   <c:forEach items="${lastItems}" var="item">
+                       <%@ include file="detail_item.jsp"%>
+                  </c:forEach>
+                  <c:if test="${empty lastItems}">
+                     <h5 class="no-results">
+                      <spring:message code="results.noresults" />
+                    </h5>
+                  </c:if>
+                  </div>
               </article>
             </div>
         </div>
+        <div class="emne-box">
+                  <small>
+                      <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png">
+                      <a href="<%=request.getContextPath()%>/feed/${profile.username}/tweetpoll.rss">
+                          <spring:message code="home.type.tweetpoll" /> </a>
+                      </a>
+                  </small>
+                  <small>
+                      <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png">
+                      <a href="<%=request.getContextPath()%>/feed/${profile.username}/poll.rss">
+                          <spring:message code="home.type.poll" />
+                      </a>
+                  </small>
+              </li>
+          </ul>
+      </div>
+
   </div>
 </div>

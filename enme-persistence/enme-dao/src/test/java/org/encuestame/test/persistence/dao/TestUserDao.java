@@ -264,7 +264,7 @@ public class TestUserDao extends AbstractBase {
     public void testGetTotalTweetPollByUser(){
         this.questionsAnswers1 = createQuestionAnswer("monday", question, "12345");
         this.questionsAnswers2 = createQuestionAnswer("sunday", question, "12346");
-        this.tweetPoll = createPublishedTweetPoll(userAccount.getAccount(), question);
+        this.tweetPoll = createPublishedTweetPoll(userAccount, question);
         this.pollSwitch1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
         this.pollSwitch2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
         createTweetPollResult(pollSwitch1, "192.168.0.1");

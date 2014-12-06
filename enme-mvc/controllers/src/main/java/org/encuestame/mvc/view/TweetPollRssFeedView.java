@@ -35,6 +35,7 @@ public class TweetPollRssFeedView extends AbstractBaseRssFeedView{
         channel.setDescription("TweetPoll Last Items Published");
         channel.setTitle("TweetPoll Last Items Published");
         final DateTime time = new DateTime();
+        channel.setLink("");
         channel.setCopyright(String.valueOf(time.getYear()));
         channel.setPubDate(time.toDate());
         return  channel;

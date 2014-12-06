@@ -516,7 +516,7 @@ public class TestHibernateDomains extends AbstractBase{
          final Comment comments = new Comment();
          final UserAccount user = createUserAccount("diana", createAccount());
          final Question question = createQuestion("Who I am?", "");
-         final TweetPoll tpoll = createPublishedTweetPoll(user.getAccount(), question);
+         final TweetPoll tpoll = createPublishedTweetPoll(user, question);
          comments.setComment("First comment");
          comments.setCreatedAt(new Date());
          comments.setLikeVote(1L);
@@ -553,7 +553,7 @@ public class TestHibernateDomains extends AbstractBase{
          final Question question = createQuestion("Who will win the Champions League match today?", "");
          final Account account = createAccount();
          final UserAccount user = createUserAccount("carlos", account);
-         final TweetPoll tpoll = createPublishedTweetPoll(account, question);
+         final TweetPoll tpoll = createPublishedTweetPoll(user, question);
          final Comment comment = createDefaultTweetPollComment("my first comment", tpoll, user);
          final AccessRate rateItem = new AccessRate();
          rateItem.setRate(Boolean.TRUE);

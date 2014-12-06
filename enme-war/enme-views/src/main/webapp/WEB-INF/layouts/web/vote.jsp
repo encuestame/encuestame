@@ -8,12 +8,9 @@
     <%@ include file="/WEB-INF/jsp/includes/web/css.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp" %>
 </head>
-<body class="vote">
-      <div class="container">
-          <tiles:insertAttribute name="header" ignore="true" />
-      </div>
+<body class="single-body vote-layout">
      <div id="mainWrapper">
-        <div id="content-container" class="enme-auto-center">
+        <div id="content-container">
             <div id="enme-content">
                 <tiles:insertAttribute name="content"/>
             </div>

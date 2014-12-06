@@ -52,35 +52,35 @@ import org.encuestame.utils.web.search.TweetPollSearchBean;
  */
 
 public abstract class AbstractBaseUnitBeans extends AbstractBase{
-	
-	/**
-	 * 
-	 * @param questionName
-	 * @return
-	 */
-	public CreatePollBean createPollBean(
-			final String questionName,
-			final String[] answer,
-			final String[] hashtag,
-			final String showComments,
-			final String showResults,
-			final Boolean multipleSelection,
-			final Long limitVotes,
-			final Long closeDate) {
+
+    /**
+     *
+     * @param questionName
+     * @return
+     */
+    public CreatePollBean createPollBean(
+            final String questionName,
+            final String[] answer,
+            final String[] hashtag,
+            final String showComments,
+            final String showResults,
+            final Boolean multipleSelection,
+            final Integer limitVotes,
+            final Long closeDate) {
         //"ssss", this.answers, "ALL", "APPROVE" ,Boolean.TRUE, this.tagBeanList
-		final CreatePollBean createPollBean = new CreatePollBean();
-		createPollBean.setQuestionName(questionName);
-		createPollBean.setAnswers(answer);
-		createPollBean.setHashtags(hashtag);
-		createPollBean.setAllowAdd(Boolean.FALSE); //disable by default
-		createPollBean.setLimitVote(limitVotes);
-		createPollBean.setMultiple(multipleSelection);
-		createPollBean.setResults(showResults);
-		createPollBean.setShowComments(showComments);
-		createPollBean.setCloseDate(closeDate);
-		createPollBean.setFolder_name(null); //disable by default
-		return createPollBean;
-	}
+        final CreatePollBean createPollBean = new CreatePollBean();
+        createPollBean.setQuestionName(questionName);
+        createPollBean.setAnswers(answer);
+        createPollBean.setHashtags(hashtag);
+        createPollBean.setAllowAdd(Boolean.FALSE); //disable by default
+        createPollBean.setLimitVote(limitVotes);
+        createPollBean.setMultiple(multipleSelection);
+        createPollBean.setResults(showResults);
+        createPollBean.setShowComments(showComments);
+        createPollBean.setCloseDate(closeDate);
+        createPollBean.setFolder_name(null); //disable by default
+        return createPollBean;
+    }
 
     /**
      * Create Unit Question Helper.
@@ -189,7 +189,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @param tpollId
       * @return
       */
-	public TweetPollBean createTweetPoll(
+    public TweetPollBean createTweetPoll(
         final Boolean allowLiveResults,
         final Boolean closeNotification,
         final Boolean completed,
@@ -204,13 +204,13 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
         final String userTwitterAccount,
         final Long tpollId
         ){
-		final TweetPollBean tpollBean = this.createTweetPoll(allowLiveResults,
-				closeNotification, completed, publicationDateTweet,
-				publishPoll, resultNotification, schedule, scheduleDate,
-				tweetUrl, userId, questionBean, userTwitterAccount);
-		return tpollBean;
+        final TweetPollBean tpollBean = this.createTweetPoll(allowLiveResults,
+                closeNotification, completed, publicationDateTweet,
+                publishPoll, resultNotification, schedule, scheduleDate,
+                tweetUrl, userId, questionBean, userTwitterAccount);
+        return tpollBean;
 
-	}
+    }
 
     /**
      * Helper Create Unit Tweet Poll Publicated.

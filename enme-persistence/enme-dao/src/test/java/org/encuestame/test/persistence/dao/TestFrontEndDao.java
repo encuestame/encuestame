@@ -110,10 +110,9 @@ public class TestFrontEndDao extends AbstractBase {
     @Test
     public void testGetAccessRatebyItem() {
         this.secondary = createUserAccount("jhon", createAccount());
-        final Question question = createQuestion("question1",
-                secondary.getAccount());
+        final Question question = createQuestion("question1", secondary.getAccount());
         final TweetPoll tweet = createPublishedTweetPoll(
-                secondary.getAccount(), question, Calendar.getInstance()
+                secondary, question, Calendar.getInstance()
                         .getTime());
         final String ipAddress = "192.168.1.19";
         createTweetPollRate(Boolean.TRUE, tweet, ipAddress);
@@ -130,11 +129,11 @@ public class TestFrontEndDao extends AbstractBase {
     @Test
     public void testGetLinksByHomeItem() {
         final TweetPoll tp1 = createTweetPoll(12345L, true, true, true, true, false, null, new Date(),
-                true, this.secondary.getAccount(),
+                true, this.secondary,
                 createQuestion("test tp1", this.secondary.getAccount()),
                 this.secondary);
         final TweetPoll tp2 = createTweetPoll(162345L, true, true, true, true, false, null, new Date(),
-                true, this.secondary.getAccount(),
+                true, this.secondary,
                 createQuestion("test tp2", this.secondary.getAccount()),
                 this.secondary);
         tp1.getHashTags().add(this.hashTag);
@@ -257,19 +256,19 @@ public class TestFrontEndDao extends AbstractBase {
 	 *Create poll Helper.
 	 */
 	private void createTweetPolls(){
-		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusHours(5).toDate());
-		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusHours(5).toDate());
-		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusHours(15).toDate());
-		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusHours(25).toDate());
+		createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusHours(5).toDate());
+		createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusHours(5).toDate());
+		createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusHours(15).toDate());
+		createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusHours(25).toDate());
 
-		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(3).toDate());
-		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(5).toDate());
-		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(8).toDate());
+		createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusDays(3).toDate());
+		createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusDays(5).toDate());
+		createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusDays(8).toDate());
 
-		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(3).toDate());
-		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(15).toDate());
-		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(25).toDate());
-		createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(35).toDate());
+		createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusDays(3).toDate());
+		createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusDays(15).toDate());
+		createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusDays(25).toDate());
+		createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusDays(35).toDate());
 	}
 
 	/**
@@ -348,10 +347,10 @@ public class TestFrontEndDao extends AbstractBase {
 	 */
 	@Test
 	public void testGetAllHitsByType() {
-		final TweetPoll tpoll1 = createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusHours(5).toDate());
-		final TweetPoll tpoll2 = createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(3).toDate());
-		final TweetPoll tpoll3 =createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(15).toDate());
-  		final TweetPoll tpoll4 = createPublishedTweetPoll(this.secondary.getAccount(), this.initQuestion, this.initDate.minusDays(35).toDate());
+		final TweetPoll tpoll1 = createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusHours(5).toDate());
+		final TweetPoll tpoll2 = createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusDays(3).toDate());
+		final TweetPoll tpoll3 =createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusDays(15).toDate());
+  		final TweetPoll tpoll4 = createPublishedTweetPoll(this.secondary, this.initQuestion, this.initDate.minusDays(35).toDate());
 
 		createTweetPollHit(tpoll1, "192.168.1.4");
 		createTweetPollHit(tpoll2, "192.168.1.4");

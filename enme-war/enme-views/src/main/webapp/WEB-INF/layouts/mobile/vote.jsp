@@ -15,7 +15,6 @@
         <%@ include file="/WEB-INF/jsp/includes/javascript-mobile.jsp"%>
     </head>
     <body class="mobil">
-        <%@ include file="/WEB-INF/jsp/includes/decorators/mobile-header.jsp"%>
         <div class="content">
             <header class="header_input_hidden">
                 <%@ include file="/WEB-INF/layouts/decorators/i18n-input.jsp"%>

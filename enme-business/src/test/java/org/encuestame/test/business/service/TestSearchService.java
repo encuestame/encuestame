@@ -63,7 +63,7 @@ public class TestSearchService extends AbstractSpringSecurityContext {
         createQuestion("What is your favorite program language?", account);
 		
         final TweetPoll tp = createTweetPoll(1234567L, true, true, true, true,
-				null, null, new Date(), false, account, question, null);
+				null, null, new Date(), false, userAccount, question, null);
         
         createComment("I dont have favorite programs", 30L, tp, null, null,
 				userAccount, 25L, new Date());
