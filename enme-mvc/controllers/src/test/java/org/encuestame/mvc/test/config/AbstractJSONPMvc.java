@@ -100,7 +100,7 @@ public abstract class AbstractJSONPMvc  extends AbstractMvcUnitBeans{
      * @param body
      */
     public void validWrongBody(final String body) {
-        Assert.assertTrue(body.contains("Wrong"));
+        Assert.assertTrue(body.contains("wrong"));
     }
 
     /**
@@ -108,7 +108,6 @@ public abstract class AbstractJSONPMvc  extends AbstractMvcUnitBeans{
      * @param body
      */
     public void validHTMLBody(final String body) {
-        logPrint(body);
         Assert.assertTrue(body.contains("class=\"widget"));
     }
 
