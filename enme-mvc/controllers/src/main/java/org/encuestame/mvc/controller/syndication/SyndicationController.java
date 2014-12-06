@@ -66,9 +66,12 @@ public class SyndicationController extends AbstractFeedController {
      * @param request
      * @throws EnMeNoResultsFoundException
      */
-    private void buildTweetPollFeedBody(final String username, final Model model, final HttpServletRequest request,
-                 final UserAccount secUserSecondary) throws EnMeNoResultsFoundException{
-
+    private void buildTweetPollFeedBody(
+            final String username,
+            final Model model,
+            final HttpServletRequest request,
+            final UserAccount secUserSecondary) throws EnMeNoResultsFoundException{
+        //TODO: ??
     }
 
     /**
