@@ -2,12 +2,12 @@
 <div class="container">
     <section class="web-tweetpoll-vote-options">        
         <div class="web-permatlink yellow-bk">
-            <h2>
+            <div>
                 <spring:message code="poll.votes.repeated" />
-            </h2>
-            <h3>
+            </div>
+            <div>
                ${pollAnswer.question.question}
-            </h3>            
+            </div>
             <div class="web-tweetpoll-info">
                 <a href="<%=request.getContextPath()%>/poll/${pollAnswer.pollId}/${pollAnswer.question.slugQuestion}">
                     <button class="btn btn-warning">
@@ -15,7 +15,6 @@
                     </button>
                 </a>
             </div>
-            <!-- <div data-dojo-type="me/web/widget/geo/BasicGeoWidget" tpid="${tp_switch.tweetPoll.tweetPollId}"> </div> -->
         </div>
 
     </section>

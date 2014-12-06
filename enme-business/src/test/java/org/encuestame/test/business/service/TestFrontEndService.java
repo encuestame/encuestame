@@ -84,7 +84,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         final Question question = createQuestion("Who I am?", "");
         createQuestionAnswer("yes", question, "12345");
         createQuestionAnswer("no", question, "12346");
-        this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question);
+        this.tweetPoll = createPublishedTweetPoll(secondary, question);
         final HashTag hashTag2 = createHashTag("programmer",80L);
         this.tweetPoll.getHashTags().add(hashTag);
         this.tweetPoll.getHashTags().add(hashTag2);
@@ -140,7 +140,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         final Question question2 = createQuestion("Question 1", "");
         createQuestionAnswer("yes", question2, "12345");
         createQuestionAnswer("no", question2, "12346");
-        this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question2);
+        this.tweetPoll = createPublishedTweetPoll(secondary, question2);
 
         this.tweetPoll.getHashTags().add(hashTag1);
         this.tweetPoll.getHashTags().add(hashTag2);
@@ -150,7 +150,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         final Question question3 = createQuestion("Question 2", "");
         createQuestionAnswer("yes", question3, "12345");
         createQuestionAnswer("no", question3, "12346");
-        this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question3);
+        this.tweetPoll = createPublishedTweetPoll(secondary, question3);
 
         this.tweetPoll.getHashTags().add(hashTag1);
         this.tweetPoll.getHashTags().add(hashTag2);
@@ -161,7 +161,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         final Question question4 = createQuestion("Question 3", "");
         createQuestionAnswer("yes", question4, "12345");
         createQuestionAnswer("no", question4, "12346");
-        this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question4);
+        this.tweetPoll = createPublishedTweetPoll(secondary, question4);
 
         this.tweetPoll.getHashTags().add(hashTag1);
         this.tweetPoll.getHashTags().add(hashTag4);
@@ -172,7 +172,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         final Question question5 = createQuestion("Question 4", "");
         createQuestionAnswer("yes", question5, "12345");
         createQuestionAnswer("no", question5, "12346");
-        this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question5);
+        this.tweetPoll = createPublishedTweetPoll(secondary, question5);
 
         this.tweetPoll.getHashTags().add(hashTag4);
         this.tweetPoll.getHashTags().add(hashTag5);
@@ -182,7 +182,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         final Question question6 = createQuestion("Question 5", "");
         createQuestionAnswer("yes", question6, "12345");
         createQuestionAnswer("no", question6, "12346");
-        this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question6);
+        this.tweetPoll = createPublishedTweetPoll(secondary, question6);
 
         this.tweetPoll.getHashTags().add(hashTag3);
         this.tweetPoll.getHashTags().add(hashTag4);
@@ -201,7 +201,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     @Test
     public void testRegisterAccessRateVotedLike() throws EnMeNoResultsFoundException, EnMeExpcetion{
          final Question question = createQuestion("Who are you?", "");
-         final TweetPoll tp = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), question);
+         final TweetPoll tp = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount(), question);
          final String ipAddress = "192.168.1.81";
          flushIndexes();
          // I like it vote.

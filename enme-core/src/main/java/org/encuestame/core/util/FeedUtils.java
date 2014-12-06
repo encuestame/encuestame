@@ -22,7 +22,6 @@ import java.util.Map;
 
 import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -332,68 +331,63 @@ public class FeedUtils {
         return entries;
     }
 
+    public static final List<Entry> convertHomeBeanToItemATOM(
+            final List<HomeBean> homeBean,
+            final String domain,
+            final VelocityEngine velocityEngine) throws UnsupportedEncodingException {
+        return null;
+    }
+
     /**
      * Convert {@link HomeBean} to RSS Item.
      * @param homeBean
      * @param domain
      * @return
+     * @throws UnsupportedEncodingException
      */
     public static final List<Item> convertHomeBeanToItemRSS(
             final List<HomeBean> homeBean,
             final String domain,
-            final VelocityEngine velocityEngine) {
+            final VelocityEngine velocityEngine) throws UnsupportedEncodingException {
         List<Item> entries = new ArrayList<Item>(homeBean.size());
-        for (HomeBean content : homeBean) {
-            String urlPoll = FeedUtils.createUrlFeed(domain, "/"+content.getItemType()+"/",
-                    content.getId(), content.getQuestionBean().getSlugName());
-            final Item item = convertBeanToRSSItem(
-                    content.getCreateDateComparable(), content
-                            .getQuestionBean().getQuestionName(),
-                    content.getCreateDateComparable(), urlPoll);
+        for (HomeBean poll : homeBean) {
+            String urlPoll = FeedUtils.createUrlFeed(domain, "/"+poll.getItemType()+"/",
+                    poll.getId(), poll.getQuestionBean().getSlugName());
+                    final Item item = new Item();
+                    final Map model = new HashMap();
+                    model.put("mailLogo", EnMePlaceHolderConfigurer.getProperty("application.mail.logo.base64"));
+                    model.put("domain", domain);
+                    model.put("type", poll.getTypeSearchResult().toString());
+                    model.put("type_id", poll.getId());
+                    model.put("question", poll.getQuestionBean().getQuestionName());
+                    model.put("anwers", poll.getResultsBean());
+                    item.setTitle(poll.getQuestionBean().getQuestionName());
+                    item.setPubDate(poll.getCreateDateComparable());
+                    item.setLink(urlPoll);
+                    item.setAuthor(poll.getOwnerUsername());
+                    final List<Category> categories = new ArrayList<Category>();
+                    for (HashTagBean iterable_element : poll.getHashTags()) {
+                        Category ll = new Category();
+                        ll.setValue(iterable_element.getHashTagName());
+                        categories.add(ll);
+                    }
+                    item.setCategories(categories);
+                    final Guid d = new Guid();
+                    d.setPermaLink(true);
+                    d.setValue(urlPoll);
+                    item.setGuid(d);
+                    final Content c = new Content();
+                    final String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, CODE_TEMPLATES  + "rss_home_item.vm", "utf-8", model);
+                    final String string = new String(text.getBytes("UTF-8"));
+                    c.setValue(string);
+                    c.setType("text");
+                    final Description dd = new Description();
+                    dd.setValue(string);
+                    dd.setType("html");
+                    item.setDescription(dd);
+                    item.setContent(c);
             entries.add(item);
         }
         return entries;
-    }
-
-    /**
-     * Convert bean to RSS Item
-     * @param createdAt date as a Date
-     * @param questionName question descriptiob
-     * @param pubDate publication date as a Date
-     * @param urlLink url as string
-     * @return
-     */
-    @Deprecated
-    public static final Item convertBeanToRSSItem(
-            final Date createdAt,
-            final String questionName,
-            final Date pubDate,
-            final String url) {
-        final Item item = new Item();
-        item.setTitle(questionName);
-        item.setPubDate(pubDate);
-        item.setLink(url);
-        return item;
-    }
-
-    /**
-     * Convert bean to RSS Item
-     * @param createdAt date as String
-     * @param questionName question descriptiob
-     * @param pubDate publication date as String
-     * @param urlLink url as string
-     * @return
-     */
-    @Deprecated
-    public static final Item convertBeanToRSSItem(
-            final String createdAt,
-            final String questionName,
-            final Date pubDate,
-            final String url) {
-        final Item item = new Item();
-        item.setTitle(String.format("On %s, %s publish", createdAt, questionName));
-        item.setPubDate(pubDate);
-        item.setLink(url);
-        return item;
     }
 }

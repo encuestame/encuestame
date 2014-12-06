@@ -82,61 +82,73 @@ public class TweetPollController extends AbstractViewController {
         // Check IP in BlackListFile
             final Boolean checkBannedIp = checkIPinBlackList(IP);
             log.debug("Check Banned IP----> " + checkBannedIp);
-            if (checkBannedIp) {
-                pathVote ="banned";
-                log.debug("ip banned");
-            } else {
-                if (tweetId.isEmpty()) {
-                    log.debug("tweet is empty");
-                    model.put("message", "Tweet Not Valid..");
+            System.out.println("checkBannedIp::==>"+checkBannedIp);
+            try {
+                if (checkBannedIp) {
+                    pathVote ="404"; // I guess 404 is much better solution than ban message
+                    log.debug("ip banned");
                 } else {
-                    tweetId = filterValue(tweetId);
-                    model.put("tweetId", tweetId);
-                    log.info("search code->"+tweetId);
-                    final TweetPollSwitch tweetPoll = getTweetPollService()
-                            .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
-                    model.addAttribute("tp_switch", tweetPoll);
-                    final Boolean validateLimitVotes = getTweetPollService().validateLimitVotes(tweetPoll.getTweetPoll());
-                    final Boolean restrictVotesByDate = getTweetPollService().validateVotesByDate(tweetPoll.getTweetPoll());
-                     //NOTE: tweetpoll should be published to able to vote !!
-                    if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
-                        log.debug("tweetpoll answer not found");
-                        model.put("message", getMessage("tp_no_valid"));
-                    } else  if (tweetPoll.getTweetPoll().getCompleted()) {
-                        log.debug("tweetpoll is archived");
-                        model.put("message", getMessage("tweetpoll.votes.completed"));
-                        pathVote = "completeTweetVote";
-                        // Validate Limit Votes
-                    } else if(validateLimitVotes) {
-                         log.debug("tweetpoll reached limit votes");
-                         model.put("message", getMessage("tweetpoll.votes.limited"));
-                         pathVote = "LimitTweetVote";
+                    if (tweetId.isEmpty()) {
+                        log.debug("tweet is empty");
+                        model.put("message", "Tweet Not Valid..");
                     } else {
-                        log.info("Validate Votting");
-                        log.info("IP" + IP);
-                    try {
-                        getTweetPollService().validateIpVote(IP,
-                                tweetPoll.getTweetPoll());
-                        if (!tweetPoll.getTweetPoll().getCaptcha()) {
-                            getTweetPollService().tweetPollVote(tweetPoll, IP,
-                                    Calendar.getInstance().getTime());
-                            model.put("message", getMessage("tweetpoll.votes.acepted"));
-                            pathVote = "tweetVoted";
-                            log.debug("VOTED");
-                        } else {
-                            this.createCaptcha(model, tweetId);
-                            log.debug("VOTE WITH CAPTCHA");
-                            pathVote = "voteCaptcha";
+                        tweetId = filterValue(tweetId);
+                        model.put("tweetId", tweetId);
+                        log.info("search code->" + tweetId);
+                        System.out.println("tweetId::==>"+tweetId);
+                        System.out.println("tweetId::==>"+IP);
+                        final TweetPollSwitch tweetPoll = getTweetPollService().getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
+                        if (tweetPoll == null) {
+                            throw new EnMeNoResultsFoundException("tweetpoll answer not found");
                         }
-                    } catch (Exception e) {
-                        // TODO: handle exception
-                        log.error("");
-                        pathVote = "repeatedTweetVote";
+                        model.addAttribute("tp_switch", tweetPoll);
+                        final Boolean validateLimitVotes = getTweetPollService().validateLimitVotes(tweetPoll.getTweetPoll());
+                        System.out.println("validateLimitVotes::==>"+validateLimitVotes);
+                        final Boolean restrictVotesByDate = getTweetPollService().validateVotesByDate(tweetPoll.getTweetPoll());
+                        System.out.println("restrictVotesByDate::==>"+restrictVotesByDate);
+                        //NOTE: tweetpoll should be published to able to vote !!
+                        if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
+                            log.debug("tweetpoll answer not found");
+                            pathVote = "404";
+                            //model.put("message", getMessage("tp_no_valid"));
+                        } else if (tweetPoll.getTweetPoll().getCompleted()) {
+                            log.debug("tweetpoll is archived");
+                            model.put("message", getMessage("tweetpoll.votes.completed"));
+                            pathVote = "completeTweetVote";
+                            // Validate Limit Votes
+                        } else if (validateLimitVotes) {
+                            log.debug("tweetpoll reached limit votes");
+                            model.put("message", getMessage("tweetpoll.votes.limited"));
+                            pathVote = "LimitTweetVote";
+                        } else {
+                            log.info("Validate Votting");
+                            log.info("IP" + IP);
+                            try {
+                                getTweetPollService().validateIpVote(IP,
+                                        tweetPoll.getTweetPoll());
+                                if (!tweetPoll.getTweetPoll().getCaptcha()) {
+                                    getTweetPollService().tweetPollVote(tweetPoll, IP,
+                                            Calendar.getInstance().getTime());
+                                    model.put("message", getMessage("tweetpoll.votes.acepted"));
+                                    pathVote = "tweetVoted";
+                                    log.debug("VOTED");
+                                } else {
+                                    this.createCaptcha(model, tweetId);
+                                    log.debug("VOTE WITH CAPTCHA");
+                                    pathVote = "voteCaptcha";
+                                }
+                            } catch (Exception e) {
+                                // TODO: handle exception
+                                log.error("");
+                                pathVote = "repeatedTweetVote";
+                            }
+                        }
                     }
                 }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-            log.info("redirect template WHERE "+pathVote);
-        }
+        log.info("redirect template WHERE "+pathVote);
         return pathVote;
     }
 

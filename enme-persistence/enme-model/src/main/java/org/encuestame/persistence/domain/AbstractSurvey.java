@@ -41,6 +41,27 @@ import org.hibernate.search.annotations.Store;
 public abstract class AbstractSurvey extends AbstractGeoPoint {
 
     /**
+     * Enable a limit of valid votes.
+     **/
+    private Boolean limitVotesEnabled  = false;
+
+    /**
+     * Limit Votes.
+     **/
+    private Integer limitVotes;
+
+    /**
+     * Enable a limit of valid votes.
+     **/
+    private Boolean allowRepeatedVotes  = false;
+
+    /**
+     * Limit Votes.
+     **/
+    private Integer repeatedVotes;
+
+
+    /**
      * Use a custom start message.
      */
     private Boolean customMessage;
@@ -54,12 +75,12 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * Define which user create this tweetPoll.
      */
     private UserAccount editorOwner;
-    
+
     /** Define if is Scheduled **/
     private Boolean scheduled;
-    
+
     /** Scheduled Date. **/
-    private Date scheduleDate;    
+    private Date scheduleDate;
 
     /**
      * Define the account owner of the item.
@@ -125,7 +146,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * Survey Closing after date.
      */
-     private Boolean closeAfterDate;
+     private Boolean closeAfterDate = false;
 
      /**
       * Close Date.
@@ -135,7 +156,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      /**
       * Survey Closing after quota.
       */
-    private Boolean closeAfterquota;
+    private Boolean closeAfterquota = false;
 
     /**
      * Close Quota.
@@ -210,15 +231,15 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      ***/
     private Date endDate;
 
-    
+
     /** Create Date. **/
     private Date createDate;
-        
+
     /**
      * @return the createDate
      */
     @Temporal(TemporalType.TIMESTAMP)
-    //FIXME: change to  created_date, this means update all SQL script files 
+    //FIXME: change to  created_date, this means update all SQL script files
     @Column(name = "created_at", nullable = true)
     public Date getCreateDate() {
         return createDate;
@@ -676,7 +697,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     public void setOwner(final Account owner) {
         this.owner = owner;
     }
-    
+
     /**
      * @return the getScheduled
      */
@@ -692,7 +713,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     public void setScheduled(final Boolean scheduled) {
         this.scheduled = scheduled;
     }
-    
+
     /**
      * @return the scheduleDate
      */
@@ -709,5 +730,75 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     public void setScheduleDate(final Date scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
-       
+
+    /**
+     * @return the limitVotesEnabled
+     */
+    @Column(name = "limits_votes_enabled")
+    public Boolean getLimitVotesEnabled() {
+        return limitVotesEnabled;
+    }
+
+    /**
+     * @param limitVotesEnabled the limitVotesEnabled to set
+     */
+    public void setLimitVotesEnabled(Boolean limitVotesEnabled) {
+        this.limitVotesEnabled = limitVotesEnabled;
+    }
+
+    /**
+     * @return the limitVotes
+     */
+    @Column(name = "limit_votes", nullable = true)
+    public Integer getLimitVotes() {
+        return limitVotes;
+    }
+
+    /**
+     * @param limitVotes the limitVotes to set
+     */
+
+    public void setLimitVotes(Integer limitVotes) {
+        this.limitVotes = limitVotes;
+    }
+
+    /**
+     * @return the allowRepeatedVotes
+     */
+    @Column(name = "repeated_votes_enabled")
+    public Boolean getAllowRepeatedVotes() {
+        return allowRepeatedVotes;
+    }
+
+    /**
+     * @param allowRepeatedVotes the allowRepeatedVotes to set
+     */
+
+    public void setAllowRepeatedVotes(Boolean allowRepeatedVotes) {
+        this.allowRepeatedVotes = allowRepeatedVotes;
+    }
+
+    /**
+     * @return the repeatedVotes
+     * @deprecated use quota field instead this one
+     */
+    @Deprecated
+    @Column(name = "repeated_votes", nullable = true)
+    public Integer getRepeatedVotes() {
+        return repeatedVotes;
+    }
+
+    /**
+     * @param repeatedVotes the repeatedVotes to set
+     * @deprecated use quota field instead this one
+     */
+    @Deprecated
+    public void setRepeatedVotes(Integer repeatedVotes) {
+        this.repeatedVotes = repeatedVotes;
+    }
+
+    ////
+
+
+
 }

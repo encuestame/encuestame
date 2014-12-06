@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import junit.framework.Assert;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.util.WidgetUtil;
@@ -80,10 +81,12 @@ import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.encuestame.utils.web.GadgetPropertiesBean;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.HomeResultBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.ResultBean;
 import org.encuestame.utils.web.ScheduledItemBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
@@ -1431,6 +1434,12 @@ public class ConvertDomainBean {
         homeBean.setQuestionBean(tweetBean.getQuestionBean());
         homeBean.setRelativeTime(tweetBean.getRelativeTime());
         homeBean.setTotalVotes(tweetBean.getTotalVotes());
+        final List<ResultBean> result = new ArrayList<ResultBean>();
+        for (TweetPollAnswerSwitchBean answer : tweetBean.getAnswerSwitchBeans()) {
+            result.add(answer.getResultsBean());
+        }
+        homeBean.setResultsBean(result);
+        homeBean.setTypeSearchResult(TypeSearchResult.TWEETPOLL);
         homeBean.setCreateDateComparable(tweetBean.getCreateDateComparable());
         homeBean.setHits(tweetBean.getHits() == null ? 0L : tweetBean.getHits());
         homeBean.setUserId(tweetBean.getUserId());
@@ -1474,6 +1483,7 @@ public class ConvertDomainBean {
         homeBean.setQuestionBean(pollBean.getQuestionBean());
         homeBean.setOwnerUsername(pollBean.getOwnerUsername());
         homeBean.setCreateDate(pollBean.getCreationDate());
+        homeBean.setTypeSearchResult(TypeSearchResult.POLL);
         homeBean.setCreateDateComparable(pollBean.getCreateDateComparable());
         homeBean.setTotalVotes(pollBean.getTotalVotes());
         homeBean.setHits(pollBean.getHits() == null ? 0L : pollBean.getHits());
@@ -1482,6 +1492,20 @@ public class ConvertDomainBean {
                 .getItemType().toString());
         homeBean.setRelevance(pollBean.getRelevance() == null ? 0L : pollBean
                 .getRelevance());
+
+        //FUTURE: temporal conversion
+        final List<ResultBean> resultBeans = new ArrayList<ResultBean>();
+        for (PollBeanResult answer : pollBean.getResultsBean()) {
+            final HomeResultBean homeResultBean = new HomeResultBean();
+            homeResultBean.setAnswerBean(answer.getAnswerBean());
+            homeResultBean.setAnswerId(answer.getAnswerId());
+            homeResultBean.setAnswerName(answer.getAnswerBean().getAnswers());
+            homeResultBean.setColor(answer.getColor());
+            homeResultBean.setPercent(answer.getPercent());
+            homeResultBean.setVotes(answer.getVotes());
+            resultBeans.add(homeResultBean);
+        }
+        homeBean.setResultsBean(resultBeans);
         homeBean.setItemType(TypeSearchResult.POLL.toString().toLowerCase());
         homeBean.setHashTags(pollBean.getHashTags());
         homeBean.setTotalComments(pollBean.getTotalComments() == null ? 0
@@ -1519,6 +1543,7 @@ public class ConvertDomainBean {
         homeBean.setQuestionBean(convertSurveyToQuestionBean(surveyBean));
         homeBean.setOwnerUsername(surveyBean.getOwnerUsername());
         homeBean.setHits(surveyBean.getHits());
+        homeBean.setTypeSearchResult(TypeSearchResult.SURVEY);
         homeBean.setCreateDate(surveyBean.getCreatedAt() == null ? null
                 : DateUtil.DOJO_DATE_FORMAT.format(surveyBean.getCreatedAt()));
         homeBean.setTotalVotes(surveyBean.getTotalVotes());

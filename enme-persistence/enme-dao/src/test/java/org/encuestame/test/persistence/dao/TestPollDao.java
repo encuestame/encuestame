@@ -520,13 +520,13 @@ public class TestPollDao extends AbstractBase {
         final String ip2 = "192.10.1.11";
         final Poll poll1 = createDefaultPoll(this.question, this.userAccount,
                 this.initDate.minusHours(8).toDate());
-        final QuestionAnswer qAsnwer = createQuestionAnswer("possible",
-                this.question, "3fak34");
+        final QuestionAnswer qAsnwer = createQuestionAnswer("possible", this.question, "3fak34");
         createDefaultPollResults(qAsnwer, poll1, ip);
-
-        final PollResult result = getPollDao().validateVoteIP(ip, poll1);
+        final Integer result = getPollDao().validateVoteIP(ip, poll1);
         assertNotNull(result);
-        final PollResult resultNull = getPollDao().validateVoteIP(ip2, poll1);
-        Assert.assertNull(resultNull);
+        assertEquals(result, new Integer(1));
+        final Integer resultNull = getPollDao().validateVoteIP(ip2, poll1);
+        Assert.assertNotNull(resultNull);
+        assertEquals(resultNull, new Integer(0));
     }
 }

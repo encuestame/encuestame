@@ -74,7 +74,7 @@ public class TestCommentDao extends AbstractBase {
     public void initData(){
         this.user = createUserAccount("isabelle", createAccount());
         this.question = createQuestion("When did you go last weekend", "");
-        this.tpoll = createPublishedTweetPoll(user.getAccount(), this.question);
+        this.tpoll = createPublishedTweetPoll(user, this.question);
         this.comment = createDefaultTweetPollCommentVoted("I was working", this.tpoll, user, 150L, 985L, new Date());
         this.poll = createDefaultPoll(this.question, this.user);
     }
@@ -123,7 +123,7 @@ public class TestCommentDao extends AbstractBase {
     @Test
     public void getCommentsbyUser(){
         final Question question2 = createQuestion("Who will win the supercopa", "");
-        final TweetPoll tpoll2 = createPublishedTweetPoll(user.getAccount(), question2);
+        final TweetPoll tpoll2 = createPublishedTweetPoll(user, question2);
         createDefaultTweetPollComment("I was playing pc games", tpoll2, user);
         final List<CommentOptions> commentOpt = new ArrayList<>();
         commentOpt.add(CommentOptions.ALL);

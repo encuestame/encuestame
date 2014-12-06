@@ -48,6 +48,24 @@ public enum TypeSearchResult {
     }
 
     /**
+     *
+     * @return
+     */
+    public String toWidget() {
+        String type = "";
+        if (this == TWEETPOLL) { type = "tweetpoll"; }
+        else if (this == PROFILE) { type = "profile"; }
+        else if (this == POLL) { type = "poll"; }
+        else if (this == SURVEY) { type = "survey"; }
+        else if (this == HASHTAG) { type = "hashtag"; }
+        else if (this == HASHTAGRATED) { type = "hashtagrated"; }
+        else if (this == SOCIALNETWORK) { type = "socialnetwork"; }
+        else if (this == TWEETPOLLRESULT) { type = "tweetpollresult"; }
+        else if (this == POLLRESULT) { type = "pollresult"; }
+        return type;
+    }
+
+    /**
      * Return the url prefix to make url to acces to public url.
      * @param type
      * @return

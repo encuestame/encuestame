@@ -2,7 +2,7 @@ package org.encuestame.utils.web;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public abstract class AbstractResultBean {
+public abstract class AbstractResultBean implements ResultBean {
 
 
     @JsonProperty("id")

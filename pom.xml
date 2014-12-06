@@ -148,7 +148,7 @@
         	Clover 2 Needed install on local host
         	http://confluence.atlassian.com/display/CLOVER/Clover+for+Maven+2+and+3+Developer+Guide
         -->
-        <maven-clover2-plugin>3.2.0</maven-clover2-plugin>
+        <maven-clover2-plugin>4.0.2</maven-clover2-plugin>
         <maven-jar.plugin>2.4</maven-jar.plugin>
         <maven-compiler-plugin>2.3.2</maven-compiler-plugin>
         <aspectj-maven-plugin>1.2</aspectj-maven-plugin>
@@ -169,6 +169,7 @@
         <maven.war.plugin>2.4</maven.war.plugin>
         <wro4j.version>1.6.3</wro4j.version>
         <maven-eclipse-plugin>2.9</maven-eclipse-plugin>
+        <jsonpath.version>1.2.0</jsonpath.version>
         <!--<surefire.failures.ignore>true</surefire.failures.ignore>-->
     </properties>
 
@@ -1887,6 +1888,19 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
                 <version>1.9.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>${jsonpath.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path-assert</artifactId>
+                <version>${jsonpath.version}</version>
+                <scope>test</scope>
             </dependency>
 
 

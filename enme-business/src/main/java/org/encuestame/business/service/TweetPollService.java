@@ -240,7 +240,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return
      * @throws EnMeExpcetion
      */
-    private List<TweetPollBean> setTweetPollListAnswers(
+    public List<TweetPollBean> setTweetPollListAnswers(
             final List<TweetPoll> listTweetPolls,
             final Boolean results,
             final HttpServletRequest httpServletRequest){
@@ -1126,8 +1126,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 tweetPollResult.setShortUrl(answer.getUrlAnswer());
                 tweetPollResult.setUrl(answer.getUrlAnswer());
                 tweetPollResult.setVotes(Long.valueOf(objects[2].toString()));
+
             }
         }
+        tweetPollResult.setAnswerBean(ConvertDomainBean.convertAnswerToBean(answer));
         return tweetPollResult;
     }
 
@@ -1181,7 +1183,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         if (tweetPoll.getLimitVotesEnabled() != null && tweetPoll.getLimitVotesEnabled()) {
             final Long totalVotes = getTweetPollDao()
                     .getTotalVotesByTweetPollId(tweetPoll.getTweetPollId());
-            if (Long.valueOf(tweetPoll.getLimitVotes()) == totalVotes) {
+            if (totalVotes >= Long.valueOf(tweetPoll.getLimitVotes())  ) {
                 limitVote = Boolean.TRUE;
             }
 
@@ -1580,7 +1582,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
         } else {
             tweetPollsbyFolder = getTweetPollDao().retrieveTweetPollByFolder(
-                    getUserAccountonSecurityContext().getUid(), folderId);
+                    getUserAccount(getUserPrincipalUsername()).getUid(),
+                    folderId);
         }
         log.info("search polls by folder size " + tweetPollsbyFolder.size());
         return ConvertDomainBean.convertListToTweetPollBean(tweetPollsbyFolder);
@@ -1684,7 +1687,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                     // Set Status PROCESSING
                     schedule.setStatus(Status.PROCESSING);
                     getScheduledDao().saveOrUpdate(schedule);
-
                     tpollSaved = this
                             .publishTweetBySocialAccountId(schedule
                                     .getSocialAccount().getId(), schedule
@@ -1711,11 +1713,17 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         schedule.setStatus(Status.SUCCESS);
                         schedule.setPublicationDate(currentDate);
                         getScheduledDao().saveOrUpdate(schedule);
-                        createNotification(NotificationEnum.WELCOME_SIGNUP,
+                        createNotification(
+                                NotificationEnum.WELCOME_SIGNUP,
                                 getMessageProperties("notification.tweetpoll.scheduled.success",
-                                          Locale.ENGLISH, //FIXME: fix this, locale is fixed
-                                          new Object[] {tpollSaved.getTweetPoll().getQuestion().getQuestion(), currentDate.toString()}), //FIXME: currentDate shouldbe passed as ISO date.
-                                null, false, tpollSaved.getTweetPoll().getEditorOwner());
+                                  Locale.ENGLISH, //FIXME: fix this, locale is fixed
+                                  new Object[] {
+                                          tpollSaved.getTweetPoll().getQuestion().getQuestion(),
+                                          currentDate.toString()
+                                  }), //FIXME: currentDate shouldbe passed as ISO date.
+                                  null,
+                                false,
+                                tpollSaved.getTweetPoll().getEditorOwner());
                     }
                 }
             }

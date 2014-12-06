@@ -70,7 +70,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
         this.tweetPollFolder = createTweetPollFolder("My first tweetPoll folder", getSpringSecurityLoggedUserAccount());
         this.surveyFolder = createSurveyFolders("My first survey Folder", getSpringSecurityLoggedUserAccount());
         this.question = createQuestion("Who I am?", "");
-        this.tweetPoll = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), question);
+        this.tweetPoll = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount(), question);
         this.survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount());
         this.poll = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount(), true, true);
     }
@@ -270,5 +270,43 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
         final JSONArray foldersby = (JSONArray) success.get("folders");
 
         return foldersby.size();
+    }
+
+    /**
+     *
+     * @param type
+     * @param folderId
+     * @param total
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void checkItemsFolder(String type, Long folderId, Integer total, String property)  throws ServletException, IOException{
+        initService("/api/survey/folder/" + type + "/items.json", MethodJson.GET);
+        setParameter("folderId", folderId.toString());
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        final JSONArray items = (JSONArray) success.get(property);
+        Assert.assertEquals(items.size(), total.intValue());
+    }
+
+        /**
+         *
+         */
+    @Test
+    public void testretrieveItemListbyFolder() throws ServletException, IOException {
+        PollFolder pf = createPollFolder("Black", getSpringSecurityLoggedUserAccount());
+        createPollFolder("Rose", getSpringSecurityLoggedUserAccount());
+        createPollFolder("Yellow", getSpringSecurityLoggedUserAccount());
+        createPollFolder("Green", getSpringSecurityLoggedUserAccount());
+        createPollFolder("White", getSpringSecurityLoggedUserAccount());
+        createPollFolder("Blue", getSpringSecurityLoggedUserAccount());
+        SurveyFolder sf = createSurveyFolders("SurveyFolder", getSpringSecurityLoggedUserAccount());
+        TweetPollFolder tpf = createTweetPollFolder("Science", getSpringSecurityLoggedUserAccount());
+        createTweetPollFolder("Technologie", getSpringSecurityLoggedUserAccount());
+        createTweetPollFolder("Mathemathic", getSpringSecurityLoggedUserAccount());
+        checkItemsFolder("poll", pf.getId(), 0, "pollsByFolder");
+        checkItemsFolder("tweetpoll", tpf.getId(), 0, "tweetPollsByFolder");
+        checkItemsFolder("survey", sf.getId(), 0, "surveysByFolder");
+
     }
 }
