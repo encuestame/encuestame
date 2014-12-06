@@ -98,7 +98,6 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans{
      * @throws ServletException
      * @throws IOException
      */
-
     @Test
     public void testTweetPollJsonService() throws ServletException, IOException{
         initService("/api/survey/tweetpoll/search.json", MethodJson.GET);
