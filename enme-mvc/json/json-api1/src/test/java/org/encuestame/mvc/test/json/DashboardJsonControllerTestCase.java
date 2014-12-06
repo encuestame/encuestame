@@ -128,7 +128,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonV1MvcUnitBeans
 				Boolean.TRUE, getSpringSecurityLoggedUserAccount());
 		final Gadget myGadget = createGadgetDefault(myBoard);
 		initService("/api/common/stream/gadget.json", MethodJson.POST);
-		setParameter("id", myBoard.getBoardId().toString());
+		setParameter("boardId", myBoard.getBoardId().toString());
 		final JSONObject response = callJsonService();
 		final JSONObject success = getSucess(response);
 		final JSONObject gadget = (JSONObject) success.get("gadget");
@@ -144,7 +144,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonV1MvcUnitBeans
 		createGadgetDefault(myBoard);
 		// invalid gadget
 		initService("/api/common/notvalid/gadget.json", MethodJson.POST);
-		setParameter("id", myBoard.getBoardId().toString());
+		setParameter("boardId", myBoard.getBoardId().toString());
 		final JSONObject response_error = callJsonService();
 		final JSONObject error = getErrors(response_error);
 		final String message_error = (String) error.get("message");

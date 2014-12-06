@@ -338,7 +338,7 @@ public class EmbebedJsonServicesTestCase extends AbstractJSONPMvc {
         validHTMLBody(getWidget(TypeSearchResult.HASHTAG.toWidget(), hashMap));
     }
 
-    /// error managagment
+    /// error managment
 
     @Test
     public void testJSONWidgetPollWrongType() throws Exception {
