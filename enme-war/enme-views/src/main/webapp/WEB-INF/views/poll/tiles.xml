@@ -52,7 +52,7 @@
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/poll-list.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/poll_css.jsp" />
-        <put-attribute name="dojo-layers" expression="/WEB-INF/views/home/dojo-list.jsp" />
+        <put-attribute name="dojo-layers" expression="/WEB-INF/views/poll/dojo-list.jsp" />
     </definition>
 
      <definition name="poll/new" extends="page-logged">
