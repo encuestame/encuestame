@@ -35,11 +35,12 @@
                     <options>box-model</options>
                     <targetGroups>commons,commons-mobile,init,maps</targetGroups>
                     <wroFile>${basedir}/src/main/webapp/WEB-INF/wro.xml</wroFile>
-                      <jsDestinationFolder>${project.build.directory}/${project.build.finalName}/resource/js/</jsDestinationFolder>
-                      <contextFolder>${basedir}/src/main/resources/</contextFolder>
+                    <jsDestinationFolder>${project.build.directory}/${project.build.finalName}/resource/js/</jsDestinationFolder>
+                    <contextFolder>${basedir}/src/main/resources/</contextFolder>
                     <wroManagerFactory>ro.isdc.wro.extensions.manager.standalone.GoogleStandaloneManagerFactory</wroManagerFactory>
                     <ignoreMissingResources>false</ignoreMissingResources>
                     <minimize>${compress.minimize}</minimize>
+                    <incrementalBuildEnabled>true</incrementalBuildEnabled>
                 </configuration>
                                 
             </plugin>       
