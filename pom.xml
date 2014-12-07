@@ -593,7 +593,7 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
 							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-							<argLine>-Xmx1024m</argLine>
+							<argLine>-Xms1024m -Xmx1024m -XX:MaxPermSize=2048m</argLine>
 							<groups>org.encuestame.utils.categories.test.InternetTest</groups>
 						</configuration>
 						<version>${surefire.version}</version>
