@@ -17,7 +17,7 @@
         <module>tomcat-webapp</module>
         <!--<module>weblogic-webapp</module>-->
         <!--<module>jboss-webapp</module>-->
-        <module>selenium-test</module>
+        <!--<module>selenium-test</module>-->
     </modules>
 
     <dependencies>
