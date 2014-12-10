@@ -16,6 +16,7 @@
 	    // useCommentedJson : false,
 	    parseOnLoad : false,
 	    isDebug : 0,
+        locale: '${user_locale}',
 	    tlmSiblingOfDojo : false,
 	    async : true
 	    };
