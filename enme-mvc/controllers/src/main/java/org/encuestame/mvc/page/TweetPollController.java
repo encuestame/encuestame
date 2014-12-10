@@ -82,7 +82,7 @@ public class TweetPollController extends AbstractViewController {
         // Check IP in BlackListFile
             final Boolean checkBannedIp = checkIPinBlackList(IP);
             log.debug("Check Banned IP----> " + checkBannedIp);
-            System.out.println("checkBannedIp::==>"+checkBannedIp);
+            log.info("checkBannedIp::==>"+checkBannedIp);
             try {
                 if (checkBannedIp) {
                     pathVote ="404"; // I guess 404 is much better solution than ban message
@@ -95,17 +95,17 @@ public class TweetPollController extends AbstractViewController {
                         tweetId = filterValue(tweetId);
                         model.put("tweetId", tweetId);
                         log.info("search code->" + tweetId);
-                        System.out.println("tweetId::==>"+tweetId);
-                        System.out.println("tweetId::==>"+IP);
+                        log.info("tweetId::==>"+tweetId);
+                        log.info("tweetId::==>"+IP);
                         final TweetPollSwitch tweetPoll = getTweetPollService().getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
                         if (tweetPoll == null) {
                             throw new EnMeNoResultsFoundException("tweetpoll answer not found");
                         }
                         model.addAttribute("tp_switch", tweetPoll);
                         final Boolean validateLimitVotes = getTweetPollService().validateLimitVotes(tweetPoll.getTweetPoll());
-                        System.out.println("validateLimitVotes::==>"+validateLimitVotes);
+                        log.info("validateLimitVotes::==>"+validateLimitVotes);
                         final Boolean restrictVotesByDate = getTweetPollService().validateVotesByDate(tweetPoll.getTweetPoll());
-                        System.out.println("restrictVotesByDate::==>"+restrictVotesByDate);
+                        log.info("restrictVotesByDate::==>"+restrictVotesByDate);
                         //NOTE: tweetpoll should be published to able to vote !!
                         if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
                             log.debug("tweetpoll answer not found");
