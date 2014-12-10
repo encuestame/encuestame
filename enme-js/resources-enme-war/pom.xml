@@ -175,7 +175,7 @@
     <dependency>
       <groupId>com.google.javascript</groupId>
       <artifactId>closure-compiler</artifactId>
-      <version>r2388</version>
+      <version>${google.closure}</version>
     </dependency>
     <dependency>
       <groupId>rhino</groupId>
