@@ -18,7 +18,7 @@
                      window.__enme_widget={host:p+":///${domain}/"};
                  if(!d.getElementById(id)){
                      p=/^http:/.test(d.location)?'http':'https';
-                     __enme_widget={host:p+":///${domain}/"};
+                     js=d.createElement(s);
                      js.id=id;js.src=p+":///${domain}/resources/js/widget/build/widget.js";
                      fjs.parentNode.insertBefore(js,fjs);
                      }
