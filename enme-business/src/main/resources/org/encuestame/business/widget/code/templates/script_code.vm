@@ -7,6 +7,7 @@
         var js,
             fjs=d.getElementsByTagName(s)[0],
             p=/^http:/.test(d.location)?'http':'https';
+            window.__enme_widget={host:p+":///${domain}/"};
         if(!d.getElementById(id)){
             js=d.createElement(s);
             js.id=id;js.src=p+":///${domain}/resources/js/widget/dist/widget.js";
