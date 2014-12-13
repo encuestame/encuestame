@@ -191,7 +191,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
                 true,
                 null,
                 null);
-        System.out.println(cb);
+        //System.out.println(cb);
         final Poll myPoll = this.pollService.createPoll(cb);
         Assert.assertNotNull(myPoll);
         assertEquals(myPoll.getQuestion().getQuestion(), "Question");

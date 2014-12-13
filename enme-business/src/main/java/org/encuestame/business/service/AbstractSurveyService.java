@@ -362,7 +362,7 @@ public class AbstractSurveyService extends AbstractChartService {
     public List<QuestionAnswerBean> retrieveAnswerByQuestionId(final Long questionId) {
         final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
         log.debug("answers by question id ["+questionId+"] answers size:{"+answers.size());
-        System.out.println("answers by question id ["+questionId+"] answers size:{"+answers.size());
+        //System.out.println("answers by question id ["+questionId+"] answers size:{"+answers.size());
         final List<QuestionAnswerBean> answersBean = new ArrayList<QuestionAnswerBean>();
         for (QuestionAnswer questionsAnswers : answers) {
             answersBean.add(ConvertDomainBean.convertAnswerToBean(questionsAnswers));

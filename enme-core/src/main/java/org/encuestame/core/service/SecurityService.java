@@ -1296,10 +1296,10 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                                  final UserAccount userAccount,
                                  final Boolean status) {
         final List<HelpPage> links = getAccountDao().getHelpReference(path, userAccount);
-        System.out.println("found help page " + links.size());
+        //System.out.println("found help page " + links.size());
         if (links.size() > 0 && !status) { // previous exist
             for (HelpPage page  : links) {
-                System.out.println("removed help page " + page.getPagePath());
+                //System.out.println("removed help page " + page.getPagePath());
                 getAccountDao().delete(page);
             }
         } else { // we have to create a new link
@@ -1308,7 +1308,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 page.setPagePath(path);
                 page.setUserAccount(userAccount);
                 getAccountDao().saveOrUpdate(page);
-                System.out.println("created help page " + path);
+                //System.out.println("created help page " + path);
             }
         }
     }

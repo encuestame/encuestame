@@ -246,7 +246,7 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 	@Test
 	public void testPollCommentsByStatusAndType() {
 		final int totalCommentsSpam = 5;
-		System.out.println("fecha --> " + this.creationDate.toDate());
+		//System.out.println("fecha --> " + this.creationDate.toDate());
 		for (int i = 0; i < totalCommentsSpam; i++) {
 			createDefaultPollCommentWithStatus("Comment" + i, this.poll,
 					getSpringSecurityLoggedUserAccount(), CommentOptions.SPAM,

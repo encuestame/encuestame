@@ -64,7 +64,7 @@ public class XmlConfigurationText extends TestCase {
             final Iterator i = xmlConfiguration.getKeys();
             while (i.hasNext()) {
                 Object object = (Object) i.next();
-                System.out.println(object);
+                //System.out.println(object);
             }
 
             // System.out.println(xmlConfiguration.getList("social-networks.social-network.social-network-name"));
