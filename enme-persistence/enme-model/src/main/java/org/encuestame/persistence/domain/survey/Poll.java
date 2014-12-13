@@ -86,10 +86,10 @@ public class Poll extends AbstractSurvey {
     private Set<HashTag> hashTags = new HashSet<HashTag>();
 
     /** **/
-    private Boolean isHidden;
+    private Boolean isHidden = false;
 
     /** **/
-    private Boolean isPasswordProtected;
+    private Boolean isPasswordProtected = false;
 
     /** **/
     private String password;
@@ -215,7 +215,7 @@ public class Poll extends AbstractSurvey {
     /**
 	 * @return the isHidden
 	 */
-    @Column(name = "is_hidden", nullable = false)
+    @Column(name = "is_hidden", nullable = true)
 	public Boolean getIsHidden() {
 		return isHidden;
 	}
@@ -230,7 +230,7 @@ public class Poll extends AbstractSurvey {
 	/**
 	 * @return the isPasswordProtected
 	 */
-	@Column(name = "is_password_protected", nullable = false)
+	@Column(name = "is_password_protected", nullable = true)
 	public Boolean getIsPasswordProtected() {
 		return isPasswordProtected;
 	}
@@ -245,7 +245,7 @@ public class Poll extends AbstractSurvey {
 	/**
 	 * @return the password
 	 */
-	 @Column(name = "poll_password", nullable = false)
+	 @Column(name = "poll_password", nullable = true)
 	public String getPassword() {
 		return password;
 	}
