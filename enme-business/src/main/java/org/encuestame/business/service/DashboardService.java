@@ -25,6 +25,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeDashboardNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeGadgetNotFoundException;
@@ -183,16 +184,24 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * @see org.encuestame.business.service.imp.IDashboardService#addGadgetOnDashboard(java.lang.Long, java.lang.Long)
      */
     public Gadget addGadgetOnDashboard(final Long boardId, final String gadgetId) throws EnMeNoResultsFoundException{
+        return this.addGadgetOnDashboard(boardId, gadgetId, getUserAccount(getUserPrincipalUsername()));
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.IDashboardService#addGadgetOnDashboard(java.lang.Long, java.lang.Long)
+     */
+    public Gadget addGadgetOnDashboard(final Long boardId, final String gadgetId, final UserAccount userAccount) throws EnMeNoResultsFoundException{
         final Properties gProperties = GadgetsLoader.getDirectoy(gadgetId);
         if (gProperties != null) {
             final Dashboard dashboard = getDashboardDao().getDashboardbyId(boardId);
             final Gadget gadget = createNewGadget(gProperties, dashboard);
             if (gadget.getGadgetType().equals(GadgetType.ACTIVITY_STREAM)) {
-                createProperty(gadget, "permissions", gProperties.getProperty("permissions"));
+                createProperty(gadget, "permissions", gProperties.getProperty("permissions"), userAccount);
             } else if (gadget.getGadgetType().equals(GadgetType.COMMENTS)) {
-                createProperty(gadget, "permissions", gProperties.getProperty("permissions"));
+                createProperty(gadget, "permissions", gProperties.getProperty("permissions"), userAccount);
             } else if (gadget.getGadgetType().equals(GadgetType.TWEETPOLLS_VOTES)) {
-                createProperty(gadget, "permissions", gProperties.getProperty("permissions"));
+                createProperty(gadget, "permissions", gProperties.getProperty("permissions"), userAccount);
             } else {
                 throw new EnMeNoResultsFoundException("gadget not found");
             }
@@ -202,19 +211,39 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.IDashboardService#createProperty(org.encuestame.persistence.domain.dashboard.Gadget, java.lang.String, java.lang.String)
+    /**
+     * Create gadget property.
+     * @param gadget
+     * @param gadgetPropName
+     * @param gadgetPropValue
+     * @return
+     * @throws EnMeNoResultsFoundException
      */
-    public GadgetProperties createProperty(
+    private GadgetProperties createProperty(
             final Gadget gadget,
             final String gadgetPropName,
             final String gadgetPropValue) throws EnMeNoResultsFoundException{
+        return this.createProperty(gadget, gadgetPropName, gadgetPropValue, getUserAccount(getUserPrincipalUsername()));
+    }
+
+    /**
+     * Create gadget property.
+     * @param gadget
+     * @param gadgetPropName
+     * @param gadgetPropValue
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    private GadgetProperties createProperty(
+            final Gadget gadget,
+            final String gadgetPropName,
+            final String gadgetPropValue,
+            final UserAccount userAccount) throws EnMeNoResultsFoundException{
         final GadgetProperties gadgetProperties = new GadgetProperties();
         gadgetProperties.setGadget(gadget);
         gadgetProperties.setGadgetPropName(gadgetPropName);
         gadgetProperties.setGadgetPropValue(gadgetPropValue);
-        gadgetProperties.setUserAccount(getUserAccount(getUserPrincipalUsername()));
+        gadgetProperties.setUserAccount(userAccount);
         getDashboardDao().saveOrUpdate(gadgetProperties);
         return gadgetProperties;
     }

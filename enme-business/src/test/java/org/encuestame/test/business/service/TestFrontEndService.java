@@ -347,7 +347,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 
         
         final HashTag hashtag = createHashTag("continents", 350L); 
-	    System.out.println(hashtag.getHashTag());    		
+	    //System.out.println(hashtag.getHashTag());
 		Assert.assertNotNull(hashtag);
 		Assert.assertNotNull(hashtag.getHashTagId());
 		Assert.assertNotNull(hashtag.getHashTag());

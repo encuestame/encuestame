@@ -135,16 +135,15 @@ public class SignUpController extends AbstractViewController {
             final ModelMap model,
             HttpServletResponse response,
             HttpServletRequest request) {
-            log.debug("Invitation Code----->" + inviteCode);
         UserAccountBean userAccountBean;
         try {
             userAccountBean = getSecurityService().getUserAccountbyCode(inviteCode);
         } catch (EnMeNoResultsFoundException e) {
             log.error(e.getMessage());
-            return "signin";
+            return "redirect:/user/signin";
         }
         if (userAccountBean == null) {
-            return "signin";
+            return "redirect:/user/signin";
         } else {
              model.put("userAccount", userAccountBean);
         }

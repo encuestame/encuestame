@@ -340,7 +340,7 @@ public class ConvertDomainBean {
      */
     public static final UserAccountBean convertSecondaryUserToUserBean(
             final UserAccount secUserSecondary) {
-        System.out.println("convertSecondaryUserToUserBean --->"+ secUserSecondary);
+        //System.out.println("convertSecondaryUserToUserBean --->"+ secUserSecondary);
         final UserAccountBean unitUserBean = new UserAccountBean();
         if (secUserSecondary != null) {
             unitUserBean.setId(secUserSecondary.getUid());
@@ -458,7 +458,7 @@ public class ConvertDomainBean {
     public static final Collection<UnitPermission> convertSetToUnitPermission(
             final Set<Permission> permissions) {
         final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
-        System.out.println("convertSetToUnitPermission --->" + permissions.size());
+        //System.out.println("convertSetToUnitPermission --->" + permissions.size());
         for (Permission permission : permissions) {
             loadListPermission.add(ConvertDomainBean
                     .convertPermissionToBean(permission));
@@ -942,7 +942,7 @@ public class ConvertDomainBean {
                 : poll.getCloseAfterquota());
         unitPoll.setClosedQuota(poll.getClosedQuota() == null ? null : poll
                 .getClosedQuota());
-        unitPoll.setIsIpRestricted(poll.getIpRestriction());
+        unitPoll.setIsIpRestricted(poll.getIpRestriction() == null ? false : poll.getIpRestriction());
         unitPoll.setIpRestricted(poll.getIpProtection() == null ? "" : poll
                 .getIpProtection());
         return unitPoll;

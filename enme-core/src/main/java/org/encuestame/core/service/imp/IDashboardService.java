@@ -17,6 +17,7 @@ import java.util.List;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeGadgetNotFoundException;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -150,17 +151,14 @@ public interface IDashboardService {
     Gadget addGadgetOnDashboard(final Long boardId, final String gadgetId) throws EnMeNoResultsFoundException;
 
     /**
-     * Create gadget property.
-     * @param gadget
-     * @param gadgetPropName
-     * @param gadgetPropValue
+     *
+     * @param boardId
+     * @param gadgetId
+     * @param userAccount
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    GadgetProperties createProperty(
-            final Gadget gadget,
-            final String gadgetPropName,
-            final String gadgetPropValue) throws EnMeNoResultsFoundException;
+    Gadget addGadgetOnDashboard(final Long boardId, final String gadgetId, final UserAccount userAccount) throws EnMeNoResultsFoundException;
 
     /**
 
