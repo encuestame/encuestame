@@ -211,8 +211,8 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
     public @ResponseBody ModelMap voteHome(
             @RequestParam(value = "path", required = true) String path,
             @RequestParam(value = "status", required = true) Boolean status) throws IOException {
-        System.out.println("path-->"+ path);
-        System.out.println("status-->"+ status);
+        //System.out.println("path-->"+ path);
+        //System.out.println("status-->"+ status);
         try {
             if(getListPaths().indexOf(path) != -1)
             getSecurityService().updateHelpStatus(path, getUserAccount(), status);

@@ -229,7 +229,7 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
                 "/user/confirm/email/"+ badInvitationCode);
         final ModelAndView mav = handlerAdapter.handle(request, response,
                 signupController);
-        assertViewName(mav, "signin");
+        assertViewName(mav, "redirect:/user/signin");
     }
 
     /**
