@@ -161,7 +161,6 @@ public abstract class AbstractJSONPMvc  extends AbstractMvcUnitBeans{
         }
         request.setParameter("callback", functionName);
         handlerAdapter.handle(request, response, embebedJsonServices);
-        logPrint(response.getContentAsString());
         JSONObject body = getJSON(response.getContentAsString(), functionName);
         return body.get("body").toString();
     }
