@@ -30,6 +30,7 @@ import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
+import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
@@ -54,6 +55,7 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UserAccountBean;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -74,6 +76,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
+
+    /**
+     *
+     */
+    private IDashboardService dashboardService;
 
 
     /** Default User Permission **/
@@ -318,6 +325,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                }
           } catch (Exception e) {
               // TODO: handle exception Group don't belong to user
+              e.printStackTrace();
+              log.error(e);
           }
           return usersbyGroups;
     }
@@ -654,7 +663,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             log.debug("administration user ----> Adding Security label");
             
             // create a dashboard by default
-            //createDefaultDashboard(userAccount);
+            final Dashboard dashboard = createDefaultDashboard(userAccount);
+            getDashboardService().addGadgetOnDashboard(dashboard.getBoardId(), "stream");
 
             //Disabled auto-autenticate, the administrative user should sign in manually
             //SecurityUtils.authenticate(userAccount);
@@ -742,19 +752,19 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 null, false, userAccount);
         
         // create a dashboard by default
-        createDefaultDashboard(userAccount);
-
-        // disabled, user must sign in from web.
+        final Dashboard dashboard = createDefaultDashboard(userAccount);
+        getDashboardService().addGadgetOnDashboard(dashboard.getBoardId(), "stream", userAccount);
+        //FIXME: disabled, user must sign in from web.
+        // The reason is sometimes there are issues with the auto-login
         // SecurityUtils.authenticate(userAccount);
-
         return userAccount;
     }
     
     /**
-     * 
+     * It creates a default dashboard
      * @param userAccount
      */
-    private void createDefaultDashboard(final UserAccount userAccount) {
+    private Dashboard createDefaultDashboard(final UserAccount userAccount) {
     	 //FUTURE: this code must be in higher level {reuse code}
         final Dashboard board = new Dashboard();
         board.setPageBoardName(EnMePlaceHolderConfigurer.getProperty("dashboard.default.name") == null ? "" : EnMePlaceHolderConfigurer.getProperty("dashboard.default.name"));
@@ -765,8 +775,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         board.setSelectedByDefault(true);
         board.setBoardSequence(1);
         board.setFavoriteCounter(1);
-        //FIXME: nested exception is org.hibernate.exception.ConstraintViolationException: could not insert: [org.encuestame.persistence.domain.dashboard.Dashboard]
-        //getDashboardDao().saveOrUpdate(board);
+        getDashboardDao().saveOrUpdate(board);
+        return board;
     }
 
     /**
@@ -1313,4 +1323,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         }
     }
 
+    public IDashboardService getDashboardService() {
+        return dashboardService;
+    }
+
+    @Autowired
+    public void setDashboardService(IDashboardService dashboardService) {
+        this.dashboardService = dashboardService;
+    }
 }
