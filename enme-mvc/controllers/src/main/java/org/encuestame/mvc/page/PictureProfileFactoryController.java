@@ -74,7 +74,7 @@ public class PictureProfileFactoryController extends AbstractViewController {
     @ResponseBody
     public byte[] getPictureThumbnail(
             @PathVariable String username, final HttpServletResponse response){
-        System.out.println(this.getPicture(username, PictureType.THUMBNAIL));
+        //System.out.println(this.getPicture(username, PictureType.THUMBNAIL));
         return this.getPicture(username, PictureType.THUMBNAIL);
     }
 

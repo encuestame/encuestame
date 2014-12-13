@@ -98,7 +98,7 @@ public class SignInController extends AbstractSocialController{
         HttpServletRequest httpRequest){
         final StringBuilder url = new StringBuilder();
         final SocialProvider providerEnum = SocialProvider.getProvider(provider);
-        System.out.println("PROVIDER "+providerEnum);
+        //System.out.println("PROVIDER "+providerEnum);
         if (providerEnum == null) {
             url.append("404");
         } else {

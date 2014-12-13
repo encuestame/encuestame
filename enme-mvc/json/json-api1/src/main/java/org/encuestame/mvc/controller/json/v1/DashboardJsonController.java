@@ -244,8 +244,8 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
             HttpServletRequest request,
             HttpServletResponse response){
         try {
-             System.out.println(boardId);
-            System.out.println(gadgetId);
+             //System.out.println(boardId);
+             //System.out.println(gadgetId);
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
              final Gadget gadget = getDashboardService().addGadgetOnDashboard(Long.valueOf(boardId), gadgetId);
              jsonResponse.put("gadget", ConvertDomainBean.convertGadgetDomaintoBean(gadget));
