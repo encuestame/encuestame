@@ -131,7 +131,7 @@ public class ValidateOperations {
         log.debug("validating username... ");
         boolean valid = false;
         if (username == null) {
-            log.warn("username is null");
+            log.debug("username is null");
             valid = false;
         } else if(username.length() >= MIN_USERNAME_LENGTH) {
             log.debug("fect user by username: "+user);

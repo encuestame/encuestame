@@ -61,9 +61,11 @@ public class SignUpController extends AbstractViewController {
      */
     @RequestMapping(value = "/user/signup", method = RequestMethod.GET)
     public String addHandler(
-            final Model model,
+            final ModelMap model,
+            HttpServletResponse response,
             final HttpServletRequest request) {
         final Boolean privateHome = EnMePlaceHolderConfigurer.getBooleanProperty("application.signup.enabled");
+        addi18nProperty(model, "m_011", request, response);
         if (!privateHome) {
             log.debug("signup is disabled");
             return "redirect:/signin";
@@ -90,6 +92,8 @@ public class SignUpController extends AbstractViewController {
      */
     @RequestMapping(value = "/user/signup/create", method = RequestMethod.POST)
     public String processSubmit(final ModelMap model,
+                                final HttpServletRequest request,
+                                HttpServletResponse response,
             @RequestParam(value = "realName", required = true, defaultValue = "") String realName,
             @RequestParam(value = "password", required = true) String password,
             @RequestParam(value = "username", required = true) String usernameForm,
@@ -118,6 +122,9 @@ public class SignUpController extends AbstractViewController {
             RequestSessionMap.getCurrent(req).put("signupError", Boolean.TRUE);
             finalPath = "redirect:/user/signup";
         }
+        //i18n
+        addi18nProperty(model, "m_011", request, response);
+
         return finalPath;
     }
 
