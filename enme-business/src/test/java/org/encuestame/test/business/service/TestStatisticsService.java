@@ -42,7 +42,6 @@ import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.categories.test.DefaultTest;
-import org.encuestame.utils.categories.test.PerformanceTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
@@ -123,7 +122,6 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         createTweetPollResult(initTweetPollSwicht, "192.168.0.1");
         createTweetPollResult(initTweetPollSwicht, "192.168.0.2");
         this.initSocialAccount = createDefaultSettedSocialAccount(this.secondary);
-
         request = new MockHttpServletRequest();
         request.addPreferredLocale(Locale.ENGLISH);
     }
@@ -615,7 +613,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-  	@Category(PerformanceTest.class)
+  	@Category(DefaultTest.class)
 	@Test
     public void testGetHashTagUsedOnItemsVotedbySevenDaysPeriod()
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -636,7 +634,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-    @Category(PerformanceTest.class)
+    @Category(DefaultTest.class)
    // @Test
     public void testGetHashTagUsedOnItemsVotedbyThirtyDayPeriod()
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -655,7 +653,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-    @Category(PerformanceTest.class)
+    @Category(DefaultTest.class)
   //  @Test
     public void testGetHashTagUsedOnItemsVotedbyOneYearPeriod()
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -675,7 +673,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-    @Category(PerformanceTest.class)
+    @Category(DefaultTest.class)
 	@Test
     public void testGetHashTagUsedOnItemsVotedbyAllPeriod()
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -694,7 +692,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-	@Category(PerformanceTest.class)
+	@Category(DefaultTest.class)
 	@Test
     public void testGetHashTagUsedOnItemsVotedbyTwentyFourHoursPeriod()
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -1509,7 +1507,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
                 "What is your favorite kind of song?", secondary.getAccount());
         // TP 1
         final TweetPoll tp1 = createPublishedTweetPoll(
-                this.secondary.getAccount(), myFirstQuestion,
+                this.secondary, myFirstQuestion,
                 releaseDate.getTime());
         tp1.getHashTags().add(myHashTag);
         getTweetPoll().saveOrUpdate(tp1);
@@ -1518,7 +1516,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         // TP 2
         releaseDate.add(Calendar.HOUR, -1);
         final TweetPoll tp2 = createPublishedTweetPoll(
-                this.secondary.getAccount(), myFirstQuestion,
+                this.secondary, myFirstQuestion,
                 releaseDate.getTime());
         tp2.getHashTags().add(myHashTag);
         getTweetPoll().saveOrUpdate(tp2);
@@ -1527,7 +1525,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         // TP 3
         releaseDate.add(Calendar.HOUR, -3);
         final TweetPoll tp3 = createPublishedTweetPoll(
-                this.secondary.getAccount(), myFirstQuestion,
+                this.secondary, myFirstQuestion,
                 releaseDate.getTime());
         tp3.getHashTags().add(myHashTag);
         getTweetPoll().saveOrUpdate(tp3);
@@ -1537,7 +1535,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         releaseDate.add(Calendar.DATE, -1);
         releaseDate.add(Calendar.HOUR, -5);
         final TweetPoll tp4 = createPublishedTweetPoll(
-                this.secondary.getAccount(), myFirstQuestion,
+                this.secondary, myFirstQuestion,
                 releaseDate.getTime());
         tp4.getHashTags().add(myHashTag);
         getTweetPoll().saveOrUpdate(tp4);
@@ -1546,7 +1544,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         // TP 5
         releaseDate.add(Calendar.DATE, -1);
         final TweetPoll tp5 = createPublishedTweetPoll(
-                this.secondary.getAccount(), myFirstQuestion,
+                this.secondary, myFirstQuestion,
                 releaseDate.getTime());
         tp5.getHashTags().add(myHashTag);
         getTweetPoll().saveOrUpdate(tp5);
@@ -1556,7 +1554,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         releaseDate.add(Calendar.DATE, -1);
         releaseDate.add(Calendar.HOUR, -2);
         final TweetPoll tp6 = createPublishedTweetPoll(
-                this.secondary.getAccount(), myFirstQuestion,
+                this.secondary, myFirstQuestion,
                 releaseDate.getTime());
         tp6.getHashTags().add(myHashTag);
         getTweetPoll().saveOrUpdate(tp6);
@@ -1565,7 +1563,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         // TP 7
         releaseDate.add(Calendar.YEAR, -1);
         final TweetPoll tp7 = createPublishedTweetPoll(
-                this.secondary.getAccount(), myFirstQuestion,
+                this.secondary, myFirstQuestion,
                 releaseDate.getTime());
         tp7.getHashTags().add(myHashTag);
         getTweetPoll().saveOrUpdate(tp7);
@@ -1574,7 +1572,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         // TP 8
         releaseDate.add(Calendar.MONTH, -1);
         final TweetPoll tp8 = createPublishedTweetPoll(
-                this.secondary.getAccount(), myFirstQuestion,
+                this.secondary, myFirstQuestion,
                 releaseDate.getTime());
         tp8.getHashTags().add(myHashTag);
         getTweetPoll().saveOrUpdate(tp8);

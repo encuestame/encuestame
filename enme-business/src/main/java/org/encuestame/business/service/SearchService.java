@@ -43,6 +43,7 @@ import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitAttachment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Search Service.
@@ -51,6 +52,7 @@ import org.springframework.stereotype.Service;
  * @since February 09, 2011
  */
 @Service
+@Transactional
 public class SearchService extends AbstractIndexService implements
         SearchServiceOperations {
 

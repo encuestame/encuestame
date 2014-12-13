@@ -46,7 +46,7 @@
                         <tasks>
                             <untar compression="gzip" src="${project.build.directory}/dojo-release-${dojo.version}-src.tar.gz" dest="${project.build.directory}/temp" />
                             <!--<untar compression="gzip"-->
-                                   <!--src="/Users/xxx/bin/dojo-zip/dojo-release-${dojo.version}-src.tar.gz"-->
+                                   <!--src="/Users/jpicado/bin/dojo-release-${dojo.version}-src.tar.gz"-->
                                    <!--dest="${project.build.directory}/temp" />-->
                         </tasks>
                     </configuration>
@@ -143,6 +143,14 @@
                   <directory>${project.build.directory}/dojo-compiled/${project.version}</directory>
                   <targetPath>resource/js</targetPath>
                 </resource>
+                  <resource>
+                      <directory>${basedir}/src/main/resources/resource/js/widget</directory>
+                      <includes>
+                          <include>build/*</include>
+                          <include>dist/*</include>
+                      </includes>
+                      <targetPath>resource/js/widget</targetPath>
+                  </resource>
               </webResources>
             </configuration>
             <version>${maven.war.plugin}</version>
@@ -167,7 +175,7 @@
     <dependency>
       <groupId>com.google.javascript</groupId>
       <artifactId>closure-compiler</artifactId>
-      <version>r2388</version>
+      <version>${google.closure}</version>
     </dependency>
     <dependency>
       <groupId>rhino</groupId>

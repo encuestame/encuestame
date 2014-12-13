@@ -56,6 +56,7 @@ drop table tweetpoll_switch if exists
 drop table userAccount if exists
 drop table userAccount_followers if exists
 drop table userAccount_permission if exists
-drop table userAccount_project if exists 
-drop table question_preferences if exists  
+drop table userAccount_project if exists
+drop table question_preferences if exists
 drop table survey_temporal_result if exists
+drop table helpPage if exists

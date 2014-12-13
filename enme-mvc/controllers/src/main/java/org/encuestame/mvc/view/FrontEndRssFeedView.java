@@ -15,6 +15,7 @@ package org.encuestame.mvc.view;
 import java.util.Date;
 
 import org.encuestame.core.rss.AbstractBaseRssFeedView;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
 import com.sun.syndication.feed.rss.Channel;
@@ -31,11 +32,12 @@ public class FrontEndRssFeedView extends AbstractBaseRssFeedView{
     protected Channel newFeed() {
         final Channel channel = new Channel("rss_2.0");
         channel.setPubDate(new Date());
-        channel.setDescription("RSS Description");
-        channel.setTitle("FrontEnd Published");
-        channel.setLink("link");
-        channel.setCopyright("2011");
-        channel.setPubDate(new Date());
+        channel.setDescription("Last Items Published");
+        channel.setTitle("Last Items Published");
+        final DateTime time = new DateTime();
+        channel.setCopyright(String.valueOf(time.getYear()));
+        channel.setPubDate(time.toDate());
+        channel.setLink("");
         return  channel;
     }
 }

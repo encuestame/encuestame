@@ -25,9 +25,9 @@
         <put-attribute name="dojo-layers" expression="/WEB-INF/views/home/dojo-cloud.jsp" />
     </definition>
 
-    <definition name="user/help" extends="page">
-        <put-attribute name="title" value="Help | encuestame" />
-        <put-attribute name="content" expression="/WEB-INF/views/home/help.jsp" />
+    <definition name="user/welcome" extends="page">
+        <put-attribute name="title" value="Welcome | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/home/welcome.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/home/css_home.jsp" />
         <put-attribute name="dojo-layers" expression="/WEB-INF/views/home/dojo-help.jsp" />
     </definition>

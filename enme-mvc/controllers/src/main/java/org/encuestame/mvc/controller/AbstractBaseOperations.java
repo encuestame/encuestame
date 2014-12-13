@@ -41,6 +41,7 @@ import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.service.AbstractSecurityContext;
+import org.encuestame.core.service.MessageSourceFactoryBean;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.imp.GeoLocationSupport;
 import org.encuestame.core.service.imp.ICommentService;
@@ -120,16 +121,49 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      private ReCaptcha reCaptcha;
 
      /**
-      * 
+      *
       */
      @Resource
-	 private LocaleResolver localeResolver;     
-     
+     private LocaleResolver localeResolver;
+
     /**
      * {@link ServiceManager}.
      */
-    @Autowired
     private IServiceManager serviceManager;
+
+    /**
+     *
+     */
+    @Resource(name = "helpsLinks")
+    List<String> listPaths;
+
+    /**
+     *
+     * @return
+     */
+    public List<String> getListPaths() {
+        return listPaths;
+    }
+
+
+    private MessageSourceFactoryBean messageSourceFactoryBean;
+
+
+    /**
+     * @return the messageSourceFactoryBean
+     */
+    public MessageSourceFactoryBean getMessageSourceFactoryBean() {
+        return messageSourceFactoryBean;
+    }
+
+    /**
+     * @param messageSourceFactoryBean the messageSourceFactoryBean to set
+     */
+    @Autowired
+    public void setMessageSourceFactoryBean(
+            MessageSourceFactoryBean messageSourceFactoryBean) {
+        this.messageSourceFactoryBean = messageSourceFactoryBean;
+    }
 
     /** Force Proxy Pass Enabled. **/
     @Value("${application.proxyPass}") private Boolean proxyPass;
@@ -359,7 +393,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
             final Object[] args) {
         String stringValue = "";
         try {
-            stringValue = getServiceManager().getMessageSource().getMessage(message, args, getLocale(request));
+            stringValue = this.getMessageSourceFactoryBean().getMessageSource().getMessage(message, args, getLocale(request));
         } catch (Exception e) {
             log.error(e);
         }
@@ -414,6 +448,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param serviceManager
      *            the serviceManager to set
      */
+    @Autowired
     public void setServiceManager(IServiceManager serviceManager) {
         this.serviceManager = serviceManager;
     }
@@ -618,23 +653,23 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
     /**
-     * 
+     *
      * @param model
      * @param key
      * @param request
      */
     public void addi18nProperty(
-    		ModelMap model, 
-    		final String key, 
-    		final HttpServletRequest request,
-    		final HttpServletResponse response) {
-    	log.debug("--- after addi18nProperty -->" + request.getLocale().toLanguageTag());
-		try {
-			getLocaleResolver().setLocale(request, response, getUserAccountLocale(getByUsername(getUserPrincipalUsername())));
-		} catch (EnMeNoResultsFoundException e) { 
-			// 	FIXME: just ignore the locale, for now.		
-		}
-		log.debug("--- before addi18nProperty -->" + request.getLocale().toLanguageTag());
+            ModelMap model,
+            final String key,
+            final HttpServletRequest request,
+            final HttpServletResponse response) {
+        log.debug("--- after addi18nProperty -->" + request.getLocale().toLanguageTag());
+        try {
+            getLocaleResolver().setLocale(request, response, getUserAccountLocale(getByUsername(getUserPrincipalUsername())));
+        } catch (EnMeNoResultsFoundException e) {
+            // 	FIXME: just ignore the locale, for now.
+        }
+        log.debug("--- before addi18nProperty -->" + request.getLocale().toLanguageTag());
         @SuppressWarnings("unchecked")
         HashMap<String, String> i18n = (HashMap<String, String>) model.get("i18n");
         if (i18n == null) {
@@ -642,7 +677,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
             model.addAttribute("i18n", i18n);
         }
         i18n.put(key, getMessage(key, request, null));
-    }    
+    }
 
    /**
     * If is not complete check and validate current status.
@@ -666,8 +701,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     * Add to model the social picker messages.
     * @param model
     */
-   public void addSocialPickerWidgetMessages(ModelMap model, HttpServletRequest request,
-   		HttpServletResponse response) {
+   public void addSocialPickerWidgetMessages(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
        addi18nProperty(model, "social_picker_only_selected", request, response);
        addi18nProperty(model, "social_picker_select_all", request, response);
        addi18nProperty(model, "social_picker_unselect_all", request, response);
@@ -679,11 +713,11 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
    /**
     *
     * @param model
- * @param response 
+ * @param response
     */
    public void addItemsManangeMessages(ModelMap model, final HttpServletRequest request, HttpServletResponse response) {
-	   
-	   addi18nProperty(model, "detail_manage_by_account", request, response);
+
+       addi18nProperty(model, "detail_manage_by_account", request, response);
        addi18nProperty(model, "detail_manage_today",request, response);
        addi18nProperty(model, "detail_manage_last_week", request, response);
        addi18nProperty(model, "detail_manage_favorites", request, response);
@@ -715,34 +749,34 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
        addi18nProperty(model, "commons_no", request, response);
        addSocialPickerWidgetMessages(model, request, response);
    }
-   
+
    /**
-    * 
+    *
     * @return
     */
    public Locale getUserAccountLocale(final UserAccount account) {
-	   //try {	
-		   	//final UserAccount account = getSecurityService().findUserByUserName(username);
-		   	if (account != null) {
-		   		final String language = account.getLanguage();
-				final Locale lang = WidgetUtil.toLocale(language);
-				return lang;
-		   	} else {	   		
-		   		//throw new EnMeExpcetion("anonymous user does not have locale");
-		   		log.info(account + " user does not have locale");
-		   		return Locale.ENGLISH;
-		   	}
-		//} catch (EnMeExpcetion e) {
-			//log.warn(e.getMessage());
-			//return Locale.ENGLISH;
-		//}		
+       //try {
+               //final UserAccount account = getSecurityService().findUserByUserName(username);
+               if (account != null) {
+                   final String language = account.getLanguage();
+                final Locale lang = WidgetUtil.toLocale(language);
+                return lang;
+               } else {
+                   //throw new EnMeExpcetion("anonymous user does not have locale");
+                   log.info(account + " user does not have locale");
+                   return Locale.ENGLISH;
+               }
+        //} catch (EnMeExpcetion e) {
+            //log.warn(e.getMessage());
+            //return Locale.ENGLISH;
+        //}
    }
-	
-	/**
-	 * @return the localeResolver
-	 */
-	public LocaleResolver getLocaleResolver() {
-		return localeResolver;
-	}
-   
+
+    /**
+     * @return the localeResolver
+     */
+    public LocaleResolver getLocaleResolver() {
+        return localeResolver;
+    }
+
 }

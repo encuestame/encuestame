@@ -111,7 +111,7 @@ public class HomeController extends AbstractViewController {
                                 ConvertDomainBean
                                         .convertPollListToHomeBean(service
                                                 .searchItemsByPoll(period, EnMeUtils.DEFAULT_START,
-                                                        this.homeMaxItems)));
+                                                        this.homeMaxItems, request)));
                     } else if ("survey".equals(view)) {
                         //TODO: ENCUESTAME-345
                         model.addAttribute("items", ListUtils.EMPTY_LIST);
@@ -125,7 +125,7 @@ public class HomeController extends AbstractViewController {
                 model.addAttribute("hashTags", service.getHashTags(this.homeHashtagMaxItems, EnMeUtils.DEFAULT_START, ""));
                 //TODO: search hashtags and other information.
                 //TODO: comments: ENCUESTAME-346
-            } catch (EnMeSearchException e) {
+            } catch (EnMeSearchException | EnMeNoResultsFoundException e) {
                 log.error(e);
                 return "error";
             }
@@ -146,41 +146,6 @@ public class HomeController extends AbstractViewController {
         return "redirect:/home";
     }
 
-    /**
-     * Humans Txt Definition.
-     * @param model
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping(value = "/humans.txt", method = RequestMethod.GET)
-    public String humansTxT(ModelMap model, HttpServletRequest request,
-            HttpServletResponse response) {
-        return "redirect:/home";
-    }
-
-    /**
-     * Robots Txt Definition.
-     * @param model
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping(value = "/robots.txt", method = RequestMethod.GET)
-    public String robotsTxT(ModelMap model, HttpServletRequest request,
-            HttpServletResponse response) {
-        return "redirect:/home";
-    }
-
-    /**
-     * Help View.
-     * @param model model
-     * @return template
-     */
-    @RequestMapping(value = "/user/help", method = RequestMethod.GET)
-    public String dashBoardController(ModelMap model, UserAccount account) {
-        return "user/help";
-    }
 
     /**
      * Display a question view.
@@ -201,34 +166,27 @@ public class HomeController extends AbstractViewController {
             try {
                 model.put("question", getSearchService().getQuestionInfo(Long.valueOf(id)));
             } catch (EnMeNoResultsFoundException | NumberFormatException e) {
-                 e.printStackTrace();
                  log.error(e);
-                return "500";
+                return "404";
             }
             return "question/detail";
     }
 
-    /**
-     *
-     * @param model
-     * @param type
-     * @param id
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping(value = "/embebed/iframe/preview/{type}/{id}", method = RequestMethod.GET)
-    public String embebedPreviewIframe(
+
+    @RequestMapping(value = "/user/welcome", method = RequestMethod.GET)
+    public String welcome(
             final ModelMap model,
-            @PathVariable String type,
-            @PathVariable String id,
             HttpServletRequest request,
             HttpServletResponse response) {
-            model.put("id", id);
-            model.put("class_type", TypeSearchResult.getCSSClass(TypeSearchResult.getTypeSearchResult(type)));
-            model.put("domain", WidgetUtil.getRelativeDomain(request));
-            model.put("url", "#");
-            return "display/iframe";
+
+            final Boolean welcome = true;
+            if (welcome) {
+                request.setAttribute("hide_header_menu", true);
+                return "user/welcome";
+            } else {
+                return "redirect:/user/dashboard";
+            }
+
     }
 
     /**
@@ -245,7 +203,7 @@ public class HomeController extends AbstractViewController {
             HttpServletResponse response) {
         username = filterValue(username);
         try {
-        final UserAccountBean accountBean = getSecurityService().searchUserByUsername(username);
+            final UserAccountBean accountBean = getSecurityService().searchUserByUsername(username);
             if (accountBean == null) {
                 return "404";
             } else {
@@ -253,38 +211,17 @@ public class HomeController extends AbstractViewController {
                 //2 - hashtag created by {username}
                 //3 - social link published by {username}
                 //4 - last comments
-                log.debug("user --> "+accountBean);
+                log.debug("user --> " + accountBean);
                 model.put("profile", accountBean);
                 final List<HomeBean> lastItems = getFrontService().getLastItemsPublishedFromUserAccount(username, this.profileDefaultItems, false,
-                                     request);
+                        request);
                 model.put("lastItems", lastItems);
                 return "profile/view";
             }
         } catch (EnMeNoResultsFoundException e) {
-             e.printStackTrace();
-             log.error(e);
+            e.printStackTrace();
+            log.error(e);
             return "500";
         }
-    }
-
-    /**
-     * @param profileDefaultItems the profileDefaultItems to set
-     */
-    public void setProfileDefaultItems(final Integer profileDefaultItems) {
-        this.profileDefaultItems = profileDefaultItems;
-    }
-
-    /**
-     * @param homeMaxItems the homeMaxItems to set
-     */
-    public void setHomeMaxItems(final Integer homeMaxItems) {
-        this.homeMaxItems = homeMaxItems;
-    }
-
-    /**
-     * @param homeHashtagMaxItems the homeHashtagMaxItems to set
-     */
-    public void setHomeHashtagMaxItems(final Integer homeHashtagMaxItems) {
-        this.homeHashtagMaxItems = homeHashtagMaxItems;
     }
 }

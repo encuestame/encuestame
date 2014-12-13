@@ -20,7 +20,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.encuestame.core.search.DirectoryIndexStore;
-import org.encuestame.core.service.DirectorySetupOperations;
+import org.encuestame.core.service.startup.DirectorySetupOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 
 /**

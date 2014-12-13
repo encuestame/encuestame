@@ -503,4 +503,20 @@ public interface SecurityOperations extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      */
     UserAccount getUserbyId (final Long id) throws EnMeNoResultsFoundException;
+
+    /**
+     *
+     * @param currentPath
+     * @param userAccount
+     * @return
+     */
+    Boolean checkHelpURL(final String currentPath, final UserAccount userAccount);
+
+    /**
+     *
+     * @param path
+     * @param userAccount
+     * @param status
+     */
+    void updateHelpStatus(final String path, final UserAccount userAccount, final Boolean status);
 }

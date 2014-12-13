@@ -33,7 +33,7 @@
                          <section data-dojo-type="me/web/widget/results/answers/GenericPercentResult"
                            itemId="${item.answerBean.answerId}"
                            color="${item.answerBean.color}"
-                           votes="${item.result}"
+                           votes="${item.votes}"
                            percent="${item.percent}"
                            questionId="${item.answerBean.questionId}"
                            labelResponse="${item.answerBean.answers}">

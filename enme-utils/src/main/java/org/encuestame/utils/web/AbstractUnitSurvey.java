@@ -17,8 +17,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.encuestame.utils.enums.TypeSearchResult;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -36,6 +37,17 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /** List of HashTags. **/
     @JsonProperty(value = "hashtags")
     private List<HashTagBean> hashTags = new ArrayList<HashTagBean>();
+
+    //Ignored for now due ENCUESTAME-669
+    //@JsonProperty(value = "comments")
+    @JsonIgnore
+    private List<CommentBean> comments = new ArrayList<CommentBean>();
+
+    /**
+     * Define the type.
+     */
+    @JsonProperty(value = "type_item")
+    private TypeSearchResult typeSearchResult;
 
     /**
      * Define if the abstract survey is restricted by password.
@@ -73,10 +85,10 @@ public abstract class AbstractUnitSurvey implements Serializable {
 
     @JsonProperty(value = "create_date")
     private String createDate;
-    
+
     @JsonIgnore
     private Date createDateComparable;
-    
+
     /** Relevance. **/
     @JsonProperty(value = "relevance")
     private Long relevance;
@@ -105,8 +117,8 @@ public abstract class AbstractUnitSurvey implements Serializable {
     @JsonProperty(value = "is_show_results")
     @Deprecated
     private Boolean isShowResults;
-    
-    
+
+
     @JsonProperty(value = "show_results")
     private String showResults;
 
@@ -546,13 +558,13 @@ public abstract class AbstractUnitSurvey implements Serializable {
         final StringBuffer buffer = new StringBuffer();
         int size = getHashTags().size();
         for (HashTagBean bean : getHashTags()) {
-        	//check the hashtag is emtpy
-        	if (!bean.getHashTagName().isEmpty()) {
-		        buffer.append(bean.getHashTagName());
-		        if (!(--size == 0)) {
-		            buffer.append(",");
-		        }
-        	}
+            //check the hashtag is emtpy
+            if (!bean.getHashTagName().isEmpty()) {
+                buffer.append(bean.getHashTagName());
+                if (!(--size == 0)) {
+                    buffer.append(",");
+                }
+            }
         }
         this.hashtagAsString = buffer.toString();
         return hashtagAsString;
@@ -577,33 +589,64 @@ public abstract class AbstractUnitSurvey implements Serializable {
         this.isPasswordRestriction = isPasswordRestriction;
     }
 
-	/**
-	 * @return the createDateComparable
-	 */
+    /**
+     * @return the createDateComparable
+     */
     @JsonIgnore
-	public Date getCreateDateComparable() {
-		return createDateComparable;
-	}
+    public Date getCreateDateComparable() {
+        return createDateComparable;
+    }
 
-	/**
-	 * @param createDateComparable the createDateComparable to set
-	 */
-	public void setCreateDateComparable(Date createDateComparable) {
-		this.createDateComparable = createDateComparable;
-	}
+    /**
+     * @param createDateComparable the createDateComparable to set
+     */
+    public void setCreateDateComparable(Date createDateComparable) {
+        this.createDateComparable = createDateComparable;
+    }
 
-	/**
-	 * @param showResults the showResults to set
-	 */
-	public void setShowResults(String showResults) {
-		this.showResults = showResults;
-	}
+    /**
+     * @param showResults the showResults to set
+     */
+    public void setShowResults(String showResults) {
+        this.showResults = showResults;
+    }
 
-	/**
-	 * @return the showResults
-	 */
-	@JsonIgnore
-	public String getShowResults() {
-		return showResults;
-	}
+    /**
+     * @return the showResults
+     */
+    @JsonIgnore
+    public String getShowResults() {
+        return showResults;
+    }
+
+    /**
+     * @return the typeSearchResult
+     */
+    @JsonIgnore
+    public TypeSearchResult getTypeSearchResult() {
+        return typeSearchResult;
+    }
+
+    /**
+     * @param typeSearchResult the typeSearchResult to set
+     */
+    public void setTypeSearchResult(TypeSearchResult typeSearchResult) {
+        this.typeSearchResult = typeSearchResult;
+    }
+
+    /**
+     * @return the comments
+     */
+    @JsonIgnore
+    public List<CommentBean> getComments() {
+        return comments;
+    }
+
+    /**
+     * @param comments the comments to set
+     */
+    public void setComments(List<CommentBean> comments) {
+        this.comments = comments;
+    }
+
 }

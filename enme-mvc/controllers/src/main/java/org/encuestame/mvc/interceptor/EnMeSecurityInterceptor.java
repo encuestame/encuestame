@@ -84,6 +84,8 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
     	request.setAttribute("user_locale", WidgetUtil.getCurrentLocale(request));
+        request.setAttribute("hide_header_menu", false);
+        request.setAttribute("help_links", false);
         final Authentication auth = getSecCtx().getAuthentication();
         log.trace("preHandle security auth "+auth);
         if (!SecurityUtils.checkIsSessionIsExpired(auth)) {
@@ -91,22 +93,39 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
             if (SecurityUtils.checkIsSessionIsAnonymousUser(auth)) {
                 log.trace("session expired");
                 request.setAttribute("logged", false);
+                request.setAttribute("help_links", false);
             } else {
                 //cookies
                 log.trace("session is valid");
             	final String username = getUserPrincipalUsername();
-                final UserAccount user = getByUsername(username);        	
-        		if (username != EnMeUtils.ANONYMOUS_USER) {
+                final UserAccount user = getByUsername(username);
+                request.setAttribute("account", ConvertDomainBean.convertUserAccountToSignUpBean(user));
+                //help links ENCUESTAME-668
+                final String mappedPath = request.getRequestURI().replace(request.getContextPath(), "");
+                if (getListPaths().indexOf(mappedPath) != -1) { //path inside of the list of helps
+                    Boolean status = getSecurityService().checkHelpURL(mappedPath, getUserAccount());
+                    request.setAttribute("mappedPath", mappedPath);
+                    if (status) {
+                        request.setAttribute("help_links", true);
+                    } else {
+                        request.setAttribute("help_links", false);
+                    }
+                }
+                //
+                if (username != EnMeUtils.ANONYMOUS_USER) {
         			getLocaleResolver().setLocale(request, response, getUserAccountLocale(user));			
         		}
+
                 request.setAttribute("isActivated", user.getInviteCode() == null ? true : false);
+
                 log.trace("Account User Interceptor "+user);
-                request.setAttribute("account", ConvertDomainBean.convertUserAccountToSignUpBean(user));
+
+                //set language
                 final String lang = WidgetUtil.convertToDojoLocale(user.getLanguage());
                 log.debug("Language --->" + lang);
                 request.setAttribute("user_locale", user.getLanguage() == null ? WidgetUtil.getCurrentLocale(request): lang);
                 Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
-                if(cookieName != null){
+                if (cookieName != null) {
                     log.trace("Cookie "+cookieName.getName());
                     cookieName.setValue(RandomStringUtils.random(4)); //TODO: testing cookies.
                 }

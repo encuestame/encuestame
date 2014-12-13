@@ -12,221 +12,382 @@
  */
 package org.encuestame.core.util;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.velocity.app.VelocityEngine;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
+import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import com.sun.syndication.feed.atom.Entry;
 import com.sun.syndication.feed.atom.Link;
+import com.sun.syndication.feed.atom.Person;
+import com.sun.syndication.feed.rss.Category;
+import com.sun.syndication.feed.rss.Content;
+import com.sun.syndication.feed.rss.Description;
+import com.sun.syndication.feed.rss.Guid;
 import com.sun.syndication.feed.rss.Item;
 
 /**
  * Feed Utils.
- * 
+ *
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 3, 2010 10:19:37 AM
  * @version $Id:$
  */
 public class FeedUtils {
 
-	/**
-	 * Create Feed Link.
-	 * 
-	 * @param url
-	 * @param title
-	 * @return
-	 */
-	public static final Link createLink(final String url, final String title) {
-		Link link = new Link();
-		link.setHref(url);
-		link.setTitle(title);
-		return link;
-	}
+    private final static String CODE_TEMPLATES = "/org/encuestame/mvc/controller/syndication/templates/";
 
-	/**
-	 * Create url syndicate.
-	 * 
-	 * @param url
-	 * @param code
-	 * @param id
-	 * @param slugName
-	 * @return
-	 */
-	public static final String createUrlFeed(final String url,
-			final String code, final Long id, final String slugName) {
-		StringBuffer urlString = new StringBuffer(url);
-		urlString.append(code);
-		urlString.append(id);
-		urlString.append("/");
-		urlString.append(slugName);
-		return urlString.toString();
-	}
+    /**
+     * Create Feed Link.
+     *
+     * @param url
+     * @param title
+     * @return
+     */
+    public static final Link createLink(final String url, final String title) {
+        Link link = new Link();
+        link.setHref(url);
+        link.setTitle(title);
+        return link;
+    }
 
-	/**
-	 * Format date.
-	 * 
-	 * @param format
-	 * @param tweetPollDate
-	 * @return
-	 */
-	public static final String formattedDate(final String format,
-			final Date tweetPollDate) {
-		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-		String dateToFormat = formatDate.format(tweetPollDate);
-		return dateToFormat;
-	}
+    /**
+     * Create url syndicate.
+     *
+     * @param url
+     * @param code
+     * @param id
+     * @param slugName
+     * @return
+     */
+    public static final String createUrlFeed(final String url,
+            final String code, final Long id, final String slugName) {
+        StringBuffer urlString = new StringBuffer(url);
+        urlString.append(code);
+        urlString.append(id);
+        urlString.append("/");
+        urlString.append(slugName);
+        return urlString.toString();
+    }
 
-	/**
-	 * Convert tweetPoll bean to item.
-	 * 
-	 * @param tpBean
-	 * @param domain
-	 * @return
-	 */
-	public static final List<Item> convertTweetPollBeanToItemRSS(
-			final List<TweetPollBean> tpBean, final String domain) {
-		List<Item> entries = new ArrayList<Item>(tpBean.size());
-		for (TweetPollBean content : tpBean) {
-			String urlTweetPoll = FeedUtils.createUrlFeed(domain,
-					"/tweetpoll/", content.getId(), content.getQuestionBean()
-							.getSlugName());
-			final Item item = convertBeanToRSSItem(content.getCreatedDateAt(),
-					content.getQuestionBean().getQuestionName(),
-					content.getUpdateDate(), urlTweetPoll);
-			entries.add(item);
-		}
-		return entries;
-	}
+    /**
+     * Format date.
+     *
+     * @param format
+     * @param tweetPollDate
+     * @return
+     */
+    public static final String formattedDate(final String format,
+            final Date tweetPollDate) {
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        String dateToFormat = formatDate.format(tweetPollDate);
+        return dateToFormat;
+    }
 
-	/**
-	 * Convert tweetPollBean to entry atom.
-	 * 
-	 * @param tpBean
-	 * @param domain
-	 * @return
-	 */
-	public static final List<Entry> convertTweetPollBeanToEntryAtom(
-			final List<TweetPollBean> tpBean, final String domain) {
-		List<Entry> entries = new ArrayList<Entry>(tpBean.size());
-		for (TweetPollBean content : tpBean) {
-			String urlTweet = FeedUtils.createUrlFeed(domain, "/tweetpoll/",
-					content.getId(), content.getQuestionBean().getSlugName());
-			final Entry entry = convertBeanToAtomEntry(
-					content.getCreatedDateAt(), content.getQuestionBean()
-							.getQuestionName(), content.getUpdateDate(),
-					urlTweet);
-			entries.add(entry);
-		}
-		return entries;
-	}
+    /**
+     * Convert tweetPoll bean to RSS item.
+     * @param tpBean
+     * @param domain
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    public static final List<Item> convertTweetPollBeanToItemRSS(
+            final List<TweetPollBean> tpBean,
+            final String domain,
+            final VelocityEngine velocityEngine) throws UnsupportedEncodingException {
+        List<Item> entries = new ArrayList<Item>(tpBean.size());
+        for (TweetPollBean tweetPoll : tpBean) {
+            final String urlTweetPoll = FeedUtils.createUrlFeed(domain,
+                    "/tweetpoll/", tweetPoll.getId(), tweetPoll.getQuestionBean()
+                            .getSlugName());
+             final Item item = new Item();
+             final Map model = new HashMap();
+             model.put("mailLogo", EnMePlaceHolderConfigurer.getProperty("application.mail.logo.base64"));
+             model.put("domain", domain);
+             model.put("type",TypeSearchResult.getUrlPrefix(TypeSearchResult.TWEETPOLLRESULT));
+             model.put("type_id", tweetPoll.getId());
+             model.put("question", tweetPoll.getQuestionBean().getQuestionName());
+             model.put("anwers", tweetPoll.getAnswerSwitchBeans());
+             item.setTitle(tweetPoll.getQuestionBean().getQuestionName());
+             item.setPubDate(tweetPoll.getUpdateDate());
+             item.setLink(urlTweetPoll);
+             item.setAuthor(tweetPoll.getOwnerUsername());
+             final List<Category> categories = new ArrayList<Category>();
+             for (HashTagBean iterable_element : tweetPoll.getHashTags()) {
+                 Category ll = new Category();
+                 ll.setValue(iterable_element.getHashTagName());
+                 categories.add(ll);
+             }
+             item.setCategories(categories);
+             final Guid d = new Guid();
+             d.setPermaLink(true);
+             d.setValue(urlTweetPoll);
+             item.setGuid(d);
+             final Content c = new Content();
+             final String text = VelocityEngineUtils.mergeTemplateIntoString(
+                     velocityEngine, CODE_TEMPLATES  + "rss_item.vm", "utf-8", model);
+             final String string = new String(text.getBytes("UTF-8"));
+             c.setValue(string);
+             c.setType("text");
+             final Description dd = new Description();
+             dd.setValue(string);
+             dd.setType("html");
+             item.setDescription(dd);
+             item.setContent(c);
+            entries.add(item);
+        }
+        return entries;
+    }
 
-	/**
-	 * Convert pollBean to entry item.
-	 * 
-	 * @param pollBean
-	 * @param domain
-	 * @return
-	 */
-	public static final List<Item> convertPollBeanToItemRSS(
-			final List<PollBean> pollBean, final String domain) {
-		List<Item> entries = new ArrayList<Item>(pollBean.size());
-		for (PollBean content : pollBean) {
-			String urlPoll = FeedUtils.createUrlFeed(domain, "/poll/",
-					content.getId(), content.getQuestionBean().getSlugName());
-			final Item item = convertBeanToRSSItem(content.getCreationDate(),
-					content.getQuestionBean().getQuestionName(),
-					content.getUpdatedDate(), urlPoll);
-			entries.add(item);
-		}
-		return entries;
-	}
+    /**
+     * Convert tweetPollBean to entry ATOM.
+     * @param tpBean
+     * @param domain
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    public static final List<Entry> convertTweetPollBeanToEntryAtom(
+            final List<TweetPollBean> tpBean,
+            final String domain,
+            final VelocityEngine velocityEngine) throws UnsupportedEncodingException {
+        List<Entry> entries = new ArrayList<Entry>(tpBean.size());
+        for (TweetPollBean tweetPoll : tpBean) {
+            //JUAN
+            String urlPoll = FeedUtils.createUrlFeed(domain, "/poll/",
+                    tweetPoll.getId(), tweetPoll.getQuestionBean().getSlugName());
+            final Entry item = new Entry();
+            //replace
+            final Map model = new HashMap();
+            model.put("mailLogo", EnMePlaceHolderConfigurer.getProperty("application.mail.logo.base64"));
+            model.put("domain", domain);
+            model.put("type",TypeSearchResult.getUrlPrefix(TypeSearchResult.TWEETPOLLRESULT));
+            model.put("type_id", tweetPoll.getId());
+            model.put("question", tweetPoll.getQuestionBean().getQuestionName());
+            model.put("anwers", tweetPoll.getAnswerSwitchBeans());
+            item.setTitle(tweetPoll.getQuestionBean().getQuestionName());
+            item.setModified(tweetPoll.getUpdateDate());
+            item.setCreated(tweetPoll.getUpdateDate());
+            final List<Link> links = new ArrayList<Link>();
+            links.add(FeedUtils.createLink(urlPoll, tweetPoll.getQuestionBean().getQuestionName()));
+            item.setAlternateLinks(links);
+            final List<Person> authors = new ArrayList<Person>();
+            final Person person = new Person();
+            person.setName(tweetPoll.getOwnerUsername());
+            //TODO: set url profile link
+            authors.add(person);
+            item.setAuthors(authors);
+            final List<com.sun.syndication.feed.atom.Category> categories = new ArrayList<com.sun.syndication.feed.atom.Category>();
+            for (HashTagBean iterable_element : tweetPoll.getHashTags()) {
+                com.sun.syndication.feed.atom.Category ll = new com.sun.syndication.feed.atom.Category();
+                ll.setLabel(iterable_element.getHashTagName());
+                categories.add(ll);
+            }
+            item.setCategories(categories);
+            final Guid d = new Guid();
+            d.setPermaLink(true);
+            d.setValue(urlPoll);
+            final Content c = new Content();
+            final String text = VelocityEngineUtils.mergeTemplateIntoString(
+                    velocityEngine, CODE_TEMPLATES  + "rss_item.vm", "utf-8", model);
+            final String string = new String(text.getBytes("UTF-8"));
+            c.setValue(string);
+            c.setType("text");
+            final Description dd = new Description();
+            dd.setValue(string);
+            dd.setType("html");
+            final com.sun.syndication.feed.atom.Content content = new com.sun.syndication.feed.atom.Content();
+            content.setSrc(urlPoll);
+            content.setType("html");
+            content.setValue(text);
+            item.setSummary(content);
+            entries.add(item);
+        }
+        return entries;
+    }
 
-	/**
-	 * Convert {@link HomeBean} to RSS Item.
-	 * @param homeBean
-	 * @param domain
-	 * @return
-	 */
-	public static final List<Item> convertHomeBeanToItemRSS(
-			final List<HomeBean> homeBean, final String domain) {
-		List<Item> entries = new ArrayList<Item>(homeBean.size());
-		for (HomeBean content : homeBean) {
-			String urlPoll = FeedUtils.createUrlFeed(domain, "/"+content.getItemType()+"/",
-					content.getId(), content.getQuestionBean().getSlugName());
-			final Item item = convertBeanToRSSItem(
-					content.getCreateDateComparable(), content
-							.getQuestionBean().getQuestionName(),
-					content.getCreateDateComparable(), urlPoll);
-			entries.add(item);
-		}
-		return entries;
-	}
+    public static final List<Entry> convertPollBeanToEntryAtom(
+            final List<PollBean> tpBean,
+            final String domain,
+            final VelocityEngine velocityEngine) throws UnsupportedEncodingException {
+        List<Entry> entries = new ArrayList<Entry>(tpBean.size());
+        for (PollBean tweetPoll : tpBean) {
+            //JUAN
+            String urlPoll = FeedUtils.createUrlFeed(domain, "/poll/",
+                    tweetPoll.getId(), tweetPoll.getQuestionBean().getSlugName());
+            final Entry item = new Entry();
+            //replace
+            final Map model = new HashMap();
+            model.put("mailLogo", EnMePlaceHolderConfigurer.getProperty("application.mail.logo.base64"));
+            model.put("domain", domain);
+            model.put("type",TypeSearchResult.getUrlPrefix(TypeSearchResult.POLLRESULT));
+            model.put("type_id", tweetPoll.getId());
+            model.put("question", tweetPoll.getQuestionBean().getQuestionName());
+            model.put("anwers", tweetPoll.getResultsBean());
+            item.setTitle(tweetPoll.getQuestionBean().getQuestionName());
+            item.setModified(tweetPoll.getUpdatedDate());
+            item.setCreated(tweetPoll.getUpdatedDate());
+            final List<Link> links = new ArrayList<Link>();
+            links.add(FeedUtils.createLink(urlPoll, tweetPoll.getQuestionBean().getQuestionName()));
+            item.setAlternateLinks(links);
+            final List<Person> authors = new ArrayList<Person>();
+            final Person person = new Person();
+            person.setName(tweetPoll.getOwnerUsername());
+            //TODO: set url profile link
+            authors.add(person);
+            item.setAuthors(authors);
+            final List<com.sun.syndication.feed.atom.Category> categories = new ArrayList<com.sun.syndication.feed.atom.Category>();
+            for (HashTagBean iterable_element : tweetPoll.getHashTags()) {
+                com.sun.syndication.feed.atom.Category ll = new com.sun.syndication.feed.atom.Category();
+                ll.setLabel(iterable_element.getHashTagName());
+                categories.add(ll);
+            }
+            item.setCategories(categories);
+            final Guid d = new Guid();
+            d.setPermaLink(true);
+            d.setValue(urlPoll);
+            final Content c = new Content();
+            final String text = VelocityEngineUtils.mergeTemplateIntoString(
+                    velocityEngine, CODE_TEMPLATES  + "rss_poll_item.vm", "utf-8", model);
+            final String string = new String(text.getBytes("UTF-8"));
+            c.setValue(string);
+            c.setType("text");
+            final Description dd = new Description();
+            dd.setValue(string);
+            dd.setType("html");
+            final com.sun.syndication.feed.atom.Content content = new com.sun.syndication.feed.atom.Content();
+            content.setSrc(urlPoll);
+            content.setType("html");
+            content.setValue(text);
+            item.setSummary(content);
+            entries.add(item);
+        }
+        return entries;
+    }
 
-	/**
-	 * Convert bean to RSS Item.
-	 * 
-	 * @param createdAt
-	 * @param questionName
-	 * @param pubDate
-	 * @param urlLink
-	 * @return
-	 */
-	public static final Item convertBeanToRSSItem(final Date createdAt,
-			final String questionName, final Date pubDate, final String url) {
-		final Item item = new Item();
-		final String formatDate = FeedUtils.formattedDate("yyyy-MM-dd",
-				createdAt);
-		item.setTitle(String.format("On %s, %s publish", formatDate,
-				questionName));
-		item.setPubDate(pubDate);
-		item.setLink(url);
-		return item;
-	}
+    /**
+     * Convert pollBean to entry item.
+     *
+     * @param pollBean
+     * @param domain
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    public static final List<Item> convertPollBeanToItemRSS(
+            final List<PollBean> pollBean,
+            final String domain,
+            final VelocityEngine velocityEngine) throws UnsupportedEncodingException {
+        List<Item> entries = new ArrayList<Item>(pollBean.size());
+        for (PollBean poll : pollBean) {
+            String urlPoll = FeedUtils.createUrlFeed(domain, "/poll/",
+                    poll.getId(), poll.getQuestionBean().getSlugName());
+            final Item item = new Item();
+            final Map model = new HashMap();
+            model.put("mailLogo", EnMePlaceHolderConfigurer.getProperty("application.mail.logo.base64"));
+            model.put("domain", domain);
+            model.put("type",TypeSearchResult.getUrlPrefix(TypeSearchResult.POLLRESULT));
+            model.put("type_id", poll.getId());
+            model.put("question", poll.getQuestionBean().getQuestionName());
+            model.put("anwers", poll.getResultsBean());
+            item.setTitle(poll.getQuestionBean().getQuestionName());
+            item.setPubDate(poll.getUpdatedDate());
+            item.setLink(urlPoll);
+            item.setAuthor(poll.getOwnerUsername());
+            final List<Category> categories = new ArrayList<Category>();
+            for (HashTagBean iterable_element : poll.getHashTags()) {
+                Category ll = new Category();
+                ll.setValue(iterable_element.getHashTagName());
+                categories.add(ll);
+            }
+            item.setCategories(categories);
+            final Guid d = new Guid();
+            d.setPermaLink(true);
+            d.setValue(urlPoll);
+            item.setGuid(d);
+            final Content c = new Content();
+            final String text = VelocityEngineUtils.mergeTemplateIntoString(
+                    velocityEngine, CODE_TEMPLATES  + "rss_poll_item.vm", "utf-8", model);
+            final String string = new String(text.getBytes("UTF-8"));
+            c.setValue(string);
+            c.setType("text");
+            final Description dd = new Description();
+            dd.setValue(string);
+            dd.setType("html");
+            item.setDescription(dd);
+            item.setContent(c);
+            entries.add(item);
+        }
+        return entries;
+    }
 
-	/**
-	 * 
-	 * @param createdAt
-	 * @param questionName
-	 * @param pubDate
-	 * @param url
-	 * @return
-	 */
-	public static final Item convertBeanToRSSItem(final String createdAt,
-			final String questionName, final Date pubDate, final String url) {
-		final Item item = new Item();
-		item.setTitle(String.format("On %s, %s publish", createdAt,
-				questionName));
-		item.setPubDate(pubDate);
-		item.setLink(url);
-		return item;
-	}
+    public static final List<Entry> convertHomeBeanToItemATOM(
+            final List<HomeBean> homeBean,
+            final String domain,
+            final VelocityEngine velocityEngine) throws UnsupportedEncodingException {
+        return null;
+    }
 
-	/**
-	 * Convert bean to Atom entry.
-	 * 
-	 * @param createdAt
-	 * @param questionName
-	 * @param pubDate
-	 * @param urlLink
-	 * @return
-	 */
-	public static final Entry convertBeanToAtomEntry(final Date createdAt,
-			final String questionName, final Date pubDate, final String urlLink) {
-		final Entry entry = new Entry();
-		final String formatDate = FeedUtils.formattedDate("yyyy-MM-dd",
-				createdAt);
-		entry.setId(questionName);
-		entry.setTitle(String.format("On %s, %s publish", formatDate,
-				questionName));
-		entry.setUpdated(pubDate);
-		final List<Link> links = new ArrayList<Link>();
-		links.add(FeedUtils.createLink(urlLink, "Tweet Polls"));
-		entry.setAlternateLinks(links);
-		return entry;
-	}
+    /**
+     * Convert {@link HomeBean} to RSS Item.
+     * @param homeBean
+     * @param domain
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    public static final List<Item> convertHomeBeanToItemRSS(
+            final List<HomeBean> homeBean,
+            final String domain,
+            final VelocityEngine velocityEngine) throws UnsupportedEncodingException {
+        List<Item> entries = new ArrayList<Item>(homeBean.size());
+        for (HomeBean poll : homeBean) {
+            String urlPoll = FeedUtils.createUrlFeed(domain, "/"+poll.getItemType()+"/",
+                    poll.getId(), poll.getQuestionBean().getSlugName());
+                    final Item item = new Item();
+                    final Map model = new HashMap();
+                    model.put("mailLogo", EnMePlaceHolderConfigurer.getProperty("application.mail.logo.base64"));
+                    model.put("domain", domain);
+                    model.put("type", poll.getTypeSearchResult().toString());
+                    model.put("type_id", poll.getId());
+                    model.put("question", poll.getQuestionBean().getQuestionName());
+                    model.put("anwers", poll.getResultsBean());
+                    item.setTitle(poll.getQuestionBean().getQuestionName());
+                    item.setPubDate(poll.getCreateDateComparable());
+                    item.setLink(urlPoll);
+                    item.setAuthor(poll.getOwnerUsername());
+                    final List<Category> categories = new ArrayList<Category>();
+                    for (HashTagBean iterable_element : poll.getHashTags()) {
+                        Category ll = new Category();
+                        ll.setValue(iterable_element.getHashTagName());
+                        categories.add(ll);
+                    }
+                    item.setCategories(categories);
+                    final Guid d = new Guid();
+                    d.setPermaLink(true);
+                    d.setValue(urlPoll);
+                    item.setGuid(d);
+                    final Content c = new Content();
+                    final String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, CODE_TEMPLATES  + "rss_home_item.vm", "utf-8", model);
+                    final String string = new String(text.getBytes("UTF-8"));
+                    c.setValue(string);
+                    c.setType("text");
+                    final Description dd = new Description();
+                    dd.setValue(string);
+                    dd.setType("html");
+                    item.setDescription(dd);
+                    item.setContent(c);
+            entries.add(item);
+        }
+        return entries;
+    }
 }

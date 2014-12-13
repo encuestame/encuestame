@@ -30,15 +30,12 @@ import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
+import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
-import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.Group;
-import org.encuestame.persistence.domain.security.Permission;
-import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.security.*;
 import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -58,11 +55,13 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UserAccountBean;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.googlecode.ehcache.annotations.Cacheable;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Security Service Implementation.
@@ -70,12 +69,18 @@ import com.googlecode.ehcache.annotations.Cacheable;
  * @since 27/04/2009 11:35:01
  */
 @Service
+@Transactional
 public class SecurityService extends AbstractBaseService implements SecurityOperations {
 
     /**
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
+
+    /**
+     *
+     */
+    private IDashboardService dashboardService;
 
 
     /** Default User Permission **/
@@ -320,6 +325,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                }
           } catch (Exception e) {
               // TODO: handle exception Group don't belong to user
+              e.printStackTrace();
+              log.error(e);
           }
           return usersbyGroups;
     }
@@ -656,7 +663,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             log.debug("administration user ----> Adding Security label");
             
             // create a dashboard by default
-            //createDefaultDashboard(userAccount);
+            final Dashboard dashboard = createDefaultDashboard(userAccount);
+            getDashboardService().addGadgetOnDashboard(dashboard.getBoardId(), "stream");
 
             //Disabled auto-autenticate, the administrative user should sign in manually
             //SecurityUtils.authenticate(userAccount);
@@ -744,19 +752,19 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 null, false, userAccount);
         
         // create a dashboard by default
-        createDefaultDashboard(userAccount);
-
-        // disabled, user must sign in from web.
+        final Dashboard dashboard = createDefaultDashboard(userAccount);
+        getDashboardService().addGadgetOnDashboard(dashboard.getBoardId(), "stream", userAccount);
+        //FIXME: disabled, user must sign in from web.
+        // The reason is sometimes there are issues with the auto-login
         // SecurityUtils.authenticate(userAccount);
-
         return userAccount;
     }
     
     /**
-     * 
+     * It creates a default dashboard
      * @param userAccount
      */
-    private void createDefaultDashboard(final UserAccount userAccount) {
+    private Dashboard createDefaultDashboard(final UserAccount userAccount) {
     	 //FUTURE: this code must be in higher level {reuse code}
         final Dashboard board = new Dashboard();
         board.setPageBoardName(EnMePlaceHolderConfigurer.getProperty("dashboard.default.name") == null ? "" : EnMePlaceHolderConfigurer.getProperty("dashboard.default.name"));
@@ -767,8 +775,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         board.setSelectedByDefault(true);
         board.setBoardSequence(1);
         board.setFavoriteCounter(1);
-        //FIXME: nested exception is org.hibernate.exception.ConstraintViolationException: could not insert: [org.encuestame.persistence.domain.dashboard.Dashboard]
-        //getDashboardDao().saveOrUpdate(board);
+        getDashboardDao().saveOrUpdate(board);
+        return board;
     }
 
     /**
@@ -975,11 +983,16 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         log.debug("updating accoutn profile :" + property + " whith value "
                 + value);
         final UserAccount account = getUserAccount(getUserPrincipalUsername());
-        if (Profile.USERNAME.equals(property)) {
+       if (Profile.USERNAME.equals(property)) {
             account.setUsername(value.trim());
             //TODO: we need update authorities
-        } else if (Profile.EMAIL.equals(property)) {
+       } else if (Profile.EMAIL.equals(property)) {
             account.setUserEmail(value.trim());
+       } else if (Profile.WELCOME.equals(property)) {
+           account.setWelcomePage(Boolean.TRUE);
+       } else if (Profile.PAGE_INFO.equals(property)) {
+           // save the opossite that already had saved previously
+           account.setHelpLinks(!account.getHelpLinks());
        } else if (Profile.PICTURE.equals(property)) {
            PictureSource picture = PictureSource.findPictureSource(value);
            if (picture != null) {
@@ -1269,5 +1282,53 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
          }
     	return user;
 
+    }
+
+    /**
+     *
+     * @param currentPath
+     * @param userAccount
+     * @return
+     */
+    public Boolean checkHelpURL(final String currentPath, final UserAccount userAccount) {
+        List items = this.getAccountDao().getHelpReference(currentPath, userAccount);
+        return items.size() == 0 ? true : false;
+    }
+
+    /**
+     *
+     * @param path
+     * @param userAccount
+     * @param status
+     */
+    @Transactional(readOnly = false)
+    public void updateHelpStatus(final String path,
+                                 final UserAccount userAccount,
+                                 final Boolean status) {
+        final List<HelpPage> links = getAccountDao().getHelpReference(path, userAccount);
+        //System.out.println("found help page " + links.size());
+        if (links.size() > 0 && !status) { // previous exist
+            for (HelpPage page  : links) {
+                //System.out.println("removed help page " + page.getPagePath());
+                getAccountDao().delete(page);
+            }
+        } else { // we have to create a new link
+            if (status) {
+                final HelpPage page = new HelpPage();
+                page.setPagePath(path);
+                page.setUserAccount(userAccount);
+                getAccountDao().saveOrUpdate(page);
+                //System.out.println("created help page " + path);
+            }
+        }
+    }
+
+    public IDashboardService getDashboardService() {
+        return dashboardService;
+    }
+
+    @Autowired
+    public void setDashboardService(IDashboardService dashboardService) {
+        this.dashboardService = dashboardService;
     }
 }

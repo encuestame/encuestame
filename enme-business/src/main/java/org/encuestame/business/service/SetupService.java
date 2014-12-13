@@ -24,18 +24,25 @@ import org.encuestame.core.config.AdministratorProfile;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.config.XMLConfigurationFileSupport;
 import org.encuestame.core.filter.RequestSessionMap;
+import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.SetupOperations;
+import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.enums.TypeDatabase;
 import org.encuestame.utils.social.SocialNetworkBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSendException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * Define all setup operations.
@@ -43,6 +50,7 @@ import org.springframework.stereotype.Service;
  * @since Sep 9, 2011
  */
 @Service(value = "setupService")
+@Transactional
 public class SetupService extends AbstractBaseService implements SetupOperations {
 
     /** Log. **/
@@ -65,6 +73,11 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      */
     @Autowired
     private SecurityOperations securityOperations;
+
+    /**
+     *  {@link org.encuestame.core.service.startup.MailService}.
+     */
+    private MailServiceOperations mailService;
 
     /**
      * Set {@link InstallDatabaseOperations}.
@@ -99,13 +112,13 @@ public class SetupService extends AbstractBaseService implements SetupOperations
         config.getXmlConfiguration().addProperty("install.uuid", RandomStringUtils.randomAlphanumeric(50));
         log.debug("validateInstall ------------");
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.SetupOperations#finishInstall()
      */
     public void finishInstall(){
-    	EnMePlaceHolderConfigurer.setSystemInstalled(Boolean.TRUE);
+        EnMePlaceHolderConfigurer.setSystemInstalled(Boolean.TRUE);
     }
 
     /**
@@ -126,6 +139,28 @@ public class SetupService extends AbstractBaseService implements SetupOperations
             return "fail";
         }
         return "ok"; //TODO: replace by enum in the future.
+    }
+
+    /**
+     * Check the required
+     * @return
+     */
+    public String preCheckSetup(){
+        final String shortD = EnMePlaceHolderConfigurer.getProperty("short.default");
+        final ShortUrlProvider provider = ShortUrlProvider.get(shortD);
+        final String oURL = "http://www.google.es";
+        final String shorterUrl = WidgetUtil.createShortUrl(provider, oURL);
+        if (shorterUrl == oURL) {
+            return "no";
+        }
+        try {
+            getMailService().sendStartUpNotification("testing email installation");
+        } catch (Exception ex) {
+            RequestSessionMap.setErrorMessage(ex.getMessage());
+            ex.printStackTrace();
+            return "no";
+        }
+        return "yes";
     }
 
     /*
@@ -166,7 +201,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     /**
      * Check status version.
      * @return the status.
-     * @throws EnMeExpcetion 
+     * @throws EnMeExpcetion
      */
     public String checkStatus() throws EnMeExpcetion {
         //TODO: replace by ENUMs
@@ -177,18 +212,18 @@ public class SetupService extends AbstractBaseService implements SetupOperations
         final String installedVersion = EnMePlaceHolderConfigurer.getConfigurationManager().getInstalledVersion();
         log.debug("Installed Version : "+installedVersion);
         if (installedVersion != null) {
-        	final int[] versionAsArrayCurrent = EnMeUtils.cleanVersion(currentVersion);
-        	final int[] versionAsArrayInstalled = EnMeUtils.cleanVersion(installedVersion);            
+            final int[] versionAsArrayCurrent = EnMeUtils.cleanVersion(currentVersion);
+            final int[] versionAsArrayInstalled = EnMeUtils.cleanVersion(installedVersion);
             if (versionAsArrayCurrent[0] > versionAsArrayInstalled[0]) {
                 status = "upgrade";
             } else if (versionAsArrayCurrent[0] == versionAsArrayInstalled[0]) {
-            	 if (versionAsArrayCurrent[1] > versionAsArrayInstalled[1]) {
-                 	status = "upgrade";
-            	 } else if (versionAsArrayCurrent[1] == versionAsArrayInstalled[1]) {
-            		 if (versionAsArrayCurrent[2] > versionAsArrayInstalled[2]) {
-                      	status = "upgrade";
+                 if (versionAsArrayCurrent[1] > versionAsArrayInstalled[1]) {
+                     status = "upgrade";
+                 } else if (versionAsArrayCurrent[1] == versionAsArrayInstalled[1]) {
+                     if (versionAsArrayCurrent[2] > versionAsArrayInstalled[2]) {
+                          status = "upgrade";
                       }
-            	 }
+                 }
             }
         }
         return status;
@@ -317,7 +352,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      */
     @Override
     public List<SocialNetworkBean> listAllNetworkConfigurationSocial() {
-    	
+
         return null;
     }
 
@@ -335,9 +370,24 @@ public class SetupService extends AbstractBaseService implements SetupOperations
         this.csvParser = csvParser;
     }
 
-	@Override
-	public void checkSocialNetworks() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void checkSocialNetworks() {
+        // TODO Auto-generated method stub
+
+    }
+
+    /**
+     * @return the mailServiceOperations
+     */
+    public MailServiceOperations getMailService() {
+        return mailService;
+    }
+
+    /**
+     * @param mailServiceOperations the mailServiceOperations to set
+     */
+    @Resource(name= "mailService")
+    public void setMailService(final MailServiceOperations mailServiceOperations) {
+        this.mailService = mailServiceOperations;
+    }
 }

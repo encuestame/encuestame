@@ -14,8 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.imp.IFrontEndService;
-import org.encuestame.core.service.imp.SecurityOperations;
+import org.encuestame.core.service.imp.*;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.RecentItemsComparator;
@@ -56,6 +55,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @since Oct 17, 2010 11:29:38 AM
  */
 @Service
+@Transactional
 public class FrontEndServices  extends AbstractBaseService implements IFrontEndService {
 
      /** Front End Service Log. **/
@@ -65,35 +65,39 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     private final Integer MAX_RESULTS = 15;
 
     /** **/
-    @Autowired
-    private TweetPollService tweetPollService;
+    private ITweetPollService tweetPollService;
 
     /** {@link PollService} **/
-    @Autowired
-    private PollService pollService;
+    private IPollService pollService;
 
     /** {@link SurveyService} **/
-    @Autowired
-    private SurveyService surveyService;
+    private ISurveyService surveyService;
 
     /** {@link SecurityOperations} **/
-    @Autowired
     private SecurityOperations securityService;
 
-    /**
-     * Search Items By tweetPoll.
-     *
-     * @param maxResults
-     *            limit of results to return.
-     * @return result of the search.
-     * @throws EnMeSearchException
-     *             search exception.
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#searchItemsByTweetPoll(java.lang.String, java.lang.Integer, java.lang.Integer, javax.servlet.http.HttpServletRequest)
      */
     public List<TweetPollBean> searchItemsByTweetPoll(
             final String period,
             final Integer start,
             Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException {
+        return this.searchItemsByTweetPoll(period, start, maxResults, request, false);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#searchItemsByTweetPoll(java.lang.String, java.lang.Integer, java.lang.Integer, javax.servlet.http.HttpServletRequest, java.lang.Boolean)
+     */
+    public List<TweetPollBean> searchItemsByTweetPoll(
+            final String period,
+            final Integer start,
+            Integer maxResults,
+            final HttpServletRequest request,
+            final Boolean addResults) throws EnMeSearchException {
         final List<TweetPollBean> results = new ArrayList<TweetPollBean>();
         if (maxResults == null) {
             maxResults = this.MAX_RESULTS;
@@ -119,7 +123,11 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
                 items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(
                         start, maxResults));
             }
-            results.addAll(ConvertDomainBean.convertListToTweetPollBean(items));
+            if (addResults) {
+                results.addAll(getTweetPollService().setTweetPollListAnswers(items, true, request));
+            } else {
+                results.addAll(ConvertDomainBean.convertListToTweetPollBean(items));
+            }
             for (TweetPollBean tweetPoll : results) {
                 // log.debug("Iterate Home TweetPoll id: "+tweetPoll.getId());
                 // log.debug("Iterate Home Tweetpoll Hashtag Size: "+tweetPoll.getHashTags().size());
@@ -185,16 +193,29 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             final String period,
             final Integer start,
             final Integer maxResults,
-            final HttpServletRequest request) throws EnMeSearchException {
-        // Sorted list based comparable interface
+            final HttpServletRequest request) throws EnMeSearchException, EnMeNoResultsFoundException {
+       return this.getFrontEndItems(period, start, maxResults, false, request);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#getFrontEndItems(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Boolean, javax.servlet.http.HttpServletRequest)
+     */
+    public List<HomeBean> getFrontEndItems(
+            final String period,
+            final Integer start,
+            final Integer maxResults,
+            final Boolean addResults,
+            final HttpServletRequest request) throws EnMeSearchException, EnMeNoResultsFoundException {
+          // Sorted list based comparable interface
         List<HomeBean> allItems = new ArrayList<HomeBean>();
         final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(
-                period, start, maxResults, request);
+                period, start, maxResults, request, addResults);
         log.debug("FrontEnd TweetPoll items size  :" + tweetPollItems.size());
         allItems.addAll(ConvertDomainBean
                 .convertTweetPollListToHomeBean(tweetPollItems));
         final List<PollBean> pollItems = this.searchItemsByPoll(period, start,
-                maxResults);
+                maxResults, request, true);
         log.debug("FrontEnd Poll items size  :" + pollItems.size());
         allItems.addAll(ConvertDomainBean.convertPollListToHomeBean(pollItems));
         final List<SurveyBean> surveyItems = this.searchItemsBySurvey(period,
@@ -221,7 +242,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             final Boolean showUnSharedItems,
             final HttpServletRequest request) throws EnMeNoResultsFoundException {
             //get tweetpolls
-    	// TODO: parameter showUnSharedItems not used
+        // TODO: parameter showUnSharedItems not used
         final UserAccount user = getUserAccount(username);
         log.debug("getLastItemsPublishedFromUserAccount: "+user.getUsername());
         final List<TweetPoll> lastTp = getTweetPollDao().getTweetPollByUsername(maxResults, user);
@@ -246,16 +267,28 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         return totalItems;
     }
 
-    /**
-     * Search items by poll.
-     *
-     * @param period
-     * @param maxResults
-     * @return
-     * @throws EnMeSearchException
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#searchItemsByPoll(java.lang.String, java.lang.Integer, java.lang.Integer)
      */
-    public List<PollBean> searchItemsByPoll(final String period,
-            final Integer start, Integer maxResults) throws EnMeSearchException {
+    public List<PollBean> searchItemsByPoll(
+            final String period,
+            final Integer start,
+            Integer maxResults,
+            final HttpServletRequest request) throws EnMeSearchException{
+        return this.searchItemsByPoll(period, start, maxResults, request, false);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#searchItemsByPoll(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Boolean)
+     */
+    public List<PollBean> searchItemsByPoll(
+            final String period,
+            final Integer start,
+            Integer maxResults,
+            final HttpServletRequest request,
+            final Boolean addResults) throws EnMeSearchException {
         final List<PollBean> results = new ArrayList<PollBean>();
         log.debug("searchItemsByPoll period " + period);
         log.debug("searchItemsByPoll start " + period);
@@ -281,8 +314,14 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
                 items.addAll(getFrontEndDao().getPollFrontEndAllTime(start,
                         maxResults));
             }
-            log.debug("Poll:--> " + items.size());
-            results.addAll(ConvertDomainBean.convertListToPollBean((items)));
+            // if is required add results for each poll
+            if (addResults) {
+                // here the conversion to bean is made it inside the method
+                results.addAll(getPollService().getAnswersVotesByPoll(items));
+            } else {
+                results.addAll(ConvertDomainBean.convertListToPollBean((items)));
+            }
+            // add comments info
             for (PollBean pollbean : results) {
                 pollbean.setTotalComments(this.getTotalCommentsbyType(
                         pollbean.getId(), TypeSearchResult.POLL));
@@ -1315,31 +1354,31 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     }
 
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.encuestame.core.service.imp.IFrontEndService#getTotalItemsPublishedByType
-	 * (org.encuestame.persistence.domain.security.UserAccount,
-	 * java.lang.Boolean, org.encuestame.utils.enums.TypeSearchResult)
-	 */
-	public Long getTotalItemsPublishedByType(
-			final UserAccount user,
-			final Boolean status,
-			final TypeSearchResult typeSearch)
-			throws EnMeSearchException {
-    	Long totalBy = 0L;
-    	if(typeSearch.equals(TypeSearchResult.TWEETPOLL)){
-    		totalBy = getTotalTweetPollPublished(user, status);
-    	} else if (typeSearch.equals(TypeSearchResult.POLL)){
-    		totalBy = getTotalPollPublished(user, status);
-    	} else if (typeSearch.equals(TypeSearchResult.SURVEY)){
-    		// TODO: Create method to retrieve survey by user
-    		totalBy = 1L;
-    	} else {
-    		throw new EnMeSearchException("Type search parameter not valid: ");
-    	}
-    	return totalBy;
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.core.service.imp.IFrontEndService#getTotalItemsPublishedByType
+     * (org.encuestame.persistence.domain.security.UserAccount,
+     * java.lang.Boolean, org.encuestame.utils.enums.TypeSearchResult)
+     */
+    public Long getTotalItemsPublishedByType(
+            final UserAccount user,
+            final Boolean status,
+            final TypeSearchResult typeSearch)
+            throws EnMeSearchException {
+        Long totalBy = 0L;
+        if(typeSearch.equals(TypeSearchResult.TWEETPOLL)){
+            totalBy = getTotalTweetPollPublished(user, status);
+        } else if (typeSearch.equals(TypeSearchResult.POLL)){
+            totalBy = getTotalPollPublished(user, status);
+        } else if (typeSearch.equals(TypeSearchResult.SURVEY)){
+            // TODO: Create method to retrieve survey by user
+            totalBy = 1L;
+        } else {
+            throw new EnMeSearchException("Type search parameter not valid: ");
+        }
+        return totalBy;
     }
 
     /**
@@ -1384,7 +1423,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     /**
      * @return the tweetPollService
      */
-    public TweetPollService getTweetPollService() {
+    public ITweetPollService getTweetPollService() {
         return tweetPollService;
     }
 
@@ -1392,14 +1431,16 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param tweetPollService
      *            the tweetPollService to set
      */
-    public void setTweetPollService(TweetPollService tweetPollService) {
+    @Autowired
+    public void setTweetPollService(ITweetPollService tweetPollService) {
         this.tweetPollService = tweetPollService;
+
     }
 
     /**
      * @return the pollService
      */
-    public PollService getPollService() {
+    public IPollService getPollService() {
         return pollService;
     }
 
@@ -1407,14 +1448,15 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param pollService
      *            the pollService to set
      */
-    public void setPollService(final PollService pollService) {
+    @Autowired
+    public void setPollService(final IPollService pollService) {
         this.pollService = pollService;
     }
 
     /**
      * @return the surveyService
      */
-    public SurveyService getSurveyService() {
+    public ISurveyService getSurveyService() {
         return surveyService;
     }
 
@@ -1422,7 +1464,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param surveyService
      *            the surveyService to set
      */
-    public void setSurveyService(final SurveyService surveyService) {
+    @Autowired
+    public void setSurveyService(final ISurveyService surveyService) {
         this.surveyService = surveyService;
     }
 
@@ -1437,6 +1480,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param securityService
      *            the securityService to set
      */
+    @Autowired
     public void setSecurityService(SecurityOperations securityService) {
         this.securityService = securityService;
     }

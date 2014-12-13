@@ -34,8 +34,6 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.HitCategory;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -50,8 +48,8 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Table(name = "hits")
 @Indexed(index="hits")
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Hit { //TODO: Create superMapped class with Access rate.
 
     /** Id. **/
@@ -74,10 +72,10 @@ public class Hit { //TODO: Create superMapped class with Access rate.
 
     /** {@link HashTag} **/
     private HashTag hashTag;
-    
+
     /** {@link UserAccount} **/
     private UserAccount userAccount;
-   
+
     /** {@link HitCategory} **/
     private HitCategory hitCategory;
 
@@ -193,34 +191,34 @@ public class Hit { //TODO: Create superMapped class with Access rate.
         this.hashTag = hashTag;
     }
 
-	/**
-	 * @return the hitCategory
-	 */
+    /**
+     * @return the hitCategory
+     */
     @Column(name = "hit_category", nullable = false)
     @Enumerated(EnumType.ORDINAL)
-	public HitCategory getHitCategory() {
-		return hitCategory;
-	}
+    public HitCategory getHitCategory() {
+        return hitCategory;
+    }
 
-	/**
-	 * @param hitCategory the hitCategory to set
-	 */
-	public void setHitCategory(final HitCategory hitCategory) {
-		this.hitCategory = hitCategory;
-	}
+    /**
+     * @param hitCategory the hitCategory to set
+     */
+    public void setHitCategory(final HitCategory hitCategory) {
+        this.hitCategory = hitCategory;
+    }
 
-	/**
-	 * @return the userAccount
-	 */
-	@ManyToOne(cascade = CascadeType.MERGE)
-	public UserAccount getUserAccount() {
-		return userAccount;
-	}
+    /**
+     * @return the userAccount
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
 
-	/**
-	 * @param userAccount the userAccount to set
-	 */
-	public void setUserAccount(final UserAccount userAccount) {
-		this.userAccount = userAccount;
-	}	
+    /**
+     * @param userAccount the userAccount to set
+     */
+    public void setUserAccount(final UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
 }

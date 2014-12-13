@@ -53,7 +53,7 @@ import org.hibernate.search.annotations.Store;
        uniqueConstraints = {@UniqueConstraint(columnNames={"username", "email"})}
   )
 @Indexed(index="UserAccount")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserAccount extends AbstractGeoPoint implements Serializable{
 
     /**
@@ -110,7 +110,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
      * {@link Date} last time logged
      */
     private Date lastTimeLogged;
-    
+
     /**
      * store the default language selected by the user.
      */
@@ -130,6 +130,11 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
      * {@link Boolean} Shared profile.
      */
     private Boolean sharedProfile = Boolean.FALSE;
+
+
+    private Boolean welcomePage = Boolean.TRUE;
+
+    private Boolean helpLinks = Boolean.TRUE;
 
     /**
      * Account Enabled.
@@ -453,25 +458,60 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
         this.sharedProfile = sharedProfile;
     }
 
-    
+
     /**
-	 * @return the language
-	 */
-    @Column(name = "user_language", nullable = true, length = 8)
-	public String getLanguage() {
-		return language;
-	}
-
-	/**
-	 * @param language the language to set
-	 */
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
-	/* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+     * @return the language
      */
+    @Column(name = "user_language", nullable = true, length = 8)
+    public String getLanguage() {
+        return language;
+    }
+
+    /**
+     * @param language the language to set
+     */
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    @Column(name = "help_links", nullable = true)
+    public Boolean getHelpLinks() {
+        return helpLinks;
+    }
+
+    /**
+     *
+     * @param helpLinks
+     */
+    public void setHelpLinks(Boolean helpLinks) {
+        this.helpLinks = helpLinks;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Column(name = "welcome_page", nullable = true)
+    public Boolean getWelcomePage() {
+        return welcomePage;
+    }
+
+    /**
+     *
+     * @param welcomePage
+     */
+    public void setWelcomePage(Boolean welcomePage) {
+        this.welcomePage = welcomePage;
+    }
+
+    /* (non-Javadoc)
+             * @see java.lang.Object#hashCode()
+             */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -521,8 +561,8 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     public void setPictureSource(final PictureSource pictureSource) {
         this.pictureSource = pictureSource;
     }
-    
-    
+
+
 
     /* (non-Javadoc)
      * @see java.lang.Object#toString()

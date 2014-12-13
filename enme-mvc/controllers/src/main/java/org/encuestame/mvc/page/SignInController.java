@@ -80,10 +80,10 @@ public class SignInController extends AbstractSocialController{
      * check {@link ForgetPasswordController}.
      */
     //@RequestMapping(value = "/user/forgot", method = RequestMethod.GET)
-    public String forgotPasswordController(final ModelMap model) {
-        log.debug("forgot password");
-        return "forgot";
-    }
+//    public String forgotPasswordController(final ModelMap model) {
+//        log.debug("forgot password");
+//        return "forgot";
+//    }
 
     /**
      * Sign in by {@link SocialProvider} account.
@@ -98,22 +98,22 @@ public class SignInController extends AbstractSocialController{
         HttpServletRequest httpRequest){
         final StringBuilder url = new StringBuilder();
         final SocialProvider providerEnum = SocialProvider.getProvider(provider);
-        log.debug("PROVIDER "+providerEnum);
+        //System.out.println("PROVIDER "+providerEnum);
         if (providerEnum == null) {
             url.append("404");
         } else {
-            if (SocialProvider.GOOGLE_BUZZ.equals(providerEnum)) {
+            if (SocialProvider.GOOGLE_PLUS.equals(providerEnum)) {
                OAuth2Parameters auth2Parameters = new OAuth2Parameters(
                         EnMePlaceHolderConfigurer.getProperty("google.register.client.id"),
                         EnMePlaceHolderConfigurer.getProperty("google.register.client.secret"),
                         EnMePlaceHolderConfigurer.getProperty("google.accesToken"),
                         EnMePlaceHolderConfigurer.getProperty("google.authorizeURl"),
-                        SocialProvider.GOOGLE_BUZZ,
+                        SocialProvider.GOOGLE_PLUS,
                         EnMePlaceHolderConfigurer.getProperty("google.register.client.id"));
                 auth2RequestProvider  =  new OAuth2RequestFlow(auth2Parameters);
                 auth2RequestProvider.DEFAULT_CALLBACK_PATH = POST_REGISTER_REDIRECT;
                 url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(
-                        EnMePlaceHolderConfigurer.getProperty("google.buzz.scope"), httpRequest, false));
+                        EnMePlaceHolderConfigurer.getProperty("google.plus.scope"), httpRequest, false));
                 url.append("&state=");
                 url.append(providerEnum.toString());
             } else if (SocialProvider.FACEBOOK.equals(providerEnum)) {
@@ -211,6 +211,7 @@ public class SignInController extends AbstractSocialController{
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";
             } catch (Exception e) {
+                e.printStackTrace();
                  log.fatal("OAuth Exception:{"+e.getMessage());
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";

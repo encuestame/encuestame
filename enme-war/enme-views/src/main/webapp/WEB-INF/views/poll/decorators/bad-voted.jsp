@@ -2,12 +2,12 @@
 <div class="container">
     <section class="web-tweetpoll-vote-options">        
         <div class="web-permatlink red-bk">
-            <h2>
+            <div>
                 <spring:message code="poll.votes.bad" />
-            </h2>
-            <h3>
+            </div>
+            <div>
                ${message}
-            </h3>                        
+            </div>
             <div class="web-tweetpoll-info">
                 <a href="<%=request.getContextPath()%>/poll/${pollAnswer.pollId}/${pollAnswer.question.slugQuestion}">
                     <button class="btn btn-warning">

@@ -1,9 +1,12 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div class="web-vote-wrapper">
-      <h3>
-         ${poll.questionBean.questionName}
-      </h3>
-      <p>
+        <header>
+            <%@ include file="/WEB-INF/layouts/logo.jsp"%>
+        </header>
+        <h3>
+             ${poll.questionBean.questionName}
+        </h3>
+        <p>
           <form action="<%=request.getContextPath()%>/poll/vote/post" method="post">
              <div class="web-poll-vote">
                 <c:if test="${votePollError}">

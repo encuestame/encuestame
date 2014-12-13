@@ -12,9 +12,12 @@
             </a>
              <script>
              !function(d,s,id){
-                 var js, fjs=d.getElementsByTagName(s)[0],
-                 p=/^http:/.test(d.location)?'http':'https';
+                 var js,
+                     fjs=d.getElementsByTagName(s)[0],
+                     p=/^http:/.test(d.location)?'http':'https';
+                     window.__enme_widget={host:p+":///${domain}/"};
                  if(!d.getElementById(id)){
+                     p=/^http:/.test(d.location)?'http':'https';
                      js=d.createElement(s);
                      js.id=id;js.src=p+":///${domain}/resources/js/widget/build/widget.js";
                      fjs.parentNode.insertBefore(js,fjs);

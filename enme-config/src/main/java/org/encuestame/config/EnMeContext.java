@@ -18,7 +18,7 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.setup.StartupProcess;
-import org.encuestame.core.service.DirectorySetupOperations;
+
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -29,7 +29,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 19, 2011
  */
-//@Deprecated
 public class EnMeContext extends ContextLoaderListener implements ServletContextListener {
 
     /**
@@ -50,17 +49,17 @@ public class EnMeContext extends ContextLoaderListener implements ServletContext
     }
 
     public EnMeContext(WebApplicationContext context) {
-		super(context);
-	}
+        super(context);
+    }
 
-	/**
+    /**
      * On start application.
      */
     @Override
     public void contextInitialized(final ServletContextEvent sce) {
         EnMeContext.servletContext = sce.getServletContext();
         super.contextInitialized(sce);
-        boolean existHomeDirectory = DirectorySetupOperations.isHomeDirectoryValid();
+        boolean existHomeDirectory = org.encuestame.core.service.startup.DirectorySetupOperations.isHomeDirectoryValid();
         if (!existHomeDirectory) {
             log.fatal("**********************************************");
             log.fatal("*    		 ENCUESTAME HOME IS MISSING");

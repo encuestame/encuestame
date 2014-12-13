@@ -341,14 +341,15 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 	/**
 	 * Test Public TweetPoll on multiples social networks.
 	 */
-	@Category(InternetTest.class)
+	//@Category(InternetTest.class)
+    @Category(DefaultTest.class)
 	@Test
 	public void testPublicMultiplesTweetAccounts() {
 
 		final TweetPoll tweetPoll = createTweetPollPublicated(true, true,
 				new Date(), this.userAccount, question);
 		tweetPollService.publishMultiplesOnSocialAccounts(this.socialBeans,
-				tweetPoll, this.tweetText, TypeSearchResult.TWEETPOLL, null,
+				tweetPoll, RandomStringUtils.randomAlphabetic(7), TypeSearchResult.TWEETPOLL, null,
 				null);
 		final TweetPoll tweet = getTweetPoll().getTweetPollById(
 				tweetPoll.getTweetPollId());
@@ -362,7 +363,8 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 	/**
      *
      */
-	@Category(InternetTest.class)
+	//@Category(InternetTest.class)
+    @Category(DefaultTest.class)
 	@Test
 	public void testPublishPollOnMultiplesTweetAccounts() {
 
@@ -372,7 +374,7 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 
 		final List<TweetPollSavedPublishedStatus> itemsPublished = tweetPollService
 				.publishMultiplesOnSocialAccounts(this.socialBeans, null,
-						this.tweetText, TypeSearchResult.POLL, myPoll, null);
+                        RandomStringUtils.randomAlphabetic(7), TypeSearchResult.POLL, myPoll, null);
 		assertEquals("Should be equals", 1, itemsPublished.size());
 		final List<LinksSocialBean> linksPublished = getTweetPollService()
 				.getTweetPollLinks(null, myPoll, null, TypeSearchResult.POLL);
@@ -441,12 +443,10 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 		final DateTime time1 = new DateTime();
 		final DateTime time2 = time1.minusDays(8);
 		// published - completed - scheduled
-		createAdvancedTweetPoll(getSpringSecurityLoggedUserAccount()
-				.getAccount(),
+		createAdvancedTweetPoll(getSpringSecurityLoggedUserAccount(),
 				createDefaultQuestion("What is your favourite color"),
 				Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, new Date());
-		createAdvancedTweetPoll(getSpringSecurityLoggedUserAccount()
-				.getAccount(),
+		createAdvancedTweetPoll(getSpringSecurityLoggedUserAccount(),
 				createDefaultQuestion("What is your favourite movie"),
 				Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, time2.toDate());
 		// final Search adv1 = createAdvancedSearchBean(Boolean.TRUE,
@@ -489,20 +489,20 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 		final String keyword = "favourite";
 
 		final TweetPoll tp1 = createPublishedTweetPoll(
-				getSpringSecurityLoggedUserAccount().getAccount(), q1);
+				getSpringSecurityLoggedUserAccount(), q1);
 		tp1.setCreateDate(dt3.toDate());
 		tp1.setCompleted(Boolean.TRUE);
 		getTweetPoll().saveOrUpdate(tp1);
 
 		final TweetPoll tp2 = createPublishedTweetPoll(
-				getSpringSecurityLoggedUserAccount().getAccount(), q2);
+				getSpringSecurityLoggedUserAccount(), q2);
 		tp2.setCreateDate(dt2.toDate());
 		tp2.setCompleted(Boolean.TRUE);
 
 		getTweetPoll().saveOrUpdate(tp2);
 
 		final TweetPoll tp3 = createPublishedTweetPoll(
-				getSpringSecurityLoggedUserAccount().getAccount(), q3);
+				getSpringSecurityLoggedUserAccount(), q3);
 		final TweetPollSearchBean tpSearch = createTweetpollSearchBean(
 				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, "your",
 				"24", 10, 0, TypeSearch.LASTWEEK);
@@ -526,20 +526,20 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 		final String keyword = "favourite";
 
 		final TweetPoll tp1 = createPublishedTweetPoll(
-				getSpringSecurityLoggedUserAccount().getAccount(), q1);
+				getSpringSecurityLoggedUserAccount(), q1);
 		tp1.setCreateDate(dt3.toDate());
 		tp1.setCompleted(Boolean.TRUE);
 		getTweetPoll().saveOrUpdate(tp1);
 
 		final TweetPoll tp2 = createPublishedTweetPoll(
-				getSpringSecurityLoggedUserAccount().getAccount(), q2);
+				getSpringSecurityLoggedUserAccount(), q2);
 		tp2.setCreateDate(dt2.toDate());
 		tp2.setCompleted(Boolean.TRUE);
 
 		getTweetPoll().saveOrUpdate(tp2);
 
 		final TweetPoll tp3 = createPublishedTweetPoll(
-				getSpringSecurityLoggedUserAccount().getAccount(), q3);
+				getSpringSecurityLoggedUserAccount(), q3);
 		final TweetPollSearchBean tpSearch = createTweetpollSearchBean(
 				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, "your",
 				"24", 10, 0, TypeSearch.BYOWNER);
@@ -572,24 +572,24 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 
 		// Completed - Favourites - Scheduled - Published
 		final TweetPoll tp1 = this.createTweetPollItems(creationDate.toDate(),
-				this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+				this.userAccount, Boolean.TRUE, Boolean.FALSE,
 				Boolean.FALSE, Boolean.TRUE);
 		createTweetPollSavedPublishStatusMultiple(tp1, providers, socialAccount);
 
 		final TweetPoll tp2 = this.createTweetPollItems(creationDate.toDate(),
-				this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+				this.userAccount, Boolean.TRUE, Boolean.FALSE,
 				Boolean.FALSE, Boolean.TRUE);
 
 		createTweetPollSavedPublishStatusMultiple(tp2, providers, socialAccount);
 
 		final TweetPoll tp3 = this.createTweetPollItems(creationDate.toDate(),
-				this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+				this.userAccount, Boolean.TRUE, Boolean.FALSE,
 				Boolean.TRUE, Boolean.TRUE);
 
 		createTweetPollSavedPublishStatusMultiple(tp1, providers, socialAccount);
 
 		final TweetPoll tp4 = this.createTweetPollItems(creationDate.toDate(),
-				this.userAccount.getAccount(), Boolean.FALSE, Boolean.FALSE,
+				this.userAccount, Boolean.FALSE, Boolean.FALSE,
 				Boolean.FALSE, Boolean.FALSE);
 		/*
 		 * // 24 hours creationDate = creationDate.minusDays(3);
@@ -652,15 +652,15 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 
 		// Completed - Favourites - Scheduled - Published
 		this.createTweetPollItems(this.creationDate.toDate(),
-				getSpringSecurityLoggedUserAccount().getAccount(),
+				getSpringSecurityLoggedUserAccount(),
 				Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE);
 
 		this.createTweetPollItems(this.creationDate.toDate(),
-				getSpringSecurityLoggedUserAccount().getAccount(),
+				getSpringSecurityLoggedUserAccount(),
 				Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
 
 		this.createTweetPollItems(this.creationDate.toDate(),
-				getSpringSecurityLoggedUserAccount().getAccount(),
+				getSpringSecurityLoggedUserAccount(),
 				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE);
 
 		// Published - completed - Favourite - Scheduled
@@ -1112,7 +1112,7 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 
 		// FIRST TP
 		final TweetPoll tweetPoll1 = createPublishedTweetPoll(
-				this.userAccount.getAccount(), myFirstQuestion, new Date());
+				this.userAccount, myFirstQuestion, new Date());
 		tweetPoll1.setTweetPollFolder(tpFolder);
 		tweetPoll1.getHashTags().add(tag1);
 		tweetPoll1.getHashTags().add(tag2);
@@ -1270,14 +1270,20 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 	 * @throws EnMeNoResultsFoundException
 	 */
 	@Test
-	@Category(InternetTest.class)
+	//@Category(InternetTest.class)
+    @Category(DefaultTest.class)
 	public void testPublishScheduled() throws EnMeNoResultsFoundException {
 		// Tweetpoll
 		final TweetPoll tweetPoll1 = createPublishedTweetPoll(
-				this.userAccount.getAccount(), this.question, new Date());
+				this.userAccount, this.question, new Date());
+        tweetPoll1.setEditorOwner(this.userAccount);
 
 		final TweetPoll tweetPoll2 = createPublishedTweetPoll(
-				this.userAccount.getAccount(), this.question, new Date());
+				this.userAccount, this.question, new Date());
+        tweetPoll2.setEditorOwner(this.userAccount);
+
+        getTweetPoll().saveOrUpdate(tweetPoll1);
+        getTweetPoll().saveOrUpdate(tweetPoll2);
 
 		// SocialAccount
 		final SocialAccount socialAcc = createDefaultSettedSocialAccount(this.userAccount);
@@ -1285,17 +1291,17 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 		// Scheduled 1
 		final Schedule schedule1 = createTweetpollScheduleDefault(tweetPoll1,
 				this.initDate.minusDays(2).toDate(), socialAcc, Status.ACTIVE,
-				TypeSearchResult.TWEETPOLL, this.tweetText);
+				TypeSearchResult.TWEETPOLL, RandomStringUtils.randomAlphabetic(7));
 
 		// Scheduled 2
 		final Schedule schedule2 = createTweetpollScheduleDefault(tweetPoll2,
 				this.initDate.minusDays(2).toDate(), socialAcc, Status.ACTIVE,
-				TypeSearchResult.TWEETPOLL, this.tweetText);
+				TypeSearchResult.TWEETPOLL, RandomStringUtils.randomAlphabetic(7));
 
 		// Scheduled 3
 		final Schedule schedule3 = createTweetpollScheduleDefault(tweetPoll1,
 				this.initDate.plus(2).toDate(), socialAcc, Status.ACTIVE,
-				TypeSearchResult.TWEETPOLL, this.tweetText);
+				TypeSearchResult.TWEETPOLL, RandomStringUtils.randomAlphabetic(7));
 
 		final Date minDate = getScheduleDao().retrieveMinimumScheduledDate(
 				Status.ACTIVE);
@@ -1312,10 +1318,10 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 	public void testRemoveScheduledItems() {
 		// Tweetpoll
 		final TweetPoll tweetPoll1 = createPublishedTweetPoll(
-				this.userAccount.getAccount(), this.question, new Date());
+				this.userAccount, this.question, new Date());
 
 		final TweetPoll tweetPoll2 = createPublishedTweetPoll(
-				this.userAccount.getAccount(), this.question, new Date());
+				this.userAccount, this.question, new Date());
 
 		final Poll poll = createDefaultPoll(question, this.userAccount);
 
@@ -1326,40 +1332,40 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 		final SocialAccount socialAcc = createDefaultSettedSocialAccount(this.userAccount);
 
 		final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
-				tweetPoll1, "1245", socialAcc, this.tweetText);
+				tweetPoll1, "1245", socialAcc, RandomStringUtils.randomAlphabetic(7));
 
 		final TweetPollSavedPublishedStatus tpSaved2 = createTweetPollSavedPublishedStatus(
-				tweetPoll2, "1245", socialAcc, this.tweetText);
+				tweetPoll2, "1245", socialAcc, RandomStringUtils.randomAlphabetic(7));
 
 		final TweetPollSavedPublishedStatus tpSaved3 = createPollSavedPublishedStatus(
-				poll, "", socialAcc, tweetText);
+				poll, "", socialAcc, RandomStringUtils.randomAlphabetic(7));
 
 		final TweetPollSavedPublishedStatus tpSaved4 = createSocialLinkSavedPublishedStatus(
-				null, null, survey, "3456", socialAcc, tweetText);
+				null, null, survey, "3456", socialAcc, RandomStringUtils.randomAlphabetic(7));
 
 		// Scheduled
 		createTweetpollScheduleDefault(tweetPoll1, this.initDate.minusDays(2)
 				.toDate(), socialAcc, Status.SUCCESS,
-				TypeSearchResult.TWEETPOLL, this.tweetText);
+				TypeSearchResult.TWEETPOLL, RandomStringUtils.randomAlphabetic(7));
 
 		// Scheduled 2
 		createTweetpollScheduleDefault(tweetPoll2, this.initDate.minusDays(3)
 				.toDate(), socialAcc, Status.SUCCESS,
-				TypeSearchResult.TWEETPOLL, this.tweetText);
+				TypeSearchResult.TWEETPOLL, RandomStringUtils.randomAlphabetic(7));
 
 		// Scheduled
 		createTweetpollScheduleDefault(tweetPoll1, this.initDate.plus(2)
 				.toDate(), socialAcc, Status.ACTIVE,
-				TypeSearchResult.TWEETPOLL, this.tweetText);
+				TypeSearchResult.TWEETPOLL, RandomStringUtils.randomAlphabetic(7));
 
 		// Scheduled 4
 		createScheduledItem(null, null, poll, this.initDate.toDate(),
-				socialAcc, Status.ACTIVE, 5, tpSaved3, tweetText,
+				socialAcc, Status.ACTIVE, 5, tpSaved3, RandomStringUtils.randomAlphabetic(7),
 				TypeSearchResult.POLL);
 
 		// Scheduled 5
 		createScheduledItem(null, survey, poll, this.initDate.toDate(),
-				socialAcc, Status.FAILED, 5, tpSaved3, tweetText,
+				socialAcc, Status.FAILED, 5, tpSaved3, RandomStringUtils.randomAlphabetic(7),
 				TypeSearchResult.POLL);
 
 		final String attemptsProp = EnMePlaceHolderConfigurer

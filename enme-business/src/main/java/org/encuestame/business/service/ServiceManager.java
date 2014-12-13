@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
  *
  * @author Picado, Juan juan@encuestame.org
  * @since 26/04/2009
- * @version $Id$
  */
 @Service
 public class ServiceManager implements IServiceManager {
@@ -34,9 +33,6 @@ public class ServiceManager implements IServiceManager {
      */
     @Autowired
     private IApplicationServices applicationServices;
-
-    @Autowired
-    private MessageSource messageSource;
 
     /**
      * Setter of {@link ApplicationServices}.
@@ -52,19 +48,5 @@ public class ServiceManager implements IServiceManager {
      */
     public IApplicationServices getApplicationServices() {
         return applicationServices;
-    }
-
-    /**
-     * @return the messageSource
-     */
-    public MessageSource getMessageSource() {
-        return messageSource;
-    }
-
-    /**
-     * @param messageSource the messageSource to set
-     */
-    public void setMessageSource(MessageSource messageSource) {
-        this.messageSource = messageSource;
     }
 }

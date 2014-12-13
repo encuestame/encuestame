@@ -239,16 +239,19 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/{gadgetId}/gadget.json", method = RequestMethod.POST)
     public @ResponseBody ModelMap addGadgetonDashboard(
-            @RequestParam(value = "id", required = true) Long boardId,
+            @RequestParam(value = "boardId", required = true) Long boardId,
             @PathVariable final String gadgetId,
             HttpServletRequest request,
             HttpServletResponse response){
         try {
+             //System.out.println(boardId);
+             //System.out.println(gadgetId);
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-             final Gadget gadget = getDashboardService().addGadgetOnDashboard(boardId, String.valueOf(gadgetId));
+             final Gadget gadget = getDashboardService().addGadgetOnDashboard(Long.valueOf(boardId), gadgetId);
              jsonResponse.put("gadget", ConvertDomainBean.convertGadgetDomaintoBean(gadget));
              setItemResponse(jsonResponse);
         } catch (Exception e) {
+            e.printStackTrace();
              log.error(e);
              setError(e.getMessage(), response);
         }

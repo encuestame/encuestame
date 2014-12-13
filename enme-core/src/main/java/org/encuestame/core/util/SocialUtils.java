@@ -34,6 +34,8 @@ import org.apache.log4j.Logger;
 import javax.xml.xpath.XPath;
 
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.filter.RequestSessionMap;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.social.SocialProvider;
 import org.json.simple.JSONObject;
@@ -146,7 +148,7 @@ public class SocialUtils {
         }
         return shortUrl;
     }
-    
+
 
     /**
      * Get TinyUrl.
@@ -161,20 +163,22 @@ public class SocialUtils {
         params.setConnectionManagerTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
         params.setSoTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
         HttpClient httpclient = new HttpClient(params); //TODO: time out??
-        //httpclient.setConnectionTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
-        //log.debug("tiny url timeout "+EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
-        //httpclient.setParams(params);
         HttpMethod method = new GetMethod(EnMePlaceHolderConfigurer.getProperty("short.yourls.path"));
         method.setQueryString(new NameValuePair[] {
-        		new NameValuePair("url", string),
-        		new NameValuePair("action", "shorturl"),
-        		new NameValuePair("format", "json"),
-        		new NameValuePair("signature", EnMePlaceHolderConfigurer.getProperty("short.yourls.key")) 
+                new NameValuePair("url", string),
+                new NameValuePair("action", "shorturl"),
+                new NameValuePair("format", "json"),
+                new NameValuePair("signature", EnMePlaceHolderConfigurer.getProperty("short.yourls.key"))
         });
         try {
             httpclient.executeMethod(method);
             final Object jsonObject = JSONValue.parse(method.getResponseBodyAsString());
             final JSONObject o = (JSONObject) jsonObject;
+            //{"message":"Please log in","errorCode":403}"
+            Long errorCode = (Long) o.get("errorCode");
+            if (errorCode != null) {
+               throw new EnMeExpcetion("Yourls error: " + errorCode);
+            }
             yourlsShortUrl = (String) o.get("shorturl");
         } catch (HttpException e) {
             log.error("HttpException "+ e);
@@ -183,15 +187,16 @@ public class SocialUtils {
             log.error("IOException"+ e);
             yourlsShortUrl = string;
         } catch (Exception e) {
-			e.printStackTrace();
-			log.error("IOException"+ e);
+            e.printStackTrace();
+            log.error("IOException"+ e);
             yourlsShortUrl = string;
-		} finally {
+        } finally {
+            RequestSessionMap.setErrorMessage("short url is not well configured");
             method.releaseConnection();
         }
         return yourlsShortUrl;
     }
-    
+
 
     /**
      * Get TinyUrl.
@@ -303,14 +308,14 @@ public class SocialUtils {
                 builder.append(facebookUrl);
             }
         } else if(SocialProvider.PLURK.equals(provider)){
-        	String tumblrLink = EnMePlaceHolderConfigurer.getProperty("social.plurk");
-        	tumblrLink = tumblrLink.replace("{0}", username.toString());
-        	builder.append(tumblrLink);                   
+            String tumblrLink = EnMePlaceHolderConfigurer.getProperty("social.plurk");
+            tumblrLink = tumblrLink.replace("{0}", username.toString());
+            builder.append(tumblrLink);
         } else if(SocialProvider.TUMBLR.equals(provider)){
-        	String tumblrLink = EnMePlaceHolderConfigurer.getProperty("social.tubmlr");
-        	tumblrLink.replace("{username}", username);
-        	tumblrLink.replace("{id}", id);
-        	builder.append(tumblrLink);
+            String tumblrLink = EnMePlaceHolderConfigurer.getProperty("social.tubmlr");
+            tumblrLink.replace("{username}", username);
+            tumblrLink.replace("{id}", id);
+            builder.append(tumblrLink);
         } else if(SocialProvider.LINKEDIN.equals(provider)){
             builder.append(EnMePlaceHolderConfigurer.getProperty("social.linkedin"));
         } else if(SocialProvider.IDENTICA.equals(provider)){

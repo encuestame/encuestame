@@ -15,6 +15,7 @@ package org.encuestame.test.business.security;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.enums.EnMePermission;
@@ -82,7 +83,7 @@ public abstract class AbstractSpringSecurityContext extends AbstractServiceBase 
      * @param username
      * @param password
      */
-    public void setAuthentication(final String username, final String password){
+    public void setAuthentication(final String username, final String password) {
         final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         //Add permissions.
         authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_USER.name()));
@@ -94,6 +95,43 @@ public abstract class AbstractSpringSecurityContext extends AbstractServiceBase 
         SecurityContextHolder.getContext().setAuthentication(token);
         //System.out.println("creando SecurityContextHolder "+SecurityContextHolder.getContext().getAuthentication());
         setUsernameLogged(this.springSecurityLoggedUserAccount.getUsername());
+    }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
+    public UserAccount quickLogin(String username) {
+        UserAccount d = createUserAccount(username, createAccount());
+        this.login(d);
+        return d;
+    }
+
+    /**
+     *
+     * @param userAccount
+     */
+    public void login(UserAccount userAccount) {
+        final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        //Add permissions.
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_USER.name()));
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_ADMIN.name()));
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_EDITOR.name()));
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_PUBLISHER.name()));
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_WRITE.name()));
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_OWNER.name()));
+        TestingAuthenticationToken token = new TestingAuthenticationToken(userAccount.getUsername(), "12345", authorities);
+        token.setAuthenticated(true);
+        SecurityContextHolder.getContext().setAuthentication(token);
+        //setUsernameLogged(this.springSecurityLoggedUserAccount.getUsername());
+    }
+
+    /**
+     *
+     */
+    public UserAccount quickLogin() {
+        return this.quickLogin("quick_user_"+ RandomStringUtils.randomAlphabetic(3));
     }
 
     /**

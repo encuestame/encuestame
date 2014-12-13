@@ -40,7 +40,7 @@ public class PollBeanResult extends AbstractResultBean implements Serializable {
      * Number of votes.
      */
     @JsonProperty(value = "answer_votes")
-    private Long result;
+    private Long votes;
 
     /**
      * Date of vote.
@@ -73,15 +73,15 @@ public class PollBeanResult extends AbstractResultBean implements Serializable {
      * @return the result
      */
     @JsonIgnore
-    public Long getResult() {
-        return result;
+    public Long getVotes() {
+        return votes;
     }
 
     /**
      * @param result the result to set
      */
-    public void setResult(final Long result) {
-        this.result = result;
+    public void setVotes(final Long votes) {
+        this.votes = votes;
     }
 
     /**
@@ -123,6 +123,6 @@ public class PollBeanResult extends AbstractResultBean implements Serializable {
     @Override
     public String toString() {
         return "PollBeanResult [answerBean=" + answerBean + ", result="
-                + result + ", votedDate=" + votedDate + "]";
+                + votes + ", votedDate=" + votedDate + "]";
     }
 }

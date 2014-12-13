@@ -76,6 +76,7 @@ public class SettingsJsonController extends AbstractJsonControllerV1{
             jsonResponse.put("account", user);
             setItemResponse(jsonResponse);
         } catch (EnMeNoResultsFoundException e) {
+            e.printStackTrace();
             setError(e, response);
         }
         return returnData();
@@ -125,6 +126,14 @@ public class SettingsJsonController extends AbstractJsonControllerV1{
                  log.debug("update PICTURE");
                  security.updateAccountProfile(Profile.PICTURE, data);
                  setSuccesResponse(getMessage("settings_config_picture_success", request, null));
+            }  else if(type.equals(Profile.WELCOME.toString())) {
+                log.debug("update WELCOME");
+                security.updateAccountProfile(Profile.WELCOME, data);
+                setSuccesResponse(getMessage("settings_welcome", request, null));
+            }  else if(type.equals(Profile.PAGE_INFO.toString())) {
+                log.debug("update PAGE_INFO");
+                security.updateAccountProfile(Profile.PAGE_INFO, data);
+                setSuccesResponse(getMessage("settings_page_info", request, null));
             } else {
                 setError(getMessage("e_023", request, null), response);
             }
@@ -156,7 +165,7 @@ public class SettingsJsonController extends AbstractJsonControllerV1{
      * @throws JsonMappingException
      * @throws IOException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/settings/profile/update.json", method = RequestMethod.POST)
     public @ResponseBody ModelMap upgradePostProfile(HttpServletRequest request,
             @RequestParam(value = "email", required = true) String email,

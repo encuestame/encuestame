@@ -259,6 +259,10 @@ CREATE TABLE poll (
   custom_message boolean,
   custom_start_message character varying(255),
   dislike_vote bigint,
+  limit_votes integer,
+  limits_votes_enabled boolean,
+  repeated_votes integer,
+  repeated_votes_enabled boolean,
   end_date timestamp without time zone,
   favorites boolean,
   hits bigint,
@@ -551,6 +555,10 @@ CREATE TABLE surveys (
   closed_quota integer,
   created_at timestamp without time zone,
   custom_final_message integer,
+  limit_votes integer,
+  limits_votes_enabled boolean,
+  repeated_votes integer,
+  repeated_votes_enabled boolean,
   custom_message boolean,
   custom_start_message character varying(255),
   dislike_vote bigint,
@@ -701,6 +709,8 @@ CREATE TABLE useraccount (
   email character varying(150) NOT NULL,
   userprofilepicture character varying(255),
   status boolean,
+  welcome_page boolean,
+  help_links boolean,
   username character varying(30) NOT NULL,
   account_uid bigint,
   groupid bigint
@@ -722,4 +732,11 @@ CREATE TABLE useraccount_permission (
 CREATE TABLE useraccount_project (
   sec_id_secondary bigint NOT NULL,
   cat_id_project bigint NOT NULL
+);
+
+
+CREATE TABLE helppage (
+    help_page_id bigint NOT NULL,
+    url_path character varying(255),
+    help_user_id bigint
 );

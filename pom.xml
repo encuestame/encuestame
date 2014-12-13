@@ -32,7 +32,7 @@
         <spring.version>4.0.6.RELEASE</spring.version>
         <env>development</env>
         <!-- js compress options -->
-        <compress.minimize>false</compress.minimize>
+        <compress.minimize>true</compress.minimize>
         <spring.webflow.version>2.4.0.RELEASE</spring.webflow.version>
         <spring.security.version>3.2.4.RELEASE</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
@@ -85,7 +85,7 @@
         <!-- Test -->
         <junit.version>4.10</junit.version>
         <cactus.version>1.8.1</cactus.version>
-        <selenium.version>2.42.0</selenium.version>
+        <selenium.version>2.44.0</selenium.version>
         <tomcat.version>7.0.54</tomcat.version>
         <!-- Site Path -->
         <apache>file:///tmp/encuestame</apache>
@@ -148,7 +148,8 @@
         	Clover 2 Needed install on local host
         	http://confluence.atlassian.com/display/CLOVER/Clover+for+Maven+2+and+3+Developer+Guide
         -->
-        <maven-clover2-plugin>3.2.0</maven-clover2-plugin>
+        <maven-clover2-plugin>4.0.2</maven-clover2-plugin>
+        <google.closure>v20141120</google.closure>
         <maven-jar.plugin>2.4</maven-jar.plugin>
         <maven-compiler-plugin>2.3.2</maven-compiler-plugin>
         <aspectj-maven-plugin>1.2</aspectj-maven-plugin>
@@ -167,8 +168,9 @@
         <!-- <jetty.ssl>7.0.0.pre5</jetty.ssl> -->
         <keytool.maven.plugin>1.0</keytool.maven.plugin>
         <maven.war.plugin>2.4</maven.war.plugin>
-        <wro4j.version>1.6.3</wro4j.version>
+        <wro4j.version>1.7.7</wro4j.version>
         <maven-eclipse-plugin>2.9</maven-eclipse-plugin>
+        <jsonpath.version>1.2.0</jsonpath.version>
         <!--<surefire.failures.ignore>true</surefire.failures.ignore>-->
     </properties>
 
@@ -256,39 +258,6 @@
 
     <!-- Repositories -->
     <repositories>
-        <!-- <repository>
-            <id>internal</id>
-            <name>Encuestame Internal Repository</name>
-            <url>http://archive.encuestame.org/repository/internal/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>snapshots</id>
-            <name>Encuestame Snapshot Repository</name>
-            <url>http://archive.encuestame.org/repository/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository> -->
-<!--         <repository>
-            <id>repository.jboss.com</id>
-            <name>Jboss Repository for Maven</name>
-            <url>http://repository.jboss.com/maven2/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository> -->
         <!-- Spring Framework Repository -->
         <repository>
             <id>spring-milestones</id>
@@ -329,27 +298,12 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <!-- For Hibernate Validator -->
-<!--         <repository>
-            <id>org.jboss.repository.releases</id>
-            <name>JBoss Maven Release Repository</name>
-            <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
- -->
         <!-- Maven Repos -->
         <repository>
             <id>maven2-repository.dev.java.net.1</id>
             <name>Java.net Repository for Maven</name>
             <url>http://download.java.net/maven/2</url>
         </repository>
-<!--         <repository>
-            <id>maven2-repository.dev.java.net.2</id>
-            <name>Java.net Repository for Maven</name>
-            <url>https://maven2-repository.dev.java.net/nonav/repository</url>
-        </repository> -->
         <repository>
             <id>maven-repo</id>
             <name>Maven Repository</name>
@@ -361,26 +315,9 @@
             <url>http://oauth.googlecode.com/svn/code/maven/</url>
         </repository>
         <!-- Local Repository -->
-        <repository>
-            <id>local-project-repo</id>
-            <url>file:${basedir}/lib/repository</url>
-        </repository>
-        <!-- Facebook API -->
         <!--<repository>-->
-            <!--<id>sonatype-google-snapshot</id>-->
-            <!--<name>Facebook Java API Snapshot repository</name>-->
-            <!--<url>http://oss.sonatype.org/content/repositories/googlecode-snapshots/</url>-->
-            <!--<snapshots>-->
-                <!--<enabled>true</enabled>-->
-            <!--</snapshots>-->
-        <!--</repository>-->
-        <!--<repository>-->
-            <!--<id>atlassian-maven public 1</id>-->
-            <!--<url>https://maven.atlassian.com/repository/public</url>-->
-        <!--</repository>-->
-        <!--<repository>-->
-            <!--<id>atlassian-maven public 2</id>-->
-            <!--<url>https://maven.atlassian.com/content/repositories/atlassian-public/</url>-->
+            <!--<id>local-project-repo</id>-->
+            <!--<url>file:${basedir}/lib/repository</url>-->
         <!--</repository>-->
     </repositories>
 
@@ -657,7 +594,7 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
 							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-							<argLine>-Xmx1024m</argLine>
+							<argLine>-Xms1024m -Xmx1024m -XX:MaxPermSize=2048m</argLine>
 							<groups>org.encuestame.utils.categories.test.InternetTest</groups>
 						</configuration>
 						<version>${surefire.version}</version>
@@ -1889,7 +1826,34 @@
                 <version>1.9.5</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>${jsonpath.version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path-assert</artifactId>
+                <version>${jsonpath.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <version>${selenium.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-firefox-driver</artifactId>
+                <version>${selenium.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-server</artifactId>
+                <version>${selenium.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

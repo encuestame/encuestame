@@ -12,10 +12,12 @@
  */
 package org.encuestame.business.setup;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.service.DirectorySetupOperations;
 import org.encuestame.core.service.imp.MailServiceOperations;
+import org.encuestame.core.service.startup.DirectorySetupOperations;
 import org.encuestame.persistence.exception.EnMeStartupException;
 import org.encuestame.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,7 @@ public class ApplicationStartup implements StartupProcess {
      *
      * @see org.encuestame.business.setup.StartupProcess#startProcess()
      */
+    //@PostConstruct
     public void startProcess() throws EnMeStartupException {
         // check if root directory exist
         try {
@@ -78,11 +81,11 @@ public class ApplicationStartup implements StartupProcess {
             //notify the system has been initialized
             final String uuid = EnMePlaceHolderConfigurer.getConfigurationManager().getProperty("install.uuid");
             if (uuid != null) {
-            	EnMePlaceHolderConfigurer.setSystemInstalled(Boolean.TRUE);
+                EnMePlaceHolderConfigurer.setSystemInstalled(Boolean.TRUE);
             } else {
-            	EnMePlaceHolderConfigurer.setSystemInstalled(Boolean.FALSE);
+                EnMePlaceHolderConfigurer.setSystemInstalled(Boolean.FALSE);
             }
-            EnMePlaceHolderConfigurer.setSystemInitialized(Boolean.TRUE);            
+            EnMePlaceHolderConfigurer.setSystemInitialized(Boolean.TRUE);
             // check internet connection
             //if (EnMePlaceHolderConfigurer.getBooleanProperty(
             //        "setup.check.network").booleanValue()) {

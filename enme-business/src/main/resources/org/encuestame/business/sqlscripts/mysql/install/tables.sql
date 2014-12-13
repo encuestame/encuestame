@@ -415,6 +415,10 @@ CREATE TABLE IF NOT EXISTS `poll` (
   `end_date` datetime DEFAULT NULL,
   `favorites` bit(1) DEFAULT NULL,
   `hits` bigint(20) DEFAULT NULL,
+  `limit_votes` int(11) DEFAULT NULL,
+  `limits_votes_enabled` bit(1) DEFAULT NULL,
+  `repeated_votes` int(11) DEFAULT NULL,
+  `repeated_votes_enabled` bit(1) DEFAULT NULL,
   `ip_protection` varchar(255) DEFAULT NULL,
   `ip_restrictions` bit(1) DEFAULT NULL,
   `like_vote` bigint(20) DEFAULT NULL,
@@ -428,7 +432,7 @@ CREATE TABLE IF NOT EXISTS `poll` (
   `relevance` bigint(20) DEFAULT NULL,
   `showAdditionalInfo` bit(1) DEFAULT NULL,
   `comment_option` int(11) DEFAULT NULL,
-  `show_results` bit(1) DEFAULT NULL,
+  `show_results` int(1) DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
   `poll_completed` bit(1) NOT NULL,
   `poll_hash` varchar(255) NOT NULL,
@@ -741,6 +745,10 @@ CREATE TABLE IF NOT EXISTS `surveys` (
   `closeAfterDate` bit(1) DEFAULT NULL,
   `close_after_quota` bit(1) DEFAULT NULL,
   `close_date` datetime DEFAULT NULL,
+  `limit_votes` int(11) DEFAULT NULL,
+  `limits_votes_enabled` bit(1) DEFAULT NULL,
+  `repeated_votes` int(11) DEFAULT NULL,
+  `repeated_votes_enabled` bit(1) DEFAULT NULL,
   `closed_quota` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `custom_final_message` int(11) DEFAULT NULL,
@@ -1051,6 +1059,8 @@ CREATE TABLE IF NOT EXISTS `userAccount` (
   `email` varchar(150) NOT NULL,
   `userProfilePicture` varchar(255) DEFAULT NULL,
   `status` bit(1) DEFAULT NULL,
+  `welcome_page` bit(1) DEFAULT NULL,
+  `help_links` bit(1) DEFAULT NULL,
   `username` varchar(30) NOT NULL,
   `account_uid` bigint(20) DEFAULT NULL,
   `groupId` bigint(20) DEFAULT NULL,
@@ -1174,3 +1184,16 @@ CREATE TABLE IF NOT EXISTS `scheduled` (
 `tpollSavedPublished_status_save_poll_id` BIGINT( 20 ) NULL ,
 `publication_date` DATETIME NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+-- Table structure for table `helpPage`
+--
+
+CREATE TABLE IF NOT EXISTS `helpPage` (
+  `help_page_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `url_path` VARCHAR(255) DEFAULT NULL,
+  `help_user_id` BIGINT(20) DEFAULT NULL,
+  PRIMARY KEY (`help_page_id`),
+  UNIQUE KEY `help_page_id` (`help_page_id`),
+  KEY `FKD0EB1D70F47A8064` (`help_user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

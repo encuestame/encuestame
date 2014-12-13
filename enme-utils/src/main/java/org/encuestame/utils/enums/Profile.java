@@ -23,6 +23,8 @@ public enum Profile{
     LANGUAGE,
     PICTURE,
     PRIVATE,
+    WELCOME,
+    PAGE_INFO,
     REAL_NAME;
 
     Profile(){
@@ -40,6 +42,8 @@ public enum Profile{
            if ("USERNAME".equalsIgnoreCase(value)) { result = USERNAME; }
            if ("PICTURE".equalsIgnoreCase(value)) { result = PICTURE; }
            if ("LANGUAGE".equalsIgnoreCase(value)) { result = LANGUAGE; }
+           if ("WELCOME".equalsIgnoreCase(value)) { result = WELCOME; }
+           if ("PAGE_INFO".equalsIgnoreCase(value)) { result = PAGE_INFO; }
            if ("PRIVATE".equalsIgnoreCase(value)) { result = PRIVATE; }
            if ("REAL_NAME".equalsIgnoreCase(value)) { result = REAL_NAME; }
         }
@@ -58,6 +62,8 @@ public enum Profile{
         else if (this == REAL_NAME) { type = "completeName"; }
         else if (this == PICTURE) { type = "picture"; }
         else if (this == LANGUAGE) { type = "language"; }
+        else if (this == WELCOME) { type = "welcome"; }
+        else if (this == PAGE_INFO) { type = "page_info"; }
         else if (this == PRIVATE) { type = "private"; }
         return type;
     }

@@ -30,7 +30,7 @@ public enum EmbeddedType {
         else if (type.equalsIgnoreCase("SCRIPT")) { return SCRIPT; }
         else if (type.equalsIgnoreCase("WORDPRESS")) { return WORDPRESS; }
         else if (type.equalsIgnoreCase("IFRAME")) { return IFRAME; }
-        return SCRIPT;
+        return null;
     }
 
 

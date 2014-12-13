@@ -14,8 +14,8 @@ package org.encuestame.utils.web;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -26,10 +26,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TweetPollResultsBean extends AbstractResultBean implements Serializable {
 
+    @JsonIgnore
+     private QuestionAnswerBean answerBean;
+
     /**
      *
      */
     private static final long serialVersionUID = -8477551175621750552L;
+
+    @Override
+    @JsonIgnore
+    public QuestionAnswerBean getAnswerBean() {
+        return answerBean;
+    }
+
+    @Override
+    public void setAnswerBean(QuestionAnswerBean answerBean) {
+        this.answerBean = answerBean;
+    }
 
 
 }

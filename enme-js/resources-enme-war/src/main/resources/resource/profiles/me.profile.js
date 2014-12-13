@@ -110,6 +110,11 @@ var profile = {
     // Excludes tests, demos, and original template files from being included in the built version.
     mini: true,
 
+
+    optimizeOptions:{
+        languageIn: Packages.com.google.javascript.jscomp.CompilerOptions.LanguageMode.ECMASCRIPT5
+    },
+
     // Uses Closure Compiler as the JavaScript minifier. This can also be set to "shrinksafe" to use ShrinkSafe,
     // though ShrinkSafe is deprecated and not recommended.
     // This option defaults to "" (no compression) if not provided.
@@ -196,6 +201,7 @@ var profile = {
                 "dojo/ready",
                 "dojo/require",
                 "dojo/Deferred",
+                "dojo/DeferredList",
                 "dojo/dom",
                 "dojo/html",
                 'dojo/date',
@@ -299,6 +305,10 @@ var profile = {
                 'me/web/widget/suggestion/SuggestItem',
                 'me/web/widget/stream/HashTagInfo',
                 'me/web/widget/pictures/AccountPicture',
+                "me/web/widget/support/LinkEmbebedOption",
+                "me/web/widget/support/ButtonEmbebedOption",
+                "me/web/widget/support/IntroJSupport",
+                "me/web/widget/options/EmbebedOptions",
                 'me/support/Offline',
                 'me/web/widget/signup/LoginDialog',
                 'me/support/Websocket',

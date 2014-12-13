@@ -21,8 +21,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.DirectorySetupOperations;
 import org.encuestame.core.service.imp.IPictureService;
+import org.encuestame.core.service.startup.DirectorySetupOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
 import org.encuestame.persistence.exception.EnmeFailOperation;
@@ -30,14 +30,15 @@ import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.enums.PictureType;
 import org.encuestame.utils.exception.EnMeGenericException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Picture / Image Service.
  * @author Picado, Juan juanATencuestame.org
  * @since Jan 16, 2011 4:12:19 PM
- * @version $Id:$
  */
 @Service
+@Transactional
 public class PictureService extends AbstractBaseService implements IPictureService{
 
     /**
