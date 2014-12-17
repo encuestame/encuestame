@@ -32,8 +32,6 @@ import javax.persistence.UniqueConstraint;
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
@@ -85,13 +83,13 @@ public class Poll extends AbstractSurvey {
      **/
     private Set<HashTag> hashTags = new HashSet<HashTag>();
 
-    /** **/
+    /** Defines if the poll is Hidden(only to show through URL or password) **/
     private Boolean isHidden = false;
 
-    /** **/
+    /** Defines if the poll will be password protected for access **/
     private Boolean isPasswordProtected = false;
 
-    /** **/
+    /** Password to enter the poll **/
     private String password;
 
 
