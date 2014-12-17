@@ -2153,6 +2153,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create Survey social links.
+     * @param survey
+     * @param tweetId
+     * @param socialAccount
+     * @param tweetText
+     * @return
+     */
+    public TweetPollSavedPublishedStatus createSurveySavedPublishedStatus(
+            final Survey survey, final String tweetId,
+            final SocialAccount socialAccount, final String tweetText) {
+         return this.createSocialLinkSavedPublishedStatus(null, null, survey, tweetId, socialAccount, tweetText);
+    }
+
+    /**
      * Create hit new.
      * @param tweetPoll
      * @param poll
