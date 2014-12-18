@@ -83,16 +83,6 @@ public class Poll extends AbstractSurvey {
      **/
     private Set<HashTag> hashTags = new HashSet<HashTag>();
 
-    /** Defines if the poll is Hidden(only to show through URL or password) **/
-    private Boolean isHidden = false;
-
-    /** Defines if the poll will be password protected for access **/
-    private Boolean isPasswordProtected = false;
-
-    /** Password to enter the poll **/
-    private String password;
-
-
     /**
      * @return the poll_id
      */
@@ -210,52 +200,7 @@ public class Poll extends AbstractSurvey {
         this.hashTags = hashTags;
     }
 
-    /**
-	 * @return the isHidden
-	 */
-    @Column(name = "is_hidden", nullable = true)
-	public Boolean getIsHidden() {
-		return isHidden;
-	}
-
-	/**
-	 * @param isHidden the isHidden to set
-	 */
-	public void setIsHidden(Boolean isHidden) {
-		this.isHidden = isHidden;
-	}
-
-	/**
-	 * @return the isPasswordProtected
-	 */
-	@Column(name = "is_password_protected", nullable = true)
-	public Boolean getIsPasswordProtected() {
-		return isPasswordProtected;
-	}
-
-	/**
-	 * @param isPasswordProtected the isPasswordProtected to set
-	 */
-	public void setIsPasswordProtected(Boolean isPasswordProtected) {
-		this.isPasswordProtected = isPasswordProtected;
-	}
-
-	/**
-	 * @return the password
-	 */
-	 @Column(name = "poll_password", nullable = true)
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	/* (non-Javadoc)
+    /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
