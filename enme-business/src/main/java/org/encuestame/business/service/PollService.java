@@ -449,7 +449,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             if (createPollBean.isPasswordProtected)
             {
             	pollDomain.setIsPasswordProtected(createPollBean.getIsPasswordProtected());
-            	pollDomain.setPassword(createPollBean.getPassword());
+            	pollDomain.setPassword(RandomStringUtils.randomAlphanumeric(5));
             }
             this.getPollDao().saveOrUpdate(pollDomain);
             // Create email Poll Notification
