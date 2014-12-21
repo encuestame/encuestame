@@ -307,7 +307,7 @@ public interface IPoll extends IBaseDao {
 	List<Poll> findAllPollByAccount(final Account account,final Integer maxResults, final Integer start);
 
 	/**
-	 * 
+	 *
 	 * @param bean
 	 * @param userId
 	 * @return
@@ -353,8 +353,8 @@ public interface IPoll extends IBaseDao {
 	 * @return
 	 */
 	List<Poll> retrievePollByDate(final PollSearchBean bean, final Long userId, final Date startDate);
-	
-	
+
+
 	/**
 	 * Return a list of votes by {@link Poll}
 	 * @param ip
@@ -373,4 +373,17 @@ public interface IPoll extends IBaseDao {
 	 */
 	List<PollFolder> getPollFolderByKeyword(final String keyword,
 			final UserAccount userAcc);
+
+	/**
+	 * Retrieve all hidden polls filtered by User
+	 * @param isHidden
+	 * @param user
+	 * @param max
+	 * @param start
+	 * @return
+	 */
+	List<Poll> getHiddenPollbyUser(final Boolean isHidden,
+			final UserAccount user,
+			final Integer max,
+			final Integer start);
 }

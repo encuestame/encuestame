@@ -39,7 +39,6 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -65,7 +64,6 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.PollDetailBean;
-import org.encuestame.utils.web.TweetPollDetailBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.search.PollSearchBean;
 import org.springframework.stereotype.Service;
@@ -444,8 +442,17 @@ public class PollService extends AbstractSurveyService implements IPollService{
             }
             // Add answers
             this.createQuestionAnswers(createPollBean.getAnswers(), question);
-            this.getPollDao().saveOrUpdate(pollDomain);
 
+            // property to define Privacy or if the poll is hidden
+            pollDomain.setIsHidden(createPollBean.getIsHidden());
+            // Properties to vote a poll only with password
+            if (createPollBean.isPasswordProtected)
+            {
+            	pollDomain.setIsPasswordProtected(createPollBean.getIsPasswordProtected());
+            	pollDomain.setPassword(RandomStringUtils.randomAlphanumeric(5));
+            }
+            this.getPollDao().saveOrUpdate(pollDomain);
+            // Create email Poll Notification
             this.createPollNotification(pollDomain);
             }
         } catch (Exception e) {
@@ -482,6 +489,11 @@ public class PollService extends AbstractSurveyService implements IPollService{
         poll.setPublish(pollBean.getPublishPoll());
         poll.setNotifications(pollBean.getCloseNotification());
         poll.getHashTags().addAll(retrieveListOfHashTags(pollBean.getHashTags()));
+        poll.setIsHidden(pollBean.getIsHidden());
+        if(pollBean.getIsPasswordProtected()){
+        	poll.setIsPasswordProtected(pollBean.getIsPasswordProtected());
+            poll.setPassword(pollBean.getPassword());
+        }
         return poll;
     }
 

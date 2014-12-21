@@ -182,7 +182,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
             limitVotes
             closeDate
          */
-        final CreatePollBean cb = createPollBean(
+        final CreatePollBean cb = createPrivatePollBean(
                 "Question",
                 answer,
                 hashtag,
@@ -190,7 +190,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
                 "ALL",
                 true,
                 null,
-                null);
+                null,
+                Boolean.TRUE,
+                Boolean.TRUE,
+                "mypass");
         //System.out.println(cb);
         final Poll myPoll = this.pollService.createPoll(cb);
         Assert.assertNotNull(myPoll);
@@ -204,6 +207,9 @@ public class TestPollService extends AbstractSpringSecurityContext{
         assertEquals(myPoll.getShowResults(), ShowResultsOptions.ALL);
         assertEquals(myPoll.getAllowRepeatedVotes(), false);
         assertEquals(myPoll.getShowComments(), CommentOptions.MODERATE);
+        assertEquals(myPoll.getIsHidden(), true);
+        assertEquals(myPoll.getIsPasswordProtected(), true);
+        assertEquals(myPoll.getPassword(), "mypass");
     }
 
      /**
@@ -813,5 +819,4 @@ public class TestPollService extends AbstractSpringSecurityContext{
        List<SearchBean> pollAll5 = this.pollService.filterSearchPollsByType(bean, this.request);
        assertEquals(pollAll5.size(), 1);
     }
-
 }

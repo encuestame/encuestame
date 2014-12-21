@@ -55,6 +55,15 @@ public class CreatePollBean implements Serializable{
     @Deprecated
     public Boolean allowAdd;
 
+    @JsonProperty(value = "isHidden")
+    public   Boolean isHidden;
+
+    @JsonProperty(value = "isPasswordProtected")
+    public Boolean isPasswordProtected;
+
+    @JsonProperty(value = "password")
+    public String password;
+
     /**
      * @return the questionName
      */
@@ -221,7 +230,50 @@ public class CreatePollBean implements Serializable{
         this.repeatedVotes = repeatedVotes;
     }
 
-    /* (non-Javadoc)
+
+    /**
+	 * @return the isHidden
+	 */
+	public Boolean getIsHidden() {
+		return isHidden;
+	}
+
+	/**
+	 * @param isHidden the isHidden to set
+	 */
+	public void setIsHidden(Boolean isHidden) {
+		this.isHidden = isHidden;
+	}
+
+	/**
+	 * @return the isPasswordProtected
+	 */
+	public Boolean getIsPasswordProtected() {
+		return isPasswordProtected;
+	}
+
+	/**
+	 * @param isPasswordProtected the isPasswordProtected to set
+	 */
+	public void setIsPasswordProtected(Boolean isPasswordProtected) {
+		this.isPasswordProtected = isPasswordProtected;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override

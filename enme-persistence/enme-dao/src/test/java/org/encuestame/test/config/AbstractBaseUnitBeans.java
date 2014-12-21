@@ -83,6 +83,40 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
     }
 
     /**
+     * Helper to {@link CreatePollBean} Private
+     * @param questionName
+     * @param answer
+     * @param hashtag
+     * @param showComments
+     * @param showResults
+     * @param multipleSelection
+     * @param limitVotes
+     * @param closeDate
+     * @param isHidden
+     * @param isPasswordProtected
+     * @param password
+     * @return
+     */
+    public CreatePollBean createPrivatePollBean(
+            final String questionName,
+            final String[] answer,
+            final String[] hashtag,
+            final String showComments,
+            final String showResults,
+            final Boolean multipleSelection,
+            final Integer limitVotes,
+			final Long closeDate,
+			final Boolean isHidden,
+			final Boolean isPasswordProtected,
+			final String password) {
+    	final CreatePollBean pollBean = this.createPollBean(questionName, answer, hashtag, showComments, showResults, multipleSelection, limitVotes, closeDate);
+    	pollBean.setIsHidden(isHidden);
+    	pollBean.setIsPasswordProtected(isPasswordProtected);
+    	pollBean.setPassword(password);
+    	return pollBean;
+    }
+
+    /**
      * Create Unit Question Helper.
      * @param questionName
      * @param stateId

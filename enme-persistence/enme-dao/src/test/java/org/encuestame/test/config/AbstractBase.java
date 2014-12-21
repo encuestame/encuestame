@@ -509,6 +509,30 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Helper to create a default {@link Poll} with privacy properties.
+     * @param question
+     * @param userAccount
+     * @param createdAt
+     * @param isHidden
+     * @param isPasswordProtected
+     * @param password
+     * @return
+     */
+    public Poll createDefaulPollWithPrivacy(final Question question,
+			final UserAccount userAccount,
+			final Date createdAt,
+			final Boolean isHidden,
+			final Boolean isPasswordProtected,
+			final String password) {
+    	final Poll poll = createPoll(createdAt, question, userAccount, Boolean.TRUE,
+                Boolean.TRUE);
+    	poll.setIsHidden(isHidden);
+    	poll.setIsPasswordProtected(isPasswordProtected);
+    	poll.setPassword(password);
+        return poll;
+    }
+
+    /**
      * Helper create default poll.
      * @param question
      * @param userAccount
@@ -2150,6 +2174,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Poll poll, final String tweetId,
             final SocialAccount socialAccount, final String tweetText) {
          return this.createSocialLinkSavedPublishedStatus(null, poll, null, tweetId, socialAccount, tweetText);
+    }
+
+    /**
+     * Create Survey social links.
+     * @param survey
+     * @param tweetId
+     * @param socialAccount
+     * @param tweetText
+     * @return
+     */
+    public TweetPollSavedPublishedStatus createSurveySavedPublishedStatus(
+            final Survey survey, final String tweetId,
+            final SocialAccount socialAccount, final String tweetText) {
+         return this.createSocialLinkSavedPublishedStatus(null, null, survey, tweetId, socialAccount, tweetText);
     }
 
     /**

@@ -95,16 +95,17 @@ public class SearchService extends AbstractIndexService implements
         @SuppressWarnings("unchecked")
         final Map<String, List<GlobalSearchItem>> hashset = new HashedMap();
         limitByItem = limitByItem == null ? 0 : limitByItem;
-        if (resultsAllowed.indexOf(TypeSearchResult.QUESTION) != -1) {
-            List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
-                    .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
-                            null));
-            if  (limitByItem != 0 && questionResult.size() > limitByItem) {
-                questionResult = questionResult.subList(0, limitByItem);
-            }
-            log.debug("questionResult " + questionResult.size());
-            hashset.put("questions", questionResult);
-        }
+        // TODO :See ENCUESTAME-670: to know the reason : why has been commented the following block of code.
+//        if (resultsAllowed.indexOf(TypeSearchResult.QUESTION) != -1) {
+//            List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
+//                    .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
+//                            null));
+//            if (limitByItem != 0 && questionResult.size() > limitByItem) {
+//                questionResult = questionResult.subList(0, limitByItem);
+//            }
+//            log.debug("questionResult " + questionResult.size());
+//            hashset.put("questions", questionResult);
+//        }
 
         if (resultsAllowed.indexOf(TypeSearchResult.PROFILE) != -1) {
              List<GlobalSearchItem> profiles = UtilConvertToSearchItems
@@ -135,7 +136,7 @@ public class SearchService extends AbstractIndexService implements
             log.debug("attachments " + attachments.size());
             hashset.put("attachments", attachments);
         }
-        
+
 		if (resultsAllowed.indexOf(TypeSearchResult.COMMENT) != -1) {
 			// TODO: add comment search implementation+
 			List<GlobalSearchItem> comments = UtilConvertToSearchItems
@@ -167,7 +168,7 @@ public class SearchService extends AbstractIndexService implements
     }
 
     /**
-     * 
+     *
      */
     public List<GlobalSearchItem> globalKeywordSearch(String keyword,
             String language, final Integer start, final Integer limit) {
@@ -186,7 +187,7 @@ public class SearchService extends AbstractIndexService implements
     }
 
     /**
-     * 
+     *
      */
     public String indexAttachment(final File file, final Long attachmentId){
      long start = System.currentTimeMillis();
@@ -222,7 +223,7 @@ public class SearchService extends AbstractIndexService implements
     }
 
     /**
-     * 
+     *
      * @param typeSearch
      * @param keyword
      * @param max

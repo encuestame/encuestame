@@ -32,8 +32,6 @@ import javax.persistence.UniqueConstraint;
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
@@ -84,7 +82,6 @@ public class Poll extends AbstractSurvey {
      * Hash Tags.
      **/
     private Set<HashTag> hashTags = new HashSet<HashTag>();
-
 
     /**
      * @return the poll_id
