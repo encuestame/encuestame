@@ -391,14 +391,14 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     	final UserAccount userAccount2 = createUserAccount("user2", account);
     	final DateTime dt = new DateTime();
 
-        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, dt.minusDays(2).toDate(), true, false, ""); // Hidden
-        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, new Date(), false, false, "");
-        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, dt.minusDays(2).toDate(), false, false, "");
-        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, dt.minusDays(4).toDate(), false, false, "");
-        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, new Date(), false, false, "");
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, dt.minusDays(2).toDate(), true, false); // Hidden
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, new Date(), false, false);
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, dt.minusDays(2).toDate(), false, false);
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, dt.minusDays(4).toDate(), false, false);
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, new Date(), false, false);
         // User 2
-        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount2, new Date(), true, false, ""); // Hidden
-        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount2, dt.minusDays(1).toDate(), true, false, ""); // Hidden
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount2, new Date(), true, false); // Hidden
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount2, dt.minusDays(1).toDate(), true, false); // Hidden
 
         // Step 1 - Retrieve last items published by user 1 and 2
         final List<HomeBean> itemsByUser = this.frontEndService.getLastItemsPublishedFromUserAccount(userAccount1.getUsername(), 10, false, request);

@@ -192,8 +192,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
                 null,
                 null,
                 Boolean.TRUE,
-                Boolean.TRUE,
-                "mypass");
+                Boolean.TRUE);
         //System.out.println(cb);
         final Poll myPoll = this.pollService.createPoll(cb);
         Assert.assertNotNull(myPoll);
@@ -209,7 +208,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
         assertEquals(myPoll.getShowComments(), CommentOptions.MODERATE);
         assertEquals(myPoll.getIsHidden(), true);
         assertEquals(myPoll.getIsPasswordProtected(), true);
-        assertEquals(myPoll.getPassword(), "mypass");
+        assertNotNull(myPoll.getPassword());
     }
 
      /**
@@ -220,7 +219,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      public void testcreatePollLimtIP() throws Exception{
          final String[] answer = {"a", "b"};
          final String[] hashtag = {"hastag1", "hastag2"};
-         final CreatePollBean cb = createPollBean(
+         final CreatePollBean cb = createPrivatePollBean(
                  "Question",
                  answer,
                  hashtag,
@@ -228,7 +227,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
                  "ALL",
                  true,
                  null,
-                 null);
+                 null,
+                 true,
+                 true
+                 );
          cb.setRepeatedVotes(4);
          cb.setMultiple(false);
          cb.setLimitVote(null);
@@ -334,6 +336,9 @@ public class TestPollService extends AbstractSpringSecurityContext{
          cb.setRepeatedVotes(5);
          cb.setMultiple(false);
          cb.setLimitVote(10);
+         cb.setIsHidden(true);
+         cb.setIsPasswordProtected(true);
+         cb.setPassword("dada");
          return this.pollService.createPoll(cb);
      }
 
@@ -668,7 +673,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
         //this.answers[3] = "answer Four";
         final String[] answer = {"a", "b"};
         final String[] hashtag = {"hastag1", "hastag2"};
-        final CreatePollBean cb = createPollBean("ssssssssssss",answer, hashtag, "APPROVE", "ALL", true, null, null);
+        final CreatePollBean cb = createPrivatePollBean("Who Invented The Telescope?",answer, hashtag, "APPROVE", "ALL", true, null, null, false, false);
         final Poll newPollService = this.pollService.createPoll(cb);
 
         final List<QuestionAnswer> beforeAnswers = getQuestionDaoImp()

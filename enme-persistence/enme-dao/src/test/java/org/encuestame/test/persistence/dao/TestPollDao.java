@@ -229,18 +229,18 @@ public class TestPollDao extends AbstractBase {
                 Boolean.TRUE, Boolean.TRUE);
 
         // Fourth Poll
-        createDefaulPollWithPrivacy(question, userAccount, new Date(), true, false, ""); // Hidden - User1
+        createDefaulPollWithPrivacy(question, userAccount, new Date(), true, false); // Hidden - User1
         // Fifth Poll
-        createDefaulPollWithPrivacy(question, userAccount, new Date(), true, false, ""); // Hidden - User1
+        createDefaulPollWithPrivacy(question, userAccount, new Date(), true, false); // Hidden - User1
         // Sexth Poll
-        createDefaulPollWithPrivacy(question, userAccount, new Date(), true, false, ""); // Hidden - User1
+        createDefaulPollWithPrivacy(question, userAccount, new Date(), true, false); // Hidden - User1
 
         // Sexth Poll
-        createDefaulPollWithPrivacy(question, userAccount, new Date(), false, false, ""); // Not Hidden - User1
+        createDefaulPollWithPrivacy(question, userAccount, new Date(), false, false); // Not Hidden - User1
 
         // Poll - User 2
-        createDefaulPollWithPrivacy(question, user2, new Date(), true, false, ""); // Hidden - User2
-        createDefaulPollWithPrivacy(question, user2, new Date(), false , false, ""); // Not Hidden - User 2
+        createDefaulPollWithPrivacy(question, user2, new Date(), true, false); // Hidden - User2
+        createDefaulPollWithPrivacy(question, user2, new Date(), false , false); // Not Hidden - User 2
 
 
         final List<Poll> pollList = getPollDao().getPollByUserIdDate(null,
