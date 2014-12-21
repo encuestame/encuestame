@@ -21,8 +21,8 @@
                     <source>${java-version}</source>
                     <target>${java-version}</target>
                     <encoding>ISO-8859-1</encoding>
-                    <showDeprecation>true</showDeprecation>
-                    <compilerArgument>-Xlint:unchecked</compilerArgument>
+                    <!--<showDeprecation>true</showDeprecation>-->
+                    <!--<compilerArgument>-Xlint:unchecked</compilerArgument>-->
                 </configuration>
             </plugin>
             <plugin>
