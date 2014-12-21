@@ -30,7 +30,6 @@ import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Attachment;
-import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -107,32 +106,54 @@ public class SearchService extends AbstractIndexService implements
 //            hashset.put("questions", questionResult);
 //        }
 
+		if (resultsAllowed.indexOf(TypeSearchResult.POLL) != -1) {
+			List<GlobalSearchItem> polls = UtilConvertToSearchItems
+					.convertPollToSearchItem(getPollDao()
+							.getPollsByQuestionKeyword(keyword, null, limitByItem, 0));
+//			if (limitByItem != 0 && polls.size() > limitByItem) {
+//				polls = polls.subList(0, limitByItem);
+//			}
+			log.debug("Polls " + polls.size());
+			hashset.put("Polls", polls);
+		}
+
+	    if (resultsAllowed.indexOf(TypeSearchResult.TWEETPOLL) != -1) {
+            List<GlobalSearchItem> tweetPolls = UtilConvertToSearchItems
+                   .convertTweetPollToSearchItem(getTweetPollDao().retrieveTweetPollByKeyword(keyword, start, limitByItem));
+//			if (limitByItem != 0 && tweetPolls.size() > limitByItem) {
+//				tweetPolls = tweetPolls.subList(0, limitByItem);
+//			}
+           log.debug("Tweetpolls " + tweetPolls.size());
+           hashset.put("Tweetpolls", tweetPolls);
+       }
+
+
         if (resultsAllowed.indexOf(TypeSearchResult.PROFILE) != -1) {
              List<GlobalSearchItem> profiles = UtilConvertToSearchItems
-                    .convertProfileToSearchItem(getAccountDao().getPublicProfiles(keyword, limit, start));
-            if (limitByItem != 0 && profiles.size() > limitByItem) {
-                profiles = profiles.subList(0, limitByItem);
-            }
+                    .convertProfileToSearchItem(getAccountDao().getPublicProfiles(keyword, limitByItem, start));
+//            if (limitByItem != 0 && profiles.size() > limitByItem) {
+//                profiles = profiles.subList(0, limitByItem);
+//            }
             log.debug("profiles " + profiles.size());
             hashset.put("profiles", profiles);
         }
 
         if (resultsAllowed.indexOf(TypeSearchResult.HASHTAG) != -1) {
             List<GlobalSearchItem> tags = UtilConvertToSearchItems
-            .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limit, null));
-            if (limitByItem != 0 && tags.size() > limitByItem) {
-                tags = tags.subList(0, limitByItem);
-            }
+            .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limitByItem, null));
+//            if (limitByItem != 0 && tags.size() > limitByItem) {
+//                tags = tags.subList(0, limitByItem);
+//            }
             log.debug("tags " + tags.size());
             hashset.put("tags", tags);
         }
 
         if (resultsAllowed.indexOf(TypeSearchResult.ATTACHMENT) != -1) {
             List<GlobalSearchItem> attachments = UtilConvertToSearchItems
-                                        .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword, 10, "content"));
-            if (limitByItem != 0 && attachments.size() > limitByItem) {
-                attachments = attachments.subList(0, limitByItem);
-            }
+                                        .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword, limitByItem, "content"));
+//            if (limitByItem != 0 && attachments.size() > limitByItem) {
+//                attachments = attachments.subList(0, limitByItem);
+//            }
             log.debug("attachments " + attachments.size());
             hashset.put("attachments", attachments);
         }
@@ -141,10 +162,10 @@ public class SearchService extends AbstractIndexService implements
 			// TODO: add comment search implementation+
 			List<GlobalSearchItem> comments = UtilConvertToSearchItems
 					.convertCommentToSearchItem(getCommentsOperations()
-							.getCommentsByKeyword(keyword, 10, null));
-			if (limitByItem != 0 && comments.size() > limitByItem) {
-				comments = comments.subList(0, limitByItem);
-			}
+							.getCommentsByKeyword(keyword, limitByItem, null));
+//			if (limitByItem != 0 && comments.size() > limitByItem) {
+//				comments = comments.subList(0, limitByItem);
+//			}
 			log.debug("Comments " + comments.size());
 			hashset.put("comments", comments);
 		}
