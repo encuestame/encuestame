@@ -93,24 +93,10 @@ public class CalculateRelevance {
     }
 
     /**
-     * @param frontEndService the frontEndService to set
-     */
-    public void setFrontEndService(final IFrontEndService frontEndService) {
-        this.frontEndService = frontEndService;
-    }
-
-    /**
      * @return the tweetPollService
      */
     public ITweetPollService getTweetPollService() {
         return tweetPollService;
-    }
-
-    /**
-     * @param tweetPollService the tweetPollService to set
-     */
-    public void setTweetPollService(final ITweetPollService tweetPollService) {
-        this.tweetPollService = tweetPollService;
     }
 
     /**
@@ -120,10 +106,5 @@ public class CalculateRelevance {
         return pollService;
     }
 
-    /**
-     * @param pollService the pollService to set
-     */
-    public void setPollService(final IPollService pollService) {
-        this.pollService = pollService;
-    }
+
 }

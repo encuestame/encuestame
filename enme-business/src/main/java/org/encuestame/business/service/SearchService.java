@@ -99,7 +99,7 @@ public class SearchService extends AbstractIndexService implements
             List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
                     .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
                             null));
-            if (limitByItem != 0 && questionResult.size() > limitByItem) {
+            if  (limitByItem != 0 && questionResult.size() > limitByItem) {
                 questionResult = questionResult.subList(0, limitByItem);
             }
             log.debug("questionResult " + questionResult.size());
