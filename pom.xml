@@ -4,7 +4,7 @@
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.0</version>
+    <version>1.5.0-SNAPSHOT</version>
     <name>Encuestame</name>
     <description>
      Encuestame is an open source project based on Java 6 technology. You can use to create different
@@ -451,7 +451,8 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
                         <testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-                        <argLine>-Xmx1024m</argLine>
+                        <argLine>-Xms512m -Xmx1024m -XX:MaxPermSize=512m</argLine>
+                        <forkMode>never</forkMode>
                         <groups>org.encuestame.utils.categories.test.DefaultTest</groups>
                     </configuration>
                     <version>${surefire.version}</version>
@@ -580,131 +581,6 @@
 			<properties>
 				<env>development</env>
 			</properties>
-		</profile>
-		<!-- Internet Test Categories -->
-		<profile>
-			<id>test-internet</id>
-			<properties>
-				<env>testcase</env>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-							<argLine>-Xms1024m -Xmx1024m -XX:MaxPermSize=2048m</argLine>
-							<groups>org.encuestame.utils.categories.test.InternetTest</groups>
-						</configuration>
-						<version>${surefire.version}</version>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.maven.surefire</groupId>
-								<artifactId>surefire-junit47</artifactId>
-								<version>${surefire.version}</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-
-				</plugins>
-			</build>
-		</profile>
-		<!-- -->
-		<!-- Performance Test Categories -->
-		<profile>
-			<id>test-performance</id>
-			<properties>
-				<env>testcase</env>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-							<argLine>-Xmx1024m</argLine>
-							<groups>org.encuestame.utils.categories.test.PerformanceTest</groups>
-						</configuration>
-						<version>${surefire.version}</version>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.maven.surefire</groupId>
-								<artifactId>surefire-junit47</artifactId>
-								<version>${surefire.version}</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-
-				</plugins>
-			</build>
-
-		</profile>
-		<!-- -->
-		<!-- Performance Test Categories -->
-		<profile>
-			<id>SlowTest</id>
-			<properties>
-				<env>test-slow</env>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-							<argLine>-Xmx1024m</argLine>
-							<groups>org.encuestame.utils.categories.test.SlowTest</groups>
-						</configuration>
-						<version>${surefire.version}</version>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.maven.surefire</groupId>
-								<artifactId>surefire-junit47</artifactId>
-								<version>${surefire.version}</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>test-all</id>
-			<properties>
-				<env>all</env>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-							<argLine>-Xmx1024m</argLine>
-<!-- 							<groups>org.encuestame.utils.categories.test.DefaultTest</groups> -->
-<!--
-                            TODO: How add all groups in this configuration?
- 							<groups>org.encuestame.utils.categories.test.CometTest</groups>
-							<groups>org.encuestame.utils.categories.test.JSONTest</groups>
-							<groups>org.encuestame.utils.categories.test.MVCTest</groups>
-							<groups>org.encuestame.utils.categories.test.PerformanceTest</groups>
-							<groups>org.encuestame.utils.categories.test.SlowTest</groups>
-							<groups>org.encuestame.utils.categories.test.InternetTest</groups> -->
-						</configuration>
-						<version>${surefire.version}</version>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.maven.surefire</groupId>
-								<artifactId>surefire-junit47</artifactId>
-								<version>${surefire.version}</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 		<!-- -->
 		<profile>
