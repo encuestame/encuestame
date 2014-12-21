@@ -61,7 +61,7 @@ public class CreatePollBean implements Serializable{
     @JsonProperty(value = "isPasswordProtected")
     public Boolean isPasswordProtected;
 
-    @JsonProperty(value = "password")
+    @JsonIgnore
     public String password;
 
     /**

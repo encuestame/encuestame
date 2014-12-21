@@ -446,7 +446,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             // property to define Privacy or if the poll is hidden
             pollDomain.setIsHidden(createPollBean.getIsHidden());
             // Properties to vote a poll only with password
-            if (createPollBean.isPasswordProtected)
+            if ((createPollBean.getIsPasswordProtected()) && (createPollBean.getIsPasswordProtected()!= null))
             {
             	pollDomain.setIsPasswordProtected(createPollBean.getIsPasswordProtected());
             	pollDomain.setPassword(RandomStringUtils.randomAlphanumeric(5));
