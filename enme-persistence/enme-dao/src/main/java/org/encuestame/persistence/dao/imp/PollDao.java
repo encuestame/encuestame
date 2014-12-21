@@ -327,8 +327,13 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                     List<Question> searchResult = new ArrayList<Question>();
                     long start = System.currentTimeMillis();
                     final Criteria criteria = session.createCriteria(Poll.class);
-                    //filter by account.
-                    criteria.add(Restrictions.eq("editorOwner", userAcc));
+                    //filter by account und .
+                    if(userAcc!=null) {
+                        criteria.add(Restrictions.eq("editorOwner", userAcc));
+                    } else {
+                    	// Retrieve without hidden polls
+                    	criteria.add(Restrictions.eq("isHidden", Boolean.FALSE));
+                    }
                     //limit results
                     if (maxResults != null) {
                         criteria.setMaxResults(maxResults.intValue());
