@@ -30,14 +30,4 @@
       </plugins>
     </pluginManagement>
   </build>
-    <dependencies>
-        <dependency>
-            <groupId>com.google.javascript</groupId>
-            <artifactId>closure-compiler</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>rhino</groupId>
-            <artifactId>js</artifactId>
-        </dependency>
-    </dependencies>
 </project>
