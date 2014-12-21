@@ -496,6 +496,27 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Helper to create Default private {@link Poll}
+     * @param question
+     * @param userAccount
+     * @param isHidden
+     * @param isPasswordProtected
+     * @param password
+     * @return
+     */
+    public Poll createDefaultPrivatePoll(final Question question,
+			final UserAccount userAccount, final Boolean isHidden,
+			final Boolean isPasswordProtected) {
+		final Poll poll = this.createPoll(new Date(), question, userAccount,
+				Boolean.TRUE, Boolean.TRUE);
+		poll.setIsHidden(isHidden);
+		poll.setIsPasswordProtected(isPasswordProtected);
+		poll.setPassword(this.generatePassword());
+		getPollDao().saveOrUpdate(poll);
+		return poll;
+    }
+
+    /**
      * Helper create default poll.
      * @param question
      * @param userAccount
@@ -522,13 +543,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 			final UserAccount userAccount,
 			final Date createdAt,
 			final Boolean isHidden,
-			final Boolean isPasswordProtected,
-			final String password) {
+			final Boolean isPasswordProtected) {
     	final Poll poll = createPoll(createdAt, question, userAccount, Boolean.TRUE,
                 Boolean.TRUE);
     	poll.setIsHidden(isHidden);
     	poll.setIsPasswordProtected(isPasswordProtected);
-    	poll.setPassword(password);
+    	poll.setPassword(this.generatePassword());
         return poll;
     }
 
@@ -2718,4 +2738,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
                 socialAccount, status, attempts, null, "tweettext", typeSearch);
 
     }
+
+    /**
+     * Helper to generate random password to {@link Poll} and {@link Survey}
+     * @return
+     */
+	public String generatePassword() {
+		return RandomStringUtils.randomAlphanumeric(5);
+	}
 }
