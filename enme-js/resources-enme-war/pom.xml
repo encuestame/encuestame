@@ -59,10 +59,10 @@
                 <id>js</id>
                 <phase>compile</phase>
                 <configuration>
-                    <classpath>
-                        <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar" />
-                        <pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar" />
-                    </classpath>
+                    <!--<classpath>-->
+                        <!--<pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar" />-->
+                        <!--<pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar" />-->
+                    <!--</classpath>-->
                     <target>
                         <move todir="${project.build.directory}/temp/dojo-src/js/">
                             <fileset dir="${project.build.directory}/temp/dojo-release-${dojo.version}-src" />
@@ -175,7 +175,7 @@
     <dependency>
       <groupId>com.google.javascript</groupId>
       <artifactId>closure-compiler</artifactId>
-      <version>${google.closure}</version>
+      <version>v20141120</version>
     </dependency>
     <dependency>
       <groupId>rhino</groupId>

@@ -150,6 +150,7 @@
         -->
         <maven-clover2-plugin>4.0.2</maven-clover2-plugin>
         <google.closure>v20141120</google.closure>
+        <rihno.version>1.7R2</rihno.version>
         <maven-jar.plugin>2.4</maven-jar.plugin>
         <maven-compiler-plugin>2.3.2</maven-compiler-plugin>
         <aspectj-maven-plugin>1.2</aspectj-maven-plugin>
@@ -171,7 +172,7 @@
         <wro4j.version>1.7.7</wro4j.version>
         <maven-eclipse-plugin>2.9</maven-eclipse-plugin>
         <jsonpath.version>1.2.0</jsonpath.version>
-        <!--<surefire.failures.ignore>true</surefire.failures.ignore>-->
+        <surefire.failures.ignore>false</surefire.failures.ignore>
     </properties>
 
     <modules>
@@ -1729,6 +1730,16 @@
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-server</artifactId>
                 <version>${selenium.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.javascript</groupId>
+                <artifactId>closure-compiler</artifactId>
+                <version>${google.closure}</version>
+            </dependency>
+            <dependency>
+                <groupId>rhino</groupId>
+                <artifactId>js</artifactId>
+                <version>${rihno.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
