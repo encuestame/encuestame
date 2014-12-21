@@ -26,7 +26,7 @@
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Java version -->
-        <java-version>1.7</java-version>
+        <java-version>1.6</java-version>
         <!-- encuestame version -->
         <encuestame.version>1.5.0</encuestame.version>
         <spring.version>4.0.6.RELEASE</spring.version>
