@@ -57,6 +57,10 @@ public class ReIndexJob {
         }
     }
 
+    public void setIndexRebuilder(IndexRebuilder indexRebuilder) {
+        this.indexRebuilder = indexRebuilder;
+    }
+
     /**
      * @return the indexRebuilder
      */
