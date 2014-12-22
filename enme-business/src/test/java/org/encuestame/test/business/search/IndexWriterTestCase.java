@@ -36,7 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since Apr 12, 2011
  */
-@Category(DefaultTest.class)
+//@Category(DefaultTest.class)
 public class IndexWriterTestCase extends AbstractServiceBase{
 
     /**
@@ -60,7 +60,7 @@ public class IndexWriterTestCase extends AbstractServiceBase{
      * Test {@link IndexWriterManager}.
      * @throws IOException
      */
-    //@Test
+    @Test
     public void testIndexWriter() throws IOException{
         Assert.assertNotNull(this.indexWriter);
         //this.indexWriter.openIndexWriter();
@@ -74,12 +74,12 @@ public class IndexWriterTestCase extends AbstractServiceBase{
                     Field.Index.NOT_ANALYZED)); // Index Full Path.
             i.addDocument(doc); // Add Document to Lucene Index.
        // }
-        this.indexWriter.closeIndexWriter();
+        //this.indexWriter.closeIndexWriter();
     }
 
 
 
-    @Test
+    //@Test
     public void testIndexSearcher() throws Exception{
         Assert.assertNotNull(this.indexerManager);
         final List<File> files = new ArrayList<File>();
