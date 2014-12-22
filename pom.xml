@@ -404,10 +404,10 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin}</version>
-                    <configuration>
-                        <source>${java-version}</source>
-                        <target>${java-version}</target>
-                    </configuration>
+                    <!--<configuration>-->
+                        <!--<source>${java-version}</source>-->
+                        <!--<target>${java-version}</target>-->
+                    <!--</configuration>-->
                 </plugin>
                 <!-- Aspect Plugin -->
                 <plugin>
@@ -442,8 +442,8 @@
                                 <artifactId>spring-aspects</artifactId>
                             </aspectLibrary>
                         </aspectLibraries>
-                        <source>${java-version}</source>
-                        <target>${java-version}</target>
+                        <!--<source>${java-version}</source>-->
+                        <!--<target>${java-version}</target>-->
                     </configuration>
                 </plugin>
 
@@ -524,7 +524,7 @@
                     <configuration>
                         <sourceEncoding>utf-8</sourceEncoding>
                         <minimumTokens>100</minimumTokens>
-                        <targetJdk>${java-version}</targetJdk>
+                        <!--<targetJdk>${java-version}</targetJdk>-->
                     </configuration>
                 </plugin>
 
@@ -631,7 +631,7 @@
                 <configuration>
                     <sourceEncoding>utf-8</sourceEncoding>
                     <minimumTokens>100</minimumTokens>
-                    <targetJdk>${java-version}</targetJdk>
+                    <!--<targetJdk>${java-version}</targetJdk>-->
                 </configuration>
             </plugin>
             <plugin>
