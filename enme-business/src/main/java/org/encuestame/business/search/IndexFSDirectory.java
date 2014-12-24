@@ -43,7 +43,7 @@ public class IndexFSDirectory implements DirectoryIndexStore {
     public IndexFSDirectory() {
         try {
             final String directoryIndexPath = DirectorySetupOperations.getIndexesDirectory();
-            System.out.println("Index Directory -->"+ directoryIndexPath);
+            log.debug("Index Directory -->"+ directoryIndexPath);
             if (directoryIndexPath != null) {
                 this.directory = FSDirectory.open(new File(directoryIndexPath));
             } else {
@@ -51,11 +51,11 @@ public class IndexFSDirectory implements DirectoryIndexStore {
                 //do action
             }
         } catch (IOException e) {
-            System.out.println("Directory not found where save data");
+            log.debug("Directory not found where save data");
             //do action
             //System.getProperty("user.home");
         } catch (EnmeFailOperation e) {
-            System.out.println("index directory not found "+e);
+            log.debug("index directory not found "+e);
         }
     }
 

@@ -92,13 +92,13 @@ public class SearchService extends AbstractIndexService implements
             Integer limitByItem,
             final List<TypeSearchResult> resultsAllowed)
             throws EnMeNoResultsFoundException, IOException, ParseException {
-        System.out.println("******************************");
-        System.out.println("keyword "+keyword);
-        System.out.println("language "+language);
-        System.out.println("start "+start);
-        System.out.println("limit "+limit);
-        System.out.println("limitByItem "+limitByItem);
-        System.out.println("resultsAllowed "+resultsAllowed.size());
+       log.debug("******************************");
+       log.debug("keyword "+keyword);
+       log.debug("language "+language);
+       log.debug("start "+start);
+       log.debug("limit "+limit);
+       log.debug("limitByItem "+limitByItem);
+       log.debug("resultsAllowed "+resultsAllowed.size());
         final Map<String, List<GlobalSearchItem>> hashset = new HashedMap();
         hashset.put("questions", ListUtils.EMPTY_LIST);
         hashset.put("Polls", ListUtils.EMPTY_LIST);
@@ -199,7 +199,7 @@ public class SearchService extends AbstractIndexService implements
             totalItems.get(i).setId(Long.valueOf(x));
             x++;
         }*/
-        System.out.println("total::"+hashset.toString());
+       log.debug("total::"+hashset.toString());
         return hashset;
     }
 

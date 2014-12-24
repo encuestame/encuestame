@@ -130,10 +130,10 @@ public class TestCron extends AbstractSpringSecurityContext {
     public void testgetTweetPollsbyRange() {
         this.login(userAccount);
         final List<TweetPoll> tweetPolls = this.tweetPollService.getTweetPollsbyRange(10, 0, null);
-        System.out.println("debug::==>::" + tweetPolls.size());
+        log.debug("debug::==>::" + tweetPolls.size());
         Assert.assertEquals(tweetPolls.size(), 3);
         final List<TweetPoll> tweetPolls2 = this.tweetPollService.getTweetPollsbyRange(2, 0, null);
-        System.out.println("debug::==>::" + tweetPolls2.size());
+        log.debug("debug::==>::" + tweetPolls2.size());
         Assert.assertEquals(tweetPolls2.size(), 2);
     }
 
