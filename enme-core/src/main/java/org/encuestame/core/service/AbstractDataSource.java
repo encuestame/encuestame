@@ -18,6 +18,7 @@ import java.util.LinkedList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.dao.IAccountDao;
@@ -52,6 +53,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.hibernate.HibernateException;
+import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
@@ -123,6 +125,14 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
 
     @Autowired
     private CommentsOperations commentsOperations;
+
+    /**
+     *
+     */
+    @Before
+    public void initTestSec() {
+        EnMePlaceHolderConfigurer.setSystemInitialized(false);
+    }
 
     /**
      * Get {@link UserAccount} by Username.
