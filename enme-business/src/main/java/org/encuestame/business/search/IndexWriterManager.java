@@ -66,6 +66,7 @@ public class IndexWriterManager implements IIndexWriter {
     @PostConstruct
     public void openIndexWriter() {
         try {
+            System.out.println("getDirectoryStore()"+getDirectoryStore());
             this.indexWriter = SearchUtils.openIndexWriter(getDirectoryStore(), this.indexWriter);
             Assert.notNull(this.indexWriter);
         } catch (CorruptIndexException e) {

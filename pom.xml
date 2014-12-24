@@ -554,13 +554,6 @@
 				<env>development</env>
 			</properties>
 		</profile>
-		<!-- -->
-		<profile>
-			<id>demo</id>
-			<properties>
-				<env>demo</env>
-			</properties>
-		</profile>
 	</profiles>
 
     <reporting>

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -91,20 +92,33 @@ public class SearchService extends AbstractIndexService implements
             Integer limitByItem,
             final List<TypeSearchResult> resultsAllowed)
             throws EnMeNoResultsFoundException, IOException, ParseException {
-        @SuppressWarnings("unchecked")
+        System.out.println("******************************");
+        System.out.println("keyword "+keyword);
+        System.out.println("language "+language);
+        System.out.println("start "+start);
+        System.out.println("limit "+limit);
+        System.out.println("limitByItem "+limitByItem);
+        System.out.println("resultsAllowed "+resultsAllowed.size());
         final Map<String, List<GlobalSearchItem>> hashset = new HashedMap();
+        hashset.put("questions", ListUtils.EMPTY_LIST);
+        hashset.put("Polls", ListUtils.EMPTY_LIST);
+        hashset.put("Tweetpolls", ListUtils.EMPTY_LIST);
+        hashset.put("profiles", ListUtils.EMPTY_LIST);
+        hashset.put("tags", ListUtils.EMPTY_LIST);
+        hashset.put("attachments", ListUtils.EMPTY_LIST);
+        hashset.put("comments", ListUtils.EMPTY_LIST);
         limitByItem = limitByItem == null ? 0 : limitByItem;
         // TODO :See ENCUESTAME-670: to know the reason : why has been commented the following block of code.
-//        if (resultsAllowed.indexOf(TypeSearchResult.QUESTION) != -1) {
-//            List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
-//                    .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
-//                            null));
-//            if (limitByItem != 0 && questionResult.size() > limitByItem) {
-//                questionResult = questionResult.subList(0, limitByItem);
-//            }
-//            log.debug("questionResult " + questionResult.size());
-//            hashset.put("questions", questionResult);
-//        }
+        if (resultsAllowed.indexOf(TypeSearchResult.QUESTION) != -1) {
+            List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
+                    .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
+                            null));
+            if (limitByItem != 0 && questionResult.size() > limitByItem) {
+                questionResult = questionResult.subList(0, limitByItem);
+            }
+            log.debug("questionResult " + questionResult.size());
+            hashset.put("questions", questionResult);
+        }
 
 		if (resultsAllowed.indexOf(TypeSearchResult.POLL) != -1) {
 			List<GlobalSearchItem> polls = UtilConvertToSearchItems
@@ -185,6 +199,7 @@ public class SearchService extends AbstractIndexService implements
             totalItems.get(i).setId(Long.valueOf(x));
             x++;
         }*/
+        System.out.println("total::"+hashset.toString());
         return hashset;
     }
 

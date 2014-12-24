@@ -265,6 +265,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * This is useful to test full text session search on test cases.
      */
     public void flushIndexes(){
+        System.out.println("flush::"+getHibernateTemplate().getSessionFactory().getCurrentSession());
         final FullTextSession fullTextSession = Search.getFullTextSession(getHibernateTemplate().getSessionFactory().getCurrentSession());
         fullTextSession.flushToIndexes();
     }
@@ -474,13 +475,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setPollHash(pollHash);         //should be unique
         poll.setEditorOwner(userAccount);
         poll.setOwner(userAccount.getAccount());
+        poll.setPasswordRestrictions(false);
+        poll.setIsHidden(false);
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(pollPublish);
         poll.setShowComments(CommentOptions.APPROVE);
         poll.setRelevance(1L);
         getPollDao().saveOrUpdate(poll);
         return poll;
-
     }
 
     /**

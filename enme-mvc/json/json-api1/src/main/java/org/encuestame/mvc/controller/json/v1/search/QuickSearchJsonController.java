@@ -77,7 +77,7 @@ public class QuickSearchJsonController extends AbstractJsonControllerV1 {
             //
             final List<TypeSearchResult> typesEnabled = new ArrayList<TypeSearchResult>();
             typesEnabled.add(TypeSearchResult.QUESTION);
-            typesEnabled.add(TypeSearchResult.ATTACHMENT);
+            //typesEnabled.add(TypeSearchResult.ATTACHMENT);
             typesEnabled.add(TypeSearchResult.HASHTAG);
             typesEnabled.add(TypeSearchResult.POLL);
             typesEnabled.add(TypeSearchResult.PROFILE);
@@ -92,6 +92,7 @@ public class QuickSearchJsonController extends AbstractJsonControllerV1 {
             log.debug("GlobalSearchItem results " + results.size());
             //setItemReadStoreResponse("itemSearchTitle", "id", results);
         } catch (Exception e) {
+            e.printStackTrace();
             log.error(e);
             setError(e.getMessage(), response);
         }
