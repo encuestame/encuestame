@@ -250,7 +250,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeNoResultsFoundException
      */
     //@Category(SlowTest.class)
-    @Test(timeout = 30000)
+    //@Test(timeout = 30000)
     @Ignore
     //FIXME: Too long, addapt to the current flow
     public void testdeleteUser() throws EnMeNoResultsFoundException {
