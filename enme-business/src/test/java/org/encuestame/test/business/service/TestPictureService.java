@@ -70,7 +70,7 @@ public class TestPictureService extends AbstractSpringSecurityContext {
     @Test
     public void testggetGravatarPicture() throws Exception {
            final String picture = this.pictureService.getAccountUserPicturePath(this.secondary);
-           logPrint(picture);
+           //logPrint(picture);
     }
 
     /**
@@ -80,7 +80,7 @@ public class TestPictureService extends AbstractSpringSecurityContext {
     @Test
     public void testgetPicturePath() throws Exception {
         final byte[] t = this.pictureService.getProfilePicture(this.secondary.getUsername(), PictureType.DEFAULT);
-        logPrint(t);
+        //logPrint(t);
     }
 
     /**

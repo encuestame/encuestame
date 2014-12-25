@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>web-app</artifactId>
-        <version>1.5.0</version>
+        <version>1.5.0-SNAPSHOT</version>
     </parent>
     <artifactId>enme-tomcat-app</artifactId>
     <packaging>war</packaging>

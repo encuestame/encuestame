@@ -4,9 +4,8 @@
 	<parent>
 		<groupId>org.encuestame</groupId>
 		<artifactId>encuestame</artifactId>
-		<version>1.5.0</version>
+		<version>1.5.0-SNAPSHOT</version>
 	</parent>
-	<version>1.5.0</version>
 	<artifactId>encuestame-css</artifactId>
 	<packaging>war</packaging>
 	<name>Encuestame :: CSS :: WAR</name>

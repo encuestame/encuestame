@@ -4,10 +4,9 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.5.0</version>
+        <version>1.5.0-SNAPSHOT</version>
     </parent>
     <artifactId>encuestame-core</artifactId>
-  <version>1.5.0</version>
     <packaging>jar</packaging>
     <name>Encuestame Core</name>
     <build>
@@ -15,17 +14,6 @@
             <filter>../env/${env}.properties</filter>
         </filters>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java-version}</source>
-                    <target>${java-version}</target>
-                    <encoding>ISO-8859-1</encoding>
-                    <showDeprecation>true</showDeprecation>
-                    <compilerArgument>-Xlint:unchecked</compilerArgument>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>

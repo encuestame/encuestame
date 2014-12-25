@@ -82,6 +82,21 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     @JsonProperty(value = "short_url")
     private String shortUrl;
 
+    /** **/
+    @JsonProperty(value = "isHidden")
+    private Boolean isHidden;
+
+
+    /** **/
+    @JsonProperty(value = "isPasswordProtected")
+    private Boolean isPasswordProtected;
+
+
+    /** **/
+    @JsonProperty(value = "password")
+    private String password;
+
+
     /**
      *
      */
@@ -267,7 +282,49 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
         this.resultsBean = resultsBean;
     }
 
-    /* (non-Javadoc)
+    /**
+	 * @return the isHidden
+	 */
+	public Boolean getIsHidden() {
+		return isHidden;
+	}
+
+	/**
+	 * @param isHidden the isHidden to set
+	 */
+	public void setIsHidden(Boolean isHidden) {
+		this.isHidden = isHidden;
+	}
+
+	/**
+	 * @return the isPasswordProtected
+	 */
+	public Boolean getIsPasswordProtected() {
+		return isPasswordProtected;
+	}
+
+	/**
+	 * @param isPasswordProtected the isPasswordProtected to set
+	 */
+	public void setIsPasswordProtected(Boolean isPasswordProtected) {
+		this.isPasswordProtected = isPasswordProtected;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override

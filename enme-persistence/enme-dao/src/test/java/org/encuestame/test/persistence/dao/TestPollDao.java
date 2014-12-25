@@ -215,6 +215,58 @@ public class TestPollDao extends AbstractBase {
         assertEquals("Should be equals", 3, pollList.size());
     }
 
+
+    @Test
+    public void testGetPollByUserIdDateWithPrivacy(){
+
+		final UserAccount user2 = createUserAccount("user 2", this.user);
+
+        // Second Poll
+        createPoll(new Date(), this.question, "FDK115", this.userAccount,
+                Boolean.TRUE, Boolean.TRUE);
+        // Third Poll
+        createPoll(new Date(), this.question, "FDK195", this.userAccount,
+                Boolean.TRUE, Boolean.TRUE);
+
+        // Fourth Poll
+        createDefaulPollWithPrivacy(question, userAccount, new Date(), true, false); // Hidden - User1
+        // Fifth Poll
+        createDefaulPollWithPrivacy(question, userAccount, new Date(), true, false); // Hidden - User1
+        // Sexth Poll
+        createDefaulPollWithPrivacy(question, userAccount, new Date(), true, false); // Hidden - User1
+
+        // Sexth Poll
+        createDefaulPollWithPrivacy(question, userAccount, new Date(), false, false); // Not Hidden - User1
+
+        // Poll - User 2
+        createDefaulPollWithPrivacy(question, user2, new Date(), true, false); // Hidden - User2
+        createDefaulPollWithPrivacy(question, user2, new Date(), false , false); // Not Hidden - User 2
+
+
+        final List<Poll> pollList = getPollDao().getPollByUserIdDate(null,
+                this.userAccount,
+                this.MAX_RESULTS,
+                this.START);
+        assertEquals("Should be equals", 4, pollList.size());
+
+        // Retrieve Hidden Polls User 1
+		final List<Poll> retrieveHiddenPolls = getPollDao()
+				.getHiddenPollbyUser(true, this.userAccount, 10, 0);
+		assertEquals("Hidden Polls with user 1 should be equals", 3, retrieveHiddenPolls.size());
+
+		// Retrieve Hidden Polls User 2
+				final List<Poll> retrieveNotHiddenPolls1 = getPollDao()
+						.getHiddenPollbyUser(false, this.userAccount, 10, 0);
+				assertEquals("Hidden Polls with user 1 should be equals", 4, retrieveNotHiddenPolls1.size());
+
+		// Retrieve Hidden Polls User 2
+		final List<Poll> retrieveNotHiddenPolls = getPollDao()
+				.getHiddenPollbyUser(false, user2, 10, 0);
+		assertEquals("Hidden Polls with user 2 should be equals", 1, retrieveNotHiddenPolls.size());
+
+    }
+
+
     @Test
     public void testRetrievePollsByUserId(){
         final Question question2 =  createQuestion("Why the sea is blue?","html");

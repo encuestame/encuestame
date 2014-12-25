@@ -16,10 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.core.search.GlobalSearchItem;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.TypeSearchResult;
 
@@ -161,12 +165,12 @@ public class UtilConvertToSearchItems {
         }
         return globalSearchItems;
     }
-    
+
     /**
      * Convert a {@link Comment} Array to {@link GlobalSearchItem} list.
      * @param comments
      * @return
-     */ 
+     */
 	public static List<GlobalSearchItem> convertCommentToSearchItem(
 			final List<Comment> comments) {
 		final List<GlobalSearchItem> globalSearchItems = new ArrayList<GlobalSearchItem>();
@@ -176,7 +180,7 @@ public class UtilConvertToSearchItems {
 		}
 		return globalSearchItems;
 	}
-    
+
     /**
      * Convert {@link Comment} to {@link GlobalSearchItem}
      * @param comment
@@ -192,5 +196,107 @@ public class UtilConvertToSearchItems {
 		globalSearchItem.setItemSearchTitle(comment.getComment());
 		return globalSearchItem;
 	}
+
+	/**
+	 * Convert a list of {@link Poll} to {@link GlobalSearchItem} list.
+	 * @param polls
+	 * @return
+	 */
+	public static List<GlobalSearchItem> convertPollToSearchItem(
+			final List<Poll> polls) {
+
+		final List<GlobalSearchItem> globalSearchItems = new ArrayList<GlobalSearchItem>();
+		for (Poll poll : polls) {
+			globalSearchItems.add(UtilConvertToSearchItems
+					.convertPollToSearchItem(poll));
+		}
+		return globalSearchItems;
+	}
+
+	/**
+	 * Convert Poll to Search item
+	 * @param question
+	 * @return
+	 */
+    public static GlobalSearchItem convertPollToSearchItem(
+            final Poll poll) {
+        final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
+        globalSearchItem.setUrlLocation(EnMeUtils.createUrlPollAccess("", poll));
+        globalSearchItem.setHits(poll.getHits());
+        globalSearchItem.setId(poll.getPollId());
+        globalSearchItem.setItemSearchTitle(poll.getQuestion().getQuestion());
+        globalSearchItem.setDateCreated(poll.getCreateDate());
+        globalSearchItem.setItemPattern(poll.getQuestion().getQuestionPattern().name());
+        globalSearchItem.setTypeSearchResult(TypeSearchResult.POLL);
+        return globalSearchItem;
+    }
+
+    /**
+     * Convert a list of {@link TweetPoll} to {@link GlobalSearchItem} list.
+     * @param tpoll
+     * @return
+     */
+	public static List<GlobalSearchItem> convertTweetPollToSearchItem(
+			final List<TweetPoll> tpoll) {
+
+		final List<GlobalSearchItem> globalSearchItems = new ArrayList<GlobalSearchItem>();
+		for (TweetPoll tweetPoll : tpoll) {
+			globalSearchItems.add(UtilConvertToSearchItems
+					.convertTweetPollToSearchItem(tweetPoll));
+		}
+		return globalSearchItems;
+	}
+
+	/**
+	 * Convert {@link TweetPoll} to {@link GlobalSearchItem}
+	 * @param question
+	 * @return
+	 */
+    public static GlobalSearchItem convertTweetPollToSearchItem(
+            final TweetPoll tweetPoll) {
+        final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
+        globalSearchItem.setUrlLocation(EnMeUtils.createTweetPollUrlAccess("", tweetPoll));
+        globalSearchItem.setHits(tweetPoll.getHits());
+        globalSearchItem.setId(tweetPoll.getTweetPollId());
+        globalSearchItem.setItemSearchTitle(tweetPoll.getQuestion().getQuestion());
+        globalSearchItem.setDateCreated(tweetPoll.getCreateDate());
+        globalSearchItem.setItemPattern(tweetPoll.getQuestion().getQuestionPattern().name());
+        globalSearchItem.setTypeSearchResult(TypeSearchResult.TWEETPOLL);
+        return globalSearchItem;
+    }
+
+    /**
+     * Convert a list of {@link Survey} to {@link GlobalSearchItem} list.
+     * @param surveys
+     * @return
+     */
+	public static List<GlobalSearchItem> convertSurveyToSearchItem(
+			final List<Survey> surveys) {
+
+		final List<GlobalSearchItem> globalSearchItems = new ArrayList<GlobalSearchItem>();
+		for (Survey survey : surveys) {
+			globalSearchItems.add(UtilConvertToSearchItems
+					.convertSurveyToSearchItem(survey));
+		}
+		return globalSearchItems;
+	}
+
+	/**
+	 * Convert {@link Survey} to {@link GlobalSearchItem}
+	 * @param question
+	 * @return
+	 */
+    public static GlobalSearchItem convertSurveyToSearchItem(
+            final Survey survey) {
+        final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
+        globalSearchItem.setUrlLocation(null);
+        globalSearchItem.setHits(survey.getHits());
+        globalSearchItem.setId(survey.getSid());
+       // globalSearchItem.setItemSearchTitle(null);
+        globalSearchItem.setDateCreated(survey.getCreateDate());
+       // globalSearchItem.setItemPattern(null);
+        globalSearchItem.setTypeSearchResult(TypeSearchResult.SURVEY);
+        return globalSearchItem;
+    }
 
 }

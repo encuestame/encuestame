@@ -23,6 +23,7 @@ import org.springframework.scheduling.annotation.Scheduled;
  * @since Jul 8, 2010 9:49:41 PM
  * @version $Id:$
  */
+
 public class ReIndexJob {
 
     /**
@@ -56,6 +57,10 @@ public class ReIndexJob {
         }
     }
 
+    public void setIndexRebuilder(IndexRebuilder indexRebuilder) {
+        this.indexRebuilder = indexRebuilder;
+    }
+
     /**
      * @return the indexRebuilder
      */
@@ -63,10 +68,4 @@ public class ReIndexJob {
         return indexRebuilder;
     }
 
-    /**
-     * @param indexRebuilder the indexRebuilder to set
-     */
-    public void setIndexRebuilder(final IndexRebuilder indexRebuilder) {
-        this.indexRebuilder = indexRebuilder;
-    }
 }

@@ -23,7 +23,6 @@ import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.dao.ITweetPoll;
-import org.encuestame.persistence.dao.SearchSurveyPollTweetItem;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
@@ -124,6 +123,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         criteria.addOrder(Order.desc("relevance"));
         criteria.add(Restrictions.eq("publish", Boolean.TRUE)); //should be published
         criteria.addOrder(Order.desc("createDate"));
+        criteria.add(Restrictions.eq("isHidden", Boolean.FALSE));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
         //return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
     }
@@ -144,15 +144,6 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         criteria.addOrder(Order.desc("relevance"));
         criteria.addOrder(Order.desc("createDate"));
         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
-    }
-
-    /**
-     * Search Items By Tag.
-     * @param tag
-     * @return
-     */
-    public final List<SearchSurveyPollTweetItem> searchByTag(final String tag){
-        return null;
     }
 
     /**
@@ -535,10 +526,10 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
             criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
             queryRequired = true;
-        } else if (itemType.equals(TypeSearchResult.POLL)) {
+        } else if (itemType.equals(TypeSearchResult.SURVEY)) {
             criteria.add(Restrictions.eq("survey", survey));
             queryRequired = true;
-        } else if (itemType.equals(TypeSearchResult.SURVEY)) {
+        } else if (itemType.equals(TypeSearchResult.POLL)) {
             criteria.add(Restrictions.eq("poll", poll));
             queryRequired = true;
         } else if (itemType.equals(TypeSearchResult.HASHTAG)) {
@@ -546,7 +537,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             final List<TweetPoll> d = getTweetPoll().getTweetpollByHashTagName(hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG,
                     searchPeriods);
             final List<Poll> polls = getPoll().getPollByHashTagName(hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG, searchPeriods);
-            // FUTURE: We need include Surveys by Hashtag
+              // FUTURE: We need include Surveys by Hashtag
             // include on the query all published items by tweetpoll
             if (d.size() != 0) {
                 criteria.add(Restrictions.in("tweetPoll", d));
