@@ -433,14 +433,11 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     @Category(DefaultTest.class)
     @Test
     public void testDeleteUser() throws EnMeExpcetion {
-        final UserAccount secUsers = createUserAccount("administrator",
-                this.userPrimary);
+        final UserAccount secUsers = createUserAccount("administrator", this.userPrimary);
         final Long idUser = secUsers.getUid();
-        // final String username = secUsers.getUsername();
-        final UserAccountBean user = ConvertDomainBean
-                .convertSecondaryUserToUserBean(secUsers);
+        final UserAccountBean user = ConvertDomainBean.convertSecondaryUserToUserBean(secUsers);
         securityService.deleteUser(user);
-        final Account userRetrieve = getAccountDao().getUserById(idUser);
+        final UserAccount userRetrieve = getAccountDao().getUserAccountById(idUser);
         assertNull(userRetrieve);
     }
 
