@@ -101,18 +101,18 @@
                         <arg value="${project.build.directory}/dojo-compiled" />
                     </java>
                     <delete includeEmptyDirs="true" verbose="false">
-                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="tests/**/" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/tests/**/" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/demos/**/" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="util/**" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/*.psd" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/*.fla" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/*.svg" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/*.as" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dojo" includes="**/*.swf" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}/dijit/themes/" excludes="**/claro/**/" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}" includes="**/package.json" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/${project.version}" includes="**/package.js" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="tests/**/" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/tests/**/" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/demos/**/" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="util/**" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/*.psd" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/*.fla" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/*.svg" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/*.as" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/*.swf" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/dijit/themes/" excludes="**/claro/**/" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release" includes="**/package.json" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release" includes="**/package.js" />
                     </delete>
                     <echo message="ENCUESTAME :: Dojo AMD optimized ::" />
                   </target>
@@ -140,7 +140,7 @@
               </archive>
               <webResources>
                 <resource>
-                  <directory>${project.build.directory}/dojo-compiled/${project.version}</directory>
+                  <directory>${project.build.directory}/dojo-compiled/release</directory>
                   <targetPath>resource/js</targetPath>
                 </resource>
                   <resource>
@@ -163,13 +163,13 @@
     <dependency>
       <groupId>org.encuestame</groupId>
       <artifactId>encuestame-css</artifactId>
-      <version>${project.version}</version>
+      <version>${encuestame.version}</version>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>org.encuestame</groupId>
       <artifactId>deps</artifactId>
-      <version>${project.version}</version>
+        <version>${encuestame.version}</version>
       <type>war</type>
     </dependency>
     <dependency>
