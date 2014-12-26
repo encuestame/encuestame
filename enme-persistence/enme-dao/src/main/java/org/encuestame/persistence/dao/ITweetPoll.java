@@ -50,7 +50,7 @@ public interface ITweetPoll extends IBaseDao{
      * @throws HibernateException exception
      */
     TweetPoll getTweetPollById(final Long tweetPollId) throws HibernateException;
-    
+
     /**
      * Get a {@link TweetPollSavedPublishedStatus} by Id
      * @param id id
@@ -539,4 +539,15 @@ public interface ITweetPoll extends IBaseDao{
 	 */
 	List<TweetPollFolder> getTweetPollFolderByKeyword(final String keyword,
 			final UserAccount userAcc);
+
+	  /**
+     *  Retrieve Polls by Keyword without User.
+     * @param keyword
+     * @param start
+     * @param maxResults
+     * @return
+     */
+	List<TweetPoll> retrieveTweetPollByKeyword(final String keyword,
+			final Integer start,
+			final Integer maxResults);
 }

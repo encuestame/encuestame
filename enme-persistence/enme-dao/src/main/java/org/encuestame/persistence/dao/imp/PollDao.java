@@ -327,8 +327,13 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                     List<Question> searchResult = new ArrayList<Question>();
                     long start = System.currentTimeMillis();
                     final Criteria criteria = session.createCriteria(Poll.class);
-                    //filter by account.
-                    criteria.add(Restrictions.eq("editorOwner", userAcc));
+                    //filter by account und .
+                    if(userAcc!=null) {
+                        criteria.add(Restrictions.eq("editorOwner", userAcc));
+                    } else {
+                    	// Retrieve without hidden polls
+                    	criteria.add(Restrictions.eq("isHidden", Boolean.FALSE));
+                    }
                     //limit results
                     if (maxResults != null) {
                         criteria.setMaxResults(maxResults.intValue());
@@ -435,6 +440,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
             final Integer start ){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("editorOwner", userAcc));
+        criteria.add(Restrictions.eq("isHidden", Boolean.FALSE));
         if ( date != null) {
             criteria.add(Restrictions.between("createDate", date, getNextDayMidnightDate()));
         }
@@ -774,4 +780,22 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                 MatchMode.ANYWHERE));
         return (List<PollFolder>) filterByMaxorStart(criteria, 10, 0);
     }
+
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getHiddenPollbyUser(java.lang.Boolean, org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+	public List<Poll> getHiddenPollbyUser(final Boolean isHidden,
+			final UserAccount user,
+			final Integer max,
+			final Integer start) {
+    	final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+    	criteria.add(Restrictions.eq("isHidden", isHidden));
+    	criteria.add(Restrictions.eq("editorOwner", user));
+    	return (List<Poll>) filterByMaxorStart(criteria, max, start);
+    }
+
+
 }

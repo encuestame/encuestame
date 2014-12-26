@@ -27,6 +27,7 @@ import org.encuestame.core.service.imp.IIndexWriter;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class IndexWriterTestCase extends AbstractServiceBase{
      * Test {@link IndexWriterManager}.
      * @throws IOException
      */
-    //@Test
+    @Test
     public void testIndexWriter() throws IOException{
         Assert.assertNotNull(this.indexWriter);
         //this.indexWriter.openIndexWriter();
@@ -80,6 +81,7 @@ public class IndexWriterTestCase extends AbstractServiceBase{
 
 
     @Test
+    @Ignore
     public void testIndexSearcher() throws Exception{
         Assert.assertNotNull(this.indexerManager);
         final List<File> files = new ArrayList<File>();

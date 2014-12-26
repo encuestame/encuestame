@@ -12,6 +12,8 @@
  */
 package org.encuestame.test.business.service;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +25,7 @@ import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -32,10 +35,12 @@ import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -371,5 +376,43 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     */
     public void setFrontEndService(IFrontEndService frontEndService) {
         this.frontEndService = frontEndService;
+    }
+
+    /**
+     * Retrieve last items published by {@link UserAccount}
+     * @throws EnMeNoResultsFoundException
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+    @Test
+    public void testGetLastItemsPublishedFromUserAccount() throws  EnMeNoResultsFoundException, NoSuchAlgorithmException, UnsupportedEncodingException{
+    	final Account account = createAccount();
+    	final UserAccount userAccount1 = createUserAccount("user1", account );
+    	final UserAccount userAccount2 = createUserAccount("user2", account);
+    	final DateTime dt = new DateTime();
+
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, dt.minusDays(2).toDate(), true, false); // Hidden
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, new Date(), false, false);
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, dt.minusDays(2).toDate(), false, false);
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, dt.minusDays(4).toDate(), false, false);
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount1, new Date(), false, false);
+        // User 2
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount2, new Date(), true, false); // Hidden
+        createDefaulPollWithPrivacy(createQuestionRandom(), userAccount2, dt.minusDays(1).toDate(), true, false); // Hidden
+
+        // Step 1 - Retrieve last items published by user 1 and 2
+        final List<HomeBean> itemsByUser = this.frontEndService.getLastItemsPublishedFromUserAccount(userAccount1.getUsername(), 10, false, request);
+        Assert.assertEquals("Last items published by user 1 should be equals", 4, itemsByUser.size());
+
+        final List<HomeBean> itemsByUser2 = this.frontEndService.getLastItemsPublishedFromUserAccount(userAccount2.getUsername(), 10, false, request);
+        Assert.assertEquals("Last items published by user 1 should be equals", 0, itemsByUser2.size());
+
+        // Step 2 - Check the items
+        // Retrieve hidden polls by user
+        final List<Poll> hiddenPollsByUser1 = getPollDao().getHiddenPollbyUser(true, userAccount1, 10, 0);
+        Assert.assertEquals("Last items published by user 1 should be equals", 1, hiddenPollsByUser1.size());
+
+        final List<Poll> hiddenPollsByUser2 = getPollDao().getHiddenPollbyUser(true, userAccount2, 10, 0);
+        Assert.assertEquals("Last items published by user 1 should be equals", 2, hiddenPollsByUser2.size());
     }
 }

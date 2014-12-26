@@ -14,6 +14,7 @@ package org.encuestame.mvc.test.json;
 
 import junit.framework.Assert;
 
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.mvc.controller.json.v1.search.QuickSearchJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonV1MvcUnitBeans;
 import org.encuestame.persistence.domain.security.Account;
@@ -63,6 +64,7 @@ public class QuickSearchJsonControllerTestCase extends AbstractJsonV1MvcUnitBean
     @Test
     public void quickSearchTest() throws Exception {
         flushIndexes();
+        logPrint("datasource.hibernate.search.provider" +EnMePlaceHolderConfigurer.getProperty("datasource.hibernate.search.provider"));
         initService("/api/search/quick-suggest.json", MethodJson.GET);
         setParameter("keyword", "S");
         final JSONObject response = callJsonService();
@@ -75,12 +77,12 @@ public class QuickSearchJsonControllerTestCase extends AbstractJsonV1MvcUnitBean
         final JSONObject response2 = callJsonService();
         Assert.assertEquals(this.getSearchRestuls(response2, "tags").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response2, "questions").size(), 3);
-        Assert.assertEquals(this.getSearchRestuls(response2, "profiles").size(), 1);
+        Assert.assertEquals(this.getSearchRestuls(response2, "profiles").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response2, "attachments").size(), 0);
         initService("/api/search/quick-suggest.json", MethodJson.GET);
         setParameter("keyword", "Nicaragua");
         final JSONObject response3 = callJsonService();
-        Assert.assertEquals(this.getSearchRestuls(response3, "tags").size(), 1);
+        Assert.assertEquals(this.getSearchRestuls(response3, "tags").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response3, "questions").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response3, "profiles").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response3, "attachments").size(), 0);
@@ -114,12 +116,12 @@ public class QuickSearchJsonControllerTestCase extends AbstractJsonV1MvcUnitBean
         final JSONObject response2 = callJsonService();
         Assert.assertEquals(this.getSearchRestuls(response2, "tags").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response2, "questions").size(), 3);
-        Assert.assertEquals(this.getSearchRestuls(response2, "profiles").size(), 1);
+        Assert.assertEquals(this.getSearchRestuls(response2, "profiles").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response2, "attachments").size(), 0);
         initService("/api/search/quick-suggest.json", MethodJson.GET);
         setParameter("keyword", "Nicaragua");
         final JSONObject response3 = callJsonService();
-        Assert.assertEquals(this.getSearchRestuls(response3, "tags").size(), 1);
+        Assert.assertEquals(this.getSearchRestuls(response3, "tags").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response3, "questions").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response3, "profiles").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response3, "attachments").size(), 0);

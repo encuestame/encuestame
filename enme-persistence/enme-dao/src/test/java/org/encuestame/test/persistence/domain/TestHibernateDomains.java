@@ -318,6 +318,9 @@ public class TestHibernateDomains extends AbstractBase{
          surveys.setDateInterview(new Date());
          surveys.setComplete("y");
          //surveys.setSurveysfolder(createSurveyFolders());
+         surveys.setIsHidden(Boolean.TRUE);
+         surveys.setIsPasswordProtected(Boolean.TRUE);
+         surveys.setPassword("VdyGw");
          getSurveyDaoImp().saveOrUpdate(surveys);
          assertNotNull(surveys.getSid());
      }
@@ -544,6 +547,9 @@ public class TestHibernateDomains extends AbstractBase{
          poll.setPublish(Boolean.TRUE);
          poll.setPollFolder(pollFolder);
          poll.setUpdatedDate(null);
+         poll.setIsHidden(Boolean.TRUE);
+         poll.setIsPasswordProtected(Boolean.TRUE);
+         poll.setPassword("EvXaD");
          getPollDao().saveOrUpdate(poll);
      }
 

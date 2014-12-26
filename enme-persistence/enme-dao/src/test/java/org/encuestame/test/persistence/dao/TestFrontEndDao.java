@@ -126,7 +126,6 @@ public class TestFrontEndDao extends AbstractBase {
     /**
      *
      */
-    @Test
     public void testGetLinksByHomeItem() {
         final TweetPoll tp1 = createTweetPoll(12345L, true, true, true, true, false, null, new Date(),
                 true, this.secondary,
@@ -144,11 +143,86 @@ public class TestFrontEndDao extends AbstractBase {
         createTweetPollSavedPublishedStatus(tp2, "43243sa2532", null, "test tweettxt fdsc");
         createTweetPollSavedPublishedStatus(tp1, "4324a1232532", null, "test tweettxt cz xc");
         createTweetPollSavedPublishedStatus(tp2, "432d123432532", null, "test tweettxt c cxz");
-        List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
-                .getLinksByHomeItem(this.hashTag, null, null, null, null,
-                        TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME, 0, 100);
-        assertEquals("Should be equals", 4, links.size());
     }
+
+
+    /**
+     * Retrieve {@link TweetPollSavedPublishedStatus} (Links ) by {@link HashTag}
+     */
+    @Test
+    public void testGetLinksByHomeItemHashtag(){
+    	this.testGetLinksByHomeItem();
+    	// TODO: Include Polls to searchlist with hashtag
+    	 List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
+                 .getLinksByHomeItem(this.hashTag, null, null, null, null,
+                         TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME, 0, 100);
+         assertEquals("Should be equals", 4, links.size());
+    }
+
+    /**
+     * Retrieve {@link TweetPollSavedPublishedStatus} (Links ) by {@link TweetPoll}
+     */
+    @Test
+    public void testGetLinksByHomeItemTweetPoll(){
+    	  final TweetPoll tp1 = createTweetPoll(12345L, true, true, true, true, false, null, new Date(),
+                  true, this.secondary,
+                  createQuestion("test tp1", this.secondary.getAccount()),
+                  this.secondary);
+
+		tp1.getHashTags().add(this.hashTag);
+		getTweetPoll().saveOrUpdate(tp1);
+		createTweetPollSavedPublishedStatus(tp1, "432432532", null,
+				"test tweettxt dad");
+		createTweetPollSavedPublishedStatus(tp1, "432222532", null,
+				"test testTweet dad");
+		createTweetPollSavedPublishedStatus(tp1, "553322532", null,
+				"testTweettxt test dad");
+
+
+		List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
+				.getLinksByHomeItem(this.hashTag, null, tp1, null, null,
+						TypeSearchResult.TWEETPOLL, SearchPeriods.ALLTIME, 0,
+						100);
+
+         assertEquals("Should be equals", 3, links.size());
+    }
+
+    /**
+     * Retrieve {@link TweetPollSavedPublishedStatus} (Links ) by {@link Poll}  */
+    @Test
+    public void testGetLinksByHomeItemPoll(){
+    	Question q1 = createDefaultQuestion("Where will the next JJOO");
+    	Question q2 = createDefaultQuestion("What is the city with the best quality of life");
+    	final Poll poll1 = createDefaultPoll(q1, this.secondary, this.initDate.minusHours(5).toDate());
+    	final Poll poll2 = createDefaultPoll(q2, this.secondary, this.initDate.minusHours(5).toDate());
+
+    	createPollSavedPublishedStatus(poll1, "553882532", null,
+				"testTweettxt99 test dad");
+    	createPollSavedPublishedStatus(poll2, "553332532", null,
+				"testTweettxt89 test dad");
+
+     	 List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
+                 .getLinksByHomeItem(this.hashTag, null, null, null, poll1,
+                         TypeSearchResult.POLL, SearchPeriods.ALLTIME, 0, 100);
+         assertEquals("Should be equals", 1, links.size());
+    }
+
+    /**
+     * Retrieve {@link TweetPollSavedPublishedStatus} (Links ) by {@link Survey}
+     */
+    @Test
+    public void testGetLinksByHomeItemSurvey(){
+    	final Survey survey1 = createDefaultSurvey(this.secondary.getAccount(), "survey test", new Date());
+
+    	createSurveySavedPublishedStatus(survey1, "553882532", null,
+				"testTweettxt99 test dad");
+
+     	 List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
+                 .getLinksByHomeItem(this.hashTag, null, null, survey1, null,
+                         TypeSearchResult.SURVEY, SearchPeriods.ALLTIME, 0, 100);
+         assertEquals("Should be equals", 1, links.size());
+    }
+
 
     /**
      * Get total hashTagHits by range.

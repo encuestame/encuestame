@@ -184,13 +184,6 @@ public class CalculateHashTagSize {
         return hashTagDao;
     }
 
-    /**
-     * @param hashTagDao
-     *            the hashTagDao to set
-     */
-    public void setHashTagDao(final IHashTagDao hashTagDao) {
-        this.hashTagDao = hashTagDao;
-    }
 
     /**
      * @return the tweetPoll
@@ -199,10 +192,5 @@ public class CalculateHashTagSize {
         return tweetPoll;
     }
 
-    /**
-     * @param tweetPoll the tweetPoll to set
-     */
-    public void setTweetPoll(final ITweetPoll tweetPoll) {
-        this.tweetPoll = tweetPoll;
-    }
+
 }

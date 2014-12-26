@@ -31,6 +31,7 @@ import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.CreatePollBean;
 import org.encuestame.utils.web.DashboardBean;
+import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UnitAttachment;
@@ -38,11 +39,9 @@ import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
-import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSurveySection;
 import org.encuestame.utils.web.UserAccountBean;
-import org.encuestame.utils.web.search.Search;
 import org.encuestame.utils.web.search.TweetPollSearchBean;
 
 /**
@@ -80,6 +79,38 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
         createPollBean.setCloseDate(closeDate);
         createPollBean.setFolder_name(null); //disable by default
         return createPollBean;
+    }
+
+    /**
+     * Helper to {@link CreatePollBean} Private
+     * @param questionName
+     * @param answer
+     * @param hashtag
+     * @param showComments
+     * @param showResults
+     * @param multipleSelection
+     * @param limitVotes
+     * @param closeDate
+     * @param isHidden
+     * @param isPasswordProtected
+     * @param password
+     * @return
+     */
+    public CreatePollBean createPrivatePollBean(
+            final String questionName,
+            final String[] answer,
+            final String[] hashtag,
+            final String showComments,
+            final String showResults,
+            final Boolean multipleSelection,
+            final Integer limitVotes,
+			final Long closeDate,
+			final Boolean isHidden,
+			final Boolean isPasswordProtected) {
+    	final CreatePollBean pollBean = this.createPollBean(questionName, answer, hashtag, showComments, showResults, multipleSelection, limitVotes, closeDate);
+    	pollBean.setIsHidden(isHidden);
+    	pollBean.setIsPasswordProtected(isPasswordProtected);
+    	return pollBean;
     }
 
     /**

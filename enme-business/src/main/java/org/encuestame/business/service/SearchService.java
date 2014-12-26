@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,7 +31,6 @@ import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Attachment;
-import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -92,9 +92,23 @@ public class SearchService extends AbstractIndexService implements
             Integer limitByItem,
             final List<TypeSearchResult> resultsAllowed)
             throws EnMeNoResultsFoundException, IOException, ParseException {
-        @SuppressWarnings("unchecked")
+       log.debug("******************************");
+       log.debug("keyword "+keyword);
+       log.debug("language "+language);
+       log.debug("start "+start);
+       log.debug("limit "+limit);
+       log.debug("limitByItem "+limitByItem);
+       log.debug("resultsAllowed "+resultsAllowed.size());
         final Map<String, List<GlobalSearchItem>> hashset = new HashedMap();
+        hashset.put("questions", ListUtils.EMPTY_LIST);
+        hashset.put("Polls", ListUtils.EMPTY_LIST);
+        hashset.put("Tweetpolls", ListUtils.EMPTY_LIST);
+        hashset.put("profiles", ListUtils.EMPTY_LIST);
+        hashset.put("tags", ListUtils.EMPTY_LIST);
+        hashset.put("attachments", ListUtils.EMPTY_LIST);
+        hashset.put("comments", ListUtils.EMPTY_LIST);
         limitByItem = limitByItem == null ? 0 : limitByItem;
+        // TODO :See ENCUESTAME-670: to know the reason : why has been commented the following block of code.
         if (resultsAllowed.indexOf(TypeSearchResult.QUESTION) != -1) {
             List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
                     .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
@@ -106,44 +120,66 @@ public class SearchService extends AbstractIndexService implements
             hashset.put("questions", questionResult);
         }
 
+		if (resultsAllowed.indexOf(TypeSearchResult.POLL) != -1) {
+			List<GlobalSearchItem> polls = UtilConvertToSearchItems
+					.convertPollToSearchItem(getPollDao()
+							.getPollsByQuestionKeyword(keyword, null, limitByItem, 0));
+//			if (limitByItem != 0 && polls.size() > limitByItem) {
+//				polls = polls.subList(0, limitByItem);
+//			}
+			log.debug("Polls " + polls.size());
+			hashset.put("Polls", polls);
+		}
+
+	    if (resultsAllowed.indexOf(TypeSearchResult.TWEETPOLL) != -1) {
+            List<GlobalSearchItem> tweetPolls = UtilConvertToSearchItems
+                   .convertTweetPollToSearchItem(getTweetPollDao().retrieveTweetPollByKeyword(keyword, start, limitByItem));
+//			if (limitByItem != 0 && tweetPolls.size() > limitByItem) {
+//				tweetPolls = tweetPolls.subList(0, limitByItem);
+//			}
+           log.debug("Tweetpolls " + tweetPolls.size());
+           hashset.put("Tweetpolls", tweetPolls);
+       }
+
+
         if (resultsAllowed.indexOf(TypeSearchResult.PROFILE) != -1) {
              List<GlobalSearchItem> profiles = UtilConvertToSearchItems
-                    .convertProfileToSearchItem(getAccountDao().getPublicProfiles(keyword, limit, start));
-            if (limitByItem != 0 && profiles.size() > limitByItem) {
-                profiles = profiles.subList(0, limitByItem);
-            }
+                    .convertProfileToSearchItem(getAccountDao().getPublicProfiles(keyword, limitByItem, start));
+//            if (limitByItem != 0 && profiles.size() > limitByItem) {
+//                profiles = profiles.subList(0, limitByItem);
+//            }
             log.debug("profiles " + profiles.size());
             hashset.put("profiles", profiles);
         }
 
         if (resultsAllowed.indexOf(TypeSearchResult.HASHTAG) != -1) {
             List<GlobalSearchItem> tags = UtilConvertToSearchItems
-            .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limit, null));
-            if (limitByItem != 0 && tags.size() > limitByItem) {
-                tags = tags.subList(0, limitByItem);
-            }
+            .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limitByItem, null));
+//            if (limitByItem != 0 && tags.size() > limitByItem) {
+//                tags = tags.subList(0, limitByItem);
+//            }
             log.debug("tags " + tags.size());
             hashset.put("tags", tags);
         }
 
         if (resultsAllowed.indexOf(TypeSearchResult.ATTACHMENT) != -1) {
             List<GlobalSearchItem> attachments = UtilConvertToSearchItems
-                                        .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword, 10, "content"));
-            if (limitByItem != 0 && attachments.size() > limitByItem) {
-                attachments = attachments.subList(0, limitByItem);
-            }
+                                        .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword, limitByItem, "content"));
+//            if (limitByItem != 0 && attachments.size() > limitByItem) {
+//                attachments = attachments.subList(0, limitByItem);
+//            }
             log.debug("attachments " + attachments.size());
             hashset.put("attachments", attachments);
         }
-        
+
 		if (resultsAllowed.indexOf(TypeSearchResult.COMMENT) != -1) {
 			// TODO: add comment search implementation+
 			List<GlobalSearchItem> comments = UtilConvertToSearchItems
 					.convertCommentToSearchItem(getCommentsOperations()
-							.getCommentsByKeyword(keyword, 10, null));
-			if (limitByItem != 0 && comments.size() > limitByItem) {
-				comments = comments.subList(0, limitByItem);
-			}
+							.getCommentsByKeyword(keyword, limitByItem, null));
+//			if (limitByItem != 0 && comments.size() > limitByItem) {
+//				comments = comments.subList(0, limitByItem);
+//			}
 			log.debug("Comments " + comments.size());
 			hashset.put("comments", comments);
 		}
@@ -163,11 +199,12 @@ public class SearchService extends AbstractIndexService implements
             totalItems.get(i).setId(Long.valueOf(x));
             x++;
         }*/
+       log.debug("total::"+hashset.toString());
         return hashset;
     }
 
     /**
-     * 
+     *
      */
     public List<GlobalSearchItem> globalKeywordSearch(String keyword,
             String language, final Integer start, final Integer limit) {
@@ -186,7 +223,7 @@ public class SearchService extends AbstractIndexService implements
     }
 
     /**
-     * 
+     *
      */
     public String indexAttachment(final File file, final Long attachmentId){
      long start = System.currentTimeMillis();
@@ -222,7 +259,7 @@ public class SearchService extends AbstractIndexService implements
     }
 
     /**
-     * 
+     *
      * @param typeSearch
      * @param keyword
      * @param max

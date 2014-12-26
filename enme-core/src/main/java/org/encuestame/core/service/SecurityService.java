@@ -190,14 +190,13 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      */
     public void deleteUser(final UserAccountBean userBean) throws EnMeNoResultsFoundException{
             final UserAccount userDomain = getUserAccount(userBean.getUsername());
-                log.info("notify delete account");
-                if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-                    getMailService().sendDeleteNotification(userBean.getEmail().trim(),
-                            getMessageProperties("userMessageDeleteNotification"));
-                }
-                log.info("deleting user");
-                getAccountDao().delete(userDomain);
-                log.info("user deleted");
+            log.info("notify delete account");
+            if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+                getMailService().sendDeleteNotification(userBean.getEmail().trim(), getMessageProperties("userMessageDeleteNotification"));
+            }
+            log.info("deleting user");
+            getAccountDao().delete(userDomain);
+            log.info("user deleted");
     }
 
     /**
@@ -661,7 +660,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
             this.assingPermission(userAccount, permissions);
             log.debug("administration user ----> Adding Security label");
-            
+
             // create a dashboard by default
             final Dashboard dashboard = createDefaultDashboard(userAccount);
             getDashboardService().addGadgetOnDashboard(dashboard.getBoardId(), "stream");
@@ -688,7 +687,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * SingUp User.
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UserAccountBean}.
-     * @throws EnMeNoResultsFoundException 
+     * @throws EnMeNoResultsFoundException
      */
     public UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail) throws EnMeNoResultsFoundException {
         //FIXME: Validate the email inside this service.
@@ -745,12 +744,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             log.debug("new user "+userAccount.getUsername());
             log.debug("Get Authoritie Name:{ "+SecurityContextHolder.getContext().getAuthentication().getName());
         }
-        	
+
         // create a welcome notification
         createNotification(NotificationEnum.WELCOME_SIGNUP,
                 getMessageProperties("notification.wellcome.account"),
                 null, false, userAccount);
-        
+
         // create a dashboard by default
         final Dashboard dashboard = createDefaultDashboard(userAccount);
         getDashboardService().addGadgetOnDashboard(dashboard.getBoardId(), "stream", userAccount);
@@ -759,13 +758,13 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         // SecurityUtils.authenticate(userAccount);
         return userAccount;
     }
-    
+
     /**
      * It creates a default dashboard
      * @param userAccount
      */
     private Dashboard createDefaultDashboard(final UserAccount userAccount) {
-    	 //FUTURE: this code must be in higher level {reuse code}
+         //FUTURE: this code must be in higher level {reuse code}
         final Dashboard board = new Dashboard();
         board.setPageBoardName(EnMePlaceHolderConfigurer.getProperty("dashboard.default.name") == null ? "" : EnMePlaceHolderConfigurer.getProperty("dashboard.default.name"));
         board.setDescription(EnMePlaceHolderConfigurer.getProperty("dashboard.default.descr") == null ? "" : EnMePlaceHolderConfigurer.getProperty("dashboard.default.descr")) ;
@@ -1019,10 +1018,10 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final String email) throws EnMeNoResultsFoundException{
         final UserAccount account = getUserAccount(getUserPrincipalUsername());
             if (log.isDebugEnabled()) {
-		    	log.debug("update Account user to update " + account.getUsername());
-		        log.debug("update Account Profile bio " + bio);
-		        log.debug("update Account Profile language " + language);
-		        log.debug("update Account Profile username " + username);
+                log.debug("update Account user to update " + account.getUsername());
+                log.debug("update Account Profile bio " + bio);
+                log.debug("update Account Profile language " + language);
+                log.debug("update Account Profile username " + username);
             }
             account.setCompleteName(completeName);
             account.setUserEmail(email);
@@ -1045,9 +1044,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         final UserAccount userAccount = getUserAccount(getUserPrincipalUsername());
         final SocialAccount social = getAccountDao().getSocialAccount(accountId, userAccount.getAccount());
         if (log.isDebugEnabled()) {
-	        log.debug("changeStateSocialAccount account");
-	        log.debug("changeStateSocialAccount account accountId "+accountId);
-	        log.debug("changeStateSocialAccount account action "+action);
+            log.debug("changeStateSocialAccount account");
+            log.debug("changeStateSocialAccount account accountId "+accountId);
+            log.debug("changeStateSocialAccount account action "+action);
         }
         if (social == null) {
             throw new EnMeNoResultsFoundException("social accout not found");
@@ -1268,19 +1267,19 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         return userListAvailable;
     }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.encuestame.core.service.imp.SecurityOperations#getUserbyId(java.lang
-	 * .Long)
-	 */
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.core.service.imp.SecurityOperations#getUserbyId(java.lang
+     * .Long)
+     */
     public UserAccount getUserbyId (final Long id) throws EnMeNoResultsFoundException{
-    	final UserAccount user = getAccountDao().getUserAccountById(id);
+        final UserAccount user = getAccountDao().getUserAccountById(id);
          if (user == null) {
-        	 throw new EnMeNoResultsFoundException("confirmation code not found");
+             throw new EnMeNoResultsFoundException("confirmation code not found");
          }
-    	return user;
+        return user;
 
     }
 

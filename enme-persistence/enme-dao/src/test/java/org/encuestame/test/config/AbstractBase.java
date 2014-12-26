@@ -474,13 +474,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setPollHash(pollHash);         //should be unique
         poll.setEditorOwner(userAccount);
         poll.setOwner(userAccount.getAccount());
+        poll.setPasswordRestrictions(false);
+        poll.setIsHidden(false);
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(pollPublish);
         poll.setShowComments(CommentOptions.APPROVE);
         poll.setRelevance(1L);
         getPollDao().saveOrUpdate(poll);
         return poll;
-
     }
 
     /**
@@ -496,6 +497,27 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Helper to create Default private {@link Poll}
+     * @param question
+     * @param userAccount
+     * @param isHidden
+     * @param isPasswordProtected
+     * @param password
+     * @return
+     */
+    public Poll createDefaultPrivatePoll(final Question question,
+			final UserAccount userAccount, final Boolean isHidden,
+			final Boolean isPasswordProtected) {
+		final Poll poll = this.createPoll(new Date(), question, userAccount,
+				Boolean.TRUE, Boolean.TRUE);
+		poll.setIsHidden(isHidden);
+		poll.setIsPasswordProtected(isPasswordProtected);
+		poll.setPassword(this.generatePassword());
+		getPollDao().saveOrUpdate(poll);
+		return poll;
+    }
+
+    /**
      * Helper create default poll.
      * @param question
      * @param userAccount
@@ -506,6 +528,29 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final UserAccount userAccount, final Date createdAt) {
         return this.createPoll(createdAt, question, userAccount, Boolean.TRUE,
                 Boolean.TRUE);
+    }
+
+    /**
+     * Helper to create a default {@link Poll} with privacy properties.
+     * @param question
+     * @param userAccount
+     * @param createdAt
+     * @param isHidden
+     * @param isPasswordProtected
+     * @param password
+     * @return
+     */
+    public Poll createDefaulPollWithPrivacy(final Question question,
+			final UserAccount userAccount,
+			final Date createdAt,
+			final Boolean isHidden,
+			final Boolean isPasswordProtected) {
+    	final Poll poll = createPoll(createdAt, question, userAccount, Boolean.TRUE,
+                Boolean.TRUE);
+    	poll.setIsHidden(isHidden);
+    	poll.setIsPasswordProtected(isPasswordProtected);
+    	poll.setPassword(this.generatePassword());
+        return poll;
     }
 
     /**
@@ -2153,6 +2198,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create Survey social links.
+     * @param survey
+     * @param tweetId
+     * @param socialAccount
+     * @param tweetText
+     * @return
+     */
+    public TweetPollSavedPublishedStatus createSurveySavedPublishedStatus(
+            final Survey survey, final String tweetId,
+            final SocialAccount socialAccount, final String tweetText) {
+         return this.createSocialLinkSavedPublishedStatus(null, null, survey, tweetId, socialAccount, tweetText);
+    }
+
+    /**
      * Create hit new.
      * @param tweetPoll
      * @param poll
@@ -2680,4 +2739,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
                 socialAccount, status, attempts, null, "tweettext", typeSearch);
 
     }
+
+    /**
+     * Helper to generate random password to {@link Poll} and {@link Survey}
+     * @return
+     */
+	public String generatePassword() {
+		return RandomStringUtils.randomAlphanumeric(5);
+	}
 }

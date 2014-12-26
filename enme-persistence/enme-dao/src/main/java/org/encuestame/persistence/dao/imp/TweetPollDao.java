@@ -28,7 +28,6 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
@@ -139,17 +138,41 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      */
     @SuppressWarnings("unchecked")
     // TODO: migrate search to Hibernate Search.
-    public List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord,
+	public List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord,
             final Long userId, final Integer maxResults, final Integer start,
             final Boolean isCompleted, final Boolean isScheduled,
             final Boolean isFavourite, final Boolean isPublished, final String period) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPoll.class);
         criteria.createAlias("tweetOwner", "tweetOwner");
-        criteria.add(Restrictions.eq("tweetOwner.id", userId));
+        if(userId!=null) {
+            criteria.add(Restrictions.eq("tweetOwner.id", userId));
+        }
         advancedTweetPollSearchOptions(criteria, isCompleted, isScheduled, isFavourite, isPublished, keyWord, period);
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.ITweetPoll#retrieveTweetPollByKeyword(
+	 * java.lang.String, java.lang.Integer, java.lang.Integer)
+	 */
+	public List<TweetPoll> retrieveTweetPollByKeyword(final String keyword,
+			final Integer start,
+			final Integer maxResults) {
+
+		return this.retrieveTweetsByQuestionName(keyword,
+				null,
+				maxResults,
+				start,
+				false,
+				false,
+				false,
+				true,
+				null);
+	}
 
     /**
      * Retrieve TweetPoll Today.

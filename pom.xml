@@ -4,7 +4,7 @@
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.0</version>
+    <version>1.5.0-SNAPSHOT</version>
     <name>Encuestame</name>
     <description>
      Encuestame is an open source project based on Java 6 technology. You can use to create different
@@ -28,7 +28,7 @@
         <!-- Java version -->
         <java-version>1.7</java-version>
         <!-- encuestame version -->
-        <encuestame.version>1.5.0</encuestame.version>
+        <encuestame.version>${project.version}</encuestame.version>
         <spring.version>4.0.6.RELEASE</spring.version>
         <env>development</env>
         <!-- js compress options -->
@@ -150,8 +150,9 @@
         -->
         <maven-clover2-plugin>4.0.2</maven-clover2-plugin>
         <google.closure>v20141120</google.closure>
+        <rihno.version>1.7R2</rihno.version>
         <maven-jar.plugin>2.4</maven-jar.plugin>
-        <maven-compiler-plugin>2.3.2</maven-compiler-plugin>
+        <maven-compiler-plugin>3.2</maven-compiler-plugin>
         <aspectj-maven-plugin>1.2</aspectj-maven-plugin>
         <maven-antrun-plugin>1.6</maven-antrun-plugin>
         <maven-resources-plugin>2.5</maven-resources-plugin>
@@ -171,7 +172,7 @@
         <wro4j.version>1.7.7</wro4j.version>
         <maven-eclipse-plugin>2.9</maven-eclipse-plugin>
         <jsonpath.version>1.2.0</jsonpath.version>
-        <!--<surefire.failures.ignore>true</surefire.failures.ignore>-->
+        <surefire.failures.ignore>false</surefire.failures.ignore>
     </properties>
 
     <modules>
@@ -451,7 +452,8 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
                         <testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-                        <argLine>-Xmx1024m</argLine>
+                        <argLine>-Xms512m -Xmx1024m -XX:MaxPermSize=512m</argLine>
+                        <forkMode>never</forkMode>
                         <groups>org.encuestame.utils.categories.test.DefaultTest</groups>
                     </configuration>
                     <version>${surefire.version}</version>
@@ -514,35 +516,6 @@
                         </execution>
                     </executions>
                 </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-pmd-plugin</artifactId>
-                    <version>${maven-pmd-plugin}</version>
-                    <configuration>
-                        <sourceEncoding>utf-8</sourceEncoding>
-                        <minimumTokens>100</minimumTokens>
-                        <targetJdk>${java-version}</targetJdk>
-                    </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>jdepend-maven-plugin</artifactId>
-                    <version>2.0-beta-2</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>2.4.0-SNAPSHOT</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>${maven-project-info-reports-plugin}</version>
-                </plugin>
-
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
@@ -581,138 +554,6 @@
 				<env>development</env>
 			</properties>
 		</profile>
-		<!-- Internet Test Categories -->
-		<profile>
-			<id>test-internet</id>
-			<properties>
-				<env>testcase</env>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-							<argLine>-Xms1024m -Xmx1024m -XX:MaxPermSize=2048m</argLine>
-							<groups>org.encuestame.utils.categories.test.InternetTest</groups>
-						</configuration>
-						<version>${surefire.version}</version>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.maven.surefire</groupId>
-								<artifactId>surefire-junit47</artifactId>
-								<version>${surefire.version}</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-
-				</plugins>
-			</build>
-		</profile>
-		<!-- -->
-		<!-- Performance Test Categories -->
-		<profile>
-			<id>test-performance</id>
-			<properties>
-				<env>testcase</env>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-							<argLine>-Xmx1024m</argLine>
-							<groups>org.encuestame.utils.categories.test.PerformanceTest</groups>
-						</configuration>
-						<version>${surefire.version}</version>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.maven.surefire</groupId>
-								<artifactId>surefire-junit47</artifactId>
-								<version>${surefire.version}</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-
-				</plugins>
-			</build>
-
-		</profile>
-		<!-- -->
-		<!-- Performance Test Categories -->
-		<profile>
-			<id>SlowTest</id>
-			<properties>
-				<env>test-slow</env>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-							<argLine>-Xmx1024m</argLine>
-							<groups>org.encuestame.utils.categories.test.SlowTest</groups>
-						</configuration>
-						<version>${surefire.version}</version>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.maven.surefire</groupId>
-								<artifactId>surefire-junit47</artifactId>
-								<version>${surefire.version}</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>test-all</id>
-			<properties>
-				<env>all</env>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-							<argLine>-Xmx1024m</argLine>
-<!-- 							<groups>org.encuestame.utils.categories.test.DefaultTest</groups> -->
-<!--
-                            TODO: How add all groups in this configuration?
- 							<groups>org.encuestame.utils.categories.test.CometTest</groups>
-							<groups>org.encuestame.utils.categories.test.JSONTest</groups>
-							<groups>org.encuestame.utils.categories.test.MVCTest</groups>
-							<groups>org.encuestame.utils.categories.test.PerformanceTest</groups>
-							<groups>org.encuestame.utils.categories.test.SlowTest</groups>
-							<groups>org.encuestame.utils.categories.test.InternetTest</groups> -->
-						</configuration>
-						<version>${surefire.version}</version>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.maven.surefire</groupId>
-								<artifactId>surefire-junit47</artifactId>
-								<version>${surefire.version}</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<!-- -->
-		<profile>
-			<id>demo</id>
-			<properties>
-				<env>demo</env>
-			</properties>
-		</profile>
 	</profiles>
 
     <reporting>
@@ -747,16 +588,6 @@
                 <version>${surefire.version}</version>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>${maven-pmd-plugin}</version>
-                <configuration>
-                    <sourceEncoding>utf-8</sourceEncoding>
-                    <minimumTokens>100</minimumTokens>
-                    <targetJdk>${java-version}</targetJdk>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -1826,18 +1657,18 @@
                 <version>1.9.5</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.jayway.jsonpath</groupId>
-                <artifactId>json-path</artifactId>
-                <version>${jsonpath.version}</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>com.jayway.jsonpath</groupId>-->
+                <!--<artifactId>json-path</artifactId>-->
+                <!--<version>${jsonpath.version}</version>-->
+            <!--</dependency>-->
 
-            <dependency>
-                <groupId>com.jayway.jsonpath</groupId>
-                <artifactId>json-path-assert</artifactId>
-                <version>${jsonpath.version}</version>
-                <scope>test</scope>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>com.jayway.jsonpath</groupId>-->
+                <!--<artifactId>json-path-assert</artifactId>-->
+                <!--<version>${jsonpath.version}</version>-->
+                <!--<scope>test</scope>-->
+            <!--</dependency>-->
 
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
@@ -1853,6 +1684,16 @@
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-server</artifactId>
                 <version>${selenium.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.javascript</groupId>
+                <artifactId>closure-compiler</artifactId>
+                <version>${google.closure}</version>
+            </dependency>
+            <dependency>
+                <groupId>rhino</groupId>
+                <artifactId>js</artifactId>
+                <version>${rihno.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1046,7 +1046,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             hits = poll.getHits() == null ? 0 : poll.getHits();
             socialAccounts = this.getSocialAccountsLinksByItem(null, null,
                     poll, TypeSearchResult.POLL);
-            numberVotes = poll.getNumbervotes();
+            numberVotes = poll.getNumbervotes() == null ? 0 : poll.getNumbervotes();
             comments = getTotalCommentsbyType(poll.getPollId(),
                     TypeSearchResult.POLL);
             log.debug("Total Comments by Poll ---->" + comments);

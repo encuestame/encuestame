@@ -3,9 +3,8 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame-js</artifactId>
-        <version>1.5.0</version>
+        <version>1.5.0-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
     <artifactId>deps</artifactId>
     <packaging>war</packaging>
