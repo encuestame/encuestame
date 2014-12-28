@@ -39,7 +39,6 @@
                     <wroManagerFactory>ro.isdc.wro.extensions.manager.standalone.GoogleStandaloneManagerFactory</wroManagerFactory>
                     <ignoreMissingResources>false</ignoreMissingResources>
                     <minimize>${compress.minimize}</minimize>
-                    <incrementalBuildEnabled>true</incrementalBuildEnabled>
                 </configuration>
                                 
             </plugin>       
