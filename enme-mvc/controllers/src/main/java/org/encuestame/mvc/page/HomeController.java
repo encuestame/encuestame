@@ -125,7 +125,7 @@ public class HomeController extends AbstractViewController {
                 model.addAttribute("hashTags", service.getHashTags(this.homeHashtagMaxItems, EnMeUtils.DEFAULT_START, ""));
                 //TODO: search hashtags and other information.
                 //TODO: comments: ENCUESTAME-346
-            } catch (EnMeSearchException | EnMeNoResultsFoundException e) {
+            } catch (Exception e) {
                 log.error(e);
                 return "error";
             }
@@ -165,7 +165,7 @@ public class HomeController extends AbstractViewController {
             HttpServletResponse response) {
             try {
                 model.put("question", getSearchService().getQuestionInfo(Long.valueOf(id)));
-            } catch (EnMeNoResultsFoundException | NumberFormatException e) {
+            } catch (Exception e) {
                  log.error(e);
                 return "404";
             }

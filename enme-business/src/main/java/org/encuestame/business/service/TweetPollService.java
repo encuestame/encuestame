@@ -811,7 +811,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          log.debug("publicMultiplesTweetAccounts tweetPoll" + tweetPoll);
         //get social account
          final SocialAccount socialAccount = getAccountDao().getSocialAccountById(socialAccountId);
-         Set<HashTag> hashTags = new HashSet<>();
+         Set<HashTag> hashTags = new HashSet<HashTag>();
          log.debug("publishTweetPoll socialTwitterAccounts: {"+socialAccount);
          //create tweet status
          final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
