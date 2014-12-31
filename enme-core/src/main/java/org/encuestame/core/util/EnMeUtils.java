@@ -156,7 +156,9 @@ public class EnMeUtils {
      * @throws IOException
      */
     public static void copy(File src, File dst) throws IOException {
-            InputStream in = new FileInputStream(src);
+        log.debug("copy src" + src.getPath());
+        log.debug("copy dst" + dst.getPath());
+        InputStream in = new FileInputStream(src);
             OutputStream out = new FileOutputStream(dst);
             // Transfer bytes from in to out
             byte[] buf = new byte[1024];
@@ -287,7 +289,10 @@ public class EnMeUtils {
      * @return
      * @throws EnMeExpcetion 
      */
-    public static  int[] cleanVersion(final String version) throws EnMeExpcetion {
+    public static  int[] cleanVersion(String version) throws EnMeExpcetion {
+        if (version.endsWith("-SNAPSHOT")){
+            version = version.replace("-SNAPSHOT", "");
+        }
         final String[] versionArray = version.split("\\.");
         int[] arrayAsIng = new int[3];
         //convert to int

@@ -105,12 +105,12 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      * @see org.encuestame.core.service.SetupOperations#validateInstall()
      */
     public void validateInstall() {
-        log.debug("validateInstall ------------");
+        System.out.println("validateInstall ------------");
         final XMLConfigurationFileSupport config = EnMePlaceHolderConfigurer.getConfigurationManager();
-        log.debug("validateInstall ------------"+config.getXmlConfiguration().getBasePath());
+        System.out.println("validateInstall ------------"+config.getXmlConfiguration().getBasePath());
         config.getXmlConfiguration().addProperty("install.date", DateUtil.getCurrentFormatedDate());
         config.getXmlConfiguration().addProperty("install.uuid", RandomStringUtils.randomAlphanumeric(50));
-        log.debug("validateInstall ------------");
+        System.out.println("validateInstall ------------");
     }
 
     /*
@@ -128,7 +128,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      */
     @Override
     public String installDatabase() {
-        log.debug("installDatabase.....");
+        System.out.println("installDatabase.....");
         try {
             this.install.initializeDatabase(TypeDatabase
                     .getTypeDatabaseByString(this.getTypeDatabase()));
@@ -193,8 +193,8 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      */
     @Override
     public String getSQLExecuted() {
-        log.debug("******************************************");
-        log.debug("SQL " + this.install.getScriptLog());
+        System.out.println("******************************************");
+        System.out.println("SQL " + this.install.getScriptLog());
         return this.install.getScriptLog();
     }
 
@@ -205,25 +205,29 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      */
     public String checkStatus() throws EnMeExpcetion {
         //TODO: replace by ENUMs
-        log.debug("Check Version Status");
+        System.out.println("Check Version Status");
         String status = "install";
         final String currentVersion = EnMePlaceHolderConfigurer.getProperty("app.version");
-        log.debug("Current Version : "+ currentVersion);
+        System.out.println("Current Version : "+ currentVersion);
         final String installedVersion = EnMePlaceHolderConfigurer.getConfigurationManager().getInstalledVersion();
-        log.debug("Installed Version : "+installedVersion);
+        System.out.println("Installed Version : "+installedVersion);
         if (installedVersion != null) {
-            final int[] versionAsArrayCurrent = EnMeUtils.cleanVersion(currentVersion);
-            final int[] versionAsArrayInstalled = EnMeUtils.cleanVersion(installedVersion);
-            if (versionAsArrayCurrent[0] > versionAsArrayInstalled[0]) {
-                status = "upgrade";
-            } else if (versionAsArrayCurrent[0] == versionAsArrayInstalled[0]) {
-                 if (versionAsArrayCurrent[1] > versionAsArrayInstalled[1]) {
-                     status = "upgrade";
-                 } else if (versionAsArrayCurrent[1] == versionAsArrayInstalled[1]) {
-                     if (versionAsArrayCurrent[2] > versionAsArrayInstalled[2]) {
-                          status = "upgrade";
-                      }
-                 }
+            System.out.println("currentVersion-->"+currentVersion);
+            System.out.println("installedVersion-->"+installedVersion);
+            if (currentVersion != null) {
+                final int[] versionAsArrayCurrent = EnMeUtils.cleanVersion(currentVersion);
+                final int[] versionAsArrayInstalled = EnMeUtils.cleanVersion(installedVersion);
+                if (versionAsArrayCurrent[0] > versionAsArrayInstalled[0]) {
+                    status = "upgrade";
+                } else if (versionAsArrayCurrent[0] == versionAsArrayInstalled[0]) {
+                    if (versionAsArrayCurrent[1] > versionAsArrayInstalled[1]) {
+                        status = "upgrade";
+                    } else if (versionAsArrayCurrent[1] == versionAsArrayInstalled[1]) {
+                        if (versionAsArrayCurrent[2] > versionAsArrayInstalled[2]) {
+                            status = "upgrade";
+                        }
+                    }
+                }
             }
         }
         return status;
@@ -239,7 +243,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     @Override
     public UserAccountBean createUserAdministration(
             AdministratorProfile administratorProfile) {
-        log.debug("===============CREATE ADMON==============");
+        System.out.println("===============CREATE ADMON==============");
         final UserAccountBean account = this.securityOperations.createAdministrationUser(administratorProfile);
         return account;
     }

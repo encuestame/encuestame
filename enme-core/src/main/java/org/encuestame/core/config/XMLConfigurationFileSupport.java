@@ -60,7 +60,7 @@ public class XMLConfigurationFileSupport {
      *
      * @throws ConfigurationException
      */
-    private void createConfigurationFile(){
+    public void createConfigurationFile(){
             try {
                 final File file = new File(buildConfigFilePath());
                 this.reloadConfiguration(file);

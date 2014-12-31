@@ -628,8 +628,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.SecurityOperations#createAdministrationUser(org.encuestame.core.config.AdministratorProfile)
      */
-    public UserAccountBean createAdministrationUser(
-            final AdministratorProfile administratorProfile) {
+    public UserAccountBean createAdministrationUser(final AdministratorProfile administratorProfile) {
         log.debug("----------- create administration user ---------");
         final UserAccount userAccount = new UserAccount();
         try{
@@ -663,7 +662,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
 
             // create a dashboard by default
             final Dashboard dashboard = createDefaultDashboard(userAccount);
-            getDashboardService().addGadgetOnDashboard(dashboard.getBoardId(), "stream");
+            getDashboardService().addGadgetOnDashboard(dashboard.getBoardId(), "stream", userAccount);
 
             //Disabled auto-autenticate, the administrative user should sign in manually
             //SecurityUtils.authenticate(userAccount);

@@ -152,24 +152,26 @@ public class SocialUtils {
 
     /**
      * Get TinyUrl.
-     * @param string
+     * @param url
      * @return
      * @throws HttpException
      * @throws IOException
      */
-    public static String getYourls(final String string) {
-        String yourlsShortUrl = string;
+    public static String getYourls(final String url) {
+        String yourlsShortUrl = url;
         HttpClientParams params = new HttpClientParams();
         params.setConnectionManagerTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
         params.setSoTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
         HttpClient httpclient = new HttpClient(params); //TODO: time out??
         HttpMethod method = new GetMethod(EnMePlaceHolderConfigurer.getProperty("short.yourls.path"));
         method.setQueryString(new NameValuePair[] {
-                new NameValuePair("url", string),
+                new NameValuePair("url", url),
                 new NameValuePair("action", "shorturl"),
                 new NameValuePair("format", "json"),
                 new NameValuePair("signature", EnMePlaceHolderConfigurer.getProperty("short.yourls.key"))
         });
+        System.out.println("method--->"+method.getPath());
+        System.out.println("method--->"+method.getQueryString());
         try {
             httpclient.executeMethod(method);
             final Object jsonObject = JSONValue.parse(method.getResponseBodyAsString());
@@ -182,14 +184,14 @@ public class SocialUtils {
             yourlsShortUrl = (String) o.get("shorturl");
         } catch (HttpException e) {
             log.error("HttpException "+ e);
-            yourlsShortUrl = string;
+            yourlsShortUrl = url;
         } catch (IOException e) {
             log.error("IOException"+ e);
-            yourlsShortUrl = string;
+            yourlsShortUrl = url;
         } catch (Exception e) {
             e.printStackTrace();
             log.error("IOException"+ e);
-            yourlsShortUrl = string;
+            yourlsShortUrl = url;
         } finally {
             RequestSessionMap.setErrorMessage("short url is not well configured");
             method.releaseConnection();
