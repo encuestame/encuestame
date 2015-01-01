@@ -445,7 +445,7 @@ CREATE TABLE IF NOT EXISTS `poll` (
   `qid` bigint(20) NOT NULL,
   `is_hidden` bit(1) DEFAULT NULL,
   `is_password_protected` bit(1) DEFAULT NULL,
-  `poll_password` varchar(255) NOT NULL,
+  `poll_password` varchar(255) DEFAULT NULL,
 
   PRIMARY KEY (`poll_id`),
   UNIQUE KEY `poll_id` (`poll_id`),
