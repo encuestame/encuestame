@@ -48,7 +48,7 @@ Pull requests are, of course, very welcome! A few "todos", if anyone is [interes
 Copyright and License
 ---------------------
 
-Copyright 2014 Encuestame
+Copyright 2015 Encuestame
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
