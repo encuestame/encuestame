@@ -592,6 +592,9 @@ CREATE TABLE surveys (
   editor bigint,
   owner_id bigint,
   project_project_id bigint,
+  is_hidden boolean,
+  is_password_protected boolean,
+  poll_password character varying(255) NULL,
   survey_folder bigint
 );
 
