@@ -27,9 +27,4 @@ public interface IServiceManager{
      */
     IApplicationServices getApplicationServices();
 
-    /**
-     * Setter.
-     * @param applicationServices {@link IApplicationServices}
-     */
-    void setApplicationServices(IApplicationServices applicationServices);
 }

@@ -77,17 +77,8 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     /**
      *  {@link org.encuestame.core.service.startup.MailService}.
      */
+    @Resource(name= "mailService")
     private MailServiceOperations mailService;
-
-    /**
-     * Set {@link InstallDatabaseOperations}.
-     *
-     * @param install
-     *            the install to set
-     */
-    public void setInstall(final InstallDatabaseOperations install) {
-        this.install = install;
-    }
 
     /**
      *
@@ -105,12 +96,9 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      * @see org.encuestame.core.service.SetupOperations#validateInstall()
      */
     public void validateInstall() {
-        System.out.println("validateInstall ------------");
         final XMLConfigurationFileSupport config = EnMePlaceHolderConfigurer.getConfigurationManager();
-        System.out.println("validateInstall ------------"+config.getXmlConfiguration().getBasePath());
         config.getXmlConfiguration().addProperty("install.date", DateUtil.getCurrentFormatedDate());
         config.getXmlConfiguration().addProperty("install.uuid", RandomStringUtils.randomAlphanumeric(50));
-        System.out.println("validateInstall ------------");
     }
 
     /*
@@ -128,7 +116,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      */
     @Override
     public String installDatabase() {
-        System.out.println("installDatabase.....");
+        log.debug("installDatabase.....");
         try {
             this.install.initializeDatabase(TypeDatabase
                     .getTypeDatabaseByString(this.getTypeDatabase()));
@@ -186,18 +174,6 @@ public class SetupService extends AbstractBaseService implements SetupOperations
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.encuestame.core.service.SetupOperations#getSQLExecuted()
-     */
-    @Override
-    public String getSQLExecuted() {
-        System.out.println("******************************************");
-        System.out.println("SQL " + this.install.getScriptLog());
-        return this.install.getScriptLog();
-    }
-
     /**
      * Check status version.
      * @return the status.
@@ -205,15 +181,10 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      */
     public String checkStatus() throws EnMeExpcetion {
         //TODO: replace by ENUMs
-        System.out.println("Check Version Status");
         String status = "install";
         final String currentVersion = EnMePlaceHolderConfigurer.getProperty("app.version");
-        System.out.println("Current Version : "+ currentVersion);
         final String installedVersion = EnMePlaceHolderConfigurer.getConfigurationManager().getInstalledVersion();
-        System.out.println("Installed Version : "+installedVersion);
         if (installedVersion != null) {
-            System.out.println("currentVersion-->"+currentVersion);
-            System.out.println("installedVersion-->"+installedVersion);
             if (currentVersion != null) {
                 final int[] versionAsArrayCurrent = EnMeUtils.cleanVersion(currentVersion);
                 final int[] versionAsArrayInstalled = EnMeUtils.cleanVersion(installedVersion);
@@ -243,25 +214,9 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     @Override
     public UserAccountBean createUserAdministration(
             AdministratorProfile administratorProfile) {
-        System.out.println("===============CREATE ADMON==============");
+        log.debug("===============CREATE ADMON==============");
         final UserAccountBean account = this.securityOperations.createAdministrationUser(administratorProfile);
         return account;
-    }
-
-    /**
-     * @return the securityOperations
-     */
-    public SecurityOperations getSecurityOperations() {
-        return securityOperations;
-    }
-
-    /**
-     * @param securityOperations
-     *            the securityOperations to set
-     */
-    public void setSecurityOperations(
-            final SecurityOperations securityOperations) {
-        this.securityOperations = securityOperations;
     }
 
     /*
@@ -360,38 +315,8 @@ public class SetupService extends AbstractBaseService implements SetupOperations
         return null;
     }
 
-    /**
-     * @return the csvParser
-     */
-    public CSVParser getCsvParser() {
-        return csvParser;
-    }
-
-    /**
-     * @param csvParser the csvParser to set
-     */
-    public void setCsvParser(CSVParser csvParser) {
-        this.csvParser = csvParser;
-    }
-
     @Override
     public void checkSocialNetworks() {
         // TODO Auto-generated method stub
-
-    }
-
-    /**
-     * @return the mailServiceOperations
-     */
-    public MailServiceOperations getMailService() {
-        return mailService;
-    }
-
-    /**
-     * @param mailServiceOperations the mailServiceOperations to set
-     */
-    @Resource(name= "mailService")
-    public void setMailService(final MailServiceOperations mailServiceOperations) {
-        this.mailService = mailServiceOperations;
     }
 }

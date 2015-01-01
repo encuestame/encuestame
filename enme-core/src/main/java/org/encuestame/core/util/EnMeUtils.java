@@ -155,10 +155,10 @@ public class EnMeUtils {
      * @param dst
      * @throws IOException
      */
-    public static void copy(File src, File dst) throws IOException {
-        log.debug("copy src" + src.getPath());
+    public static void copy(InputStream in, File dst) throws IOException {
+        //log.debug("copy src" + src.getPath());
         log.debug("copy dst" + dst.getPath());
-        InputStream in = new FileInputStream(src);
+        //InputStream in = new FileInputStream(src);
             OutputStream out = new FileOutputStream(dst);
             // Transfer bytes from in to out
             byte[] buf = new byte[1024];
