@@ -75,11 +75,11 @@ public class DirectorySetupOperations {
         final File configFile = new File(config.toString());
         if (!configFile.exists()) {
             final Resource resource = new ClassPathResource(SAMPLE_CONFIG_FILE);
-            log.debug("createConfileFile resource"+resource);
-            log.debug("createConfileFile configFile"+configFile.getAbsolutePath());
-            final File sourceFile = resource.getFile();
-            log.debug("createConfileFile sourceFile"+sourceFile.getAbsolutePath());
-            EnMeUtils.copy(sourceFile, configFile);
+            //log.debug("createConfileFile resource"+resource);
+            //log.debug("createConfileFile configFile"+configFile.getAbsolutePath());
+            //final File sourceFile = resource.getInputStream();
+            //log.debug("createConfileFile sourceFile"+sourceFile.getAbsolutePath());
+            EnMeUtils.copy(resource.getInputStream(), configFile);
             EnMePlaceHolderConfigurer.getConfigurationManager().reloadConfigFile();
         }
     }

@@ -66,10 +66,16 @@ public class EnMeUtilsTestCase extends TestCase {
     public void testCleanVersion() throws Exception{
         final String v1 = "1.3.4";
         final String v2 = "1.3.4";
+        final String v3 = "1.3.4-SNAPSHOT";
         int[] d = EnMeUtils.cleanVersion(v1);
         assertEquals(d.length, 3);
         int[] d2 = EnMeUtils.cleanVersion(v2);
         assertEquals(d2.length, 3);
+        int[] d3 = EnMeUtils.cleanVersion(v3);
+        assertEquals(d3[0], 1);
+        assertEquals(d3[1], 3);
+        assertEquals(d3[2], 4);
+        assertEquals(d3.length, 3);
     }
 
     @Test(expected = EnMeExpcetion.class)

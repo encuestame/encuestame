@@ -16,13 +16,22 @@
                 </div>
             </div>
         </c:if>
-        <c:if test="${state == 'upgrade'}">
+        <c:if test="${status == 'upgrade'}">
             <div class="setup-description">
                 <p>
-                    RELEASE NOTES for:
-                    <%=EnMePlaceHolderConfigurer
-                            .getProperty("app.version")%></p>
-                <div class="release-notes"></div>
+                    <ul>
+                        <li>
+                            New version :  <%=EnMePlaceHolderConfigurer.getProperty("app.version")%>
+                        </li>
+                        <li>
+                            Previous version :  <%=EnMePlaceHolderConfigurer.getConfigurationManager().getInstalledVersion()%>
+                        </li>
+                    </ul>
+                </p>
+                <div class="alert alert-error">
+                    <spring:message code="setup.upgrade.fail"></spring:message><br/>
+                    <a href="http://encuestame.org/wiki/display/DOC/Upgrading+your+system">http://encuestame.org/wiki/display/DOC/Upgrading+your+system</a>
+                </div>
             </div>
             <div class="default-rigth-aling">
                 <button type="submit" name="_eventId_upgrade-submit" class="btn btn-warning" >

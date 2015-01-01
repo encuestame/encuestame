@@ -19,16 +19,19 @@
 package org.encuestame.test.business.service;
 
 import org.encuestame.core.service.imp.IPictureService;
+import org.encuestame.core.service.startup.DirectorySetupOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.PictureType;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 
+import java.io.File;
 import java.util.Locale;
 
 /**
@@ -69,8 +72,8 @@ public class TestPictureService extends AbstractSpringSecurityContext {
      */
     @Test
     public void testggetGravatarPicture() throws Exception {
-           final String picture = this.pictureService.getAccountUserPicturePath(this.secondary);
-           //logPrint(picture);
+       final String picture = this.pictureService.getAccountUserPicturePath(this.secondary);
+       Assert.assertNotNull(picture);
     }
 
     /**
@@ -78,10 +81,32 @@ public class TestPictureService extends AbstractSpringSecurityContext {
      * @throws Exception
      */
     @Test
-    public void testgetPicturePath() throws Exception {
+    public void testgetProfilePicture() throws Exception {
         final byte[] t = this.pictureService.getProfilePicture(this.secondary.getUsername(), PictureType.DEFAULT);
-        //logPrint(t);
+        //System.out.println(t);
+        Assert.assertNotNull(t);
+        final byte[] t1 = this.pictureService.getProfilePicture(this.secondary.getUsername(), PictureType.ICON);
+        final byte[] t2 = this.pictureService.getProfilePicture(this.secondary.getUsername(), PictureType.PREVIEW);
+        final byte[] t3 = this.pictureService.getProfilePicture(this.secondary.getUsername(), PictureType.PROFILE);
+        final byte[] t4 = this.pictureService.getProfilePicture(this.secondary.getUsername(), PictureType.THUMBNAIL);
+        Assert.assertNotNull(t1);
+        Assert.assertNotNull(t2);
+        Assert.assertNotNull(t3);
+        Assert.assertNotNull(t4);
+        this.secondary.setPictureSource(UserAccount.PictureSource.UPLOADED);
+        this.getAccountDao().saveOrUpdate(this.secondary);
+        new File(DirectorySetupOperations.getHomeDirectory() + "/pictures").mkdirs();
+        new File(DirectorySetupOperations.getHomeDirectory() + "/pictures/"+this.secondary.getUid()).mkdirs();
+        new File(DirectorySetupOperations.getHomeDirectory() + "/pictures/"+this.secondary.getUid() + "/file_64.jpg").createNewFile();
+        final byte[] t5 = this.pictureService.getProfilePicture(this.secondary.getUsername(), PictureType.THUMBNAIL);
+        Assert.assertNotNull(t5);
+        this.secondary.setPictureSource(UserAccount.PictureSource.GRAVATAR);
+        this.getAccountDao().saveOrUpdate(this.secondary);
+        final byte[] t6 = this.pictureService.getProfilePicture(this.secondary.getUsername(), PictureType.THUMBNAIL);
+        Assert.assertNotNull(t6);
     }
+
+
 
     /**
      *

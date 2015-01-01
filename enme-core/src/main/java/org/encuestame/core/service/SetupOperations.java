@@ -50,7 +50,7 @@ public interface SetupOperations {
 
     void checkSocialNetworks();
 
-    String getSQLExecuted();
+    //String getSQLExecuted();
 
     String checkStatus() throws EnMeExpcetion;
 

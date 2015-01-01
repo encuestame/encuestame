@@ -86,6 +86,7 @@ public class ApplicationStartup implements StartupProcess {
                 EnMePlaceHolderConfigurer.setSystemInstalled(Boolean.FALSE);
             }
             EnMePlaceHolderConfigurer.setSystemInitialized(Boolean.TRUE);
+            this.displayVersionOnStartup();
             // check internet connection
             //if (EnMePlaceHolderConfigurer.getBooleanProperty(
             //        "setup.check.network").booleanValue()) {
@@ -133,7 +134,12 @@ public class ApplicationStartup implements StartupProcess {
      * @see org.encuestame.business.setup.StartupProcess#displayVersionOnStartup()
      */
     public void displayVersionOnStartup() {
-        // TODO Auto-generated method stub
+         String version = EnMePlaceHolderConfigurer.getProperty("app.version");
+        if (version != null) {
+            System.out.println("Encuestame current version:"+version);
+        } else {
+            log.warn("version app not available");
+        }
     }
 
     /**

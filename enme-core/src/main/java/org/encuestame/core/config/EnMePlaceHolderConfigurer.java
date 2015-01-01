@@ -157,6 +157,14 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
     }
 
     /**
+     *
+     * @param configurationManager
+     */
+    public static void setConfigurationManager(XMLConfigurationFileSupport configurationManager) {
+        EnMePlaceHolderConfigurer.configurationManager = configurationManager;
+    }
+
+    /**
      * Return int param of {@link XMLConfigurationFileSupport}.
      * @param param
      * @return

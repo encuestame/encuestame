@@ -10,6 +10,8 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
+
 /**
  * Database install support.
  * @author Picado, Juan juanATencuestame.org
@@ -71,7 +73,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
     /**
      * {@link InstallerOperations}.
      */
-    @Autowired
+    @Resource(name = "installerDao")
     private InstallerOperations installerOperations;
 
     /**
@@ -99,13 +101,6 @@ public class DatabaseInstall implements InstallDatabaseOperations {
         builder.append(typeScript);
         log.debug("Build sql script: " + builder.toString());
         return builder.toString();
-    }
-
-    /**
-     * @return the installerOperations
-     */
-    public InstallerOperations getInstallerOperations() {
-        return installerOperations;
     }
 
     /**
@@ -201,6 +196,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * checkRequiredDataExist()
      */
     public boolean checkRequiredDataExist() {
+        //FUTURE: how to check if the require data exist?
         return false;
     }
 

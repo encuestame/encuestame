@@ -31,41 +31,6 @@ public class SqlScriptParser {
 
     private static Log log = LogFactory.getLog(SqlScriptParser.class);
 
-
-    /**
-     *
-     * @param scriptFile
-     *            a <code>java.io.File</code> object points to a .sql file to be
-     *            parsed.
-     * @param stmts
-     *            This argument is modified after this method executed. Elements
-     *            in <code>stmts</code> are SQL queries in
-     *            <code>scriptFile</code> separated by semicolons.
-     * @return <code>true</code> if hasn't met with any exceptions during
-     *         execution, <code>false</code> if met.
-     * @throws IOException
-     */
-    public static void readScript(File scriptFile, String[] stmts)
-            throws IOException {
-    	//FIXME: 'reader' is never closed
-        BufferedReader reader = new BufferedReader(new FileReader(scriptFile));
-        StringBuffer stmtString = new StringBuffer();
-        String line = null;
-
-        while (null != (line = reader.readLine())) {
-            if (line.length() == 0)
-                continue; // omit blank lines
-            if (line.startsWith("--"))
-                continue; // omit comments
-            if ("commit;".equals(line.trim()))
-                continue; // omit 'commit' stmt
-            stmtString.append(" ").append(line);
-            line = null;
-        }
-
-        stmts = stmtString.toString().split(";");
-    }
-
     /**
      * Read the SQL script from the specified file.
      *

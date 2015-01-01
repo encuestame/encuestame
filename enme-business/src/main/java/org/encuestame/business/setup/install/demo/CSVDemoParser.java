@@ -588,24 +588,10 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
     }
 
     /**
-     * @param tweetPollService the tweetPollService to set
-     */
-    public void setTweetPollService(ITweetPollService tweetPollService) {
-        this.tweetPollService = tweetPollService;
-    }
-
-    /**
      * @return the pollService
      */
     public IPollService getPollService() {
         return pollService;
-    }
-
-    /**
-     * @param pollService the pollService to set
-     */
-    public void setPollService(IPollService pollService) {
-        this.pollService = pollService;
     }
 
     /**
@@ -616,24 +602,10 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
     }
 
     /**
-     * @param frontEndService the frontEndService to set
-     */
-    public void setFrontEndService(IFrontEndService frontEndService) {
-        this.frontEndService = frontEndService;
-    }
-
-    /**
      * @return the commentService
      */
     public ICommentService getCommentService() {
         return commentService;
-    }
-
-    /**
-     * @param commentService the commentService to set
-     */
-    public void setCommentService(ICommentService commentService) {
-        this.commentService = commentService;
     }
 
     /**
@@ -644,24 +616,10 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
     }
 
     /**
-     * @param calculateHashTagSize the calculateHashTagSize to set
-     */
-    public void setCalculateHashTagSize(CalculateHashTagSize calculateHashTagSize) {
-        this.calculateHashTagSize = calculateHashTagSize;
-    }
-
-    /**
      * @return the calculateRelevance
      */
     public CalculateRelevance getCalculateRelevance() {
         return calculateRelevance;
-    }
-
-    /**
-     * @param calculateRelevance the calculateRelevance to set
-     */
-    public void setCalculateRelevance(CalculateRelevance calculateRelevance) {
-        this.calculateRelevance = calculateRelevance;
     }
 
 }
