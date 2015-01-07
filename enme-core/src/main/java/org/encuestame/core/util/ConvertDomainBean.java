@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import junit.framework.Assert;
 
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.util.WidgetUtil;
@@ -89,7 +88,6 @@ import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.ResultBean;
 import org.encuestame.utils.web.ScheduledItemBean;
 import org.encuestame.utils.web.SurveyBean;
-import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
@@ -839,6 +837,8 @@ public class ConvertDomainBean {
                         : poll.getRelevance());
         pollSearch.setItemType(TypeSearchResult.POLL.toString()
                 .toLowerCase());
+        pollSearch.setIsHidden(poll.getIsHidden());
+        pollSearch.setIsPasswordProtected(poll.getIsPasswordProtected());
         return pollSearch;
     }
 

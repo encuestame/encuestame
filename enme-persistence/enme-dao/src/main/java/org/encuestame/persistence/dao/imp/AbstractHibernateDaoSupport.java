@@ -44,7 +44,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
@@ -403,6 +402,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
            final Boolean isScheduled,
            final Boolean isFavourite,
            final Boolean isPublished,
+           final Boolean isHidden,
+           final Boolean isPasswordProtected,
            final String keyword,
            final String period) {
 
@@ -426,6 +427,12 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
        }
        if (isPublished != null && isPublished) {
            criteria.add(Restrictions.eq("publish", isPublished));
+       }
+       if (isHidden != null && isHidden) {
+           criteria.add(Restrictions.eq("isHidden", isHidden));
+       }
+       if (isPasswordProtected != null && isPasswordProtected) {
+           criteria.add(Restrictions.eq("isPasswordProtected", isPasswordProtected));
        }
    }
 
