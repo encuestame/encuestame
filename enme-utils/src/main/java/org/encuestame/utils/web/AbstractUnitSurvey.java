@@ -165,6 +165,14 @@ public abstract class AbstractUnitSurvey implements Serializable {
     @JsonIgnore
     private String hashtagAsString = "";
 
+    /** Hide the Poll **/
+    @JsonIgnore
+    private Boolean isHidden;
+
+    /** Protect the Poll or Survey with a password **/
+    @JsonIgnore
+    private Boolean isPasswordProtected;
+
     /**
      * @return the hashTags
      */
@@ -649,4 +657,31 @@ public abstract class AbstractUnitSurvey implements Serializable {
         this.comments = comments;
     }
 
+	/**
+	 * @return the isHidden
+	 */
+	public Boolean getIsHidden() {
+		return isHidden;
+	}
+
+	/**
+	 * @param isHidden the isHidden to set
+	 */
+	public void setIsHidden(Boolean isHidden) {
+		this.isHidden = isHidden;
+	}
+
+	/**
+	 * @return the isPasswordProtected
+	 */
+	public Boolean getIsPasswordProtected() {
+		return isPasswordProtected;
+	}
+
+	/**
+	 * @param isPasswordProtected the isPasswordProtected to set
+	 */
+	public void setIsPasswordProtected(Boolean isPasswordProtected) {
+		this.isPasswordProtected = isPasswordProtected;
+	}
 }
