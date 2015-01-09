@@ -154,7 +154,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         } else if (TypeSearch.ALL.equals(pollSearch.getTypeSearch())) {
             //list.addAll(this.getPollsByUserNameSearch(getUserPrincipalUsername(), httpServletRequest, pollSearch));
             //FIXME: no advanced search enabled
-            list.addAll(ConvertDomainBean.convertPollListToSearchBean(getPollDao().retrievePollsByUserId(getUserAccount(getUserPrincipalUsername()), pollSearch.getMax(), pollSearch.getStart())));
+            list.addAll(this.getAllPollSearch(getUserPrincipalUsername(), httpServletRequest, pollSearch));
         } else {
             throw new EnMeExpcetion("operation not valid");
         }
@@ -249,13 +249,11 @@ public class PollService extends AbstractSurveyService implements IPollService{
         if ((socialNetworks.size() > 0) || (socialAccounts.size() > 0)) {
             tpollsbysocialNetwork = this.retrievePollsPostedOnSocialNetworks(
                     polls, socialNetworks, socialAccounts);
-            //System.out.println("JUAN --> tpollsbysocialNetwork size: " + tpollsbysocialNetwork.size());
-        } else {
+         } else {
             tpollsbysocialNetwork = polls;
         }
         log.info("tweetPoll size: " + polls.size());
-        //System.out.println("JUAN --> tweetPoll size: " + polls.size());
-        return tpollsbysocialNetwork;
+         return tpollsbysocialNetwork;
     }
 
     /**
@@ -355,8 +353,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final PollSearchBean pollSearchBean) throws EnMeExpcetion {
         List<Poll> pollSearchResult = new ArrayList<Poll>();
         final List<Poll> polls = getPollDao().retrieveScheduledPoll(pollSearchBean, getUserAccountId(username));
-        //System.out.println("JOTA dsadsadsa-------->"+polls.size());
-        pollSearchResult = this.getPollSearchResult(polls,
+         pollSearchResult = this.getPollSearchResult(polls,
                 pollSearchBean.getProviders(),
                 pollSearchBean.getSocialAccounts());
         //System.out.println("pollSearchResult-------->"+pollSearchResult.size());
