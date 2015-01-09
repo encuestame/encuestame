@@ -797,31 +797,157 @@ public class TestPollService extends AbstractSpringSecurityContext{
     }
 
     /**
-     * Test for PollService.filterSearchPollsByType()
+     * Create Polls for Search test
+     */
+    private void createPollsToFilterSearch(){
+    	final DateTime lastDay = new DateTime();
+    	final DateTime lastWeek = new DateTime();
+    	final Poll poll2 = createDefaulPollWithPrivacy(
+				createDefaultQuestion("What Is Sesquipedalophobia?"),
+				getSpringSecurityLoggedUserAccount(),
+				new Date(),
+				true,
+				false);
+    	poll2.setFavourites(true);
+    	getPollDao().saveOrUpdate(poll2);
+
+    	createDefaulPollWithPrivacy(
+    			createDefaultQuestion("Where Is The Smallest Bone in The Human Body?"),
+    			getSpringSecurityLoggedUserAccount(),
+    			lastDay.minusHours(3).toDate(),
+    			true,
+    			true);
+
+    	final Poll poll3 = createDefaulPollWithPrivacy(
+    			createDefaultQuestion("What Is The Longest Interstate Highway In The US?"),
+    			getSpringSecurityLoggedUserAccount(),
+    			new Date(),
+    			true,
+    			true);
+    	poll3.setFavourites(true);
+    	getPollDao().saveOrUpdate(poll3);
+
+    	final Poll poll1 = createPoll(lastDay.minusHours(1).toDate(),
+    			createDefaultQuestion("Do Fish Get Thirsty?"),
+    			"FDK2335",
+    			getSpringSecurityLoggedUserAccount(),
+    			Boolean.TRUE,
+    			Boolean.TRUE);
+    			poll1.setIsHidden(true);
+    			poll1.setIsPasswordProtected(false);
+    			getPollDao().saveOrUpdate(poll1);
+
+    	final Poll poll4 = createDefaulPollWithPrivacy(
+    			createDefaultQuestion("What's The Origin Of The Easter Bunny?"),
+    			getSpringSecurityLoggedUserAccount(),
+    			lastDay.minusHours(1).toDate(),
+    			false,
+    			true);
+    	poll4.setFavourites(true);
+    	getPollDao().saveOrUpdate(poll4);
+
+    	createDefaulPollWithPrivacy(
+    			createDefaultQuestion("What's The Origin Of The Term Checkmate In Chess?"),
+    			getSpringSecurityLoggedUserAccount(),
+    			lastWeek.minusDays(4).toDate(),
+    			true,
+    			true);
+
+    	createDefaulPollWithPrivacy(
+    			createDefaultQuestion("What Do You Like To Do in Your Spare Time?"),
+    			getSpringSecurityLoggedUserAccount(),
+    			lastWeek.minusDays(3).toDate(),
+    			false,
+    			true);
+
+
+
+    }
+
+    /**
+     * Test Advanced search poll by User.
+     * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion
      */
     @Test
-    public void testfilterSearchPollsByType() throws EnMeExpcetion{
-        final PollSearchBean bean = new PollSearchBean();
-        //all
-        bean.setTypeSearch(TypeSearch.ALL);
-        List<SearchBean> pollAll = this.pollService.filterSearchPollsByType(bean, this.request);
-        assertEquals(pollAll.size(), 1);
-        //by onwer
-        bean.setTypeSearch(TypeSearch.BYOWNER);
-        List<SearchBean> pollAll2 = this.pollService.filterSearchPollsByType(bean, this.request);
-       assertEquals(pollAll2.size(), 1);
-       //last day
-       bean.setTypeSearch(TypeSearch.LASTDAY);
-       List<SearchBean> pollAll3 = this.pollService.filterSearchPollsByType(bean, this.request);
-       assertEquals(pollAll3.size(), 0);
-       //last week
-       bean.setTypeSearch(TypeSearch.LASTWEEK);
-       List<SearchBean> pollAll4 = this.pollService.filterSearchPollsByType(bean, this.request);
-       assertEquals(pollAll4.size(), 1);
-       //last 30 days
-       bean.setTypeSearch(TypeSearch.FAVOURITES);
-       List<SearchBean> pollAll5 = this.pollService.filterSearchPollsByType(bean, this.request);
-       assertEquals(pollAll5.size(), 1);
+    public void testFilterSearchPollsbyUser() throws EnMeNoResultsFoundException, EnMeExpcetion{
+    	createPollsToFilterSearch();
+
+		final PollSearchBean search1 = createPollSearchBean(true, false, false,
+				false, "W", null, 10, 0, TypeSearch.BYOWNER, true, false);
+
+		List<SearchBean> pollsbyUser1 = this.pollService.filterSearchPollsByType(
+				search1, this.request);
+		assertEquals(pollsbyUser1.size(), 4);
+
+		final PollSearchBean search2 = createPollSearchBean(true, false, false,
+				false, "B", null, 10, 0, TypeSearch.BYOWNER, false, true);
+
+		List<SearchBean> pollsbyUser2 = this.pollService.filterSearchPollsByType(
+				search2, this.request);
+		assertEquals(pollsbyUser2.size(), 2);
+
+    }
+
+    /**
+     * Test Advanced search poll by Lastday filter.
+     * @throws EnMeExpcetion
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testFilterSearchPollsbyLastDay() throws EnMeNoResultsFoundException, EnMeExpcetion{
+    	createPollsToFilterSearch();
+    	final PollSearchBean search1 = createPollSearchBean(true, false, false,
+				false, "F", null, 10, 0, TypeSearch.LASTDAY, true, false);
+    	List<SearchBean> allPolls1 = this.pollService.filterSearchPollsByType(
+    			search1, this.request);
+    	assertEquals(allPolls1.size(), 1);
+    }
+
+    /**
+     * Test Advanced search {@link Poll} by Lastweek filter.
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testFilterSearchPollsbyLastWeek() throws EnMeNoResultsFoundException, EnMeExpcetion{
+    	createPollsToFilterSearch();
+    	final PollSearchBean search1 = createPollSearchBean(true, false, false,
+				false, "in", null, 10, 0, TypeSearch.LASTWEEK, false, false);
+    	List<SearchBean> allPolls1 = this.pollService.filterSearchPollsByType(
+    			search1, this.request);
+    	assertEquals(allPolls1.size(), 4);
+    }
+
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeExpcetion
+     */
+    @Test
+	public void testFilterSearchPollsbyFavourite()
+			throws EnMeNoResultsFoundException, EnMeExpcetion {
+		createPollsToFilterSearch();
+		final PollSearchBean search1 = createPollSearchBean(true, false, true,
+				false, "B", null, 10, 0, TypeSearch.FAVOURITES, false, false);
+		List<SearchBean> allPolls1 = this.pollService.filterSearchPollsByType(
+				search1, this.request);
+		assertEquals(allPolls1.size(), 1);
+	}
+
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testFilterSearchPollsbyAll() throws EnMeNoResultsFoundException, EnMeExpcetion{
+    	createPollsToFilterSearch();
+    	final PollSearchBean search1 = createPollSearchBean(true, false, false,
+				false, "Do", null, 10, 0, TypeSearch.ALL, false, true);
+    	List<SearchBean> allPolls1 = this.pollService.filterSearchPollsByType(
+    			search1, this.request);
+
+    	assertEquals(allPolls1.size(), 4);
     }
 }
