@@ -948,6 +948,6 @@ public class TestPollService extends AbstractSpringSecurityContext{
     	List<SearchBean> allPolls1 = this.pollService.filterSearchPollsByType(
     			search1, this.request);
 
-    	assertEquals(allPolls1.size(), 4);
+    	assertEquals(allPolls1.size(), 1);
     }
 }
