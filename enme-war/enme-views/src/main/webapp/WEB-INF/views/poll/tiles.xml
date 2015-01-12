@@ -23,6 +23,12 @@
         <put-attribute name="css_module" expression="/WEB-INF/views/poll/poll_css.jsp" />
     </definition>
 
+    <definition name="poll/password" extends="main-vote">
+        <put-attribute name="title" value="Voted | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/poll/decorators/password.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/poll/poll_css.jsp" />
+    </definition>
+
     <definition name="poll/bad" extends="main-vote">
         <put-attribute name="title" value="Bad Vote | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/decorators/bad-voted.jsp" />

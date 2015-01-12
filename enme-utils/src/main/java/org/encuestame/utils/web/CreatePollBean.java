@@ -55,13 +55,13 @@ public class CreatePollBean implements Serializable{
     @Deprecated
     public Boolean allowAdd;
 
-    @JsonProperty(value = "isHidden")
+    @JsonProperty(value = "is_hidden")
     public   Boolean isHidden;
 
-    @JsonProperty(value = "isPasswordProtected")
+    @JsonProperty(value = "is_password_protected")
     public Boolean isPasswordProtected;
 
-    @JsonIgnore
+    @JsonProperty(value = "password_protected")
     public String password;
 
     /**
