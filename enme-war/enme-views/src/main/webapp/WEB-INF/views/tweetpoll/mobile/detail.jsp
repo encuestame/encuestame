@@ -11,7 +11,7 @@
     </article>
     <article class="web-tweetpoll-answer-wrapper emne-box">
          <div class="web-tweetpoll-answer-answer">
-                <header>
+                <header class="mobile-home-subtitle">
                      <div class="answer-label">
                            <spring:message code="commons_detail_answer" />
                      </div>
@@ -65,10 +65,10 @@
    </article>
 
     <section class="web-tweetpoll-comments emne-box">
-       <header class="mobile-home-subtitle category_color">
+        <header class="mobile-home-subtitle category_color">
             <spring:message code="options.comments" />
-      </header>
- <c:if test="${logged}">
+        </header>
+        <c:if test="${logged}">
             <div name="comments" data-dojo-type="me/web/widget/comments/AddComment"
                  comment_limit="<%=EnMePlaceHolderConfigurer.getProperty("comments.max.length")%>"
                  type="tweetpoll"

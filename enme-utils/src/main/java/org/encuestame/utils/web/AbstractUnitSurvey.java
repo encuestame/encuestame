@@ -156,7 +156,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
 
     /** Multiple response option. **/
     @JsonProperty(value = "multiple_response")
-    private String multipleResponse;
+    private Boolean multipleResponse;
 
     /** Show total comments received. **/
     @JsonProperty(value = "total_comments")
@@ -523,14 +523,14 @@ public abstract class AbstractUnitSurvey implements Serializable {
      * @return the multipleResponse
      */
     @JsonIgnore
-    public String getMultipleResponse() {
+    public Boolean getMultipleResponse() {
         return multipleResponse;
     }
 
     /**
      * @param multipleResponse the multipleResponse to set
      */
-    public void setMultipleResponse(final String multipleResponse) {
+    public void setMultipleResponse(final Boolean multipleResponse) {
         this.multipleResponse = multipleResponse;
     }
 

@@ -18,6 +18,8 @@
 
 package org.encuestame.test.business.service;
 
+import org.apache.commons.lang.RandomStringUtils;
+import org.encuestame.business.setup.StartupProcess;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.core.config.AdministratorProfile;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
@@ -40,7 +42,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.Resource;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.List;
 
 /**
@@ -61,13 +65,16 @@ public class TestSetupService extends AbstractServiceBase {
     @Resource(name = "databaseInstallTest")
     private InstallDatabaseOperations installDatabaseOperations;
 
+    @Autowired
+    private StartupProcess startupProcess;
+
     /**
      * Own implementation for testing.
      */
     XMLConfigurationFileSupport xmlConfigurationFileSupport;
 
     @Before
-    public void setupInit(){
+    public void setupInit() throws Exception{
         try {
             DirectorySetupOperations.createConfileFile();
 
@@ -85,8 +92,9 @@ public class TestSetupService extends AbstractServiceBase {
         EnMePlaceHolderConfigurer.setProperty("short.default", "yourls");
         EnMePlaceHolderConfigurer.setProperty("short.yourls.key", "755bf7092e");
         EnMePlaceHolderConfigurer.setProperty("short.yourls.path", "http://jota.mobi/s/yourls-api.php?action=shorturl");
+        EnMePlaceHolderConfigurer.setProperty("app.version", "1.2.0");
+        this.startupProcess.startProcess();
     }
-
     @After
     public void setupEnd(){
         EnMePlaceHolderConfigurer.setProperty("application.offline.mode", "true");
@@ -103,10 +111,10 @@ public class TestSetupService extends AbstractServiceBase {
         // drop all tables
         this.installDatabaseOperations.dropAll();
         // create database
-        this.installDatabaseOperations.initializeDatabase(TypeDatabase.HSQLDB);
+        this.setupOperations.installDatabase();
         // create database -
         this.installDatabaseOperations.initializeDatabase(TypeDatabase.HSQLDB);
-        this.installDatabaseOperations.installDemoData();
+        this.setupOperations.demoInstall();
     }
 
     @Test
@@ -116,14 +124,35 @@ public class TestSetupService extends AbstractServiceBase {
 
     @Test
     public void testpreCheckSetup(){
-       String status = this.setupOperations.preCheckSetup();
-       Assert.assertEquals(status, "no");
+        String status = this.setupOperations.preCheckSetup();
+        Assert.assertEquals(status, "no");
+    }
+
+    @Test
+    public void testvalidateInstall() throws Exception{
+       String uuid1  = this.xmlConfigurationFileSupport.getProperty("install.uuid");
+       Assert.assertNull(uuid1);
+       this.setupOperations.validateInstall();
+       this.xmlConfigurationFileSupport.reloadConfigFile();
+       EnMePlaceHolderConfigurer.getConfigurationManager().reloadConfigFile();
+       String uuid2  = this.xmlConfigurationFileSupport.getProperty("install.uuid");
+       Assert.assertNotNull(uuid2);
     }
 
     @Test
     public void testcheckStatus() throws Exception{
         String status = this.setupOperations.checkStatus();
         Assert.assertEquals(status, "install");
+        EnMePlaceHolderConfigurer.setProperty("app.version", "1.9.5");
+        EnMePlaceHolderConfigurer.getConfigurationManager().getXmlConfiguration().addProperty("app.version", "1.5.0");
+        String status2 = this.setupOperations.checkStatus();
+        Assert.assertEquals(status2, "upgrade");
+        EnMePlaceHolderConfigurer.setProperty("app.version", "1.5.1");
+        String status3 = this.setupOperations.checkStatus();
+        Assert.assertEquals(status3, "upgrade");
+        EnMePlaceHolderConfigurer.setProperty("app.version", "1.5.0");
+        String status4 = this.setupOperations.checkStatus();
+        Assert.assertEquals(status4, "install");
     }
 
     @Test

@@ -19,6 +19,7 @@
                           <section data-dojo-type="${poll.questionBean.widget}"
                                    itemId="${a.answerId}"
                                    name="poll"
+                                   multiple="${poll.multipleResponse}"
                                    label="${a.answers}">
                           </section>
                       </c:forEach>

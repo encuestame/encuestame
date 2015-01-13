@@ -28,15 +28,7 @@ import junit.framework.Assert;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.util.WidgetUtil;
-import org.encuestame.persistence.domain.Comment;
-import org.encuestame.persistence.domain.EmailList;
-import org.encuestame.persistence.domain.GeoPoint;
-import org.encuestame.persistence.domain.GeoPointFolder;
-import org.encuestame.persistence.domain.GeoPointType;
-import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.Hit;
-import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.Schedule;
+import org.encuestame.persistence.domain.*;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
@@ -813,7 +805,9 @@ public class ConvertDomainBean {
                 .getQuestion()));
         pollSearch.setHits(poll.getHits() == null ? EnMeUtils.VOTE_MIN
                 : poll.getHits());
-
+        pollSearch.setIsHidden(poll.getIsHidden() == null ? false : poll.getIsHidden());
+        pollSearch.setPassword(poll.getPassword() == null ? null : poll.getPassword());
+        pollSearch.setIsPasswordProtected(poll.getIsPasswordProtected() == null ? false : poll.getIsPasswordProtected());
         pollSearch.setHashTags(ConvertDomainBean
                 .convertListHashTagsToBean(new ArrayList<HashTag>(poll
                         .getHashTags())));
@@ -932,6 +926,11 @@ public class ConvertDomainBean {
         if (poll.getShowComments() != null) {
             unitPoll.setShowComments(poll.getShowComments().toString());
         }
+        if (poll.getMultipleResponse() != null ) {
+            unitPoll.setMultipleResponse(poll.getMultipleResponse().equals(AbstractSurvey.MultipleResponse.MULTIPLE) ? true : false);
+        } else {
+            unitPoll.setMultipleResponse(false);
+        }
         unitPoll.setFolderId(poll.getPollFolder() == null ? null : poll
                 .getPollFolder().getId());
         unitPoll.setIsCloseAfterDate(poll.getCloseAfterDate() == null ? false
@@ -945,6 +944,9 @@ public class ConvertDomainBean {
         unitPoll.setIsIpRestricted(poll.getIpRestriction() == null ? false : poll.getIpRestriction());
         unitPoll.setIpRestricted(poll.getIpProtection() == null ? "" : poll
                 .getIpProtection());
+        unitPoll.setIsHidden(poll.getIsHidden() == null ? false : poll.getIsHidden());
+        unitPoll.setPassword(poll.getPassword() == null ? null : poll.getPassword());
+        unitPoll.setIsPasswordProtected(poll.getIsPasswordProtected() == null ? false : poll.getIsPasswordProtected());
         return unitPoll;
     }
 

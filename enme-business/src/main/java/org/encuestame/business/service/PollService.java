@@ -401,11 +401,15 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setShowComments(commentOpt);
             pollDomain.setPublish(Boolean.TRUE);
             // multiple votes enabled or not
-            if (createPollBean.getMultiple()) {
-                pollDomain.setMultipleResponse(org.encuestame.persistence.domain.AbstractSurvey.MultipleResponse.MULTIPLE);
-            } else {
+
+
+            //FIXME: ENCUESTAME-673
+            //if (createPollBean.getMultiple()) {
+                //pollDomain.setMultipleResponse(org.encuestame.persistence.domain.AbstractSurvey.MultipleResponse.MULTIPLE);
+            //} else {
                 pollDomain.setMultipleResponse(org.encuestame.persistence.domain.AbstractSurvey.MultipleResponse.SINGLE);
-            }
+            //}
+
             // set limit of votes by IP (the IP is reviewed in the json service)
             if (createPollBean.getRepeatedVotes() != null) {
                 pollDomain.setAllowRepeatedVotes(true);

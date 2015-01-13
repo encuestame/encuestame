@@ -35,14 +35,6 @@ public class ServiceManager implements IServiceManager {
     private IApplicationServices applicationServices;
 
     /**
-     * Setter of {@link ApplicationServices}.
-     * @param applicationServices the applicationServices to set
-     */
-    public void setApplicationServices(final IApplicationServices applicationServices) {
-        this.applicationServices = applicationServices;
-    }
-
-    /**
      * Getter of {@link ApplicationServices}
      * @return the applicationServices
      */
