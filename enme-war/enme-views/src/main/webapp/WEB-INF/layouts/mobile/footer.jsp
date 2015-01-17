@@ -1,5 +1,4 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="mobile-footer">
     <div class="footer-menu">
         <span>
@@ -26,11 +25,9 @@
           </span>
     </div>
     <div class="mobile-footer-version">
-        <a href="http://www.encuestame.org" target="_blank">
-            <spring:message code="footer.version" />
-                <span>
-                     <%=EnMePlaceHolderConfigurer.getProperty("app.version")%>
-               </span>
-        </a>
+        <spring:message code="footer.version" />
+        <span>
+             <%=EnMePlaceHolderConfigurer.getProperty("app.version")%>
+       </span>
     </div>
 </div>

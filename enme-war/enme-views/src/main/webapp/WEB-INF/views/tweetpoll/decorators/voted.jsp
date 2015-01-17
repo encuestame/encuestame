@@ -1,17 +1,17 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div class="container">
-    <section class="web-tweetpoll-vote-options">
+    <div class="web-vote-wrapper">
 
-        <div class="web-permatlink green">
-            <h2>
-                <spring:message code="tweetpoll.votes.acepted" />
-            </h2>
+        <div class="web-poll-vote">
             <h3>
-               ${tp_switch.tweetPoll.question.question}
+                ${tp_switch.tweetPoll.question.question}
             </h3>
-            <h4>
-                <spring:message code="tweetpoll.votes.selection" />: <b>${tp_switch.answers.answer}</b>
-            </h4>
+            <div class="answer-selected">
+                ${tp_switch.answers.answer}
+            </div>
+            <div class="alert alert-success">
+                <spring:message code="tweetpoll.votes.acepted" />
+            </div>
             <div class="web-tweetpoll-info">
                 <a href="<%=request.getContextPath()%>/tweetpoll/${tp_switch.tweetPoll.tweetPollId}/${tp_switch.tweetPoll.question.slugQuestion}">
                     <button class="btn btn-success">
@@ -22,5 +22,5 @@
             <!-- <div data-dojo-type="me/web/widget/geo/BasicGeoWidget" tpid="${tp_switch.tweetPoll.tweetPollId}"> </div> -->
         </div>
 
-    </section>
+    </div>
 </div>
