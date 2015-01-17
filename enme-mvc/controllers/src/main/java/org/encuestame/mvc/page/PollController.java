@@ -139,6 +139,7 @@ public class PollController extends AbstractViewController {
         System.out.println("isEmbedded   * " + isEmbedded);
         String pathVote = "poll/" + isEmbedded + "voted";
         try{
+            System.out.println("************DEBUG");
             Poll poll = new Poll();
             // Check IP in BlackListFile - Validation
             final String IP = getIpClient(req);
@@ -153,10 +154,12 @@ public class PollController extends AbstractViewController {
                     throw new EnMePollNotFoundException("poll id has not been found");
                     // if answer id is null return the request
                 } else if (responseId == null) {
+                    System.out.println("************NO ANSWER");
                     System.out.println("responseId " + responseId);
                     poll = getPollService().getPollByAnswerId(itemId, responseId, null);
                     System.out.println("poll " + poll);
                     model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
+                    model.put("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                     if (log.isInfoEnabled()) {
                         System.out.println("ConvertDomainBean.convertPollDomainToBean(poll) " + ConvertDomainBean.convertPollDomainToBean(poll).toString());
                     }
@@ -172,6 +175,8 @@ public class PollController extends AbstractViewController {
                     System.out.println("responseId::" + responseId);
                     System.out.println("poll.getIsPasswordProtected()" + poll.getIsPasswordProtected());
                     poll = getPollService().getPollByAnswerId(itemId, responseId, null);
+                    model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
+                    model.put("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                     // restrictions by date
                     if (poll.getIsPasswordProtected()) {
                         System.out.println("Is protected under password");
@@ -238,6 +243,7 @@ public class PollController extends AbstractViewController {
                                 } catch (Exception e) {
                                     log.error(e.getMessage());
                                     e.printStackTrace();
+                                    model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                                     pathVote = "poll/" + isEmbedded + "bad";
                                 }
                             }
@@ -320,8 +326,15 @@ public class PollController extends AbstractViewController {
                         throw new EnMePollNotFoundException("poll id has not been found");
                         // if answer id is null return the request
                     } else if (responseId == null) {
-                        System.out.println("responseId " + responseId);
-                        poll = getPollService().getPollByAnswerId(itemId, responseId, null);
+                        System.out.println("responseId -- JUAN " + responseId);
+                        try {
+                            poll = getPollService().getPollByAnswerId(itemId, responseId, null);
+                        } catch (EnMeExpcetion e) {
+                            //TEMP: temporal solution to manage correctly the bad response
+                            pathVote = "poll/" + isEmbedded + "bad";
+                            Poll poll_full = getPollService().getPollById(itemId);
+                            model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll_full));
+                        }
                         System.out.println("poll " + poll);
                         model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                         if (log.isInfoEnabled()) {
@@ -339,6 +352,8 @@ public class PollController extends AbstractViewController {
                         System.out.println("responseId::" + responseId);
                         System.out.println("poll.getIsPasswordProtected()" + poll.getIsPasswordProtected());
                         poll = getPollService().getPollByAnswerId(itemId, responseId, null);
+                        model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
+                        model.put("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                         if (poll.getIsPasswordProtected()) {
                             model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                             model.addAttribute("type", type);
@@ -418,6 +433,7 @@ public class PollController extends AbstractViewController {
                     }
                 }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(e.getMessage());
             pathVote = "poll/" + isEmbedded + "bad";
         }
@@ -434,7 +450,7 @@ public class PollController extends AbstractViewController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/poll", method = RequestMethod.GET)
     public String tweetPollControllerRedirect(final ModelMap model) {
-        log.debug("tweetpoll");
+        System.out.println("tweetpoll");
         return "redirect:/user/poll/list";
     }
 
@@ -450,7 +466,7 @@ public class PollController extends AbstractViewController {
     public String pollListController(final ModelMap model,
             HttpServletRequest request,
             HttpServletResponse response) throws EnMeExpcetion {
-        log.debug("poll list render view");
+        System.out.println("poll list render view");
         addItemsManangeMessages(model, request, response);
         addi18nProperty(model, "commons_no_results", request, response);
         addi18nProperty(model, "poll_admon_poll_options", request, response);
@@ -512,7 +528,7 @@ public class PollController extends AbstractViewController {
     public String newPollController(final ModelMap model,
             HttpServletRequest request,
             HttpServletResponse response) {
-        //log.debug("new poll render view", request, response);
+        //System.out.println("new poll render view", request, response);
         addi18nProperty(model, "leave_mesage", request, response);
         addi18nProperty(model, "tp_add_hashtag", request, response);
         addi18nProperty(model, "poll_create_question_title", request, response);
@@ -567,7 +583,7 @@ public class PollController extends AbstractViewController {
             final Poll poll = getPollService().getPollSlugById(id, slug);
             final List<QuestionAnswerBean> answer = getPollService()
                     .retrieveAnswerByQuestionId(poll.getQuestion().getQid());
-            log.debug("Poll Detail Answers " + answer.size());
+            System.out.println("Poll Detail Answers " + answer.size());
             model.addAttribute("poll",
                     ConvertDomainBean.convertPollDomainToBean(poll));
             model.addAttribute("answers", answer);
