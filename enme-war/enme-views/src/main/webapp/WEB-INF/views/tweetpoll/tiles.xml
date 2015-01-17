@@ -21,6 +21,7 @@
 
      <definition name="tweetpoll/detail" extends="page-logged">
         <put-attribute name="title" value="TweetPoll Detail" />
+        <put-attribute name="ogMetadata" expression="/WEB-INF/views/tweetpoll/ogMetadata.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/detail.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
         <put-attribute name="dojo-layers" expression="/WEB-INF/views/tweetpoll/dojo-detail.jsp" />
@@ -35,42 +36,49 @@
 
     <definition name="tweetVoted" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Vote" />
+        <put-attribute name="ogMetadata" expression="/WEB-INF/views/tweetpoll/ogMetadata.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/voted.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="repeatedTweetVote" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Repeated Vote" />
+        <put-attribute name="ogMetadata" expression="/WEB-INF/views/tweetpoll/ogMetadata.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/repeated.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="completeTweetVote" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Completed" />
+        <put-attribute name="ogMetadata" expression="/WEB-INF/views/tweetpoll/ogMetadata.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/completed.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="voteCaptcha" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Captcha Vote" />
+        <put-attribute name="ogMetadata" expression="/WEB-INF/views/tweetpoll/ogMetadata.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/voteCaptcha.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="badTweetVote" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Bad Vote" />
+        <put-attribute name="ogMetadata" expression="/WEB-INF/views/tweetpoll/ogMetadata.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/bad.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="banned" extends="main-vote">
         <put-attribute name="title" value="banned IP" />
+        <put-attribute name="ogMetadata" expression="/WEB-INF/views/tweetpoll/ogMetadata.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/banned.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>
 
     <definition name="LimitTweetVote" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Limited" />
+        <put-attribute name="ogMetadata" expression="/WEB-INF/views/tweetpoll/ogMetadata.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/limit.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/tweetpoll/tp_css.jsp" />
     </definition>

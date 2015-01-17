@@ -98,6 +98,8 @@ public class TweetPollController extends AbstractViewController {
                         log.info("tweetId::==>"+tweetId);
                         log.info("tweetId::==>"+IP);
                         final TweetPollSwitch tweetPoll = getTweetPollService().getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
+                        //INPROGRESS: ENCUESTAME-676
+                        setOgMetadataTweetPollInfo(model, tweetPoll.getTweetPoll(), req);
                         if (tweetPoll == null) {
                             throw new EnMeNoResultsFoundException("tweetpoll answer not found");
                         }
@@ -139,6 +141,7 @@ public class TweetPollController extends AbstractViewController {
                                 }
                             } catch (Exception e) {
                                 // TODO: handle exception
+                                e.printStackTrace();
                                 log.error("");
                                 pathVote = "repeatedTweetVote";
                             }
@@ -310,6 +313,7 @@ public class TweetPollController extends AbstractViewController {
                 path = "tweetpoll/social";
             }
         } catch (EnMeNoResultsFoundException e) {
+            e.printStackTrace();
             log.error(e);
             path = "505";
         }
@@ -382,6 +386,7 @@ public class TweetPollController extends AbstractViewController {
             final String ipAddress = getIpClient(request);
             slug = filterValue(slug);
             final TweetPoll tweetPoll = getTweetPollService().getTweetPollByIdSlugName(id, slug);
+            setOgMetadataTweetPollInfo(model, tweetPoll, request);
             // if the tweetpoll is not published we send a 404 page
             if (tweetPoll.getPublishTweetPoll()) {
                 this.checkTweetPollStatus(tweetPoll);
@@ -402,9 +407,11 @@ public class TweetPollController extends AbstractViewController {
                 return "404"; //FIXME: replace by ENUM
             }
         } catch (EnMeTweetPollNotFoundException e) {
+            e.printStackTrace();
             log.error(e);
             return "404"; //FIXME: replace by ENUM
         } catch (EnMeNoResultsFoundException e) {
+            e.printStackTrace();
              log.error(e);
              return "404"; //FIXME: replace by ENUM
         } catch (UnknownHostException e) {

@@ -255,6 +255,10 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
             } else if (TypeSearchResult.POLL.equals(typeItem)) {
                 // generate poll body
                 final Poll poll = getPollService().getPollById(pollId);
+                // ENCUESTAME-664 temporally disabled
+                if (poll.getIsPasswordProtected() != null && poll.getIsPasswordProtected()) {
+                    throw new EnMeExpcetion("password protected not embeddable");
+                }
                 final PollDetailBean detailBean = getPollService().getPollDetailInfo(poll.getPollId());
                 model.put("owner_picture", domain + "/picture/profile/" + poll.getEditorOwner().getUsername() + "/thumbnail");
                 model.put("editorOwner", poll.getEditorOwner());
@@ -318,6 +322,7 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
             final String json = ow.writeValueAsString(embebedBody);
             out.print(callback + "(" + json + ")");
         } catch (Exception e) {
+            e.printStackTrace();
             try {
                 createWrongBody(model, embebedBody);
                 final String json = ow.writeValueAsString(embebedBody);

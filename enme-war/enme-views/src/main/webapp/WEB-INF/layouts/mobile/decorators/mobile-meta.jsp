@@ -9,3 +9,7 @@
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<%=request.getContextPath()%>/resources/mobile/touch/apple-touch-icon-72x72-precomposed.png">
 <link rel="apple-touch-icon-precomposed" href="<%=request.getContextPath()%>/resources/mobile/touch/apple-touch-icon-57x57-precomposed.png">
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/mobile/touch/apple-touch-icon.png">
+
+<!-- juan mobile -->
+<tiles:insertAttribute name="ogMetadata" ignore="true" />
+<!-- og -->

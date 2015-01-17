@@ -1,8 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div class="web-vote-wrapper">
-        <header>
-            <%@ include file="/WEB-INF/layouts/logo.jsp"%>
-        </header>
         <h3>
              ${poll.questionBean.questionName}
         </h3>
@@ -14,23 +11,24 @@
                       <spring:message code="poll.error"/>
                    </div>
                  </c:if>
-                  <article data-dojo-type="me/web/widget/poll/vote/PollVote" pollId="${poll.id}">
+                  <div data-dojo-type="me/web/widget/poll/vote/PollVote" pollId="${poll.id}">
                       <c:forEach items="${answers}" var="a">
-                          <section data-dojo-type="${poll.questionBean.widget}"
+                          <div data-dojo-type="${poll.questionBean.widget}"
                                    itemId="${a.answerId}"
                                    name="poll"
+                                   multiple="${poll.multipleResponse}"
                                    label="${a.answers}">
-                          </section>
+                          </div>
                       </c:forEach>
-                  </article>
+                  </div>
                    <input name="itemId" type="hidden" value="${poll.id}">
                    <input name="type" type="hidden" value="${poll.questionBean.pattern}">
                    <input name="slugName" type="hidden" value="${poll.questionBean.slugName}">
                    <input name="type_form" type="hidden" value="NORMAL">
              </div>
-            <p>
+            <div class="space">
                <button class="btn  btn-large btn-block btn-success" type="submit">Vote</button>
-            </p>
+            </div>
          </form>
       </p>
 </div>
