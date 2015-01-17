@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.web.frontEnd.WebMessage;
 import org.encuestame.utils.web.frontEnd.WebMessage.WebInfoType;
@@ -19,6 +20,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -131,5 +133,26 @@ public abstract class AbstractViewController extends AbstractBaseOperations{
                 EnMePlaceHolderConfigurer.getBooleanProperty("encuestame.error.display_bugtracking"));
         request.setAttribute("message", emptyError);
         return mav;
+    }
+
+    /**
+     * In progress ENCUESTAME-676
+     * @param modelMap
+     * @param tweetPoll
+     */
+    public void setOgMetadataTweetPollInfo(
+            final ModelMap modelMap,
+            final TweetPoll tweetPoll,
+            final HttpServletRequest request) {
+        // https://developers.facebook.com/docs/sharing/best-practices?locale=es_LA
+        modelMap.put("og_site_title", tweetPoll.getQuestion().getQuestion());
+        modelMap.put("og_site_url_image", "");
+        modelMap.put("og_site_name", EnMePlaceHolderConfigurer.getProperty("encuestame.site.name"));
+        modelMap.put("og_site_description", EnMePlaceHolderConfigurer.getProperty("encuestame.site.description"));
+        modelMap.put("fb_app_id", EnMePlaceHolderConfigurer.getProperty("facebook.api.id"));
+        modelMap.put("og_site_type", EnMePlaceHolderConfigurer.getProperty("encuestame.site.type"));
+        modelMap.put("og_locale", EnMePlaceHolderConfigurer.getProperty("encuestame.lang"));
+        modelMap.put("og_article_author", tweetPoll.getEditorOwner().getUsername());
+        modelMap.put("og_tags", ""); //FIXME: add hashtag list of the tweetpoll
     }
 }
