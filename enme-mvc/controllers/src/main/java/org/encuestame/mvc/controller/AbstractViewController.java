@@ -152,7 +152,9 @@ public abstract class AbstractViewController extends AbstractBaseOperations{
         modelMap.put("fb_app_id", EnMePlaceHolderConfigurer.getProperty("facebook.api.id"));
         modelMap.put("og_site_type", EnMePlaceHolderConfigurer.getProperty("encuestame.site.type"));
         modelMap.put("og_locale", EnMePlaceHolderConfigurer.getProperty("encuestame.lang"));
-        modelMap.put("og_article_author", tweetPoll.getEditorOwner().getUsername());
+        if (tweetPoll.getEditorOwner() != null) {
+            modelMap.put("og_article_author", tweetPoll.getEditorOwner().getUsername());
+        }
         modelMap.put("og_tags", ""); //FIXME: add hashtag list of the tweetpoll
     }
 }
