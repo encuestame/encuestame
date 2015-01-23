@@ -60,7 +60,7 @@
    </article>
 
 
-   <article class="emne-box">
+   <article class="emne-box padding">
        <h5>
           <spring:message code="options.links" />
        </h5>
@@ -74,7 +74,7 @@
        </section>
    </article>
 
-   <section class="web-tweetpoll-comments emne-box">
+   <section class="web-tweetpoll-comments emne-box padding">
       <h5>
             <spring:message code="options.comments" />
       </h5>

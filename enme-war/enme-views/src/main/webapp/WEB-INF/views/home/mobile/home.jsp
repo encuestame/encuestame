@@ -10,7 +10,7 @@
         </c:forEach>
         <c:if test="${!empty items}">
               <div data-dojo-type="me/web/widget/stream/FrontEnd"
-                 items="20" enableImage="false"></div>
+                 items="20" viewFilter="${viewFilter}" enableImage="false"></div>
         </c:if>
         </article>
     </article>

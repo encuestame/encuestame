@@ -123,12 +123,11 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         criteria.add(Restrictions.eq("publish", Boolean.TRUE)); //should be published
         criteria.add(Restrictions.or(Restrictions.eq("isHidden", Boolean.FALSE), Restrictions.isNull("isHidden")));
         criteria.add(Restrictions.isNotNull("isPasswordProtected"));
-        criteria.add(Restrictions.or(Restrictions.isNull("passProtection"), Restrictions.isEmpty("passProtection")));
-        criteria.add(Restrictions.isEmpty("passProtection"));
+        criteria.add(Restrictions.isNull("passProtection"));
+        //criteria.add(Restrictions.isEmpty("passProtection"));
         criteria.addOrder(Order.desc("createDate"));
         criteria.addOrder(Order.desc("relevance"));
         List<Poll> polls = (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
-        System.out.println("getPollFrontEnd===>"+polls.size());
         return polls;
     }
 
