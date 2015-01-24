@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import junit.framework.Assert;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.AbstractSurveyService;
@@ -67,6 +68,8 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.captcha.ReCaptcha;
 import org.encuestame.utils.enums.RelativeTimeEnum;
+import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -749,6 +752,45 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
        addi18nProperty(model, "commons_no", request, response);
        addSocialPickerWidgetMessages(model, request, response);
    }
+
+    /**
+     *
+     * @param view
+     * @param period
+     * @param homeMaxItems
+     * @param request
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public List<HomeBean> filterHomeItems (
+            final String view,
+            final String period,
+            final Integer start,
+            final Integer homeMaxItems,
+            final HttpServletRequest request) throws EnMeExpcetion {
+        TypeSearchResult typeSearchResult = TypeSearchResult.getTypeSearchResult(view);
+        if (view.isEmpty()) {
+            return getFrontService().getFrontEndItems(period, start , homeMaxItems, request);
+        } else {
+            if (typeSearchResult.equals(TypeSearchResult.TWEETPOLL)) {
+                return ConvertDomainBean
+                        .convertTweetPollListToHomeBean(getFrontService()
+                                .searchItemsByTweetPoll(period, start,
+                                        homeMaxItems, request));
+            } else if (typeSearchResult.equals(TypeSearchResult.POLL)) {
+                return  ConvertDomainBean
+                                .convertPollListToHomeBean(getFrontService()
+                                        .searchItemsByPoll(period, start,
+                                                homeMaxItems, request));
+            } else if (typeSearchResult.equals(TypeSearchResult.SURVEY)) {
+                //TODO: ENCUESTAME-345
+                return  ListUtils.EMPTY_LIST;
+            } else {
+                // return ALL
+                return  getFrontService().getFrontEndItems(period, start , homeMaxItems, request);
+            }
+        }
+    }
 
    /**
     *

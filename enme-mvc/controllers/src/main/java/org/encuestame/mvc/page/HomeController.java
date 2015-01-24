@@ -96,33 +96,11 @@ public class HomeController extends AbstractViewController {
             final String view = filterValue(request.getParameter("view"));
             String period = filterValue(request.getParameter("period"));
             period = (period.isEmpty() ? SHOW_ALL_RESULTS : period);
-            final IFrontEndService service = getFrontService();
             try {
-                if (view.isEmpty()) {
-                    model.addAttribute("items", service.getFrontEndItems(period, EnMeUtils.DEFAULT_START , this.homeMaxItems, request));
-                } else {
-                    if ("tweetpoll".equals(view)) {
-                        model.addAttribute("items", ConvertDomainBean
-                                .convertTweetPollListToHomeBean(service
-                                        .searchItemsByTweetPoll(period, EnMeUtils.DEFAULT_START,
-                                                this.homeMaxItems, request)));
-                    } else if ("poll".equals(view)) {
-                        model.addAttribute("items",
-                                ConvertDomainBean
-                                        .convertPollListToHomeBean(service
-                                                .searchItemsByPoll(period, EnMeUtils.DEFAULT_START,
-                                                        this.homeMaxItems, request)));
-                    } else if ("survey".equals(view)) {
-                        //TODO: ENCUESTAME-345
-                        model.addAttribute("items", ListUtils.EMPTY_LIST);
-                    } else {
-                        model.addAttribute("items", service
-                                .searchItemsByTweetPoll(period, EnMeUtils.DEFAULT_START, this.homeMaxItems,
-                                        request));
-                    }
-                }
+                model.addAttribute("viewFilter", view);
+                model.addAttribute("items", this.filterHomeItems(view, period, EnMeUtils.DEFAULT_START, homeMaxItems, request));
                 //TODO: review this code, is used?
-                model.addAttribute("hashTags", service.getHashTags(this.homeHashtagMaxItems, EnMeUtils.DEFAULT_START, ""));
+                model.addAttribute("hashTags", getFrontService().getHashTags(this.homeHashtagMaxItems, EnMeUtils.DEFAULT_START, ""));
                 //TODO: search hashtags and other information.
                 //TODO: comments: ENCUESTAME-346
             } catch (Exception e) {

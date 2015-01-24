@@ -14,6 +14,7 @@
                     </c:forEach>
                     <c:if test="${!empty items}">
                         <div data-dojo-type="me/web/widget/stream/FrontEnd"
+                             viewFilter="${viewFilter}"
                              items="20"></div>
                     </c:if>
                     </article>

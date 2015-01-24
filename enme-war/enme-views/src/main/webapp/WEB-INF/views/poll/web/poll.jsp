@@ -64,7 +64,7 @@
                 </div>
             </section>
         </article>
-        <section class="web-tweetpoll-comments emne-box">
+        <section class="web-tweetpoll-comments emne-box padding">
             <h5>
                 <spring:message code="options.links" />
             </h5>
@@ -75,8 +75,8 @@
                  class="web-social-links">
             </div>
        </section>
-        <c:if test = "${!poll.showComments == 'RESTRICT'}">
-            <section class="web-tweetpoll-comments emne-box">
+       <c:if test = "${!poll.showComments == 'RESTRICT'}">
+            <section class="web-tweetpoll-comments emne-box padding">
                 <h5>
                     <spring:message code="options.comments" />
                 </h5>
