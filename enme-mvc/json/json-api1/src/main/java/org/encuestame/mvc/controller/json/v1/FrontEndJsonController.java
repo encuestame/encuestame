@@ -70,6 +70,7 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
             @RequestParam(value = "period", required = false) String period,
             @RequestParam(value = "maxResults", required = false) Integer maxResults,
             @RequestParam(value = "start", required = false) Integer start,
+            @RequestParam(value = "type", required = false) String typeFilter,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             try {
@@ -77,8 +78,10 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
                 if (period == null ) {
                     throw new EnMeSearchException("search params required.");
                 } else {
-                    final  List<HomeBean> itemList = getFrontService().getFrontEndItems(period, start, maxResults, request);
-                    jsonResponse.put("frontendItems", itemList);
+                    if (typeFilter == null ) {
+                        typeFilter = "all";
+                    }
+                    jsonResponse.put("frontendItems", this.filterHomeItems(typeFilter, period, start, maxResults, request));
                     setItemResponse(jsonResponse);
                    }
             } catch (Exception e) {

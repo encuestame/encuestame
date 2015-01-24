@@ -16,6 +16,7 @@ package org.encuestame.mvc.page;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
@@ -30,7 +31,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Error Controller
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 11, 2010 9:21:37 PM
- * @version $Id: $
  */
 @Controller
 public class ErrorController  extends AbstractViewController {
@@ -66,23 +66,7 @@ public class ErrorController  extends AbstractViewController {
      */
     @RequestMapping({"/error"})
     public String errorController(final ModelMap model, final HttpServletRequest request, final HttpServletResponse  response) {
-        if (EnMePlaceHolderConfigurer.getBooleanProperty("encuestame.error.debug")) {
-        	log.debug("model error" + model.toString());
-        	return "500";
-        } else if (request.getAttribute("message") == null) {
-        	 // if the error message is missing, nothing to display, it's redirected to home
-             log.error("*********************************************************************************************");
-             log.error("redirect to home no error message, redirect to home");
-             log.error("*********************************************************************************************");
-             return "redirect:/home";
-        } else {
-            log.error("*********************************************************************************************");
-            log.error("error no error message, redirect to home");
-            log.error("*********************************************************************************************");
-            WebMessage emptyError = new WebMessage(WebInfoType.ERROR, getMessage("e_023", request, null), "", this.errorLevel, this.bugTracking);
-            request.setAttribute("message", emptyError);
-            return "error";
-        }
+           return "500";
     }
 
     /**

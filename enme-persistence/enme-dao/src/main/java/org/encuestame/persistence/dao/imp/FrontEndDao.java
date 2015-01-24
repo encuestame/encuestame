@@ -120,12 +120,15 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         criteria.createAlias("question", "question");
         calculateSearchPeriodsDates(period, criteria, "createDate");
         criteria.add(Restrictions.gt("relevance", 0L));
-        criteria.addOrder(Order.desc("relevance"));
         criteria.add(Restrictions.eq("publish", Boolean.TRUE)); //should be published
+        criteria.add(Restrictions.or(Restrictions.eq("isHidden", Boolean.FALSE), Restrictions.isNull("isHidden")));
+        criteria.add(Restrictions.isNotNull("isPasswordProtected"));
+        criteria.add(Restrictions.isNull("passProtection"));
+        //criteria.add(Restrictions.isEmpty("passProtection"));
         criteria.addOrder(Order.desc("createDate"));
-        criteria.add(Restrictions.eq("isHidden", Boolean.FALSE));
-        return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
-        //return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
+        criteria.addOrder(Order.desc("relevance"));
+        List<Poll> polls = (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
+        return polls;
     }
 
     /*

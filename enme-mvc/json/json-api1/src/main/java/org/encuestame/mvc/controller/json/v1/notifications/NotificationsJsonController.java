@@ -32,6 +32,7 @@ import org.encuestame.utils.enums.DateClasificatedEnum;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -63,6 +64,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/status-notifications.json", method = RequestMethod.GET)
+    @Transactional
     public @ResponseBody ModelMap status(
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -107,6 +109,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/list.json", method = RequestMethod.GET)
+    @Transactional
     public @ResponseBody ModelMap get(
             @RequestParam(value = "limit") Integer limit,
             HttpServletRequest request,
@@ -140,6 +143,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/all/list.json", method = RequestMethod.GET)
+    @Transactional
     public @ResponseBody ModelMap getClassifiedNotifications(
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "start", required = false) Integer start,
@@ -183,6 +187,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/readed.json", method = RequestMethod.GET)
+    @Transactional
     public @ResponseBody ModelMap changeStatus(
             @RequestParam(value = "id", required = true) Long id,
             HttpServletRequest request,
@@ -210,6 +215,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notification/remove.json", method = RequestMethod.DELETE)
+    @Transactional
     public @ResponseBody ModelMap removeNotification(
             @RequestParam(value = "id") Long notificationId,
             HttpServletRequest request,
