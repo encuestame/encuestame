@@ -64,6 +64,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/status-notifications.json", method = RequestMethod.GET)
+    @Transactional
     public @ResponseBody ModelMap status(
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -108,6 +109,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/list.json", method = RequestMethod.GET)
+    @Transactional
     public @ResponseBody ModelMap get(
             @RequestParam(value = "limit") Integer limit,
             HttpServletRequest request,
@@ -141,6 +143,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/all/list.json", method = RequestMethod.GET)
+    @Transactional
     public @ResponseBody ModelMap getClassifiedNotifications(
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "start", required = false) Integer start,
@@ -184,6 +187,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/readed.json", method = RequestMethod.GET)
+    @Transactional
     public @ResponseBody ModelMap changeStatus(
             @RequestParam(value = "id", required = true) Long id,
             HttpServletRequest request,
