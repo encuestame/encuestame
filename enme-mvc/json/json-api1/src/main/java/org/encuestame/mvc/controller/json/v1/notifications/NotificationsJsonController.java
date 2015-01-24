@@ -32,6 +32,7 @@ import org.encuestame.utils.enums.DateClasificatedEnum;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -210,6 +211,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notification/remove.json", method = RequestMethod.DELETE)
+    @Transactional
     public @ResponseBody ModelMap removeNotification(
             @RequestParam(value = "id") Long notificationId,
             HttpServletRequest request,
