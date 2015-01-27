@@ -71,7 +71,7 @@
 .alertify-button-cancel,
 .alertify-button-cancel:hover,
 .alertify-button-cancel:focus {
-  background-color: #fe1a00;
+  background-color: #FE1A00;
   border: 1px solid #cb1500;
 }
 
@@ -79,7 +79,7 @@
 .alertify-button-ok,
 .alertify-button-ok:hover,
 .alertify-button-ok:focus {
-  background-color: #5cb811;
+  background-color: #5CB811;
   border: 1px solid #45890d;
 }
 

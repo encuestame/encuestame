@@ -234,6 +234,21 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
   padding-left: 24px;
 }
 
+/* line 2, ../../../../css/resource/sass/_vote_layout.scss */
+.vote-layout #mainWrapper {
+  width: 60%;
+}
+
+/* line 10, ../../../../css/resource/sass/_vote_layout.scss */
+.center-body {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 50%;
+}
+
 /* line 1, ../../../../css/resource/sass/_dojo-fixes.scss */
 .dbootstrap .well, .dbootstrap fieldset {
   background: none;
@@ -1362,34 +1377,33 @@ div.web-default-menu li.first {
 }
 
 /* line 281, ../../../../css/resource/sass/web/_default.scss */
-.emne-box {
+.emne-box, enme-box {
   overflow: auto;
-  padding: 10px;
 }
-/* line 284, ../../../../css/resource/sass/web/_default.scss */
-.emne-box > h1, .emne-box > h2, .emne-box > h3, .emne-box h4, .emne-box h5 {
+/* line 283, ../../../../css/resource/sass/web/_default.scss */
+.emne-box h4, .emne-box h5, .emne-box h6, enme-box h4, enme-box h5, enme-box h6 {
   font-weight: 500;
   color: #424242;
   text-transform: uppercase;
 }
-/* line 290, ../../../../css/resource/sass/web/_default.scss */
-.emne-box .non-items {
+/* line 289, ../../../../css/resource/sass/web/_default.scss */
+.emne-box .non-items, enme-box .non-items {
   color: #c1c1c1;
 }
-/* line 294, ../../../../css/resource/sass/web/_default.scss */
-.emne-box > h3 {
+/* line 293, ../../../../css/resource/sass/web/_default.scss */
+.emne-box > h3, enme-box > h3 {
   margin-top: 40px;
   margin-bottom: 10px;
 }
 
-/* line 300, ../../../../css/resource/sass/web/_default.scss */
+/* line 299, ../../../../css/resource/sass/web/_default.scss */
 .emne-box > header .rss {
   position: relative;
   right: 10px;
   top: 2px;
 }
 
-/* line 307, ../../../../css/resource/sass/web/_default.scss */
+/* line 306, ../../../../css/resource/sass/web/_default.scss */
 .emne-box h3.no-results {
   color: #CCCCCC;
   font-size: 1.2em;
@@ -1397,19 +1411,19 @@ div.web-default-menu li.first {
 }
 
 /** dialog **/
-/* line 316, ../../../../css/resource/sass/web/_default.scss */
+/* line 315, ../../../../css/resource/sass/web/_default.scss */
 .web-generic-dialog-content {
   font-size: 12px;
   font-weight: bold;
 }
 
-/* line 322, ../../../../css/resource/sass/web/_default.scss */
+/* line 321, ../../../../css/resource/sass/web/_default.scss */
 .web-generic-dialog-content .button {
   text-align: right;
   padding-right: 10px;
 }
 
-/* line 327, ../../../../css/resource/sass/web/_default.scss */
+/* line 326, ../../../../css/resource/sass/web/_default.scss */
 #web-background-overlay {
   position: absolute;
   margin: auto;
@@ -8294,38 +8308,11 @@ input:focus {
 }
 
 /* line 560, ../../../../css/resource/sass/_common.scss */
-.yellow-bk {
-  background-color: #F9F9C2;
-}
-/* line 562, ../../../../css/resource/sass/_common.scss */
-.yellow-bk h2 {
-  color: black;
-}
-
-/* line 567, ../../../../css/resource/sass/_common.scss */
-.green-bk {
-  background-color: #C9F5C8;
-}
-/* line 569, ../../../../css/resource/sass/_common.scss */
-.green-bk h2 {
-  color: #20a11d;
-}
-
-/* line 574, ../../../../css/resource/sass/_common.scss */
-.red-bk {
-  background-color: #FEBEB2;
-}
-/* line 576, ../../../../css/resource/sass/_common.scss */
-.red-bk h2 {
-  color: #af1e02;
-}
-
-/* line 581, ../../../../css/resource/sass/_common.scss */
 .ui-dragged {
   border: 2px dotted gray;
 }
 
-/* line 585, ../../../../css/resource/sass/_common.scss */
+/* line 564, ../../../../css/resource/sass/_common.scss */
 .widgets, .code {
   width: 450px;
   margin-top: 20px;
@@ -8334,11 +8321,11 @@ input:focus {
   resize: none;
 }
 
-/* line 593, ../../../../css/resource/sass/_common.scss */
+/* line 572, ../../../../css/resource/sass/_common.scss */
 .picture {
   float: left;
 }
-/* line 595, ../../../../css/resource/sass/_common.scss */
+/* line 574, ../../../../css/resource/sass/_common.scss */
 .picture img {
   border: 1px solid #C9F5C8;
   -moz-border-radius: 140px;
@@ -8348,7 +8335,7 @@ input:focus {
   width: 110px;
 }
 
-/* line 603, ../../../../css/resource/sass/_common.scss */
+/* line 582, ../../../../css/resource/sass/_common.scss */
 .ellipsis {
   white-space: nowrap;
   overflow: hidden;
@@ -8357,7 +8344,7 @@ input:focus {
 }
 
 /** agrupa preguntas **/
-/* line 611, ../../../../css/resource/sass/_common.scss */
+/* line 590, ../../../../css/resource/sass/_common.scss */
 .web-generic-detail-answer-wrapper {
   min-height: 315px;
 }
@@ -9050,11 +9037,11 @@ input:focus {
     opacity: 0;
   }
 }
-/* line 27, ../../../../css/resource/sass/_common_web.scss */
+/* line 28, ../../../../css/resource/sass/_common_web.scss */
 .enme-web-context {
   padding-top: 25px;
 }
-/* line 29, ../../../../css/resource/sass/_common_web.scss */
+/* line 30, ../../../../css/resource/sass/_common_web.scss */
 .enme-web-context .navbar-inner {
   -moz-border-radius: 4px 4px 0px 0px;
   -webkit-border-radius: 4px;
@@ -9062,7 +9049,7 @@ input:focus {
   border-bottom: 0;
 }
 
-/* line 36, ../../../../css/resource/sass/_common_web.scss */
+/* line 37, ../../../../css/resource/sass/_common_web.scss */
 .web-items-no-results {
   color: #918F8F;
   font-weight: 100;

@@ -3742,11 +3742,11 @@ button.close {
   cursor: pointer;
   background-color: #f5f5f5;
   *background-color: #e6e6e6;
-  background-image: -moz-linear-gradient(top, white, #e6e6e6);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#e6e6e6));
-  background-image: -webkit-linear-gradient(top, white, #e6e6e6);
-  background-image: -o-linear-gradient(top, white, #e6e6e6);
-  background-image: linear-gradient(to bottom, white, #e6e6e6);
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
   background-repeat: repeat-x;
   border: 1px solid #cccccc;
   *border: 0;
@@ -5074,11 +5074,11 @@ input[type="submit"].btn.btn-mini {
   padding-right: 20px;
   padding-left: 20px;
   background-color: #fafafa;
-  background-image: -moz-linear-gradient(top, white, #f2f2f2);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#f2f2f2));
-  background-image: -webkit-linear-gradient(top, white, #f2f2f2);
-  background-image: -o-linear-gradient(top, white, #f2f2f2);
-  background-image: linear-gradient(to bottom, white, #f2f2f2);
+  background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
+  background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
   background-repeat: repeat-x;
   border: 1px solid #d4d4d4;
   -webkit-border-radius: 4px;
@@ -6624,56 +6624,41 @@ a.badge:focus {
 }
 
 @-webkit-keyframes progress-bar-stripes {
-  /* line 5726, ../../../../../css/resource/sass/bootstrap/bootstrap.scss */
   from {
     background-position: 40px 0;
   }
-
-  /* line 5729, ../../../../../css/resource/sass/bootstrap/bootstrap.scss */
   to {
     background-position: 0 0;
   }
 }
 @-moz-keyframes progress-bar-stripes {
-  /* line 5735, ../../../../../css/resource/sass/bootstrap/bootstrap.scss */
   from {
     background-position: 40px 0;
   }
-
-  /* line 5738, ../../../../../css/resource/sass/bootstrap/bootstrap.scss */
   to {
     background-position: 0 0;
   }
 }
 @-ms-keyframes progress-bar-stripes {
-  /* line 5744, ../../../../../css/resource/sass/bootstrap/bootstrap.scss */
   from {
     background-position: 40px 0;
   }
-
-  /* line 5747, ../../../../../css/resource/sass/bootstrap/bootstrap.scss */
   to {
     background-position: 0 0;
   }
 }
 @-o-keyframes progress-bar-stripes {
-  /* line 5753, ../../../../../css/resource/sass/bootstrap/bootstrap.scss */
   from {
     background-position: 0 0;
   }
-
-  /* line 5756, ../../../../../css/resource/sass/bootstrap/bootstrap.scss */
   to {
     background-position: 40px 0;
   }
 }
 @keyframes progress-bar-stripes {
-  /* line 5762, ../../../../../css/resource/sass/bootstrap/bootstrap.scss */
   from {
     background-position: 40px 0;
   }
-
-  /* line 5765, ../../../../../css/resource/sass/bootstrap/bootstrap.scss */
   to {
     background-position: 0 0;
   }
@@ -6684,11 +6669,11 @@ a.badge:focus {
   margin-bottom: 20px;
   overflow: hidden;
   background-color: #f7f7f7;
-  background-image: -moz-linear-gradient(top, whitesmoke, #f9f9f9);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(whitesmoke), to(#f9f9f9));
-  background-image: -webkit-linear-gradient(top, whitesmoke, #f9f9f9);
-  background-image: -o-linear-gradient(top, whitesmoke, #f9f9f9);
-  background-image: linear-gradient(to bottom, whitesmoke, #f9f9f9);
+  background-image: -moz-linear-gradient(top, #f5f5f5, #f9f9f9);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#f9f9f9));
+  background-image: -webkit-linear-gradient(top, #f5f5f5, #f9f9f9);
+  background-image: -o-linear-gradient(top, #f5f5f5, #f9f9f9);
+  background-image: linear-gradient(to bottom, #f5f5f5, #f9f9f9);
   background-repeat: repeat-x;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
