@@ -646,6 +646,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                 bean.getIsScheduled(),
                 bean.getIsFavourite(),
                 bean.getIsPublished(),
+                bean.getIsHidden(),
+                bean.getIsPasswordProtected(),
                 bean.getKeyword(),
                 bean.getPeriod());
         return (List<Poll>) filterByMaxorStart(criteria, bean.getMax(), bean.getStart());
@@ -673,6 +675,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
             final Boolean isScheduled,
             final Boolean isFavourite,
             final Boolean isPublished,
+            final Boolean isHidden,
+            final Boolean isPasswordProtected,
             final String keyword,
             final String period) {
         // criteria.add(Restrictions.eq("editorOwner.uid", userId)); -- POLL
@@ -685,6 +689,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                 isScheduled,
                 isFavourite,
                 isPublished,
+                isHidden,
+                isPasswordProtected,
                 keyword,
                 period);
     }
@@ -758,7 +764,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     */
    private List<Poll> useAvancedSearch(final DetachedCriteria criteria, final PollSearchBean bean){
        advancedPollSearchOptions(criteria, bean.getIsComplete(), bean.getIsScheduled(), bean.getIsFavourite(),
-                bean.getIsPublished(), bean.getKeyword(), bean.getPeriod());
+                bean.getIsPublished(), bean.getIsHidden(), bean.getIsPasswordProtected(), bean.getKeyword(), bean.getPeriod());
        return (List<Poll>) filterByMaxorStart(criteria, bean.getMax(), bean.getStart());
    }
 
