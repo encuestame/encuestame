@@ -234,6 +234,21 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
   padding-left: 24px;
 }
 
+/* line 2, ../../../../css/resource/sass/_vote_layout.scss */
+.vote-layout #mainWrapper {
+  width: 60%;
+}
+
+/* line 10, ../../../../css/resource/sass/_vote_layout.scss */
+.center-body {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 50%;
+}
+
 /* line 1, ../../../../css/resource/sass/_dojo-fixes.scss */
 .dbootstrap .well, .dbootstrap fieldset {
   background: none;
@@ -1362,34 +1377,33 @@ div.web-default-menu li.first {
 }
 
 /* line 281, ../../../../css/resource/sass/web/_default.scss */
-.emne-box {
+.emne-box, enme-box {
   overflow: auto;
-  padding: 10px;
 }
-/* line 284, ../../../../css/resource/sass/web/_default.scss */
-.emne-box > h1, .emne-box > h2, .emne-box > h3, .emne-box h4, .emne-box h5 {
+/* line 283, ../../../../css/resource/sass/web/_default.scss */
+.emne-box h4, .emne-box h5, .emne-box h6, enme-box h4, enme-box h5, enme-box h6 {
   font-weight: 500;
   color: #424242;
   text-transform: uppercase;
 }
-/* line 290, ../../../../css/resource/sass/web/_default.scss */
-.emne-box .non-items {
+/* line 289, ../../../../css/resource/sass/web/_default.scss */
+.emne-box .non-items, enme-box .non-items {
   color: #c1c1c1;
 }
-/* line 294, ../../../../css/resource/sass/web/_default.scss */
-.emne-box > h3 {
+/* line 293, ../../../../css/resource/sass/web/_default.scss */
+.emne-box > h3, enme-box > h3 {
   margin-top: 40px;
   margin-bottom: 10px;
 }
 
-/* line 300, ../../../../css/resource/sass/web/_default.scss */
+/* line 299, ../../../../css/resource/sass/web/_default.scss */
 .emne-box > header .rss {
   position: relative;
   right: 10px;
   top: 2px;
 }
 
-/* line 307, ../../../../css/resource/sass/web/_default.scss */
+/* line 306, ../../../../css/resource/sass/web/_default.scss */
 .emne-box h3.no-results {
   color: #CCCCCC;
   font-size: 1.2em;
@@ -1397,19 +1411,19 @@ div.web-default-menu li.first {
 }
 
 /** dialog **/
-/* line 316, ../../../../css/resource/sass/web/_default.scss */
+/* line 315, ../../../../css/resource/sass/web/_default.scss */
 .web-generic-dialog-content {
   font-size: 12px;
   font-weight: bold;
 }
 
-/* line 322, ../../../../css/resource/sass/web/_default.scss */
+/* line 321, ../../../../css/resource/sass/web/_default.scss */
 .web-generic-dialog-content .button {
   text-align: right;
   padding-right: 10px;
 }
 
-/* line 327, ../../../../css/resource/sass/web/_default.scss */
+/* line 326, ../../../../css/resource/sass/web/_default.scss */
 #web-background-overlay {
   position: absolute;
   margin: auto;
@@ -6470,7 +6484,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 /* line 5310, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
-.tooltip.right, div.socialAccountPicker div.tooltip.resume, .tooltip.df-label, .tooltip.dialog-close-button, .tooltip.web-poll-options-button, #web-tweetpoll-wrapper div.tooltip.web-tweetpoll-menu, div.tooltip.tweetPollPublishButton, .web-social-filter > div.tooltip {
+.tooltip.right, div.socialAccountPicker div.tooltip.resume, .tooltip.df-label, .tooltip.dialog-close-button, #web-tweetpoll-wrapper div.tooltip.web-tweetpoll-menu, div.tooltip.tweetPollPublishButton, .web-social-filter > div.tooltip, .tooltip.web-poll-options-button {
   padding: 0 5px;
   margin-left: 3px;
 }
@@ -6519,7 +6533,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 /* line 5353, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
-.tooltip.right .tooltip-arrow, div.socialAccountPicker div.tooltip.resume .tooltip-arrow, .tooltip.df-label .tooltip-arrow, .tooltip.dialog-close-button .tooltip-arrow, .tooltip.web-poll-options-button .tooltip-arrow, #web-tweetpoll-wrapper div.tooltip.web-tweetpoll-menu .tooltip-arrow, div.tooltip.tweetPollPublishButton .tooltip-arrow, .web-social-filter > div.tooltip .tooltip-arrow {
+.tooltip.right .tooltip-arrow, div.socialAccountPicker div.tooltip.resume .tooltip-arrow, .tooltip.df-label .tooltip-arrow, .tooltip.dialog-close-button .tooltip-arrow, #web-tweetpoll-wrapper div.tooltip.web-tweetpoll-menu .tooltip-arrow, div.tooltip.tweetPollPublishButton .tooltip-arrow, .web-social-filter > div.tooltip .tooltip-arrow, .tooltip.web-poll-options-button .tooltip-arrow {
   top: 50%;
   left: 0;
   margin-top: -5px;
@@ -6576,7 +6590,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 /* line 5405, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
-.popover.right, div.socialAccountPicker div.popover.resume, .popover.df-label, .popover.dialog-close-button, .popover.web-poll-options-button, #web-tweetpoll-wrapper div.popover.web-tweetpoll-menu, div.popover.tweetPollPublishButton, .web-social-filter > div.popover {
+.popover.right, div.socialAccountPicker div.popover.resume, .popover.df-label, .popover.dialog-close-button, #web-tweetpoll-wrapper div.popover.web-tweetpoll-menu, div.popover.tweetPollPublishButton, .web-social-filter > div.popover, .popover.web-poll-options-button {
   margin-left: 10px;
 }
 
@@ -6655,7 +6669,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 /* line 5473, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
-.popover.right .arrow, div.socialAccountPicker div.popover.resume .arrow, .popover.df-label .arrow, .popover.dialog-close-button .arrow, .popover.web-poll-options-button .arrow, #web-tweetpoll-wrapper div.popover.web-tweetpoll-menu .arrow, div.popover.tweetPollPublishButton .arrow, .web-social-filter > div.popover .arrow {
+.popover.right .arrow, div.socialAccountPicker div.popover.resume .arrow, .popover.df-label .arrow, .popover.dialog-close-button .arrow, #web-tweetpoll-wrapper div.popover.web-tweetpoll-menu .arrow, div.popover.tweetPollPublishButton .arrow, .web-social-filter > div.popover .arrow, .popover.web-poll-options-button .arrow {
   top: 50%;
   left: -11px;
   margin-top: -11px;
@@ -6665,7 +6679,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 /* line 5482, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
-.popover.right .arrow:after, div.socialAccountPicker div.popover.resume .arrow:after, .popover.df-label .arrow:after, .popover.dialog-close-button .arrow:after, .popover.web-poll-options-button .arrow:after, #web-tweetpoll-wrapper div.popover.web-tweetpoll-menu .arrow:after, div.popover.tweetPollPublishButton .arrow:after, .web-social-filter > div.popover .arrow:after {
+.popover.right .arrow:after, div.socialAccountPicker div.popover.resume .arrow:after, .popover.df-label .arrow:after, .popover.dialog-close-button .arrow:after, #web-tweetpoll-wrapper div.popover.web-tweetpoll-menu .arrow:after, div.popover.tweetPollPublishButton .arrow:after, .web-social-filter > div.popover .arrow:after, .popover.web-poll-options-button .arrow:after {
   bottom: -10px;
   left: 1px;
   border-right-color: #ffffff;
@@ -7400,7 +7414,7 @@ tr.introjs-showElement > th {
 }
 
 /* line 145, ../../../../css/resource/sass/intro/_introjs.scss */
-.introjs-arrow.right, div.socialAccountPicker div.introjs-arrow.resume, .introjs-arrow.df-label, .introjs-arrow.dialog-close-button, .introjs-arrow.web-poll-options-button, #web-tweetpoll-wrapper div.introjs-arrow.web-tweetpoll-menu, div.introjs-arrow.tweetPollPublishButton, .web-social-filter > div.introjs-arrow {
+.introjs-arrow.right, div.socialAccountPicker div.introjs-arrow.resume, .introjs-arrow.df-label, .introjs-arrow.dialog-close-button, #web-tweetpoll-wrapper div.introjs-arrow.web-tweetpoll-menu, div.introjs-arrow.tweetPollPublishButton, .web-social-filter > div.introjs-arrow, .introjs-arrow.web-poll-options-button {
   right: -10px;
   top: 10px;
   border-top-color: transparent;
@@ -7686,7 +7700,7 @@ img {
 }
 
 /* line 16, ../../../../css/resource/sass/_common.scss */
-.col-left, #web-main-public-line .categoryMenu .nav-left, #web-main-public-line .web-item-wrapper, div.survey-status, div.countdown, div.socialAccountPicker div.account div.image, div.socialAccountPicker div.account div.detail, .single-response .single-response-handle, div.web-default-menu li, .df-label, .panel-header header, .enme-message-box .loading-ball, .web-folder-wrapper .web-folder-item .icon-folder, .web-tweetpoll-list-item-title, .web-poll-list-item-title, div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite, .web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail > div:first-child, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .data, .web-item-row .web-poll-switch li, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .label, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .embedded nav .selected-script, .embedded nav .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .selected-script, .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info, .web-tweetpoll-wrapper .tweetListContent .web-tweetpoll-list-detail-wrapper .web-tweetpoll-list-detail-detail .detail, .web-tweetpoll-wrapper .tweetListContent .web-tweetpoll-list-detail-wrapper .rownDetail .label, .web-tweetpoll-wrapper .tweetListContent .web-tweetpoll-list-detail-wrapper .rownDetail .embedded nav .selected-script, .embedded nav .web-tweetpoll-wrapper .tweetListContent .web-tweetpoll-list-detail-wrapper .rownDetail .selected-script, .web-tweetpoll-detail .web-tweetPoll-info-detail .question-info, .web-tweetpoll-detail .web-tweetPoll-info-detail .left-info, .web-tweetpoll-detail .web-tweetPoll-info-detail .info, .web-tweetpoll-detail .web-tweetPoll-info-detail .picture, .web-tweetpoll-detail .web-tweetPoll-info-detail .info .data, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem, .web-tweetpoll-wrapper div.tweetPollPublish div.item, .web-tweetpoll-wrapper div.tweetPollOptions .left, .web-tweetpoll-wrapper div.tweetPollOptions .web-folder-wrapper, .web-tweetpoll-wrapper div.tweetPollOptions .right, .web-tweetpoll-wrapper div.tweetPollOptions div.socialAccountPicker div.resume, div.socialAccountPicker .web-tweetpoll-wrapper div.tweetPollOptions div.resume, .web-tweetpoll-wrapper div.tweetPollOptions .df-label, .web-tweetpoll-wrapper div.tweetPollOptions .dialog-close-button, .web-tweetpoll-wrapper div.tweetPollOptions .web-poll-options-button, .web-tweetpoll-wrapper div.tweetPollOptions #web-tweetpoll-wrapper div.web-tweetpoll-menu, #web-tweetpoll-wrapper .web-tweetpoll-wrapper div.tweetPollOptions div.web-tweetpoll-menu, .web-tweetpoll-wrapper div.tweetPollOptions div.tweetPollPublishButton, .web-tweetpoll-wrapper div.tweetPollOptions .web-social-filter > div, .web-tweetpoll-wrapper div.tweetPollOptions div.question .questionTextBox, .web-tweetpoll-wrapper div.previewWrapperContent .tp-content, .addAnswers .answerAddForm .web-answer-form-wrapper > div, .addAnswers .answerItem .title, .addAnswers .answerItem .title .answerItemTitle, .addAnswers .answerItem div.title .answerItemShortUrl, .addAnswers .answerItem .answer, .tp-help .help, .web-filters-search .web-filters-search-multi, .web-filters-search .web-filters-search-check, .web-social-filter .web-social-filter-counter, .web-social-filter-items .web-social-filter-item .web-social-filter-image, .web-poll-wrapper .web-poll-question .web-question, .folder-selection .folder-selection-label, .section-botton-wrapper .sub-option, .section-option-wrapper .section-default, .web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail, .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart, .web-wrapper-detail .group-answers .answer > div, .web-wrapper-detail .group-answers .answer .answer-color > span, .web-wrapper-detail .group-answers .answer .answer-color > div, .web-wrapper-detail .group-answers .answer .color-code {
+.col-left, #web-main-public-line .categoryMenu .nav-left, #web-main-public-line .web-item-wrapper, div.survey-status, div.countdown, div.socialAccountPicker div.account div.image, div.socialAccountPicker div.account div.detail, .single-response .single-response-handle, div.web-default-menu li, .df-label, .panel-header header, .enme-message-box .loading-ball, .web-folder-wrapper .web-folder-item .icon-folder, .web-tweetpoll-list-item-title, .web-poll-list-item-title, div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite, .web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail > div:first-child, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .data, .web-item-row .web-poll-switch li, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .label, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .embedded nav .selected-script, .embedded nav .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .selected-script, .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info, .web-tweetpoll-wrapper .tweetListContent .web-tweetpoll-list-detail-wrapper .web-tweetpoll-list-detail-detail .detail, .web-tweetpoll-wrapper .tweetListContent .web-tweetpoll-list-detail-wrapper .rownDetail .label, .web-tweetpoll-wrapper .tweetListContent .web-tweetpoll-list-detail-wrapper .rownDetail .embedded nav .selected-script, .embedded nav .web-tweetpoll-wrapper .tweetListContent .web-tweetpoll-list-detail-wrapper .rownDetail .selected-script, .web-tweetpoll-detail .web-tweetPoll-info-detail .question-info, .web-tweetpoll-detail .web-tweetPoll-info-detail .left-info, .web-tweetpoll-detail .web-tweetPoll-info-detail .info, .web-tweetpoll-detail .web-tweetPoll-info-detail .picture, .web-tweetpoll-detail .web-tweetPoll-info-detail .info .data, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem, .web-tweetpoll-wrapper div.tweetPollPublish div.item, .web-tweetpoll-wrapper div.tweetPollOptions .left, .web-tweetpoll-wrapper div.tweetPollOptions .web-folder-wrapper, .web-tweetpoll-wrapper div.tweetPollOptions .right, .web-tweetpoll-wrapper div.tweetPollOptions div.socialAccountPicker div.resume, div.socialAccountPicker .web-tweetpoll-wrapper div.tweetPollOptions div.resume, .web-tweetpoll-wrapper div.tweetPollOptions .df-label, .web-tweetpoll-wrapper div.tweetPollOptions .dialog-close-button, .web-tweetpoll-wrapper div.tweetPollOptions #web-tweetpoll-wrapper div.web-tweetpoll-menu, #web-tweetpoll-wrapper .web-tweetpoll-wrapper div.tweetPollOptions div.web-tweetpoll-menu, .web-tweetpoll-wrapper div.tweetPollOptions div.tweetPollPublishButton, .web-tweetpoll-wrapper div.tweetPollOptions .web-social-filter > div, .web-tweetpoll-wrapper div.tweetPollOptions .web-poll-options-button, .web-tweetpoll-wrapper div.tweetPollOptions div.question .questionTextBox, .web-tweetpoll-wrapper div.previewWrapperContent .tp-content, .addAnswers .answerAddForm .web-answer-form-wrapper > div, .addAnswers .answerItem .title, .addAnswers .answerItem .title .answerItemTitle, .addAnswers .answerItem div.title .answerItemShortUrl, .addAnswers .answerItem .answer, .tp-help .help, .web-filters-search .web-filters-search-multi, .web-filters-search .web-filters-search-check, .web-social-filter .web-social-filter-counter, .web-social-filter-items .web-social-filter-item .web-social-filter-image, .web-poll-wrapper .web-poll-question .web-question, .folder-selection .folder-selection-label, .section-botton-wrapper .sub-option, .section-option-wrapper .section-default, .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart, .web-wrapper-detail .group-answers .answer > div, .web-wrapper-detail .group-answers .answer .answer-color > span, .web-wrapper-detail .group-answers .answer .answer-color > div, .web-wrapper-detail .group-answers .answer .color-code {
   float: left;
 }
 
@@ -7704,7 +7718,7 @@ img {
 }
 
 /* line 31, ../../../../css/resource/sass/_common.scss */
-.center, div.updateProfile .pictureProfileNew, .likeRate, .enme-ui-loading-search, .pagination, .web-list-more, .web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail .no_results, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results, .web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail {
+.center, div.updateProfile .pictureProfileNew, .likeRate, .enme-ui-loading-search, .pagination, .web-list-more, .web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail .no_results, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results {
   text-align: center;
 }
 
@@ -7743,7 +7757,7 @@ h4.enme, .title-enme {
 }
 /* line 67, ../../../../css/resource/sass/_common.scss */
 .enme-rating .count {
-  font-size: 22px;
+  font-size: 15px;
 }
 /* line 71, ../../../../css/resource/sass/_common.scss */
 .enme-rating .count-sub {
@@ -7754,7 +7768,7 @@ h4.enme, .title-enme {
 }
 
 /* line 79, ../../../../css/resource/sass/_common.scss */
-.text-right, .default-rigth-aling, .center-alg, .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-remove, .right, div.socialAccountPicker div.resume, .df-label, .dialog-close-button, .web-poll-options-button, #web-tweetpoll-wrapper div.web-tweetpoll-menu, div.tweetPollPublishButton, .web-social-filter > div {
+.text-right, .default-rigth-aling, .center-alg, .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-remove, .right, div.socialAccountPicker div.resume, .df-label, .dialog-close-button, #web-tweetpoll-wrapper div.web-tweetpoll-menu, div.tweetPollPublishButton, .web-social-filter > div, .web-poll-options-button {
   text-align: right;
 }
 
@@ -7862,7 +7876,7 @@ h4.enme, .title-enme {
 }
 
 /* line 161, ../../../../css/resource/sass/_common.scss */
-.middle-witdh, .web-tweetpoll-wrapper div.tweetPollOptions .left, .web-tweetpoll-wrapper div.tweetPollOptions .web-folder-wrapper, .web-tweetpoll-wrapper div.tweetPollOptions .right, .web-tweetpoll-wrapper div.tweetPollOptions div.socialAccountPicker div.resume, div.socialAccountPicker .web-tweetpoll-wrapper div.tweetPollOptions div.resume, .web-tweetpoll-wrapper div.tweetPollOptions .df-label, .web-tweetpoll-wrapper div.tweetPollOptions .dialog-close-button, .web-tweetpoll-wrapper div.tweetPollOptions .web-poll-options-button, .web-tweetpoll-wrapper div.tweetPollOptions #web-tweetpoll-wrapper div.web-tweetpoll-menu, #web-tweetpoll-wrapper .web-tweetpoll-wrapper div.tweetPollOptions div.web-tweetpoll-menu, .web-tweetpoll-wrapper div.tweetPollOptions div.tweetPollPublishButton, .web-tweetpoll-wrapper div.tweetPollOptions .web-social-filter > div, .addAnswers .addNewHashTag {
+.middle-witdh, .web-tweetpoll-wrapper div.tweetPollOptions .left, .web-tweetpoll-wrapper div.tweetPollOptions .web-folder-wrapper, .web-tweetpoll-wrapper div.tweetPollOptions .right, .web-tweetpoll-wrapper div.tweetPollOptions div.socialAccountPicker div.resume, div.socialAccountPicker .web-tweetpoll-wrapper div.tweetPollOptions div.resume, .web-tweetpoll-wrapper div.tweetPollOptions .df-label, .web-tweetpoll-wrapper div.tweetPollOptions .dialog-close-button, .web-tweetpoll-wrapper div.tweetPollOptions #web-tweetpoll-wrapper div.web-tweetpoll-menu, #web-tweetpoll-wrapper .web-tweetpoll-wrapper div.tweetPollOptions div.web-tweetpoll-menu, .web-tweetpoll-wrapper div.tweetPollOptions div.tweetPollPublishButton, .web-tweetpoll-wrapper div.tweetPollOptions .web-social-filter > div, .web-tweetpoll-wrapper div.tweetPollOptions .web-poll-options-button, .addAnswers .addNewHashTag {
   width: 50%;
 }
 
@@ -7882,7 +7896,7 @@ h4.enme, .title-enme {
 }
 
 /* line 177, ../../../../css/resource/sass/_common.scss */
-.text-white, div.web-header span.link a, .text-color, .suggestBox .suggesItem:hover, .default-sidebar-menu, .default-sidebar-menu-sub, div.subHeader, .web-folder-wrapper .web-folder-item:hover, .web-folder-wrapper .web-folder-item span:hover, #web-tweetpoll-wrapper div.web-tweetpoll-menu a, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItemSelected span, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem:hover span, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span:hover, .addAnswers .addNewHashTag, .web-filters-wrapper .dijitRuleMark, .web-social-filter .web-social-filter-counter, .web-social-filter-items .web-social-filter-item .web-social-filter-name, .web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail {
+.text-white, div.web-header span.link a, .text-color, .suggestBox .suggesItem:hover, .default-sidebar-menu, .default-sidebar-menu-sub, div.subHeader, .web-folder-wrapper .web-folder-item:hover, .web-folder-wrapper .web-folder-item span:hover, #web-tweetpoll-wrapper div.web-tweetpoll-menu a, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItemSelected span, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem:hover span, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span:hover, .addAnswers .addNewHashTag, .web-filters-wrapper .dijitRuleMark, .web-social-filter .web-social-filter-counter, .web-social-filter-items .web-social-filter-item .web-social-filter-name {
   color: #FFFFFF !important;
 }
 
@@ -7930,8 +7944,8 @@ h4.enme, .title-enme {
 }
 
 /* line 228, ../../../../css/resource/sass/_common.scss */
-.border-main-box, .web-wrapper-detail {
-  background-color: #FFFFFF;
+.border-main-box {
+  background-color: transparent;
 }
 
 /* line 232, ../../../../css/resource/sass/_common.scss */
@@ -8046,26 +8060,6 @@ a.point {
 /* line 337, ../../../../css/resource/sass/_common.scss */
 .home-header-color, .home-main-colors, .stats-button, .main-nav {
   background-color: #353535;
-}
-
-/* line 342, ../../../../css/resource/sass/_common.scss */
-.category_color {
-  background: #4c4c4c;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4c4c4c), color-stop(12%, #595959), color-stop(25%, #666666), color-stop(39%, #474747), color-stop(50%, #2c2c2c), color-stop(51%, black), color-stop(60%, #111111), color-stop(76%, #2b2b2b), color-stop(91%, #1c1c1c), color-stop(100%, #131313));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* IE10+ */
-  background: linear-gradient(to bottom, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, #000000 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 );
-  /* IE6-9 */
 }
 
 /* line 353, ../../../../css/resource/sass/_common.scss */
@@ -8296,38 +8290,11 @@ input:focus {
 }
 
 /* line 560, ../../../../css/resource/sass/_common.scss */
-.yellow-bk {
-  background-color: #F9F9C2;
-}
-/* line 562, ../../../../css/resource/sass/_common.scss */
-.yellow-bk h2 {
-  color: black;
-}
-
-/* line 567, ../../../../css/resource/sass/_common.scss */
-.green-bk {
-  background-color: #C9F5C8;
-}
-/* line 569, ../../../../css/resource/sass/_common.scss */
-.green-bk h2 {
-  color: #20a11d;
-}
-
-/* line 574, ../../../../css/resource/sass/_common.scss */
-.red-bk {
-  background-color: #FEBEB2;
-}
-/* line 576, ../../../../css/resource/sass/_common.scss */
-.red-bk h2 {
-  color: #af1e02;
-}
-
-/* line 581, ../../../../css/resource/sass/_common.scss */
 .ui-dragged {
   border: 2px dotted gray;
 }
 
-/* line 585, ../../../../css/resource/sass/_common.scss */
+/* line 564, ../../../../css/resource/sass/_common.scss */
 .widgets, .code {
   width: 450px;
   margin-top: 20px;
@@ -8336,11 +8303,11 @@ input:focus {
   resize: none;
 }
 
-/* line 593, ../../../../css/resource/sass/_common.scss */
+/* line 572, ../../../../css/resource/sass/_common.scss */
 .picture {
   float: left;
 }
-/* line 595, ../../../../css/resource/sass/_common.scss */
+/* line 574, ../../../../css/resource/sass/_common.scss */
 .picture img {
   border: 1px solid #C9F5C8;
   -moz-border-radius: 140px;
@@ -8350,7 +8317,7 @@ input:focus {
   width: 110px;
 }
 
-/* line 603, ../../../../css/resource/sass/_common.scss */
+/* line 582, ../../../../css/resource/sass/_common.scss */
 .ellipsis {
   white-space: nowrap;
   overflow: hidden;
@@ -8359,7 +8326,7 @@ input:focus {
 }
 
 /** agrupa preguntas **/
-/* line 611, ../../../../css/resource/sass/_common.scss */
+/* line 590, ../../../../css/resource/sass/_common.scss */
 .web-generic-detail-answer-wrapper, .web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper, .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer {
   min-height: 315px;
 }
@@ -9052,11 +9019,11 @@ input:focus {
     opacity: 0;
   }
 }
-/* line 27, ../../../../css/resource/sass/_common_web.scss */
+/* line 28, ../../../../css/resource/sass/_common_web.scss */
 .enme-web-context {
   padding-top: 25px;
 }
-/* line 29, ../../../../css/resource/sass/_common_web.scss */
+/* line 30, ../../../../css/resource/sass/_common_web.scss */
 .enme-web-context .navbar-inner {
   -moz-border-radius: 4px 4px 0px 0px;
   -webkit-border-radius: 4px;
@@ -9064,7 +9031,7 @@ input:focus {
   border-bottom: 0;
 }
 
-/* line 36, ../../../../css/resource/sass/_common_web.scss */
+/* line 37, ../../../../css/resource/sass/_common_web.scss */
 .web-items-no-results {
   color: #918F8F;
   font-weight: 100;
@@ -9851,18 +9818,6 @@ input:focus {
   font-weight: 100;
 }
 
-/* line 2, ../../../../css/resource/sass/web/components/_poll.scss */
-.web-poll-options-button {
-  padding: 25px;
-}
-
-/* line 7, ../../../../css/resource/sass/web/components/_poll.scss */
-.web-vote-wrapper {
-  margin: 0 auto !important;
-  width: 65%;
-  margin-top: 50px !important;
-}
-
 /* line 5, ../../../../css/resource/sass/web/components/_admon-list-rows.scss */
 .web-list-rows .selected-row {
   background-color: #F8F8F8;
@@ -10014,7 +9969,7 @@ div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite {
 
 /* line 12, ../../../../css/resource/sass/web/components/_poll-admon.scss */
 .web-item-row .vote {
-  padding: 10px;
+  padding: 5px;
 }
 /* line 16, ../../../../css/resource/sass/web/components/_poll-admon.scss */
 .web-item-row .count-sub {
@@ -11459,89 +11414,73 @@ div.tweetPollPublishButton .cancel-button {
 }
 
 /* line 42, ../../../../css/resource/sass/web/components/_poll-create.scss */
-.web-poll-wrapper .web-poll-question .web-question .dijitInputField {
-  padding: 0px;
-}
-
-/* line 46, ../../../../css/resource/sass/web/components/_poll-create.scss */
-.web-poll-wrapper .web-poll-question .web-question .dijitInputField > input, .web-poll-answers .dijitInputField > input {
-  font-size: 12px;
-  padding: 5px;
-}
-
-/* line 51, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .web-poll-wrapper .dijitPlaceHolder {
   font-size: 12px;
   line-height: 20px;
 }
 
-/* line 56, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 47, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .web-poll-question .web-poll-section .section-option-wrapper .section-default > div {
   padding: 5px;
 }
 
-/* line 60, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 51, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .web-poll-question .web-poll-section .section-option-wrapper .dijitSpinner .dijitSpinnerButtonInner {
   width: 13px;
 }
 
-/* line 64, ../../../../css/resource/sass/web/components/_poll-create.scss */
-.web-poll-question .web-poll-section .section-option-wrapper .section-default .dijitTextBox, .web-poll-wrapper .web-poll-question .web-question .dijitTextBox {
-  border-radius: 0px !important;
-}
-
-/* line 68, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 55, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .dijitValidationContainer > input {
   width: 15px;
 }
 
-/* line 72, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 59, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .repeated-votes .section, .date-to-close .section {
   padding: 5px 0;
   margin-top: 1px;
 }
 
-/* line 77, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 64, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .botton-button-publish {
   margin-top: 5px;
 }
 
 /* folder selection */
-/* line 82, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 69, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .folder-selection {
   padding: 0px;
 }
 
-/* line 86, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 73, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .folder-selection .folder-selection-label {
   margin-right: 3px;
   margin-top: 2px;
   width: 50px;
 }
 
-/* line 93, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 80, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .folder-selection .folder-selection-combo {
   margin-left: 60px;
 }
 
-/* line 97, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 84, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .section-botton-wrapper {
   margin-left: 50px;
   padding: 5px;
 }
 
-/* line 103, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 90, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .section-botton-wrapper a {
   text-decoration: none;
   font-weight: bold;
 }
 
-/* line 108, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 95, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .section-botton-wrapper .sub-option {
   margin: 15px;
 }
 
-/* line 117, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 104, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .section-option-wrapper .section-default {
   border-right: 1px solid #D6D6D6;
   margin: 16px;
@@ -11550,24 +11489,24 @@ div.tweetPollPublishButton .cancel-button {
   width: 250px;
 }
 
-/* line 126, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 113, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .section-option-wrapper .section-default h2 {
   margin-bottom: 3px;
   font-size: 14px;
 }
 
-/* line 131, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 118, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .section-option-wrapper .section-default .space {
   margin: 2px;
 }
 
-/* line 135, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 122, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .section-option-wrapper .section-default .space-option {
   margin-bottom: 15px;
   margin-top: 15px;
 }
 
-/* line 140, ../../../../css/resource/sass/web/components/_poll-create.scss */
+/* line 127, ../../../../css/resource/sass/web/components/_poll-create.scss */
 .link-published-space {
   padding: 5px;
 }
@@ -11851,45 +11790,18 @@ div.web-support-embebed textarea {
   padding: 0px;
 }
 
-/* line 75, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
-.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail {
-  min-height: 48px;
-  min-width: 45px;
-  padding: 3px;
-  width: 75px;
-}
-
-/* line 85, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
-.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-high {
-  font-size: 20px;
-  font-weight: bold;
-  padding: 4px;
-}
-
-/* line 91, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
-.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-small-title {
-  color: #BABABA;
-  font-size: 10px;
-}
-
-/* line 96, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
-.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .hits-detail-small {
-  font-size: 13px;
-  line-height: 15px;
-}
-
-/* line 105, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 79, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-tweetpoll-detail .chart-tweetpoll-wrapper {
   min-height: 300px;
 }
 
-/* line 109, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 83, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart {
   min-height: 180px;
   width: 395px;
 }
 
-/* line 115, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 89, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-tweetpoll-answer-wrapper .span6:first-child {
   text-align: center;
 }
@@ -11897,23 +11809,23 @@ div.web-support-embebed textarea {
 /*
      tweetpoll detail answers
 */
-/* line 128, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 102, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-wrapper-detail .hashtag-invert a {
   text-decoration: none !important;
 }
-/* line 131, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 105, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-wrapper-detail .hashtag-invert .label, .web-wrapper-detail .hashtag-invert .embedded nav .selected-script, .embedded nav .web-wrapper-detail .hashtag-invert .selected-script {
   background-color: transparent;
   color: #5b5b5b;
   border: 1px solid #c1c1c1;
   text-shadow: none;
 }
-/* line 138, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 112, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-wrapper-detail .hashtag-detail-group {
   padding: 10px;
   text-align: right;
 }
-/* line 144, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 118, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-wrapper-detail .group-answers .answer {
   clear: both;
   font-size: 14px;
@@ -11921,21 +11833,21 @@ div.web-support-embebed textarea {
   padding: 5px;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
 }
-/* line 151, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 125, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-wrapper-detail .group-answers .answer > div {
   width: 150px;
   text-align: center;
 }
-/* line 157, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 131, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-wrapper-detail .group-answers .answer .answer-color {
   line-height: 20px;
   text-align: left;
 }
-/* line 161, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 135, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-wrapper-detail .group-answers .answer .answer-color > span {
   margin-left: 10px;
 }
-/* line 170, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 144, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-wrapper-detail .group-answers .answer .answer-color > div, .web-wrapper-detail .group-answers .answer .color-code {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -11945,12 +11857,12 @@ div.web-support-embebed textarea {
   margin-right: 10px;
   width: 20px;
 }
-/* line 180, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 154, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-wrapper-detail .group-answers .answer .answer-votes {
   line-height: 20px;
   padding: 10px;
 }
-/* line 185, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
+/* line 159, ../../../../css/resource/sass/shared-components/_detail-tp-answers.scss */
 .web-wrapper-detail .group-answers .answer .answer-percent {
   line-height: 20px;
 }
@@ -11999,50 +11911,6 @@ div.web-support-embebed textarea {
 .web-tweetpoll-vote-options h4 b, .web-tweetpoll-vote-options h5 b {
   color: #565656;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-/* line 46, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options .web-permatlink {
-  border: 1px solid #E3E3E3;
-  border-radius: 10px 10px 10px 10px;
-  box-shadow: 0 1px 6px rgba(72, 72, 72, 0.46);
-  color: white;
-  min-height: 180px;
-  padding: 20px;
-}
-
-/* line 55, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options .yellow {
-  background-color: #EEE78B;
-}
-
-/* line 59, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options .red {
-  background-color: #F58165;
-}
-
-/* line 64, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options .web-permatlink .captcha {
-  margin: 2px;
-}
-
-/* line 68, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options .web-permatlink .captcha .recaptcha {
-  margin-bottom: 10px;
-  margin-left: 10px;
-}
-
-/* line 73, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options .web-tweetpoll-info {
-  font-size: 14px;
-  font-weight: bold;
-  margin-top: 25%;
-  text-align: right;
-}
-
-/* line 80, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options .web-tweetpoll-info a {
-  color: #444444;
 }
 
 /* line 4, ../../../../css/resource/sass/shared-components/_generic-results.scss */
@@ -12121,7 +11989,7 @@ div.web-support-embebed textarea {
   border-bottom: 1px dotted #EEEBEB;
   clear: both;
   overflow: auto;
-  padding: 15px 0;
+  padding: 15px;
 }
 
 /* line 25, ../../../../css/resource/sass/shared-components/_publication-item.scss */
@@ -12188,8 +12056,120 @@ div.web-support-embebed textarea {
   color: #444444;
 }
 
-/** poll vote **/
 /* line 3, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.vote-layout label {
+  display: block;
+  margin-bottom: 5px;
+}
+/* line 8, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.vote-layout select,
+.vote-layout textarea,
+.vote-layout input[type="text"],
+.vote-layout input[type="password"],
+.vote-layout input[type="datetime"],
+.vote-layout input[type="datetime-local"],
+.vote-layout input[type="date"],
+.vote-layout input[type="month"],
+.vote-layout input[type="time"],
+.vote-layout input[type="week"],
+.vote-layout input[type="number"],
+.vote-layout input[type="email"],
+.vote-layout input[type="url"],
+.vote-layout input[type="search"],
+.vote-layout input[type="tel"],
+.vote-layout input[type="color"],
+.vote-layout .uneditable-input {
+  display: inline-block;
+  height: 20px;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555555;
+  vertical-align: middle;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 38, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.vote-layout textarea,
+.vote-layout input[type="text"],
+.vote-layout input[type="password"],
+.vote-layout input[type="datetime"],
+.vote-layout input[type="datetime-local"],
+.vote-layout input[type="date"],
+.vote-layout input[type="month"],
+.vote-layout input[type="time"],
+.vote-layout input[type="week"],
+.vote-layout input[type="number"],
+.vote-layout input[type="email"],
+.vote-layout input[type="url"],
+.vote-layout input[type="search"],
+.vote-layout input[type="tel"],
+.vote-layout input[type="color"],
+.vote-layout .uneditable-input {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+/* line 65, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.vote-layout textarea:focus,
+.vote-layout input[type="text"]:focus,
+.vote-layout input[type="password"]:focus,
+.vote-layout input[type="datetime"]:focus,
+.vote-layout input[type="datetime-local"]:focus,
+.vote-layout input[type="date"]:focus,
+.vote-layout input[type="month"]:focus,
+.vote-layout input[type="time"]:focus,
+.vote-layout input[type="week"]:focus,
+.vote-layout input[type="number"]:focus,
+.vote-layout input[type="email"]:focus,
+.vote-layout input[type="url"]:focus,
+.vote-layout input[type="search"]:focus,
+.vote-layout input[type="tel"]:focus,
+.vote-layout input[type="color"]:focus,
+.vote-layout .uneditable-input:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+/** poll vote **/
+/* line 94, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.web-poll-options-button {
+  padding: 25px;
+}
+
+/* line 100, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.web-poll-vote h4 {
+  font-weight: normal;
+}
+/* line 103, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.web-poll-vote .answer-selected {
+  padding: 30px;
+  color: #616161;
+  line-height: 25px;
+  text-align: center;
+  text-decoration: underline;
+  font-size: 30px;
+}
+
+/* line 114, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.web-vote-wrapper .space {
+  margin: 15px 0;
+}
+
+/* line 119, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
 .web-poll-wrapper-vote {
   margin: 65px auto 0;
   -moz-border-radius: 5px;
@@ -12201,28 +12181,16 @@ div.web-support-embebed textarea {
   width: 50%;
 }
 
-/* line 10, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+/* line 126, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
 .poll-vote-container label {
-  color: #7E7E7E;
-  font-size: 14px;
+  font-size: 18px;
+  display: block;
   font-weight: bold;
 }
 
-/** poll vote **/
-/* line 20, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
-.web-response-single-response .span1 {
-  width: 10px;
-  padding: 5px;
-}
-/* line 25, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
-.web-response-single-response .span5 {
-  margin: 0;
-}
-/* line 29, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
-.web-response-single-response .span5 h4 {
-  color: #000000;
-  margin-left: 10px;
-  font-weight: 100;
+/* line 135, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.web-response-single-response-group {
+  padding: 12px;
 }
 
 /** social links references **/

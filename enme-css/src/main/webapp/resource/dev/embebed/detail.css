@@ -97,7 +97,7 @@ h4.enme, .title-enme {
 }
 /* line 67, ../../../../../css/resource/sass/_common.scss */
 .enme-rating .count {
-  font-size: 22px;
+  font-size: 15px;
 }
 /* line 71, ../../../../../css/resource/sass/_common.scss */
 .enme-rating .count-sub {
@@ -283,7 +283,7 @@ h4.enme, .title-enme {
 
 /* line 228, ../../../../../css/resource/sass/_common.scss */
 .border-main-box {
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 /* line 232, ../../../../../css/resource/sass/_common.scss */
@@ -398,26 +398,6 @@ a.point {
 /* line 337, ../../../../../css/resource/sass/_common.scss */
 .home-header-color, .home-main-colors {
   background-color: #353535;
-}
-
-/* line 342, ../../../../../css/resource/sass/_common.scss */
-.category_color {
-  background: #4c4c4c;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4c4c4c), color-stop(12%, #595959), color-stop(25%, #666666), color-stop(39%, #474747), color-stop(50%, #2c2c2c), color-stop(51%, black), color-stop(60%, #111111), color-stop(76%, #2b2b2b), color-stop(91%, #1c1c1c), color-stop(100%, #131313));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* IE10+ */
-  background: linear-gradient(to bottom, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, #000000 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 );
-  /* IE6-9 */
 }
 
 /* line 353, ../../../../../css/resource/sass/_common.scss */
@@ -648,38 +628,11 @@ input:focus {
 }
 
 /* line 560, ../../../../../css/resource/sass/_common.scss */
-.yellow-bk {
-  background-color: #F9F9C2;
-}
-/* line 562, ../../../../../css/resource/sass/_common.scss */
-.yellow-bk h2 {
-  color: black;
-}
-
-/* line 567, ../../../../../css/resource/sass/_common.scss */
-.green-bk {
-  background-color: #C9F5C8;
-}
-/* line 569, ../../../../../css/resource/sass/_common.scss */
-.green-bk h2 {
-  color: #20a11d;
-}
-
-/* line 574, ../../../../../css/resource/sass/_common.scss */
-.red-bk {
-  background-color: #FEBEB2;
-}
-/* line 576, ../../../../../css/resource/sass/_common.scss */
-.red-bk h2 {
-  color: #af1e02;
-}
-
-/* line 581, ../../../../../css/resource/sass/_common.scss */
 .ui-dragged {
   border: 2px dotted gray;
 }
 
-/* line 585, ../../../../../css/resource/sass/_common.scss */
+/* line 564, ../../../../../css/resource/sass/_common.scss */
 .widgets, .code {
   width: 450px;
   margin-top: 20px;
@@ -688,11 +641,11 @@ input:focus {
   resize: none;
 }
 
-/* line 593, ../../../../../css/resource/sass/_common.scss */
+/* line 572, ../../../../../css/resource/sass/_common.scss */
 .picture {
   float: left;
 }
-/* line 595, ../../../../../css/resource/sass/_common.scss */
+/* line 574, ../../../../../css/resource/sass/_common.scss */
 .picture img {
   border: 1px solid #C9F5C8;
   -moz-border-radius: 140px;
@@ -702,7 +655,7 @@ input:focus {
   width: 110px;
 }
 
-/* line 603, ../../../../../css/resource/sass/_common.scss */
+/* line 582, ../../../../../css/resource/sass/_common.scss */
 .ellipsis {
   white-space: nowrap;
   overflow: hidden;
@@ -711,7 +664,7 @@ input:focus {
 }
 
 /** agrupa preguntas **/
-/* line 611, ../../../../../css/resource/sass/_common.scss */
+/* line 590, ../../../../../css/resource/sass/_common.scss */
 .web-generic-detail-answer-wrapper {
   min-height: 315px;
 }

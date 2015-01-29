@@ -42,6 +42,7 @@ import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSurveySection;
 import org.encuestame.utils.web.UserAccountBean;
+import org.encuestame.utils.web.search.PollSearchBean;
 import org.encuestame.utils.web.search.TweetPollSearchBean;
 
 /**
@@ -671,5 +672,48 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
         tpollSearchBean.setTypeSearch(typeSearch);
         return tpollSearchBean;
     }
+
+    /**
+     * Create Advanced {@link PollSearchBean}
+     * @param isPublished
+     * @param isComplete
+     * @param isFavourite
+     * @param isScheduled
+     * @param keyword
+     * @param period
+     * @param max
+     * @param start
+     * @param typeSearch
+     * @param isHidden
+     * @param isPasswordProtected
+     * @return
+     */
+    public PollSearchBean createPollSearchBean(
+            final Boolean isPublished,
+            final Boolean isComplete,
+            final Boolean isFavourite,
+            final Boolean isScheduled,
+            final String keyword,
+            final String period,
+            final Integer max,
+            final Integer start,
+            final  TypeSearch typeSearch,
+            final Boolean isHidden,
+            final Boolean isPasswordProtected) {
+        final PollSearchBean pollSearchBean = new PollSearchBean();
+        pollSearchBean.setIsComplete(isComplete);
+        pollSearchBean.setIsFavourite(isFavourite);
+        pollSearchBean.setIsPublished(isPublished);
+        pollSearchBean.setIsScheduled(isScheduled);
+        pollSearchBean.setKeyword(keyword);
+        pollSearchBean.setMax(max);
+        pollSearchBean.setPeriod(period);
+        pollSearchBean.setStart(start);
+        pollSearchBean.setTypeSearch(typeSearch);
+        pollSearchBean.setIsHidden(isHidden);
+        pollSearchBean.setIsPasswordProtected(isPasswordProtected);
+        return pollSearchBean;
+    }
+
 
 }

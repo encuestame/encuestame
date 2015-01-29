@@ -168,7 +168,7 @@ img {
 }
 
 /* line 16, ../../../../css/resource/sass/_common.scss */
-.col-left, .df-label, .setup .web-setup-wrapper .setup-form div .label {
+.col-left, .df-label, .mobil .web-tweetpoll-answer-answer .answer .answer-color .color-code, .mobil .web-poll-answer-wrapper .answer .answer-color .color-code, .setup .web-setup-wrapper .setup-form div .label {
   float: left;
 }
 
@@ -254,7 +254,7 @@ h4.enme, .title-enme {
 }
 
 /* line 91, ../../../../css/resource/sass/_common.scss */
-.opacity-lite {
+.opacity-lite, .mobil .web-tweetpoll-answer-answer .answer .answer-color .color-code, .mobil .web-poll-answer-wrapper .answer .answer-color .color-code {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   opacity: 0.8;
 }
@@ -528,26 +528,6 @@ a.point {
   background-color: #353535;
 }
 
-/* line 342, ../../../../css/resource/sass/_common.scss */
-.category_color {
-  background: #4c4c4c;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4c4c4c), color-stop(12%, #595959), color-stop(25%, #666666), color-stop(39%, #474747), color-stop(50%, #2c2c2c), color-stop(51%, black), color-stop(60%, #111111), color-stop(76%, #2b2b2b), color-stop(91%, #1c1c1c), color-stop(100%, #131313));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* IE10+ */
-  background: linear-gradient(to bottom, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, #000000 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 );
-  /* IE6-9 */
-}
-
 /* line 353, ../../../../css/resource/sass/_common.scss */
 .gradient-gray {
   background: #eeeeee;
@@ -776,38 +756,11 @@ input:focus {
 }
 
 /* line 560, ../../../../css/resource/sass/_common.scss */
-.yellow-bk {
-  background-color: #F9F9C2;
-}
-/* line 562, ../../../../css/resource/sass/_common.scss */
-.yellow-bk h2 {
-  color: black;
-}
-
-/* line 567, ../../../../css/resource/sass/_common.scss */
-.green-bk {
-  background-color: #C9F5C8;
-}
-/* line 569, ../../../../css/resource/sass/_common.scss */
-.green-bk h2 {
-  color: #20a11d;
-}
-
-/* line 574, ../../../../css/resource/sass/_common.scss */
-.red-bk {
-  background-color: #FEBEB2;
-}
-/* line 576, ../../../../css/resource/sass/_common.scss */
-.red-bk h2 {
-  color: #af1e02;
-}
-
-/* line 581, ../../../../css/resource/sass/_common.scss */
 .ui-dragged {
   border: 2px dotted gray;
 }
 
-/* line 585, ../../../../css/resource/sass/_common.scss */
+/* line 564, ../../../../css/resource/sass/_common.scss */
 .widgets, .code {
   width: 450px;
   margin-top: 20px;
@@ -816,11 +769,11 @@ input:focus {
   resize: none;
 }
 
-/* line 593, ../../../../css/resource/sass/_common.scss */
+/* line 572, ../../../../css/resource/sass/_common.scss */
 .picture {
   float: left;
 }
-/* line 595, ../../../../css/resource/sass/_common.scss */
+/* line 574, ../../../../css/resource/sass/_common.scss */
 .picture img {
   border: 1px solid #C9F5C8;
   -moz-border-radius: 140px;
@@ -830,7 +783,7 @@ input:focus {
   width: 110px;
 }
 
-/* line 603, ../../../../css/resource/sass/_common.scss */
+/* line 582, ../../../../css/resource/sass/_common.scss */
 .ellipsis {
   white-space: nowrap;
   overflow: hidden;
@@ -839,7 +792,7 @@ input:focus {
 }
 
 /** agrupa preguntas **/
-/* line 611, ../../../../css/resource/sass/_common.scss */
+/* line 590, ../../../../css/resource/sass/_common.scss */
 .web-generic-detail-answer-wrapper {
   min-height: 315px;
 }
@@ -6651,33 +6604,88 @@ a.badge:focus {
   position: fixed;
 }
 
-/* line 3, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 5, ../../../../css/resource/sass/mobile/_layout.scss */
+.mobil > header {
+  text-align: center;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  z-index: 9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+/* line 20, ../../../../css/resource/sass/mobile/_layout.scss */
+.mobil > header > a {
+  display: block;
+  background-color: white;
+}
+/* line 25, ../../../../css/resource/sass/mobile/_layout.scss */
+.mobil > header .mobile-header {
+  height: 65px !important;
+  background-repeat: no-repeat !important;
+  padding: 0px !important;
+  background-position-x: 75px !important;
+  background-position-y: 10px !important;
+  background-size: 55% !important;
+  background-position: 75px 10px !important;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px;
+}
+@media (max-width: 320px) and (orientation: portrait) {
+  /* line 25, ../../../../css/resource/sass/mobile/_layout.scss */
+  .mobil > header .mobile-header {
+    background-size: 55% !important;
+  }
+}
+@media only screen and (min-width: 481px) and (max-width: 1024px) {
+  /* line 25, ../../../../css/resource/sass/mobile/_layout.scss */
+  .mobil > header .mobile-header {
+    height: 65px !important;
+    background-size: 25% !important;
+    background-position-x: 50% !important;
+    background-position-y: 10px !important;
+  }
+}
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  /* line 25, ../../../../css/resource/sass/mobile/_layout.scss */
+  .mobil > header .mobile-header {
+    background-size: 30% !important;
+  }
+}
+/* line 50, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil a {
   color: #616161;
   text-decoration: none;
 }
-/* line 8, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 55, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil:hover, .mobil:focus {
   color: #7b7b7b;
 }
-/* line 12, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 59, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil:active {
   color: #484848;
 }
-/* line 16, ../../../../css/resource/sass/mobile/_layout.scss */
-.mobil h4.enme {
+/* line 63, ../../../../css/resource/sass/mobile/_layout.scss */
+.mobil .enme {
   color: #111111;
   text-transform: capitalize;
   margin: 0;
   font-weight: 100;
 }
 @media only screen and (min-width: 481px) and (max-width: 1024px) {
-  /* line 16, ../../../../css/resource/sass/mobile/_layout.scss */
-  .mobil h4.enme {
+  /* line 63, ../../../../css/resource/sass/mobile/_layout.scss */
+  .mobil .enme {
     font-weight: 500;
   }
 }
-/* line 26, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 73, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil > footer .mobile-footer {
   text-align: left;
   padding-top: 2px;
@@ -6688,79 +6696,62 @@ a.badge:focus {
   min-height: 30px;
   box-shadow: 5px 6px 5px 8px black;
 }
-/* line 38, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 85, ../../../../css/resource/sass/mobile/_layout.scss */
+.mobil .content {
+  padding-top: 65px;
+}
+/* line 89, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-footer .footer-menu {
   padding: 10px;
 }
-/* line 42, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 93, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-footer .footer-menu > span {
   padding: 10px;
 }
-/* line 46, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 97, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-footer .footer-menu span a {
   font-size: 12px;
   text-align: center;
   margin-top: 3px;
   color: white;
 }
-/* line 53, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 104, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-footer .mobile-footer-version {
   font-size: 11px;
   text-align: right;
   margin-top: 3px;
   padding: 10px;
 }
-/* line 60, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 111, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-footer .mobile-footer-version a {
   color: white !important;
 }
-/* line 64, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 115, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-footer .mobile-footer-version a > span {
   color: white;
 }
-/* line 111, ../../../../css/resource/sass/mobile/_layout.scss */
-.mobil .mobile .mobile-main {
+/* line 119, ../../../../css/resource/sass/mobile/_layout.scss */
+.mobil .mobile-main {
   min-height: 300px;
   background-color: white;
 }
-/* line 116, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 124, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-main-vote {
-  min-height: 350px;
+  min-height: 0px;
 }
-/* line 120, ../../../../css/resource/sass/mobile/_layout.scss */
-.mobil .mobil .mobile-detail h4.enme {
-  color: #FFFFFF !important;
-}
-/* line 131, ../../../../css/resource/sass/mobile/_layout.scss */
-.mobil .mobile-header {
-  height: 65px !important;
-  background-repeat: no-repeat !important;
-  padding: 0px !important;
-  background-position-x: 75px !important;
-  background-position-y: 10px !important;
-  background-size: 55% !important;
-}
-@media (max-width: 320px) {
-  /* line 131, ../../../../css/resource/sass/mobile/_layout.scss */
-  .mobil .mobile-header {
-    background-size: 55% !important;
+@media only screen and (max-width: 480px) and (orientation: landscape) {
+  /* line 129, ../../../../css/resource/sass/mobile/_layout.scss */
+  .mobil .mobile-main-vote {
+    min-height: 350px;
   }
 }
-@media only screen and (min-width: 481px) and (max-width: 1024px) {
-  /* line 131, ../../../../css/resource/sass/mobile/_layout.scss */
-  .mobil .mobile-header {
-    height: 80px !important;
-    background-size: 30% !important;
-    background-position-x: 50% !important;
-    background-position-y: 10px !important;
+@media (orientation: portrait) {
+  /* line 135, ../../../../css/resource/sass/mobile/_layout.scss */
+  .mobil .mobile-main-vote {
+    min-height: 350px;
   }
 }
-/* line 154, ../../../../css/resource/sass/mobile/_layout.scss */
-.mobil .mobile-home-subtitle {
-  padding: 10px;
-  color: #FFFFFF;
-}
-/* line 160, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 149, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .titleNext {
   color: #e5e5e5;
   background-color: #FAFAFA;
@@ -6804,7 +6795,7 @@ a.badge:focus {
 
 /* line 4, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer {
-  min-height: 150px;
+  min-height: 135px;
 }
 @media only screen and (min-width: 481px) and (max-width: 1024px) {
   /* line 4, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
@@ -6812,35 +6803,36 @@ a.badge:focus {
     min-height: 160px;
   }
 }
-/* line 14, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 15, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+.mobil .web-buttdon-wrapper {
+  text-align: right;
+  padding: 10px;
+}
+/* line 22, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .non-items {
   color: #e5e5e5;
   background-color: #FAFAFA;
   padding: 15px;
   text-align: center;
 }
-/* line 23, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 31, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .comment-login .picture {
   width: 90px;
 }
-/* line 25, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 33, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .comment-login .picture > img {
   width: 50px;
   height: 50px;
 }
-/* line 30, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 38, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .comment-login .span4 {
   width: 50%;
 }
-/* line 32, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 40, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .comment-login .span4 .login {
   padding: 5px;
 }
-/* line 44, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
-.mobil .web-tweetpoll-answer-answer > header, .mobil .web-poll-answer-wrapper > header {
-  background-color: #FAFAFA;
-}
-/* line 48, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 54, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-tweetpoll-answer-answer > header > div, .mobil .web-poll-answer-wrapper > header > div {
   padding: 8px 0;
   box-shadow: none;
@@ -6850,109 +6842,103 @@ a.badge:focus {
   border-top: 1px solid #999;
   text-align: center;
 }
-/* line 59, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
-.mobil .web-tweetpoll-answer-answer > div, .mobil .web-tweetpoll-answer-answer div.answer, .mobil .web-poll-answer-wrapper > div, .mobil .web-poll-answer-wrapper div.answer {
-  padding: 10px 0px !important;
+/* line 66, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+.mobil .web-tweetpoll-answer-answer .answer, .mobil .web-poll-answer-wrapper .answer {
+  padding: 10px 0;
+  width: 100%;
   margin: 0px;
-}
-/* line 62, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
-.mobil .web-tweetpoll-answer-answer > div .answer-votes, .mobil .web-tweetpoll-answer-answer div.answer .answer-votes, .mobil .web-poll-answer-wrapper > div .answer-votes, .mobil .web-poll-answer-wrapper div.answer .answer-votes {
-  width: 30%;
-}
-@media only screen and (min-width: 481px) and (max-width: 1024px) {
-  /* line 62, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
-  .mobil .web-tweetpoll-answer-answer > div .answer-votes, .mobil .web-tweetpoll-answer-answer div.answer .answer-votes, .mobil .web-poll-answer-wrapper > div .answer-votes, .mobil .web-poll-answer-wrapper div.answer .answer-votes {
-    width: 30%;
-  }
+  display: inline-block;
 }
 /* line 68, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
-.mobil .web-tweetpoll-answer-answer > div .answer-percent, .mobil .web-tweetpoll-answer-answer div.answer .answer-percent, .mobil .web-poll-answer-wrapper > div .answer-percent, .mobil .web-poll-answer-wrapper div.answer .answer-percent {
-  width: 30%;
-}
-@media only screen and (min-width: 481px) and (max-width: 1024px) {
-  /* line 68, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
-  .mobil .web-tweetpoll-answer-answer > div .answer-percent, .mobil .web-tweetpoll-answer-answer div.answer .answer-percent, .mobil .web-poll-answer-wrapper > div .answer-percent, .mobil .web-poll-answer-wrapper div.answer .answer-percent {
-    width: 30%;
-  }
-}
-/* line 74, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
-.mobil .web-tweetpoll-answer-answer > div .answer-color, .mobil .web-tweetpoll-answer-answer div.answer .answer-color, .mobil .web-poll-answer-wrapper > div .answer-color, .mobil .web-poll-answer-wrapper div.answer .answer-color {
-  width: 40%;
-}
-@media only screen and (min-width: 481px) and (max-width: 1024px) {
-  /* line 74, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
-  .mobil .web-tweetpoll-answer-answer > div .answer-color, .mobil .web-tweetpoll-answer-answer div.answer .answer-color, .mobil .web-poll-answer-wrapper > div .answer-color, .mobil .web-poll-answer-wrapper div.answer .answer-color {
-    width: 35%;
-  }
-}
-/* line 79, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
-.mobil .web-tweetpoll-answer-answer > div .answer-color .color-code, .mobil .web-tweetpoll-answer-answer div.answer .answer-color .color-code, .mobil .web-poll-answer-wrapper > div .answer-color .color-code, .mobil .web-poll-answer-wrapper div.answer .answer-color .color-code {
-  margin-right: 5px;
-  margin-left: 10px;
-}
-/* line 83, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
-.mobil .web-tweetpoll-answer-answer > div .answer-color span, .mobil .web-tweetpoll-answer-answer div.answer .answer-color span, .mobil .web-poll-answer-wrapper > div .answer-color span, .mobil .web-poll-answer-wrapper div.answer .answer-color span {
+.mobil .web-tweetpoll-answer-answer .answer > div, .mobil .web-poll-answer-wrapper .answer > div {
   float: left;
 }
-/* line 88, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
-.mobil .web-tweetpoll-answer-answer > div > div, .mobil .web-tweetpoll-answer-answer div.answer > div, .mobil .web-poll-answer-wrapper > div > div, .mobil .web-poll-answer-wrapper div.answer > div {
-  padding: 8px 0 !important;
+/* line 75, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+.mobil .web-tweetpoll-answer-answer .answer .answer-votes, .mobil .web-poll-answer-wrapper .answer .answer-votes {
+  width: 15%;
+  margin-right: 20%;
+}
+/* line 79, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+.mobil .web-tweetpoll-answer-answer .answer .answer-percent, .mobil .web-poll-answer-wrapper .answer .answer-percent {
+  width: 15%;
+}
+/* line 82, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+.mobil .web-tweetpoll-answer-answer .answer .answer-color, .mobil .web-poll-answer-wrapper .answer .answer-color {
+  width: 40%;
+  padding-left: 2%;
+}
+/* line 85, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+.mobil .web-tweetpoll-answer-answer .answer .answer-color .color-code, .mobil .web-poll-answer-wrapper .answer .answer-color .color-code {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  display: inline-block;
+  height: 20px;
+  margin-right: 10px;
+  width: 20px;
+}
+/* line 96, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+.mobil .web-tweetpoll-answer-answer .answer .answer-color span, .mobil .web-poll-answer-wrapper .answer .answer-color span {
+  float: left;
+}
+/* line 101, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+.mobil .web-tweetpoll-answer-answer .answer > div, .mobil .web-poll-answer-wrapper .answer > div {
   margin: 0px;
   text-align: center;
 }
-/* line 98, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 109, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-tweetpoll-answer-answer .web-poll-options-button, .mobil .web-poll-answer-wrapper .web-poll-options-button {
   margin: 0 15px;
   text-align: right;
   width: 90%;
 }
-/* line 104, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 115, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-tweetpoll-answer-answer > section.web-generic-result, .mobil .web-poll-answer-wrapper > section.web-generic-result {
   font-size: 12px;
   padding: 6px 0;
 }
-/* line 108, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 119, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-tweetpoll-answer-answer > section.web-generic-result > div, .mobil .web-poll-answer-wrapper > section.web-generic-result > div {
   margin: 0;
   width: 45%;
   word-break: break-word;
 }
-/* line 114, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 125, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-tweetpoll-answer-answer > section.web-generic-result .votes, .mobil .web-poll-answer-wrapper > section.web-generic-result .votes {
   margin: 0;
   text-align: center;
   width: 20%;
 }
-/* line 120, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 131, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-tweetpoll-answer-answer > section.web-generic-result .percent, .mobil .web-poll-answer-wrapper > section.web-generic-result .percent {
   margin: 0;
   text-align: center;
   width: 35%;
 }
-/* line 132, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 143, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-social-links > div .item {
   padding: 0px;
 }
-/* line 134, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 145, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-social-links > div .item .img {
   width: 5%;
 }
-/* line 137, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 148, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-social-links > div .item .link {
   width: 60%;
   word-break: break-word;
 }
-/* line 141, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 152, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-social-links > div .item .social-date {
   width: 25%;
 }
-/* line 144, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 155, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-social-links > div .item > div {
   padding: 5px;
   margin: 0px;
   font-style: 12px;
 }
-/* line 158, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
+/* line 169, ../../../../css/resource/sass/mobile/component/_poll_tp_htg_detail.scss */
 .mobil .web-rated-profile-item .web-rated-profile-picture img {
   width: 50px;
   height: 50px;
@@ -6960,22 +6946,19 @@ a.badge:focus {
 
 /* line 17, ../../../../css/resource/sass/_common_mobile.scss */
 .category_color {
-  background-color: #1b1b1b;
-  background-image: -moz-linear-gradient(top, #222222, #111111);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#111111));
-  background-image: -webkit-linear-gradient(top, #222222, #111111);
-  background-image: -o-linear-gradient(top, #222222, #111111);
-  background-image: linear-gradient(to bottom, #222222, #111111);
-  background-repeat: repeat-x;
+  text-transform: uppercase;
+  color: #5B5B5B;
+  font-weight: bold;
+  padding: 10px 0 10px 10px;
 }
 
-/* line 21, ../../../../css/resource/sass/_common_mobile.scss */
+/* line 24, ../../../../css/resource/sass/_common_mobile.scss */
 .cell {
   display: table-cell;
   vertical-align: middle;
 }
 
-/* line 27, ../../../../css/resource/sass/_common_mobile.scss */
+/* line 30, ../../../../css/resource/sass/_common_mobile.scss */
 .no-results {
   font-weight: 100;
   font-size: 18px;
