@@ -101,8 +101,9 @@ public class PollJsonServiceTest extends AbstractJsonV1MvcUnitBeans{
         Assert.assertEquals("Should be equals ", this.testSearchJsonService("FAVOURITES", null, "10", "0").size(), 2);
         //this.createPoll("Is Obama the best president of Unite States last 50th years?", new String[]{"Yes", "No"});
         this.createPoll("Is Obama the best president of Unite States last 55th years?", new String[]{"Yes", "No"}).get("id");
-        Assert.assertEquals("Should be equals ", this.testSearchJsonService("ALL", "is", "10", "0").size(), 3);
-        Assert.assertEquals("Should be equals ", this.testSearchJsonService("ALL", "is", "1", "0").size(), 3);
+        // Retrieve 1 row because is case sensitive Is and is
+        Assert.assertEquals("Should be equals ", this.testSearchJsonService("ALL", "Is", "10", "0").size(), 1);
+        Assert.assertEquals("Should be equals ", this.testSearchJsonService("ALL", "is", "1", "0").size(), 2);
     }
 
     /**

@@ -608,6 +608,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(published);
         poll.setShowComments(CommentOptions.APPROVE);
+        poll.setIsHidden(false);
+        poll.setIsPasswordProtected(false);
         getPollDao().saveOrUpdate(poll);
         return poll;
 

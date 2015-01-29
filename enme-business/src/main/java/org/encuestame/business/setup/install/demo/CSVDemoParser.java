@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -481,6 +480,8 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
                 createPollBean.setLimitVote(null);
                 createPollBean.setAllowAdd(Boolean.FALSE);
                 createPollBean.setHashtags(arrayHashtag);
+                createPollBean.setIsHidden(Boolean.FALSE);
+                createPollBean.setIsPasswordProtected(Boolean.FALSE);
                 final Poll poll = getPollService().createPoll(createPollBean);
                 getTweetPollDao().saveOrUpdate(poll);
                 double hits = getRandomNumberRange(EnMePlaceHolderConfigurer

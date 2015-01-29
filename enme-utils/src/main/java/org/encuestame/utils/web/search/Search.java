@@ -65,9 +65,15 @@ public class Search implements Serializable {
 
     /** **/
     private List<Long> socialAccounts = new ArrayList<Long>();
-    
+
     /** **/
 	private Boolean isPublished = Boolean.TRUE;
+
+	/** **/
+	private Boolean isHidden = Boolean.FALSE;
+
+	/** **/
+	private Boolean isPasswordProtected = Boolean.FALSE;
 
 
 
@@ -242,4 +248,32 @@ public class Search implements Serializable {
     public void setSocialAccounts(List<Long> socialAccounts) {
         this.socialAccounts = socialAccounts;
     }
+
+	/**
+	 * @return the isHidden
+	 */
+	public Boolean getIsHidden() {
+		return isHidden;
+	}
+
+	/**
+	 * @param isHidden the isHidden to set
+	 */
+	public void setIsHidden(final Boolean isHidden) {
+		this.isHidden = isHidden;
+	}
+
+	/**
+	 * @return the isPasswordProtected
+	 */
+	public Boolean getIsPasswordProtected() {
+		return isPasswordProtected;
+	}
+
+	/**
+	 * @param isPasswordProtected the isPasswordProtected to set
+	 */
+	public void setIsPasswordProtected(final Boolean isPasswordProtected) {
+		this.isPasswordProtected = isPasswordProtected;
+	}
 }

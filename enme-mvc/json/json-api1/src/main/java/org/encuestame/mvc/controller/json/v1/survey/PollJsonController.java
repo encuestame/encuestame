@@ -100,6 +100,8 @@ public class PollJsonController extends AbstractJsonControllerV1{
             @RequestParam(value = "_complete", required = false) Boolean isCompleted,
             @RequestParam(value = "_favourite", required = false) Boolean isFavourite,
             @RequestParam(value = "_scheduled", required = false) Boolean isScheduled,
+            @RequestParam(value = "_isHidden", required = false) Boolean isHidden,
+            @RequestParam(value = "_isPassprotected", required = false) Boolean isPassprotected,
             @RequestParam(value = "period", required = false) String period,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
@@ -119,6 +121,8 @@ public class PollJsonController extends AbstractJsonControllerV1{
             tpollSearchBean.setTypeSearch(TypeSearch.getSearchString(typeSearch));
             tpollSearchBean.setProviders(socialNetworks == null ? ListUtils.EMPTY_LIST : ConvertDomainBean.convertSocialProviderStringToProvider(socialNetworks));
             tpollSearchBean.setSocialAccounts(socialAccountNetworks == null ? ListUtils.EMPTY_LIST : socialAccountNetworks);
+            tpollSearchBean.setIsHidden(isHidden == null ? false : isHidden);
+            tpollSearchBean.setIsPasswordProtected(isPassprotected == null ? false : isPassprotected);
             final List<SearchBean> list = (List<SearchBean>) getPollService().filterSearchPollsByType(
                     tpollSearchBean, request);
             //log.debug("/api/survey/poll/search.json---------------->  "+ list.size());
