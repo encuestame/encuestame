@@ -234,12 +234,14 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
   padding-left: 24px;
 }
 
-/* line 2, ../../../../css/resource/sass/_vote_layout.scss */
-.vote-layout #mainWrapper {
-  width: 60%;
+/* line 1, ../../../../css/resource/sass/_vote_layout.scss */
+.vote-layout {
+  width: 300px;
+  text-align: center;
+  margin: auto 0;
 }
 
-/* line 10, ../../../../css/resource/sass/_vote_layout.scss */
+/* line 11, ../../../../css/resource/sass/_vote_layout.scss */
 .center-body {
   position: absolute;
   left: 50%;
@@ -6484,7 +6486,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 /* line 5310, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
-.tooltip.right, div.socialAccountPicker div.tooltip.resume, .tooltip.df-label, .tooltip.dialog-close-button {
+.tooltip.right, div.socialAccountPicker div.tooltip.resume, .tooltip.df-label, .tooltip.dialog-close-button, .tooltip.web-poll-options-button {
   padding: 0 5px;
   margin-left: 3px;
 }
@@ -6533,7 +6535,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 /* line 5353, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
-.tooltip.right .tooltip-arrow, div.socialAccountPicker div.tooltip.resume .tooltip-arrow, .tooltip.df-label .tooltip-arrow, .tooltip.dialog-close-button .tooltip-arrow {
+.tooltip.right .tooltip-arrow, div.socialAccountPicker div.tooltip.resume .tooltip-arrow, .tooltip.df-label .tooltip-arrow, .tooltip.dialog-close-button .tooltip-arrow, .tooltip.web-poll-options-button .tooltip-arrow {
   top: 50%;
   left: 0;
   margin-top: -5px;
@@ -6590,7 +6592,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 /* line 5405, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
-.popover.right, div.socialAccountPicker div.popover.resume, .popover.df-label, .popover.dialog-close-button {
+.popover.right, div.socialAccountPicker div.popover.resume, .popover.df-label, .popover.dialog-close-button, .popover.web-poll-options-button {
   margin-left: 10px;
 }
 
@@ -6669,7 +6671,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 /* line 5473, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
-.popover.right .arrow, div.socialAccountPicker div.popover.resume .arrow, .popover.df-label .arrow, .popover.dialog-close-button .arrow {
+.popover.right .arrow, div.socialAccountPicker div.popover.resume .arrow, .popover.df-label .arrow, .popover.dialog-close-button .arrow, .popover.web-poll-options-button .arrow {
   top: 50%;
   left: -11px;
   margin-top: -11px;
@@ -6679,7 +6681,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 /* line 5482, ../../../../css/resource/sass/bootstrap/bootstrap_fixed.scss */
-.popover.right .arrow:after, div.socialAccountPicker div.popover.resume .arrow:after, .popover.df-label .arrow:after, .popover.dialog-close-button .arrow:after {
+.popover.right .arrow:after, div.socialAccountPicker div.popover.resume .arrow:after, .popover.df-label .arrow:after, .popover.dialog-close-button .arrow:after, .popover.web-poll-options-button .arrow:after {
   bottom: -10px;
   left: 1px;
   border-right-color: #ffffff;
@@ -7413,7 +7415,7 @@ tr.introjs-showElement > th {
 }
 
 /* line 145, ../../../../css/resource/sass/intro/_introjs.scss */
-.introjs-arrow.right, div.socialAccountPicker div.introjs-arrow.resume, .introjs-arrow.df-label, .introjs-arrow.dialog-close-button {
+.introjs-arrow.right, div.socialAccountPicker div.introjs-arrow.resume, .introjs-arrow.df-label, .introjs-arrow.dialog-close-button, .introjs-arrow.web-poll-options-button {
   right: -10px;
   top: 10px;
   border-top-color: transparent;
@@ -7756,7 +7758,7 @@ h4.enme, .title-enme {
 }
 /* line 67, ../../../../css/resource/sass/_common.scss */
 .enme-rating .count {
-  font-size: 22px;
+  font-size: 15px;
 }
 /* line 71, ../../../../css/resource/sass/_common.scss */
 .enme-rating .count-sub {
@@ -7767,7 +7769,7 @@ h4.enme, .title-enme {
 }
 
 /* line 79, ../../../../css/resource/sass/_common.scss */
-.text-right, .default-rigth-aling, .center-alg, .right, div.socialAccountPicker div.resume, .df-label, .dialog-close-button {
+.text-right, .default-rigth-aling, .center-alg, .right, div.socialAccountPicker div.resume, .df-label, .dialog-close-button, .web-poll-options-button {
   text-align: right;
 }
 
@@ -7942,7 +7944,7 @@ h4.enme, .title-enme {
 
 /* line 228, ../../../../css/resource/sass/_common.scss */
 .border-main-box {
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 /* line 232, ../../../../css/resource/sass/_common.scss */
@@ -8057,26 +8059,6 @@ a.point {
 /* line 337, ../../../../css/resource/sass/_common.scss */
 .home-header-color, .home-main-colors, .stats-button, .main-nav {
   background-color: #353535;
-}
-
-/* line 342, ../../../../css/resource/sass/_common.scss */
-.category_color {
-  background: #4c4c4c;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4c4c4c), color-stop(12%, #595959), color-stop(25%, #666666), color-stop(39%, #474747), color-stop(50%, #2c2c2c), color-stop(51%, black), color-stop(60%, #111111), color-stop(76%, #2b2b2b), color-stop(91%, #1c1c1c), color-stop(100%, #131313));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* IE10+ */
-  background: linear-gradient(to bottom, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, #000000 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 );
-  /* IE6-9 */
 }
 
 /* line 353, ../../../../css/resource/sass/_common.scss */
@@ -9643,47 +9625,144 @@ input:focus {
 }
 
 /** tweetpoll vote options **/
-/* line 2, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options {
-  margin-top: 10%;
+/* line 3, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.vote-layout label {
+  display: block;
+  margin-bottom: 5px;
+}
+/* line 8, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.vote-layout select,
+.vote-layout textarea,
+.vote-layout input[type="text"],
+.vote-layout input[type="password"],
+.vote-layout input[type="datetime"],
+.vote-layout input[type="datetime-local"],
+.vote-layout input[type="date"],
+.vote-layout input[type="month"],
+.vote-layout input[type="time"],
+.vote-layout input[type="week"],
+.vote-layout input[type="number"],
+.vote-layout input[type="email"],
+.vote-layout input[type="url"],
+.vote-layout input[type="search"],
+.vote-layout input[type="tel"],
+.vote-layout input[type="color"],
+.vote-layout .uneditable-input {
+  display: inline-block;
+  height: 20px;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555555;
+  vertical-align: middle;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 38, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.vote-layout textarea,
+.vote-layout input[type="text"],
+.vote-layout input[type="password"],
+.vote-layout input[type="datetime"],
+.vote-layout input[type="datetime-local"],
+.vote-layout input[type="date"],
+.vote-layout input[type="month"],
+.vote-layout input[type="time"],
+.vote-layout input[type="week"],
+.vote-layout input[type="number"],
+.vote-layout input[type="email"],
+.vote-layout input[type="url"],
+.vote-layout input[type="search"],
+.vote-layout input[type="tel"],
+.vote-layout input[type="color"],
+.vote-layout .uneditable-input {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+/* line 65, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.vote-layout textarea:focus,
+.vote-layout input[type="text"]:focus,
+.vote-layout input[type="password"]:focus,
+.vote-layout input[type="datetime"]:focus,
+.vote-layout input[type="datetime-local"]:focus,
+.vote-layout input[type="date"]:focus,
+.vote-layout input[type="month"]:focus,
+.vote-layout input[type="time"]:focus,
+.vote-layout input[type="week"]:focus,
+.vote-layout input[type="number"]:focus,
+.vote-layout input[type="email"]:focus,
+.vote-layout input[type="url"]:focus,
+.vote-layout input[type="search"]:focus,
+.vote-layout input[type="tel"]:focus,
+.vote-layout input[type="color"]:focus,
+.vote-layout .uneditable-input:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 }
 
-/* line 7, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options .yellow h1, .web-tweetpoll-vote-options .yellow h2 {
-  color: #FAA000;
+/** poll vote **/
+/* line 94, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.web-poll-options-button {
+  padding: 25px;
 }
 
-/* line 13, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options .red h1, .web-tweetpoll-vote-options .red h2 {
-  color: #000000;
+/* line 100, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.web-poll-vote h4 {
+  font-weight: normal;
+}
+/* line 103, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.web-poll-vote .answer-selected {
+  padding: 30px;
+  color: #616161;
+  line-height: 25px;
+  text-align: center;
+  text-decoration: underline;
+  font-size: 30px;
 }
 
-/* line 18, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options .green {
-  background-color: #ADE195;
-}
-/* line 19, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options .green h1, .web-tweetpoll-vote-options .green h2 {
-  color: green;
+/* line 114, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.web-vote-wrapper .space {
+  margin: 15px 0;
 }
 
-/* line 26, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options h1, .web-tweetpoll-vote-options h2, .web-tweetpoll-vote-options h3 {
-  color: #222222;
-  font-weight: 100;
+/* line 119, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.web-poll-wrapper-vote {
+  margin: 65px auto 0;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.6) 0 0 2px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0 2px;
+  box-shadow: rgba(0, 0, 0, 0.6) 0 0 2px;
+  width: 50%;
 }
-/* line 31, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options h1, .web-tweetpoll-vote-options h2 {
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
-  color: #565656;
+
+/* line 126, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.poll-vote-container label {
+  font-size: 18px;
+  display: block;
+  font-weight: bold;
 }
-/* line 36, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options h4, .web-tweetpoll-vote-options h5 {
-  font-weight: 100;
-  color: #FFFFFF;
+
+/* line 135, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
+.web-response-single-response-group {
+  padding: 12px;
 }
-/* line 39, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
-.web-tweetpoll-vote-options h4 b, .web-tweetpoll-vote-options h5 b {
-  color: #565656;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+
+/* line 5, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
+.web-poll-vote {
+  padding: 40px;
 }

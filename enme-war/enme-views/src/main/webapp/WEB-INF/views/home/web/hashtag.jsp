@@ -2,79 +2,62 @@
 
 <article class="web-hashtag-wrapper">
 
-    <div class="container">
-
-      <div class="row web-generic-stats">            
+      <section class="web-generic-stats">
            <div data-dojo-type="me/web/widget/stats/GenericStats"
-                class=""
+                class="generic"
                 channel="/encuestame/hashtag/time/range/refresh/graph"
                 typeGeneric="HASHTAG"
                 hashtagName="${tagName.hashTagName}"
                 generic="${tagName.hashTagName}"
                 id="generic">
             </div>
-             <div class="span2">
+             <div class="timerange">
                 <div channel="/encuestame/hashtag/time/range/refresh/graph"
                 data-dojo-type="me/web/widget/menu/TimeRangeDropDownMenu"
                 defaultDateRange="365"></div>
             </div>
-      </div>
+      </section>
 
 
-      <div data-dojo-type="me/web/widget/hashtags/HashTagGraph"
-             channel="/encuestame/hashtag/time/range/refresh/graph"
-             hashtagName="${tagName.hashTagName}"></div>
-      <div style="margin-right: 3px;text-aling:right;text-align: right;">
-        <!-- <div class="btn-group">
-          <button class="btn active">
-              by Type
-          </button>
-          <button class="btn">
-              Middle
-          </button>
-          <button class="btn">
-              Right
-          </button>
-        </div> -->
-      </div>
+      <section data-dojo-type="me/web/widget/hashtags/HashTagGraph"
+           channel="/encuestame/hashtag/time/range/refresh/graph"
+           hashtagName="${tagName.hashTagName}">
+      </section>
 
-    <div class="row web-ht-detail">
-
-         <div class="span9 web-wrapper-ddetail web-dht-detail-wrapper">
-             <article class="emne-box">
+      <section class="web-ht-detail">
+         <div class="web-wrapper-ddetail web-dht-detail-wrapper">
+             <div class="emne-box">
                   <h5>
                     <spring:message code="home.hashtag.lastpub" />
                   </h5>
                   <div class="web-pup-wrapper">
                   <c:forEach items="${tweetPolls}" var="item">
-                      <%@ include file="detail_item.jsp"%>
+                        <%@ include file="detail_item.jsp"%>
                   </c:forEach>
                   <c:if test="${empty tweetPolls}">
-                      <h5>
+                      <div>
                          <spring:message code="home.hashtag.nolink" />
-                      </h5>
+                      </div>
                   </c:if>
                   </div>
-              </article>
+           </div>
 
-               <article class="emne-box">
-                       <h5>
-                          <spring:message code="home.hashtag.tweets" />
-                       </h5>
-                  <section>
-                       <div data-dojo-type="me/web/widget/social/LinksPublished"
-                            channel="/encuestame/hashtag/time/range/refresh/graph"
-                            class="web-social-links"
-                            itemId="${tagName.hashTagName}"
-                            type="HASHTAG">
-                       </div>
-                  </section>
-              </article>
+          <div class="emne-box">
+               <h5>
+                  <spring:message code="home.hashtag.tweets" />
+               </h5>
+               <div data-dojo-type="me/web/widget/social/LinksPublished"
+                    channel="/encuestame/hashtag/time/range/refresh/graph"
+                    class="web-social-links"
+                    itemId="${tagName.hashTagName}"
+                    type="HASHTAG">
+               </div>
+          </div>
 
           </div>
 
-          <div class="span3 aside">
-              <aside class="web-ht-wrapper-top web-wrapper-detail">
+          <aside class="aside ht-second-aside">
+              <div class="web-ht-wrapper-top web-wrapper-detail">
                   <article class="emne-box">
                        <h5>
                          <spring:message code="home.hashtag.position" />
@@ -86,7 +69,7 @@
                             id="position">
                        </section>
                   </article>
-                  <article class="emne-box">
+                  <div class="emne-box">
                        <h5>
                           <spring:message code="home.hashtag.profile" />
                        </h5>
@@ -96,10 +79,9 @@
                             class="web-top-profile"
                             key="HASHTAG" id="topprofiles">
                        </div>
-                  </article>
-              </aside>
-          </div>
-    </div>
-     </div>
+                  </div>
+              </div>
+          </aside>
+    </section>
 </article>
 
