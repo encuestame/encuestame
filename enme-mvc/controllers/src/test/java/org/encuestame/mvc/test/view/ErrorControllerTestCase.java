@@ -53,7 +53,7 @@ public class ErrorControllerTestCase  extends AbstractMvcUnitBeans {
         this.quickLogin();
         request = new MockHttpServletRequest(MethodJson.GET.toString(), "/400");
         final ModelAndView mav = handlerAdapter.handle(request, response, errorController);
-        assertViewName(mav, "error");
+        assertViewName(mav, "500");
     }
 
     @Test

@@ -1,72 +1,23 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-
-<style>
-
-.web-ht-graph {
-  font: 10px sans-serif;
-  margin: 0;
-}
-
-path.line {
-  fill: none;
-  stroke: #666;
-  stroke-width: 1.5px;
-}
-
-path.area {
-  fill: #e7e7e7;
-}
-
-.axis {
-  shape-rendering: crispEdges;
-}
-
-.x.axis line {
-  stroke: #fff;
-}
-
-.x.axis .minor {
-  stroke-opacity: .5;
-}
-
-.x.axis path {
-  display: none;
-}
-
-.y.axis line, .y.axis path {
-  fill: none;
-  stroke: #000;
-}
-
-</style>
-
 <article class="web-hashtag-wrapper mobile-hashtag-wrapper">
    <div class="mobile-home-subtitle category_color">
-               ${tagName.hashTagName}
+         #${tagName.hashTagName}
+         <div channel="/encuestame/hashtag/time/range/refresh/graph"
+              data-dojo-type="me/web/widget/menu/TimeRangeDropDownMenu"
+              defaultDateRange="365">
+         </div>
    </div>
 
    <div class="graph-missing">
-        <%--     <section class="web-hashtag-header web-detail-header">
+            <section class="web-hashtag-header web-detail-header">
             <div class="web-hashtag-options">
-            <div channel="/encuestame/hashtag/time/range/refresh/graph"
-                 data-dojo-type="me/web/widget/menu/TimeRangeDropDownMenu"
-                 defaultDateRange="365">
-           </div>
+
         </div>
         </section>
-
         <section class="web-ht-graph-wrapper emne-box emne-box-gray">
-           <div data-dojo-type="me/web/widget/hashtags/HashTagGraph"
-               channel="/encuestame/hashtag/time/range/refresh/graph"
-               hashtagName="${tagName.hashTagName}"
-             ></div>
-        </section> --%>     
-        <section class="web-ht-graph-wrapper emne-box emne-box-gray">
-           <div data-dojo-type="me/web/widget/hashtags/HashTagGraph"
-               small_mode="true"
-               channel="/encuestame/hashtag/time/range/refresh/graph"
-               hashtagName="${tagName.hashTagName}"
-             ></div>
+            <section data-dojo-type="me/web/widget/hashtags/HashTagGraph"
+                     channel="/encuestame/hashtag/time/range/refresh/graph"
+                     hashtagName="${tagName.hashTagName}">
         </section>
    </div>
 

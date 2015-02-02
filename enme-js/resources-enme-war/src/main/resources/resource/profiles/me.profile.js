@@ -324,6 +324,7 @@ var profile = {
             include :[
                 "me/web/widget/utils/ToggleText",
                 "me/web/widget/stream/FrontEndItem",
+                "me/web/widget/stream/FrontEndItemMobile",
                 "me/web/widget/home/votes/ItemVote",
                 "me/web/widget/rated/Comments",
                 "me/web/widget/hashtags/Cloud",
