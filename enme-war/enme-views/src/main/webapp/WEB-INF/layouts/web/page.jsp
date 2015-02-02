@@ -26,7 +26,6 @@
       </div>
     </div>
   </div>
-  <!-- Insert additional javascript  -->
   <tiles:insertAttribute name="extra-js" ignore="true" />
   <c:if test="${logged}">
      <div id="modal-box"></div>
