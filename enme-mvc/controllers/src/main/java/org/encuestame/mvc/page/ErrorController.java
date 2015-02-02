@@ -55,7 +55,7 @@ public class ErrorController  extends AbstractViewController {
 
     @RequestMapping( value= "/400")
     public String badStatu2s(final ModelMap model, final HttpServletRequest request, final HttpServletResponse  response) {
-        return "error";
+        return "500";
     }
 
     /**

@@ -105,7 +105,7 @@ public class HomeController extends AbstractViewController {
                 //TODO: comments: ENCUESTAME-346
             } catch (Exception e) {
                 log.error(e);
-                return "error";
+                return "500";
             }
             return "home";
         }
