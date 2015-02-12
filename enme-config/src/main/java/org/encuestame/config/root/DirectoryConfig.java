@@ -59,14 +59,6 @@ public class DirectoryConfig {
         properties.put("mail.smtp.starttls.enable", EnMePlaceHolderConfigurer.getProperty("mail.smtp.starttls.enable"));
         properties.put("mail.debug", EnMePlaceHolderConfigurer.getProperty("mail.smtp.debug"));
         mailSender.setJavaMailProperties(properties);
-//        System.out.println( EnMePlaceHolderConfigurer.getProperty("mail.protocol"));
-//        System.out.println( EnMePlaceHolderConfigurer.getProperty("mail.smtp.auth"));
-//        System.out.println( EnMePlaceHolderConfigurer.getProperty("mail.smtp.starttls.enable"));
-//        System.out.println( EnMePlaceHolderConfigurer.getProperty("mail.smtp.debug"));
-//        System.out.println( EnMePlaceHolderConfigurer.getProperty("mail.host"));
-//        System.out.println( EnMePlaceHolderConfigurer.getProperty("mail.port"));
-//        System.out.println( EnMePlaceHolderConfigurer.getProperty("mail.username"));
-//        System.out.println( EnMePlaceHolderConfigurer.getProperty("mail.password"));
         return mailSender;
     }
 

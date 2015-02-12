@@ -66,7 +66,7 @@ public class CalculateRelevance {
      * @throws EnMePollNotFoundException
      * @throws EnMeTweetPollNotFoundException
      */
-    @Scheduled(cron = "${cron.calculateRelevane}")
+    @Scheduled(cron = "${cron.calculateRelevance}")
     public void calculate() {
     	if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
 	        log.info("************ Start calculate relevance item **************");
