@@ -53,10 +53,10 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testCommentsSocialOptions(){
-        final CommentsSocialOptions likeVoteOpt = CommentsSocialOptions.getCommentsSocialOptions("LIKE_VOTE");
-        assertEquals("Should be equals", "LIKE_VOTE", likeVoteOpt.toString());
-        final CommentsSocialOptions disLikeVoteOpt = CommentsSocialOptions.getCommentsSocialOptions("DISLIKE_VOTE");
-        assertEquals("Should be equals", "DISLIKE_VOTE", disLikeVoteOpt.toString());
+        final CommentsSocialOptions likeVoteOpt = CommentsSocialOptions.getCommentsSocialOptions("LIKE");
+        assertEquals("Should be equals", "LIKE", likeVoteOpt.toString());
+        final CommentsSocialOptions disLikeVoteOpt = CommentsSocialOptions.getCommentsSocialOptions("DISLIKE");
+        assertEquals("Should be equals", "DISLIKE", disLikeVoteOpt.toString());
     }
 
     /**

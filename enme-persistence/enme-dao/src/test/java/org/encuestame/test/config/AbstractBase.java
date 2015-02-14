@@ -2221,7 +2221,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param ipAddress
      * @return
      */
-    public Hit createHit(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag hashTag,
+    public Hit createHit(
+            final TweetPoll tweetPoll,
+            final Poll poll,
+            final Survey survey,
+            final HashTag hashTag,
             final String ipAddress){
         final Hit hit = new Hit();
         hit.setHitDate(Calendar.getInstance().getTime());

@@ -39,7 +39,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 
 /**
- * Rate items.
+ * Rate item (Like, Dislikes)
  * @author Morales Diana, Paola paolaATencuestame.org
  * @since September 13, 2011
  */

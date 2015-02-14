@@ -18,10 +18,8 @@ import org.encuestame.core.service.imp.*;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.RecentItemsComparator;
-import org.encuestame.persistence.domain.AccessRate;
-import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.HashTagRanking;
-import org.encuestame.persistence.domain.Hit;
+import org.encuestame.persistence.domain.*;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
@@ -438,48 +436,63 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         return hit;
     }
 
+    /**
+     * Delete all user votes.
+     * @param userVotes
+     */
+    private void deleteHits(final List<Hit> userVotes) {
+        for (Hit userVote : userVotes) {
+            getFrontEndDao().delete(userVote);
+        }
+    }
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#registerVote()
      */
-    public Status registerVote(final Long itemId,
+    public Status registerVote(
+            final Long itemId,
             final TypeSearchResult searchResult,
-             final String ipAddress) {
-
-        //FIXME: need a restrictions to avoid repeated votes
-
-        Status status = Status.SUCCESS;
+            final String ipAddress) throws EnMeExpcetion {
+        UserAccount user = getUserAccount(getUserPrincipalUsername());
+        Status status = Status.ACTIVE;
         final Long INCREASE_VOTES = 1L;
-        final String userVote = getUserPrincipalUsername();
-        log.debug("registerVote: "+userVote);
-        final Hit hit = new Hit();
-        hit.setHitCategory(HitCategory.VOTE);
-        hit.setIpAddress(ipAddress);
+        final String userVote = user.getUsername();
             try {
                 //vote process
                 if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
                     final TweetPoll tp = getTweetPollService().getTweetPollPublishedById(itemId);
-                    final Long votes = tp.getNumbervotes() + INCREASE_VOTES;
-                    tp.setNumbervotes(votes);
-                    hit.setTweetPoll(tp);
-                    getTweetPollDao().saveOrUpdate(tp);
+                    List<Hit> vote = getFrontEndDao().getVotesByType(TypeSearchResult.TWEETPOLL, tp.getQuestion());
+                    if (vote.size() == 0) {
+                        final Long votes = tp.getNumbervotes() + INCREASE_VOTES;
+                        tp.setNumbervotes(votes);
+                        getTweetPollDao().saveOrUpdate(tp);
+                        newHitItem(TypeSearchResult.TWEETPOLL, ipAddress, tp.getQuestion(), HitCategory.VOTE);
+                    } else {
+                        status = Status.INACTIVE;
+                        deleteHits(vote);
+                    }
                 } else if (searchResult.equals(TypeSearchResult.POLL)) {
                     final Poll poll = getPollService().getPollById(itemId);
-                    final Long votes = poll.getNumbervotes() + INCREASE_VOTES;
-                    poll.setNumbervotes(votes);
-                    getPollDao().saveOrUpdate(poll);
-                    hit.setPoll(poll);
+                    List<Hit> vote = getFrontEndDao().getVotesByType(TypeSearchResult.POLL, poll.getQuestion());
+                    if (vote.size() == 0) {
+                        final Long votes = poll.getNumbervotes() + INCREASE_VOTES;
+                        poll.setNumbervotes(votes);
+                        getPollDao().saveOrUpdate(poll);
+                        newHitItem(TypeSearchResult.POLL, ipAddress, poll.getQuestion(), HitCategory.VOTE);
+                    } else {
+                        status = Status.INACTIVE;
+                        deleteHits(vote);
+                    }
                 } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
                     //TODO: Vote a Survey.
+                    throw new EnMeExpcetion("is not possible to vote surveys yet");
                 }
                 //register the vote.
-                if (!EnMeUtils.ANONYMOUS_USER.equals(userVote)) {
-                    UserAccount userAccount = getUserAccount(userVote);
-                    hit.setUserAccount(userAccount);
-                    log.debug("registerVote by userAccount: "+userAccount.getUsername());
+                // NOTE: no anonymous votes anymore
+                if (EnMeUtils.ANONYMOUS_USER.equals(userVote)) {
+                    throw new EnMeExpcetion("you must be logged to vote");
                 }
-                hit.setHitDate(Calendar.getInstance().getTime());
-                getAccountDao().saveOrUpdate(hit);
             } catch (EnMeNoResultsFoundException e) {
                 log.error(e);
                 status = Status.FAILED;
@@ -547,8 +560,13 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      */
 
     @Transactional(readOnly = false)
-    private Hit newHitItem(final TweetPoll tweetPoll, final Poll poll,
-            final Survey survey, final HashTag tag, final String ipAddress, final HitCategory hitCategory) {
+    private Hit newHitItem(
+            final TweetPoll tweetPoll,
+            final Poll poll,
+            final Survey survey,
+            final HashTag tag,
+            final String ipAddress,
+            final HitCategory hitCategory) {
         final Hit hitItem = new Hit();
         hitItem.setHitDate(Calendar.getInstance().getTime());
         hitItem.setHashTag(tag);
@@ -562,12 +580,35 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     }
 
     /**
-     * New tweet poll hit item.
      *
-     * @param tweetPoll
+     * @param typeSearchResult
      * @param ipAddress
+     * @param question
+     * @param hitCategory
      * @return
      */
+    private Hit newHitItem(
+            final TypeSearchResult typeSearchResult,
+            final String ipAddress,
+            final Question question,
+            final HitCategory hitCategory) {
+        final Hit hitItem = new Hit();
+        hitItem.setHitDate(Calendar.getInstance().getTime());
+        hitItem.setQuestion(question);
+        hitItem.setIpAddress(ipAddress);
+        hitItem.setTypeSearchResult(typeSearchResult);
+        hitItem.setHitCategory(hitCategory);
+        getFrontEndDao().saveOrUpdate(hitItem);
+        return hitItem;
+    }
+
+        /**
+         * New tweet poll hit item.
+         *
+         * @param tweetPoll
+         * @param ipAddress
+         * @return
+         */
     private Hit newTweetPollHit(final TweetPoll tweetPoll,
             final String ipAddress, final HitCategory hitCategory) {
         return this.newHitItem(tweetPoll, null, null, null, ipAddress, hitCategory);

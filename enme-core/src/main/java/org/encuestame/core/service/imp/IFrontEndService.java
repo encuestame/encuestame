@@ -317,8 +317,12 @@ public interface IFrontEndService extends ServiceOperations {
     /**
      *
      * @return
+     * @throws EnMeNoResultsFoundException
      */
-    Status registerVote(final Long itemId, final TypeSearchResult searchResult,  final String ipAddress);
+    Status registerVote(
+            final Long itemId,
+            final TypeSearchResult searchResult,
+            final String ipAddress) throws EnMeExpcetion;
 
     /**
      * Retrieve total items published by User

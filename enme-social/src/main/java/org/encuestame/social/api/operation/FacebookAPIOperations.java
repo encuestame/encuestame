@@ -10,10 +10,12 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.social.api.support;
+package org.encuestame.social.api.operation;
 
 import java.util.List;
 
+import org.encuestame.social.api.FacebookLink;
+import org.encuestame.social.api.profile.FacebookProfile;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.springframework.util.MultiValueMap;
 

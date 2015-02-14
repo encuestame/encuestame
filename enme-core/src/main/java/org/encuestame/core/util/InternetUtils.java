@@ -89,7 +89,7 @@ public class InternetUtils {
     }
 
     /**
-     *
+     * Return the domain of the application either defined in the config file or from the HttpServletRequest.
      * @param request
      * @return
      */

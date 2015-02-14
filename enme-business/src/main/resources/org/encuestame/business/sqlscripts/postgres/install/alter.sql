@@ -808,14 +808,16 @@ ALTER TABLE ONLY hits
     ADD CONSTRAINT fk30df40953c854b FOREIGN KEY (tweetpoll_tweet_poll_id) REFERENCES tweetpoll(tweet_poll_id);
 
 
+ALTER TABLE ONLY hits
+    ADD CONSTRAINT fk30df40953c854b FOREIGN KEY (question_qid) REFERENCES question(qid);
+
 --
 -- TOC entry 2567 (class 2606 OID 17021)
 -- Name: fk3497bf50fe71f5; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
 --
 
 ALTER TABLE ONLY poll
-    ADD CONSTRAINT fk3497bf50fe71f5 FOREIGN KEY (qid) REFERENCES questions(qid);
-
+    ADD CONSTRAINT fk30df4046bf7a1c FOREIGN KEY (qid) REFERENCES questions(qid);
 
 --
 -- TOC entry 2566 (class 2606 OID 17016)

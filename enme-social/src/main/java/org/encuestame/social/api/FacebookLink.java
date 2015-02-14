@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.social.api.support;
+package org.encuestame.social.api;
 
 /**
  * Model class representing a link to be posted to a users Facebook wall.

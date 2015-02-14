@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.social.api;
+package org.encuestame.social.api.templates;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,9 +20,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.encuestame.oauth2.support.ProtectedResourceClientFactory;
 import org.encuestame.social.AbstractSocialAPISupport;
-import org.encuestame.social.api.support.FacebookAPIOperations;
-import org.encuestame.social.api.support.FacebookLink;
-import org.encuestame.social.api.support.FacebookProfile;
+import org.encuestame.social.api.FacebookLink;
+import org.encuestame.social.api.operation.FacebookAPIOperations;
+import org.encuestame.social.api.profile.FacebookProfile;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.jfree.util.Log;

@@ -51,7 +51,7 @@ public abstract class AbstractSocialSignInConnect<SocialAPIOperations> implement
      *
      * @return
      */
-    abstract org.encuestame.social.api.support.SocialAPIOperations getAPISocialProvider();
+    abstract org.encuestame.social.api.operation.SocialAPIOperations getAPISocialProvider();
 
     /**
      * {@link SocialUserProfile}.

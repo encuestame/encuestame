@@ -37,6 +37,7 @@ alter table hits add constraint FK30DF40369F8B2C foreign key (userAccount_uid) r
 alter table hits add constraint FK30DF4019AA125 foreign key (hashTag_hash_tag_id) references hash_tags
 alter table hits add constraint FK30DF4063976E9 foreign key (poll_poll_id) references poll
 alter table hits add constraint FK30DF4051153812 foreign key (survey_sid) references surveys
+alter table hits add constraint FK30DF4046BF7A1C foreign key (question_qid) references question
 alter table hits add constraint FK30DF40953C854B foreign key (tweetPoll_tweet_poll_id) references tweetPoll
 alter table notification add constraint FK237A88EB2B2A6AB4 foreign key (uid) references account
 alter table poll add constraint FK3497BF89452CCA foreign key (poll_folder) references poll_folder

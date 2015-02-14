@@ -29,11 +29,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.HitCategory;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -78,6 +80,10 @@ public class Hit { //TODO: Create superMapped class with Access rate.
 
     /** {@link HitCategory} **/
     private HitCategory hitCategory;
+
+    private Question question;
+
+    private TypeSearchResult typeSearchResult;
 
 
     /**
@@ -220,5 +226,24 @@ public class Hit { //TODO: Create superMapped class with Access rate.
      */
     public void setUserAccount(final UserAccount userAccount) {
         this.userAccount = userAccount;
+    }
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    @Column(name = "type_item", nullable = true)
+    @Enumerated(EnumType.ORDINAL)
+    public TypeSearchResult getTypeSearchResult() {
+        return typeSearchResult;
+    }
+
+    public void setTypeSearchResult(TypeSearchResult typeSearchResult) {
+        this.typeSearchResult = typeSearchResult;
     }
 }

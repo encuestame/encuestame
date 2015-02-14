@@ -10,13 +10,13 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.social.api;
+package org.encuestame.social.api.templates;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.social.AbstractSocialAPISupport;
-import org.encuestame.social.api.support.TwitterAPIOperations;
+import org.encuestame.social.api.operation.TwitterAPIOperations;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.springframework.util.Assert;

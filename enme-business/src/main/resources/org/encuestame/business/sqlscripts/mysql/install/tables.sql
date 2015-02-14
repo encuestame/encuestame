@@ -355,13 +355,16 @@ CREATE TABLE IF NOT EXISTS `hits` (
   `survey_sid` bigint(20) DEFAULT NULL,
   `tweetPoll_tweet_poll_id` bigint(20) DEFAULT NULL,
   `userAccount_uid` bigint(20) DEFAULT NULL,
+  `type_item` int(11) DEFAULT NULL,
+  `question_qid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`hit_id`),
   UNIQUE KEY `hit_id` (`hit_id`),
   KEY `FK30DF4019AA125` (`hashTag_hash_tag_id`),
   KEY `FK30DF4063976E9` (`poll_poll_id`),
   KEY `FK30DF4051153812` (`survey_sid`),
   KEY `FK30DF40953C854B` (`tweetPoll_tweet_poll_id`),
-  KEY `FK30DF40369F8B2C` (`userAccount_uid`)
+  KEY `FK30DF40369F8B2C` (`userAccount_uid`),
+  KEY `FK30DF4046BF7A1C` (`question_qid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --

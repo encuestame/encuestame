@@ -17,6 +17,7 @@ import java.util.List;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
@@ -198,5 +199,13 @@ public interface IFrontEndDao extends IBaseDao{
      */
     List<Hit> getHashTagHitsRange(final Long tagId,
 			final SearchPeriods period);
+
+    /**
+     *
+     * @param type
+     * @param question
+     * @return
+     */
+    List getVotesByType(final TypeSearchResult type, final Question question);
 
 }

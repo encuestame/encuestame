@@ -184,19 +184,21 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
      * @throws JsonMappingException
      * @throws IOException
      */
-    @RequestMapping(value = "/api/frontend/home/vote.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/frontend/home/{type}/vote", method = RequestMethod.PUT)
     public @ResponseBody ModelMap voteHome(
-            @RequestParam(value = "id", required = false) Long id,
-            @RequestParam(value = "type", required = false) String type,
+            @RequestParam(value = "id", required = true) Long id,
+            @PathVariable final String type,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
-            final String ip = EnMeUtils.getIP(request, EnMePlaceHolderConfigurer.getBooleanProperty("application.proxyPass"));
-            final Status status = getFrontService().registerVote(id, TypeSearchResult.getTypeSearchResult(type), ip);
-            if (status.equals(Status.SUCCESS)) {
-                setSuccesResponse();
-            } else {
-                setFailedResponse();
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            try {
+                final String ip = EnMeUtils.getIP(request, EnMePlaceHolderConfigurer.getBooleanProperty("application.proxyPass"));
+                final Status status = getFrontService().registerVote(id, TypeSearchResult.getTypeSearchResult(type), ip);
+                jsonResponse.put("status", status.name());
+                setItemResponse(jsonResponse);
+            } catch (Exception ex) {
+                setError(ex.getMessage(), response);
             }
             return returnData();
     }
