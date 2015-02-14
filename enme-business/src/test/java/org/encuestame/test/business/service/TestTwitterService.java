@@ -16,7 +16,7 @@ package org.encuestame.test.business.service;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.social.api.support.TwitterAPIOperations;
+import org.encuestame.social.api.operation.TwitterAPIOperations;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Before;
