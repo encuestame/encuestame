@@ -118,7 +118,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans {
      */
     @Test
     public void testLikeVoteComment() throws ServletException, IOException{
-        initService("/api/common/comment/like_vote.json", MethodJson.GET);
+        initService("/api/common/comment/vote/like", MethodJson.PUT);
         setParameter("commentId", this.comment.getCommentId().toString());
         final JSONObject response = callJsonService();
         assertSuccessResponse(response);
@@ -131,7 +131,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans {
      */
    @Test
     public void testDislikeVoteComment() throws ServletException, IOException{
-        initService("/api/common/comment/dislike_vote.json", MethodJson.GET);
+        initService("/api/common/comment/vote/dislike", MethodJson.PUT);
         setParameter("commentId", this.comment.getCommentId().toString());
         final JSONObject response = callJsonService();
         assertSuccessResponse(response);

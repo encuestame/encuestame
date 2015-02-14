@@ -25,6 +25,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
+import org.encuestame.utils.enums.Status;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
@@ -158,5 +159,43 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans{
         final JSONArray items = (JSONArray) success.get("profile");
         Assert.assertNotNull(items);
         Assert.assertEquals(items.size(), 1);
+    }
+
+
+    @Test
+    public void testVote() throws ServletException, IOException {
+        final Question question = createQuestion("question test 1", "pattern");
+        TweetPoll tp = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(),
+                getSpringSecurityLoggedUserAccount(), question);
+        createPoll(new Date(), question, getSpringSecurityLoggedUserAccount(),
+                Boolean.TRUE, Boolean.TRUE);
+        // active
+        initService("/api/frontend/home/tweetpoll/vote", MethodJson.PUT);
+        setParameter("id", tp.getTweetPollId().toString());
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        final String status = (String) success.get("status");
+        Assert.assertEquals(status, Status.ACTIVE.name());
+        // inactive
+        initService("/api/frontend/home/tweetpoll/vote", MethodJson.PUT);
+        setParameter("id", tp.getTweetPollId().toString());
+        final JSONObject response2 = callJsonService();
+        final JSONObject success2 = getSucess(response2);
+        final String status2 = (String) success2.get("status");
+        Assert.assertEquals(status2, Status.INACTIVE.name());
+        // active
+        initService("/api/frontend/home/tweetpoll/vote", MethodJson.PUT);
+        setParameter("id", tp.getTweetPollId().toString());
+        final JSONObject response3 = callJsonService();
+        final JSONObject success3 = getSucess(response3);
+        final String status3 = (String) success3.get("status");
+        Assert.assertEquals(status3, Status.ACTIVE.name());
+        //error
+        initService("/api/frontend/home/tweetpoll/vote", MethodJson.PUT);
+        setParameter("id", "0");
+        final JSONObject response4 = callJsonService();
+        final JSONObject success4 = getSucess(response4);
+        final String status4 = (String) success4.get("status");
+        Assert.assertEquals(status4, Status.FAILED.name());
     }
 }

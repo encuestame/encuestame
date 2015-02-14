@@ -186,7 +186,7 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
      * @throws JsonMappingException
      * @throws IOException
      */
-    @RequestMapping(value = "/api/common/comment/{option}.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/common/comment/vote/{option}", method = RequestMethod.PUT)
     public @ResponseBody ModelMap voteComment(
             @RequestParam(value = "commentId", required = true) Long commentId,
             @PathVariable String option,

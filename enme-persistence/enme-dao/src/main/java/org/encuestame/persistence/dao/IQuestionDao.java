@@ -12,12 +12,14 @@
  */
 package org.encuestame.persistence.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPreferences;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.HibernateException;
 
@@ -128,15 +130,23 @@ public interface IQuestionDao extends IBaseDao {
      * @param questionId
      * @return
      */
-	QuestionPreferences getPreferenceById(final Long preferenceId);
+    QuestionPreferences getPreferenceById(final Long preferenceId);
 
-	/**
-	 * Retrieve {@link Question} by id
-	 * @param questionId
-	 * @param userId
-	 * @return
-	 */
-	Question retrieveQuestionbyId(Long questionId, final Long userId);
+    /**
+     * Retrieve {@link Question} by id
+     * @param questionId
+     * @param userId
+     * @return
+     */
+    Question retrieveQuestionbyId(Long questionId, final Long userId);
 
-	QuestionAnswer retrieveAnswersByQuestionId(final Question question, final Long answerId) throws HibernateException;
+     /**
+      *
+      * @param question
+      * @param answerId
+      * @return
+      * @throws HibernateException
+      */
+    QuestionAnswer retrieveAnswersByQuestionId(final Question question, final Long answerId) throws HibernateException;
+
 }
