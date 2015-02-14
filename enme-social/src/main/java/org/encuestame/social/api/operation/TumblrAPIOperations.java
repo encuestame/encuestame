@@ -1,4 +1,4 @@
-package org.encuestame.social.api.support;
+package org.encuestame.social.api.operation;
 
 import java.util.Set;
 

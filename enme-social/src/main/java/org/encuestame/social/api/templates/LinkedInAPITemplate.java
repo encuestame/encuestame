@@ -10,14 +10,14 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.social.api;
+package org.encuestame.social.api.templates;
 
 import java.util.List;
 
 import org.encuestame.social.AbstractSocialAPISupport;
-import org.encuestame.social.api.support.LinkedInAPIOperations;
-import org.encuestame.social.api.support.LinkedInConnections;
-import org.encuestame.social.api.support.LinkedInProfile;
+import org.encuestame.social.api.operation.LinkedInAPIOperations;
+import org.encuestame.social.api.operation.LinkedInConnections;
+import org.encuestame.social.api.profile.LinkedInProfile;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
 

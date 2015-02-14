@@ -34,6 +34,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.HitCategory;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -126,6 +127,24 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         final Boolean registerHit = getFrontEndService().registerHit(
                 null, null, null, this.hashTag, this.ipAddress, HitCategory.VISIT);
         Assert.assertTrue(registerHit);
+    }
+
+    @Test
+    public void testregisterVote() throws EnMeExpcetion{
+        final Question question = createQuestion("Who I am 2?", "");
+        createQuestionAnswer("yes", question, "12345");
+        createQuestionAnswer("no", question, "12346");
+        TweetPoll tp1 = createPublishedTweetPoll(secondary, question);
+        final Status registerHit = getFrontEndService().registerVote(tp1.getTweetPollId(), TypeSearchResult.TWEETPOLL, "192.168.1.1");
+        logPrint(registerHit);
+        Assert.assertEquals(registerHit, Status.ACTIVE);
+        final Status registerHit2 = getFrontEndService().registerVote(tp1.getTweetPollId(), TypeSearchResult.TWEETPOLL, "192.168.1.1");
+        Assert.assertEquals(registerHit2, Status.INACTIVE);
+        final Status registerHit3 = getFrontEndService().registerVote(tp1.getTweetPollId(), TypeSearchResult.TWEETPOLL, "1.168.1.1");
+        Assert.assertEquals(registerHit3, Status.ACTIVE);
+        final Status registerHit4 = getFrontEndService().registerVote(tp1.getTweetPollId(), TypeSearchResult.TWEETPOLL, "168.1.1");
+        Assert.assertEquals(registerHit4, Status.INACTIVE);
+
     }
 
     /**

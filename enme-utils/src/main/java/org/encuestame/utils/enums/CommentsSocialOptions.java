@@ -33,8 +33,8 @@ public enum CommentsSocialOptions {
      */
     public String toString() {
         String option = "";
-        if (this == LIKE_VOTE) { option = "LIKE_VOTE"; }
-        else if (this == DISLIKE_VOTE) { option = "DISLIKE_VOTE"; }
+        if (this == LIKE_VOTE) { option = "LIKE"; }
+        else if (this == DISLIKE_VOTE) { option = "DISLIKE"; }
     return option;
     }
 
@@ -45,8 +45,8 @@ public enum CommentsSocialOptions {
      */
     public static CommentsSocialOptions getCommentsSocialOptions(final String option) {
         if (null == option) { return null; }
-         else if (option.equalsIgnoreCase("LIKE_VOTE")) { return  LIKE_VOTE; }
-         else if (option.equalsIgnoreCase("DISLIKE_VOTE")) { return  DISLIKE_VOTE; }
+         else if (option.equalsIgnoreCase("LIKE")) { return  LIKE_VOTE; }
+         else if (option.equalsIgnoreCase("DISLIKE")) { return  DISLIKE_VOTE; }
          else {
              return null;
          }

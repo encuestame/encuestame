@@ -43,7 +43,6 @@
                 <value>org.encuestame.persistence.domain.application.Application</value>
                 <value>org.encuestame.persistence.domain.application.ApplicationConnection</value>
                 <value>org.encuestame.persistence.domain.Project</value>
-                <value>org.encuestame.persistence.domain.Project</value>
                 <value>org.encuestame.persistence.domain.GeoPoint</value>
                 <value>org.encuestame.persistence.domain.GeoPointType</value>
                 <value>org.encuestame.persistence.domain.GeoPointFolder</value>

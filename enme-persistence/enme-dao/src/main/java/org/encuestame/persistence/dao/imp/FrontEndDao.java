@@ -26,6 +26,7 @@ import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
@@ -440,6 +441,20 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         criteria.add(Restrictions.eq("hitCategory", HitCategory.VISIT));
         return getHibernateTemplate().findByCriteria(criteria);
 
+    }
+
+    /**
+     *
+     * @param type
+     * @param question
+     * @return
+     */
+    public List getVotesByType(final TypeSearchResult type, final Question question) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Hit.class);
+        criteria.add(Restrictions.eq("typeSearchResult", type));
+        criteria.add(Restrictions.eq("question", question));
+        criteria.add(Restrictions.eq("hitCategory", HitCategory.VOTE));
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 
 	/*
