@@ -1,4 +1,4 @@
-package org.encuestame.social.api;
+package org.encuestame.social.api.templates;
 
 import java.util.Calendar;
 import java.util.Iterator;
@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.social.AbstractSocialAPISupport;
-import org.encuestame.social.api.support.TumblrAPIOperations;
+import org.encuestame.social.api.operation.TumblrAPIOperations;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.encuestame.utils.social.TubmlrUserProfile;
@@ -118,7 +118,7 @@ public class TumblrAPITemplate extends AbstractSocialAPISupport implements Tumbl
     		   blog.setLastUpdated(Calendar.getInstance().getTime());
     		   profile.getListBlogs().add(blog);
     	   }
-       }catch(Exception ex){
+       } catch(Exception ex) {
     	   ex.printStackTrace();
     	   log.error(ex);    	
        }

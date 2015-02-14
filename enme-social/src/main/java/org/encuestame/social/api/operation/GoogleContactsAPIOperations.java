@@ -10,16 +10,13 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-
-package org.encuestame.social.api.support;
+package org.encuestame.social.api.operation;
 
 /**
- * Twitter Service Interface.
+ * Description.
  * @author Picado, Juan juanATencuestame.org
- * @since Feb 13, 2010 4:07:14 PM
- * @version $Id$
+ * @since 29/07/2011
  */
-public interface TwitterAPIOperations extends SocialAPIOperations{
-
+public interface GoogleContactsAPIOperations  extends SocialAPIOperations {
 
 }

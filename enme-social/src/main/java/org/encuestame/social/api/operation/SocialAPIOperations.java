@@ -10,13 +10,32 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.social.api.support;
+package org.encuestame.social.api.operation;
+
+import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.utils.TweetPublishedMetadata;
+import org.encuestame.utils.social.SocialUserProfile;
 
 /**
- * Description.
+ * Define basic social operations.
  * @author Picado, Juan juanATencuestame.org
- * @since 29/07/2011
+ * @since Apr 20, 2011
  */
-public interface GoogleContactsAPIOperations  extends SocialAPIOperations {
+public interface SocialAPIOperations {
+	
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+    SocialUserProfile getProfile() throws Exception;
+
+    /**
+     * 
+     * @param status
+     * @return
+     * @throws Exception
+     */
+    TweetPublishedMetadata updateStatus(final String status) throws Exception;   
 
 }

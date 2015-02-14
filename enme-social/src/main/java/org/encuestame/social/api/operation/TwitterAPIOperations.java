@@ -10,15 +10,16 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.social.api.support;
+
+package org.encuestame.social.api.operation;
 
 /**
- * Identica API operations.
+ * Twitter Service Interface.
  * @author Picado, Juan juanATencuestame.org
- * @since Apr 21, 2011
+ * @since Feb 13, 2010 4:07:14 PM
+ * @version $Id$
  */
-public interface IdenticaAPIOperations extends SocialAPIOperations {
+public interface TwitterAPIOperations extends SocialAPIOperations{
 
 
-       IdentiCaProfile getUserProfile();
 }

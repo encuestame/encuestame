@@ -10,16 +10,16 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.social.api;
+package org.encuestame.social.api.templates;
 
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.social.AbstractSocialAPISupport;
-import org.encuestame.social.api.support.IdentiCaProfile;
-import org.encuestame.social.api.support.IdenticaAPIOperations;
-import org.encuestame.social.api.support.IdenticaStatusDetails;
+import org.encuestame.social.api.operation.IdenticaAPIOperations;
+import org.encuestame.social.api.profile.IdentiCaProfile;
+import org.encuestame.social.api.IdenticaStatusDetails;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.springframework.http.ResponseEntity;

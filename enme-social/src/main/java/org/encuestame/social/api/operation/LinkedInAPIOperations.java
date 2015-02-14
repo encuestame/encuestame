@@ -10,7 +10,9 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.social.api.support;
+package org.encuestame.social.api.operation;
+
+import org.encuestame.social.api.profile.LinkedInProfile;
 
 /**
  * LinkedIn API operations.
