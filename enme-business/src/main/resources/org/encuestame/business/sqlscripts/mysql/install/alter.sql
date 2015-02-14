@@ -126,6 +126,7 @@ ALTER TABLE `group_permission`
 -- Constraints for table `hits`
 --
 ALTER TABLE `hits`
+  ADD CONSTRAINT `FK30DF4046BF7A1C` FOREIGN KEY (`question_qid`) REFERENCES `questions` (`qid`),
   ADD CONSTRAINT `FK30DF40953C854B` FOREIGN KEY (`tweetPoll_tweet_poll_id`) REFERENCES `tweetPoll` (`tweet_poll_id`),
   ADD CONSTRAINT `FK30DF40369F8B2C` FOREIGN KEY (`userAccount_uid`) REFERENCES `userAccount` (`uid`),
   ADD CONSTRAINT `FK30DF4019AA125` FOREIGN KEY (`hashTag_hash_tag_id`) REFERENCES `hash_tags` (`hash_tag_id`),

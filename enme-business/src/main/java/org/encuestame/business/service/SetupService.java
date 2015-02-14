@@ -142,7 +142,9 @@ public class SetupService extends AbstractBaseService implements SetupOperations
             return "no";
         }
         try {
-            getMailService().sendStartUpNotification("testing email installation");
+            if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+                getMailService().sendStartUpNotification("testing email installation");
+            }
         } catch (Exception ex) {
             RequestSessionMap.setErrorMessage(ex.getMessage());
             ex.printStackTrace();

@@ -223,6 +223,8 @@ CREATE TABLE hits (
   poll_poll_id bigint,
   survey_sid bigint,
   tweetpoll_tweet_poll_id bigint,
+  type_item integer DEFAULT NULL,
+  question_qid bigint,
   useraccount_uid bigint
 );
 
