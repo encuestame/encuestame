@@ -130,8 +130,16 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
                 // log.debug("Iterate Home TweetPoll id: "+tweetPoll.getId());
                 // log.debug("Iterate Home Tweetpoll Hashtag Size: "+tweetPoll.getHashTags().size());
                 tweetPoll = convertTweetPollRelativeTime(tweetPoll, request);
-                tweetPoll.setTotalComments(this.getTotalCommentsbyType(
-                        tweetPoll.getId(), TypeSearchResult.TWEETPOLL));
+                tweetPoll.setTotalComments(this.getTotalCommentsbyType(tweetPoll.getId(), TypeSearchResult.TWEETPOLL));
+                if (this.isWellAuthenticated()) {
+                    //FIXME: ENCUESTAME-530 is not an optimal solution
+                    final TweetPoll tp = getTweetPollDao().getTweetPollById(tweetPoll.getId());
+                    final List pollItems = getFrontEndDao().getVotesByType(TypeSearchResult.TWEETPOLL, getUserAccountonSecurityContext(), tp.getQuestion());
+                    tweetPoll.setVoteUp(!(pollItems.size() > 0));
+                } else {
+                    tweetPoll.setVoteUp(Boolean.TRUE);
+                }
+                //
             }
 
         }
@@ -321,6 +329,16 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             }
             // add comments info
             for (PollBean pollbean : results) {
+                  if (this.isWellAuthenticated()) {
+                      //FIXME: ENCUESTAME-530 is not an optimal solution
+                      final Poll poll = getPollDao().getPollById(pollbean.getId());
+                      final List pollItems = getFrontEndDao().getVotesByType(TypeSearchResult.POLL, getUserAccountonSecurityContext(), poll.getQuestion());
+                      pollbean.setVoteUp(!(pollItems.size() > 0));
+                  } else {
+                      pollbean.setVoteUp(Boolean.TRUE);
+                  }
+
+                //
                 pollbean.setTotalComments(this.getTotalCommentsbyType(
                         pollbean.getId(), TypeSearchResult.POLL));
             }
@@ -462,26 +480,30 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
                 //vote process
                 if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
                     final TweetPoll tp = getTweetPollService().getTweetPollPublishedById(itemId);
-                    List<Hit> vote = getFrontEndDao().getVotesByType(TypeSearchResult.TWEETPOLL, tp.getQuestion());
+                    List<Hit> vote = getFrontEndDao().getVotesByType(TypeSearchResult.TWEETPOLL, user, tp.getQuestion());
                     if (vote.size() == 0) {
                         final Long votes = tp.getNumbervotes() + INCREASE_VOTES;
                         tp.setNumbervotes(votes);
                         getTweetPollDao().saveOrUpdate(tp);
-                        newHitItem(TypeSearchResult.TWEETPOLL, ipAddress, tp.getQuestion(), HitCategory.VOTE);
+                        newHitItem(TypeSearchResult.TWEETPOLL, ipAddress, tp.getQuestion(),user, HitCategory.VOTE);
                     } else {
                         status = Status.INACTIVE;
+                        tp.setNumbervotes(tp.getNumbervotes() - 1);
+                        getTweetPollDao().saveOrUpdate(tp);
                         deleteHits(vote);
                     }
                 } else if (searchResult.equals(TypeSearchResult.POLL)) {
                     final Poll poll = getPollService().getPollById(itemId);
-                    List<Hit> vote = getFrontEndDao().getVotesByType(TypeSearchResult.POLL, poll.getQuestion());
+                    List<Hit> vote = getFrontEndDao().getVotesByType(TypeSearchResult.POLL, user, poll.getQuestion());
                     if (vote.size() == 0) {
                         final Long votes = poll.getNumbervotes() + INCREASE_VOTES;
                         poll.setNumbervotes(votes);
                         getPollDao().saveOrUpdate(poll);
-                        newHitItem(TypeSearchResult.POLL, ipAddress, poll.getQuestion(), HitCategory.VOTE);
+                        newHitItem(TypeSearchResult.POLL, ipAddress, poll.getQuestion(), user, HitCategory.VOTE);
                     } else {
                         status = Status.INACTIVE;
+                        poll.setNumbervotes(poll.getNumbervotes() - 1);
+                        getPollDao().saveOrUpdate(poll);
                         deleteHits(vote);
                     }
                 } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
@@ -591,10 +613,12 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             final TypeSearchResult typeSearchResult,
             final String ipAddress,
             final Question question,
+            final UserAccount userAccount,
             final HitCategory hitCategory) {
         final Hit hitItem = new Hit();
         hitItem.setHitDate(Calendar.getInstance().getTime());
         hitItem.setQuestion(question);
+        hitItem.setUserAccount(userAccount);
         hitItem.setIpAddress(ipAddress);
         hitItem.setTypeSearchResult(typeSearchResult);
         hitItem.setHitCategory(hitCategory);

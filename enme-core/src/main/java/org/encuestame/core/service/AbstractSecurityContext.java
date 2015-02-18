@@ -47,12 +47,28 @@ public abstract class AbstractSecurityContext {
      * Get Username of user client.
      * @return
      */
-    public String getUserPrincipalUsername(){
+    public String getUserPrincipalUsername() {
         String username = "";
-        if (getSecCtx().getAuthentication() != null) {
+        if (this.isAuthentication()) {
             username = getSecCtx().getAuthentication().getName();
         }
        return username;
+    }
+
+    /**
+     * Check if the authtentication is present and the user is not anonymous
+     * @return
+     */
+    public Boolean isWellAuthenticated(){
+        return this.isAuthentication() && !SecurityUtils.checkIsSessionIsAnonymousUser(getSecCtx().getAuthentication());
+    }
+
+    /**
+     * Check of the Authtentication is present in the session
+     * @return
+     */
+    public Boolean isAuthentication(){
+        return getSecCtx().getAuthentication() != null;
     }
 
     /**
@@ -78,7 +94,7 @@ public abstract class AbstractSecurityContext {
 
     /**
      * Set Spring Authentication
-     * @param username
+     * @param account
      * @param password
      */
     public void setSpringSecurityAuthentication(
@@ -125,7 +141,7 @@ public abstract class AbstractSecurityContext {
     public EnMeUserAccountDetails getSecurityDetails(){
         EnMeUserAccountDetails details = null;
         log.trace("Authentication Object:{"+getSecCtx().getAuthentication());
-        if (getSecCtx().getAuthentication() != null) {
+        if (this.isWellAuthenticated()) {
             if(getSecCtx().getAuthentication().getPrincipal() instanceof EnMeUserAccountDetails){
                 details =  (EnMeUserAccountDetails) getSecCtx().getAuthentication().getPrincipal();
             }
