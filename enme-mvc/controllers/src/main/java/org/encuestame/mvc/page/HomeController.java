@@ -82,15 +82,14 @@ public class HomeController extends AbstractViewController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String homeController(ModelMap model, HttpServletRequest request,
             HttpServletResponse response) {
-        final Boolean privateHome = EnMePlaceHolderConfigurer
-                .getBooleanProperty("application.private");
+        final Boolean privateHome = EnMePlaceHolderConfigurer.getBooleanProperty("application.private");
         addi18nProperty(model, "home_item_comments", request, response);
         addi18nProperty(model, "submited_by", request, response);
         addi18nProperty(model, "home_item_votes", request, response);
         addi18nProperty(model, "home_item_views", request, response);
         addi18nProperty(model, "added", request, response);
         if (privateHome) {
-            log.debug("signup is disabled");
+            log.info("signup is disabled");
             return "redirect:/user/signin";
         } else {
             final String view = filterValue(request.getParameter("view"));
@@ -99,10 +98,7 @@ public class HomeController extends AbstractViewController {
             try {
                 model.addAttribute("viewFilter", view);
                 model.addAttribute("items", this.filterHomeItems(view, period, EnMeUtils.DEFAULT_START, homeMaxItems, request));
-                //TODO: review this code, is used?
                 model.addAttribute("hashTags", getFrontService().getHashTags(this.homeHashtagMaxItems, EnMeUtils.DEFAULT_START, ""));
-                //TODO: search hashtags and other information.
-                //TODO: comments: ENCUESTAME-346
             } catch (Exception e) {
                 log.error(e);
                 return "500";

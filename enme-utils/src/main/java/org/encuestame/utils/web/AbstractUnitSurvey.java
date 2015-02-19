@@ -71,6 +71,9 @@ public abstract class AbstractUnitSurvey implements Serializable {
     @JsonProperty(value = "hits")
     private Long hits;
 
+    @JsonProperty(value = "vote_up")
+    private Boolean voteUp = Boolean.TRUE;
+
     /** **/
     @JsonProperty(value = "item_type")
     private String itemType;
@@ -684,4 +687,53 @@ public abstract class AbstractUnitSurvey implements Serializable {
 	public void setIsPasswordProtected(Boolean isPasswordProtected) {
 		this.isPasswordProtected = isPasswordProtected;
 	}
+
+    public Boolean getVoteUp() {
+        return voteUp;
+    }
+
+    public void setVoteUp(Boolean voteUp) {
+        this.voteUp = voteUp;
+    }
+
+    @Override
+    public String toString() {
+        return "AbstractUnitSurvey{" +
+                "hashTags=" + hashTags +
+                ", comments=" + comments +
+                ", typeSearchResult=" + typeSearchResult +
+                ", isPasswordRestriction=" + isPasswordRestriction +
+                ", ownerUsername='" + ownerUsername + '\'' +
+                ", relativeTime='" + relativeTime + '\'' +
+                ", totalVotes=" + totalVotes +
+                ", hits=" + hits +
+                ", voteUp=" + voteUp +
+                ", itemType='" + itemType + '\'' +
+                ", likeVote=" + likeVote +
+                ", dislikeVote=" + dislikeVote +
+                ", createDate='" + createDate + '\'' +
+                ", createDateComparable=" + createDateComparable +
+                ", relevance=" + relevance +
+                ", favorite=" + favorite +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", additionalInfo='" + additionalInfo + '\'' +
+                ", showComments='" + showComments + '\'' +
+                ", isShowResults=" + isShowResults +
+                ", showResults='" + showResults + '\'' +
+                ", folderId=" + folderId +
+                ", isShowAdditionalInfo=" + isShowAdditionalInfo +
+                ", isCloseAfterDate=" + isCloseAfterDate +
+                ", closedDate='" + closedDate + '\'' +
+                ", isCloseAfterQuota=" + isCloseAfterQuota +
+                ", closedQuota=" + closedQuota +
+                ", isIpRestricted=" + isIpRestricted +
+                ", ipRestricted='" + ipRestricted + '\'' +
+                ", multipleResponse=" + multipleResponse +
+                ", totalComments=" + totalComments +
+                ", hashtagAsString='" + hashtagAsString + '\'' +
+                ", isHidden=" + isHidden +
+                ", isPasswordProtected=" + isPasswordProtected +
+                '}';
+    }
 }

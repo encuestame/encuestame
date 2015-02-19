@@ -769,27 +769,29 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
             final Integer homeMaxItems,
             final HttpServletRequest request) throws EnMeExpcetion {
         TypeSearchResult typeSearchResult = TypeSearchResult.getTypeSearchResult(view);
+        final List<HomeBean> homeItems = new ArrayList<HomeBean>();
         if (view.isEmpty()) {
-            return getFrontService().getFrontEndItems(period, start , homeMaxItems, request);
+            homeItems.addAll(getFrontService().getFrontEndItems(period, start , homeMaxItems, request));
         } else {
             if (typeSearchResult.equals(TypeSearchResult.TWEETPOLL)) {
-                return ConvertDomainBean
+                homeItems.addAll(ConvertDomainBean
                         .convertTweetPollListToHomeBean(getFrontService()
                                 .searchItemsByTweetPoll(period, start,
-                                        homeMaxItems, request));
+                                        homeMaxItems, request)));
             } else if (typeSearchResult.equals(TypeSearchResult.POLL)) {
-                return  ConvertDomainBean
+                homeItems.addAll(ConvertDomainBean
                                 .convertPollListToHomeBean(getFrontService()
                                         .searchItemsByPoll(period, start,
-                                                homeMaxItems, request));
+                                                homeMaxItems, request)));
             } else if (typeSearchResult.equals(TypeSearchResult.SURVEY)) {
                 //TODO: ENCUESTAME-345
                 return  ListUtils.EMPTY_LIST;
             } else {
                 // return ALL
-                return  getFrontService().getFrontEndItems(period, start , homeMaxItems, request);
+                homeItems.addAll(getFrontService().getFrontEndItems(period, start , homeMaxItems, request));
             }
         }
+        return homeItems;
     }
 
    /**

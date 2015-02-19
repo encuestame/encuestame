@@ -8,7 +8,7 @@ _ENME.init({
         isMobile: ${detectedDevice},
         currentPath: '${mappedPath}',
         locale: '${user_locale}',
-        debug : <%=EnMePlaceHolderConfigurer.getProperty("application.debug.mode")%>,
+        debug : <%=EnMePlaceHolderConfigurer.getProperty("encuestame.error.debug")%>,
         message_delay : 5000,
         activity : {
             url : "<%=WidgetUtil.getDomain(request)%>/activity",

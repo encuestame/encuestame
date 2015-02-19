@@ -1445,6 +1445,7 @@ public class ConvertDomainBean {
         homeBean.setCreateDateComparable(tweetBean.getCreateDateComparable());
         homeBean.setHits(tweetBean.getHits() == null ? 0L : tweetBean.getHits());
         homeBean.setUserId(tweetBean.getUserId());
+        homeBean.setVoteUp(tweetBean.getVoteUp());
         homeBean.setOwnerUsername(tweetBean.getOwnerUsername());
         homeBean.setItemType(tweetBean.getItemType() == null ? null : tweetBean
                 .getItemType().toString());
@@ -1485,6 +1486,7 @@ public class ConvertDomainBean {
         homeBean.setQuestionBean(pollBean.getQuestionBean());
         homeBean.setOwnerUsername(pollBean.getOwnerUsername());
         homeBean.setCreateDate(pollBean.getCreationDate());
+        homeBean.setVoteUp(pollBean.getVoteUp());
         homeBean.setTypeSearchResult(TypeSearchResult.POLL);
         homeBean.setCreateDateComparable(pollBean.getCreateDateComparable());
         homeBean.setTotalVotes(pollBean.getTotalVotes());
