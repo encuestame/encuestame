@@ -397,7 +397,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     public void setTotalVotes(Long totalVotes) {
         this.totalVotes = totalVotes;
     }
-    
+
     /**
      * @return the maxRepeatedVotes
      */
@@ -555,156 +555,53 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
      */
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("TweetPollBean [");
-        if (id != null) {
-            builder.append("id=");
-            builder.append(id);
-            builder.append(", ");
-        }
-        if (questionBean != null) {
-            builder.append("questionBean=");
-            builder.append(questionBean);
-            builder.append(", ");
-        }
-        if (closeNotification != null) {
-            builder.append("closeNotification=");
-            builder.append(closeNotification);
-            builder.append(", ");
-        }
-        if (resultNotification != null) {
-            builder.append("resultNotification=");
-            builder.append(resultNotification);
-            builder.append(", ");
-        }
-        if (publishPoll != null) {
-            builder.append("publishPoll=");
-            builder.append(publishPoll);
-            builder.append(", ");
-        }
-        if (scheduleDate != null) {
-            builder.append("scheduleDate=");
-            builder.append(scheduleDate);
-            builder.append(", ");
-        }
-        if (allowLiveResults != null) {
-            builder.append("allowLiveResults=");
-            builder.append(allowLiveResults);
-            builder.append(", ");
-        }
-        if (schedule != null) {
-            builder.append("schedule=");
-            builder.append(schedule);
-            builder.append(", ");
-        }
-        if (completed != null) {
-            builder.append("completed=");
-            builder.append(completed);
-            builder.append(", ");
-        }
-        if (favourites != null) {
-            builder.append("favourites=");
-            builder.append(favourites);
-            builder.append(", ");
-        }
-        if (userId != null) {
-            builder.append("userId=");
-            builder.append(userId);
-            builder.append(", ");
-        }
-        if (ownerUsername != null) {
-            builder.append("ownerUsername=");
-            builder.append(ownerUsername);
-            builder.append(", ");
-        }
-        if (tweetUrl != null) {
-            builder.append("tweetUrl=");
-            builder.append(tweetUrl);
-            builder.append(", ");
-        }
-        if (createDate != null) {
-            builder.append("createDate=");
-            builder.append(createDate);
-            builder.append(", ");
-        }
-        if (allowRepeatedVotes != null) {
-            builder.append("allowRepeatedVotes=");
-            builder.append(allowRepeatedVotes);
-            builder.append(", ");
-        }
-        if (totalVotes != null) {
-            builder.append("totalVotes=");
-            builder.append(totalVotes);
-            builder.append(", ");
-        }
-        if (hits != null) {
-            builder.append("hits=");
-            builder.append(hits);
-            builder.append(", ");
-        }
-        if (maxRepeatedVotes != null) {
-            builder.append("maxRepeatedVotes=");
-            builder.append(maxRepeatedVotes);
-            builder.append(", ");
-        }
-        if (limitVotesEnabled != null) {
-            builder.append("limitVotesEnabled=");
-            builder.append(limitVotesEnabled);
-            builder.append(", ");
-        }
-        if (resumeTweetPollDashBoard != null) {
-            builder.append("resumeTweetPollDashBoard=");
-            builder.append(resumeTweetPollDashBoard);
-            builder.append(", ");
-        }
-        if (createdDateAt != null) {
-            builder.append("createdDateAt=");
-            builder.append(createdDateAt);
-            builder.append(", ");
-        }
-        if (limitVotesDate != null) {
-            builder.append("limitVotesDate=");
-            builder.append(limitVotesDate);
-            builder.append(", ");
-        }
-        if (dateToLimit != null) {
-            builder.append("dateToLimit=");
-            builder.append(dateToLimit);
-            builder.append(", ");
-        }
-        if (updateDate != null) {
-            builder.append("updateDate=");
-            builder.append(updateDate);
-            builder.append(", ");
-        }
-        if (captcha != null) {
-            builder.append("captcha=");
-            builder.append(captcha);
-            builder.append(", ");
-        }
-        if (limitVotes != null) {
-            builder.append("limitVotes=");
-            builder.append(limitVotes);
-            builder.append(", ");
-        }
-        if (resumeLiveResults != null) {
-            builder.append("resumeLiveResults=");
-            builder.append(resumeLiveResults);
-            builder.append(", ");
-        }
-        if (results != null) {
-            builder.append("results=");
-            builder.append(results);
-            builder.append(", ");
-        }
-        if (answerSwitchBeans != null) {
-            builder.append("answerSwitchBeans=");
-            builder.append(answerSwitchBeans);
-        }
-        builder.append("]");
-        return builder.toString();
+        return "TweetPollBean [id=" + id + ", questionBean=" + questionBean
+                + ", closeNotification=" + closeNotification
+                + ", resultNotification=" + resultNotification
+                + ", publishPoll=" + publishPoll + ", scheduleDate="
+                + scheduleDate + ", allowLiveResults=" + allowLiveResults
+                + ", schedule=" + schedule + ", completed=" + completed
+                + ", favourites=" + favourites + ", userId=" + userId
+                + ", ownerUsername=" + ownerUsername + ", tweetUrl=" + tweetUrl
+                + ", createDate=" + createDate + ", allowRepeatedVotes="
+                + allowRepeatedVotes + ", totalVotes=" + totalVotes + ", hits="
+                + hits + ", maxRepeatedVotes=" + maxRepeatedVotes
+                + ", limitVotesEnabled=" + limitVotesEnabled
+                + ", resumeTweetPollDashBoard=" + resumeTweetPollDashBoard
+                + ", createdDateAt=" + createdDateAt + ", limitVotesDate="
+                + limitVotesDate + ", dateToLimit=" + dateToLimit
+                + ", updateDate=" + updateDate + ", captcha=" + captcha
+                + ", limitVotes=" + limitVotes + ", resumeLiveResults="
+                + resumeLiveResults + ", results=" + results
+                + ", answerSwitchBeans=" + answerSwitchBeans
+                + ", getHashTags()=" + getHashTags() + ", getRelativeTime()="
+                + getRelativeTime() + ", getItemType()=" + getItemType()
+                + ", getLikeVote()=" + getLikeVote() + ", getDislikeVote()="
+                + getDislikeVote() + ", getRelevance()=" + getRelevance()
+                + ", getFavorite()=" + getFavorite() + ", getLatitude()="
+                + getLatitude() + ", getLongitude()=" + getLongitude()
+                + ", getAdditionalInfo()=" + getAdditionalInfo()
+                + ", getShowComments()=" + getShowComments()
+                + ", getFolderId()=" + getFolderId()
+                + ", getIsShowAdditionalInfo()=" + getIsShowAdditionalInfo()
+                + ", getIsCloseAfterDate()=" + getIsCloseAfterDate()
+                + ", getClosedDate()=" + getClosedDate()
+                + ", getIsCloseAfterQuota()=" + getIsCloseAfterQuota()
+                + ", getClosedQuota()=" + getClosedQuota()
+                + ", getIsIpRestricted()=" + getIsIpRestricted()
+                + ", getIpRestricted()=" + getIpRestricted()
+                + ", getMultipleResponse()=" + getMultipleResponse()
+                + ", getIsShowResults()=" + getIsShowResults()
+                + ", getTotalComments()=" + getTotalComments()
+                + ", getHashtagAsString()=" + getHashtagAsString()
+                + ", getIsPasswordRestriction()=" + getIsPasswordRestriction()
+                + ", getCreateDateComparable()=" + getCreateDateComparable()
+                + ", getShowResults()=" + getShowResults()
+                + ", getTypeSearchResult()=" + getTypeSearchResult()
+                + ", getComments()=" + getComments() + ", getIsHidden()="
+                + getIsHidden() + ", getIsPasswordProtected()="
+                + getIsPasswordProtected() + ", getVoteUp()=" + getVoteUp()
+                + ", toString()=" + super.toString() + ", getClass()="
+                + getClass() + ", hashCode()=" + hashCode() + "]";
     }
-
-
-
 }

@@ -139,9 +139,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
                 } else {
                     tweetPoll.setVoteUp(Boolean.TRUE);
                 }
-                //
             }
-
         }
         log.debug("Search Items by TweetPoll: " + results.size());
         return results;
