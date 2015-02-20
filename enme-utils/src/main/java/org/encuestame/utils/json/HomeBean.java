@@ -134,4 +134,14 @@ public class HomeBean extends AbstractUnitSurvey implements Serializable, Compar
             return CompareToValue;
         }
     }
+
+    @Override
+    public String toString() {
+        return "HomeBean{" +
+                "id=" + id +
+                ", resultsBean=" + resultsBean +
+                ", questionBean=" + questionBean +
+                ", userId=" + userId +
+                "} " + super.toString();
+    }
 }

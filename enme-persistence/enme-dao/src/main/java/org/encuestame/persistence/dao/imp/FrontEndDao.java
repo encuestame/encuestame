@@ -449,10 +449,14 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @param question
      * @return
      */
-    public List getVotesByType(final TypeSearchResult type, final Question question) {
+    public List getVotesByType(
+            final TypeSearchResult type,
+            final UserAccount userAccount,
+            final Question question) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Hit.class);
         criteria.add(Restrictions.eq("typeSearchResult", type));
         criteria.add(Restrictions.eq("question", question));
+        criteria.add(Restrictions.eq("userAccount", userAccount));
         criteria.add(Restrictions.eq("hitCategory", HitCategory.VOTE));
         return getHibernateTemplate().findByCriteria(criteria);
     }
