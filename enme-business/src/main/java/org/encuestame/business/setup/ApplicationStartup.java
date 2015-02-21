@@ -134,12 +134,14 @@ public class ApplicationStartup implements StartupProcess {
      * @see org.encuestame.business.setup.StartupProcess#displayVersionOnStartup()
      */
     public void displayVersionOnStartup() {
-         String version = EnMePlaceHolderConfigurer.getProperty("app.version");
-        if (version != null) {
-            System.out.println("Encuestame current version:"+version);
-        } else {
-            log.warn("version app not available");
-        }
+        System.out.println("ENCUESTAME ::  app version :: " + EnMePlaceHolderConfigurer.getProperty("app.version"));
+        System.out.println("ENCUESTAME ::  database version :: " + EnMePlaceHolderConfigurer.getProperty("app.database.version"));
+        System.out.println("ENCUESTAME ::  build version :: " + EnMePlaceHolderConfigurer.getProperty("app.build.number"));
+        System.out.println("ENCUESTAME ::  build time :: " + EnMePlaceHolderConfigurer.getProperty("app.build.timestamp"));
+        System.out.println("ENCUESTAME ::  build path :: " + EnMePlaceHolderConfigurer.getProperty("app.build.urlBuiltPath"));
+        System.out.println("ENCUESTAME ::  build revision :: " + EnMePlaceHolderConfigurer.getProperty("app.build.revision"));
+        System.out.println("ENCUESTAME ::  build repo url :: " + EnMePlaceHolderConfigurer.getProperty("app.build.urlPath"));
+        System.out.println("ENCUESTAME ::  build branch :: " + EnMePlaceHolderConfigurer.getProperty("app.build.branch="));
     }
 
     /**
