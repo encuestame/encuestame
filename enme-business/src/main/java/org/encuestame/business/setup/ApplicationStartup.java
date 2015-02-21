@@ -141,7 +141,7 @@ public class ApplicationStartup implements StartupProcess {
         System.out.println("ENCUESTAME ::  build path :: " + EnMePlaceHolderConfigurer.getProperty("app.build.urlBuiltPath"));
         System.out.println("ENCUESTAME ::  build revision :: " + EnMePlaceHolderConfigurer.getProperty("app.build.revision"));
         System.out.println("ENCUESTAME ::  build repo url :: " + EnMePlaceHolderConfigurer.getProperty("app.build.urlPath"));
-        System.out.println("ENCUESTAME ::  build branch :: " + EnMePlaceHolderConfigurer.getProperty("app.build.branch="));
+        System.out.println("ENCUESTAME ::  build branch :: " + EnMePlaceHolderConfigurer.getProperty("app.build.branch"));
     }
 
     /**
