@@ -175,6 +175,12 @@
         <surefire.failures.ignore>false</surefire.failures.ignore>
         <!-- bamboo -->
         <bambooBuildNumber>bambooBuildNumber</bambooBuildNumber>
+        <bambooBuildTimeStamp>bambooBuildTimeStamp</bambooBuildTimeStamp>
+        <bambooBuildKey>bambooBuildKey</bambooBuildKey>
+        <bambooBuildUrlPath>bambooBuildUrlPath</bambooBuildUrlPath>
+        <bambooBuildRevision>bambooBuildRevision</bambooBuildRevision>
+        <bambooBuildBranch>bambooBuildBranch</bambooBuildBranch>
+        <bambooBuildurlPath>bambooBuildurlPath</bambooBuildurlPath>
     </properties>
 
     <modules>
