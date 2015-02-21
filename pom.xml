@@ -173,6 +173,8 @@
         <maven-eclipse-plugin>2.9</maven-eclipse-plugin>
         <jsonpath.version>1.2.0</jsonpath.version>
         <surefire.failures.ignore>false</surefire.failures.ignore>
+        <!-- bamboo -->
+        <bambooBuildNumber>bambooBuildNumber</bambooBuildNumber>
     </properties>
 
     <modules>
@@ -300,11 +302,11 @@
             </snapshots>
         </repository>
         <!-- Maven Repos -->
-        <repository>
-            <id>maven2-repository.dev.java.net.1</id>
-            <name>Java.net Repository for Maven</name>
-            <url>http://download.java.net/maven/2</url>
-        </repository>
+        <!--<repository>-->
+            <!--<id>maven2-repository.dev.java.net.1</id>-->
+            <!--<name>Java.net Repository for Maven</name>-->
+            <!--<url>http://download.java.net/maven/2</url>-->
+        <!--</repository>-->
         <repository>
             <id>maven-repo</id>
             <name>Maven Repository</name>
@@ -542,7 +544,7 @@
         <profile>
             <id>production</id>
             <properties>
-                <env>development</env>
+                <env>${env}</env>
             </properties>
              <activation>
                 <activeByDefault>true</activeByDefault>
@@ -569,7 +571,7 @@
 		<profile>
 			<id>development</id>
 			<properties>
-				<env>development</env>
+                <env>${env}</env>
 			</properties>
 		</profile>
 	</profiles>
