@@ -4,6 +4,7 @@ _ENME.init({
         domain : '<%=WidgetUtil.getDomain(request)%>',
         suggest_limit : 10,
         delay : 1800000,
+        logged : ${logged},
         helpLinks : ${help_links},
         isMobile: ${detectedDevice},
         currentPath: '${mappedPath}',

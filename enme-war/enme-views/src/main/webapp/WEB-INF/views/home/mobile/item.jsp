@@ -1,24 +1,14 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <section class="item">
-    <div class="img">
-        <div data-dojo-type="me/web/widget/home/votes/ItemVote"
-           voteMessage="<spring:message code="home_item_votes"/>"
-           viewMessage="<spring:message code="home_item_views"/>"
-           votes="${item.totalVotes}"
-           hits="${item.hits}"
-           itemType="${item.itemType}"
-           itemId="${item.id}"
-        ></div>
-    </div>
     <div class="content">
         <div class="title">
             <a href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}">
-                <h4 class="enme">
+                <h2 class="enme">
                      ${item.questionBean.questionName}
-                </h4>
+                </h2>
             </a>
         </div>
-        <div class="bottom">
+        <div class="bottom user-info">
              <div class="options">
                  <div class="submited">
                      <spring:message code="submited_by" />
@@ -31,5 +21,19 @@
                  </div>
              </div>
          </div>
-     </div>
+        <div class="vote-item">
+            <div class="item-vote-block left">
+                <div data-dojo-type="me/web/widget/home/votes/ItemVote"
+                     voteMessage="<spring:message code="home_item_votes"/>"
+                viewMessage="<spring:message code="home_item_views" />"
+                votes="${item.totalVotes}"
+                hits="${item.hits}"
+                voteUp="${item.voteUp}"
+                commentsTotal="${item.totalComments}"
+                itemType="${item.itemType}"
+                itemId="${item.id}"></div>
+            </div>
+        </div>
+
+    </div>
 </section>
