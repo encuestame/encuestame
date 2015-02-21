@@ -544,7 +544,7 @@
         <profile>
             <id>production</id>
             <properties>
-                <env>${env}</env>
+                <env>development</env>
             </properties>
              <activation>
                 <activeByDefault>true</activeByDefault>
@@ -571,7 +571,7 @@
 		<profile>
 			<id>development</id>
 			<properties>
-                <env>${env}</env>
+                <env>development</env>
 			</properties>
 		</profile>
 	</profiles>
