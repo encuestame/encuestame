@@ -84,6 +84,9 @@ public class HomeController extends AbstractViewController {
             HttpServletResponse response) {
         final Boolean privateHome = EnMePlaceHolderConfigurer.getBooleanProperty("application.private");
         addi18nProperty(model, "home_item_comments", request, response);
+        addi18nProperty(model, "button_vote_error_message", request, response);
+        addi18nProperty(model, "button_vote", request, response);
+        addi18nProperty(model, "button_voted", request, response);
         addi18nProperty(model, "submited_by", request, response);
         addi18nProperty(model, "home_item_votes", request, response);
         addi18nProperty(model, "home_item_views", request, response);

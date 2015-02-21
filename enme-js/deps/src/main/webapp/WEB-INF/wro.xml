@@ -9,7 +9,7 @@
     <js>/commons/stomp.js</js>
     <js>/commons/offline.js</js>
     <js>/commons/intro.js</js>
-    <js>/commons/alertify/dist/alertify.min.js</js>
+    <js>/commons/alertify/lib/alertify.js</js>
   </group>
 
 
@@ -18,7 +18,7 @@
     <js>/commons/sockjs.js</js>
     <js>/commons/stomp.js</js>
     <js>/commons/offline.js</js>
-    <js>/commons/alertify/dist/alertify.min.js</js>
+    <js>/commons/alertify/lib/alertify.js</js>
   </group>
   
   <group name='maps'>
