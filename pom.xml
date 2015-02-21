@@ -195,6 +195,7 @@
         <module>enme-config</module>
         <module>enme-mvc</module>
         <module>enme-war</module>
+        <module>enme-assembly</module>
     </modules>
 
     <licenses>
