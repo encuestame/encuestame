@@ -16,7 +16,7 @@ The **last release versions** are defined [here](http://encuestame.org/wiki/disp
 
 If you want to download a build version of Encuestame, there are hosted on the [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
 
-[![Encuestame Widget](http://www.encuestame.org/screenshots/widgets.jpg =525x560)
+![alt tag](http://www.encuestame.org/screenshots/widgets.jpg)
 
 ## Maintainers
 * [Diana Paola Morales](http://about.me/dianmorales)
