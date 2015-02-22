@@ -33,11 +33,12 @@ alter table groups add constraint FKB63DD9D45ECE45A2 foreign key (account_uid) r
 alter table groups_permission add constraint FK7F1951A45895AFF foreign key (sec_id_group) references groups
 alter table groups_permission add constraint FK7F1951A43ADB63D foreign key (sec_id_permission) references permission
 alter table hash_tags_ranking add constraint FK71DECDA119AA125 foreign key (hashTag_hash_tag_id) references hash_tags
+alter table helpPage add constraint FKD0EB1D70436027AA foreign key (help_user_id) references userAccount
 alter table hits add constraint FK30DF40369F8B2C foreign key (userAccount_uid) references userAccount
+alter table hits add constraint FK30DF4046BF7A1C foreign key (question_qid) references questions
 alter table hits add constraint FK30DF4019AA125 foreign key (hashTag_hash_tag_id) references hash_tags
 alter table hits add constraint FK30DF4063976E9 foreign key (poll_poll_id) references poll
 alter table hits add constraint FK30DF4051153812 foreign key (survey_sid) references surveys
-alter table hits add constraint FK30DF4046BF7A1C foreign key (question_qid) references questions
 alter table hits add constraint FK30DF40953C854B foreign key (tweetPoll_tweet_poll_id) references tweetPoll
 alter table notification add constraint FK237A88EB2B2A6AB4 foreign key (uid) references account
 alter table poll add constraint FK3497BF89452CCA foreign key (poll_folder) references poll_folder
@@ -122,4 +123,3 @@ alter table userAccount_permission add constraint FKBE01CE4C43ADB63D foreign key
 alter table userAccount_permission add constraint FKBE01CE4C5F77A117 foreign key (sec_id_secondary) references userAccount
 alter table userAccount_project add constraint FKFBC45BBC84536452 foreign key (cat_id_project) references project
 alter table userAccount_project add constraint FKFBC45BBC5F77A117 foreign key (sec_id_secondary) references userAccount
-alter table helpPage add constraint FKD0EB1D70436027AA foreign key (help_user_id) references userAccount

@@ -23,6 +23,11 @@ If you want to download a build version of Encuestame, there are hosted on the [
 * [1.147](https://sourceforge.net/projects/encuestame/files/latest/download?source=files)
 * [1.5.0 Nightly Build](http://encuestame.org/build/browse/ENME-PRO/latestSuccessful/artifact/shared/encuestame.war/encuestame.war)
 
+## Revisions Download
+
+* [Encuestame Latest Revisions](http://www.encuestame.org/revisions/)
+* [Sourceforce](http://sourceforge.net/projects/encuestame/?source=directory)
+
 ## Contributions
 Pull requests are, of course, very welcome! A few "todos", if anyone is [interested](http://www.encuestame.org/wiki/display/DEVELOPMENT/Commiters+Guidelines).
 
