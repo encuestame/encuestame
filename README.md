@@ -12,14 +12,14 @@ For information on how to **build** check out [documentation](http://www.encuest
 
 ## Current Version (1.5.0) Info
 
-The **last release versions** are defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME?report=com.atlassian.jirafisheyeplugin:fisheye-projectpanel&mode=changesets#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
+The **last release versions** is defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME?report=com.atlassian.jirafisheyeplugin:fisheye-projectpanel&mode=changesets#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
-If you want to download a build version of Encuestame, there are hosted on the [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
+If you want to download a built version of Encuestame, the files are hosted in SourceForge [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
 
 ![alt tag](http://www.encuestame.org/screenshots/widgets.jpg)
 
 ## Maintainers
-* [Diana Paola Morales](http://about.me/dianmorales)
+* [Diana Paola Morales](http://at.linkedin.com/in/dianmorales/)
 * [Juan Carlos Picado](http://www.jotadeveloper.me)
 * [All Contributors](https://github.com/encuestame/encuestame/graphs/contributors)
 
@@ -48,7 +48,6 @@ Pull requests are, of course, very welcome! A few "todos", if anyone is [interes
 * [Metrics](http://www.encuestame.org/clover)
 * [API Javadoc](http://encuestame.org/javadoc/)
 * [Demo Site](http://www.encuestame.org/demo)
-* [Demo Nightly Build](http://encuestame.org:9004/encuestame/home)
 * [GitHub](http://github.com/encuestame)
 * [Twitter](http://www.twitter.com/encuestame)
 * [Facebook](https://www.facebook.com/encuestame)
