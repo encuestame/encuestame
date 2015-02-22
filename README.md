@@ -8,11 +8,15 @@
 
 For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
 
+**Take a look our [demo](http://www.encuestame.org/demo)**
+
 ## Current Version (1.5.0) Info
 
 The **last release versions** are defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME?report=com.atlassian.jirafisheyeplugin:fisheye-projectpanel&mode=changesets#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
 If you want to download a build version of Encuestame, there are hosted on the [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
+
+[![Encuestame Widget](http://www.encuestame.org/screenshots/widgets.jpg =525x560)
 
 ## Maintainers
 * [Diana Paola Morales](http://about.me/dianmorales)
