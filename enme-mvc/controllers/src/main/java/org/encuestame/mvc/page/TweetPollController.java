@@ -282,6 +282,12 @@ public class TweetPollController extends AbstractViewController {
         addi18nProperty(model, "commons_no_results", request, response);
         addi18nProperty(model, "common_open_embebed", request, response);
         addi18nProperty(model, "commons_unfavourite", request, response);
+        /** *** *** **  Help Guide ** *** *** **/
+        addi18nProperty(model, "help_tp_button_new", request, response);
+        addi18nProperty(model, "help_tp_aside_bar", request, response);
+        addi18nProperty(model, "help_tp_folder_view", request, response);
+        addi18nProperty(model, "help_tp_advanced_search_view", request, response);
+        addi18nProperty(model, "help_tp_detail_view", request, response);
         return "tweetpoll";
     }
 
@@ -363,6 +369,14 @@ public class TweetPollController extends AbstractViewController {
         addi18nProperty(model, "tp_help_2", request, response);
         addi18nProperty(model, "tp_help_3",  request, response);
         addi18nProperty(model, "tp_help_4", request, response);
+        /** *** *** ** Help Guide ** *** *** **/
+        addi18nProperty(model, "help_tp_quick_help", request, response);
+        addi18nProperty(model, "help_tp_hide_help", request, response);
+        addi18nProperty(model, "help_tp_counter_characters", request, response);
+        addi18nProperty(model, "help_tp_counter_available", request, response);
+        addi18nProperty(model, "help_tp_question_text", request, response);
+        addi18nProperty(model, "help_tp_counter_available", request, response);
+        addi18nProperty(model, "help_tp_new_cancel_button", request, response);
         return path;
     }
 

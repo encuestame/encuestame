@@ -513,7 +513,14 @@ public class PollController extends AbstractViewController {
         addi18nProperty(model, "button_try_later", request, response);
         addi18nProperty(model, "button_ignore", request, response);
         addi18nProperty(model, "button_try_again", request, response);
-        return "poll/list";
+
+        /** *** *** ** Help Guide ** *** *** **/
+        addi18nProperty(model, "help_poll_button_new", request, response);
+        addi18nProperty(model, "help_poll_aside_bar", request, response);
+        addi18nProperty(model, "help_poll_folder_view", request, response);
+        addi18nProperty(model, "help_poll_advanced_search_view", request, response);
+        addi18nProperty(model, "help_poll_detail_view", request, response);
+       return "poll/list";
     }
 
     /**
@@ -564,6 +571,17 @@ public class PollController extends AbstractViewController {
         addi18nProperty(model, "button_try_later", request, response);
         addi18nProperty(model, "button_ignore", request, response);
         addi18nProperty(model, "button_try_again", request, response);
+        /** *** *** ** Help Guide ** *** *** **/
+        addi18nProperty(model, "help_poll_question_text", request, response);
+        addi18nProperty(model, "help_poll_answers_text", request, response);
+        addi18nProperty(model, "help_poll_hashtags", request, response);
+        addi18nProperty(model, "help_poll_options", request, response);
+        addi18nProperty(model, "help_poll_limit_options", request, response);
+        addi18nProperty(model, "help_poll_comments_options", request, response);
+        addi18nProperty(model, "help_poll_comments_results", request, response);
+        addi18nProperty(model, "help_poll_cancel_button", request, response);
+
+
         return "poll/new";
     }
 

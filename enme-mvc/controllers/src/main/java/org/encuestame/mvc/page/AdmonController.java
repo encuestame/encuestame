@@ -88,6 +88,12 @@ public class AdmonController extends AbstractViewController {
         addi18nProperty(model, "admon_users_invite_subtitle", request, response);
         addi18nProperty(model, "button_close", request, response);
         addi18nProperty(model, "admon_users_invite_button", request, response);
+        /** *** *** ** Help Guide ** *** *** **/
+        addi18nProperty(model, "help_admon_button_new", request, response);
+        addi18nProperty(model, "help_admon_menu_search", request, response);
+        addi18nProperty(model, "help_admon_notification", request, response);
+        addi18nProperty(model, "help_admon_list_view", request, response);
+        addi18nProperty(model, "help_admon_pagination", request, response);
         return "members";
     }
 
