@@ -72,6 +72,10 @@ public class SettingsController extends AbstractBaseOperations{
             addi18nProperty(model, "settings_config_profile_form_not_valid", request, response);
             //social settings
 
+            /** *** *** ** Help Guide ** *** *** **/
+            addi18nProperty(model, "help_settings_config_options_sidebar", request, response);
+            addi18nProperty(model, "help_settings_config_container", request, response);
+
             log.debug("settingsAccountController user: " + user.toString());
         } catch (EnMeNoResultsFoundException e) {
             log.error(e);
@@ -103,6 +107,10 @@ public class SettingsController extends AbstractBaseOperations{
        addi18nProperty(model, "commons_confirm", request, response);
        addi18nProperty(model, "commons_no", request, response);
        addi18nProperty(model, "commons_yes", request, response);
+       /** *** *** ** Help Guide ** *** *** **/
+       addi18nProperty(model, "help_settings_accounts_sidebar", request, response);
+       addi18nProperty(model, "help_settings_accounts_list_view", request, response);
+
        return "settings/social";
    }
 }
