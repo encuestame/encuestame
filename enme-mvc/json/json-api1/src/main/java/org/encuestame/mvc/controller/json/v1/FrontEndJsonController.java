@@ -29,7 +29,6 @@ import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -55,15 +54,88 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
     private Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * Get frontend items.
-     * @param period
-     * @param maxResults
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/frontend/stream.json Stream Home Items
+     * @apiName GetHomeItems
+     * @apiGroup FrontEnd
+     * @apiDescription Return all items that will be displayed on the main page (Tweetpoll, Poll, Survey)
+     * @apiParam {String} period SearchPeriods are Search by date range.  All periods defined in SearchPeriods are available.
+     * @apiParam {Number} maxResults Maximum number of comments to be displayed as search result.
+     * @apiParam {Number} start The minimum number of comments to show in the response.
+     * @apiParam {String} typeFilter
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/frontend/stream.json
+     * @apiPermission none
+     * @apiSuccessExample
+            {
+              "error": {
+
+              },
+              "success": {
+                "frontendItems": [
+                  {
+                    "hashtags": [
+                      {
+                        "id": 17,
+                        "size": 15,
+                        "hashTagName": "realestate",
+                        "hits": 1
+                      },
+                      {
+                        "id": 18,
+                        "size": 15,
+                        "hashTagName": "online",
+                        "hits": 1
+                      }
+                    ],
+                    "is_password_restriction": null,
+                    "owner_username": "demo10",
+                    "relative_time": null,
+                    "total_votes": 38,
+                    "hits": 21,
+                    "item_type": "poll",
+                    "like_votes": null,
+                    "dislike_votes": null,
+                    "create_date": "2011-12-04",
+                    "relevance": 12,
+                    "favorite": null,
+                    "latitude": null,
+                    "longitude": null,
+                    "additional_info": null,
+                    "show_comments": null,
+                    "is_show_results": null,
+                    "folder_id": null,
+                    "is_show_additional_info": null,
+                    "is_close_after_date": null,
+                    "close_date": null,
+                    "is_close_after_quota": null,
+                    "close_quota": null,
+                    "is_ip_restricted": null,
+                    "ip_restricted": null,
+                    "multiple_response": null,
+                    "total_comments": 0,
+                    "id": 24,
+                    "question": {
+                      "question_name": "Who has hosted every season of Dancing with the Stars?",
+                      "slug": "who-has-hosted-every-season-of-dancing-with-the-stars%3F",
+                      "hits": null,
+                      "version": null,
+                      "state_id": null,
+                      "id": 100,
+                      "uid": 10,
+                      "pattern": "SINGLE_SELECTION",
+                      "widget": "encuestame.org.core.commons.questions.patterns.SingleOptionResponse",
+                      "list_answers": [
+
+                      ]
+                    },
+                    "userId": null,
+                    "hastags_string": "realestate,online,internet"
+                  }
+                ]
+              }
+            }
+     * @apiSuccess {Object} success
+     * @apiSuccess {String} error
      */
     @RequestMapping(value = "/api/common/frontend/stream.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getFrontendItems(
@@ -92,14 +164,19 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
         }
 
     /**
-     * Get user rated top.
-     * @param status
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/frontend/topusers.json List Top Users
+     * @apiVersion 1.0.0
+     * @apiName GetTopUsers
+     * @apiGroup FrontEnd
+     * @apiDescription Get user rated top.
+     * @apiParam {Boolean} status
+     * @apiParam {Number} end
+     * @apiParam {Number} start
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/frontend/topusers.json
+     * @apiPermission none
+     * @apiSuccessExample
+     * @apiSuccess {Object} success
+     * @apiSuccess {String} error
      */
     @RequestMapping(value = "/api/common/frontend/topusers.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getUserRatedTop(
@@ -134,16 +211,33 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
     }
 
 
-    /**
-     * Retrieve the stats for each component hastahg/twpoll/poll/survey.
-     * @param id id to identify the item
-     * @param type type of component
-     * @param request {@link HttpServletRequest}
-     * @param response {@link HttpServletResponse}
-     * @return json string.
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+//    /*
+//     * Retrieve the stats for each component hastahg/twpoll/poll/survey.
+//     * @param id id to identify the item
+//     * @param type type of component
+//     * @param request {@link HttpServletRequest}
+//     * @param response {@link HttpServletResponse}
+//     * @return json string.
+//     * @throws JsonGenerationException
+//     * @throws JsonMappingException
+//     * @throws IOException
+//     */
+
+    /*
+     * @deprecated
+     * @api {get} /api/common/frontend/:type/stats.json HashtagStats
+     * @apiVersion 1.0.0
+     * @apiName GetTopUsers
+     * @apiGroup FrontEnd
+     * @apiDescription Get user rated top.
+     * @apiParam {Boolean} status
+     * @apiParam {Number} end
+     * @apiParam {Number} start
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/frontend/hashtag/stats.json
+     * @apiPermission none
+     * @apiSuccessExample
+     * @apiSuccess {Object} success
+     * @apiSuccess {String} error
      */
     @RequestMapping(value = "/api/common/frontend/{type}/stats.json", method = RequestMethod.GET )
     public @ResponseBody ModelMap getGenericStats(
@@ -174,15 +268,19 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
     }
 
     /**
-     * API JSON service to vote a published item.
-     * @param id
-     * @param account
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {put} /api/frontend/home/:type/vote Vote Items
+     * @apiName PutVoteItem
+     * @apiGroup FrontEnd
+     * @apiPermission user
+     * @apiDescription API JSON service to vote a published item.
+     * @apiParam {Number} id
+     * @apiParam {String} type
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/frontend/stream.json
+
+     * @apiSuccessExample
+     * @apiSuccess {Object} success
+     * @apiSuccess {String} error
      */
     @RequestMapping(value = "/api/frontend/home/{type}/vote", method = RequestMethod.PUT)
     public @ResponseBody ModelMap voteHome(
@@ -204,20 +302,23 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
     }
 
     /**
-     * Update the help status of a page
-     * @param path the path to change the status
-     * @param status
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {put} /api/help/status Change Status Help
+     * @apiVersion 1.0.0
+     * @apiName PutHelpStatus
+     * @apiGroup FrontEnd
+     * @apiDescription Update the help status of a page
+     * @apiParam {String} path
+     * @apiParam {Boolean} status
+     * @apiSampleRequest http://www.encuestame.org/demo/api/help/status
+     * @apiPermission none
+     * @apiSuccessExample
+     * @apiSuccess {Object} success
+     * @apiSuccess {String} error
      */
     @RequestMapping(value = "/api/help/status", method = RequestMethod.PUT)
     public @ResponseBody ModelMap voteHome(
             @RequestParam(value = "path", required = true) String path,
             @RequestParam(value = "status", required = true) Boolean status) throws IOException {
-        //System.out.println("path-->"+ path);
-        //System.out.println("status-->"+ status);
         try {
             if(getListPaths().indexOf(path) != -1)
             getSecurityService().updateHelpStatus(path, getUserAccount(), status);
