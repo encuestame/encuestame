@@ -26,12 +26,12 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.social.SocialProvider;
-import org.encuestame.utils.social.SocialUserProfile;
 import org.encuestame.utils.social.TypeAuth;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.support.DataAccessUtils;
+
 
 /**
  * SocialAccount dao support.
@@ -214,50 +214,6 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
         return currentSocialAccount;
     }
 
-   /**
-    * Create new social account.
-    * @param socialAccountId
-    * @param token
-    * @param tokenSecret
-    * @param expiresToken
-    * @param username
-    * @param socialUserProfile
-    * @param socialProvider
-    * @param userAccount
-    * @return
-    */
-    public SocialAccount createSocialAccount(
-            final String socialAccountId,
-            final String token,
-            final String tokenSecret,
-            final String expiresToken,
-            final String username,
-            final SocialUserProfile socialUserProfile,
-            final SocialProvider socialProvider,
-            final UserAccount userAccount) {
-         final SocialAccount socialAccount = new SocialAccount();
-         socialAccount.setAccessToken(token);
-         socialAccount.setSecretToken(tokenSecret);
-         socialAccount.setAccount(userAccount.getAccount());
-         socialAccount.setUserOwner(userAccount);
-         socialAccount.setExpires(expiresToken);
-         socialAccount.setAccounType(socialProvider);
-         socialAccount.setAddedAccount(new Date());
-         socialAccount.setVerfied(Boolean.TRUE);
-         socialAccount.setSocialAccountName(socialUserProfile.getUsername());
-         socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
-         socialAccount.setUpgradedCredentials(new Date());
-         socialAccount.setSocialProfileId(socialUserProfile.getId());
-         socialAccount.setPublicProfileUrl(socialUserProfile.getProfileUrl());
-         socialAccount.setPrictureUrl(socialUserProfile.getProfileImageUrl()); //TODO: repeated
-         socialAccount.setProfilePictureUrl(socialUserProfile.getProfileImageUrl());
-         socialAccount.setEmail(socialUserProfile.getEmail());
-         socialAccount.setProfileThumbnailPictureUrl(socialUserProfile.getProfileImageUrl());
-         socialAccount.setRealName(socialUserProfile.getRealName());
-         this.saveOrUpdate(socialAccount);
-        return socialAccount;
-    }
-
     /**
      * {@link SocialAccount} Is Connected.
      * @param accountId
@@ -288,21 +244,6 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
         criteria.add(Restrictions.eq("accounType", provider));
         return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate()
                 .findByCriteria(criteria));
-    }
-
-    /**
-     * Disconnect Account Connection.
-     * @param accountId
-     * @param provider
-     * @throws EnMeNoResultsFoundException
-     */
-    public void disconnect(String accountId, SocialProvider provider) throws EnMeNoResultsFoundException {
-        final SocialAccount ac = this.getAccountConnection(accountId, provider);
-        if(ac == null){
-            throw new EnMeNoResultsFoundException("connection not found");
-        } else {
-            getHibernateTemplate().delete(ac);
-        }
     }
 
     /**

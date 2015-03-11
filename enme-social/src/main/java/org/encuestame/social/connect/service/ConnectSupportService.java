@@ -29,6 +29,7 @@ import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 /**
@@ -37,6 +38,7 @@ import org.springframework.util.Assert;
  * @since 29/07/2011
  */
 @Service
+@Transactional
 public class ConnectSupportService  extends AbstractBaseService implements ConnectOperations{
 
     /**
