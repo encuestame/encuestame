@@ -95,8 +95,8 @@ public class IndexRebuilder {
             fullTextSession.getSearchFactory().optimize(clazz);
             log.debug(clazz.getName() + " starting index ...");
             final long startTime = System.currentTimeMillis();
-            fullTextSession.setFlushMode(FlushMode.MANUAL);
-            fullTextSession.setCacheMode(CacheMode.IGNORE);
+            //fullTextSession.setFlushMode(FlushMode.MANUAL);
+            //fullTextSession.setCacheMode(CacheMode.IGNORE);
             final Transaction transaction = fullTextSession.beginTransaction();
             //Scrollable results will avoid loading too many objects in memory
             final ScrollableResults results = fullTextSession.createCriteria(clazz)
