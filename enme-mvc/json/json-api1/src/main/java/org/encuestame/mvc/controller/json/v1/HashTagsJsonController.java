@@ -64,15 +64,42 @@ public class HashTagsJsonController extends AbstractJsonControllerV1{
      */
     @Value("${hashtags.cloud.items}") private Integer hashtagsCloudLimit;
 
-     /**
-     * Get List of Users.
-     * @param username username
-     * @param request request
-     * @param response response
-     * @return list of json users.
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+    /**
+     * @api {get} /api/common/hashtags.json Hashtag by keyword
+     * @apiVersion 1.0.0
+     * @apiName GetHashtags
+     * @apiGroup Hashtag
+     * @apiPermission user
+     * @apiDescription Retrieve  hashtags used to mark or categorize Tweetpolls, Poll or Survey.
+     * @apiParam {String} limit
+     * @apiParam {String} keyword
+     * @apiParam {String[]} excludes
+     * @apiSampleRequest http://www.encuestame.org/demo/api/help/status
+     * @apiPermission none
+     * @apiSuccessExample
+     * {
+            "error": { },
+            "success": {
+                "items": [
+                    {
+                        "id": 3,
+                        "size": 16,
+                        "hashTagName": "forex",
+                        "hits": 1
+                    },
+                    {
+                        "id": 16,
+                        "size": 15,
+                        "hashTagName": "free",
+                        "hits": 1
+                    }
+                ],
+                "label": "hashTagName",
+                "identifier": "id"
+            }
+        }
+     * @apiSuccess {Object} success
+     * @apiSuccess {String} error
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/hashtags.json", method = RequestMethod.GET)
@@ -111,13 +138,44 @@ public class HashTagsJsonController extends AbstractJsonControllerV1{
         }
 
     /**
-     * Get hashTags cloud.
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/hashtags.json Hashtag Cloud
+     * @apiVersion 1.0.0
+     * @apiName GetCloudHashtag
+     * @apiPermission none
+     * @apiGroup Hashtag
+     * @apiDescription A tag cloud of hashtags with the top hashtags in post mentioning ordered by frecuency.
+     * @apiParam {Number} limit
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/hashtags/cloud.json
+     * @apiPermission none
+     * @apiSuccessExample
+     *
+     * {
+       "error": { },
+        "success": {
+            "cloud": [
+                {
+                    "id": 2,
+                    "size": 16,
+                    "hashTagName": "business",
+                    "hits": 1
+                },
+                {
+                    "id": 3,
+                    "size": 16,
+                    "hashTagName": "forex",
+                    "hits": 1
+                },
+                {
+                    "id": 8,
+                    "size": 16,
+                    "hashTagName": "games",
+                    "hits": 1
+                }
+            ]
+        }
+        }
+     * @apiSuccess {Object} success
+     * @apiSuccess {String} error
      */
     @RequestMapping(value = "/api/common/hashtags/cloud.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getHashTagsCloud(
@@ -141,16 +199,17 @@ public class HashTagsJsonController extends AbstractJsonControllerV1{
     }
 
     /**
-     *
-     * @param hashtag
-     * @param action
-     * @param type
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/survey/hashtag/{type}/{action}.json Hashtag Operations
+     * @apiVersion 1.0.0
+     * @apiName GetOperationHashtag
+     * @apiGroup Hashtag
+     * @apiPermission user
+     * @apiDescription A tag cloud of hashtags with the top hashtags in post mentioning ordered by frecuency.
+     * @apiParam {Number} limit
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/hashtag/test/remove.json
+     * @apiSuccessExample
+     * @apiSuccess {Object} success
+     * @apiSuccess {String} error
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/hashtag/{type}/{action}.json", method = RequestMethod.POST)

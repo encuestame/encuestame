@@ -12,9 +12,12 @@
  */
 package org.encuestame.core.cron;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
 /**
@@ -34,6 +37,7 @@ public class ReIndexJob {
     /**
      * {@link IndexRebuilder}.
      */
+    @Resource(name = "indexRebuilder")
     private IndexRebuilder indexRebuilder;
 
     /**
@@ -41,9 +45,9 @@ public class ReIndexJob {
      */
     @Scheduled(cron = "${cron.reindex}")
     public void reindex(){
-    	if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
-    		this.reindexData();
-    	}
+        if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
+            this.reindexData();
+        }
     }
 
     /**
@@ -52,7 +56,9 @@ public class ReIndexJob {
     private void reindexData(){
         try {
             getIndexRebuilder().reindexEntities();
+            log.info("reindexing entitities ...");
         } catch (Exception e) {
+            e.printStackTrace();
             ReIndexJob.log.error("Error Reindexing "+e.getMessage());
         }
     }

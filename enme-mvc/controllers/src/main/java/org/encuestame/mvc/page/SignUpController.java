@@ -66,6 +66,7 @@ public class SignUpController extends AbstractViewController {
             final HttpServletRequest request) {
         final Boolean privateHome = EnMePlaceHolderConfigurer.getBooleanProperty("application.signup.enabled");
         addi18nProperty(model, "m_011", request, response);
+        addi18nProperty(model, "m_013", request, response);
         if (!privateHome) {
             log.debug("signup is disabled");
             return "redirect:/signin";
@@ -123,6 +124,7 @@ public class SignUpController extends AbstractViewController {
             finalPath = "redirect:/user/signup";
         }
         //i18n
+        addi18nProperty(model, "m_012", request, response);
         addi18nProperty(model, "m_011", request, response);
 
         return finalPath;

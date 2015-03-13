@@ -124,25 +124,23 @@
     </bean>
 
     <!-- Scans the classpath of this application for @Repository Daos-->
-    <context:component-scan base-package="org.encuestame.persistence.dao" />
+   <context:component-scan base-package="org.encuestame.persistence.dao" />
 
+   <context:annotation-config/>
 
-    <context:annotation-config/>
+   <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="delete*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="save*"  propagation="REQUIRED"/>-->
+            <!--<tx:method name="create*"  propagation="REQUIRED"/>-->
+            <!--<tx:method name="update*"  propagation="REQUIRED"/>-->
+            <!--<tx:method name="*" propagation="SUPPORTS" />-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
 
-    <tx:annotation-driven/>
-
-   <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="delete*" propagation="REQUIRED"/>
-            <tx:method name="save*"  propagation="REQUIRED"/>
-            <tx:method name="update*"  propagation="REQUIRED"/>
-            <tx:method name="*" propagation="SUPPORTS" />
-        </tx:attributes>
-    </tx:advice>
-
-    <aop:config>
-        <aop:advisor pointcut="execution(* *..org.encuestame.persistence.dao.*.*(..))" advice-ref="txAdvice"/>
-    </aop:config>
+    <!--<aop:config>-->
+        <!--<aop:advisor pointcut="execution(* *..org.encuestame.persistence.dao.*.*(..))" advice-ref="txAdvice"/>-->
+    <!--</aop:config>-->
 
     <!-- This annotation allow declarative transactions.  -->
     <tx:annotation-driven  transaction-manager="transactionManager"/>

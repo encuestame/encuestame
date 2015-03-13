@@ -50,23 +50,27 @@ public class GeoLocationJsonController extends AbstractJsonControllerV1 {
      */
     private Logger log = Logger.getLogger(this.getClass());
 
-   /**
-    *
-    * @param range
-    * @param maxItem
-    * @param type
-    * @param longitude
-    * @param latitude
-    * @param period
-    * @param tagName
-    * @param typeOfSearch
-    * @param request
-    * @param response
-    * @return
-    * @throws JsonGenerationException
-    * @throws JsonMappingException
-    * @throws IOException
-    */
+    /**
+     * @api {get} /api/common/geolocation/search/{typeOfSearch}.json Get Items by Geolocation
+     * @apiVersion 1.0.0
+     * @apiName GetGeoItemsByType
+     * @apiGroup Geolocation
+     * @apiPermission user
+     * @apiDescription A tag cloud of hashtags with the top hashtags in post mentioning ordered by frecuency.
+     * @apiParam {Number} range
+     * @apiParam {Number} maxItem
+     * @apiParam {String} type
+     * @apiParam {Number} longitude
+     * @apiParam {Number} latitude
+     * @apiParam {Number} period
+     * @apiParam {String} tagName
+     * @apiParam {String} typeOfSearch
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/geolocation/search/tweetpoll.json
+     * @apiSuccessExample
+     * @apiSuccess {Object} success
+     * @apiSuccess {String} error
+     */
+
     @RequestMapping(value = "/api/common/geolocation/search/{typeOfSearch}.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getItemsbyGeoLocationRange(
             @RequestParam(value = "range", required = true) Double range,

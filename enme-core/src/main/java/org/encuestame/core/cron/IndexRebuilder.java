@@ -56,15 +56,22 @@ public class IndexRebuilder {
     public HibernateTemplate hibernateTemplate;
 
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+
     /**
      * Reindex Entities.
      * @throws Exception exception.
      */
     public void reindexEntities() throws Exception {
-        log.debug("Starting domain reindex...");
         long start = System.currentTimeMillis();
-        final FullTextSession fullTextSession = org.hibernate.search.Search.getFullTextSession(
-                              getHibernateTemplate().getSessionFactory().openSession());
+        SessionFactory factory = sessionFactory;
+        final FullTextSession fullTextSession = org.hibernate.search.Search.getFullTextSession(factory.openSession());
         IndexRebuilder.reindex(fullTextSession, Question.class);
         IndexRebuilder.reindex(fullTextSession, UserAccount.class);
         IndexRebuilder.reindex(fullTextSession, TweetPollSavedPublishedStatus.class);

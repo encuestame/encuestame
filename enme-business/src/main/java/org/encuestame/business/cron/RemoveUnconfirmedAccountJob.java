@@ -52,7 +52,9 @@ public class RemoveUnconfirmedAccountJob {
      */
     @Scheduled(cron = "${cron.removeUnconfirmedAccount}")
     public void removeUnconfirmedAccount(){
+        log.info("EnMePlaceHolderConfigurer.getSystemInstalled()" + EnMePlaceHolderConfigurer.getSystemInstalled());
     	if (EnMePlaceHolderConfigurer.getSystemInstalled()) {
+            log.info("Removing non confirmed accounts...");
 	        try {
 	          getSecurityService().removeUnconfirmedAccount(Boolean.FALSE);
 	        } catch (Exception e) {

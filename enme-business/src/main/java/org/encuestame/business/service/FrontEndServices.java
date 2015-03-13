@@ -1081,44 +1081,34 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         long socialAccounts;
         long numberVotes;
         long hashTagHits;
+
         for (TweetPoll tweetPoll : tweetPollList) {
-            likeVote = tweetPoll.getLikeVote() == null ? 0 : tweetPoll
-                    .getLikeVote();
-            dislikeVote = tweetPoll.getDislikeVote() == null ? 0 : tweetPoll
-                    .getDislikeVote();
+            likeVote = tweetPoll.getLikeVote() == null ? 0 : tweetPoll.getLikeVote();
+            dislikeVote = tweetPoll.getDislikeVote() == null ? 0 : tweetPoll.getDislikeVote();
             hits = tweetPoll.getHits() == null ? 0 : tweetPoll.getHits();
             // final Long userId = tweetPoll.getEditorOwner().getUid();
-            socialAccounts = this.getSocialAccountsLinksByItem(tweetPoll, null,
-                    null, TypeSearchResult.TWEETPOLL);
+            socialAccounts = this.getSocialAccountsLinksByItem(tweetPoll, null, null, TypeSearchResult.TWEETPOLL);
             numberVotes = tweetPoll.getNumbervotes();
-            comments = getTotalCommentsbyType(tweetPoll.getTweetPollId(),
-                    TypeSearchResult.TWEETPOLL);
+            comments = getTotalCommentsbyType(tweetPoll.getTweetPollId(), TypeSearchResult.TWEETPOLL);
             log.debug("Total comments by TweetPoll ---->" + comments);
-            hashTagHits = this.getTotalHits(tweetPoll.getTweetPollId(),
-                    TypeSearchResult.HASHTAG, periods);
-            relevance = this.getRelevanceValue(likeVote, dislikeVote, hits,
-                    comments, socialAccounts, numberVotes, hashTagHits);
+            hashTagHits = this.getTotalHits(tweetPoll.getTweetPollId(), TypeSearchResult.HASHTAG, periods);
+            relevance = this.getRelevanceValue(likeVote, dislikeVote, hits, comments, socialAccounts, numberVotes, hashTagHits);
             tweetPoll.setRelevance(relevance);
-            getTweetPollDao().saveOrUpdate(tweetPoll);
+            getTweetPollDao().merge(tweetPoll);
         }
 
         for (Poll poll : pollList) {
             likeVote = poll.getLikeVote() == null ? 0 : poll.getLikeVote();
-            dislikeVote = poll.getDislikeVote() == null ? 0 : poll
-                    .getDislikeVote();
+            dislikeVote = poll.getDislikeVote() == null ? 0 : poll.getDislikeVote();
             hits = poll.getHits() == null ? 0 : poll.getHits();
-            socialAccounts = this.getSocialAccountsLinksByItem(null, null,
-                    poll, TypeSearchResult.POLL);
+            socialAccounts = this.getSocialAccountsLinksByItem(null, null, poll, TypeSearchResult.POLL);
             numberVotes = poll.getNumbervotes() == null ? 0 : poll.getNumbervotes();
-            comments = getTotalCommentsbyType(poll.getPollId(),
-                    TypeSearchResult.POLL);
+            comments = getTotalCommentsbyType(poll.getPollId(), TypeSearchResult.POLL);
             log.debug("Total Comments by Poll ---->" + comments);
-            hashTagHits = this.getTotalHits(poll.getPollId(),
-                    TypeSearchResult.HASHTAG, periods);
-            relevance = this.getRelevanceValue(likeVote, dislikeVote, hits,
-                    comments, socialAccounts, numberVotes, hashTagHits);
+            hashTagHits = this.getTotalHits(poll.getPollId(), TypeSearchResult.HASHTAG, periods);
+            relevance = this.getRelevanceValue(likeVote, dislikeVote, hits, comments, socialAccounts, numberVotes, hashTagHits);
             poll.setRelevance(relevance);
-            getPollDao().saveOrUpdate(poll);
+            getPollDao().merge(poll);
         }
 
     }
