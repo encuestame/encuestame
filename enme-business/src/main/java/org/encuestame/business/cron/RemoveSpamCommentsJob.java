@@ -54,7 +54,7 @@ public class RemoveSpamCommentsJob {
 	public void removeSpamComments() {
     	if (EnMePlaceHolderConfigurer.getSystemInstalled()) {
 			try {
-	   		 log.debug("Remove Spam Comments");
+	   		 log.info("Removing Spam Comments...");
 			} catch (Exception e) {
 				// TODO: handle exception
 				 log.error(e);

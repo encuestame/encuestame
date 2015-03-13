@@ -27,6 +27,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.social.SocialProvider;
+import org.encuestame.utils.social.SocialUserProfile;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -96,8 +97,7 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
      */
     public final Long retrieveTotalUsers(final Account account){
          Long resultsSize = 0L;
-         final List list =  getHibernateTemplate().findByNamedParam("select count(*) from UserAccount "
-                 +" WHERE account = :account", "account", account);
+         final List list =  getHibernateTemplate().findByNamedParam("select count(*) from UserAccount WHERE account = :account", "account", account);
          if (list.get(0) instanceof Long){
              log.debug("instace of Long");
              resultsSize = (Long) list.get(0);
@@ -160,7 +160,7 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
 
     /**
      * Get Total of TweetPoll By User Editor.
-     * @param userSecondary
+     * @param userId
      * @return
      */
     public List getTotalTweetPollByUser(final Long userId){ //editorOwner
@@ -170,10 +170,10 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
 
     /**
      * Get Total of TweetPoll By User Editor.
-     * @param userSecondary
+     * @param userId
      * @return
      */
-    public List getTotalPollByUser(final Long userId){ //editorOwner
+    public List getTotalPollByUser(final Long userId) { //editorOwner
         return getHibernateTemplate().findByNamedParam("select count(pollId) "
                +" from Poll where editorOwner.id = :editorOwner", "editorOwner", userId);
     }
@@ -206,6 +206,66 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
         final List accountsId = getHibernateTemplate().findByCriteria(criteria);
         return accountsId;
     }
+
+    /**
+     * Disconnect Account Connection.
+     * @param accountId
+     * @param provider
+     * @throws EnMeNoResultsFoundException
+     */
+    public void disconnect(String accountId, SocialProvider provider) throws EnMeNoResultsFoundException {
+        final SocialAccount ac = this.getAccountConnection(accountId, provider);
+        if(ac == null){
+            throw new EnMeNoResultsFoundException("connection not found");
+        } else {
+            getHibernateTemplate().delete(ac);
+        }
+    }
+
+    /**
+     * Create new social account.
+     * @param socialAccountId
+     * @param token
+     * @param tokenSecret
+     * @param expiresToken
+     * @param username
+     * @param socialUserProfile
+     * @param socialProvider
+     * @param userAccount
+     * @return
+     */
+    public SocialAccount createSocialAccount(
+            final String socialAccountId,
+            final String token,
+            final String tokenSecret,
+            final String expiresToken,
+            final String username,
+            final SocialUserProfile socialUserProfile,
+            final SocialProvider socialProvider,
+            final UserAccount userAccount) {
+        final SocialAccount socialAccount = new SocialAccount();
+        socialAccount.setAccessToken(token);
+        socialAccount.setSecretToken(tokenSecret);
+        socialAccount.setAccount(userAccount.getAccount());
+        socialAccount.setUserOwner(userAccount);
+        socialAccount.setExpires(expiresToken);
+        socialAccount.setAccounType(socialProvider);
+        socialAccount.setAddedAccount(new Date());
+        socialAccount.setVerfied(Boolean.TRUE);
+        socialAccount.setSocialAccountName(socialUserProfile.getUsername());
+        socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
+        socialAccount.setUpgradedCredentials(new Date());
+        socialAccount.setSocialProfileId(socialUserProfile.getId());
+        socialAccount.setPublicProfileUrl(socialUserProfile.getProfileUrl());
+        socialAccount.setPrictureUrl(socialUserProfile.getProfileImageUrl()); //TODO: repeated
+        socialAccount.setProfilePictureUrl(socialUserProfile.getProfileImageUrl());
+        socialAccount.setEmail(socialUserProfile.getEmail());
+        socialAccount.setProfileThumbnailPictureUrl(socialUserProfile.getProfileImageUrl());
+        socialAccount.setRealName(socialUserProfile.getRealName());
+        this.saveOrUpdate(socialAccount);
+        return socialAccount;
+    }
+
 
     /*
      * (non-Javadoc)

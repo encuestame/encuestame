@@ -46,6 +46,7 @@ public class SendNotificationsJob {
 	@Scheduled(cron = "${cron.sendNotifications}")
 	public void sendNotifications() {
 		if (EnMePlaceHolderConfigurer.getSystemInstalled()) {
+            logger.info("Sending storage notifications...");
 			String username = "demo10";
 			final NotificationResume notificationResume = new NotificationResume();
 			notificationResume.setTotalNewNot(RandomUtils.nextLong());

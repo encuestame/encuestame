@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.cron;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.IFrontEndService;
@@ -31,7 +33,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 public class CalculateRelevance {
 
      /** Log. **/
-    private Logger log = Logger.getLogger(this.getClass());
+    private static final Log log = LogFactory.getLog(CalculateRelevance.class);
 
     /**
      * {@link IFrontEndService}.
@@ -68,21 +70,22 @@ public class CalculateRelevance {
      */
     @Scheduled(cron = "${cron.calculateRelevance}")
     public void calculate() {
-    	if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
-	        log.info("************ Start calculate relevance item **************");
-	        // Unused code to search items by date range.
-	        /*
-	         * final Calendar dateFrom = Calendar.getInstance();
-	         * dateFrom.add(Calendar.DATE, -5); final Calendar datebefore =
-	         * Calendar.getInstance(); datebefore.add(Calendar.DATE, -5); final
-	         * Calendar todayDate = Calendar.getInstance();
-	         */
-	        getFrontEndService().processItemstoCalculateRelevance(
-	                getTweetPollService().getTweetPollsbyRange(MAX_RESULTS, START_RESULTS,
-	                        null),
-	                getPollService().getPollsByRange(MAX_RESULTS, START_RESULTS, null),
-	                null, SearchPeriods.ALLTIME);
-    	}
+        if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
+            log.info("Starting calculate of relevance..");
+            // Unused code to search items by date range.
+            /*
+             * final Calendar dateFrom = Calendar.getInstance();
+             * dateFrom.add(Calendar.DATE, -5); final Calendar datebefore =
+             * Calendar.getInstance(); datebefore.add(Calendar.DATE, -5); final
+             * Calendar todayDate = Calendar.getInstance();
+             */
+            getFrontEndService().processItemstoCalculateRelevance(
+                    getTweetPollService().getTweetPollsbyRange(MAX_RESULTS, START_RESULTS,
+                            null),
+                    getPollService().getPollsByRange(MAX_RESULTS, START_RESULTS, null),
+                    null, SearchPeriods.ALLTIME);
+            log.info("calculated relevance finished");
+        }
     }
 
     /**

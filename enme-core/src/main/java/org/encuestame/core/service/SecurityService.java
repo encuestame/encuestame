@@ -1064,6 +1064,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.SecurityOperations#addNewSocialAccount(java.lang.String, java.lang.String, org.encuestame.core.social.SocialUserProfile, org.encuestame.persistence.domain.social.SocialProvider)
      */
+    @Transactional(readOnly = false)
     public SocialAccount addNewSocialAccount(
             final String token,
             final String tokenSecret,
