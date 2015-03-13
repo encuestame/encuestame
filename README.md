@@ -6,6 +6,8 @@
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/encuestame/encuestame?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+[![Download encuestame](https://img.shields.io/sourceforge/dw/encuestame.svg)](https://sourceforge.net/projects/encuestame/files/latest/download)
+
 For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
 
 **Take a look our [demo](http://www.encuestame.org/demo)**
