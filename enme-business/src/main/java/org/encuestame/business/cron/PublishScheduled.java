@@ -15,8 +15,11 @@ package org.encuestame.business.cron;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.cron.IndexRebuilder;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.domain.Schedule;
@@ -37,7 +40,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 public class PublishScheduled {
 
 	/** Log. **/
-	private Logger log = Logger.getLogger(this.getClass());
+    private static final Log log = LogFactory.getLog(PublishScheduled.class);
 
 	/** **/
 	@Autowired
@@ -54,7 +57,7 @@ public class PublishScheduled {
 	@Scheduled(cron = "${cron.publishAllScheduled}")
 	public void publish() {
 		if (EnMePlaceHolderConfigurer.getSystemInstalled()) {
-			log.trace("************ Start publish scheduled items **************");
+            log.info("publishing scheduled items ...");
 			// I include in the search for the minimum date that have the maximum attempts
 			final Date minimumDate = getScheduled().retrieveMinimumScheduledDate(
 					Status.ACTIVE);
@@ -88,20 +91,6 @@ public class PublishScheduled {
 		if (removeList.size() > 0){
 			getTpollService().removeScheduledItems(status, 5);
 		}
-	}
-
-	/**
-	 * @return the log
-	 */
-	public Logger getLog() {
-		return log;
-	}
-
-	/**
-	 * @param log the log to set
-	 */
-	public void setLog(Logger log) {
-		this.log = log;
 	}
 
 	/**

@@ -183,6 +183,10 @@ public class EnMeWebMvcConfiguration extends WebMvcConfigurerAdapter {
        return new CheckInstallInterceptor();
    }
 
+   public @Bean(name="indexRebuilder") IndexRebuilder indexRebuilder(){
+       return new IndexRebuilder();
+   }
+
     /**
      *
      * @return
@@ -191,7 +195,6 @@ public class EnMeWebMvcConfiguration extends WebMvcConfigurerAdapter {
     public @Bean(name = "reindexJob")
     ReIndexJob reIndexJob() throws EnMeExpcetion {
         ReIndexJob indexJob = new ReIndexJob();
-        indexJob.setIndexRebuilder(new IndexRebuilder());
         return indexJob;
     }
 

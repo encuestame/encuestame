@@ -321,8 +321,8 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
             SecurityUtils.authenticate(u);
             tweetPollBean.setUserId(u.getAccount().getUid());
             tweetPollBean.setCloseNotification(Boolean.FALSE);
-            
-            tweetPollBean.setResultNotification(Boolean.FALSE);            
+
+            tweetPollBean.setResultNotification(Boolean.FALSE);
             // all published by default
             tweetPollBean.setPublishPoll(Boolean.TRUE);
             // publish aleatory a publish poll.
@@ -339,7 +339,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
                 //force to be published
                 tweetPollDomain.setPublishTweetPoll(true);
                 getTweetPollDao().saveOrUpdate(tweetPollDomain);
-                
+
                 double hits = getRandomNumberRange(2, EnMePlaceHolderConfigurer
                         .getIntegerProperty("demo.max.tweetpoll.hits"));
                 for (int i = 0; i < hits; i++) {
