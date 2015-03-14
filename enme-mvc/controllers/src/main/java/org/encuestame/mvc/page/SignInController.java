@@ -69,6 +69,7 @@ public class SignInController extends AbstractSocialController{
             HttpServletResponse response,
             HttpServletRequest request) {
         request.setAttribute("social", isSocialSignInUpEnabled());
+        addi18nProperty(model, "m_012", request, response);
         log.debug("login");
         return "signin";
     }

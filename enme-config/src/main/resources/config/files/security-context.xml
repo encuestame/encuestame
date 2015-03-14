@@ -65,8 +65,7 @@
                             key="${spring.sec.anonymous.key}" />
         <security:logout logout-success-url="${spring.sec.logout.sucess}"
                          invalidate-session="true" 
-                         logout-url="${spring.sec.logout.url}" 
-                         delete-cookies="JSESSIONID"/>
+                         logout-url="${spring.sec.logout.url}"/>
         <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
 <!--         <security:session-management invalid-session-url="/user/session/invalid" -->
 <!--                   session-fixation-protection="newSession"></security:session-management> -->
