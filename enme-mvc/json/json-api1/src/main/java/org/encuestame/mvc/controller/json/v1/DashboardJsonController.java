@@ -159,7 +159,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
             @RequestParam(value = "favorite", required = false) Boolean favorite,
             @RequestParam(value = "layout", required = false) String layout,
             HttpServletRequest request,
-            HttpServletResponse response){
+            HttpServletResponse response) {
          try {
              final DashboardBean bean = new DashboardBean();
              bean.setDashboardName(boardName);
