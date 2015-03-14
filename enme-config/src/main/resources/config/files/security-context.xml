@@ -151,8 +151,8 @@
         <property name="publicKey" value="6LdyFwUAAAAAAP6p1IeqUM7uMKUYyPazw-haEAUU" />
         -->
         <!-- localhost -->
-        <property name="privateKey" value="6LeytMUSAAAAANFxwgAGkQn-ajpbQKVFms2AWMRX" />
-        <property name="publicKey" value="6LeytMUSAAAAAF84VURfI3TmYFEBLMLvyk5-zTxc" />
+        <property name="privateKey" value="${captcha.private.key}" />
+        <property name="publicKey" value="${catpcha.public.key}" />
         <property name="includeNoscript" value="false" />
         <!-- po ssl -->
         <property name="recaptchaServer" value="http://api-secure.recaptcha.net" />

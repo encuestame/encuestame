@@ -48,9 +48,9 @@
             <c:when test="${!debugEnabled}">
                 <div>
                     <div class="page-header">
-                        <h1>
+                        <h3>
                             <spring:message code="e_025" />
-                        </h1>
+                        </h3>
                     </div>
                     <p class="lead">
                         <spring:message code="e_023" />
