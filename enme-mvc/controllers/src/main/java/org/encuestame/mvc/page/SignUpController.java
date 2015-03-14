@@ -117,7 +117,7 @@ public class SignUpController extends AbstractViewController {
                  RequestSessionMap.getCurrent(req).put("signupError", Boolean.TRUE);
                  finalPath = "redirect:/user/signup";
                  log.error("error on signup : " + e.getMessage());
-                 e.printStackTrace();
+                 //e.printStackTrace();
             }
         } else {
             log.warn(" the signup not valid");

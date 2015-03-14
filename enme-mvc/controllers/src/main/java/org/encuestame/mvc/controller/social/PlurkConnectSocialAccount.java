@@ -112,7 +112,7 @@ public class PlurkConnectSocialAccount extends AbstractAccountConnect{
             e1.printStackTrace();
         } catch (Exception e) {
             RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return this.redirect+"#provider="+SocialProvider.PLURK.toString().toLowerCase()+"&refresh=true&successful=true";
     }

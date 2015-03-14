@@ -189,7 +189,7 @@ public class SocialUtils {
             log.error("IOException"+ e);
             yourlsShortUrl = url;
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error("IOException"+ e);
             yourlsShortUrl = url;
         } finally {

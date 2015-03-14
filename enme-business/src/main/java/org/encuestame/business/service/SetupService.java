@@ -123,7 +123,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
         } catch (Exception e) {
             log.fatal(e);
             RequestSessionMap.setErrorMessage(e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
             return "fail";
         }
         return "ok"; //TODO: replace by enum in the future.
@@ -147,7 +147,8 @@ public class SetupService extends AbstractBaseService implements SetupOperations
             }
         } catch (Exception ex) {
             RequestSessionMap.setErrorMessage(ex.getMessage());
-            ex.printStackTrace();
+            //ex.printStackTrace();
+            log.error(ex);
             return "no";
         }
         return "yes";
@@ -232,7 +233,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
              this.install.dropAll();
              return true;
          } catch (Exception e) {
-             e.printStackTrace();
+             //e.printStackTrace();
              log.fatal(e);
              RequestSessionMap.setErrorMessage(e.getMessage());
              return false;
@@ -253,7 +254,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
                     EnMePlaceHolderConfigurer
                     .getIntegerProperty("demo.votes.by.survey"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.fatal(e);
             RequestSessionMap.setErrorMessage(e.getMessage());
         }

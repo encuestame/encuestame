@@ -12,6 +12,9 @@
  */
 package org.encuestame.utils;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,6 +27,8 @@ import java.security.NoSuchAlgorithmException;
  * Taked from shrtlnk project http://tinyurl.com/yfwocal
  */
 public class MD5Utils {
+
+    private static final Log log = LogFactory.getLog(MD5Utils.class);
 
     /**
      * Convert md5 bytes into hex values
@@ -73,9 +78,11 @@ public class MD5Utils {
         try {
             return md5(text);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            log.error(e);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            log.error(e);
         }
         return "";
     }

@@ -141,7 +141,7 @@ public class TweetPollController extends AbstractViewController {
                                 }
                             } catch (Exception e) {
                                 // TODO: handle exception
-                                e.printStackTrace();
+                                //e.printStackTrace();
                                 log.error("");
                                 pathVote = "repeatedTweetVote";
                             }
@@ -319,7 +319,7 @@ public class TweetPollController extends AbstractViewController {
                 path = "tweetpoll/social";
             }
         } catch (EnMeNoResultsFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
             path = "505";
         }
@@ -421,15 +421,15 @@ public class TweetPollController extends AbstractViewController {
                 return "404"; //FIXME: replace by ENUM
             }
         } catch (EnMeTweetPollNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
             return "404"; //FIXME: replace by ENUM
         } catch (EnMeNoResultsFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
              log.error(e);
              return "404"; //FIXME: replace by ENUM
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
             return "404"; //FIXME: replace by ENUM
         }

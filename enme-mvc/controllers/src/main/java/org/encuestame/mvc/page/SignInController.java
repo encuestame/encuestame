@@ -69,7 +69,6 @@ public class SignInController extends AbstractSocialController{
             HttpServletResponse response,
             HttpServletRequest request) {
         request.setAttribute("social", isSocialSignInUpEnabled());
-        addi18nProperty(model, "m_012", request, response);
         log.debug("login");
         return "signin";
     }
@@ -212,7 +211,7 @@ public class SignInController extends AbstractSocialController{
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";
             } catch (Exception e) {
-                e.printStackTrace();
+                  //e.printStackTrace();
                  log.fatal("OAuth Exception:{"+e.getMessage());
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";

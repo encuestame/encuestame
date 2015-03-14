@@ -242,7 +242,7 @@ public class PollController extends AbstractViewController {
                                     }
                                 } catch (Exception e) {
                                     log.error(e.getMessage());
-                                    e.printStackTrace();
+                                    //e.printStackTrace();
                                     model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                                     pathVote = "poll/" + isEmbedded + "bad";
                                 }
@@ -424,7 +424,7 @@ public class PollController extends AbstractViewController {
                                     }
                                 } catch (Exception e) {
                                     log.error(e.getMessage());
-                                    e.printStackTrace();
+                                    //e.printStackTrace();
                                     pathVote = "poll/" + isEmbedded + "bad";
                                 }
                             }
@@ -433,7 +433,7 @@ public class PollController extends AbstractViewController {
                     }
                 }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println(e.getMessage());
             pathVote = "poll/" + isEmbedded + "bad";
         }
@@ -608,7 +608,7 @@ public class PollController extends AbstractViewController {
             return "poll/vote";
         } catch (EnMeNoResultsFoundException e) {
             log.error(e);
-            e.printStackTrace();
+            //e.printStackTrace();
             model.put("message", "Poll not valid.");
             return "404";
         }

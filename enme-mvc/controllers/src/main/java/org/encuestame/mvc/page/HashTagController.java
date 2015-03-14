@@ -118,7 +118,7 @@ public class HashTagController extends AbstractViewController {
                 model.addAttribute("tweetPolls", lastPublications);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
             return "404";
         }

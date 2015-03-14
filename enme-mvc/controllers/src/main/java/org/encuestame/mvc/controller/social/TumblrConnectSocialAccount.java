@@ -106,13 +106,16 @@ public class TumblrConnectSocialAccount extends AbstractAccountConnect{
 	            this.checkOAuth1SocialAccount(SocialProvider.TUMBLR, accessToken);
 	        } catch (EnMeOAuthSecurityException e1) {
 	            RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
-	            e1.printStackTrace();
+	            //e1.printStackTrace();
+                log.error(e1);
 	        } catch (EnMeExistPreviousConnectionException e1) {
 	            RequestSessionMap.setErrorMessage(getMessage("social.repeated.account", httpRequest, null));
-	            e1.printStackTrace();
+	            //e1.printStackTrace();
+                log.error(e1);
 	        } catch (Exception e) {
 	            RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
-	            e.printStackTrace();
+	            //e.printStackTrace();
+                log.error(e);
 	        }
 	        return this.redirect+"#provider="+SocialProvider.TUMBLR.toString().toLowerCase()+"&refresh=true&successful=true";
 	    }

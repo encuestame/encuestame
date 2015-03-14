@@ -79,7 +79,7 @@ public class SettingsController extends AbstractBaseOperations{
             log.debug("settingsAccountController user: " + user.toString());
         } catch (EnMeNoResultsFoundException e) {
             log.error(e);
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return "settings/account";
     }

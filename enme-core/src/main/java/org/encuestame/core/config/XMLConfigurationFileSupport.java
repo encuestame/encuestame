@@ -68,7 +68,7 @@ public class XMLConfigurationFileSupport {
                 log.fatal(e);
             } catch (EnmeFailOperation e) {
                  log.fatal(e);
-                e.printStackTrace();
+                //e.printStackTrace();
             }
     }
 
@@ -107,11 +107,11 @@ public class XMLConfigurationFileSupport {
             final File file = new File(buildConfigFilePath());
             this.reloadConfiguration(file);
         } catch (ConfigurationException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.fatal(e);
             log.fatal("not able to reload configuration manager");
         } catch (EnmeFailOperation e) {
-             e.printStackTrace();
+             //e.printStackTrace();
              log.fatal(e);
              log.fatal("not able to reload configuration manager");
         }

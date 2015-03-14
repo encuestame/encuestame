@@ -69,13 +69,13 @@ public class IndexWriterManager implements IIndexWriter {
             this.indexWriter = SearchUtils.openIndexWriter(getDirectoryStore(), this.indexWriter);
             Assert.notNull(this.indexWriter);
         } catch (CorruptIndexException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.fatal(e);
         } catch (LockObtainFailedException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.fatal(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.fatal(e);
         }
     }
