@@ -37,7 +37,7 @@
             <artifactId>json-api1</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
-            <version>${encuestame.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>

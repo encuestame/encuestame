@@ -23,29 +23,29 @@
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>json-api2</artifactId>
-            <version>${encuestame.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>json-api1</artifactId>
-            <version>${encuestame.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>websocket</artifactId>
-            <version>${encuestame.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>json-api1</artifactId>
-            <version>${encuestame.version}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>json-api2</artifactId>
-            <version>${encuestame.version}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
@@ -411,7 +411,7 @@
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>resources-enme-war</artifactId>
-            <version>${encuestame.version}</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>

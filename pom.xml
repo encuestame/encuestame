@@ -719,119 +719,119 @@
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-core</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-core! -->
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-core</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-utils</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-core! -->
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-utils</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>controllers</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
                 <groupId>org.encuestame</groupId>
                 <artifactId>controllers</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
                 <groupId>org.encuestame</groupId>
                 <artifactId>websocket</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
              <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>enme-model</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>enme-dao</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <type>jar</type>
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-core! -->
                 <groupId>org.encuestame</groupId>
                 <artifactId>enme-dao</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-search</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-business</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-core! -->
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-business</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-oauth</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-social</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-config</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-social</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-oauth</artifactId>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>

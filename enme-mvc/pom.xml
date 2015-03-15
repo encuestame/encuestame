@@ -23,14 +23,14 @@
                 <artifactId>encuestame-business</artifactId>
                 <scope>test</scope>
                 <classifier>tests</classifier>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>encuestame-dao</artifactId>
                 <scope>test</scope>
                 <classifier>tests</classifier>
-                <version>${encuestame.version}</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
