@@ -104,7 +104,7 @@ public class ApplicationStartup implements StartupProcess {
             //}
         } catch (Exception e) {
             log.fatal("Error on Start Up: " + e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
             throw new EnMeStartupException(e);
         }
     }

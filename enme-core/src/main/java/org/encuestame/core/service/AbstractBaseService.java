@@ -769,7 +769,8 @@ public abstract class AbstractBaseService extends AbstractDataSource {
             }
         } catch (EnmeFailOperation e) {
             log.fatal("not able to create user configuration profile");
-            e.printStackTrace();
+            //e.printStackTrace();
+            log.error(e);
         }
     }
 

@@ -196,7 +196,7 @@ public class HomeController extends AbstractViewController {
                 return "profile/view";
             }
         } catch (EnMeNoResultsFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
             return "500";
         }

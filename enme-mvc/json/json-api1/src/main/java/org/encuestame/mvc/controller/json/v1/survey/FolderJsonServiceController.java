@@ -314,7 +314,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
             setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
+            //e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

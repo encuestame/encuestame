@@ -117,7 +117,7 @@ public class LinkedInConnectSocialAccount extends AbstractAccountConnect {
              e1.printStackTrace();
              RequestSessionMap.setErrorMessage(getMessage("social.repeated.account", httpRequest, null));
          } catch (Exception e) {
-             e.printStackTrace();
+             //e.printStackTrace();
              RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
          }
          return this.redirect+"#provider="+SocialProvider.LINKEDIN.toString().toLowerCase()+"&refresh=true&successful=true";

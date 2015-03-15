@@ -76,7 +76,7 @@ public class SettingsJsonController extends AbstractJsonControllerV1{
             jsonResponse.put("account", user);
             setItemResponse(jsonResponse);
         } catch (EnMeNoResultsFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             setError(e, response);
         }
         return returnData();
@@ -143,7 +143,7 @@ public class SettingsJsonController extends AbstractJsonControllerV1{
             }
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
+            //e.printStackTrace();
             setError(getMessage("e_023", request, null), response);
             //throw new JsonGenerationException(e.getMessage());
         }
@@ -221,7 +221,7 @@ public class SettingsJsonController extends AbstractJsonControllerV1{
             }
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
+            //e.printStackTrace();
             setError(getMessage("e_023", request, null), response);
         }
         return returnData();

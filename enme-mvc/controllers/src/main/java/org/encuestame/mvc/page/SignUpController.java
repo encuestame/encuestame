@@ -66,7 +66,8 @@ public class SignUpController extends AbstractViewController {
             final HttpServletRequest request) {
         final Boolean privateHome = EnMePlaceHolderConfigurer.getBooleanProperty("application.signup.enabled");
         addi18nProperty(model, "m_011", request, response);
-        addi18nProperty(model, "m_013", request, response);
+        addi18nProperty(model, "e_013", request, response);
+        addi18nProperty(model, "m_012", request, response);
         if (!privateHome) {
             log.debug("signup is disabled");
             return "redirect:/signin";
@@ -116,7 +117,7 @@ public class SignUpController extends AbstractViewController {
                  RequestSessionMap.getCurrent(req).put("signupError", Boolean.TRUE);
                  finalPath = "redirect:/user/signup";
                  log.error("error on signup : " + e.getMessage());
-                 e.printStackTrace();
+                 //e.printStackTrace();
             }
         } else {
             log.warn(" the signup not valid");

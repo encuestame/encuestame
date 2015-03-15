@@ -70,7 +70,7 @@ public class PublishScheduled {
 					getTpollService().publishScheduledItems(Status.ACTIVE, minimumDate);
 				} catch (EnMeNoResultsFoundException e) {
 					log.error("error on execute the sheduled publish tweetpoll job " + e.getMessage());
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 			else {

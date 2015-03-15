@@ -141,7 +141,7 @@ public class TweetPollController extends AbstractViewController {
                                 }
                             } catch (Exception e) {
                                 // TODO: handle exception
-                                e.printStackTrace();
+                                //e.printStackTrace();
                                 log.error("");
                                 pathVote = "repeatedTweetVote";
                             }
@@ -319,7 +319,7 @@ public class TweetPollController extends AbstractViewController {
                 path = "tweetpoll/social";
             }
         } catch (EnMeNoResultsFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
             path = "505";
         }
@@ -369,6 +369,7 @@ public class TweetPollController extends AbstractViewController {
         addi18nProperty(model, "tp_help_2", request, response);
         addi18nProperty(model, "tp_help_3",  request, response);
         addi18nProperty(model, "tp_help_4", request, response);
+        addi18nProperty(model, "help_center_search", request, response);
         /** *** *** ** Help Guide ** *** *** **/
         addi18nProperty(model, "help_tp_quick_help", request, response);
         addi18nProperty(model, "help_tp_hide_help", request, response);
@@ -421,15 +422,15 @@ public class TweetPollController extends AbstractViewController {
                 return "404"; //FIXME: replace by ENUM
             }
         } catch (EnMeTweetPollNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
             return "404"; //FIXME: replace by ENUM
         } catch (EnMeNoResultsFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
              log.error(e);
              return "404"; //FIXME: replace by ENUM
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
             return "404"; //FIXME: replace by ENUM
         }

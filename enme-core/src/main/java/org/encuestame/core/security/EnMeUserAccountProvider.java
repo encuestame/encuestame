@@ -33,7 +33,7 @@ public class EnMeUserAccountProvider implements AuthenticationProvider {
     /*
      * Log.
      */
-    private Logger log = Logger.getLogger(EnMeSocialAccountUserService.class);
+    private Logger log = Logger.getLogger(EnMeUserAccountProvider.class);
 
     @Override
     public Authentication authenticate(Authentication authentication)

@@ -12,14 +12,19 @@
  */
 package org.encuestame.utils.web.notification;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
- * Description Class.
+ * Notification Bean
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 18, 2010 11:17:11 PM
- * @version Id:
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UtilNotification implements Serializable {
 
     /**
@@ -27,27 +32,40 @@ public class UtilNotification implements Serializable {
      */
     private static final long serialVersionUID = 74374939382833094L;
 
+    @JsonProperty(value = "description")
     private String description;
 
+    @JsonProperty(value = "id")
     private Long id;
 
+    @JsonProperty(value = "date")
     private String date;
 
+    @JsonProperty(value = "type")
     private String type;
 
+    @JsonProperty(value = "icon")
     private String icon;
 
+    @JsonProperty(value = "hour")
     private String hour;
 
+    @JsonProperty(value = "additionalDescription")
     private String additionalDescription;
 
+    @JsonProperty(value = "url")
     private String url;
 
+    @JsonProperty(value = "readed")
     private Boolean readed;
+
+    @JsonProperty(value = "date_millis")
+    private Date realDate;
 
     /**
      * @return the description
      */
+    @JsonIgnore
     public String getDescription() {
         return description;
     }
@@ -62,6 +80,7 @@ public class UtilNotification implements Serializable {
     /**
      * @return the date
      */
+    @JsonIgnore
     public String getDate() {
         return date;
     }
@@ -76,6 +95,7 @@ public class UtilNotification implements Serializable {
     /**
      * @return the hour
      */
+    @JsonIgnore
     public String getHour() {
         return hour;
     }
@@ -90,6 +110,7 @@ public class UtilNotification implements Serializable {
     /**
      * @return the id
      */
+    @JsonIgnore
     public Long getId() {
         return id;
     }
@@ -104,6 +125,7 @@ public class UtilNotification implements Serializable {
     /**
      * @return the icon
      */
+    @JsonIgnore
     public String getIcon() {
         return icon;
     }
@@ -118,6 +140,7 @@ public class UtilNotification implements Serializable {
     /**
      * @return the additionalDescription
      */
+    @JsonIgnore
     public String getAdditionalDescription() {
         return additionalDescription;
     }
@@ -132,6 +155,7 @@ public class UtilNotification implements Serializable {
     /**
      * @return the type
      */
+    @JsonIgnore
     public String getType() {
         return type;
     }
@@ -146,6 +170,7 @@ public class UtilNotification implements Serializable {
     /**
      * @return the url
      */
+    @JsonIgnore
     public String getUrl() {
         return url;
     }
@@ -160,6 +185,7 @@ public class UtilNotification implements Serializable {
     /**
      * @return the readed
      */
+    @JsonIgnore
     public Boolean getReaded() {
         return readed;
     }
@@ -169,5 +195,14 @@ public class UtilNotification implements Serializable {
      */
     public void setReaded(final Boolean readed) {
         this.readed = readed;
+    }
+
+    @JsonIgnore
+    public Date getRealDate() {
+        return realDate;
+    }
+
+    public void setRealDate(Date realDate) {
+        this.realDate = realDate;
     }
 }

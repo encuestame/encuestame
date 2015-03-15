@@ -242,7 +242,7 @@ public class PollController extends AbstractViewController {
                                     }
                                 } catch (Exception e) {
                                     log.error(e.getMessage());
-                                    e.printStackTrace();
+                                    //e.printStackTrace();
                                     model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                                     pathVote = "poll/" + isEmbedded + "bad";
                                 }
@@ -424,7 +424,7 @@ public class PollController extends AbstractViewController {
                                     }
                                 } catch (Exception e) {
                                     log.error(e.getMessage());
-                                    e.printStackTrace();
+                                    //e.printStackTrace();
                                     pathVote = "poll/" + isEmbedded + "bad";
                                 }
                             }
@@ -433,7 +433,7 @@ public class PollController extends AbstractViewController {
                     }
                 }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println(e.getMessage());
             pathVote = "poll/" + isEmbedded + "bad";
         }
@@ -571,6 +571,8 @@ public class PollController extends AbstractViewController {
         addi18nProperty(model, "button_try_later", request, response);
         addi18nProperty(model, "button_ignore", request, response);
         addi18nProperty(model, "button_try_again", request, response);
+        addi18nProperty(model, "poll_is_hidden", request, response);
+        addi18nProperty(model, "poll_password", request, response);
         /** *** *** ** Help Guide ** *** *** **/
         addi18nProperty(model, "help_poll_question_text", request, response);
         addi18nProperty(model, "help_poll_answers_text", request, response);
@@ -608,7 +610,7 @@ public class PollController extends AbstractViewController {
             return "poll/vote";
         } catch (EnMeNoResultsFoundException e) {
             log.error(e);
-            e.printStackTrace();
+            //e.printStackTrace();
             model.put("message", "Poll not valid.");
             return "404";
         }

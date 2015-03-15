@@ -441,7 +441,8 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
                 }
 
             } catch (EnMeExpcetion e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                log.error(e);
             }
         }
 
@@ -513,7 +514,8 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
                     }
                     log.trace(" Polls ID ..."+poll.getCreateDate());
             } catch (EnMeExpcetion e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                log.error(e);
             }
         }
         //retrive all hits

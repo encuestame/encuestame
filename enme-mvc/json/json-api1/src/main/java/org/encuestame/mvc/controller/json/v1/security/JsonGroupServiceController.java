@@ -197,7 +197,7 @@ public class JsonGroupServiceController extends AbstractJsonControllerV1 {
             setItemResponse(sucess);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
+            ////e.printStackTrace();
         }
         return returnData();
     }

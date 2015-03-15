@@ -88,7 +88,7 @@ public class ReIndexAttachmentsJob {
                 if (accountPath.exists()) {
                     userDomainAttachmentsLocation.add(accountPath);
                 } else {
-                    log.warn("Account Id: "
+                    log.info("Account Id: "
                             + accountId
                             + " profile propery is missing, enable autocreate to create missings directories");
                     if (this.autoCreateDirectories) {

@@ -320,7 +320,7 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
             setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.fatal(e);
-            e.printStackTrace();
+            //e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -445,7 +445,7 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
             }
         } catch (Exception e) {
             log.fatal(e);
-            e.printStackTrace();
+            //e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

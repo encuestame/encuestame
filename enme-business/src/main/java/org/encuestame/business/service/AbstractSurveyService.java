@@ -474,7 +474,7 @@ public class AbstractSurveyService extends AbstractChartService {
                 published = twitterAPIOperations.updateStatus(tweetText);
             } catch (Exception e) {
                 log.error(e);
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.IDENTICA)) {
             log.debug("Publish on IDENTICA");
@@ -490,7 +490,7 @@ public class AbstractSurveyService extends AbstractChartService {
             } catch (Exception e) {
                 published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
-                e.printStackTrace();
+                ///e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.PLURK)) {
             log.debug("Publish on PLURK");
@@ -506,7 +506,7 @@ public class AbstractSurveyService extends AbstractChartService {
             } catch (Exception e) {
                 published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
-                e.printStackTrace();
+                //e.printStackTrace();
             }                    
         } else if (socialAccount.getAccounType().equals(SocialProvider.TUMBLR)) {
             log.debug("Publish on TUMBLR");
@@ -522,7 +522,7 @@ public class AbstractSurveyService extends AbstractChartService {
             } catch (Exception e) {
                 published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.FACEBOOK)) {
             log.debug("Publish on FACEBOOK");
@@ -542,11 +542,11 @@ public class AbstractSurveyService extends AbstractChartService {
                 //offline_access scope permission is enabled by default . In this case
                 //https://developers.facebook.com/docs/authentication/permissions/
                 log.error("-----------------------FACEBOOK EXPIRED TOKEN----------------------- 2");
-                e.printStackTrace();
+                //e.printStackTrace();
             } catch (Exception e) {
                 published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.LINKEDIN)) {
             log.debug("Publish on LinkedIn");
@@ -565,7 +565,7 @@ public class AbstractSurveyService extends AbstractChartService {
             } catch (Exception e) {
                 published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.GOOGLE_BUZZ)) {
             BuzzAPIOperations buzzInAPIOperations = new GoogleBuzzAPITemplate(socialAccount);
@@ -579,7 +579,7 @@ public class AbstractSurveyService extends AbstractChartService {
             } catch (Exception e) {
                 published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
         if (published != null) {

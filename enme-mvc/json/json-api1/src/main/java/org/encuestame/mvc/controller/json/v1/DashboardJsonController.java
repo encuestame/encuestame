@@ -100,7 +100,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
             setItemReadStoreResponse("dashboard_name", "id", dashboards);
          } catch (Exception e) {
               log.error(e);
-              e.printStackTrace();
+              //e.printStackTrace();
               setError(e.getMessage(), response);
          }
          return returnData();
@@ -134,7 +134,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
              setItemResponse(jsonResponse);
          } catch (Exception e) {
               log.error(e);
-              e.printStackTrace();
+              //e.printStackTrace();
               setError(e.getMessage(), response);
          }
          return returnData();
@@ -159,7 +159,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
             @RequestParam(value = "favorite", required = false) Boolean favorite,
             @RequestParam(value = "layout", required = false) String layout,
             HttpServletRequest request,
-            HttpServletResponse response){
+            HttpServletResponse response) {
          try {
              final DashboardBean bean = new DashboardBean();
              bean.setDashboardName(boardName);
@@ -172,7 +172,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
              setItemResponse(jsonResponse);
          } catch (Exception e) {
               log.error(e);
-              e.printStackTrace();
+              ////e.printStackTrace();
               setError(e.getMessage(), response);
          }
          return returnData();
@@ -198,7 +198,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
              setItemResponse(jsonResponse);
          } catch (Exception e) {
               log.error(e);
-              e.printStackTrace();
+              //e.printStackTrace();
               setError(e.getMessage(), response);
          }
          return returnData();
@@ -222,7 +222,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
              setSuccesResponse();
          } catch (Exception e) {
               log.error(e);
-              e.printStackTrace();
+              ////e.printStackTrace();
               setError(e.getMessage(), response);
          }
          return returnData();
@@ -251,7 +251,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
              jsonResponse.put("gadget", ConvertDomainBean.convertGadgetDomaintoBean(gadget));
              setItemResponse(jsonResponse);
         } catch (Exception e) {
-            e.printStackTrace();
+             ////e.printStackTrace();
              log.error(e);
              setError(e.getMessage(), response);
         }
@@ -280,7 +280,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
             setSuccesResponse();
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
+            ////e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -305,7 +305,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
             setSuccesResponse();
        } catch (Exception e) {
            log.error(e);
-           e.printStackTrace();
+           ////e.printStackTrace();
            setError(e.getMessage(), response);
        }
        return returnData();
@@ -330,7 +330,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
 //            setSuccesResponse();
 //        } catch (Exception e) {
 //            log.error(e);
-//            e.printStackTrace();
+//            //e.printStackTrace();
 //            setError(e.getMessage(), response);
 //        }
 //        return returnData();
@@ -354,7 +354,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
              setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
+            //e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
