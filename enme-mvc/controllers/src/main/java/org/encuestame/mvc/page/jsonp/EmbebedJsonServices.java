@@ -322,7 +322,8 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
             final String json = ow.writeValueAsString(embebedBody);
             out.print(callback + "(" + json + ")");
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            log.error(e);
             try {
                 createWrongBody(model, embebedBody);
                 final String json = ow.writeValueAsString(embebedBody);

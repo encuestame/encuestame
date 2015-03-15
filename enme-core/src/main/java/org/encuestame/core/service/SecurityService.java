@@ -220,7 +220,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                     getMailService().sendRenewPasswordEmail(userBean);
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    log.error(e);
                 }
             //} else {
                 //log.warn("Notifications Email are suspendend");
@@ -304,7 +305,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
              }
         } catch (Exception e) {
             // TODO: handle exception Group no pertenece a usuario
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
         }
         return counterUsers;
@@ -324,7 +325,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                }
           } catch (Exception e) {
               // TODO: handle exception Group don't belong to user
-              e.printStackTrace();
+              //e.printStackTrace();
               log.error(e);
           }
           return usersbyGroups;
@@ -674,7 +675,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                                 .getAuthentication().getName());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
         }
         final UserAccountBean bean = ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAccount);
@@ -734,7 +735,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                     getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
                 } catch (Exception e) {
                     // ENCUESTAME-602 ????
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    log.error(e);
                 }
             }
         }
@@ -830,7 +832,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 getMailService().sendInvitation(email, code);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                //e.printStackTrace();
+                log.error(e);
             }
         }
     }
@@ -880,7 +883,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 getMailService().send(email, getMessageProperties("NewPassWordMail"), password);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                //e.printStackTrace();
+                log.error(e);
             }
         }
     }
@@ -1177,7 +1181,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 getMailService().welcomeNotificationAccount(userAcc);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                //e.printStackTrace();
+                log.error(e);
             }
         }
         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
@@ -1201,7 +1206,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                     getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
                 } catch (Exception e) {
                     log.fatal("not able to send new invite code");
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    log.error(e);
                 }
             } else {
                 log.info("invite code requested by " + userAccount.getUsername() + " it's null, nothing to do");
@@ -1225,7 +1231,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 getMailService().sendNotificationStatusAccount(singUp, "Change user status");
             } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                //e.printStackTrace();
+                log.error(e);
             }
         }
     }

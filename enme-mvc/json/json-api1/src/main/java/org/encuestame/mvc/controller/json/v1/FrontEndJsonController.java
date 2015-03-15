@@ -157,7 +157,7 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
                     setItemResponse(jsonResponse);
                    }
             } catch (Exception e) {
-                 e.printStackTrace();
+                 //e.printStackTrace();
                  log.error(e);
             }
             return returnData();
@@ -204,7 +204,7 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
                 setItemResponse(jsonResponse);
                }
         } catch (Exception e) {
-             e.printStackTrace();
+             //e.printStackTrace();
              log.error(e);
         }
         return returnData();
@@ -261,7 +261,7 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
             jsonResponse.put("stats", stats);
             setItemResponse(jsonResponse);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
         }
         return returnData();
@@ -324,7 +324,7 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
             getSecurityService().updateHelpStatus(path, getUserAccount(), status);
             setFailedResponse();
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
             setFailedResponse();
         }

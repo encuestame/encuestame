@@ -105,7 +105,7 @@ public class SocialAccountsJsonController extends AbstractJsonControllerV1 {
             setItemReadStoreResponse("socialAccounts", "id", accounts);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
+            //e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

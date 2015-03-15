@@ -221,7 +221,7 @@ public class PollJsonController extends AbstractJsonControllerV1{
                getPollService().removePoll(pollId);
                setSuccesResponse();
           } catch (Exception e) {
-              e.printStackTrace();
+              //e.printStackTrace();
               log.error(e);
               setError(e.getMessage(), response);
           }
@@ -340,7 +340,7 @@ public class PollJsonController extends AbstractJsonControllerV1{
                jsonResponse.put("pollBean", ConvertDomainBean.convertPollDomainToBean(getPollService().createPoll(bean)));
                setItemResponse(jsonResponse);
           } catch (Exception e) {
-              e.printStackTrace();
+              //e.printStackTrace();
               log.error(e);
               setError(e.getMessage(), response);
           }

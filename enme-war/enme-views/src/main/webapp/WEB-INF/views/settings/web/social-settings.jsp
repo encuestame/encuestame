@@ -1,13 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
-<c:if test="${not empty message}">
-  <div class="bot-m">
-  	<p class="alert ${message.infoType.css}">
-  		${message.message}
-  	</p>
-  </div>
-</c:if>
-
 <div id="web-tweetpoll-wrapper" class="enme-main-section web-wrapper-detail">
     <div class="admon-table-options panel-header">
        <div class="tb-left">
@@ -20,5 +12,11 @@
             </p>
        </div>
     </div>
+    <c:if test="${not empty message}">
+        <p class="alert ${message.infoType.css}" style="margin: 0;">
+            ${message.message}
+        </p>
+    </c:if>
+
     <div data-dojo-type="me/web/widget/social/SocialAccounts"></div>
 </div>

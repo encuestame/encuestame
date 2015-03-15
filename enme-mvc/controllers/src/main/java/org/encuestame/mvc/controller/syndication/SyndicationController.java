@@ -90,7 +90,7 @@ public class SyndicationController extends AbstractFeedController {
                 model.addAttribute("items", this.getEntryAtomFeed(username, request, TypeSearchResult.TWEETPOLL, rssDisplayItems));
             } catch (EnMeExpcetion e) {
                 log.error(e);
-                e.printStackTrace();
+                //e.printStackTrace();
                 model.addAttribute("items",ListUtils.EMPTY_LIST);
             }
         }
@@ -124,7 +124,7 @@ public class SyndicationController extends AbstractFeedController {
                 model.addAttribute("items", this.getItemRssFeed(username, request, TypeSearchResult.TWEETPOLL, rssDisplayItems));
              } catch (Exception e) {
                  log.error(e);
-                 e.printStackTrace();
+                 //e.printStackTrace();
                  model.addAttribute("items",ListUtils.EMPTY_LIST);
              }
         }
@@ -160,7 +160,7 @@ public class SyndicationController extends AbstractFeedController {
                 model.addAttribute("items", items);
              } catch (Exception e) {
                  log.error(e);
-                 e.printStackTrace();
+                 //e.printStackTrace();
                  model.addAttribute("items",ListUtils.EMPTY_LIST);
              }
         }
@@ -184,7 +184,7 @@ public class SyndicationController extends AbstractFeedController {
                 this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
             } catch (EnMeExpcetion e) {
                 log.error(e);
-                e.printStackTrace();
+                //e.printStackTrace();
                 model.addAttribute("items",ListUtils.EMPTY_LIST);
             }
         }
@@ -239,7 +239,7 @@ public class SyndicationController extends AbstractFeedController {
                 model.addAttribute("items", this.getItemRssFeed(username, request, TypeSearchResult.SURVEY, rssDisplayItems));
              } catch (Exception e) {
                  log.error(e);
-                 e.printStackTrace();
+                 //e.printStackTrace();
                  model.addAttribute("items",ListUtils.EMPTY_LIST);
              }
         }
@@ -426,7 +426,7 @@ public class SyndicationController extends AbstractFeedController {
                 model.addAttribute("items", this.getItemRssFeed(null, request, TypeSearchResult.ALL, rssDisplayItems));
              } catch (Exception e) {
                  log.error(e);
-                 e.printStackTrace();
+                 //e.printStackTrace();
                  model.addAttribute("items",ListUtils.EMPTY_LIST);
              }
         return "frontEndRssFeedView";

@@ -238,7 +238,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         try {
             props = PropertiesLoaderUtils.loadProperties(resource);
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            log.error(e);
         }
         //log.debug("Property ["+property+"] value ["+props.getProperty(property)+"]");
         return props.getProperty(property);

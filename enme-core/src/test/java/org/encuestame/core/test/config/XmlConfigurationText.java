@@ -87,7 +87,7 @@ public class XmlConfigurationText extends TestCase {
             e.printStackTrace();
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            //e.printStackTrace();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

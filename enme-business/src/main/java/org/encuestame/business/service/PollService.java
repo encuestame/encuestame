@@ -457,7 +457,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             this.createPollNotification(pollDomain);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.equals(e);
             throw new EnMeExpcetion(e);
         }
@@ -761,7 +761,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
                                 getMailService().send(emails.getEmail(),"New Poll", urlPoll);
                             } catch (Exception e) {
                                 // TODO Auto-generated catch block
-                                e.printStackTrace();
+                                //e.printStackTrace();
+                                log.error(e);
                             }
                     }
                  }

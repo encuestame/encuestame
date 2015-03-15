@@ -22,12 +22,14 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.social.SocialProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Check
  * @author Picado, Juan juanATencuestame.org
  * @since May 2, 2011
  */
+@Transactional
 public class EnMeSocialAccountUserService implements SocialUserService {
 
     @Autowired

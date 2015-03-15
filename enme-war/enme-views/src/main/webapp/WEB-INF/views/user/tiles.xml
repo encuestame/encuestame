@@ -19,6 +19,7 @@
     <definition name="forgot" extends="login-page">
         <put-attribute name="title" value="I forgot my password | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/user/forgot.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/user/forgot-js.jsp" />
         <put-attribute name="css_module" expression="/WEB-INF/views/user/user_css.jsp" />
     </definition>
 

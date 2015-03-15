@@ -122,10 +122,10 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
             EnMePlaceHolderConfigurer.configurationManager = new XMLConfigurationFileSupport();
         } catch (ConfigurationException e) {
             log.error(e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
         } catch (IOException e) {
             log.error(e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

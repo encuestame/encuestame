@@ -68,7 +68,7 @@ public class HashtagGraphData extends AbstractJsonControllerV1{
                 setItemResponse(jsonResponse);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
             setError(e.getMessage(), response);
         }

@@ -113,7 +113,7 @@ public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
             setError(e.getMessage(), response);
         }
@@ -228,7 +228,7 @@ public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
                 setItemResponse(jsonResponse);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.error(e);
             setError(e.getMessage(), response);
         }

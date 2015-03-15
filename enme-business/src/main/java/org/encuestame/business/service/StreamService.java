@@ -251,13 +251,14 @@ public class StreamService extends AbstractBaseService implements StreamOperatio
         final UtilNotification utilNotification = new UtilNotification();
         // If the creation date is within the range of 48 hours shown the
         // relative date otherwise the original date.
+        //FIXME: this must be work for the front-side (moment.js)
         if(DateUtil.isWithinCurrentDate(notification.getCreated())){
             utilNotification.setDate(this.convertRelativeTimeToString(notification.getCreated(), request));
         }
         else {
-            utilNotification.setDate(DateUtil.SIMPLE_DATE_FORMAT
-                    .format(notification.getCreated()));
+            utilNotification.setDate(DateUtil.SIMPLE_DATE_FORMAT.format(notification.getCreated()));
         }
+        utilNotification.setRealDate(notification.getCreated());
         utilNotification.setDescription(this.convertNotificationMessage(
                 notification.getDescription(), request, new Object[] {}));
         utilNotification.setId(notification.getNotificationId());

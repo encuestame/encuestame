@@ -33,9 +33,9 @@
                         <div class="profile-menu hidden" data-url="<%=request.getContextPath()%>/settings/social">
                             <spring:message  code="profile.menu.social" />
                         </div>
-                        <div class="profile-menu hidden" data-url="<%=request.getContextPath()%>/user/help">
-                            <spring:message  code="profile.menu.help" />
-                        </div>
+                        <%--<div class="profile-menu hidden" data-url="<%=request.getContextPath()%>/user/help">--%>
+                            <%--<spring:message  code="profile.menu.help" />--%>
+                        <%--</div>--%>
                         <div class="profile-menu hidden" data-url="<%=request.getContextPath()%>/user/logout">
                             <spring:message  code="profile.menu.logout" />
                         </div>
