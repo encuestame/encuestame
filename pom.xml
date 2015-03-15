@@ -4,7 +4,7 @@
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.0-SNAPSHOT</version>
+    <version>1.5.1-SNAPSHOT</version>
     <name>Encuestame</name>
     <description>
      Encuestame is an open source project based on Java 6 technology. You can use to create different
@@ -495,18 +495,18 @@
                     <configuration>
                         <header>
 
-                           &lt;script type=&quot;text/javascript&quot;&gt;
+                           &lt;script type="text/javascript"&gt;
 
                               var _gaq = _gaq || [];
-                              _gaq.push([&#39;_setAccount&#39;, &#39;UA-2527438-15&#39;]);
-                              _gaq.push([&#39;_setDomainName&#39;, &#39;encuestame.org&#39;]);
-                              _gaq.push([&#39;_setAllowLinker&#39;, true]);
-                              _gaq.push([&#39;_trackPageview&#39;]);
+                              _gaq.push(['_setAccount', 'UA-2527438-15']);
+                              _gaq.push(['_setDomainName', 'encuestame.org']);
+                              _gaq.push(['_setAllowLinker', true]);
+                              _gaq.push(['_trackPageview']);
 
                               (function() {
-                                var ga = document.createElement(&#39;script&#39;); ga.type = &#39;text/javascript&#39;; ga.async = true;
-                                ga.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://ssl&#39; : &#39;http://www&#39;) + &#39;.google-analytics.com/ga.js&#39;;
-                                var s = document.getElementsByTagName(&#39;script&#39;)[0]; s.parentNode.insertBefore(ga, s);
+                                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
                               })();
 
                             &lt;/script&gt;
