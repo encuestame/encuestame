@@ -12,7 +12,7 @@ For information on how to **build** check out [documentation](http://www.encuest
 
 **Take a look our [demo](http://www.encuestame.org/demo)**
 
-## Current Version (1.5.0) Info
+## Latest Stable Version (1.5.0) Info
 
 The **last release versions** is defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME?report=com.atlassian.jirafisheyeplugin:fisheye-projectpanel&mode=changesets#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
@@ -25,9 +25,9 @@ If you want to download a built version of Encuestame, the files are hosted in S
 * [Juan Carlos Picado](http://www.jotadeveloper.me)
 * [All Contributors](https://github.com/encuestame/encuestame/graphs/contributors)
 
-## Direct Download Last Releases
-* [1.147](https://sourceforge.net/projects/encuestame/files/latest/download?source=files)
-* [1.5.0 Nightly Build](http://encuestame.org/build/browse/ENME-PRO/latestSuccessful/artifact/shared/encuestame.war/encuestame.war)
+## Direct Download
+* [1.5.0](https://sourceforge.net/projects/encuestame/files/latest/download?source=files)
+* [Latest Build](http://encuestame.org/build/browse/ENME-PRO/latestSuccessful/artifact/shared/encuestame.war/encuestame.war)
 
 ## Revisions Download
 
@@ -37,18 +37,18 @@ If you want to download a built version of Encuestame, the files are hosted in S
 ## Contributions
 Pull requests are, of course, very welcome! A few "todos", if anyone is [interested](http://www.encuestame.org/wiki/display/DEVELOPMENT/Commiters+Guidelines).
 
-## Acknowledgments
+## Sponsors and Acknowledgments
 * Thanks to [Atlassian Open Source Program](http://www.atlassian.com/)
 * Thanks Jetbrains for the [Open Source License](http://www.jetbrains.com/idea/buy/choose_edition.jsp?license=OPEN_SOURCE)
-* Thanks to you, for spend your time reviewing our job
-* All our friends
+* Thanks ej-technologies for the [install4j](https://www.ej-technologies.com/products/install4j/overview.html) Open Source License
+* Thanks the direct and indirect [contributors](https://github.com/encuestame/encuestame/graphs/contributors)
 
-## Related Sites
+## Tools
 
 * [JIRA](http://www.encuestame.org/issues)
 * [Wiki](http://www.encuestame.org/wiki)
 * [Metrics](http://www.encuestame.org/clover)
-* [API Javadoc](http://encuestame.org/javadoc/)
+* [Git Stats](http://encuestame.org/git-stats/)
 * [Demo Site](http://www.encuestame.org/demo)
 * [GitHub](http://github.com/encuestame)
 * [Twitter](http://www.twitter.com/encuestame)
