@@ -571,6 +571,8 @@ public class PollController extends AbstractViewController {
         addi18nProperty(model, "button_try_later", request, response);
         addi18nProperty(model, "button_ignore", request, response);
         addi18nProperty(model, "button_try_again", request, response);
+        addi18nProperty(model, "poll_is_hidden", request, response);
+        addi18nProperty(model, "poll_password", request, response);
         /** *** *** ** Help Guide ** *** *** **/
         addi18nProperty(model, "help_poll_question_text", request, response);
         addi18nProperty(model, "help_poll_answers_text", request, response);
