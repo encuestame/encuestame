@@ -28,7 +28,7 @@
         <!-- Java version -->
         <java-version>1.7</java-version>
         <!-- encuestame version -->
-        <encuestame.version>${project.version}</encuestame.version>
+        <encuestame.version>1.5.0-SNAPSHOT</encuestame.version>
         <spring.version>4.0.6.RELEASE</spring.version>
         <env>development</env>
         <!-- js compress options -->
