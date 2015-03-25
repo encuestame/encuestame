@@ -12,7 +12,7 @@ For information on how to **build** check out [documentation](http://www.encuest
 
 **Take a look our [demo](http://www.encuestame.org/demo)**
 
-## Latest Stable Version (1.5.0) Info
+## Latest Stable Version (1.5.0)
 
 The **last release versions** is defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME?report=com.atlassian.jirafisheyeplugin:fisheye-projectpanel&mode=changesets#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
