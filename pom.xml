@@ -34,12 +34,12 @@
         <!-- js compress options -->
         <compress.minimize>true</compress.minimize>
         <spring.webflow.version>2.4.0.RELEASE</spring.webflow.version>
-        <spring.security.version>3.2.4.RELEASE</spring.security.version>
+        <spring.security.version>3.2.6.RELEASE</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
-        <spring-integration-core>4.0.3.RELEASE</spring-integration-core>
+        <spring-integration-core>4.1.2.RELEASE</spring-integration-core>
         <spring-oauth.version>2.0.2.RELEASE </spring-oauth.version>
-        <spring.mobile.version>1.1.0.RELEASE</spring.mobile.version>
-        <spring.ldap>1.3.2.RELEASE</spring.ldap>
+        <spring.mobile.version>1.1.3.RELEASE</spring.mobile.version>
+        <spring.ldap>2.0.2.RELEASE</spring.ldap>
         <spring.orm>${spring.version}</spring.orm>
         <spring.support>2.0.8</spring.support>
         <org.aspectj-version>1.6.9</org.aspectj-version>
