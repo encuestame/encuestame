@@ -276,19 +276,6 @@ var profile = {
         // to roll everything into a single layer, but this helps provide a basic illustration of multi-layer builds.)
         // Note that when you create a new layer, the module referenced by the layer is always included in the layer
         // (in this case, `app/Dialog`), so it does not need to be explicitly defined in the `include` array.
-        'chart/raphael/raphael.amd': {
-            include :[
-                'chart/eve/eve',
-                'chart/g.raphael/g.bar',
-                'chart/g.raphael/g.dot',
-                'chart/g.raphael/g.line',
-                'chart/g.raphael/g.pie',
-                'chart/g.raphael/g.raphael',
-                'chart/raphael/raphael.core',
-                'chart/raphael/raphael.svg',
-                'chart/raphael/raphael.vml'
-            ]
-        },
 
         'me/run' : {
             include :[
