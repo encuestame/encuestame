@@ -52,17 +52,17 @@ public class QuickSearchJsonController extends AbstractJsonControllerV1 {
      */
     private final Integer LIMIT_RESULTS = 10;
 
+
     /**
-     * Quick suggestion search service.
-     *
-     * @param keyword
-     * @param type
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} api/search/quick-suggest.json Quick Search
+     * @apiName GetQuickSearch
+     * @apiGroup QuickSearch
+     * @apiDescription Quick suggestion search service.
+     * @apiParam {String} keyword - XXXX
+     * @apiParam {String} [limitByItem - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/search/quick-suggest.json
+     * @apiPermission none
      */
     @RequestMapping(value = "api/search/quick-suggest.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap quickSuggestionSearchService(
@@ -81,8 +81,8 @@ public class QuickSearchJsonController extends AbstractJsonControllerV1 {
             typesEnabled.add(TypeSearchResult.HASHTAG);
             typesEnabled.add(TypeSearchResult.POLL);
             typesEnabled.add(TypeSearchResult.PROFILE);
-            typesEnabled.add(TypeSearchResult.TWEETPOLL); 
-            typesEnabled.add(TypeSearchResult.COMMENT);  
+            typesEnabled.add(TypeSearchResult.TWEETPOLL);
+            typesEnabled.add(TypeSearchResult.COMMENT);
             if (!keyword.isEmpty()) {
                  setItemReadStoreResponse("itemSearchTitle", "id", getSearchService()
                         .quickSearch(keyword, "English", 0, LIMIT_RESULTS, limitByItem, typesEnabled));
