@@ -50,14 +50,15 @@ public class JsonPermissionController  extends AbstractJsonControllerV1 {
      */
     private Logger log = Logger.getLogger(this.getClass());
 
+
     /**
-     * Load All List of Permissions.
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/admon/list-permissions.json Get Permissions
+     * @apiName GetPermissions
+     * @apiGroup Permissions
+     * @apiDescription Load All List of Permissions
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/admon/list-permissions.json
+     * @apiPermission none
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/list-permissions.json", method = RequestMethod.GET)
@@ -71,13 +72,14 @@ public class JsonPermissionController  extends AbstractJsonControllerV1 {
     }
 
     /**
-     * Load List of Permissions by UserId.
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/admon/list-user-permissions.json Permissions by UserId
+     * @apiName GetPermissionsbyUser
+     * @apiGroup Permissions
+     * @apiDescription Load All List of Permissions by User
+     * @apiParam {Number} id - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/admon/list-user-permissions.json
+     * @apiPermission ENCUESTAME_OWNER
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/list-user-permissions.json", method = RequestMethod.GET)
@@ -99,15 +101,17 @@ public class JsonPermissionController  extends AbstractJsonControllerV1 {
         return returnData();
     }
 
+
     /**
-     *
-     * @param userId
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/admon/{action}-permission.json Permission actions
+     * @apiName GetPermissionsActions
+     * @apiGroup Permissions
+     * @apiDescription Allow
+     * @apiParam {Number} id - XXXX
+     * @apiParam {String} permission - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/admon/{action}-permission.json
+     * @apiPermission ENCUESTAME_OWNER
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/{action}-permission.json", method = RequestMethod.GET)
