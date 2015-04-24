@@ -56,11 +56,46 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
      */
     private Logger log = Logger.getLogger(this.getClass());
 
+
     /**
-     *
-     * @param request
-     * @param response
-     * @return
+     * @api {get} /api/common/gadgets/list.json  Get Dashboard gadgets
+     * @apiName GetGadgetsList
+     * @apiGroup Dashboard
+     * @apiDescription Retrieve all gadgets that have been added to a specific dashboard.
+     * @apiParam {Number} dashboardId This is the id(unique identifier ) of the dashboard
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/gadgets/list.json
+     * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+	{
+		"error":{
+
+		},
+		"success":{
+    			"gadgets":[],
+    			"dashboard":
+                	{
+                 		"id":1,
+                 		"dashboard_name":"DashboardTest",
+                 		"favorite":true,
+                 		"dashboard_description":"DashboardtestDescription",
+                 		"layout":"AAA",
+                 		"sequence":null,
+                 		"favorite_counter":null,
+                 		"selected":false
+                	}
+    	}
+}
+     * @apiError Access is denied
+     * @apiErrorExample
+		{
+			"error":{
+				"message":"Access is denied",
+				"session":true,"status":403,
+				"description":"Tu no tienes acceso a este recurso",
+				"anonymousUser":true
+				}
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/gadgets/list.json", method = RequestMethod.GET)
@@ -84,11 +119,13 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
      }
 
     /**
-     * Retrieve all available dashboard as a list
-     * @param dashboardId
-     * @param request
-     * @param response
-     * @return
+     * @api {get} /api/common/dashboard Get all Dashboards
+     * @apiName GetAllDashboard
+     * @apiGroup Dashboard
+     * @apiDescription Retrieve all available dashboard as a list.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/dashboard
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/dashboard", method = RequestMethod.GET)
@@ -107,10 +144,13 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
      }
 
     /**
-     *
-     * @param request
-     * @param response
-     * @return
+     * @api {get} /api/common/gadgets/directory/list.json Get Directory Gadgets
+     * @apiName GetGadgets
+     * @apiGroup Dashboard
+     * @apiDescription Retrieve all available Directory Gadgets.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/gadgets/directory/list.json
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/gadgets/directory/list.json", method = RequestMethod.GET)
@@ -140,16 +180,19 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
          return returnData();
      }
 
+
     /**
-     * Dashboard actions.
-     * @param boardName
-     * @param boardDesc
-     * @param favorite
-     * @param layout
-     * @param actionType
-     * @param request
-     * @param response
-     * @return
+     * @api {post} /api/common/dashboard Create Dashboard
+     * @apiName PostCreateDashboard
+     * @apiGroup Dashboard
+     * @apiDescription Create Dashboard.
+     * @apiParam {String} name - XXXX
+     * @apiParam {String} desc - XXX
+     * @apiParam {Boolean} [favorite] XXXX
+     * @apiParam {String} [layout] XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/dashboard
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/dashboard", method = RequestMethod.POST)
@@ -178,12 +221,16 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
          return returnData();
      }
 
+
     /**
-     * Update a Dasboard.
-     * @param bean
-     * @param request
-     * @param response
-     * @return
+     * @api {put} /api/common/dashboard Update Dasboard
+     * @apiName PutEditDashboard
+     * @apiGroup Dashboard
+     * @apiDescription Edit Dashboard properties
+     * @apiParam {Object} bean - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/dashboard
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/dashboard", method = RequestMethod.PUT)
@@ -205,11 +252,14 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
      }
 
     /**
-     * Remove a dashboard panel.
-     * @param bean
-     * @param request
-     * @param response
-     * @return
+     * @api {delete} /api/common/dashboard Remove Dashboard
+     * @apiName DeleteDashboard
+     * @apiGroup Dashboard
+     * @apiDescription Remove a Dashboard panel.
+     * @apiParam {Object} bean - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/dashboard
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/dashboard", method = RequestMethod.DELETE)
@@ -228,13 +278,17 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
          return returnData();
      }
 
+
     /**
-     *
-     * @param boardId
-     * @param gadgetId
-     * @param request
-     * @param response
-     * @return
+     * @api {post} /api/common/{gadgetId}/gadget.json Add new Gadget
+     * @apiName PostAddGadget
+     * @apiGroup Dashboard
+     * @apiDescription Add new Gadget on Dashboard.
+     * @apiParam {Number} boardId - XXXX
+     * @apiParam {String} gadgetId - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/{gadgetId}/gadget.json
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/{gadgetId}/gadget.json", method = RequestMethod.POST)
@@ -259,13 +313,17 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     * Move gadget on dashboard.
-     * @param gadgetId
-     * @param positionId
-     * @param columnId
-     * @param request
-     * @param response
-     * @return
+     * @api {put} /api/common/{gadgetId}/gadget.json Move gadget
+     * @apiName PutMoveGadget
+     * @apiGroup Dashboard
+     * @apiDescription Update gadget position on Dashboard.
+     * @apiParam {Number} gadgetId - XXXX
+     * @apiParam {Number} [position] - XXXX
+     * @apiParam {Number} [column] - XXXX
+     * @apiParam {Number} [dashboardId] - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/{gadgetId}/gadget.json
+     * @apiPermission none
      */
     @RequestMapping(value = "/api/common/{gadgetId}/gadget.json", method = RequestMethod.PUT)
     public @ResponseBody ModelMap moveGadget(
@@ -287,12 +345,16 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-    *
-    * @param gadgetId
-    * @param request
-    * @param response
-    * @return
-    */
+     * @api {delete} /api/common/{gadgetId}/gadget.json Remove gadget
+     * @apiName DeleteGadget
+     * @apiGroup Dashboard
+     * @apiDescription Remove gadget from the Dashboard.
+     * @apiParam {Number} gadgetId - XXXX
+     * @apiParam {Number} dashboardId - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/{gadgetId}/gadget.json
+     * @apiPermission none
+     */
    @RequestMapping(value = "/api/common/{gadgetId}/gadget.json", method = RequestMethod.DELETE)
    public @ResponseBody ModelMap removeGadget(
            //@RequestParam(value = "gadgetId", required = true) Long gadgetId,
@@ -310,31 +372,6 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
        }
        return returnData();
    }
-
-
-    /**
-     * Mark as dasboard selected.
-     * @param dashBoardId
-     * @param request
-     * @param response
-     * @return
-     */
-//    @Deprecated
-//    @RequestMapping(value = "/api/common/dashboard/select.json", method = RequestMethod.GET)
-//    public @ResponseBody ModelMap selectedDashboard(
-//            @RequestParam(value = "id", required = true) Long dashBoardId,
-//            HttpServletRequest request,
-//            HttpServletResponse response){
-//        try {
-//            getDashboardService().markAsSelectedDasboard(dashBoardId);
-//            setSuccesResponse();
-//        } catch (Exception e) {
-//            log.error(e);
-//            //e.printStackTrace();
-//            setError(e.getMessage(), response);
-//        }
-//        return returnData();
-//    }
 
     /**
      *
