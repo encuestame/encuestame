@@ -59,6 +59,19 @@ public class SurveyJsonController extends AbstractJsonControllerV1{
      */
     private Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * @api {get} /api/survey/search.json Search on Surveys
+     * @apiName GetSearchResults
+     * @apiGroup Survey
+     * @apiDescription Return all comments that will be filtered by type.
+     * @apiParam {Number} typeSearch - XXXX
+     * @apiParam {Number} [keyword - XXXX
+     * @apiParam {Number} [max - XXXX
+     * @apiParam {Number} [start - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/search.json
+     * @apiPermission ENCUESTAME_USER
+     */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/search.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getListSurveys(
@@ -84,16 +97,15 @@ public class SurveyJsonController extends AbstractJsonControllerV1{
         return returnData();
     }
 
-
     /**
-     * Retrieve sections by {@link Survey}.
-     * @param surveyId
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/survey/sections.json Retrieve sections
+     * @apiName XXXX
+     * @apiGroup Survey
+     * @apiDescription Retrieve sections by {@link Survey}.
+     * @apiParam {Number} [id - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/sections.json
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/sections.json", method = RequestMethod.GET)
@@ -121,17 +133,16 @@ public class SurveyJsonController extends AbstractJsonControllerV1{
     }
 
     /**
-     * Add {@link Question} to {@link SurveySection}.
-     * @param sectionId
-     * @param pattern
-     * @param question
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
-     * @throws NoSuchAlgorithmException
+     * @api {get} /api/survey/addquestion.json Add Question
+     * @apiName getAddQuestion
+     * @apiGroup Survey
+     * @apiDescription Add {@link Question} to {@link SurveySection}.
+     * @apiParam {Number} [ssid - XXXX
+     * @apiParam {String} [pattern - XXXX
+     * @apiParam {String} [question - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/addquestion.json
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/addquestion.json", method = RequestMethod.GET)
@@ -167,20 +178,18 @@ public class SurveyJsonController extends AbstractJsonControllerV1{
         return returnData();
     }
 
-
     /**
-     * Save Survey responses.
-     * @param surveyId
-     * @param questionId
-     * @param qanswer
-     * @param txtResponse
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
-     * @throws NoSuchAlgorithmException
+     * @api {get} /api/survey/save.json Save Survey
+     * @apiName GetSaveSurvey
+     * @apiGroup Survey
+     * @apiDescription Return all comments that will be filtered by type.
+     * @apiParam {Number} sid - XXXX
+     * @apiParam {Number} question - XXXX
+     * @apiParam {Number} answer - XXXX
+     * @apiParam {String} [txtResponse - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/save.json
+     * @apiPermission none
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/save.json", method = RequestMethod.GET)

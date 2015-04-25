@@ -75,15 +75,24 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
-     * Get List TweetPoll.
-     * @param typeSearch
-     * @param keyword
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/survey/tweetpoll/search.json Get TweetPolls
+     * @apiName GetTweetpolls
+     * @apiGroup Tweetpoll
+     * @apiDescription Return all comments that will be filtered by type.
+     * @apiParam {String} typeSearch - XXXX
+     * @apiParam {String} [keyword] - XXXX
+     * @apiParam {Number} max - XXXX
+     * @apiParam {Number} start - XXXX
+     * @apiParam {String[]} [social_networks] - XXXX
+     * @apiParam {Number[] } [social_account_networks] - XXXX
+     * @apiParam {Boolean} [_published] - XXXX
+     * @apiParam {Boolean} [_complete] - XXXX
+     * @apiParam {Boolean} [_favourite] - XXXX
+     * @apiParam {Boolean} [_scheduled] - XXXX
+     * @apiParam {String} [period] - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/search.json
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/search.json", method = RequestMethod.GET)
@@ -141,18 +150,16 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     * Publish tweet on social account.
-     * @param twitterAccountsId
-     * @param question
-     * @param scheduled
-     * @param hashtags
-     * @param answers
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {post} /api/survey/tweetpoll/save.json Publish Tweetpoll
+     * @apiName PostPublishTweetPoll
+     * @apiGroup Tweetpoll
+     * @apiDescription Publish tweet on social account
+     * @apiParam {String} question - XXXX
+     * @apiParam {String[]} [hashtags] - XXXX
+     * @apiParam {Number[]} [answers] - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/save.json
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/save.json", method = RequestMethod.POST)
@@ -176,18 +183,18 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     * Add or Remove new Answer on TweetPoll.
-     * @param tweetPollId
-     * @param answer
-     * @param answerId
-     * @param type
-     * @param request
-     * @param response
-     * @param user
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/survey/tweetpoll/answer/{type}.json Add Tweetpoll answers
+     * @apiName GetTweetpollAnswers
+     * @apiGroup Tweetpoll
+     * @apiDescription Add or Remove new Answer on TweetPoll.
+     * @apiParam {String} type - XXXX
+     * @apiParam {Number} id - XXXX
+     * @apiParam {String} [answer] - XXXX
+     * @apiParam {Number} [answerId] - XXXX
+     * @apiParam {String} [shortUrl]- XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/answer/{type}.json
+     * @apiPermission none
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/answer/{type}.json", method = RequestMethod.GET)
@@ -251,15 +258,28 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
         return returnData();
     }
 
+
     /**
-     *
-     * @param tweetPollId
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {post} /api/survey/tweetpoll/autosave Create Tweetpoll
+     * @apiName PostCreateTweetpoll
+     * @apiGroup Tweetpoll
+     * @apiDescription Return all comments that will be filtered by type.
+     * @apiParam {Number} [tweetPollId] - XXXX
+     * @apiParam {String} [question] - XXXX
+     * @apiParam {Boolean} [scheduled] - XXXX
+     * @apiParam {Boolean} [liveResults] - XXXX
+     * @apiParam {String} [scheduledTime] - XXXX
+     * @apiParam {String} [scheduledDate] - XXXX
+     * @apiParam {Boolean} [captcha] - XXXX
+     * @apiParam {Boolean} [limitVotes] - XXXX
+     * @apiParam {Boolean} [followDashBoard] - XXXX
+     * @apiParam {Boolean} [repeatedVotes] - XXXX
+     * @apiParam {Number} [maxLimitVotes] - XXXX
+     * @apiParam {Number} [maxRepeatedVotes] - XXXX
+     * @apiParam {Boolean} [resumeLiveResults] - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/autosave
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/autosave", method = RequestMethod.POST)
@@ -337,6 +357,7 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
      * @return
      * @throws ParseException
      */
+
     private TweetPollBean fillTweetPoll(
             final Options options,
             final String question,
@@ -389,16 +410,15 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     * Publish tweetPoll.
-     * @param tweetPollId
-     * @param twitterAccountsId
-     * @param request
-     * @param response
-     * @param userAccount
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {post} /api/survey/tweetpoll/publish Publish on Twitter
+     * @apiName PostPublishonTwitter
+     * @apiGroup Tweetpoll
+     * @apiDescription Return all comments that will be filtered by type.
+     * @apiParam {Number} id - XXXX
+     * @apiParam {Number[]} [twitterAccounts] - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/publish
+     * @apiPermission none
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/publish", method = RequestMethod.POST)
@@ -452,15 +472,15 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     * Update {@link TweetPoll} properties.
-     * @param propertyType
-     * @param tweetPollId
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/survey/tweetpoll/{propertyType}-tweetpoll.json Update Tweetpoll
+     * @apiName GetUpdateTweetpoll
+     * @apiGroup Tweetpoll
+     * @apiDescription Update {@link TweetPoll} properties.
+     * @apiParam {String} propertyType - XXXX
+     * @apiParam {Number} tweetPollId - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/{propertyType}-tweetpoll.json
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value ="/api/survey/tweetpoll/{propertyType}-tweetpoll.json", method = RequestMethod.GET)
@@ -512,18 +532,16 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
         return returnData();
     }
 
-
-
     /**
-     * Short URL.
-     * @param type provider short URL
-     * @param url URL
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/short/url/{type}.json Short url
+     * @apiName GetShortUrl
+     * @apiGroup Tweetpoll
+     * @apiDescription Short URL.
+     * @apiParam {String} type - provider short URL
+     * @apiParam {String} url - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/short/url/{type}.json
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/short/url/{type}.json", method = RequestMethod.GET)
@@ -554,14 +572,14 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     *
-     * @param id
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {delete} /api/survey/tweetpoll/{id} Remove Tweetpoll
+     * @apiName DeleteTweetpoll
+     * @apiGroup Tweetpoll
+     * @apiDescription Return all comments that will be filtered by type.
+     * @apiParam {Number} id - XX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/{id}
+     * @apiPermission none
      */
     @RequestMapping(value = "/api/survey/tweetpoll/{id}", method = RequestMethod.DELETE)
     public @ResponseBody
