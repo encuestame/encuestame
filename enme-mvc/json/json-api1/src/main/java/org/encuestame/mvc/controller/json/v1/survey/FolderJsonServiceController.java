@@ -23,14 +23,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.domain.survey.Survey;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.PollBean;
@@ -44,6 +40,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 /**
  * Folder Json Service Controller.
  * @author Morales, Diana Paola paolaATencuestame.org
@@ -55,15 +54,28 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
-     * Create Folder for Survey/TweetPoll/Poll.
-     * @param actionType Survey/TweetPoll/Poll
-     * @param folderName name
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/survey/folder/{actionType}/create.json Create Folder
+     * @apiName GetCreateFolder
+     * @apiGroup Folder
+     * @apiDescription Create a TweetPoll, Poll or Survey folder . You must be registered and logged.
+     * @apiParam {String="tweetpoll","poll","survey"} actionType Specifies the folder type and the type of items to be stored
+     * @apiParam {String} name This is the name of the new resource. The folder name.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/{actionType}/create.json
+     * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+			{
+    			"error":{
+
+    			},
+    			"success":{
+        			"folder":{
+						"id":382,"
+            			name":"folderTestName",
+            			"create_date":1347281933873
+					}
+				}
+			}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}/create.json", method = RequestMethod.GET)
@@ -95,17 +107,18 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
           return returnData();
       }
 
+
     /**
-     *
-     * @param actionType
-     * @param folderName
-     * @param folderId
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/survey/folder/{actionType}/update.json Update folder
+     * @apiName GetUpdateFolder
+     * @apiGroup Folder
+     * @apiDescription Update Folder properties
+     * @apiParam {String} actionType - XXXX
+     * @apiParam {String} folderName This is the name of the resource to update. The folder name
+     * @apiParam {Number} folderId   - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/{actionType}/update.json
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}/update.json", method = RequestMethod.GET)
@@ -139,17 +152,25 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
                return returnData();
            }
 
-
     /**
-     * Remove Folder.
-     * @param actionType
-     * @param folderId
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/survey/folder/{actionType}/remove.json Remove Folder
+     * @apiName GetRemoveFolder
+     * @apiGroup Folder
+     * @apiDescription Destroys the folder specified by the required ID parameter.
+     * @apiParam {String ="tweetpoll", "poll", "survey"} actionType - XXXX
+     * @apiParam {Number} folderId Unique number that identifies the  folder that will be removed.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/{actionType}/remove.json
+     * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+     		{
+				"error":{
+
+				},
+				"success":{
+                	"r":0
+              	}
+			}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}/remove.json", method = RequestMethod.GET)
@@ -179,18 +200,18 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
                return returnData();
            }
 
+
     /**
-     * Movte Item to another
-     * @param actionType
-     * @param folderId
-     * @param UserId
-     * @param tweetPollId
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/survey/folder/{actionType}/move.json Move Contents Folder
+     * @apiName GetMoveContents
+     * @apiGroup Folder
+     * @apiDescription  Move Contents(Item) Folder to another.
+     * @apiParam {String} actionType - XXXX
+     * @apiParam {Number} folderId - XXXX
+     * @apiParam {Number} itemId - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetPoll/remove.json?folderId=383
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}/move.json", method = RequestMethod.GET)
@@ -227,13 +248,31 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
             return returnData();
     }
 
+
     /**
-     * Retrieve a List of Folders.
-     * @param actionType
-     * @param folderId
-     * @param request
-     * @param response
-     * @return
+     * @api {get} /api/survey/folder/{actionType}/list.json Get Folders
+     * @apiName GetFoldersList
+     * @apiGroup Folder
+     * @apiDescription Return a list with all folders created for every user.
+     * @apiParam {String ="tweetpoll","poll","survey"} actionType - XXXX
+     * @apiParam {Boolean} [store] Indicates whether to save the folder.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/list.json
+     * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+			{
+				"error":{
+
+				},
+ 				"success":{
+            			"folders":[{
+							"id":381,
+							"name":"test",
+							"create_date":"2012-09-10"
+							}
+	                     ]
+            	}
+			}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}/list.json", method = RequestMethod.GET)
@@ -267,13 +306,36 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
         return returnData();
     }
 
+
     /**
-     * Retrieve Surveys contained in a folder.
-     * @param actionType
-     * @param folderId
-     * @param request
-     * @param response
-     * @return
+     * @api {get} /api/survey/folder/{actionType}/items.json Search into Folders
+     * @apiName GetSearchResults
+     * @apiGroup Folder
+     * @apiDescription List of all the elements added and stored in a folder object.
+     * @apiParam {String ="tweetpoll","poll", "survey"} actionType - XXXX
+     * @apiParam {Number} [folderId] The ID of the folder  to retrieve its contents.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/items.json?folderId=382
+     * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+			{
+				"error":{
+
+				},
+ 				"success":{
+            			"folders":[{
+								"id":51,
+								"name":"folder__0_",
+                        		"create_date":"2012-09-06"
+							},
+							{
+                        		"id":52,
+                        		"name":"folder__1_",
+                        		"create_date":"2012-09-06"
+							}
+                    	]
+        	}
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}/items.json", method = RequestMethod.GET)
@@ -320,13 +382,17 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
         return returnData();
     }
 
+
     /**
-     *  Search folders
-     * @param actionType
-     * @param keyword
-     * @param request
-     * @param response
-     * @return
+     * @api {get} /api/survey/folder/{actionType}/searchbykeword.json Search by keyword
+     * @apiName GetSearchbyKeyword
+     * @apiGroup Folder
+     * @apiDescription Return search results by keyword of all the elements in a folder object.
+     * @apiParam {String} actionType - XXXX
+     * @apiParam {String} keyword - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/{actionType}/searchbykeword.json
+     * @apiPermission ENCUESTAME_USER
      */
 	@PreAuthorize("hasRole('ENCUESTAME_USER')")
 	@RequestMapping(value = "/api/survey/folder/{actionType}/searchbykeword.json", method = RequestMethod.GET)

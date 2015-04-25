@@ -22,12 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.SearchPeriods;
@@ -38,11 +32,13 @@ import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 /**
  * HashTag statistics.
@@ -59,18 +55,18 @@ public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
     /** **/
     private Integer INIT_RESULTS = 0;
 
+
     /**
-     * Get hashTags button stats.
-     *
-     * @param tagName
-     * @param filter
-     * @param limit
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/comment/comments/{type}.json Button stats
+     * @apiName GetButtonStats
+     * @apiGroup Stats
+     * @apiDescription Return all comments that will be filtered by type.
+     * @apiParam {Number} tagName - XXXX
+     * @apiParam {Number} filter - XXXX
+     * @apiParam {Number} limit - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/comments/{type}.json
+     * @apiPermission none
      */
     @RequestMapping(value = "/api/common/hashtags/stats/button.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getHashTagButtonStats(
@@ -120,16 +116,15 @@ public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
         return returnData();
     }
 
-
     /**
-     * Get hashTags ranking stats.
-     * @param tagName
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/comment/comments/{type}.json Get Ranking stats
+     * @apiName GetRanking
+     * @apiGroup Stats
+     * @apiDescription Return all comments that will be filtered by type.
+     * @apiParam {Number} tagName - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/comments/{type}.json
+     * @apiPermission none
      */
     @RequestMapping(value = "/api/common/hashtags/stats/ranking.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getHashTagRankingStats(
@@ -149,17 +144,18 @@ public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
         return returnData();
     }
 
+
     /**
-     * Generic stats.
-     * @param itemId
-     * @param tagName
-     * @param filter
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/comment/comments/{type}.json Generic stats.
+     * @apiName GetGeneric
+     * @apiGroup Stats
+     * @apiDescription Return all comments that will be filtered by type.
+     * @apiParam {Number} itemId - XXXX
+     * @apiParam {Number} tagName - XXXX
+     * @apiParam {Number} filter - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/comments/{type}.json
+     * @apiPermission none
      */
     @RequestMapping(value = "/api/common/stats/generic.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getGenericStats(
@@ -183,14 +179,18 @@ public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
         return returnData();
     }
 
+
     /**
-     *
-     * @param tagName
-     * @param period
-     * @param filter
-     * @param request
-     * @param response
-     * @return
+     * @api {get} /api/common/comment/comments/{type}.json By Date range
+     * @apiName GetRange
+     * @apiGroup Stats
+     * @apiDescription Return all comments that will be filtered by type.
+     * @apiParam {Number} tagName - XXXX
+     * @apiParam {Number} tagName - XXXX
+     * @apiParam {Number} filter - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/comments/{type}.json
+     * @apiPermission none
      */
     @RequestMapping(value = "/api/common/hashtags/stats/button/range.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getHashTagButtonStatsByDateRange(
