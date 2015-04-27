@@ -58,7 +58,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
       * @api {get} /api/status-notifications.json Status Notification
       * @apiName GetNotificationStatus
       * @apiGroup Notifications
-      * @apiDescription Return all comments that will be filtered by type.
+      * @apiDescription This service returns the total number of notifications per user and how many of them have not been read.
       * @apiVersion 1.0.0
       * @apiSampleRequest http://www.encuestame.org/demo/api/status-notifications.json
       * @apiPermission ENCUESTAME_USER
@@ -79,7 +79,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
 				"error":{
 					"message":"Access is denied",
 					"session":true,"status":403,
-					"description":"Tu no tienes acceso a este recurso",
+					"description":"You do not have access to this resource,
 					"anonymousUser":true
 				}
 			}
@@ -116,7 +116,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      * @apiName GetNotifications
      * @apiGroup Notifications
      * @apiDescription Retrieve all last notifications.
-     * @apiParam {Number} limit The maximum number of notifications to include in the response
+     * @apiParam {Number} limit The maximum number of notifications to include in the response.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/notifications/list.json
      * @apiPermission ENCUESTAME_USER
@@ -134,7 +134,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
                 				"description": null,
                 				"url": "/poll/abbfef5c71778e69dc84f892a0ced544/28/mi-second-poll",
                 				"icon": null,
-                				"additionalDescription": "Tu sondeo ha sido publicado",
+                				"additionalDescription": "Your Poll has been published",
                 				"hour": "10:44:07"
             				}
         				]
@@ -171,7 +171,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      * @apiDescription Return all notifications categorized by a range date.
      * @apiParam {Number} [limit] The maximum number of notifications to include in the response
      * @apiParam {Number} [start] The minimum number of notifications to show in the response.
-     * @apiParam {Boolean} categorized Indicate whether the notification list will be displayed sorted by date rang
+     * @apiParam {Boolean} categorized Indicate whether the notification list will be displayed sorted by date range
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/notifications/all/list.json
      * @apiPermission ENCUESTAME_USER
@@ -190,7 +190,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
                     				"description": null,
                     				"url": "/poll/4c04386ca0562ffe2cfc2f6f5e18b0ef/27/mi-poll-question",
                     				"icon": null,
-                    				"additionalDescription": "Tu sondeo ha sido publicado",
+                    				"additionalDescription": "Your Poll has been published",
                     				"hour": "10:09:34"
                 			}
 
@@ -268,6 +268,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
 					"r": 0
     			}
 			}
+		@apiSuccess {r} Default answer to define a satisfactory response.
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/readed.json", method = RequestMethod.GET)
@@ -288,11 +289,11 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     * @api {get} /api/notification/remove.json Remove Notification
+     * @api {delete} /api/notification/remove.json Remove Notification
      * @apiName DeleteNotification
      * @apiGroup Notifications
      * @apiDescription Remove activity notification..
-     * @apiParam {Number} notificationId This is the id(unique identifier ) of the notification that will be deleted
+     * @apiParam {Number} notificationId This is the id(unique identifier ) of the notification that will be deleted.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/remove-notification.json?notificationId=1
      * @apiPermission ENCUESTAME_USER
@@ -305,6 +306,7 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
 					"r": 0
     			}
 			}
+		@apiSuccess {r} Default answer to define a satisfactory response.
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notification/remove.json", method = RequestMethod.DELETE)

@@ -62,7 +62,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
      * @apiName GetGadgetsList
      * @apiGroup Dashboard
      * @apiDescription Retrieve all gadgets that have been added to a specific dashboard.
-     * @apiParam {Number} dashboardId This is the id(unique identifier ) of the dashboard
+     * @apiParam {Number} dashboardId This is the id(unique identifier ) of the dashboard.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/common/gadgets/list.json
      * @apiPermission ENCUESTAME_USER
@@ -92,7 +92,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
 			"error":{
 				"message":"Access is denied",
 				"session":true,"status":403,
-				"description":"Tu no tienes acceso a este recurso",
+				"description":"You do not have access to this resource",
 				"anonymousUser":true
 				}
 		}
@@ -107,7 +107,7 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                  final List<GadgetBean> gadgets = getDashboardService().getAllGadgetsAvailable(dashboardId);
                  jsonResponse.put("gadgets", gadgets);
-                  jsonResponse.put("dashboard", ConvertDomainBean
+                 jsonResponse.put("dashboard", ConvertDomainBean
                         .convertDashboardDomaintoBean(getDashboardService()
                                  .getDashboardbyId(dashboardId)));
             setItemResponse(jsonResponse);
@@ -122,10 +122,42 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
      * @api {get} /api/common/dashboard Get all Dashboards
      * @apiName GetAllDashboard
      * @apiGroup Dashboard
-     * @apiDescription Retrieve all available dashboard as a list.
+     * @apiDescription Get a list of all the dashboard that have been created.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/common/dashboard
      * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+       {
+		error: { },
+		success: {
+			items: [
+				{
+					id: 1,
+					dashboard_name: "My Panel",
+					favorite: true,
+					dashboard_description: "My panel description",
+					layout: "AB",
+					sequence: 1,
+					favorite_counter: 1,
+					selected: true
+				}
+			],
+			label: "dashboard_name",
+			identifier: "id"
+		}
+		}
+		{
+     * @apiError Access is denied
+     * @apiErrorExample
+		{
+			error: {
+					message: "Access is denied",
+					session: true,
+					status: 403,
+					description: "You do not have access to this resource",
+					anonymousUser: true
+					}
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/dashboard", method = RequestMethod.GET)
@@ -147,10 +179,43 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
      * @api {get} /api/common/gadgets/directory/list.json Get Directory Gadgets
      * @apiName GetGadgets
      * @apiGroup Dashboard
-     * @apiDescription Retrieve all available Directory Gadgets.
+     * @apiDescription List the different types of gadgets available to display any type of information (ex. Activity, Comments, etc).
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/common/gadgets/directory/list.json
      * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+		{
+			error:
+			{
+
+			},
+			success: {
+				gadgets: [
+					{
+						id: "stream",
+						name: "stream",
+						description: "gadgets_activity_description",
+						image: "/gadgets/activity.png"
+					},
+					{
+						id: "comments",
+						name: "comments",
+						description: "gadgets_comments_description",
+						image: "/gadgets/comments.png"
+					}
+				]
+			}
+		}
+     * @apiErrorExample
+		{
+			error: {
+					message: "Access is denied",
+					session: true,
+					status: 403,
+					description: "You do not have access to this resource",
+					anonymousUser: true
+					}
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/gadgets/directory/list.json", method = RequestMethod.GET)
@@ -185,11 +250,11 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
      * @api {post} /api/common/dashboard Create Dashboard
      * @apiName PostCreateDashboard
      * @apiGroup Dashboard
-     * @apiDescription Create Dashboard.
-     * @apiParam {String} name - XXXX
-     * @apiParam {String} desc - XXX
-     * @apiParam {Boolean} [favorite] XXXX
-     * @apiParam {String} [layout] XXXX
+     * @apiDescription Create Dashboard(user Interface) where you can add gadgtes to show information quickly.
+     * @apiParam {String} name This is the name of the new resource. The Dashboard name.
+     * @apiParam {String} desc Description about dashboard.
+     * @apiParam {Boolean} [favorite] Save and Organize your dashboard, save as favorite, you can acess faster.
+     * @apiParam {String} [layout="AAA_COLUMNS", "BB_BLOCK", "B_BLOCK", "AB_COLUMN_BLOCK", "BA_BLOCK_COLUMN"] Specifies the layout type and the distribution scheme elements.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/common/dashboard
      * @apiPermission ENCUESTAME_USER
@@ -215,7 +280,6 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
              setItemResponse(jsonResponse);
          } catch (Exception e) {
               log.error(e);
-              ////e.printStackTrace();
               setError(e.getMessage(), response);
          }
          return returnData();
