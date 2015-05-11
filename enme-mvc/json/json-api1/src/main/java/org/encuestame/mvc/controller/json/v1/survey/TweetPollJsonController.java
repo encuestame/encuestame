@@ -78,18 +78,18 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
      * @api {get} /api/survey/tweetpoll/search.json Get TweetPolls
      * @apiName GetTweetpolls
      * @apiGroup Tweetpoll
-     * @apiDescription Return all comments that will be filtered by type.
+     * @apiDescription Returns a collection of relevant TweetPolls matching a specified query.
      * @apiParam {String} typeSearch - XXXX
-     * @apiParam {String} [keyword] - XXXX
-     * @apiParam {Number} max - XXXX
-     * @apiParam {Number} start - XXXX
-     * @apiParam {String[]} [social_networks] - XXXX
-     * @apiParam {Number[] } [social_account_networks] - XXXX
-     * @apiParam {Boolean} [_published] - XXXX
-     * @apiParam {Boolean} [_complete] - XXXX
-     * @apiParam {Boolean} [_favourite] - XXXX
-     * @apiParam {Boolean} [_scheduled] - XXXX
-     * @apiParam {String} [period] - XXXX
+     * @apiParam {String} [keyword] Keyword to search related Tweetpolls.
+     * @apiParam {Number} max Defines the maximum number of search results.
+     * @apiParam {Number} start Defines the starting number of the page of results.
+     * @apiParam {String[]} [social_networks] Filter tweetpolls by social networks accounts.
+     * @apiParam {Number[] } [social_account_networks] Filter tweetpolls by social networks accounts.
+     * @apiParam {Boolean} [_published] Filter by published tweetpolls.
+     * @apiParam {Boolean} [_complete] Filter by completed tweetpolls.
+     * @apiParam {Boolean} [_favourite] Filter by favourite.
+     * @apiParam {Boolean} [_scheduled] Filter by tweetpolls scheduled
+     * @apiParam {String} [period] Date range to search results.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/search.json
      * @apiPermission ENCUESTAME_USER
@@ -153,10 +153,10 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
      * @api {post} /api/survey/tweetpoll/save.json Publish Tweetpoll
      * @apiName PostPublishTweetPoll
      * @apiGroup Tweetpoll
-     * @apiDescription Publish tweet on social account
-     * @apiParam {String} question - XXXX
-     * @apiParam {String[]} [hashtags] - XXXX
-     * @apiParam {Number[]} [answers] - XXXX
+     * @apiDescription Publish tweet on social account.
+     * @apiParam {String} question - Free Question text.
+     * @apiParam {String[]} [hashtags] Aggregated list of Hashtags.
+     * @apiParam {Number[]} [answers] Arraylist with the answers id.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/save.json
      * @apiPermission ENCUESTAME_USER
@@ -187,14 +187,49 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
      * @apiName GetTweetpollAnswers
      * @apiGroup Tweetpoll
      * @apiDescription Add or Remove new Answer on TweetPoll.
-     * @apiParam {String} type - XXXX
-     * @apiParam {Number} id - XXXX
-     * @apiParam {String} [answer] - XXXX
-     * @apiParam {Number} [answerId] - XXXX
-     * @apiParam {String} [shortUrl]- XXXX
+     * @apiParam {String="add","remove"} type Type of operation to be performed
+     * @apiParam {Number} id Unique identifier of the element to which an answer will be added.
+     * @apiParam {String} [answer]
+     * @apiParam {Number} [answerId] Answer unique identifier to which will be removed.
+     * @apiParam {String} [shortUrl] url generated with shortener url provider.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/answer/{type}.json
      * @apiPermission none
+     * @apiSuccessExample
+     *	 {
+  			"error": {
+
+  			},
+			"success": {
+				"newAnswer": {
+				     "id": 164,
+				     "tweet_poll_id": 83,
+				     "answer": {
+				     	"answer_id": 271,
+				     	"answers": "yes",
+				     	"url": null,
+				     	"short_url": "yourls",
+				     	"qid": 110,
+				     	"color": "#A31B80",
+				     	"provider": null
+			      	},
+					"short_url": "http:\/\/localhost:8080\/encuestame\/tweetpoll\/vote\/8df12ef732cd9a326be47fc3f0d6b45a",
+			    	"relative_url": "http:\/\/localhost:8080\/encuestame\/tweetpoll\/vote\/8df12ef732cd9a326be47fc3f0d6b45a",
+			    	"results": null
+				}
+  		}
+	}
+	* @apiSuccessExample
+	* Remove
+	* @apiErrorExample
+		{
+			"error":{
+
+					},
+			"success":{
+				"r":0
+			}
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/answer/{type}.json", method = RequestMethod.GET)
@@ -264,19 +299,19 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
      * @apiName PostCreateTweetpoll
      * @apiGroup Tweetpoll
      * @apiDescription Return all comments that will be filtered by type.
-     * @apiParam {Number} [tweetPollId] - XXXX
-     * @apiParam {String} [question] - XXXX
-     * @apiParam {Boolean} [scheduled] - XXXX
-     * @apiParam {Boolean} [liveResults] - XXXX
-     * @apiParam {String} [scheduledTime] - XXXX
-     * @apiParam {String} [scheduledDate] - XXXX
-     * @apiParam {Boolean} [captcha] - XXXX
-     * @apiParam {Boolean} [limitVotes] - XXXX
+     * @apiParam {Number} [tweetPollId]
+     * @apiParam {String} [question] Free text question.
+     * @apiParam {Boolean} [scheduled] Schedule Tweetpoll publication
+     * @apiParam {Boolean} [liveResults]  Display the results should be shown live.
+     * @apiParam {String} [scheduledTime]  Scheduled time for Tweetpoll publication.
+     * @apiParam {String} [scheduledDate] Scheduled date for Tweetpoll publication.
+     * @apiParam {Boolean} [captcha] Validate the vote with captcha
+     * @apiParam {Boolean} [limitVotes] Limit maximum number of votes
      * @apiParam {Boolean} [followDashBoard] - XXXX
-     * @apiParam {Boolean} [repeatedVotes] - XXXX
-     * @apiParam {Number} [maxLimitVotes] - XXXX
-     * @apiParam {Number} [maxRepeatedVotes] - XXXX
-     * @apiParam {Boolean} [resumeLiveResults] - XXXX
+     * @apiParam {Boolean} [repeatedVotes] Allow repeated votes.
+     * @apiParam {Number} [maxLimitVotes] Limit the maximum number of votes in total Tweetpoll.
+     * @apiParam {Number} [maxRepeatedVotes] Maximum number of votes allowed per IP.
+     * @apiParam {Boolean} [resumeLiveResults] Allow display live results.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/autosave
      * @apiPermission ENCUESTAME_USER
@@ -414,11 +449,34 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
      * @apiName PostPublishonTwitter
      * @apiGroup Tweetpoll
      * @apiDescription Return all comments that will be filtered by type.
-     * @apiParam {Number} id - XXXX
-     * @apiParam {Number[]} [twitterAccounts] - XXXX
+     * @apiParam {Number} id This is the Tweetpoll id that will be published.
+     * @apiParam {Number[]} [twitterAccounts] Array list with the Social networks ID in which will be published on tweetpoll.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/publish
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/publish.json?id=15&twitterAccounts
      * @apiPermission none
+     * @apiSuccessExample
+     *	{
+	  		"error": {
+
+	  		},
+	  		"success": {
+	    		"socialPublish": [
+	      			{
+	        			"id": 764,
+	        			"tweet_id": "513450987986161664",
+				        "textTweeted": "Which instrument sounds most like the human voice answer1 http:\/\/tinyurl.com\/ldcx54j answer2 http:\/\/tinyurl.com\/ofsa2fc #voice #instrument"
+				        "date_published": "2015-05-11",
+				        "social_account": "test",
+				        "status_tweet": "SUCCESS",
+				        "status_description_tweet": null,
+				        "source_tweet": "TWITTER",
+				        "tweet_url": "https:\/\/twitter.com\/#!\/test\/status\/510140987986161664",
+				        "social_account_id": 4,
+				        "type_item": "TWEETPOLL"
+	      			}
+	    		]
+	  		}
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/publish", method = RequestMethod.POST)
@@ -475,12 +533,32 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
      * @api {get} /api/survey/tweetpoll/{propertyType}-tweetpoll.json Update Tweetpoll
      * @apiName GetUpdateTweetpoll
      * @apiGroup Tweetpoll
-     * @apiDescription Update {@link TweetPoll} properties.
-     * @apiParam {String} propertyType - XXXX
-     * @apiParam {Number} tweetPollId - XXXX
+     * @apiDescription Select one or more of the properties that has one tweetpoll before publication to update.
+     * @apiParam {String="change-open-status","resume-live-results","captcha","favourite","live-results","scheduled","notification","repeated"} propertyType Specifies the options or properties available.
+     * @apiParam {Number} tweetPollId This is the Tweetpoll unique identifier that will be assigned a property.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/{propertyType}-tweetpoll.json
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/favourite-tweetpoll.json?tweetPollId=991
      * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+     *	{
+  			"error": {
+
+  			},
+  			"success": {
+    			"r": 0
+  			}
+		}
+     * @apiSuccess {Object} success
+     * @apiError tweet poll invalid with this id <code>id</code>
+     * @apiErrorExample
+		{
+			"error":{
+						"message":"tweet poll invalid with this id 991"
+					},
+			"success":{
+
+			}
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value ="/api/survey/tweetpoll/{propertyType}-tweetpoll.json", method = RequestMethod.GET)
@@ -536,12 +614,21 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
      * @api {get} /api/short/url/{type}.json Short url
      * @apiName GetShortUrl
      * @apiGroup Tweetpoll
-     * @apiDescription Short URL.
-     * @apiParam {String} type - provider short URL
-     * @apiParam {String} url - XXXX
+     * @apiDescription Changes a big URL into tiny URL.
+     * @apiParam {String="Google","Tinyurl"} type Short URL providers.
+     * @apiParam {String} url Site Address to be shortened.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/short/url/{type}.json
+     * @apiSampleRequest http://www.encuestame.org/demo/api/short/url/tinyurl.json?url=http://www.encuestame.org/
      * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+     * 	{
+			error: {
+
+			},
+			success: {
+				url: "http://tinyurl.com/co6lop9"
+			}
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/short/url/{type}.json", method = RequestMethod.GET)
@@ -575,10 +662,10 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
      * @api {delete} /api/survey/tweetpoll/{id} Remove Tweetpoll
      * @apiName DeleteTweetpoll
      * @apiGroup Tweetpoll
-     * @apiDescription Return all comments that will be filtered by type.
-     * @apiParam {Number} id - XX
+     * @apiDescription Remove Tweetpoll.
+     * @apiParam {Number} id Unique Tweetpoll Identifier that will be removed.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/{id}
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/31
      * @apiPermission none
      */
     @RequestMapping(value = "/api/survey/tweetpoll/{id}", method = RequestMethod.DELETE)
