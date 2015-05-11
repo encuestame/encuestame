@@ -348,8 +348,8 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
      * @apiName PostAddGadget
      * @apiGroup Dashboard
      * @apiDescription Add new Gadget on Dashboard.
-     * @apiParam {Number} boardId - XXXX
-     * @apiParam {String} gadgetId - XXXX
+     * @apiParam {Number} boardId Unique identifier of the dashboard to which the gadget will be added.
+     * @apiParam {String} gadgetId Unique identifier of the gadget that will be added.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/common/{gadgetId}/gadget.json
      * @apiPermission ENCUESTAME_USER
@@ -381,10 +381,10 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
      * @apiName PutMoveGadget
      * @apiGroup Dashboard
      * @apiDescription Update gadget position on Dashboard.
-     * @apiParam {Number} gadgetId - XXXX
-     * @apiParam {Number} [position] - XXXX
-     * @apiParam {Number} [column] - XXXX
-     * @apiParam {Number} [dashboardId] - XXXX
+     * @apiParam {Number} gadgetId Unique identifier of the gadget that will be moved.
+     * @apiParam {Number} [position] Unique identifier of the gadget that will be added.
+     * @apiParam {Number} [column] New column position where the gadget will be moved.
+     * @apiParam {Number} [dashboardId] Unique identifier of the dashboard to which the gadget will moved.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/common/{gadgetId}/gadget.json
      * @apiPermission none
@@ -413,8 +413,8 @@ public class DashboardJsonController extends AbstractJsonControllerV1 {
      * @apiName DeleteGadget
      * @apiGroup Dashboard
      * @apiDescription Remove gadget from the Dashboard.
-     * @apiParam {Number} gadgetId - XXXX
-     * @apiParam {Number} dashboardId - XXXX
+     * @apiParam {Number} gadgetId Unique identifier of the gadget that will be removed.
+     * @apiParam {Number} dashboardId Unique identifier of the dashboard that contains the gadget that will be removed.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/common/{gadgetId}/gadget.json
      * @apiPermission none
