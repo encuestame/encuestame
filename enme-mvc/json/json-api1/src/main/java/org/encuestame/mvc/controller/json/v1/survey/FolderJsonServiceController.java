@@ -224,7 +224,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
      * @apiParam {Number} folderId This is the id(unique identifier) of the folder that will be assigned an element
      * @apiParam {Number} itemId Id of the item will be moved to a folder.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/{actionType}/move.json?folderId=383
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/move.json?folderId=383
      * @apiPermission ENCUESTAME_USER
      * @apiSuccessExample
      		{

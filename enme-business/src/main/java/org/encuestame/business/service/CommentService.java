@@ -230,7 +230,7 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ICommentService#voteCommentSocialOption(java.lang.Long, org.encuestame.persistence.domain.CommentsSocialOptions)
      */
-    public void voteCommentSocialOption(final Long commentId, final CommentsSocialOptions vote) throws EnMeNoResultsFoundException,
+	public void voteCommentSocialOption(final Long commentId, final CommentsSocialOptions vote) throws EnMeNoResultsFoundException,
                                         HibernateException, EnmeFailOperation{
         final Comment comment = this.getCommentbyId(commentId);
         if (vote.equals(CommentsSocialOptions.LIKE_VOTE)) {
