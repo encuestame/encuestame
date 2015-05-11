@@ -65,7 +65,7 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
      * @apiName GetCommentsTypes
      * @apiGroup Comments
      * @apiDescription Return all comments filtered by type.
-     * @apiParam {string="tweetpoll","poll","survey"} type XXXX
+     * @apiParam {string="tweetpoll","poll","survey"} type Filter Comments by type.
      * @apiParam {Number} id Unique identifier of the item (Ex. Twtpoll ID,  Poll ID, etc.) for which to retrieve comments
      * @apiParam {Number} [max] Defines the maximum number of results.
      * @apiParam {Number} [start] Defines the starting number of the page of results.
@@ -272,9 +272,9 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
      * @apiName postCreateComment
      * @apiGroup Comments
      * @apiDescription Create a Comment.
-     * @apiParam {String="tweetpoll","profile","poll","survey"} type - XXX
-     * @apiParam {String} comment - XXXX
-     * @apiParam {Number} tweetPollId - XXX id del poll, survez o profile
+     * @apiParam {String="tweetpoll","profile","poll","survey"} type
+     * @apiParam {String} comment New Comment string
+     * @apiParam {Number} tweetPollId - Unique identifier of the element to which an comment will be added.
      * @apiParam {Number} [commentId]- XXX
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/{type}/create.json
@@ -332,7 +332,7 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
 	 * @apiName postEditComment
 	 * @apiGroup Comments
 	 * @apiDescription Update Comment
-	 * @apiParam {String} comment Personal comment or rating on a particular type of survey
+	 * @apiParam {String} comment Personal comment or rating on a particular type of survey.
 	 * @apiParam {Number} tweetPollId - XXX
 	 * @apiParam {Number} [commentId] - XXX
 	 * @apiParam {String} type - XXX
@@ -421,14 +421,14 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
   	 * @apiName GetTypeCommentsAndStatus
   	 * @apiGroup Comments
   	 * @apiDescription Retrieve Comments by status
-  	 * @apiParam {Number} id - XXXX
+  	 * @apiParam {Number} id XXX.
   	 * @apiParam {Number} start Defines the starting number of the page of results.
   	 * @apiParam {Number} maxResults Defines the maximum number of results.
-  	 * @apiParam {String} period - XXX
-  	 * @apiParam {String} typeSearch - XXX
-  	 * @apiParam {String} status - XXX
+  	 * @apiParam {String="24","7", "30","all","365","1095"} period Filter search by time period.
+  	 * @apiParam {String="tweetpoll", "poll", "survey", "profile"} typeSearch Filter comments by type.
+  	 * @apiParam {String="restrict", "approve","moderate","published","spam","all"} status Filter comments by state.
   	 * @apiVersion 1.0.0
-  	 * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/search/{typeSearch}/{status}/comments.json
+  	 * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/search/tweetpoll/moderate/comments.json
   	 * @apiPermission none
   	 */
 	@RequestMapping(value = "/api/common/comment/search/{typeSearch}/{status}/comments.json", method = RequestMethod.GET)
