@@ -168,13 +168,40 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
      * @apiVersion 1.0.0
      * @apiName GetTopUsers
      * @apiGroup FrontEnd
-     * @apiDescription Get user rated top.
-     * @apiParam {Boolean} status
-     * @apiParam {Number} end
-     * @apiParam {Number} start
+     * @apiDescription List users with the highest number of publications.
+     * @apiParam {Boolean} status Current status of the user account. Available or not
+     * @apiParam {Number} end Defines the maximum number of results
+     * @apiParam {Number} start Defines the starting number of the page of results
      * @apiSampleRequest http://www.encuestame.org/demo/api/common/frontend/topusers.json
      * @apiPermission none
      * @apiSuccessExample
+     * 	{
+    		"error": { },
+    		"success": {
+		        "profile": [
+		            {
+		                "url": "myurl",
+		                "username": "demo10",
+		                "topValue": 105,
+		                "totalbyItems": 105,
+		                "likeVotes": 0,
+		                "disLikeVotes": 0,
+		                "currentPos": 0,
+		                "lastPos": 0
+		            },
+		            {
+		                "url": "myurl",
+		                "username": "dianmorales",
+		                "topValue": 105,
+		                "totalbyItems": 0,
+		                "likeVotes": 0,
+		                "disLikeVotes": 0,
+		                "currentPos": 0,
+		                "lastPos": 0
+		            }
+		        ]
+			}
+		}
      * @apiSuccess {Object} success
      * @apiSuccess {String} error
      */
@@ -276,7 +303,7 @@ public class FrontEndJsonController extends AbstractJsonControllerV1{
      * @apiParam {Number} id
      * @apiParam {String} type
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/common/frontend/stream.json
+     * @apiSampleRequest http://www.encuestame.org/demo/api/frontend/home/{type}/vote
 
      * @apiSuccessExample
      * @apiSuccess {Object} success
