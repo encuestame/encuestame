@@ -58,11 +58,42 @@ public class QuickSearchJsonController extends AbstractJsonControllerV1 {
      * @apiName GetQuickSearch
      * @apiGroup QuickSearch
      * @apiDescription Quick suggestion search service.
-     * @apiParam {String} keyword - XXXX
-     * @apiParam {String} [limitByItem - XXXX
+     * @apiParam {String} keyword Keyword to search related items.
+     * @apiParam {String} [limitByItem] Maximum number of results to be displayed as search result.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/search/quick-suggest.json
      * @apiPermission none
+     * @apiSuccessExample
+     *	{
+			error: {
+
+			},
+			success: {
+					items:{
+						comments: [ ],
+						profiles: [ ],
+						questions:[
+							{
+								id: 42,
+								urlLocation: "/question/detail/42/which-instrument-sounds-most-like-the-human-voice",
+								itemPattern: "SINGLE_SELECTION",
+								dateCreated: 1423953531000,
+								score: 100,
+								hits: null,
+								typeSearchResult: "QUESTION",
+								itemSearchTitle: "Which instrument sounds most like the human voice?",
+								itemSearchDescription: null
+							}
+						],
+						attachments: [ ],
+						tags: [ ],
+						Tweetpolls: [ ],
+						Polls: [ ]
+				},
+				label: "itemSearchTitle",
+				identifier: "id"
+		}
+}
      */
     @RequestMapping(value = "api/search/quick-suggest.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap quickSuggestionSearchService(

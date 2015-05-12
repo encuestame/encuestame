@@ -55,10 +55,35 @@ public class JsonPermissionController  extends AbstractJsonControllerV1 {
      * @api {get} /api/admon/list-permissions.json Get Permissions
      * @apiName GetPermissions
      * @apiGroup Permissions
-     * @apiDescription Load All List of Permissions
+     * @apiDescription List of permissions available to assign to the user.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/admon/list-permissions.json
-     * @apiPermission none
+     * @apiPermission ENCUESTAME_OWNER
+     * @apiSuccessExample
+     * {
+		  "error": {
+
+		  },
+		  "success": {
+		    "permissions": [
+		      {
+		        "id": 1,
+		        "permission": "ENCUESTAME_ADMIN",
+		        "description": "ENCUESTAME_ADMIN"
+		      },
+		      {
+		        "id": 2,
+		        "permission": "ENCUESTAME_OWNER",
+		        "description": "ENCUESTAME_OWNER"
+		      },
+		      {
+		        "id": 3,
+		        "permission": "ENCUESTAME_ADMIN",
+		        "description": "ENCUESTAME_ADMIN"
+		      }
+		    ]
+		  }
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/list-permissions.json", method = RequestMethod.GET)
@@ -75,12 +100,37 @@ public class JsonPermissionController  extends AbstractJsonControllerV1 {
      * @api {get} /api/admon/list-user-permissions.json Permissions by UserId
      * @apiName GetPermissionsbyUser
      * @apiGroup Permissions
-     * @apiDescription Load All List of Permissions by User
-     * @apiParam {Number} id - XXXX
+     * @apiDescription Load the list of permissions assigned to a user.
+     * @apiParam {Number} id User id
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/admon/list-user-permissions.json
+     * @apiSampleRequest http://www.encuestame.org/demo/api/admon/list-user-permissions.json?id=1
      * @apiPermission ENCUESTAME_OWNER
-     */
+     * @apiSuccessExample
+     *	{
+     * 		error: { },
+     * 		success: {
+     * 			userPermissions[
+     * 				{
+	 *     				id: 5,
+	 *     				permission: "ENCUESTAME_USER",
+	 *     				description: "ENCUESTAME_USER"
+     *  			},
+     *  			{
+	 * 				id: 4,
+	 *     				permission: "ENCUESTAME_EDITOR",
+	 *    				description: "ENCUESTAME_EDITOR"
+     *  			},
+     *  			{
+     * 					id: 3,
+     * 					permission: "ENCUESTAME_PUBLISHER",
+     * 					description: "ENCUESTAME_PUBLISHER"
+     *  			}
+	 *			]
+	 *		}
+	 *	}
+
+  */
+
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/list-user-permissions.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getUserPermissions(
@@ -106,12 +156,22 @@ public class JsonPermissionController  extends AbstractJsonControllerV1 {
      * @api {get} /api/admon/{action}-permission.json Permission actions
      * @apiName GetPermissionsActions
      * @apiGroup Permissions
-     * @apiDescription Allow
-     * @apiParam {Number} id - XXXX
-     * @apiParam {String} permission - XXXX
+     * @apiDescription Add or remove permissions for a user.
+     * @apiParam {Number} id User ID in which you want to perform the action: Add new permission or remove
+     * @apiParam {String="ENCUESTAME_USER","ENCUESTAME_EDITOR","ENCUESTAME_PUBLISHER","ENCUESTAME_OWNER","ENCUESTAME_ADMIN"} permission Permission value to assign or remove.
+     * @apiParam {String="add","remove"} action available actions to execute.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/admon/{action}-permission.json
      * @apiPermission ENCUESTAME_OWNER
+     * @apiSuccessExample
+	 *	{
+     * 		error: {
+     *
+     * 		},
+     * 		success: {
+     * 			p: "ok"
+     * 		}
+     * 	}
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/{action}-permission.json", method = RequestMethod.GET)
