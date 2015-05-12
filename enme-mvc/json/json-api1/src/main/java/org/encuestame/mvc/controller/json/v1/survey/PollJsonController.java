@@ -80,22 +80,90 @@ public class PollJsonController extends AbstractJsonControllerV1{
      * @apiGroup Poll
      * @apiDescription Return all comments that will be filtered by type.
      * @apiParam {String} typeSearch - XXXX
-     * @apiParam {String} [keyword] - XXXX
-     * @apiParam {Number} [max] - XXXX
-     * @apiParam {Number} [pollFolderId] - XXXX
-     * @apiParam {Number} [start] - XXXX
-     * @apiParam {String[} [social_networks] - XXXX
-     * @apiParam {Number[ } [social_account_networks] - XXXX
-     * @apiParam {Boolean} [_published] - XXXX
-     * @apiParam {Boolean} [_complete] - XXXX
-     * @apiParam {Boolean} [_favourite] - XXXX
-     * @apiParam {Boolean} [_scheduled] - XXXX
-     * @apiParam {Boolean} [_isHidden] - XXXX
-     * @apiParam {Boolean} [_isPassprotected] - XXXX
-     * @apiParam {String} [period] - XXXX
+     * @apiParam {String} [keyword] Keyword to search related polls.
+     * @apiParam {Number} [max] Defines the maximum number of search results.
+     * @apiParam {Number} [pollFolderId]  Folder id to organize and store the poll.
+     * @apiParam {Number} [start] Defines the starting number of the page of results.
+     * @apiParam {String[} [social_networks] Filter tweetpolls by networks accounts.
+     * @apiParam {Number[ } [social_account_networks] Filter polls by social networks accounts.
+     * @apiParam {Boolean} [_published]  Filter by published polls
+     * @apiParam {Boolean} [_complete]  Filter by completed polls.
+     * @apiParam {Boolean} [_favourite] Filter by favourites tweetpolls.
+     * @apiParam {Boolean} [_scheduled] Filter by polls scheduled.
+     * @apiParam {Boolean} [_isHidden] Filter by hidden polls.
+     * @apiParam {Boolean} [_isPassprotected] - Filter by tweetpolls with pass protected
+     * @apiParam {String} [period] Date range to search results.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/poll/search.json?typeSearch=all&keyword=What&max=1&start=0
      * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+     * {
+		    "error": { },
+		    "success": {
+		        "poll": [
+		            {
+		                "hashtags": [
+		                    {
+		                        "id": 11,
+		                        "size": 15,
+		                        "hashTagName": "internet",
+		                        "hits": 1
+		                    }
+		                ],
+		                "is_password_restriction": false,
+		                "owner_username": "demo10",
+		                "relative_time": null,
+		                "total_votes": 36,
+		                "hits": 21,
+		                "item_type": "poll",
+		                "like_votes": 0,
+		                "dislike_votes": 0,
+		                "create_date": null,
+		                "relevance": 11,
+		                "favorite": false,
+		                "latitude": 0,
+		                "longitude": 0,
+		                "additional_info": "",
+		                "show_comments": "MODERATE",
+		                "is_show_results": true,
+		                "folder_id": null,
+		                "is_show_additional_info": false,
+		                "is_close_after_date": false,
+		                "close_date": null,
+		                "is_close_after_quota": false,
+		                "close_quota": null,
+		                "is_ip_restricted": null,
+		                "ip_restricted": "",
+		                "multiple_response": null,
+		                "total_comments": 0,
+		                "id": 25,
+		                "completed_poll": false,
+		                "creation_date": "2012-08-18",
+		                "question": {
+		                    "question_name": "Which Spice Girl did David Beckham marry?",
+		                    "slug": "which-spice-girl-did-david-beckham-marry%3F",
+		                    "hits": null,
+		                    "version": null,
+		                    "state_id": null,
+		                    "id": 101,
+		                    "uid": 10,
+		                    "pattern": "SINGLE_SELECTION",
+		                    "widget": "encuestame.org.core.commons.questions.patterns.SingleOptionResponse",
+		                    "list_answers": [ ]
+		                },
+		                "finish_date": null,
+		                "published": true,
+		                "close_notification": true,
+		                "show_resultsPoll": true,
+		                "updated_date": null,
+		                "url": null,
+		                "short_url": null,
+		                "hastags_string": "internet,computer,business"
+		            }
+		        ]
+		    }
+
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/search.json", method = RequestMethod.GET)
@@ -153,10 +221,10 @@ public class PollJsonController extends AbstractJsonControllerV1{
      * @apiName PostPublishPoll
      * @apiGroup Poll
      * @apiDescription Publish a {@link Poll} on a list of {@link SocialAccount}
-     * @apiParam {Number[ } [twitterAccounts] - XXXX
-     * @apiParam {Number} id - XXXX
+     * @apiParam {Number[]} [twitterAccounts] Array list with the Social networks ID in which will be published on poll.
+     * @apiParam {Number} id - Unique id number that identifies the poll that will be published.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/poll/social/publish.json
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/poll/social/publish.json?id=45
      * @apiPermission none
      */
     @RequestMapping(value = "/api/survey/poll/social/publish.json", method = RequestMethod.POST)
@@ -218,7 +286,7 @@ public class PollJsonController extends AbstractJsonControllerV1{
      * @apiName DeletePoll
      * @apiGroup Poll
      * @apiDescription Remove poll
-     * @apiParam {Number} pollId Unique number that identifies the poll that will be removed
+     * @apiParam {Number} pollId Unique number that identifies the poll that will be removed.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/poll/remove.json?pollId=27
      * @apiPermission ENCUESTAME_USER
@@ -256,10 +324,118 @@ public class PollJsonController extends AbstractJsonControllerV1{
      * @apiName GetDetailPoll
      * @apiGroup Poll
      * @apiDescription Shows a detail of the results of the votes recorded in the poll.A service to retrieve all info of a poll.
-     * @apiParam {Number} id Unique number that identifies the poll that has been shown the detail.
+     * @apiParam {Number} id Unique number that identifies the poll that will show its detail.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/poll/detail.json?id=26
      * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+     *  {
+    		"error": {
+
+    		},
+    		"success": {
+        		"poll": {
+            		"poll_results": [
+                		{
+                    		"answer": {
+                        		"answer_id": 255,
+                        		"answers": "Bank of America Tower",
+                        		"url": null,
+                        		"short_url": null,
+                        		"qid": 102,
+                        		"color": "#0697A5",
+                        		"provider": null
+                    		},
+                    "answer_votes": 52,
+                    "percent": "4,92%"
+                	},
+                	{
+                    	"answer": {
+                        	"answer_id": 254,
+                        	"answers": "One World Trade Center",
+                        	"url": null,
+                        	"short_url": null,
+                        	"qid": 102,
+                        	"color": "#D4584B",
+                        	"provider": null
+                    	},
+                    "answer_votes": 47,
+                    "percent": "4,45%"
+                	}
+            	],
+			"poll_bean": {
+                "hashtags": [
+                    {
+                        "id": 18,
+                        "size": 15,
+                        "hashTagName": "online",
+                        "hits": 1
+                   }
+                ],
+                "is_password_restriction": false,
+                "owner_username": "demo10",
+                "relative_time": null,
+                "total_votes": 39,
+                "hits": 21,
+                "item_type": "poll",
+                "like_votes": 0,
+                "dislike_votes": 0,
+                "create_date": null,
+                "relevance": 12,
+                "favorite": false,
+                "latitude": 0,
+                "longitude": 0,
+                "additional_info": "",
+                "show_comments": "MODERATE",
+                "is_show_results": true,
+                "folder_id": null,
+                "is_show_additional_info": false,
+                "is_close_after_date": false,
+                "close_date": null,
+                "is_close_after_quota": false,
+                "close_quota": null,
+                "is_ip_restricted": null,
+                "ip_restricted": "",
+                "multiple_response": null,
+                "total_comments": 0,
+                "id": 26,
+                "completed_poll": false,
+                "creation_date": "2011-10-09",
+                "question": {
+                    "question_name": "What's the tallest building in New York City?",
+                    "slug": "what%27s-the-tallest-building-in-new-york-city%3F",
+                    "hits": null,
+                    "version": null,
+                    "state_id": null,
+                    "id": 102,
+                    "uid": 10,
+                    "pattern": "SINGLE_SELECTION",
+                    "widget": "encuestame.org.core.commons.questions.patterns.SingleOptionResponse",
+                    "list_answers": [ ]
+                },
+                "finish_date": null,
+                "published": true,
+                "close_notification": true,
+                "show_resultsPoll": true,
+                "updated_date": null,
+                "url": null,
+                "short_url": null,
+                "hastags_string": "online,health,music"
+            },
+            "poll_list_answers": [
+                {
+                    "answer_id": 253,
+                    "answers": "Empire State Building",
+                    "url": null,
+                    "short_url": "googl",
+                    "qid": 102,
+                    "color": "#5BFD0D",
+                    "provider": null
+               }
+            ]
+         }
+    }
+	}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/detail.json", method = RequestMethod.GET)
@@ -284,15 +460,92 @@ public class PollJsonController extends AbstractJsonControllerV1{
      * @apiGroup Poll
      * @apiDescription Search Polls into Folders
      * @apiParam {Number} [pollId] - XXXX
-     * @apiParam {String} [keyword] - XXXX
-     * @apiParam {Number} [maxResults] - XXXX
-     * @apiParam {Number} [start] - XXXX
-     * @apiParam {Number} [folderId] - XXXX
-     * @apiParam {String} [date] - XXXX
-     * @apiParam {String} [type] - XXXX
+     * @apiParam {String} [keyword] Keyword to search related polls
+     * @apiParam {Number} [maxResults] Defines the maximum number of search results.
+     * @apiParam {Number} [start] Defines the starting number of the page of results.
+     * @apiParam {Number} [folderId] Unique Folder identifier of the element where the search is performed.
+     * @apiParam {String} [date] Filter results based on that date
+     * @apiParam {String="date","folder","keyword"} [type] Search filters.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/poll/searchby-folder.json?keyword=What&folderId=1
-     * @apiPermission ENCUESTAME_USER
+     * @apiPermission ENCUESTAME_USER,
+     * @apiSuccessExample
+     * {
+		  "error": {
+
+		  },
+		  "success": {
+		    "poll": [
+		      {
+		        "hashtags": [
+		          {
+		            "id": 11,
+		            "size": 15,
+		            "hashTagName": "internet",
+		            "hits": 1
+		          },
+		          {
+		            "id": 10,
+		            "size": 15,
+		            "hashTagName": "computer",
+		            "hits": 1
+		          }
+		        ],
+		        "is_password_restriction": false,
+		        "owner_username": "demo10",
+		        "relative_time": null,
+		        "total_votes": 36,
+		        "hits": 21,
+		        "item_type": "poll",
+		        "like_votes": 0,
+		        "dislike_votes": 0,
+		        "create_date": null,
+		        "relevance": 11,
+		        "favorite": false,
+		        "latitude": 0,
+		        "longitude": 0,
+		        "additional_info": "",
+		        "show_comments": "MODERATE",
+		        "is_show_results": true,
+		        "folder_id": null,
+		        "is_show_additional_info": false,
+		        "is_close_after_date": false,
+		        "close_date": null,
+		        "is_close_after_quota": false,
+		        "close_quota": null,
+		        "is_ip_restricted": null,
+		        "ip_restricted": "",
+		        "multiple_response": null,
+		        "total_comments": 0,
+		        "id": 25,
+		        "completed_poll": false,
+		        "creation_date": "2012-08-18",
+		        "question": {
+		          "question_name": "Which Spice Girl did David Beckham marry?",
+		          "slug": "which-spice-girl-did-david-beckham-marry%3F",
+		          "hits": null,
+		          "version": null,
+		          "state_id": null,
+		          "id": 101,
+		          "uid": 10,
+		          "pattern": "SINGLE_SELECTION",
+		          "widget": "encuestame.org.core.commons.questions.patterns.SingleOptionResponse",
+		          "list_answers": [
+
+		          ]
+		        },
+		        "finish_date": null,
+		        "published": true,
+		        "close_notification": true,
+		        "show_resultsPoll": true,
+		        "updated_date": null,
+		        "url": null,
+		        "short_url": null,
+		        "hastags_string": "internet,computer,business"
+		      }
+		    ]
+		  }
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/searchby-{type}.json", method = RequestMethod.GET)
@@ -342,7 +595,7 @@ public class PollJsonController extends AbstractJsonControllerV1{
      * @apiParam {Number} questionName - the question string
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/poll
-     * @apiPermission none
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll", method = RequestMethod.POST)
@@ -367,10 +620,10 @@ public class PollJsonController extends AbstractJsonControllerV1{
      * @apiName PostPollActions
      * @apiGroup Poll
      * @apiDescription Update poll properties.
-     * @apiParam {String} propertyType - XXXX
-     * @apiParam {Number} pollId - XXXX
+     * @apiParam {String} propertyType {String="change-open-status","change-display-results","password-restrictions","additional-info","notifications","ip-protection","notification","close-after-quota"} propertyType Specifies the options or properties available.
+     * @apiParam {Number} pollId This is the Poll unique identifier that will be assigned a property.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/poll/{propertyType}-poll.json
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/poll/change-open-status-poll.json?pollId=45
      * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
