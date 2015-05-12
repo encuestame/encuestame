@@ -99,13 +99,29 @@ public class SurveyJsonController extends AbstractJsonControllerV1{
 
     /**
      * @api {get} /api/survey/sections.json Retrieve sections
-     * @apiName XXXX
+     * @apiName GetSections
      * @apiGroup Survey
-     * @apiDescription Retrieve sections by {@link Survey}.
-     * @apiParam {Number} [id - XXXX
+     * @apiDescription Retrieves a list of the sections created and assigned to a survey with details of your information.
+     * @apiParam {Number} [id] Surveys Id to retrieve all their sections.
      * @apiVersion 1.0.0
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/sections.json
      * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+     * {
+		    "error": { },
+		    "success": {
+		        "sections": [
+		            {
+		                "name": "About me",
+		                "id": null,
+		                "description": "Personal information about marital status, age, date of birth, etc.",
+		                "stateId": null,
+		                "listQuestions": [ ],
+		                "showPanel": false
+		            }
+		        ]
+		    }
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/sections.json", method = RequestMethod.GET)
