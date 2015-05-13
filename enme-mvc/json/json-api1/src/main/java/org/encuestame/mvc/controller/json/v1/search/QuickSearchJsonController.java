@@ -52,17 +52,48 @@ public class QuickSearchJsonController extends AbstractJsonControllerV1 {
      */
     private final Integer LIMIT_RESULTS = 10;
 
+
     /**
-     * Quick suggestion search service.
-     *
-     * @param keyword
-     * @param type
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} api/search/quick-suggest.json Quick Search
+     * @apiName GetQuickSearch
+     * @apiGroup QuickSearch
+     * @apiDescription Quick suggestion search service.
+     * @apiParam {String} keyword Keyword to search related items.
+     * @apiParam {String} [limitByItem] Maximum number of results to be displayed as search result.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/search/quick-suggest.json
+     * @apiPermission none
+     * @apiSuccessExample
+     *	{
+			error: {
+
+			},
+			success: {
+					items:{
+						comments: [ ],
+						profiles: [ ],
+						questions:[
+							{
+								id: 42,
+								urlLocation: "/question/detail/42/which-instrument-sounds-most-like-the-human-voice",
+								itemPattern: "SINGLE_SELECTION",
+								dateCreated: 1423953531000,
+								score: 100,
+								hits: null,
+								typeSearchResult: "QUESTION",
+								itemSearchTitle: "Which instrument sounds most like the human voice?",
+								itemSearchDescription: null
+							}
+						],
+						attachments: [ ],
+						tags: [ ],
+						Tweetpolls: [ ],
+						Polls: [ ]
+				},
+				label: "itemSearchTitle",
+				identifier: "id"
+		}
+}
      */
     @RequestMapping(value = "api/search/quick-suggest.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap quickSuggestionSearchService(
@@ -81,8 +112,8 @@ public class QuickSearchJsonController extends AbstractJsonControllerV1 {
             typesEnabled.add(TypeSearchResult.HASHTAG);
             typesEnabled.add(TypeSearchResult.POLL);
             typesEnabled.add(TypeSearchResult.PROFILE);
-            typesEnabled.add(TypeSearchResult.TWEETPOLL); 
-            typesEnabled.add(TypeSearchResult.COMMENT);  
+            typesEnabled.add(TypeSearchResult.TWEETPOLL);
+            typesEnabled.add(TypeSearchResult.COMMENT);
             if (!keyword.isEmpty()) {
                  setItemReadStoreResponse("itemSearchTitle", "id", getSearchService()
                         .quickSearch(keyword, "English", 0, LIMIT_RESULTS, limitByItem, typesEnabled));

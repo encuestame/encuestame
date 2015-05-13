@@ -51,15 +51,15 @@ public class SocialAccountsJsonController extends AbstractJsonControllerV1 {
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
-     * Change state / remove / disable / enable of social account.
-     * @param type
-     * @param socialAccountId
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/social/actions/account/{type}.json Social Accounts actions
+     * @apiName GetSocialAccounts
+     * @apiGroup SocialAccounts
+     * @apiDescription Change state / remove / disable / enable of social account.
+     * @apiParam {String} type - XXXX
+     * @apiParam {Number} socialAccountId - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/social/actions/account/{type}.json
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/social/actions/account/{type}.json", method = RequestMethod.GET)
@@ -79,16 +79,15 @@ public class SocialAccountsJsonController extends AbstractJsonControllerV1 {
         return returnData();
     }
 
-
     /**
-     * Return Social Valid Accounts.
-     * @param request
-     * @param response
-     * @param provider
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/social/accounts.json Get Social Accounts
+     * @apiName GetTypesSocialAccounts
+     * @apiGroup SocialAccounts
+     * @apiDescription  Return Social Valid Accounts.
+     * @apiParam {String} [provider - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/social/accounts.json
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/social/accounts.json", method = RequestMethod.GET)
@@ -111,13 +110,16 @@ public class SocialAccountsJsonController extends AbstractJsonControllerV1 {
         return returnData();
     }
 
+
     /**
-     * Return list of enabled providers.
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/social/providers.json Providers
+     * @apiName GetProviders
+     * @apiGroup SocialAccounts
+     * @apiDescription Return list of enabled providers.
+     * @apiParam {Number} provider - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/social/providers.json
+     * @apiPermission ENCUESTAME_USER
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/social/providers.json", method = RequestMethod.GET)

@@ -48,15 +48,33 @@ public class LinksJsonController extends AbstractJsonControllerV1{
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
-     * Retrieve the social links where items has been published.
-     * @param id
-     * @param type
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/public/social/links/published.json Get Social links
+     * @apiName GetSocialLinks
+     * @apiGroup Links
+     * @apiDescription Retrieve the social links where items has been published.
+     * @apiParam {String} id Tweetpoll, poll or Survey Id.
+     * @apiParam {String="tweetpoll","poll","survey","profile","hashtag"} type Options available to retrieve all items published.
+     * @apiParam {Number} [start] The minimum number of comments to show in the response.
+     * @apiParam {Number} [max] The maximum number of comments to include in the response.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/public/social/links/published.json
+     * @apiPermission none
+     * @apiSuccessExample
+     * 	{
+		  "error": {
+
+		  },
+		  "success": {
+		    "links": [
+		      {
+		        "link_url": "https:\/\/twitter.com\/#!\/demo10\/status\/??????",
+		        "provider_social": "TWITTER",
+		        "publishd_text": "What types of books magazines newspapers do you read?",
+		        "published_date": "2014-08-12"
+		      }
+		    ]
+		  }
+		}
      */
     @RequestMapping(value = "/api/public/social/links/published.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getPublishedSocialLinks(

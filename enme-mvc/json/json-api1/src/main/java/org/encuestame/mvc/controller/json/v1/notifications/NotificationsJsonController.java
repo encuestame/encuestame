@@ -53,15 +53,38 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
      */
      private Log log = LogFactory.getLog(this.getClass());
 
-    /**
-     * Status Notification.
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
-     */
+
+     /**
+      * @api {get} /api/status-notifications.json Status Notification
+      * @apiName GetNotificationStatus
+      * @apiGroup Notifications
+      * @apiDescription This service returns the total number of notifications per user and how many of them have not been read.
+      * @apiVersion 1.0.0
+      * @apiSampleRequest http://www.encuestame.org/demo/api/status-notifications.json
+      * @apiPermission ENCUESTAME_USER
+      * @apiSuccessExample
+			{
+				"error": {
+
+				},
+    			"success": {
+        			"t": 764,
+        			"n": 764
+    			}
+			}
+      * @apiSuccess {Number} t Total number of notifications.
+      * @apiSuccess {Number} t Total number of new notifications.
+      * @apiErrorExample
+			{
+				"error":{
+					"message":"Access is denied",
+					"session":true,"status":403,
+					"description":"You do not have access to this resource,
+					"anonymousUser":true
+				}
+			}
+      */
+
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/status-notifications.json", method = RequestMethod.GET)
     @Transactional
@@ -89,23 +112,34 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     * Get Notifications.
-     * @param limit
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws if(secondary == null){
-             setError("account not valid", response);
-         }
-         final Map<String, Object> responseJson = new HashMap<String, Object>();
-        final List<Notification> notifications = getNotificationDao()
-                .loadNotificationByUserAndLimit(secondary.getAccount(), limit,
-                        0, Boolean.TRUE);
-        responseJson.put("notifications",
-                convertNotificationList(notifications, request));
-        setItemResponse(responseJson); IOException
+     * @api {get} /api/notifications/list.json Get Notifications
+     * @apiName GetNotifications
+     * @apiGroup Notifications
+     * @apiDescription Retrieve all last notifications.
+     * @apiParam {Number} limit The maximum number of notifications to include in the response.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/notifications/list.json
+     * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+			{
+  				"error": {
+
+  				},
+    			"success": {
+        				"notifications": [
+							{
+                				"id": 764,
+                				"type": "POLL_PUBLISHED",
+                				"date": "2012-09-12",
+                				"description": null,
+                				"url": "/poll/abbfef5c71778e69dc84f892a0ced544/28/mi-second-poll",
+                				"icon": null,
+                				"additionalDescription": "Your Poll has been published",
+                				"hour": "10:44:07"
+            				}
+        				]
+    			}
+			}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/list.json", method = RequestMethod.GET)
@@ -131,15 +165,56 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     *
-     * @param limit
-     * @param start
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/notifications/all/list.json Categorized Notifications
+     * @apiName GetCategorizedNotifications
+     * @apiGroup Notifications
+     * @apiDescription Return all notifications categorized by a range date.
+     * @apiParam {Number} [limit] The maximum number of notifications to include in the response
+     * @apiParam {Number} [start] The minimum number of notifications to show in the response.
+     * @apiParam {Boolean} categorized Indicate whether the notification list will be displayed sorted by date range
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/notifications/all/list.json
+     * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+			{
+    			"error": {
+
+    			},
+    			"success": {
+        			"notifications": {
+            				"THIS_MONTH": [
+            					{
+                    				"id": 763,
+                    				"type": "POLL_PUBLISHED",
+                    				"date": "2015-03-24",
+                    				"description": null,
+                    				"url": "/poll/4c04386ca0562ffe2cfc2f6f5e18b0ef/27/mi-poll-question",
+                    				"icon": null,
+                    				"additionalDescription": "Your Poll has been published",
+                    				"hour": "10:09:34"
+                			}
+
+            				],
+            				"LAST_MONTH": [ ],
+            				"THIS_WEEK": [ ],
+            				"LONG_TIME_AGO": [ ],
+            				"LAST_YEAR": [ ],
+            				"FEW_MONTHS_AGO": [ ],
+            				"TODAY": [
+                				{
+                    				"id": 764,
+                    				"type": "POLL_PUBLISHED",
+                    				"date": "2015-04-24",
+                    				"description": null,
+									"url": "/poll/abbfef5c71778e69dc84f892a0ced544/28/mi-second-poll",
+                    				"icon": null,
+                    				"additionalDescription": "Tu sondeo ha sido publicado",
+                    				"hour": "10:44:07"
+                				},
+                   			]
+        			}
+    			}
+			}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/all/list.json", method = RequestMethod.GET)
@@ -176,14 +251,24 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     * Change Status.
-     * @param limit
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/notifications/readed.json Change Status
+     * @apiName GetReadedNotifications
+     * @apiGroup Notifications
+     * @apiDescription Change the status of the notification when it has been read.
+     * @apiParam {Number} id This is the id(unique identifier) of the notification that will be changed
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/notifications/readed.json?id=1
+     * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+			{
+    			"error": {
+
+    			},
+    			"success": {
+					"r": 0
+    			}
+			}
+		@apiSuccess {r} Default answer to define a satisfactory response.
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/readed.json", method = RequestMethod.GET)
@@ -204,14 +289,24 @@ public class NotificationsJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     * Remove Notification.
-     * @param notificationId
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {delete} /api/notification/remove.json Remove Notification
+     * @apiName DeleteNotification
+     * @apiGroup Notifications
+     * @apiDescription Remove activity notification..
+     * @apiParam {Number} notificationId This is the id(unique identifier ) of the notification that will be deleted.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/remove-notification.json?notificationId=1
+     * @apiPermission ENCUESTAME_USER
+     * @apiSuccessExample
+			{
+    			"error": {
+
+    			},
+    			"success": {
+					"r": 0
+    			}
+			}
+		@apiSuccess {r} Default answer to define a satisfactory response.
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notification/remove.json", method = RequestMethod.DELETE)

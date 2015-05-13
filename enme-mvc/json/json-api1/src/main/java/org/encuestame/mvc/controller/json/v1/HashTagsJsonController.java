@@ -71,10 +71,10 @@ public class HashTagsJsonController extends AbstractJsonControllerV1{
      * @apiGroup Hashtag
      * @apiPermission user
      * @apiDescription Retrieve  hashtags used to mark or categorize Tweetpolls, Poll or Survey.
-     * @apiParam {String} limit
-     * @apiParam {String} keyword
-     * @apiParam {String[]} excludes
-     * @apiSampleRequest http://www.encuestame.org/demo/api/help/status
+     * @apiParam {String} limit The maximum number of hashtags to include in the response
+     * @apiParam {String} keyword Keyword to suggest a list of related hashtags.
+     * @apiParam {String[]} excludes All Comments Id that will not be included in the search.
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/hashtags.json?limit=10&keyword=f
      * @apiPermission none
      * @apiSuccessExample
      * {
@@ -144,7 +144,7 @@ public class HashTagsJsonController extends AbstractJsonControllerV1{
      * @apiPermission none
      * @apiGroup Hashtag
      * @apiDescription A tag cloud of hashtags with the top hashtags in post mentioning ordered by frecuency.
-     * @apiParam {Number} limit
+     * @apiParam {Number} limit The maximum number of hashtags to include in the response.
      * @apiSampleRequest http://www.encuestame.org/demo/api/common/hashtags/cloud.json
      * @apiPermission none
      * @apiSuccessExample
@@ -200,13 +200,16 @@ public class HashTagsJsonController extends AbstractJsonControllerV1{
 
     /**
      * @api {get} /api/survey/hashtag/{type}/{action}.json Hashtag Operations
-     * @apiVersion 1.0.0
      * @apiName GetOperationHashtag
      * @apiGroup Hashtag
-     * @apiPermission user
-     * @apiDescription A tag cloud of hashtags with the top hashtags in post mentioning ordered by frecuency.
-     * @apiParam {Number} limit
+     * @apiDescription Allows operations on a hashtag such as: Add / Remove.
+     * @apiPermission ENCUESTAME_USER
+     * @apiParam {String} hashtag Hashtag name
+     * @apiParam {Number} itemId Hashtag id that will be possibly eliminated.
+     * @apiParam {String="tweetpoll","poll","survey"} type Type of element it adds a comment.
+     * @apiParam {String} action operation to execute.
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/hashtag/test/remove.json
+     * @apiVersion 1.0.0
      * @apiSuccessExample
      * @apiSuccess {Object} success
      * @apiSuccess {String} error

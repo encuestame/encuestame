@@ -22,12 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.SearchPeriods;
@@ -38,11 +32,13 @@ import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 /**
  * HashTag statistics.
@@ -59,18 +55,52 @@ public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
     /** **/
     private Integer INIT_RESULTS = 0;
 
+
     /**
-     * Get hashTags button stats.
-     *
-     * @param tagName
-     * @param filter
-     * @param limit
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/hashtags/stats/button.json Button stats
+     * @apiName GetButtonStats
+     * @apiGroup Stats
+     * @apiDescription Return all comments that will be filtered by type.
+     * @apiParam {String} tagName Hashtag name.
+     * @apiParam {String="hashtagrated"} filter Filter search.
+     * @apiParam {String} [period] Date range to search results.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/hashtags/stats/button.json?tagName=health&filter=HASHTAGRATED&period=24
+     * @apiPermission none
+     * @apiSuccessExample
+     * {
+		  "error": {
+
+		  },
+		  "success": {
+		    "hashTagButtonStats": {
+		      "usage_by_item": {
+		        "label": "Usage",
+		        "value": 0,
+		        "sub_label": "times ",
+		        "filter": "HASHTAG"
+		      },
+		      "total_usage_by_social_network": {
+		        "label": "Social Networks",
+		        "value": 0,
+		        "sub_label": "Tweets ",
+		        "filter": "SOCIALNETWORK"
+		      },
+		      "total_hits": {
+		        "label": "Hits",
+		        "value": 0,
+		        "sub_label": "times ",
+		        "filter": "HITS"
+		      },
+		      "usage_by_votes": {
+		        "label": "Voted",
+		        "value": 0,
+		        "sub_label": "votos",
+		        "filter": "VOTES"
+		      }
+		    }
+		  }
+		}
      */
     @RequestMapping(value = "/api/common/hashtags/stats/button.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getHashTagButtonStats(
@@ -120,16 +150,38 @@ public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
         return returnData();
     }
 
-
     /**
-     * Get hashTags ranking stats.
-     * @param tagName
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/hashtags/stats/ranking.json Get Ranking stats
+     * @apiName GetRanking
+     * @apiGroup Stats
+     * @apiDescription Hashtag statistics are presented in the form of ranking to show which has been the trend in Timeline.
+     * @apiParam {String} tagName Hashtag Name.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/hashtags/stats/ranking.json?tagName=health
+     * @apiPermission none
+     * @apiSuccessExample
+     * 	{
+		 	"error": { },
+		    "success": {
+		        "hashTagRankingStats": [
+		            {
+		                "position": 19,
+		                "tagName": "hosting",
+		                "lastPosition": 0
+		            },
+		            {
+		                "position": 18,
+		                "tagName": "health",
+		                "lastPosition": 0
+		            },
+		            {
+		                "position": 17,
+		                "tagName": "games",
+		                "lastPosition": 0
+		            }
+		        ]
+		    }
+		}
      */
     @RequestMapping(value = "/api/common/hashtags/stats/ranking.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getHashTagRankingStats(
@@ -149,17 +201,17 @@ public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
         return returnData();
     }
 
+
     /**
-     * Generic stats.
-     * @param itemId
-     * @param tagName
-     * @param filter
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/stats/generic.json Generic stats.
+     * @apiName GetGeneric
+     * @apiGroup Stats
+     * @apiDescription The generic statistics are used to get an overview on using a particular hashtag as: Percentage of positive or negative, number of visits, who created the label as well as the creation date.
+     * @apiParam {String} itemId Unique identifier of the item (Ex. Twtpoll ID,  Poll ID, etc.) .
+     * @apiParam {String} filter Filter Search
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/stats/generic.json
+     * @apiPermission none
      */
     @RequestMapping(value = "/api/common/stats/generic.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getGenericStats(
@@ -183,14 +235,47 @@ public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
         return returnData();
     }
 
+
     /**
-     *
-     * @param tagName
-     * @param period
-     * @param filter
-     * @param request
-     * @param response
-     * @return
+     * @api {get} /api/common/hashtags/stats/button/range.json By Date range
+     * @apiName GetRange
+     * @apiGroup Stats
+     * @apiDescription Provides statistics based on two main parameters: The date range and a total usage parameter is given the hashtag, they may include:
+     *					number of visits, the use to categorize or mark a type of survey, number of times to use in a social network as well as the number of votes received.
+     * @apiParam {String} tagName  Hashtag name to retrieve the statistics.
+     * @apiParam {String} [period] Date range to search results.
+     * @apiParam {String="hashtag","socialnetwork","hits","votes"} filter - XXXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/hashtags/stats/button/range.json?tagName=health&period=7&filter=HASHTAG
+     * @apiPermission none
+     * @apiSuccessExample
+     * {
+		  "error": {
+
+		  },
+		  "success": {
+		    "statsByRange": [
+		      {
+		        "label": "7",
+		        "value": 2,
+		        "sub_label": "Domingo",
+		        "filter": null
+		      },
+		      {
+		        "label": "3",
+		        "value": 1,
+		        "sub_label": "Marzo",
+		        "filter": null
+		      },
+		      {
+		        "label": "5",
+		        "value": 1,
+		        "sub_label": "Mayo",
+		        "filter": null
+		      }
+		    ]
+		  }
+		}
      */
     @RequestMapping(value = "/api/common/hashtags/stats/button/range.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getHashTagButtonStatsByDateRange(

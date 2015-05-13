@@ -23,13 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Logger;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.domain.Comment;
@@ -49,6 +42,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 /**
  * Comment Json Controller.
  * @author Morales, Diana Paola paolaATencuestame.org
@@ -65,14 +61,51 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
 
 
     /**
-     * Get comments by tweetPoll.
-     * @param tweetPollId
-     * @param max
-     * @param start
-     * @param type
-     * @param request
-     * @param response
-     * @return
+     * @api {get} /api/common/comment/comments/{type}.json Comments by type
+     * @apiName GetCommentsTypes
+     * @apiGroup Comments
+     * @apiDescription Return all comments filtered by type.
+     * @apiParam {string="tweetpoll","poll","survey"} type Filter Comments by type.
+     * @apiParam {Number} id Unique identifier of the item (Ex. Twtpoll ID,  Poll ID, etc.) for which to retrieve comments
+     * @apiParam {Number} [max] Defines the maximum number of results.
+     * @apiParam {Number} [start] Defines the starting number of the page of results.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/comments/tweetpoll.json?id=64&max=2&start=0
+     * @apiPermission none
+     * @apiSuccessExample
+		{
+			"error": {
+
+			},
+			"success": {
+				"comments": [
+	    			{
+	        			"id": 381,
+	        			"comment": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system
+						"created_at": "2012-01-24",
+	        			"likeVote": 746,
+	        			"dislike_vote": 143,
+	        			"item_id": 64,
+	        			"type": "TWEETPOLL",
+	        			"url": "/tweetpoll/64/who-accidentally-started-the-craze-for-tanned-skin%3F/#comment381",
+	        			"commented_by": "complete demo username",
+	        			"commented_username": "demo3",
+	        			"parent_id": null
+	    			}
+				]
+			}
+		}
+     * @apiSuccess {Object} success
+     * @apiSuccess {String} error
+     * @apiError tweetpoll <code>id</code> is not published"
+     * @apiErrorExample
+		{
+			"error":{
+						"message":"tweetpoll [64] is not published"
+					},
+			"success":{
+			}
+		}
      */
     @RequestMapping(value = "/api/common/comment/comments/{type}.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getCommentsbyItemType(
@@ -83,9 +116,6 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
             HttpServletRequest request, HttpServletResponse response) {
         try {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-//            log.trace("/api/common/comment/comments/{type}.json itemId "+itemId);
-//            log.debug("/api/common/comment/comments/{type}.json max "+max);
-//            log.debug("/api/common/comment/comments/{type}.json start "+start);
             final List<Comment> comments = getCommentService().getComments(
                     TypeSearchResult.getTypeSearchResult(type), itemId, limitTotalMax(max),
                     start);
@@ -100,16 +130,39 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     * Get comments by keyword.
-     * @param limit
-     * @param keyword
-     * @param excludes
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/comment/search.json Comments by keyword
+     * @apiName GetComments
+     * @apiGroup Comments
+     * @apiDescription Get a list of comments by keyword. Use keywords to search related comments . Allows you to search the comments that people make. You can see what you are talking about, in real time.
+     * @apiParam {Number} [limit]   Maximum number of comments to be displayed as search result
+     * @apiParam {String} [keyword] Keyword to search related comments.
+     * @apiParam {Number[]} [excludes]
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/search.json?limit=1&keyword=pleasure
+     * @apiPermission none
+     * @apiSuccessExample
+ 		{
+			"error": { },
+			"success": {
+    			"comments": [
+        			{
+            			"id": 3,
+            			"comment": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system
+            			"created_at": "2012-08-04",
+            			"likeVote": 233,
+            			"dislike_vote": 70,
+            			"item_id": 1,
+            			"type": "TWEETPOLL",
+            			"url": "/tweetpoll/1/what-types-of-books-magazines-newspapers-do-you-read%3F/#comment3",
+            			"commented_by": "complete demo username",
+            			"commented_username": "demo6",
+            			"parent_id": null
+					}
+    			]
+			}
+		}
+     * @apiSuccess {Object} success
+     * @apiSuccess {String} error
      */
     @RequestMapping(value = "/api/common/comment/search.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getComments(
@@ -123,9 +176,6 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
                 if(limit == null){
                     limit = LIMIT_DEFAULT;
                 }
-//                log.debug("Limit "+limit);
-//                log.debug("Keyword "+keyword);
-//                log.debug("excludes "+excludes);
                 if(keyword == null || keyword.isEmpty()){
                     jsonResponse.put("comments", ListUtils.EMPTY_LIST);
                     setItemResponse(jsonResponse);
@@ -141,16 +191,29 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
             return returnData();
         }
 
+
     /**
-     * Get all comments by user
-     * @param limit
-     * @param start
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {get} /api/common/comments Comments by user
+     * @apiName GetUsersComments
+     * @apiGroup Comments
+     * @apiDescription Return all comments that will be filtered by user.
+     * @apiParam {Number} [limit] Defines the maximum number of results.
+     * @apiParam {Number} [start] Defines the starting number of the page of results.
+     * @apiParam {String="LIKE_VOTE", "DISLIKE_VOTE"} [option] Options available to vote a Comment.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/comments
+     * @apiPermission ENCUESTAME_USER
+     * @apiError Access is denied
+     * @apiErrorExample
+		{
+			"error":{
+						"message":"Access is denied",
+						"session":true,
+						"status":403,
+						"description":"Tu no tienes acceso a este recurso",
+						"anonymousUser":true
+					}
+		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/comments", method = RequestMethod.GET)
@@ -175,16 +238,17 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
         return returnData();
     }
 
+
     /**
-     * Like or dislike vote on comment.
-     * @param commentId
-     * @param option
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
+     * @api {put} /api/common/comment/vote/{option} Vote on Comment
+     * @apiName putVoteComment
+     * @apiGroup Comments
+     * @apiDescription Vote a comment with a like or dislike
+     * @apiParam {Number} commentId Unique identifier of the item (Ex. Twtpoll ID,  Poll ID, etc.) that will be voted.
+     * @apiParam {String="LIKE_VOTE", "DISLIKE_VOTE"} [commentOption] Options available to vote a Comment.
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/vote/like_vote
+     * @apiPermission none
      */
     @RequestMapping(value = "/api/common/comment/vote/{option}", method = RequestMethod.PUT)
     public @ResponseBody ModelMap voteComment(
@@ -204,12 +268,17 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
         }
 
     /**
-     *
-     * @param mycomment
-     * @param tweetPollId
-     * @param request
-     * @param response
-     * @return
+     * @api {post} /api/common/comment/{type}/create.json Create Comment.
+     * @apiName postCreateComment
+     * @apiGroup Comments
+     * @apiDescription Create a Comment.
+     * @apiParam {String="tweetpoll","profile","poll","survey"} type
+     * @apiParam {String} comment New Comment string
+     * @apiParam {Number} tweetPollId - Unique identifier of the element to which an comment will be added.
+     * @apiParam {Number} [commentId]- XXX
+     * @apiVersion 1.0.0
+     * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/{type}/create.json
+     * @apiPermission ENCUESTAME_USER
      */
     @RequestMapping(value = "/api/common/comment/{type}/create.json", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
@@ -259,15 +328,18 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
     }
 
     /**
-     * JSON Service to create a comment.
-     * @param mycomment
-     * @param tweetPollId
-     * @param relatedCommentId
-     * @param type
-     * @param request
-     * @param response
-     * @return
-     */
+	 * @api {post} /api/admon/comment/{type}/create.json Edit Comment
+	 * @apiName postEditComment
+	 * @apiGroup Comments
+	 * @apiDescription Update Comment
+	 * @apiParam {String} comment Personal comment or rating on a particular type of survey.
+	 * @apiParam {Number} tweetPollId - XXX
+	 * @apiParam {Number} [commentId] - XXX
+	 * @apiParam {String} type - XXX
+	 * @apiVersion 1.0.0
+	 * @apiSampleRequest http://www.encuestame.org/demo/api/admon/comment/{type}/create.json
+	 * @apiPermission ENCUESTAME_EDITOR
+	 */
     @RequestMapping(value = "/api/admon/comment/{type}/create.json", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ENCUESTAME_EDITOR')")
     public @ResponseBody ModelMap createEditorComment(
@@ -287,15 +359,40 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
          return returnData();
      }
 
+
     /**
-     * JSON Service to retrieve the top comments.
-     * @param commentOption
-     * @param max
-     * @param start
-     * @param request
-     * @param response
-     * @return
-     */
+  	 * @api {get} /api/common/comment/rate/top.json Top Comments
+  	 * @apiName getTopComments
+  	 * @apiGroup Comments
+  	 * @apiDescription Retrieve the top comments.
+  	 * @apiParam {String="LIKE_VOTE", "DISLIKE_VOTE"} [commentOption] Options available to vote a Comment.
+  	 * @apiParam {Number} [max]  Maximum number of comments to be displayed as search result.
+  	 * @apiParam {Number} [start] Defines the maximum number of results.
+  	 * @apiVersion 1.0.0
+  	 * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/rate/top.json?commentOption=LIKE_VOTE&amp;max=10&amp;start=0
+  	 * @apiPermission none
+  	 * @apiSuccessExample
+			{
+	    		"error": { },
+	    		"success": {
+	        		"topComments": [
+	            		{
+	                		"id": 457,
+							"comment": "Comment Test",
+	                		"created_at": "2012-09-11",
+	                		"likeVote": 1,
+	                		"dislike_vote": 1,
+	                		"item_id": 78,
+	                		"type": "TWEETPOLL",
+	                		"url": "/tweetpoll/78/wie-alt-bist-du%3F/#comment457",
+							"commented_by": "complete demo username",
+							"commented_username": "demo10",
+							"parent_id": null
+	            		}
+	        		]
+    			}
+			}
+  	 */
     @RequestMapping(value = "/api/common/comment/rate/top.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getTopRatedComments(
             @RequestParam(value = "commentOption", required = false) String commentOption,
@@ -318,18 +415,22 @@ public class CommentJsonController extends AbstractJsonControllerV1 {
         return returnData();
     }
 
+
     /**
-     * Retrieve {@link Comment} by {@link CommentOptions}
-     * @param id
-     * @param start
-     * @param maxResults
-     * @param period
-     * @param typeSearch
-     * @param status
-     * @param request
-     * @param response
-     * @return
-     */
+  	 * @api {get} /api/common/comment/search/{typeSearch}/{status}/comments.json Comment Status
+  	 * @apiName GetTypeCommentsAndStatus
+  	 * @apiGroup Comments
+  	 * @apiDescription Retrieve Comments by status
+  	 * @apiParam {Number} id XXX.
+  	 * @apiParam {Number} start Defines the starting number of the page of results.
+  	 * @apiParam {Number} maxResults Defines the maximum number of results.
+  	 * @apiParam {String="24","7", "30","all","365","1095"} period Filter search by time period.
+  	 * @apiParam {String="tweetpoll", "poll", "survey", "profile"} typeSearch Filter comments by type.
+  	 * @apiParam {String="restrict", "approve","moderate","published","spam","all"} status Filter comments by state.
+  	 * @apiVersion 1.0.0
+  	 * @apiSampleRequest http://www.encuestame.org/demo/api/common/comment/search/tweetpoll/moderate/comments.json
+  	 * @apiPermission none
+  	 */
 	@RequestMapping(value = "/api/common/comment/search/{typeSearch}/{status}/comments.json", method = RequestMethod.GET)
 	public @ResponseBody ModelMap retrieveCommentsByTypeAndStatus(
 			@RequestParam(value = "id", required = true) Long id,
