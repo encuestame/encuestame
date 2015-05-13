@@ -80,9 +80,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollsByPollFolder(org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.survey.PollFolder)
      */
     @SuppressWarnings("unchecked")
-    public List getPollsByPollFolder(final UserAccount userAcc, final PollFolder folder){
+    public List getPollsByPollFolder(final UserAccount userAcc, final PollFolder folder) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-        criteria.add(Restrictions.eq("editorOwner", userAcc));
+        criteria.add(Restrictions.eq("owner.uid", userAcc.getAccount().getUid()));
         criteria.add(Restrictions.eq("pollFolder", folder));
         return getHibernateTemplate().findByCriteria(criteria);
     }
@@ -92,10 +92,10 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollsByPollFolderId(org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.survey.PollFolder)
      */
     @SuppressWarnings("unchecked")
-    public List getPollsByPollFolderId(final UserAccount userId, final PollFolder folder){
+    public List getPollsByPollFolderId(final UserAccount userId, final PollFolder folder) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-        criteria.createAlias("editorOwner", "editorOwner");
-        //criteria.add(Restrictions.eq("editorOwner.uid", userId));
+        //criteria.createAlias("tweetOwner", "tweetOwner");
+        criteria.add(Restrictions.eq("owner.uid", userId.getAccount().getUid()));
         criteria.add(Restrictions.eq("pollFolder", folder));
         return getHibernateTemplate().findByCriteria(criteria);
     }

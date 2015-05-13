@@ -105,7 +105,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
      * @throws IOException
      */
     public String createJsonPollFolder(final String actionType, final String folderName) throws ServletException, IOException{
-        initService("/api/survey/folder/"+actionType+"/create.json", MethodJson.GET);
+        initService("/api/survey/folder/"+actionType, MethodJson.POST);
         setParameter("name", folderName);
         final JSONObject response = callJsonService();
         //"error":{},"success":{"folder":{"id":87,"createAt":1303337873233,"folderName":"Education"}}}
@@ -140,7 +140,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
      * @throws ServletException
      */
     public Long updateJsonFolder(final String actionType, final String folderName, final Long folderId) throws ServletException, IOException{
-        initService("/api/survey/folder/"+actionType+"/update.json", MethodJson.GET);
+        initService("/api/survey/folder/"+actionType, MethodJson.PUT);
         setParameter("folderName", folderName);
         setParameter("folderId", folderId.toString());
         final JSONObject response = callJsonService();
@@ -169,7 +169,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
      * @throws IOException
      */
     public JSONObject removeJsonFolder(final String actionType, final Long folderId ) throws ServletException, IOException{
-        initService("/api/survey/folder/"+actionType+"/remove.json", MethodJson.GET);
+        initService("/api/survey/folder/" + actionType, MethodJson.DELETE);
         setParameter("folderId", folderId.toString());
         final JSONObject response = callJsonService();
         return response;
@@ -197,7 +197,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
      * @throws IOException
      */
     public JSONObject moveItemJsonFolder(final String actionType, final Long folderId, final Long itemId ) throws ServletException, IOException{
-        initService("/api/survey/folder/"+actionType+"/move.json", MethodJson.GET);
+        initService("/api/survey/folder/" + actionType + "/move", MethodJson.PUT);
         setParameter("folderId", folderId.toString());
         setParameter("itemId", itemId.toString());
         final JSONObject response = callJsonService();
@@ -227,7 +227,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
      * @throws ServletException
      */
     public Integer retrieveItemsbyFolder(final String actionType) throws ServletException, IOException{
-        initService("/api/survey/folder/"+actionType+"/list.json", MethodJson.GET);
+        initService("/api/survey/folder/"+actionType+"/list", MethodJson.GET);
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONArray polls = (JSONArray) success.get("folders");
@@ -262,7 +262,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
      * @throws ServletException
      */
     public Integer retrieveFoldersbyKeyword(final String actionType, final String keyword) throws ServletException, IOException{
-    	initService("/api/survey/folder/"+actionType+"/searchbykeword.json", MethodJson.GET);
+    	initService("/api/survey/folder/" + actionType + "/search/keyword", MethodJson.GET);
     	setParameter("keyword", keyword);
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
@@ -281,7 +281,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
      * @throws IOException
      */
     private void checkItemsFolder(String type, Long folderId, Integer total, String property)  throws ServletException, IOException{
-        initService("/api/survey/folder/" + type + "/items.json", MethodJson.GET);
+        initService("/api/survey/folder/" + type + "/items", MethodJson.GET);
         setParameter("folderId", folderId.toString());
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
@@ -289,24 +289,36 @@ public class FolderJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans {
         Assert.assertEquals(items.size(), total.intValue());
     }
 
-        /**
-         *
-         */
+    /**
+     * test testretrieveItemListbyFolder.
+     */
     @Test
     public void testretrieveItemListbyFolder() throws ServletException, IOException {
-        PollFolder pf = createPollFolder("Black", getSpringSecurityLoggedUserAccount());
-        createPollFolder("Rose", getSpringSecurityLoggedUserAccount());
-        createPollFolder("Yellow", getSpringSecurityLoggedUserAccount());
-        createPollFolder("Green", getSpringSecurityLoggedUserAccount());
-        createPollFolder("White", getSpringSecurityLoggedUserAccount());
-        createPollFolder("Blue", getSpringSecurityLoggedUserAccount());
-        SurveyFolder sf = createSurveyFolders("SurveyFolder", getSpringSecurityLoggedUserAccount());
-        TweetPollFolder tpf = createTweetPollFolder("Science", getSpringSecurityLoggedUserAccount());
-        createTweetPollFolder("Technologie", getSpringSecurityLoggedUserAccount());
-        createTweetPollFolder("Mathemathic", getSpringSecurityLoggedUserAccount());
-        checkItemsFolder("poll", pf.getId(), 0, "pollsByFolder");
-        checkItemsFolder("tweetpoll", tpf.getId(), 0, "tweetPollsByFolder");
-        checkItemsFolder("survey", sf.getId(), 0, "surveysByFolder");
 
+        TweetPoll tp1 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount(), question);
+        TweetPoll tp2 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount(), question);
+        TweetPoll tp3 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount(), question);
+        TweetPoll tp4 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount(), question);
+
+        Poll p1 = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount(), true, true);
+        Poll p2 = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount(), true, true);
+        Poll p3 = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount(), true, true);
+
+        PollFolder pff = createPollFolder("Rose", getSpringSecurityLoggedUserAccount());
+        TweetPollFolder pf = createTweetPollFolder("Black", getSpringSecurityLoggedUserAccount());
+        SurveyFolder sf = createSurveyFolders("SurveyFolder", getSpringSecurityLoggedUserAccount());
+
+        this.moveItemJsonFolder("tweetpoll", pf.getId(), this.tweetPoll.getTweetPollId());
+        this.moveItemJsonFolder("tweetpoll", pf.getId(), tp1.getTweetPollId());
+        this.moveItemJsonFolder("tweetpoll", pf.getId(), tp2.getTweetPollId());
+        this.moveItemJsonFolder("tweetpoll", pf.getId(), tp3.getTweetPollId());
+        this.moveItemJsonFolder("tweetpoll", pf.getId(), tp4.getTweetPollId());
+        this.moveItemJsonFolder("poll", pff.getId(), p1.getPollId());
+        this.moveItemJsonFolder("poll", pff.getId(), p2.getPollId());
+        this.moveItemJsonFolder("poll", pff.getId(), p3.getPollId());
+
+        checkItemsFolder("poll", pff.getId(), 3, "pollsByFolder");
+        checkItemsFolder("tweetpoll", pf.getId(), 5, "tweetPollsByFolder");
+        //checkItemsFolder("survey", sf.getId(), 0, "surveysByFolder");
     }
 }

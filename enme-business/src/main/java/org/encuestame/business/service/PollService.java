@@ -870,8 +870,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final PollFolder pfolder = this.getPollFolderByFolderIdandUser(folderId, getUserAccount(getUserPrincipalUsername()));
         if (pfolder != null) {
             final Poll poll = getPollDao().getPollById(pollId, getUserAccount(getUserPrincipalUsername()));
-            if (poll == null){
-                throw new EnMeNoResultsFoundException("TweetPoll not found");
+            if (poll == null) {
+                throw new EnMeNoResultsFoundException("Poll not found");
              }
             poll.setPollFolder(pfolder);
             getPollDao().saveOrUpdate(poll);

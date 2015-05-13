@@ -513,6 +513,7 @@ public class PollController extends AbstractViewController {
         addi18nProperty(model, "button_try_later", request, response);
         addi18nProperty(model, "button_ignore", request, response);
         addi18nProperty(model, "button_try_again", request, response);
+        addi18nProperty(model, "button_vote", request, response);
 
         /** *** *** ** Help Guide ** *** *** **/
         addi18nProperty(model, "help_poll_button_new", request, response);
@@ -520,6 +521,8 @@ public class PollController extends AbstractViewController {
         addi18nProperty(model, "help_poll_folder_view", request, response);
         addi18nProperty(model, "help_poll_advanced_search_view", request, response);
         addi18nProperty(model, "help_poll_detail_view", request, response);
+
+
        return "poll/list";
     }
 

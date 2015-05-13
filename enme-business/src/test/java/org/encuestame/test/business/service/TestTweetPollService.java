@@ -683,11 +683,9 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
         tp.setTweetPollFolder(this.folder);
         getTweetPoll().saveOrUpdate(tp);
 
-        final TweetPoll tp2 = createTweetPollPublicated(true, true, new Date(),
-                this.userAccount, question1);
+        final TweetPoll tp2 = createTweetPollPublicated(true, true, new Date(),  this.userAccount, question1);
         tp2.setTweetPollFolder(this.folder);
         getTweetPoll().saveOrUpdate(tp2);
-
         final List<TweetPollBean> tpollsfolders = getTweetPollService()
                 .searchTweetPollsByFolder(this.folder.getId(),
                         getSpringSecurityLoggedUserAccount().getUsername());

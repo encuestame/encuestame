@@ -54,14 +54,14 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
-     * @api {get} /api/survey/folder/{actionType}/create.json Create Folder
+     * @api {post} /api/survey/folder/{actionType} Create Folder
      * @apiName GetCreateFolder
      * @apiGroup Folder
      * @apiDescription Create Folder to store and organize Tweetpolls, Polls or Surveys.. You must be registered and logged.
      * @apiParam {String="tweetpoll","poll","survey"} actionType Specifies the folder type and the type of items to be stored.
      * @apiParam {String} name This is the name of the new resource. The folder name.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/create.json?name=folderTestName
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll
      * @apiPermission ENCUESTAME_USER
      * @apiSuccessExample
 			{
@@ -78,7 +78,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
 			}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/folder/{actionType}/create.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/folder/{actionType}", method = RequestMethod.POST)
     public @ResponseBody ModelMap createFolder(
             @PathVariable String actionType,
             @RequestParam(value = "name", required = true) String folderName,
@@ -109,7 +109,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
 
 
     /**
-     * @api {get} /api/survey/folder/{actionType}/update.json Update folder
+     * @api {put} /api/survey/folder/{actionType} Update folder
      * @apiName GetUpdateFolder
      * @apiGroup Folder
      * @apiDescription Update Folder properties
@@ -117,7 +117,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
      * @apiParam {String} folderName This is the name of the resource to update. The folder name.
      * @apiParam {Number} folderId   This is the id(unique identifier ) of the folder that will be updated.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/update.json?folderName=folderTestName&folderId=6
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll
      * @apiPermission ENCUESTAME_USER
      * @apiSuccessExample
 			{
@@ -134,7 +134,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
 			}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/folder/{actionType}/update.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/folder/{actionType}", method = RequestMethod.PUT)
     public @ResponseBody ModelMap updateFolder(
             @PathVariable String actionType,
             @RequestParam(value = "folderName", required = true) String folderName,
@@ -166,14 +166,14 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
            }
 
     /**
-     * @api {get} /api/survey/folder/{actionType}/remove.json Remove Folder
+     * @api {delete} /api/survey/folder/{actionType} Remove Folder
      * @apiName GetRemoveFolder
      * @apiGroup Folder
      * @apiDescription Destroys the folder specified by the required ID parameter.
      * @apiParam {String ="tweetpoll", "poll", "survey"} actionType Specifies the folder type and the type of items that has been stored.
      * @apiParam {Number} folderId Unique number that identifies the  folder that will be removed.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/remove.json?folderId=6
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll
      * @apiPermission ENCUESTAME_USER
      * @apiSuccessExample
      		{
@@ -187,7 +187,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
 		@apiSuccess {r} Default answer to define a satisfactory response.
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/folder/{actionType}/remove.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/folder/{actionType}", method = RequestMethod.DELETE)
     public @ResponseBody ModelMap removeFolder(
             @PathVariable String actionType,
             @RequestParam(value = "folderId", required = true) Long folderId,
@@ -216,7 +216,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
 
 
     /**
-     * @api {get} /api/survey/folder/{actionType}/move.json Move Contents Folder
+     * @api {put} /api/survey/folder/{actionType}/move Move Contents Folder
      * @apiName GetMoveContents
      * @apiGroup Folder
      * @apiDescription  Move Contents(Item) Folder to another.
@@ -224,7 +224,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
      * @apiParam {Number} folderId This is the id(unique identifier) of the folder that will be assigned an element
      * @apiParam {Number} itemId Id of the item will be moved to a folder.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/move.json?folderId=383
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/move
      * @apiPermission ENCUESTAME_USER
      * @apiSuccessExample
      		{
@@ -238,7 +238,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
 		@apiSuccess {r} Default answer to define a satisfactory response.
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/folder/{actionType}/move.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/folder/{actionType}/move", method = RequestMethod.PUT)
     public @ResponseBody ModelMap addToFolder(
              @PathVariable String actionType,
              @RequestParam(value = "folderId", required = true) Long folderId,
@@ -281,7 +281,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
      * @apiParam {String ="tweetpoll","poll","survey"} actionType Specifies the folder type and the type of items that will be stored.
      * @apiParam {Boolean} [store] Indicates whether to save the folder.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/list.json
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/list
      * @apiPermission ENCUESTAME_USER
      * @apiSuccessExample
 			{
@@ -299,7 +299,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
 			}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/folder/{actionType}/list.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/folder/{actionType}/list", method = RequestMethod.GET)
     public @ResponseBody ModelMap retrieveItemsbyFolder(
              @PathVariable String actionType,
              @RequestParam(value = "store", required = false) Boolean store,
@@ -332,14 +332,14 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
 
 
     /**
-     * @api {get} /api/survey/folder/{actionType}/items.json Search into Folders
+     * @api {get} /api/survey/folder/{actionType}/items Search into Folders
      * @apiName GetSearchResults
      * @apiGroup Folder
      * @apiDescription List of all the elements added and stored in a folder object.
      * @apiParam {String ="tweetpoll","poll", "survey"} actionType Specifies the folder type and its contents.
      * @apiParam {Number} [folderId] The ID of the folder  to retrieve its contents.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/items.json?folderId=382
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/items?folderId=382
      * @apiPermission ENCUESTAME_USER
      * @apiSuccessExample
 			{
@@ -362,11 +362,11 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
 		}
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/folder/{actionType}/items.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/folder/{actionType}/items", method = RequestMethod.GET)
     public @ResponseBody ModelMap retrieveItemListbyFolder(@PathVariable String actionType,
-            @RequestParam(value = "folderId", required = false) Long folderId,
-            HttpServletRequest request, HttpServletResponse response) {
-        log.debug("type:{ " + actionType);
+                                                           @RequestParam(value = "folderId", required = false) Long folderId,
+                                                           HttpServletRequest request, HttpServletResponse response) {
+        //log.debug("type:{ " + actionType);
         logPrint(actionType);
         logPrint(folderId);
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
@@ -375,19 +375,19 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
             logPrint(type);
             if (type.equals(TypeSearchResult.POLL)) {
                 final List<PollBean> pollsByFolder = getPollService()
-                      .searchPollsByFolder(folderId, getUserPrincipalUsername());
-                    jsonResponse.put("pollsByFolder", pollsByFolder);
-                logPrint("jota::"+pollsByFolder.size());
+                        .searchPollsByFolder(folderId, getUserPrincipalUsername());
+                jsonResponse.put("pollsByFolder", pollsByFolder);
+                //logPrint("jota::"+pollsByFolder.size());
             } else if (type.equals(TypeSearchResult.TWEETPOLL)) {
                 final List<TweetPollBean> tweetPollsByFolder = getTweetPollService()
-                      .searchTweetPollsByFolder(folderId, getUserPrincipalUsername());
+                        .searchTweetPollsByFolder(folderId, getUserPrincipalUsername());
                 jsonResponse.put("tweetPollsByFolder", tweetPollsByFolder);
-                logPrint("jota2::"+tweetPollsByFolder.size());
+                //logPrint("jota2::"+tweetPollsByFolder.size());
             } else if (type.equals(TypeSearchResult.SURVEY)) {
                 final List<SurveyBean> surveyBeanList = new ArrayList<SurveyBean>();
                 final List<Survey> surveysByFolder = getSurveyService().retrieveSurveyByFolder(
-                              getUserAccount().getUid(),
-                              folderId);
+                        getUserAccount().getUid(),
+                        folderId);
                 surveyBeanList.addAll(ConvertDomainBean
                         .convertListSurveyToBean(surveysByFolder));
                 jsonResponse.put("surveysByFolder", surveyBeanList);
@@ -408,18 +408,18 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
 
 
     /**
-     * @api {get} /api/survey/folder/{actionType}/searchbykeword.json Search by keyword
+     * @api {get} /api/survey/folder/{actionType}/search/keyword Search by keyword
      * @apiName GetSearchbyKeyword
      * @apiGroup Folder
      * @apiDescription Return search results by keyword of all the elements in a folder object.
      * @apiParam {String ="tweetpoll","poll", "survey"} actionType Specifies the folder type and its contents.
      * @apiParam {String} keyword Keyword to suggest a list of results.
      * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/searchbykeword.json?keyword="My"
+     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll/search/keyword?keyword="My"
      * @apiPermission ENCUESTAME_USER
      */
 	@PreAuthorize("hasRole('ENCUESTAME_USER')")
-	@RequestMapping(value = "/api/survey/folder/{actionType}/searchbykeword.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/survey/folder/{actionType}/search/keyword", method = RequestMethod.GET)
 	public @ResponseBody ModelMap retrieveItemsbyKeyword(
 			@PathVariable String actionType,
 			@RequestParam(value = "keyword", required = true) String keyword,
