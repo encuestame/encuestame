@@ -282,6 +282,7 @@ public class TweetPollController extends AbstractViewController {
         addi18nProperty(model, "commons_no_results", request, response);
         addi18nProperty(model, "common_open_embebed", request, response);
         addi18nProperty(model, "commons_unfavourite", request, response);
+        addi18nProperty(model, "loading_message", request, response);
         /** *** *** **  Help Guide ** *** *** **/
         addi18nProperty(model, "help_tp_button_new", request, response);
         addi18nProperty(model, "help_tp_aside_bar", request, response);
