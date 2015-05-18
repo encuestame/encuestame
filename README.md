@@ -38,10 +38,10 @@ If you want to download a built version of Encuestame, the files are hosted in S
 Pull requests are, of course, very welcome! A few "todos", if anyone is [interested](http://www.encuestame.org/wiki/display/DEVELOPMENT/Commiters+Guidelines).
 
 ## Sponsors and Acknowledgments
-* Thanks to [Atlassian Open Source Program](http://www.atlassian.com/)
-* Thanks BrowserStack for the [Automate](https://www.browserstack.com/pricing) Open Source License
-* Thanks Jetbrains for the [Open Source License](http://www.jetbrains.com/idea/buy/choose_edition.jsp?license=OPEN_SOURCE)
-* Thanks ej-technologies for the [install4j](https://www.ej-technologies.com/products/install4j/overview.html) Open Source License
+* Thanks to **Atlassian** [Open Source Program](http://www.atlassian.com/)
+* Thanks to **BrowserStack** for the [Automate](https://www.browserstack.com/pricing) Open Source License
+* Thanks **Jetbrains** for the [Open Source License](http://www.jetbrains.com/idea/buy/choose_edition.jsp?license=OPEN_SOURCE)
+* Thanks **ej-technologies** for the [install4j](https://www.ej-technologies.com/products/install4j/overview.html) Open Source License
 * Thanks the direct and indirect [contributors](https://github.com/encuestame/encuestame/graphs/contributors)
 
 
