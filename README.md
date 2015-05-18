@@ -2,10 +2,6 @@
 
 ##Encuestame Open Source Social Survey
 
-[![Codeship Status](https://www.codeship.io/projects/8538ea80-0137-0131-7612-4e2d0a4396c2/status)](https://www.codeship.io/)
-
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/encuestame/encuestame?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [![Download encuestame](https://img.shields.io/sourceforge/dw/encuestame.svg)](https://sourceforge.net/projects/encuestame/files/latest/download)
 
 For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
@@ -38,10 +34,12 @@ If you want to download a built version of Encuestame, the files are hosted in S
 Pull requests are, of course, very welcome! A few "todos", if anyone is [interested](http://www.encuestame.org/wiki/display/DEVELOPMENT/Commiters+Guidelines).
 
 ## Sponsors and Acknowledgments
-* Thanks to [Atlassian Open Source Program](http://www.atlassian.com/)
-* Thanks Jetbrains for the [Open Source License](http://www.jetbrains.com/idea/buy/choose_edition.jsp?license=OPEN_SOURCE)
-* Thanks ej-technologies for the [install4j](https://www.ej-technologies.com/products/install4j/overview.html) Open Source License
+* Thanks to **Atlassian** [Open Source Program](http://www.atlassian.com/)
+* Thanks to **BrowserStack** for the [Automate](https://www.browserstack.com/pricing) Open Source License
+* Thanks **Jetbrains** for the [Open Source License](http://www.jetbrains.com/idea/buy/choose_edition.jsp?license=OPEN_SOURCE)
+* Thanks **ej-technologies** for the [install4j](https://www.ej-technologies.com/products/install4j/overview.html) Open Source License
 * Thanks the direct and indirect [contributors](https://github.com/encuestame/encuestame/graphs/contributors)
+
 
 ## Tools
 
