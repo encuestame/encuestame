@@ -154,9 +154,11 @@ public class DirectorySetupOperations {
      */
     public static String getHomeDirectory() {
         //trying to get the home from the system, if not exist get the home directory from the config file
-        String root = System.getProperty("encuestame.home") == null ? EnMePlaceHolderConfigurer.getProperty("encuestame.home") : System.getProperty("encuestame.home") ;
+        String root = System.getProperty("encuestame.home") == null ? EnMePlaceHolderConfigurer.getProperty("encuestame.home") : System.getProperty("encuestame.home");
+        log.debug("Home via system property :: " + System.getProperty("encuestame.home"));
+        EnMePlaceHolderConfigurer.setProperty("encuestame.home", root);
         boolean system_home = EnMePlaceHolderConfigurer.getBooleanProperty("encuestame.system.home");
-        log.debug("getRootDirectory: "+root);
+        log.debug("getRootDirectory-->:: " + root);
         if (root == null && system_home) {
             log.warn("home is not well defined, getting catalina home as default location");
             //  if the others possibilities fails, get the catalina home as default

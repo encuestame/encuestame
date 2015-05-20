@@ -50,7 +50,7 @@ public interface IApplicationDao extends IBaseDao {
      * @throws Exception
      */
     ApplicationConnection
-           connectApplication(final Long accountId, final String apiKey) throws Exception;
+           connectApplication(final Long accountId, final String apiKey, final UserAccount userAccount) throws Exception;
 
 
     /**

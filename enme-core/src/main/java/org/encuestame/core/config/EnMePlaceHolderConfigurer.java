@@ -72,10 +72,11 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
     protected void processProperties(
             ConfigurableListableBeanFactory beanFactory, Properties props)
             throws BeansException {
-        //get form system property enviroment out file path.
+        //get form system property environment out file path.
         final String enviromentPropertyFile = System.getProperty(overwriteJvmParam);
         File customEncuestameFile;
         if (enviromentPropertyFile != null && enviromentPropertyFile.length() > 0) {
+            log.debug("encuestame.custom.config detected ::" + enviromentPropertyFile);
             customEncuestameFile = new File(enviromentPropertyFile);
             // make sure the file exists, then try and load it
             if(customEncuestameFile != null && customEncuestameFile.exists()) {
@@ -114,7 +115,7 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
                 String valueToGet = props.getProperty(keyToSearch);
                 valueStr = valueStr.replace("${" +  keyToSearch+ "}", valueToGet);
             }
-            log.debug("Property--->"+keyStr+ " value="+valueStr);
+            log.debug("Property--->" + keyStr + " value=" + valueStr);
             propertiesMap.put(keyStr,parseStringValue(valueStr, props,new HashSet()));
         }
         //TODO: xml configuration file should be outside this context.
@@ -122,11 +123,15 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
             EnMePlaceHolderConfigurer.configurationManager = new XMLConfigurationFileSupport();
         } catch (ConfigurationException e) {
             log.error(e.getMessage());
-            //e.printStackTrace();
+            e.printStackTrace();
         } catch (IOException e) {
             log.error(e.getMessage());
-            //e.printStackTrace();
+            e.printStackTrace();
         }
+    }
+
+    private void replaceSubProperties(){
+
     }
 
     /**

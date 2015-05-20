@@ -86,8 +86,8 @@ public class ConcurrentMapOAuthSessionManager implements OAuthSessionManager {
         }
         log.debug("Grant Access is authorized "+session.authorized());
         try {
-            ApplicationConnection connection = this.applicationDao.connectApplication(
-                                  session.getAuthorizingAccountId(), session.getApiKey());
+            //FIXME: inject UserAccount
+            ApplicationConnection connection = this.applicationDao.connectApplication(session.getAuthorizingAccountId(), session.getApiKey(), null);
             log.debug("Grant Access new connection "+connection.getConnectionId());
             sessions.remove(requestToken);
             return connection;

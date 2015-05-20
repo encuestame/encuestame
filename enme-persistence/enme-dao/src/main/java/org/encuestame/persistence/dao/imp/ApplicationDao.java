@@ -40,10 +40,6 @@ public class ApplicationDao extends AbstractHibernateDaoSupport implements IAppl
 
     private SecureRandomStringKeyGenerator keyGenerator;
 
-    /** Account Id. **/
-    @Autowired
-    private AccountDaoImp accountDaoImp;
-
     /**
      * Constructor.
      * Inject {@link SessionFactory}.
@@ -114,11 +110,11 @@ public class ApplicationDao extends AbstractHibernateDaoSupport implements IAppl
      * @return
      * @throws Exception
      */
-    public ApplicationConnection
-           connectApplication(final Long accountId, final String apiKey) throws Exception{
+    public ApplicationConnection  connectApplication(
+            final Long accountId,
+            final String apiKey,  final UserAccount userAccount) throws Exception{
         final Application application = getApplicationByKey(apiKey);
-        final UserAccount account = getAccountDaoImp().getUserAccountById(accountId);
-        final ApplicationConnection app = searchConnectionByAppIdAndUserId(account, application);
+        final ApplicationConnection app = searchConnectionByAppIdAndUserId(userAccount, application);
         ApplicationConnection applicationConnection = null;
         if (app != null) {
             log.debug("Removing application connection id "+app.getConnectionId());
@@ -132,23 +128,9 @@ public class ApplicationDao extends AbstractHibernateDaoSupport implements IAppl
         applicationConnection.setApplication(application);
         applicationConnection.setAccessToken(accessToken);
         applicationConnection.setSecret(secret);
-        applicationConnection.setAccount(account);
+        applicationConnection.setAccount(userAccount);
         getHibernateTemplate().saveOrUpdate(applicationConnection);
         log.debug("Created New Application Connection "+applicationConnection.getConnectionId());
         return applicationConnection;
-    }
-
-    /**
-     * @return the accountDaoImp
-     */
-    public AccountDaoImp getAccountDaoImp() {
-        return accountDaoImp;
-    }
-
-    /**
-     * @param accountDaoImp the accountDaoImp to set
-     */
-    public void setAccountDaoImp(final AccountDaoImp accountDaoImp) {
-        this.accountDaoImp = accountDaoImp;
     }
 }
