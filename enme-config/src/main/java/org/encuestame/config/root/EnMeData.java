@@ -22,7 +22,7 @@ import java.util.Properties;
 @ImportResource({
 	"classpath:/config/files/encrypt-context.xml", 
 	"classpath:/config/files/data-context.xml"})
-@ComponentScan({ "org.encuestame" })
+//@ComponentScan({ "org.encuestame.persistence.dao" })
 public class EnMeData {
 
 
@@ -63,10 +63,10 @@ public class EnMeData {
                 setProperty("hibernate.dialect", EnMePlaceHolderConfigurer.getProperty("datasource.dialect"));
                 setProperty("hibernate.show_sql", EnMePlaceHolderConfigurer.getProperty("datasource.showsql"));
                 setProperty("hibernate.hbm2ddl.delimiter", EnMePlaceHolderConfigurer.getProperty("datasource.delimited"));
-                setProperty("hibernate.search.default.directory_provider", EnMePlaceHolderConfigurer.getProperty("hibernate.search.provider"));
+//                setProperty("hibernate.search.default.directory_provider", EnMePlaceHolderConfigurer.getProperty("hibernate.search.provider"));
                 setProperty("hibernate.search.default.indexBase", EnMePlaceHolderConfigurer.getProperty("encuestame.home") + "/indexes/domain");
-                setProperty("hibernate.search.worker.buffer_queue.max", "100");
-                setProperty("hibernate.search.worker.execution", "async");
+//                setProperty("hibernate.search.worker.buffer_queue.max", "100");
+//                setProperty("hibernate.search.worker.execution", "async");
             }
         };
     }
