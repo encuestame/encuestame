@@ -778,10 +778,15 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException exception
      */
-
     public List<FolderBean> retrieveFolderPoll() throws EnMeNoResultsFoundException {
         final List<PollFolder> folders = getPollDao().getPollFolderByUserAccount(getUserAccount(getUserPrincipalUsername()));
-        return ConvertDomainBean.convertListPollFolderToBean(folders);
+        List<FolderBean> foldersBean = ConvertDomainBean.convertListPollFolderToBean(folders);
+        for (FolderBean folderItem : foldersBean) {
+            //FUTURE: ENCUESTAME-263 maybe is posible to improve this query
+            final List<PollBean> tweetPollsByFolder = this.searchPollsByFolder(folderItem.getId(), getUserPrincipalUsername());
+            folderItem.setItems(Long.valueOf(tweetPollsByFolder.size()));
+        }
+        return foldersBean;
     }
 
     /**

@@ -274,7 +274,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
 
 
     /**
-     * @api {get} /api/survey/folder/{actionType}/list.json Get Folders
+     * @api {get} /api/survey/folder/{actionType}/list Get Folders
      * @apiName GetFoldersList
      * @apiGroup Folder
      * @apiDescription Return a list with all folders created for every user.

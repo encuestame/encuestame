@@ -1228,10 +1228,15 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public List<FolderBean> getFolders() throws EnMeNoResultsFoundException {
         final List<TweetPollFolder> folders = getTweetPollDao()
-                .retrieveTweetPollFolderByAccount(
-                        getUserAccount(getUserPrincipalUsername()).getAccount());
+                .retrieveTweetPollFolderByAccount(getUserAccount(getUserPrincipalUsername()).getAccount());
         log.debug("List of Folders :"+folders.size());
-        return ConvertDomainBean.convertListTweetPollFoldertoBean(folders);
+        List<FolderBean> foldersBean = ConvertDomainBean.convertListTweetPollFoldertoBean(folders);
+        for (FolderBean folderItem : foldersBean) {
+            //FUTURE: ENCUESTAME-263 maybe is posible to improve this query
+            final List<TweetPollBean> tweetPollsByFolder = this.searchTweetPollsByFolder(folderItem.getId(), getUserPrincipalUsername());
+            folderItem.setItems(Long.valueOf(tweetPollsByFolder.size()));
+        }
+        return foldersBean;
 
     }
 
