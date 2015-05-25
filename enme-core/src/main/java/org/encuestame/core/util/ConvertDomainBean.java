@@ -667,25 +667,28 @@ public class ConvertDomainBean {
         unitTweetPoll.setCreateDate(DateUtil.getFormatDate(tweetPoll.getCreateDate()));
         unitTweetPoll.setCreateDateComparable(tweetPoll.getCreateDate());
         unitTweetPoll.setAllowLiveResults(tweetPoll.getAllowLiveResults() == null ? false
-                        : tweetPoll.getAllowLiveResults());
+                : tweetPoll.getAllowLiveResults());
         unitTweetPoll.setResumeLiveResults(tweetPoll.getResumeLiveResults() == null ? false
-                        : tweetPoll.getResumeLiveResults());
+                : tweetPoll.getResumeLiveResults());
         unitTweetPoll.setSchedule(tweetPoll.getScheduleTweetPoll() == null ? false
-                        : tweetPoll.getScheduleTweetPoll());
+                : tweetPoll.getScheduleTweetPoll());
         unitTweetPoll.setResultNotification(tweetPoll.getResultNotification() == null ? false
-                        : tweetPoll.getResultNotification());
+                : tweetPoll.getResultNotification());
         unitTweetPoll.setUserId(tweetPoll.getTweetOwner().getUid());
         unitTweetPoll.setOwnerUsername(tweetPoll.getEditorOwner() == null ? null
-                        : tweetPoll.getEditorOwner().getUsername());
+                : tweetPoll.getEditorOwner().getUsername());
         unitTweetPoll.setCaptcha(tweetPoll.getCaptcha() == null ? false
                 : tweetPoll.getCaptcha());
         unitTweetPoll.setCloseNotification(tweetPoll.getCloseNotification() == null ? false
-                        : tweetPoll.getCloseNotification());
+                : tweetPoll.getCloseNotification());
         unitTweetPoll.setFavourites(tweetPoll.getFavourites() == null ? false : tweetPoll.getFavourites());
         unitTweetPoll.setCompleted(tweetPoll.getCompleted() == null ? false : tweetPoll.getCompleted());
         unitTweetPoll.setQuestionBean(convertQuestionsToBean(tweetPoll.getQuestion()));
         unitTweetPoll.setHits(tweetPoll.getHits() == null ? EnMeUtils.VOTE_MIN
                 : tweetPoll.getHits());
+        if (tweetPoll.getTweetPollFolder() != null) {
+            unitTweetPoll.setFolderId(tweetPoll.getTweetPollFolder().getId());
+        }
         unitTweetPoll.setAllowRepeatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false
                         : tweetPoll.getAllowRepatedVotes());
         unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll
@@ -710,6 +713,11 @@ public class ConvertDomainBean {
         return unitTweetPoll;
     }
 
+    /**
+     *
+     * @param tweetPoll
+     * @return
+     */
     public static final SearchBean convertTweetPollToSearchBean(
             final TweetPoll tweetPoll) {
         final SearchBean unitTweetPoll = new SearchBean();
@@ -770,6 +778,9 @@ public class ConvertDomainBean {
                             : DateUtil.DOJO_DATE_FORMAT.format(tweetPoll
                                     .getDateLimited()));
         }
+        if (tweetPoll.getTweetPollFolder() != null) {
+            unitTweetPoll.setFolderId(tweetPoll.getTweetPollFolder().getId());
+        }
         unitTweetPoll
                 .setRelevance(tweetPoll.getRelevance() == null ? EnMeUtils.RATE_DEFAULT
                         : tweetPoll.getRelevance());
@@ -778,6 +789,11 @@ public class ConvertDomainBean {
         return unitTweetPoll;
     }
 
+    /**
+     *
+     * @param poll
+     * @return
+     */
     public static final SearchBean convertPollToSearchBean(
             final Poll poll) {
         final SearchBean pollSearch = new SearchBean();
@@ -825,6 +841,9 @@ public class ConvertDomainBean {
                     .setDateToLimit(poll.getClosedDate() == null ? null
                             : DateUtil.DOJO_DATE_FORMAT.format(poll
                                     .getClosedDate()));
+        }
+        if (poll.getPollFolder() != null) {
+            pollSearch.setFolderId(poll.getPollFolder().getId());
         }
         pollSearch
                 .setRelevance(poll.getRelevance() == null ? EnMeUtils.RATE_DEFAULT
@@ -890,6 +909,9 @@ public class ConvertDomainBean {
                 .getPublish());
         if (poll.getUpdatedDate() != null) {
             unitPoll.setUpdatedDate(poll.getUpdatedDate());
+        }
+        if (poll.getPollFolder() != null) {
+            unitPoll.setFolderId(poll.getPollFolder().getId());
         }
         unitPoll.setTotalVotes(poll.getNumbervotes() == null ? EnMeUtils.VOTE_MIN
                 : Long.valueOf(poll.getNumbervotes()));

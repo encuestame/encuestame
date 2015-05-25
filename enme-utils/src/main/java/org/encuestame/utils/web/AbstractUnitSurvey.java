@@ -117,6 +117,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     private String showComments;
 
     /** Show results. **/
+
     @JsonProperty(value = "is_show_results")
     @Deprecated
     private Boolean isShowResults;
