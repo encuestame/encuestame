@@ -41,6 +41,9 @@ public class FolderBean implements Serializable {
     @JsonProperty(value = "create_date")
     private Date createAt;
 
+    @JsonProperty(value = "items")
+    private Long items = 0L;
+
     public FolderBean() {
     }
 
@@ -77,6 +80,15 @@ public class FolderBean implements Serializable {
      */
     public void setFolderName(final String folderName) {
         this.folderName = folderName;
+    }
+
+    @JsonIgnore
+    public Long getItems() {
+        return items;
+    }
+
+    public void setItems(Long items) {
+        this.items = items;
     }
 
     /**
