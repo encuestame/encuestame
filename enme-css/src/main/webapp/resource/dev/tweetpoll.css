@@ -7974,14 +7974,14 @@ a.point {
 }
 
 /* line 443, ../../../../css/resource/sass/_common.scss */
-.f-normal, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span, .web-filters-options nav {
+.f-normal, .default-sidebar-menu-sub span, div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span, .web-filters-options nav {
   line-height: 1.25;
   font-weight: normal;
   letter-spacing: -0.25px;
 }
 
 /* line 449, ../../../../css/resource/sass/_common.scss */
-.t-light, .dbootstrap .dijitDialogTitleBar, .default-sidebar-menu-sub span, .web-tweetpoll-list-item-title, .web-poll-list-item-title {
+.t-light, .dbootstrap .dijitDialogTitleBar, .web-tweetpoll-list-item-title, .web-poll-list-item-title {
   line-height: 1.25;
   font-weight: bold;
   letter-spacing: -0.25px;
@@ -9437,7 +9437,6 @@ input:focus {
 .profilePanel {
   display: none;
   position: absolute;
-  min-height: 120px;
   min-width: 202px;
   background: #222;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444444), color-stop(100%, #222222));
@@ -9447,7 +9446,7 @@ input:focus {
   background: linear-gradient(#444444, #222222);
   right: 0px;
   left: 0px;
-  top: 43px;
+  top: 50px;
   zoom: 1;
   -moz-box-shadow: #888888 1px 2px 3px;
   -webkit-box-shadow: #888888 1px 2px 3px;
@@ -9458,19 +9457,19 @@ input:focus {
   z-index: 99998;
 }
 
-/* line 26, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 25, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profileOpenPanel {
   display: block;
 }
 
-/* line 30, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 29, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel ul {
   max-height: 350px;
   max-width: 100%;
   overflow: hidden;
 }
 
-/* line 36, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 35, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li {
   background-image: none;
   clear: both;
@@ -9483,38 +9482,38 @@ input:focus {
   padding: 6px 15px;
 }
 
-/* line 48, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 47, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li:hover {
   background-color: #FFF;
 }
 
-/* line 52, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 51, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li:hover a:link,
 .profilePanel li:hover a:visited {
   color: #444 !important;
 }
 
-/* line 57, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 56, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li a:link {
   color: #BABABA !important;
   font-weight: normal;
   text-decoration: none !important;
 }
 
-/* line 63, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 62, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li a:hover {
   color: white !important;
   text-decoration: none;
 }
 
-/* line 68, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 67, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .profilePanel li a {
   padding: 10px;
   color: #BABABA !important;
   font-weight: normal;
 }
 
-/* line 74, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 73, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .web-profile-menu {
   color: white;
   cursor: pointer;
@@ -9523,13 +9522,13 @@ input:focus {
   padding: 11px 0px 7px 0px;
 }
 
-/* line 82, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 81, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .web-profile-menu .image {
   float: left;
   margin-left: 5px;
 }
 
-/* line 87, ../../../../css/resource/sass/web/components/_menu-profile.scss */
+/* line 86, ../../../../css/resource/sass/web/components/_menu-profile.scss */
 .web-profile-menu .real-name {
   line-height: 22px;
   margin-left: 40px;

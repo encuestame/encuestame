@@ -6545,70 +6545,68 @@ a.badge:focus {
 /* line 74, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil > footer .mobile-footer {
   text-align: left;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  background-color: #585958;
+  background-color: #222222;
   color: white;
   padding: 6px;
   min-height: 30px;
   box-shadow: 5px 6px 5px 8px black;
 }
-/* line 86, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 88, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .content {
   padding-top: 65px;
 }
-/* line 90, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 92, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-footer .footer-menu {
   padding: 10px;
 }
-/* line 94, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 96, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-footer .footer-menu > span {
   padding: 10px;
 }
-/* line 98, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 100, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-footer .footer-menu span a {
   font-size: 12px;
   text-align: center;
   margin-top: 3px;
   color: white;
 }
-/* line 105, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 107, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-footer .mobile-footer-version {
   font-size: 11px;
   text-align: right;
   margin-top: 3px;
   padding: 10px;
 }
-/* line 112, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 114, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-footer .mobile-footer-version a {
   color: white !important;
 }
-/* line 116, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 118, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-footer .mobile-footer-version a > span {
   color: white;
 }
-/* line 120, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 122, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-main {
   min-height: 300px;
   background-color: white;
 }
-/* line 125, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 127, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .mobile-main-vote {
   min-height: 0px;
 }
 @media only screen and (max-width: 480px) and (orientation: landscape) {
-  /* line 130, ../../../../css/resource/sass/mobile/_layout.scss */
+  /* line 132, ../../../../css/resource/sass/mobile/_layout.scss */
   .mobil .mobile-main-vote {
     min-height: 350px;
   }
 }
 @media (orientation: portrait) {
-  /* line 136, ../../../../css/resource/sass/mobile/_layout.scss */
+  /* line 138, ../../../../css/resource/sass/mobile/_layout.scss */
   .mobil .mobile-main-vote {
     min-height: 350px;
   }
 }
-/* line 150, ../../../../css/resource/sass/mobile/_layout.scss */
+/* line 152, ../../../../css/resource/sass/mobile/_layout.scss */
 .mobil .titleNext {
   color: #e5e5e5;
   background-color: #fafafa;
