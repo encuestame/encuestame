@@ -1107,8 +1107,7 @@ public class ConvertDomainBean {
      * @param folder
      * @return
      */
-    public static final FolderBean convertFolderToBeanFolder(
-            final IFolder folder) {
+    public static final FolderBean convertFolderToBeanFolder(final IFolder folder) {
         final FolderBean unitFolder = new FolderBean();
         unitFolder.setCreateAt(folder.getCreatedAt());
         unitFolder.setFolderName(folder.getFolderName());

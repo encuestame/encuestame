@@ -124,22 +124,22 @@ public class PollController extends AbstractViewController {
             @RequestParam("slugName") String slugName,
             final HttpServletRequest req, final ModelMap model)
             throws UnknownHostException, EnMeNoResultsFoundException {
-        System.out.println("*************************************************");
-        System.out.println("/poll/vote/password/post VOTE POLL " + responseId);
-        System.out.println("/poll/vote//password/post VOTE POLL " + itemId);
-        System.out.println("/poll/vote//password/post VOTE POLL " + type);
-        System.out.println("/poll/vote//password/post VOTE POLL " + multiplesVotes);
-        System.out.println("/poll/vote//password/post VOTE POLL " + type_form);
-        System.out.println("/poll/vote//password/post VOTE POLL " + slugName);
-        System.out.println("/poll/vote//password/poll_password VOTE POLL " + poll_password);
-        System.out.println("*************************************************");
+        log.debug("*************************************************");
+        log.debug("/poll/vote/password/post VOTE POLL " + responseId);
+        log.debug("/poll/vote//password/post VOTE POLL " + itemId);
+        log.debug("/poll/vote//password/post VOTE POLL " + type);
+        log.debug("/poll/vote//password/post VOTE POLL " + multiplesVotes);
+        log.debug("/poll/vote//password/post VOTE POLL " + type_form);
+        log.debug("/poll/vote//password/post VOTE POLL " + slugName);
+        log.debug("/poll/vote//password/poll_password VOTE POLL " + poll_password);
+        log.debug("*************************************************");
         // default path
         final RequestSourceType requestSourceType = RequestSourceType.getSource(type_form);
         final String isEmbedded = !requestSourceType.equals(RequestSourceType.EMBEDDED) ? "" : "embedded/";
-        System.out.println("isEmbedded   * " + isEmbedded);
+        log.debug("isEmbedded   * " + isEmbedded);
         String pathVote = "poll/" + isEmbedded + "voted";
         try{
-            System.out.println("************DEBUG");
+            log.debug("************DEBUG");
             Poll poll = new Poll();
             // Check IP in BlackListFile - Validation
             final String IP = getIpClient(req);
@@ -154,38 +154,38 @@ public class PollController extends AbstractViewController {
                     throw new EnMePollNotFoundException("poll id has not been found");
                     // if answer id is null return the request
                 } else if (responseId == null) {
-                    System.out.println("************NO ANSWER");
-                    System.out.println("responseId " + responseId);
+                    log.debug("************NO ANSWER");
+                    log.debug("responseId " + responseId);
                     poll = getPollService().getPollByAnswerId(itemId, responseId, null);
-                    System.out.println("poll " + poll);
+                    log.debug("poll " + poll);
                     model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                     model.put("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                     if (log.isInfoEnabled()) {
-                        System.out.println("ConvertDomainBean.convertPollDomainToBean(poll) " + ConvertDomainBean.convertPollDomainToBean(poll).toString());
+                        log.debug("ConvertDomainBean.convertPollDomainToBean(poll) " + ConvertDomainBean.convertPollDomainToBean(poll).toString());
                     }
                     RequestSessionMap.getCurrent(req).put("votePollError", Boolean.TRUE);
                     pathVote = "redirect:/poll/vote/" + itemId + "/" + slugName;
-                    System.out.println("r****************1*************" + pathVote);
+                    log.debug("r****************1*************" + pathVote);
                 } else {
-                    System.out.println("r***************2**************");
+                    log.debug("r***************2**************");
                     type = filterValue(type);
                     type_form = filterValue(type_form);
                     slugName = filterValue(slugName);
-                    System.out.println("itemID::" + itemId);
-                    System.out.println("responseId::" + responseId);
-                    System.out.println("poll.getIsPasswordProtected()" + poll.getIsPasswordProtected());
+                    log.debug("itemID::" + itemId);
+                    log.debug("responseId::" + responseId);
+                    log.debug("poll.getIsPasswordProtected()" + poll.getIsPasswordProtected());
                     poll = getPollService().getPollByAnswerId(itemId, responseId, null);
                     model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                     model.put("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                     // restrictions by date
                     if (poll.getIsPasswordProtected()) {
-                        System.out.println("Is protected under password");
+                        log.debug("Is protected under password");
                         if (poll.getPassword().equals(poll_password)) {
                             final Boolean restrictVotesByDate = getPollService().restrictVotesByDate(poll);
-                            System.out.println("restrictVotesByDate " + restrictVotesByDate);
+                            log.debug("restrictVotesByDate " + restrictVotesByDate);
                             // restrictions by quota, check the limit of votes
                             final Boolean restrictVotesByQuota = getPollService().restrictVotesByQuota(poll);
-                            System.out.println("restrictVotesByQuota " + restrictVotesByQuota);
+                            log.debug("restrictVotesByQuota " + restrictVotesByQuota);
                             // restrictions votes by IP
                             final Boolean limitsOfVotesByIP = getPollService().checkLimitVotesByIP(IP, poll);
                             if (poll == null || !poll.getPublish()) {
@@ -196,19 +196,19 @@ public class PollController extends AbstractViewController {
                             // Validate properties or options
                             else if (poll.getPollCompleted()) {
                                 model.put("message", getMessage("poll.completed"));
-                                System.out.println("poll has already completed");
+                                log.debug("poll has already completed");
                                 pathVote = "poll/" + isEmbedded + "completed";
                             } else if (restrictVotesByQuota) {
                                 model.put("message", getMessage("tweetpoll.votes.limited"));
-                                System.out.println("poll has reached to the limit of votes");
+                                log.debug("poll has reached to the limit of votes");
                                 pathVote = "poll/" + isEmbedded + "completed";
                             } else if (restrictVotesByDate) {
                                 model.put("message", getMessage("poll.closed"));
-                                System.out.println("poll has been closed");
+                                log.debug("poll has been closed");
                                 pathVote = "poll/" + isEmbedded + "completed";
                             } else if (limitsOfVotesByIP) {
                                 model.put("message", getMessage("poll.votes.repeated"));
-                                System.out.println("limit of votes by IP has reached");
+                                log.debug("limit of votes by IP has reached");
                                 pathVote = "poll/" + isEmbedded + "completed";
                             } else {
                                 try {
@@ -217,7 +217,7 @@ public class PollController extends AbstractViewController {
                                     if (result == 0 || (poll.getAllowRepeatedVotes() != null && poll.getAllowRepeatedVotes() && !limitsOfVotesByIP)) {
                                         // FIXME: ENCUESTAME-673
 //                                        if (poll.getMultipleResponse() != null && poll.getMultipleResponse().equals(AbstractSurvey.MultipleResponse.MULTIPLE)) {
-//                                            System.out.println("poll multiple response");
+//                                            log.debug("poll multiple response");
 //                                            for (int i = 0; i < multiplesVotes.length; i++) {
 //                                                try {
 //                                                    final Long responseIdMultiple = Long.valueOf(multiplesVotes[i]);
@@ -230,14 +230,14 @@ public class PollController extends AbstractViewController {
 //                                                pathVote = "poll/" + isEmbedded + "voted";
 //                                            }
                                         //} else if (poll.getMultipleResponse().equals(AbstractSurvey.MultipleResponse.SINGLE)) {
-                                            System.out.println("poll single response");
+                                            log.debug("poll single response");
                                             getPollService().vote(poll, slugName, IP, responseId);
                                             model.put("message", getMessage("poll.votes.thanks"));
                                             pathVote = "poll/" + isEmbedded + "voted";
                                         //}
                                     } else {
                                         model.put("message", getMessage("poll.repeated"));
-                                        System.out.println("limit of votes by IP has reached");
+                                        log.debug("limit of votes by IP has reached");
                                         pathVote = "poll/" + isEmbedded + "repeated";
                                     }
                                 } catch (Exception e) {
@@ -248,7 +248,7 @@ public class PollController extends AbstractViewController {
                                 }
                             }
                         } else {
-                            System.out.println("password not valid, try again");
+                            log.debug("password not valid, try again");
                             model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                             model.addAttribute("type", type);
                             model.addAttribute("type_form", type_form);
@@ -258,14 +258,14 @@ public class PollController extends AbstractViewController {
                             pathVote = "poll/password";
                             model.addAttribute("votePollError", "Password is not valid");
                         }
-                        System.out.println("redirect template WHERE " + pathVote);
+                        log.debug("redirect template WHERE " + pathVote);
                     } else {
                       throw new EnmeNotAllowedException("not poll valid to vote under password");
                     }
                 }
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.debug(e.getMessage());
             pathVote = "poll/" + isEmbedded + "bad";
         }
         return pathVote;
@@ -297,19 +297,19 @@ public class PollController extends AbstractViewController {
             @RequestParam("slugName") String slugName,
             final HttpServletRequest req, final ModelMap model)
             throws UnknownHostException, EnMeNoResultsFoundException {
-        System.out.println("*************************************************");
-        System.out.println("/poll/vote/post VOTE POLL " + responseId);
+        log.debug("*************************************************");
+        log.debug("/poll/vote/post VOTE POLL " + responseId);
 
-        System.out.println("/poll/vote/post VOTE POLL " + itemId);
-        System.out.println("/poll/vote/post VOTE POLL " + type);
-        System.out.println("/poll/vote/post VOTE POLL " + multiplesVotes);
-        System.out.println("/poll/vote/post VOTE POLL " + type_form);
-        System.out.println("/poll/vote/post VOTE POLL " + slugName);
-        System.out.println("*************************************************");
+        log.debug("/poll/vote/post VOTE POLL " + itemId);
+        log.debug("/poll/vote/post VOTE POLL " + type);
+        log.debug("/poll/vote/post VOTE POLL " + multiplesVotes);
+        log.debug("/poll/vote/post VOTE POLL " + type_form);
+        log.debug("/poll/vote/post VOTE POLL " + slugName);
+        log.debug("*************************************************");
         // default path
         final RequestSourceType requestSourceType = RequestSourceType.getSource(type_form);
         final String isEmbedded = !requestSourceType.equals(RequestSourceType.EMBEDDED) ? "" : "embedded/";
-        System.out.println("isEmbedded   * " + isEmbedded);
+        log.debug("isEmbedded   * " + isEmbedded);
         String pathVote = "poll/" + isEmbedded + "voted";
         try{
             Poll poll = new Poll();
@@ -326,7 +326,7 @@ public class PollController extends AbstractViewController {
                         throw new EnMePollNotFoundException("poll id has not been found");
                         // if answer id is null return the request
                     } else if (responseId == null) {
-                        System.out.println("responseId -- JUAN " + responseId);
+                        log.debug("responseId -- JUAN " + responseId);
                         try {
                             poll = getPollService().getPollByAnswerId(itemId, responseId, null);
                         } catch (EnMeExpcetion e) {
@@ -335,22 +335,22 @@ public class PollController extends AbstractViewController {
                             Poll poll_full = getPollService().getPollById(itemId);
                             model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll_full));
                         }
-                        System.out.println("poll " + poll);
+                        log.debug("poll " + poll);
                         model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                         if (log.isInfoEnabled()) {
-                            System.out.println("ConvertDomainBean.convertPollDomainToBean(poll) " + ConvertDomainBean.convertPollDomainToBean(poll).toString());
+                            log.debug("ConvertDomainBean.convertPollDomainToBean(poll) " + ConvertDomainBean.convertPollDomainToBean(poll).toString());
                         }
                         RequestSessionMap.getCurrent(req).put("votePollError", Boolean.TRUE);
                         pathVote = "redirect:/poll/vote/" + itemId + "/" + slugName;
-                        System.out.println("r****************1*************" + pathVote);
+                        log.debug("r****************1*************" + pathVote);
                     } else {
-                        System.out.println("r***************2**************");
+                        log.debug("r***************2**************");
                         type = filterValue(type);
                         type_form = filterValue(type_form);
                         slugName = filterValue(slugName);
-                        System.out.println("itemID::" + itemId);
-                        System.out.println("responseId::" + responseId);
-                        System.out.println("poll.getIsPasswordProtected()" + poll.getIsPasswordProtected());
+                        log.debug("itemID::" + itemId);
+                        log.debug("responseId::" + responseId);
+                        log.debug("poll.getIsPasswordProtected()" + poll.getIsPasswordProtected());
                         poll = getPollService().getPollByAnswerId(itemId, responseId, null);
                         model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
                         model.put("poll", ConvertDomainBean.convertPollDomainToBean(poll));
@@ -365,10 +365,10 @@ public class PollController extends AbstractViewController {
                         } else {
                             // restrictions by date
                             final Boolean restrictVotesByDate = getPollService().restrictVotesByDate(poll);
-                            System.out.println("restrictVotesByDate " + restrictVotesByDate);
+                            log.debug("restrictVotesByDate " + restrictVotesByDate);
                             // restrictions by quota, check the limit of votes
                             final Boolean restrictVotesByQuota = getPollService().restrictVotesByQuota(poll);
-                            System.out.println("restrictVotesByQuota " + restrictVotesByQuota);
+                            log.debug("restrictVotesByQuota " + restrictVotesByQuota);
                             // restrictions votes by IP
                             final Boolean limitsOfVotesByIP = getPollService().checkLimitVotesByIP(IP, poll);
                             if (poll == null || !poll.getPublish()) {
@@ -379,19 +379,19 @@ public class PollController extends AbstractViewController {
                             // Validate properties or options
                             else if (poll.getPollCompleted()) {
                                 model.put("message", getMessage("poll.completed"));
-                                System.out.println("poll has already completed");
+                                log.debug("poll has already completed");
                                 pathVote = "poll/" + isEmbedded + "completed";
                             } else if (restrictVotesByQuota) {
                                 model.put("message", getMessage("tweetpoll.votes.limited"));
-                                System.out.println("poll has reached to the limit of votes");
+                                log.debug("poll has reached to the limit of votes");
                                 pathVote = "poll/" + isEmbedded + "completed";
                             } else if (restrictVotesByDate) {
                                 model.put("message", getMessage("poll.closed"));
-                                System.out.println("poll has been closed");
+                                log.debug("poll has been closed");
                                 pathVote = "poll/" + isEmbedded + "completed";
                             } else if (limitsOfVotesByIP) {
                                 model.put("message", getMessage("poll.votes.repeated"));
-                                System.out.println("limit of votes by IP has reached");
+                                log.debug("limit of votes by IP has reached");
                                 pathVote = "poll/" + isEmbedded + "completed";
                             } else {
                                 try {
@@ -399,7 +399,7 @@ public class PollController extends AbstractViewController {
                                     final Integer result = getPollService().validatePollIP(IP, poll);
                                     if (result == 0 || (poll.getAllowRepeatedVotes() != null && poll.getAllowRepeatedVotes() && !limitsOfVotesByIP)) {
                                         if (poll.getMultipleResponse().equals(AbstractSurvey.MultipleResponse.MULTIPLE)) {
-                                            System.out.println("poll multiple response");
+                                            log.debug("poll multiple response");
                                             for (int i = 0; i < multiplesVotes.length; i++) {
                                                 try {
                                                     final Long responseIdMultiple = Long.valueOf(multiplesVotes[i]);
@@ -412,14 +412,14 @@ public class PollController extends AbstractViewController {
                                                 pathVote = "poll/" + isEmbedded + "voted";
                                             }
                                         } else if (poll.getMultipleResponse().equals(AbstractSurvey.MultipleResponse.SINGLE)) {
-                                            System.out.println("poll single response");
+                                            log.debug("poll single response");
                                             getPollService().vote(poll, slugName, IP, responseId);
                                             model.put("message", getMessage("poll.votes.thanks"));
                                             pathVote = "poll/" + isEmbedded + "voted";
                                         }
                                     } else {
                                         model.put("message", getMessage("poll.repeated"));
-                                        System.out.println("limit of votes by IP has reached");
+                                        log.debug("limit of votes by IP has reached");
                                         pathVote = "poll/" + isEmbedded + "repeated";
                                     }
                                 } catch (Exception e) {
@@ -428,13 +428,13 @@ public class PollController extends AbstractViewController {
                                     pathVote = "poll/" + isEmbedded + "bad";
                                 }
                             }
-                            System.out.println("redirect template WHERE " + pathVote);
+                            log.debug("redirect template WHERE " + pathVote);
                         }
                     }
                 }
         } catch (Exception e) {
             //e.printStackTrace();
-            System.out.println(e.getMessage());
+            log.debug(e.getMessage());
             pathVote = "poll/" + isEmbedded + "bad";
         }
         return pathVote;
@@ -450,7 +450,7 @@ public class PollController extends AbstractViewController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/poll", method = RequestMethod.GET)
     public String tweetPollControllerRedirect(final ModelMap model) {
-        System.out.println("tweetpoll");
+        log.debug("tweetpoll");
         return "redirect:/user/poll/list";
     }
 
@@ -466,7 +466,7 @@ public class PollController extends AbstractViewController {
     public String pollListController(final ModelMap model,
             HttpServletRequest request,
             HttpServletResponse response) throws EnMeExpcetion {
-        System.out.println("poll list render view");
+        log.debug("poll list render view");
         addItemsManangeMessages(model, request, response);
         addi18nProperty(model, "commons_no_results", request, response);
         addi18nProperty(model, "poll_admon_poll_options", request, response);
@@ -514,6 +514,10 @@ public class PollController extends AbstractViewController {
         addi18nProperty(model, "button_ignore", request, response);
         addi18nProperty(model, "button_try_again", request, response);
         addi18nProperty(model, "button_vote", request, response);
+        addi18nProperty(model, "button_voted", request, response);
+
+
+        addi18nProperty(model, "poll_is_hidden", request, response);
 
         /** *** *** ** Help Guide ** *** *** **/
         addi18nProperty(model, "help_poll_button_new", request, response);
@@ -538,7 +542,7 @@ public class PollController extends AbstractViewController {
     public String newPollController(final ModelMap model,
             HttpServletRequest request,
             HttpServletResponse response) {
-        //System.out.println("new poll render view", request, response);
+        //log.debug("new poll render view", request, response);
         addi18nProperty(model, "leave_mesage", request, response);
         addi18nProperty(model, "tp_add_hashtag", request, response);
         addi18nProperty(model, "poll_create_question_title", request, response);
@@ -606,7 +610,7 @@ public class PollController extends AbstractViewController {
             final Poll poll = getPollService().getPollSlugById(id, slug);
             final List<QuestionAnswerBean> answer = getPollService()
                     .retrieveAnswerByQuestionId(poll.getQuestion().getQid());
-            System.out.println("Poll Detail Answers " + answer.size());
+            log.debug("Poll Detail Answers " + answer.size());
             model.addAttribute("poll",
                     ConvertDomainBean.convertPollDomainToBean(poll));
             model.addAttribute("answers", answer);

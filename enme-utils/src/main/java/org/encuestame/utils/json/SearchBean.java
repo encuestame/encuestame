@@ -52,16 +52,10 @@ public class SearchBean extends AbstractUnitSurvey{
 	    private Boolean favourites;
 	    @JsonProperty(value = "userId")
 	    private Long userId;
-	    @JsonProperty(value = "ownerUsername")
-	    private String ownerUsername;
 	    @JsonProperty(value = "tweetUrl")
 	    private String tweetUrl;
-	    @JsonProperty(value = "createDate")
-	    private String createDate;
 	    @JsonProperty(value = "allowRepeatedVotes")
 	    private Boolean allowRepeatedVotes;
-	    @JsonProperty(value = "totalVotes")
-	    private Long totalVotes;
 	    @JsonProperty(value = "hits")
 	    private Long hits;
 	    @JsonProperty(value = "maxRepeatedVotes")
@@ -102,12 +96,8 @@ public class SearchBean extends AbstractUnitSurvey{
         @JsonProperty(value = "is_hidden")
         public  Boolean isHidden;
 
-        @JsonProperty(value = "is_password_protected")
-        public Boolean isPasswordProtected;
-
         @JsonProperty(value = "password_protected")
         public String password;
-
 
     /**
 	     * Constructor.
@@ -345,21 +335,6 @@ public class SearchBean extends AbstractUnitSurvey{
 	    }
 
 	    /**
-	     * @return the createDate
-	     */
-	    @JsonIgnore
-	    public String getCreateDate() {
-	        return createDate;
-	    }
-
-	    /**
-	     * @param createDate the createDate to set
-	     */
-	    public void setCreateDate(String createDate) {
-	        this.createDate = createDate;
-	    }
-
-	    /**
 	     * @return the favourites
 	     */
 	    @JsonIgnore
@@ -387,21 +362,6 @@ public class SearchBean extends AbstractUnitSurvey{
 	     */
 	    public void setAllowRepeatedVotes(final Boolean allowRepeatedVotes) {
 	        this.allowRepeatedVotes = allowRepeatedVotes;
-	    }
-
-	    /**
-	     * @return the totalVotes
-	     */
-	    @JsonIgnore
-	    public Long getTotalVotes() {
-	        return totalVotes;
-	    }
-
-	    /**
-	     * @param totalVotes the totalVotes to set
-	     */
-	    public void setTotalVotes(Long totalVotes) {
-	        this.totalVotes = totalVotes;
 	    }
 
 	    /**
@@ -447,21 +407,6 @@ public class SearchBean extends AbstractUnitSurvey{
 	     */
 	    public void setResumeTweetPollDashBoard(Boolean resumeTweetPollDashBoard) {
 	        this.resumeTweetPollDashBoard = resumeTweetPollDashBoard;
-	    }
-
-	    /**
-	    * @return the ownerUsername
-	    */
-	    @JsonIgnore
-	    public String getOwnerUsername() {
-	        return ownerUsername;
-	    }
-
-	    /**
-	    * @param ownerUsername the ownerUsername to set
-	    */
-	    public void setOwnerUsername(final String ownerUsername) {
-	        this.ownerUsername = ownerUsername;
 	    }
 
 	    /**
@@ -578,14 +523,6 @@ public class SearchBean extends AbstractUnitSurvey{
 
         public void setIsHidden(Boolean isHidden) {
             this.isHidden = isHidden;
-        }
-
-        public Boolean getIsPasswordProtected() {
-            return isPasswordProtected;
-        }
-
-        public void setIsPasswordProtected(Boolean isPasswordProtected) {
-            this.isPasswordProtected = isPasswordProtected;
         }
 
         public String getPassword() {

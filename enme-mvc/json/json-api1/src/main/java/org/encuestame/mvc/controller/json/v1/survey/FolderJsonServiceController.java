@@ -28,6 +28,7 @@ import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.SurveyBean;
@@ -64,19 +65,17 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll
      * @apiPermission ENCUESTAME_USER
      * @apiSuccessExample
-			{
-    			"error":{
-
-    			},
-    			"success":{
-        			"folder":{
-						"id":382,"
-            			name":"folderTestName",
-            			"create_date":1347281933873
-					}
-				}
-			}
-     */
+     {
+        "error":{},
+        "success":{
+            "folder":{
+                "id": 382,
+                "name": folderTestName,
+                "create_date": 1347281933873
+            }
+        }
+     }
+    */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}", method = RequestMethod.POST)
     public @ResponseBody ModelMap createFolder(
@@ -120,18 +119,16 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
      * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll
      * @apiPermission ENCUESTAME_USER
      * @apiSuccessExample
-			{
-				"error":{
-
-				},
-				"success":{
-					"folder":{
-						"id":6,
-						"name":"MyFolder",
-						"create_date":"2015-04-29"
-					}
-				}
-			}
+	{
+       "error":{},
+        "success":{
+            "folder":{
+                "id":6,
+                "name":"MyFolder",
+                "create_date": "2015-04-29"
+            }
+        }
+     }
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}", method = RequestMethod.PUT)
@@ -374,7 +371,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
         try {
             logPrint(type);
             if (type.equals(TypeSearchResult.POLL)) {
-                final List<PollBean> pollsByFolder = getPollService()
+                final List<SearchBean> pollsByFolder = getPollService()
                         .searchPollsByFolder(folderId, getUserPrincipalUsername());
                 jsonResponse.put("pollsByFolder", pollsByFolder);
                 //logPrint("jota::"+pollsByFolder.size());

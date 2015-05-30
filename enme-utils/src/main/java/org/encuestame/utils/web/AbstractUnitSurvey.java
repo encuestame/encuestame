@@ -175,6 +175,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
 
     /** Protect the Poll or Survey with a password **/
     @JsonIgnore
+    @JsonProperty(value = "is_password_protected")
     private Boolean isPasswordProtected;
 
     /**

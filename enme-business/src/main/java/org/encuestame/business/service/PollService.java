@@ -638,14 +638,14 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws EnMeNoResultsFoundException
      */
 
-    public List<PollBean> searchPollsByFolder(final Long folderId, final String username) throws EnMeNoResultsFoundException{
+    public List<SearchBean> searchPollsByFolder(final Long folderId, final String username) throws EnMeNoResultsFoundException{
         final PollFolder pollFolder = getPollDao().getPollFolderById(folderId);
         List<Poll> polls = new ArrayList<Poll>();
         if (pollFolder != null){
             polls = getPollDao().getPollsByPollFolderId(getUserAccount(getUserPrincipalUsername()), pollFolder);
         }
         log.info("search polls by folder size "+polls.size());
-        return ConvertDomainBean.convertSetToPollBean(polls);
+        return ConvertDomainBean.convertPollListToSearchBean(polls);
     }
 
 
@@ -783,7 +783,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         List<FolderBean> foldersBean = ConvertDomainBean.convertListPollFolderToBean(folders);
         for (FolderBean folderItem : foldersBean) {
             //FUTURE: ENCUESTAME-263 maybe is posible to improve this query
-            final List<PollBean> tweetPollsByFolder = this.searchPollsByFolder(folderItem.getId(), getUserPrincipalUsername());
+            final List<SearchBean> tweetPollsByFolder = this.searchPollsByFolder(folderItem.getId(), getUserPrincipalUsername());
             folderItem.setItems(Long.valueOf(tweetPollsByFolder.size()));
         }
         return foldersBean;

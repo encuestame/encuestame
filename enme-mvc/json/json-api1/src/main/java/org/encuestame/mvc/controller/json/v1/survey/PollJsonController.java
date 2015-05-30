@@ -207,7 +207,6 @@ public class PollJsonController extends AbstractJsonControllerV1{
             //log.debug("/api/survey/poll/search.json---------------->  "+ list.size());
             jsonResponse.put("poll", list);
             setItemResponse(jsonResponse);
-
         } catch (EnMeExpcetion e) {
              log.error(e);
              setError(e.getMessage(), response);

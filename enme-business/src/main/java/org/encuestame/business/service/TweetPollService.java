@@ -1244,13 +1244,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * Update Tweet Poll Folder.
      * @throws EnMeNoResultsFoundException
      */
-    public FolderBean updateTweetPollFolder(final Long folderId, final String folderName, final String username)
-           throws EnMeNoResultsFoundException{
+    public FolderBean updateTweetPollFolder(final Long folderId, final String folderName, final String username) throws EnMeNoResultsFoundException {
         final TweetPollFolder tweetPollFolder = this.getTweetPollFolder(folderId);
-        if(tweetPollFolder == null) {
+        if (tweetPollFolder == null) {
             throw new EnMeNoResultsFoundException("Tweet Poll Folder not found");
-        }
-        else{
+        } else {
             tweetPollFolder.setFolderName(folderName);
             getTweetPollDao().saveOrUpdate(tweetPollFolder);
         }

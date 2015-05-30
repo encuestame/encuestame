@@ -147,7 +147,7 @@ public interface IPollService extends IMasterSurveyService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    List<PollBean> searchPollsByFolder(final Long folderId, final String username) throws EnMeNoResultsFoundException;
+    List<SearchBean> searchPollsByFolder(final Long folderId, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Add poll to folder.
