@@ -76,7 +76,7 @@ public class SocialUtils {
     /**
      * Facebook scopes.
      */
-    public static final String FACEBOOK_SCOPE = "email,read_stream,publish_stream,user_status,user_location,offline_access";
+    public static final String FACEBOOK_SCOPE = "email,read_stream,publish_actions,user_status,user_location";
 
     /**
      * Twitter limit.
