@@ -65,7 +65,7 @@ public class SettingsJsonController extends AbstractJsonControllerV1{
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/settings/profile/my.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/settings/profile/my", method = RequestMethod.GET)
     public @ResponseBody ModelMap myAccountProfile(HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {

@@ -32,6 +32,7 @@ var emne_core = [
     "me/core/enme",
     "me/core/constants",
     "me/core/IconSupport",
+	"me/core/AuthStatus",
     "me/core/Modernizr",
     "me/core/URLServices",
     "me/core/main_widgets/WidgetServices",

@@ -95,7 +95,7 @@
         <security:intercept-url pattern="/user/survey" access="hasAnyRole('ENCUESTAME_USER','ENCUESTAME_EDITOR')"  />
         <security:intercept-url pattern="/api/social/**/*"   access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/api/settings/**/*"  access="hasRole('ENCUESTAME_USER')"  />
-        <security:intercept-url pattern="/api/admon/**/*"   access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/api/admon/**/*"  access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/api/survey/**/*"    access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/api/chart/**/*"   access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/api/groups/**/*"  access="hasRole('ENCUESTAME_USER')"  />

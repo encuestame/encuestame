@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/api/login.json")
+@RequestMapping("/api/user/login")
 public class LoginJsonController extends AbstractJsonControllerV1 {
 
     /**
@@ -63,28 +63,4 @@ public class LoginJsonController extends AbstractJsonControllerV1 {
             return new LoginStatus(false, null);
         }
     }
-
-    /**
-     *
-     * @author
-     */
-    public class LoginStatus {
-
-        private final boolean loggedIn;
-        private final String username;
-
-        public LoginStatus(boolean loggedIn, String username) {
-            this.loggedIn = loggedIn;
-            this.username = username;
-        }
-
-        public boolean isLoggedIn() {
-            return loggedIn;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-    }
-
 }

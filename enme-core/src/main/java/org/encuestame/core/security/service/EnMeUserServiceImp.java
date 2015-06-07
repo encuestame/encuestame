@@ -97,10 +97,10 @@ public class EnMeUserServiceImp implements UserDetailsService {
         final UserAccount user = this.accountDao.getUserByUsername(username);
         log.debug("fetch username filtered: {"+user+"}");
         if (user == null) {
-            log.error("user not found :{"+username);
+            log.info("user not found :{"+username);
             throw new UsernameNotFoundException("user not found");
         } else {
-            log.debug("Logged with username: {"+user.getUsername()+" id: "+user.getUid()+"}");
+            log.info("Logged with username: {"+user.getUsername()+" id: "+user.getUid()+"}");
             this.updateLoggedInfo(user);
             return SecurityUtils.convertUserAccountToUserDetails(user, this.roleUserAuth);
         }

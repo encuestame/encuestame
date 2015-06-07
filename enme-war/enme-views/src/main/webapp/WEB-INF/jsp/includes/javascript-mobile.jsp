@@ -12,10 +12,14 @@ require([
     "dojo/parser",
     "dojo/ready",
     'me/support/Offline',
+    "me/core/AuthStatus",
     "me/core/enme"
-], function(dojo, declare, parser, ready, Offline, _ENME) {
+], function(dojo, declare, parser, ready, Offline, AuthStatus, _ENME) {
     ready(function(){
         <%@ include file="/WEB-INF/jsp/includes/decorators/enme-init.jsp"%>
+        <c:if test="${logged}">
+            var auth = new AuthStatus();
+        </c:if>
         parser.parse();
         <%@ include file="/WEB-INF/jsp/includes/decorators/shared-javascript.jsp"%>
     });
