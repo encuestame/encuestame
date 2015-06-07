@@ -53,11 +53,21 @@ public class DirectoryConfig {
         mailSender.setPort(EnMePlaceHolderConfigurer.getIntegerProperty("mail.port"));
         mailSender.setUsername(EnMePlaceHolderConfigurer.getProperty("mail.username"));
         mailSender.setPassword(EnMePlaceHolderConfigurer.getProperty("mail.password"));
+        //http://www.tutorialspoint.com/javamail_api/javamail_api_smtp_servers.htm
+        // List of properties, only these ones to connect with Gmail, it can be modified
         Properties properties = new Properties();
-        properties.put("mail.transport.protocol", EnMePlaceHolderConfigurer.getProperty("mail.protocol"));
-        properties.put("mail.smtp.auth", EnMePlaceHolderConfigurer.getProperty("mail.smtp.auth"));
-        properties.put("mail.smtp.starttls.enable", EnMePlaceHolderConfigurer.getProperty("mail.smtp.starttls.enable"));
-        properties.put("mail.debug", EnMePlaceHolderConfigurer.getProperty("mail.smtp.debug"));
+        if (EnMePlaceHolderConfigurer.getProperty("mail.protocol") != null) {
+            properties.put("mail.transport.protocol", EnMePlaceHolderConfigurer.getProperty("mail.protocol"));
+        }
+        if (EnMePlaceHolderConfigurer.getProperty("mail.smtp.auth") != null) {
+            properties.put("mail.smtp.auth", EnMePlaceHolderConfigurer.getProperty("mail.smtp.auth"));
+        }
+        if (EnMePlaceHolderConfigurer.getProperty("mail.smtp.starttls.enable") != null) {
+            properties.put("mail.smtp.starttls.enable", EnMePlaceHolderConfigurer.getProperty("mail.smtp.starttls.enable"));
+        }
+        if (EnMePlaceHolderConfigurer.getProperty("mail.smtp.debug") != null) {
+            properties.put("mail.debug", EnMePlaceHolderConfigurer.getProperty("mail.smtp.debug"));
+        }
         mailSender.setJavaMailProperties(properties);
         return mailSender;
     }
