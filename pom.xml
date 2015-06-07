@@ -324,11 +324,6 @@
             <id>oauth.googlecode.net</id>
             <url>http://oauth.googlecode.com/svn/code/maven/</url>
         </repository>
-        <!-- Local Repository -->
-        <!--<repository>-->
-            <!--<id>local-project-repo</id>-->
-            <!--<url>file:${basedir}/lib/repository</url>-->
-        <!--</repository>-->
     </repositories>
 
     <!-- Plugin Repository -->
@@ -755,13 +750,6 @@
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
-            <dependency> <!-- reuse src/test/java code from encuestame-mvc! -->
-                <groupId>org.encuestame</groupId>
-                <artifactId>websocket</artifactId>
-                <version>${encuestame.version}</version>
-                <scope>test</scope>
-                <classifier>tests</classifier>
-            </dependency>
              <dependency>
                 <groupId>org.encuestame</groupId>
                 <artifactId>enme-model</artifactId>
@@ -994,12 +982,6 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-messaging</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-websocket</artifactId>
                 <version>${spring.version}</version>
             </dependency>
 
@@ -1546,11 +1528,6 @@
                         <artifactId>jetty-client</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.jetty.websocket</groupId>
-                <artifactId>websocket-server</artifactId>
-                <version>${jetty7.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-dbcp</groupId>

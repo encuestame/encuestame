@@ -102,10 +102,6 @@
         <security:intercept-url pattern="/api/common/comment/comments/**/*"  access="permitAll"  />
         <security:intercept-url pattern="/api/notifications/**/*"  access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/resources/**" access="permitAll"/>  
-        <!--
-            Websocket authorization
-         -->
-        <security:intercept-url pattern="/enme-ws/**/*" access="hasRole('ENCUESTAME_USER')" />      
     </security:http>
 
     <bean id="authenticationEntryPoint"

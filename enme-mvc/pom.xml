@@ -10,11 +10,9 @@
     <artifactId>enme-mvc</artifactId>
     <packaging>pom</packaging>
     <name>Encuestame MVC POM</name>
-
     <modules>
         <module>controllers</module>
         <module>json</module>
-        <module>websocket</module>
     </modules>
     <dependencyManagement>
         <dependencies>

@@ -1,7 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/decorators/dojo-config.jsp"%>
 
-
 <script src="<%=request.getContextPath()%>/resources/js/commons.js"></script>
 <script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/me/run.js"></script>
@@ -13,11 +12,10 @@ require([
     "dojo/_base/declare",
     "dojo/parser",
     "dojo/ready",
-    'me/support/Websocket',
     'me/support/Offline',
     "me/web/widget/signup/LoginDialog",
     "me/core/enme"
-], function(dojo, declare, parser, ready, Websocket, Offline, LoginDialog, _ENME) {
+], function(dojo, declare, parser, ready, Offline, LoginDialog, _ENME) {
     ready(function(){
         <%@ include file="/WEB-INF/jsp/includes/decorators/enme-init.jsp"%>
         dojo.subscribe('/encuestame/login/show', this, dojo.hitch(this, function(expired_session) {

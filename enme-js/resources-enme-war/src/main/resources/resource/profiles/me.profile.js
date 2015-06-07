@@ -99,7 +99,7 @@ var profile = {
     //releaseDir : '/release',
     releaseName: 'release',
 
-    version : "1.5.0",
+    version : "1.5.2",
 
     // Builds a new release.
     action: 'release',
@@ -137,8 +137,6 @@ var profile = {
     selectorEngine: 'lite',
 
     hasReport: true,
-    //defaultCopyright: 'copy right juan 2015',
-    //defaultBuildNotice: 'build notice juan 2015',
 
     packages:[
         {
@@ -298,7 +296,6 @@ var profile = {
                 "me/web/widget/options/EmbebedOptions",
                 'me/support/Offline',
                 'me/web/widget/signup/LoginDialog',
-                'me/support/Websocket',
                 'me/web/widget/ui/More',
                 'me/web/widget/utils/ToggleText',
                 'me/web/widget/data/CacheLinkedList',

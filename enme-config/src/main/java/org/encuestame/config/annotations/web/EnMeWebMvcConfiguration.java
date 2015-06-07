@@ -36,8 +36,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableAsync
 @ImportResource({
     "classpath:/config/files/mvc-context.xml",
-    "classpath:/config/files/web-flow-context.xml",
-    "classpath:/config/files/websocket-context.xml"
+    "classpath:/config/files/web-flow-context.xml"
     })
 public class EnMeWebMvcConfiguration extends WebMvcConfigurerAdapter {
 

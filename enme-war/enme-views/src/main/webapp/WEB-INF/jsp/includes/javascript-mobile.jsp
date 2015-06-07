@@ -11,10 +11,9 @@ require([
     "dojo/_base/declare",
     "dojo/parser",
     "dojo/ready",
-    'me/support/Websocket',
     'me/support/Offline',
     "me/core/enme"
-], function(dojo, declare, parser, ready,  Websocket, Offline, _ENME) {
+], function(dojo, declare, parser, ready, Offline, _ENME) {
     ready(function(){
         <%@ include file="/WEB-INF/jsp/includes/decorators/enme-init.jsp"%>
         parser.parse();

@@ -5,8 +5,6 @@
 
    <group name='commons'>
     <js>/commons/Chart.js</js>
-    <js>/commons/sockjs.js</js>
-    <js>/commons/stomp.js</js>
     <js>/commons/offline.js</js>
     <js>/commons/intro.js</js>
     <js>/commons/alertify/lib/alertify.js</js>
@@ -15,8 +13,6 @@
 
   <group name='commons-mobile'>
     <js>/commons/Chart.js</js>
-    <js>/commons/sockjs.js</js>
-    <js>/commons/stomp.js</js>
     <js>/commons/offline.js</js>
     <js>/commons/alertify/lib/alertify.js</js>
   </group>
