@@ -170,7 +170,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     private String hashtagAsString = "";
 
     /** Hide the Poll **/
-    @JsonIgnore
+    @JsonProperty(value = "is_hidden")
     private Boolean isHidden;
 
     /** Protect the Poll or Survey with a password **/
@@ -665,6 +665,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
 	/**
 	 * @return the isHidden
 	 */
+    @JsonIgnore
 	public Boolean getIsHidden() {
 		return isHidden;
 	}

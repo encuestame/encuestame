@@ -498,6 +498,7 @@ public class PollController extends AbstractViewController {
         addi18nProperty(model, "poll_options_info", request, response);
         addi18nProperty(model, "poll_options_public", request, response);
         addi18nProperty(model, "poll_options_notifications", request, response);
+        addi18nProperty(model, "poll_password_link", request, response);
 
         // confirm
         addi18nProperty(model, "commons_confirm", request, response);

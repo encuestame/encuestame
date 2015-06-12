@@ -498,6 +498,16 @@ public interface IPollService extends IMasterSurveyService{
     public Boolean checkLimitVotesByIP(final String ip, final Poll poll);
 
     /**
+     * Change the status of hide a poll
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void hiddenPoll(final Long pollId, final String username)
+            throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+    /**
      * Retrieve all folders searched by keyword.
      * @param keyword
      * @return

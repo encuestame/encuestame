@@ -1048,6 +1048,18 @@ public class PollService extends AbstractSurveyService implements IPollService{
         }
     }
 
+    public void hiddenPoll(final Long pollId, final String username)
+            throws EnMeNoResultsFoundException, EnmeFailOperation {
+        final Poll poll = getPollById(pollId, username);
+        if (poll != null) {
+            poll.setIsHidden(!(poll.getIsHidden() == null ? false
+                    : poll.getIsHidden()));
+            getPollDao().saveOrUpdate(poll);
+        } else {
+            throw new EnmeFailOperation("Fail Change Status Operation");
+        }
+    }
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#ipProtectionPoll(java.lang.Long, java.lang.String)
@@ -1106,8 +1118,11 @@ public class PollService extends AbstractSurveyService implements IPollService{
             EnmeFailOperation {
         final Poll poll = getPollById(pollId, username);
         if (poll != null) {
-            poll.setPasswordRestrictions(!(poll.getPasswordRestrictions() == null ? false
-                    : poll.getPasswordRestrictions()));
+            poll.setPasswordRestrictions(!(poll.getPasswordRestrictions() == null ? false : poll.getPasswordRestrictions()));
+            if(!poll.getPasswordRestrictions()) {
+                //FIXME: for now, we don't clear the password
+                //poll.setPassword("");
+            }
             getPollDao().saveOrUpdate(poll);
         } else {
             throw new EnmeFailOperation("Fail Change Status Operation");

@@ -662,6 +662,10 @@ public class PollJsonController extends AbstractJsonControllerV1{
                 getPollService().closeAfterQuotaPoll(
                         pollId, getUserPrincipalUsername());
                 setSuccesResponse();
+            } else  if ("is-hidden".equals(propertyType)) {
+                getPollService().hiddenPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
             } else {
                 log.warn("type not valid");
                 setError("type not valid", response);
