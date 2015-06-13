@@ -9454,7 +9454,7 @@ input:focus {
   -moz-border-radius: 0px 0px 5px 5px;
   -webkit-border-radius: 0px;
   border-radius: 0px 0px 5px 5px;
-  z-index: 99998;
+  z-index: 800;
 }
 
 /* line 25, ../../../../css/resource/sass/web/components/_menu-profile.scss */
@@ -12166,7 +12166,7 @@ div.web-support-embebed textarea {
 
 /* line 114, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
 .web-vote-wrapper .space {
-  margin: 15px 0;
+  margin: 15px;
 }
 
 /* line 119, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
@@ -12191,6 +12191,7 @@ div.web-support-embebed textarea {
 /* line 135, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
 .web-response-single-response-group {
   padding: 12px;
+  text-align: left;
 }
 
 /* line 5, ../../../../css/resource/sass/shared-components/_tp-vote.scss */

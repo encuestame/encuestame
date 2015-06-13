@@ -8153,7 +8153,7 @@ div.mobile-search input {
 
 /* line 114, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
 .web-vote-wrapper .space {
-  margin: 15px 0;
+  margin: 15px;
 }
 
 /* line 119, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
@@ -8178,6 +8178,7 @@ div.mobile-search input {
 /* line 135, ../../../../css/resource/sass/shared-components/_poll-vote.scss */
 .web-response-single-response-group {
   padding: 12px;
+  text-align: left;
 }
 
 /* line 5, ../../../../css/resource/sass/shared-components/_tp-vote.scss */
