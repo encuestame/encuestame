@@ -185,7 +185,7 @@ public class Poll extends AbstractSurvey {
     /**
      * @return the hashTags
      */
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "poll_hashtags",
                joinColumns = {@JoinColumn(name = "poll_id")},
                inverseJoinColumns = {@JoinColumn(name = "hastag_id")})
