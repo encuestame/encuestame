@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<section class="item">
+<section class="item" id="home-item">
     <div class="content">
         <div class="tags">
             <c:forEach items="${item.hashTags}" var="h">
@@ -9,7 +9,7 @@
             </c:forEach>
         </div>
         <div class="title">
-            <a href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}">
+            <a id="item-question" href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}">
                 <h2>
                     ${item.questionBean.questionName}
                 </h2>
@@ -19,7 +19,7 @@
             <div class="options">
                 <div class="submited">
                     <spring:message code="submited_by" />
-                     <a href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">
+                     <a id="submited" href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">
                         ${item.ownerUsername}
                      </a><span>,</span>
                     <spring:message code="added" /> ${item.relativeTime}
@@ -44,7 +44,7 @@
                 <div class="item-vote-block left">
                     <div class="enme-rating">
                         <span class="vote_item_link_wrapper">
-                            <span class="button_vote">
+                            <span id="vote-comments-button" class="button_vote">
                                 <spring:message code="home_item_comments" />
                                 <span class="count">
                                     ${item.totalComments}
@@ -56,7 +56,7 @@
                  <div class="item-vote-block left">
                     <div class="enme-rating">
                         <span class="vote_item_link_wrapper">
-                            <span class="button_vote">
+                            <span id="vote-hits-button" class="button_vote">
                                 Hits
                                 <spring:message code="home_item_hits" />
                                 <span class="count">

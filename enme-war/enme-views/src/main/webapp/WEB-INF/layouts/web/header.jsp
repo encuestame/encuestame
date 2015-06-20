@@ -7,7 +7,7 @@
             <span class="icon-bar">d</span>
             <span class="icon-bar">v</span>
         </a>
-      <a class="brand" href="<%=request.getContextPath()%>/">
+      <a id="enme-logo" class="brand" href="<%=request.getContextPath()%>/">
             <%@ include file="/WEB-INF/layouts/logo.jsp"%>
       </a>
       <div class="nav-collapse collapse">
@@ -27,15 +27,15 @@
             </c:if>
 
               <c:if test="${!logged}">
-                  <li class="">
-                        <a href="<%=request.getContextPath()%>/user/signin">
+                  <li class="signin-home">
+                        <a href="<%=request.getContextPath()%>/user/signin" id="signin-home">
                             <spring:message code="header.signin" />
                         </a>
                   </li>
               </c:if>
 
               <c:if test="${!hide_header_menu}">
-                  <form class="navbar-search pull-left" action="">
+                  <form class="navbar-search pull-left" action="" id="searchMenu">
                              <div data-dojo-type="me/web/widget/menu/SearchMenu"></div>
                   </form>
               </c:if>

@@ -44,17 +44,17 @@
                             </div>
                         </div>
                         <div class="section right">
-                            <button type="submit" class=" btn submit btn-warning" name="submit">
+                            <button type="submit" class=" btn submit btn-warning" name="submit" id="signin-button">
                                 <spring:message code="signin.button" />
                             </button>
                         </div>
                         <div class="web-section-option">
                             <div>
-                                <a href="<%=request.getContextPath()%>/user/forgot"> <spring:message
+                                <a href="<%=request.getContextPath()%>/user/forgot" id="signin-forgot-pass"> <spring:message
                                         code="signin.forgot" />
                                 </a>
                             </div>
-                            <a href="<%=request.getContextPath()%>/user/signup"> <spring:message
+                            <a href="<%=request.getContextPath()%>/user/signup" id="user-signup"> <spring:message
                                     code="signin.signup" />
                             </a>
                         </div>
