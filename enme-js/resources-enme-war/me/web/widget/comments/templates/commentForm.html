@@ -1,0 +1,48 @@
+<div class="add-comment">
+    <div class="header-comment">
+		<div class="picture">
+			<a data-dojo-type="me/web/widget/pictures/AccountPicture"
+								data-dojo-attach-point="_account_picture"
+								type="profile"
+								picture_width="90"
+								picture_height="90"
+			                	username="${username}"></a>
+		</div>
+		<div class="text-form">
+			<textarea
+			data-dojo-attach-point="_new_comment"
+			data-dojo-type="dijit/form/Textarea"
+			maxLength= "${comment_limit}"
+			data-dojo-attach-point="_post" rows="5"
+			style="width:100%; height:100px"></textarea>
+		</div>
+    </div>
+    <div class="footer-comments">
+        <input id="resume" name="resume"
+                  data-dojo-type="dijit/form/CheckBox" disabled="disabled">
+        <label for="resume">
+                Allow responses
+        </label>
+        <select name="select1"
+                data-dojo-type="dijit/form/Select">
+            <option value="PUBLIC" selected="selected">
+                Public
+            </option>
+            <option value="FOLLOWERS" disabled="disabled">
+                Share with Followers
+            </option>
+            <option value="MEMBERS" disabled="disabled">
+                With Members
+            </option>
+        </select>
+        <button data-dojo-attach-point="_post"
+            data-dojo-type="dijit/form/Button" type="button"
+            value="Submit" disable="true">
+                Post
+        </button>
+        <br/>
+        <small  data-dojo-attach-point="_post" class="label label-warning">
+                Comments are moderated
+        </small>
+    </div>
+</div>

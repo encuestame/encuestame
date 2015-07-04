@@ -1,0 +1,81 @@
+{
+  "error": {
+
+  },
+  "success": {
+	"votesResult": [
+	  {
+		"id": 253,
+		"percent": "23.76%",
+		"question_label": "Empire State Building",
+		"answer_votes": 43,
+		"color": "#2689AB",
+		"url_relative": null,
+		"url_short_url": null,
+		"answer": {
+		  "answer_id": 253,
+		  "answers": "Empire State Building",
+		  "url": null,
+		  "short_url": null,
+		  "qid": 102,
+		  "color": "#2689AB",
+		  "provider": null
+		}
+	  },
+	  {
+		"id": 254,
+		"percent": "44.2%",
+		"question_label": "One World Trade Center",
+		"answer_votes": 80,
+		"color": "#DAAD66",
+		"url_relative": null,
+		"url_short_url": null,
+		"answer": {
+		  "answer_id": 254,
+		  "answers": "One World Trade Center",
+		  "url": null,
+		  "short_url": null,
+		  "qid": 102,
+		  "color": "#DAAD66",
+		  "provider": null
+		}
+	  },
+	  {
+		"id": 255,
+		"percent": "19.34%",
+		"question_label": "Bank of America Tower",
+		"answer_votes": 35,
+		"color": "#670443",
+		"url_relative": null,
+		"url_short_url": null,
+		"answer": {
+		  "answer_id": 255,
+		  "answers": "Bank of America Tower",
+		  "url": null,
+		  "short_url": null,
+		  "qid": 102,
+		  "color": "#670443",
+		  "provider": null
+		}
+	  },
+	  {
+		"id": 256,
+		"percent": "12.71%",
+		"question_label": "Chrysler Building",
+		"answer_votes": 23,
+		"color": "#42E8B4",
+		"url_relative": null,
+		"url_short_url": null,
+		"answer": {
+		  "answer_id": 256,
+		  "answers": "Chrysler Building",
+		  "url": null,
+		  "short_url": null,
+		  "qid": 102,
+		  "color": "#42E8B4",
+		  "provider": null
+		}
+	  }
+	]
+  }
+}

@@ -1,0 +1,23 @@
+{
+	"error":{
+
+	},
+	"success":{
+		"items":[
+			{
+				"hashTagName":"test1",
+				"id":2,
+				"size":12,
+				"hits":1
+			},
+			{
+				"hashTagName":"test2",
+				"id":1,
+				"size":13,
+				"hits":1
+			}
+		],
+		"label":"hashTagName",
+		"identifier":"id"
+	}
+}

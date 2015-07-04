@@ -1,0 +1,84 @@
+<section class="web-item-row title-wrapper">
+     <div class="web-item-row-section web-item-row-section-input">
+        <input id="row_${id}" name="row_${id}" data-dojo-type="dijit/form/CheckBox">
+     </div>
+     <div class="web-item-row-section web-item-row-section-title web-poll-list-item-title">
+        <div>
+            ${data.question.question_name}
+            <span class="label label-info hidden" data-dojo-attach-point="_hidden">hidden</span>
+            <span class="label label-important hidden" data-dojo-attach-point="_protected">protected</span>
+         </div>
+        <nav class="nav-menu">
+           <a data-dojo-attach-point="_edit">
+                ${i18nMessage.poll_admon_poll_edit}
+            </a>|
+           <a data-dojo-attach-point="_preview">
+                ${i18nMessage.poll_admon_poll_preview}
+           </a> |
+           <a data-dojo-attach-point="_publish">
+                ${i18nMessage.poll_admon_poll_publish_options}
+           </a>
+           <a data-dojo-attach-point="_embebed">
+               | ${i18nMessage.poll_admon_poll_embebed}
+           </a>
+            <a data-dojo-attach-point="_password" class="hidden">
+                | ${i18nMessage.poll_password_link}
+            </a>
+        </nav>
+     </div>
+     <div class="web-item-row-section web-item-row-section-votes">
+        <div class="web-item-row-section-votes-number" data-dojo-attach-point="_votes">
+             <div data-dojo-type="me/web/widget/home/votes/ItemVote"
+             voteMessage="${i18nMessage.poll_admon_poll_votes}"
+             viewMessage="views"
+             votes="${data.total_votes}"
+             hits="${data.hits}"
+             itemType="POLL"
+             itemId="${data.id}"></div>
+        </div>
+     </div>
+     <div class="web-item-row-section web-item-row-section-date" data-dojo-attach-point="_date">
+
+     </div>
+     <div class="web-item-row-section web-item-row-section-options"></div>
+     <div data-dojo-attach-point="_more" id="more_${id}" class="web-list-detail-more" style="clear: both;"></div>
+
+
+    <div data-dojo-attach-point="_publish_options_dialog" data-dojo-type="dijit/Dialog" data-dojo-props="title:'Publish Options'" style="display:none;width:900px;" draggable="false">
+        <div class="dijitDialogPaneContentArea">
+            <div data-dojo-attach-point="_publish_options" 
+                 itemType="POLL" 
+                 done_button="false"
+                 data-dojo-type="me/web/widget/options/PublishOptions"></div>
+        </div>
+        <div class="dijitDialogPaneActionBar">
+            <button class="btn btn-info" data-dojo-attach-point="_close" data-dojo-attach-event="onClick:_closePublishDialog">
+                Close
+           </button>
+        </div>
+    </div>
+    <!-- Embebed dialog -->
+    <div data-dojo-attach-point="_embebed_options_dialog" data-dojo-type="dijit/Dialog" data-dojo-props="title:'Embedded Settings'" style="display:none;width:500px;" draggable="false">
+        <div class="dijitDialogPaneContentArea">
+            <div itemId="${data.id}" data-dojo-attach-point="_embebed_options" itemType="poll" data-dojo-type="me/web/widget/options/EmbebedOptions"></div>
+        </div>
+        <div class="dijitDialogPaneActionBar">
+            <button class="btn btn-info" data-dojo-attach-event="onClick:_closeEmbebedDialog">
+                Close
+           </button>
+        </div>
+    </div>
+    <!-- Password Dialog -->
+    <div data-dojo-attach-point="_passwordoptions_dialog" data-dojo-type="dijit/Dialog" data-dojo-props="title:'Password Options'" style="display:none;width:500px;" draggable="false">
+        <div class="dijitDialogPaneContentArea">
+            <div password="${data.password_protected}" data-dojo-attach-point="password_options" itemType="poll" data-dojo-type="me/web/widget/options/PasswordOptions"></div>
+        </div>
+        <div class="dijitDialogPaneActionBar">
+            <button class="btn btn-info" data-dojo-attach-event="onClick:_closeDialog">
+                Close
+            </button>
+        </div>
+    </div>
+
+
+</section>

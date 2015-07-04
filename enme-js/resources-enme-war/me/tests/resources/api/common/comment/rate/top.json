@@ -1,0 +1,65 @@
+{
+  "error": {
+
+  },
+  "success": {
+	"topComments": [
+	  {
+		"id": 3,
+		"comment": "TestTestTest",
+		"created_at": 1424697565439,
+		"likeVote": 200,
+		"dislike_vote": 10,
+		"item_id": 2,
+		"type": "TWEETPOLL",
+		"url": "\/tweetpoll\/2\/how-many-goals-cristiano-ronaldo-has-scored-in-the-champions-this-year\/#comment3",
+		"commented_by": "Estimad@ dianmorales",
+		"commented_username": "dianmorales",
+		"parent_id": null,
+		"comment_status": "PUBLISHED"
+	  },
+	  {
+		"id": 4,
+		"comment": "First Comments",
+		"created_at": 1424698399327,
+		"likeVote": 30,
+		"dislike_vote": 10,
+		"item_id": 1,
+		"type": "TWEETPOLL",
+		"url": "\/tweetpoll\/1\/which-team-will-win-the-lpf\/#comment4",
+		"commented_by": "Estimad@ dianmorales",
+		"commented_username": "dianmorales",
+		"parent_id": null,
+		"comment_status": "PUBLISHED"
+	  },
+	  {
+		"id": 1,
+		"comment": "Cristiano has scored 15 goals this year.",
+		"created_at": 1424605923827,
+		"likeVote": 540,
+		"dislike_vote": 30,
+		"item_id": 2,
+		"type": "TWEETPOLL",
+		"url": "\/tweetpoll\/2\/how-many-goals-cristiano-ronaldo-has-scored-in-the-champions-this-year\/#comment1",
+		"commented_by": "jotadeveloper",
+		"commented_username": "jotadeveloper",
+		"parent_id": null,
+		"comment_status": "PUBLISHED"
+	  },
+	  {
+		"id": 2,
+		"comment": "Ronaldo 7, is the best soccer player ever!!",
+		"created_at": 1424697125718,
+		"likeVote": 40,
+		"dislike_vote": 60,
+		"item_id": 2,
+		"type": "TWEETPOLL",
+		"url": "\/tweetpoll\/2\/how-many-goals-cristiano-ronaldo-has-scored-in-the-champions-this-year\/#comment2",
+		"commented_by": "dianprincess",
+		"commented_username": "dianprincess",
+		"parent_id": null,
+		"comment_status": "PUBLISHED"
+	  }
+	]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "error": {
+    
+  },
+  "success": {
+    "socialPublish": [
+      {
+        "id": 766,
+        "tweet_id": "1122901551_10206087867932050",
+        "textTweeted": "[dsadsa dsadsa http:\/\/tinyurl.com\/nnt2wtk das http:\/\/tinyurl.com\/nfa4wcu #dsadsa]",
+        "date_published": "2015-05-31",
+        "social_account": "jotadeveloper",
+        "status_tweet": "SUCCESS",
+        "status_description_tweet": null,
+        "source_tweet": "FACEBOOK",
+        "tweet_url": "http:\/\/www.facebook.com\/permalink.php?story_fbid=10206087867932050&id=1122901551",
+        "social_account_id": 5,
+        "type_item": "TWEETPOLL"
+      }
+    ]
+  }
+}

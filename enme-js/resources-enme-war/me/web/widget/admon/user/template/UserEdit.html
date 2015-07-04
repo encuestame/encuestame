@@ -1,0 +1,39 @@
+ <div>
+            <div class="dialog-title">
+                <h4>
+                    ${user.username} (${user.name})
+                </h4>
+            </div>
+            <section style="padding: 30px;">
+				<div class="ym-grid">
+				  <div class="ym-g25 ym-gl">
+				    <div id="ym-gbox" class="ym-gbox">
+				        <a id="picture-profile" data-dojo-type="me/web/widget/pictures/AccountPicture"
+							type="profile"
+							picture_width="80"
+							picture_height="80"
+		                	username="${user.username}"></a>
+				    </div>
+				  </div>
+				  <div class="ym-g75 ym-gr">
+				    <div class="ym-gbox">
+						  <div class="ym-grid">
+						    <div class="ym-gbox">
+						      <div id="permissions-list" class="ym-gbox ym-fbox-select" data-dojo-attach-point="_permissions">
+
+						      </div>
+						    </div>
+						  </div>
+				    </div>
+				  </div>
+				</div>
+			</section>
+
+        <div class="dijitDialogPaneActionBar">
+            <button data-dojo-type="dijit/form/Button" type="button"  data-dojo-attach-point="_request_button"
+            class="info"
+            data-dojo-attach-event="onClick:_close">
+					${i18n.button_close}
+			</button>
+        </div>
+</div>

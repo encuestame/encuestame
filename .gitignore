@@ -54,6 +54,9 @@ encuestame-persistence/.DS_Store
 enme-war/src/main/webapp/resource/js/graphael
 enme-war/src/main/webapp/resource/js/raphael
 enme-war/src/main/webapp/resource/js/eve
+enme-js/resources-enme-war/js/
+enme-js/resources-enme-war/node
+enme-js/resources-enme-war/node_modules
 enme-js/resources-enme-war/src/main/resources/js/util
 enme-js/resources-enme-war/src/main/resources/js/dojox
 enme-js/resources-enme-war/src/main/resources/js/dojo

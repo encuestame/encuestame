@@ -1,0 +1,33 @@
+<div class="gadgetRowItem">
+		<div data-dojo-type="me/web/widget/utils/ToggleText"
+             limit="300" text="${item.comment}"></div>
+		<div>
+			<small>
+				<span class="link">
+					by ${item.commented_by}
+				</span>
+				<span>
+					${item.created_at}
+				</span>
+			</small>
+		</div>
+		<div class="buttons-group" data-dojo-attach-point="_buttons">
+			<button data-dojo-type="dijit/form/Button" data-dojo-props="">
+                SPAM
+            </button>
+			<button data-dojo-type="dijit/form/Button" data-dojo-props="">
+                Response
+            </button>
+			<button data-dojo-type="dijit/form/Button" data-dojo-props="">
+                Remove
+            </button>
+			<div class="rating">
+				<div class="spa1">
+					<span data-dojo-attach-point="_positive" class="enme-unselectable"></span>
+				</div>
+				<div class="pan1">
+			 		<span data-dojo-attach-point="_negative" class="enme-unselectable"></span>
+			 	</div>
+			</div>
+		</div>
+</div>

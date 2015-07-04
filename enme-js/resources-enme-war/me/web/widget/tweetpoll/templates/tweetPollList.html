@@ -1,0 +1,55 @@
+<div class="web-tweetpoll-wrapper">
+         <div id="tweetListContent" class="tweetListContent">
+            <div class="web-tweetpoll-options">
+                <div class="web-tweetpoll-sidebar-panel">
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByAccount" type="${_type_filter.BYOWNER}">
+                        <span>
+                            ${i18nMessage.detail_manage_by_account}
+                        </span>
+                    </div>
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByLastDay" type="${_type_filter.LASTDAY}">
+                        <span>
+                            ${i18nMessage.detail_manage_today}
+                        </span>
+                    </div>
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByLastWeek" type="${_type_filter.LASTWEEK}">
+                        <span>
+                            ${i18nMessage.detail_manage_last_week}
+                        </span>
+                    </div>
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByFavourites" type="${_type_filter.FAVOURITES}">
+                        <span>
+                            ${i18nMessage.detail_manage_favorites}
+                        </span>
+                    </div>
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByScheduled" type="${_type_filter.SCHEDULED}">
+                        <span>
+                            ${i18nMessage.detail_manage_scheduled}
+                        </span>
+                    </div>
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByAll" type="${_type_filter.ALL}">
+                        <span>
+                            ${i18nMessage.detail_manage_all}
+                        </span>
+                    </div>
+                </div>
+                <div data-dojo-attach-point="_folder"></div>
+            </div>
+            <div class="web-list-tweet">
+                <div data-dojo-attach-point="_customMenu" class="web-twettpoll-list-menu enme-ui-gradient-header-color default-top-menu">
+                   <!--
+                        Filters Support.
+                    -->
+                   <div data-dojo-attach-point="_filters" data-dojo-type="me/web/widget/support/ItemsFilterSupport"
+                        typeItem="TWEETPOLL"></div>
+                   <div class="web-list-filter-clean">
+                        <span data-dojo-attach-event="onclick:_cleanFilters">
+                            ${i18nMessage.detail_clean_filters}
+                        </span>
+                   </div>
+                </div>
+                <div data-dojo-attach-point="_custom_loading"></div>
+                <div data-dojo-attach-point="_items" class="tp-items-wrapper"></div>
+            </div>
+         </div>
+</div>

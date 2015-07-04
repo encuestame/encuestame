@@ -1,0 +1,30 @@
+<div>
+    <div class="dijitDialogPaneContentArea">
+	    <form>
+  <fieldset>
+  	<h5>
+  		Commented by [${data.commented_by}]
+  	</h5>
+    <p>
+    	${data.comment}
+    </p>
+    <textarea rows="5" cols="80" data-dojo-attach-point="_textarea"></textarea>
+  </fieldset>
+  <div data-dojo-attach-point="_message"></div>
+</form>
+	</div>
+    <div class="dijitDialogPaneActionBar">
+        <button data-dojo-attach-point="_createCommentResponse"
+        		data-dojo-type="dijit/form/Button"
+        		data-dojo-props="'class':'success'">
+        		Send
+        </button>
+        <button data-dojo-type="dijit/form/Button"
+        		type="button"
+        		data-dojo-props="'class':'danger'"
+        		data-dojo-attach-point="_cancelCommentResponse">
+                Cancel
+        </button>
+    </div>
+
+</div>

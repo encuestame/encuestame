@@ -1,0 +1,25 @@
+{
+	"error": { },
+	"success": {
+		"cloud": [
+			{
+				"id": 2,
+				"size": 16,
+				"hashTagName": "business",
+				"hits": 1
+			},
+			{
+				"id": 3,
+				"size": 16,
+				"hashTagName": "forex",
+				"hits": 1
+			},
+			{
+				"id": 8,
+				"size": 16,
+				"hashTagName": "games",
+				"hits": 1
+			}
+		]
+	}
+}

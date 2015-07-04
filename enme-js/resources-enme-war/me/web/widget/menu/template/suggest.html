@@ -1,0 +1,14 @@
+<div class="suggest">
+    <label  data-dojo-attach-point="_label">
+        ${label}
+    </label>
+    <input type="text" data-dojo-attach-point="_suggest"
+           data-dojo-type="dijit/form/TextBox"
+           trim="true" class="inputClass"></input>
+    <button id="suggestButton_${id}" type="button" style="display: none;" data-dojo-attach-point="_suggestButton">
+    Add
+    </button>
+    <div class="suggestBox" style="opacity :0;"
+            data-dojo-attach-point="_suggestItems">
+    </div>
+</div>

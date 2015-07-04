@@ -1,0 +1,64 @@
+{
+	"error": { },
+	"success": {
+		"frontendItems": [
+			{
+				"hashtags": [
+					{
+						"id": 17,
+						"size": 15,
+						"hashTagName": "realestate",
+						"hits": 1
+					},
+					{
+						"id": 18,
+						"size": 15,
+						"hashTagName": "online",
+						"hits": 1
+					}
+				],
+				"is_password_restriction": null,
+				"owner_username": "demo10",
+				"relative_time": null,
+				"total_votes": 38,
+				"hits": 21,
+				"item_type": "poll",
+				"like_votes": null,
+				"dislike_votes": null,
+				"create_date": "2011-12-04",
+				"relevance": 12,
+				"favorite": null,
+				"latitude": null,
+				"longitude": null,
+				"additional_info": null,
+				"show_comments": null,
+				"is_show_results": null,
+				"folder_id": null,
+				"is_show_additional_info": null,
+				"is_close_after_date": null,
+				"close_date": null,
+				"is_close_after_quota": null,
+				"close_quota": null,
+				"is_ip_restricted": null,
+				"ip_restricted": null,
+				"multiple_response": null,
+				"total_comments": 0,
+				"id": 24,
+				"question": {
+					"question_name": "Who has hosted every season of Dancing with the Stars?",
+					"slug": "who-has-hosted-every-season-of-dancing-with-the-stars%3F",
+					"hits": null,
+					"version": null,
+					"state_id": null,
+					"id": 100,
+					"uid": 10,
+					"pattern": "SINGLE_SELECTION",
+					"widget": "encuestame.org.core.commons.questions.patterns.SingleOptionResponse",
+					"list_answers": [ ]
+				},
+				"userId": null,
+				"hastags_string": "realestate,online,internet"
+			}
+		]
+	}
+}

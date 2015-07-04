@@ -1,0 +1,21 @@
+{
+  "error": {
+    
+  },
+  "success": {
+    "folders": [
+      {
+        "id": 389,
+        "name": "folder1",
+        "create_date": "2015-06-28",
+        "items": 0
+      },
+      {
+        "id": 390,
+        "name": "folder2",
+        "create_date": "2015-06-28",
+        "items": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+<li class="web-notification-list-item">
+<!--     <span class="icon">
+        <img alt="icon" data-dojo-attach-point="_list">
+    </span> -->
+    <span class="title">
+        ${item.description}
+    </span>
+    <span class="description" data-dojo-attach-point="_description">
+    </span>
+    <span class="date">
+          ${formatDate}
+    </span>
+     <span class="options">
+        <span class="">
+            <a class="unselectable point"  data-dojo-attach-event="onclick:_remove">
+                Delete
+            </a>
+        </span>
+     </span>
+</li>

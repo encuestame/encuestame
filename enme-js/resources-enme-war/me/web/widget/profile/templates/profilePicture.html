@@ -1,0 +1,68 @@
+<div class="pictureProfileNew">
+  <div>
+    <h4>
+        ${i18nMessage.settings_config_picture_title}
+    </h4>
+    <p class="padding">
+          ${i18nMessage.settings_config_picture_description}
+    </p>
+  </div>
+
+  <div class="row">
+      <div class="span2">
+        <div class="pictureWrapper" dojoAttachPoint="_pictureWrapper"></div>
+      </div>
+
+      <div class="span6 settings-image-selection">
+          <form id="pictureSourceForm">
+                <div class="row">
+                 <div class="span1">
+                     <span dojoAttachPoint="_gravatar_source"></span>
+                 </div>
+                 <div class="span4">
+                     <label for="radioOne">
+                          Gravatar
+                       <small>
+                          <a href="http://www.gravatar.com/" target="_blank">
+                              http://www.gravatar.com/
+                          </a>
+                      </small>
+                    </label>
+                </div>
+                </div>
+                <div class="row">
+                <div class="span1">
+                    <span dojoAttachPoint="_upload_source"></span>
+                </div>
+                <div class="span4">
+                  <label for="radioTwo">
+                    ${i18nMessage.settings_config_picture_own}
+                  </label>
+                </div>
+                </div>
+          </form>
+        <div>
+          <form method="post" action="${contextPath}/file/upload/profile"
+            enctype="multipart/form-data" id="imageForm" accept-charset="UTF-8">
+            <div style="padding: 10px;">
+              <div style="padding: 15px;" class="defaultDisplayHide"
+                dojoAttachPoint="_uploadedForm">
+                <div>
+                  <input type="file" class="medium" id="file" name="file" class="btn"/>
+                </div>
+                <small>
+                   ${i18nMessage.settings_config_picture_restrictions}
+                  </small>
+                <div class="form-actions">
+                  <button dojoAttachEvent="onclick:_uploadImage" class="btn" type="button">
+                      Upload Picture
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+
+</div>

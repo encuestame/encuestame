@@ -134,6 +134,7 @@
         <javassist>3.12.1.GA</javassist>
         <javax.inject>1</javax.inject>
         <javax.persistence>1.0.2</javax.persistence>
+        <front.end.plugin>0.0.23</front.end.plugin>
         <uadetector.version>2013.02</uadetector.version>
         <!-- Dojo http://www.mahieu.org/?p=3 -->
         <dojo.version>1.10.4</dojo.version>

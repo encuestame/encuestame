@@ -1,0 +1,19 @@
+<div class="web-tweetpoll-list-item " dndtype="tweetpoll" tweetpollId="${data.id}">
+   <div class="title-wrapper"  dragabble="true" dndtype="tweetpoll"  data-dojo-attach-point="_title">
+        <div class="web-tweetpoll-favourite emptyFavourite dojoDndHandle" data-dojo-attach-point="_favourite" dojoAttachEvent="onclick:_setFavourite"></div>
+        <div class="web-tweetpoll-list-item-title">
+                ${data.question.question_name}
+        </div>
+   </div>
+  <div data-dojo-attach-point="_panel" class="web-tweetpoll-list-panel"></div>
+  <div class="hashTags defaultDisplayHide" data-dojo-attach-point="_hashtags">
+    <label>
+        <b>
+            ${i18nMessage.related_terms}
+        </b>
+    </label>
+  </div>
+  <div class="link tp-shared-link" data-dojo-attach-point="_embed_link">
+
+  </div>
+</div>

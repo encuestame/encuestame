@@ -1,0 +1,281 @@
+{
+  "error": {
+
+  },
+  "success": {
+	"tweetPolls": [
+	  {
+		"hashtags": [
+		  {
+			"hashTagName": "dsa",
+			"id": 23,
+			"size": 12,
+			"hits": 1
+		  },
+		  {
+			"hashTagName": "dsa",
+			"id": 22,
+			"size": 12,
+			"hits": 1
+		  }
+		],
+		"type_item": null,
+		"is_password_restriction": null,
+		"ownerUsername": "jotadeveloper22",
+		"relative_time": null,
+		"total_votes": 1,
+		"hits": 1,
+		"vote_up": true,
+		"item_type": "tweetpoll",
+		"like_votes": null,
+		"dislike_votes": null,
+		"createDate": "2015-05-09",
+		"relevance": 1,
+		"favorite": null,
+		"latitude": null,
+		"longitude": null,
+		"additional_info": null,
+		"show_comments": null,
+		"is_show_results": null,
+		"show_results": null,
+		"folder_id": null,
+		"is_show_additional_info": null,
+		"is_close_after_date": null,
+		"close_date": null,
+		"is_close_after_quota": null,
+		"close_quota": null,
+		"is_ip_restricted": null,
+		"ip_restricted": null,
+		"multiple_response": null,
+		"total_comments": 0,
+		"hastags_string": "dsa,dsa",
+		"is_hidden": null,
+		"is_password_protected": null,
+		"id": 81,
+		"question": {
+		  "question_name": "dsad",
+		  "slug": "dsad",
+		  "hits": null,
+		  "version": null,
+		  "state_id": null,
+		  "id": 107,
+		  "uid": 6,
+		  "pattern": "SINGLE_SELECTION",
+		  "widget": "me\/web\/widget\/questions\/patterns\/SingleOptionResponse",
+		  "list_answers": [
+
+		  ]
+		},
+		"closeNotification": true,
+		"resultNotification": true,
+		"publishPoll": null,
+		"scheduleDate": null,
+		"allowLiveResults": false,
+		"schedule": false,
+		"completed": false,
+		"favourites": false,
+		"userId": 6,
+		"tweetUrl": null,
+		"allowRepeatedVotes": false,
+		"maxRepeatedVotes": null,
+		"limitVotesEnabled": null,
+		"resumeTweetPollDashBoard": null,
+		"moderated_comments": false,
+		"createdDateAt": 1431205198000,
+		"limitVotesDate": false,
+		"dateToLimit": "May 16, 2015 10:59:58",
+		"update_date": 1431205217000,
+		"captcha": false,
+		"limitVotes": 100,
+		"resumeLiveResults": false,
+		"resume_live_results": [
+
+		],
+		"tweetpoll_answers": [
+		  {
+			"id": 160,
+			"tweet_poll_id": 81,
+			"answer": {
+			  "answer_id": 264,
+			  "answers": "dsa",
+			  "url": null,
+			  "short_url": "tinyurl",
+			  "qid": 107,
+			  "color": "#7CC0FB",
+			  "provider": null
+			},
+			"short_url": "http:\/\/tinyurl.com\/kwwzpgv",
+			"relative_url": "http:\/\/localhost:8080\/encuestame\/tweetpoll\/vote\/ec8ca14f9297c31201e5f8647ceb4180",
+			"results": {
+			  "id": 264,
+			  "percent": "0.00%",
+			  "question_label": "dsa",
+			  "votes": 0,
+			  "color": "#7CC0FB",
+			  "url_relative": null,
+			  "url_short_url": null
+			}
+		  },
+		  {
+			"id": 161,
+			"tweet_poll_id": 81,
+			"answer": {
+			  "answer_id": 265,
+			  "answers": "dsa",
+			  "url": null,
+			  "short_url": "tinyurl",
+			  "qid": 107,
+			  "color": "#3ACDE8",
+			  "provider": null
+			},
+			"short_url": "http:\/\/tinyurl.com\/lwzoe7q",
+			"relative_url": "http:\/\/localhost:8080\/encuestame\/tweetpoll\/vote\/6f344e31bc2a3abc7fac9306b96f9ad3",
+			"results": {
+			  "id": 265,
+			  "percent": "0.00%",
+			  "question_label": "dsa",
+			  "votes": 0,
+			  "color": "#3ACDE8",
+			  "url_relative": null,
+			  "url_short_url": null
+			}
+		  }
+		],
+		"password_protected": null
+	  },
+	  {
+		"hashtags": [
+		  {
+			"hashTagName": "nicaragua",
+			"id": 21,
+			"size": 12,
+			"hits": 1
+		  }
+		],
+		"type_item": null,
+		"is_password_restriction": null,
+		"ownerUsername": "jotadeveloper22",
+		"relative_time": null,
+		"total_votes": 1,
+		"hits": 3,
+		"vote_up": true,
+		"item_type": "tweetpoll",
+		"like_votes": null,
+		"dislike_votes": null,
+		"createDate": "2015-03-15",
+		"relevance": 1,
+		"favorite": null,
+		"latitude": null,
+		"longitude": null,
+		"additional_info": null,
+		"show_comments": null,
+		"is_show_results": null,
+		"show_results": null,
+		"folder_id": null,
+		"is_show_additional_info": null,
+		"is_close_after_date": null,
+		"close_date": null,
+		"is_close_after_quota": null,
+		"close_quota": null,
+		"is_ip_restricted": null,
+		"ip_restricted": null,
+		"multiple_response": null,
+		"total_comments": 0,
+		"hastags_string": "nicaragua",
+		"is_hidden": null,
+		"is_password_protected": null,
+		"id": 78,
+		"question": {
+		  "question_name": "Wky the sky is blue?",
+		  "slug": "wky-the-sky-is-blue",
+		  "hits": null,
+		  "version": null,
+		  "state_id": null,
+		  "id": 104,
+		  "uid": 6,
+		  "pattern": "SINGLE_SELECTION",
+		  "widget": "me\/web\/widget\/questions\/patterns\/SingleOptionResponse",
+		  "list_answers": [
+
+		  ]
+		},
+		"closeNotification": true,
+		"resultNotification": true,
+		"publishPoll": null,
+		"scheduleDate": null,
+		"allowLiveResults": true,
+		"schedule": false,
+		"completed": false,
+		"favourites": false,
+		"userId": 6,
+		"tweetUrl": null,
+		"allowRepeatedVotes": false,
+		"maxRepeatedVotes": null,
+		"limitVotesEnabled": null,
+		"resumeTweetPollDashBoard": null,
+		"moderated_comments": false,
+		"createdDateAt": 1426404111000,
+		"limitVotesDate": false,
+		"dateToLimit": "March 22, 2015 08:21:51",
+		"update_date": 1426404250000,
+		"captcha": false,
+		"limitVotes": 100,
+		"resumeLiveResults": false,
+		"resume_live_results": [
+
+		],
+		"tweetpoll_answers": [
+		  {
+			"id": 156,
+			"tweet_poll_id": 78,
+			"answer": {
+			  "answer_id": 260,
+			  "answers": "tesd",
+			  "url": null,
+			  "short_url": "yourls",
+			  "qid": 104,
+			  "color": "#8ADC39",
+			  "provider": null
+			},
+			"short_url": "http:\/\/jota.mobi\/s\/1l",
+			"relative_url": "http:\/\/localhost:8080\/encuestame\/tweetpoll\/vote\/180c671a93384dcfee02578678b20a85",
+			"results": {
+			  "id": 260,
+			  "percent": "100%",
+			  "question_label": "tesd",
+			  "votes": 1,
+			  "color": "#8ADC39",
+			  "url_relative": null,
+			  "url_short_url": null
+			}
+		  },
+		  {
+			"id": 157,
+			"tweet_poll_id": 78,
+			"answer": {
+			  "answer_id": 261,
+			  "answers": "dsa",
+			  "url": null,
+			  "short_url": "yourls",
+			  "qid": 104,
+			  "color": "#9CF8B4",
+			  "provider": null
+			},
+			"short_url": "http:\/\/jota.mobi\/s\/1m",
+			"relative_url": "http:\/\/localhost:8080\/encuestame\/tweetpoll\/vote\/f72dd954bee9256f4c1f5b39c09ad62e",
+			"results": {
+			  "id": 261,
+			  "percent": "0.00%",
+			  "question_label": "dsa",
+			  "votes": 0,
+			  "color": "#9CF8B4",
+			  "url_relative": null,
+			  "url_short_url": null
+			}
+		  }
+		],
+		"password_protected": null
+	  }
+	]
+  }
+}
