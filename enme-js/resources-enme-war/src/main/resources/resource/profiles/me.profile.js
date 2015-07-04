@@ -100,7 +100,7 @@ var profile = {
     //releaseDir : '/release',
     releaseName: 'release',
 
-    version : "1.5.2",
+    version : "1.5.3",
 
     // Builds a new release.
     action: 'release',
@@ -152,10 +152,6 @@ var profile = {
             name: "dojox",
             copyright: "copyright-dojo.txt",
             location: "dojox"
-        },{
-            name: "org",
-            location: "org",
-            copyright: "copyright-enme.txt"
         },{
             name: "chart",
             location: "chart",
@@ -526,7 +522,6 @@ var profile = {
           'me/web/widget/tweetpoll/TweetPollPublishItemSUCCESStatus',
           'me/web/widget/tweetpoll/TweetPollPublishItemStatus',
           'me/web/widget/support/Wipe',
-//          'dijit/form/Form',
           'dijit/InlineEditBox',
           'dijit/CalendarLite',
           'dijit/Calendar',
@@ -581,7 +576,6 @@ var profile = {
         include :[
           'dojo/colors',
           'dojo/fx/easing',
-
           'me/web/widget/poll/PollNavigateItem',
           'me/web/widget/poll/PollNavigateItemDetail',
           'me/web/widget/chart/ChartLayerSupport',
@@ -597,14 +591,11 @@ var profile = {
           'me/web/widget/data/TableLinkedList',
           'me/web/widget/utils/UpdateDefaultOptions',
           'me/web/widget/options/YesNoWidget',
-
           'dijit/form/CheckBox',
           'dijit/form/_CheckBoxMixin',
           'dijit/InlineEditBox',
           'dijit/form/ToggleButton',
           'dijit/form/_ToggleButtonMixin',
-
-          // chart
           'dojox/charting/action2d/Base',
           'dojox/charting/plot2d/Base',
           'dojox/charting/Chart',
@@ -640,8 +631,6 @@ var profile = {
           'dojox/gfx/shape',
           'dojox/gfx/svg',
           'dojox/lang/utils',
-
-           // removed when new dnd it's integrated with tweetpoll
           'dojo/dnd/Source',
           'dojo/dnd/Container',
           'dojo/dnd/Selector',
@@ -654,9 +643,7 @@ var profile = {
         ],
         exclude : excludeDijit.concat(emne_core)
     },
-//
 
-//
     'me/web/widget/tweetpoll/TweetPoll': {
         include :[
           'dojo/cldr/nls/gregorian',
@@ -716,7 +703,7 @@ var profile = {
         ],
         exclude : excludeDijit.concat(emne_core)
     },
-//
+
         'me/web/widget/signup/Signup' : {
             include :[
               'me/web/widget/validator/RealNameValidator',
@@ -728,7 +715,7 @@ var profile = {
             ],
             exclude : excludeDijit.concat(emne_core)
         },
-//
+
         'me/web/widget/tweetpoll/TweetPollList': {
             include :[
               'me/web/widget/tweetpoll/TweetPollList',
@@ -748,13 +735,6 @@ var profile = {
         }
     },
 
-    // Providing hints to the build system allows code to be conditionally removed on a more granular level than
-    // simple module dependencies can allow. This is especially useful for creating tiny mobile builds.
-    // Keep in mind that dead code removal only happens in minifiers that support it! Currently, only Closure Compiler
-    // to the Dojo build system with dead code removal.
-    // A documented list of has-flags in use within the toolkit can be found at
-    // <http://dojotoolkit.org/reference-guide/dojo/has.html>.
-    //http://dojotoolkit.org/documentation/tutorials/1.7/build/
     staticHasFeatures: {
 
         //Assumes that all modules are AMD
