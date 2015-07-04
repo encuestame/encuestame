@@ -48,7 +48,7 @@ define({
             ],
             requestProvider: 'dojo/request/registry'
         },
-        //suites: [ 'me/tests/all' ],
-        //functionalSuites: ['me/tests/functional/all'],
+        suites: [ 'me/tests/all' ],
+        functionalSuites: ['me/tests/functional/all'],
         excludeInstrumentation: /^(?:tests|third-party|node_modules|web\/widgets|js\/dojo|js\/dijit|js\/dojox)\//
 });
