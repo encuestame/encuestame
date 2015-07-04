@@ -32,7 +32,7 @@ var emne_core = [
     "me/core/enme",
     "me/core/constants",
     "me/core/IconSupport",
-	"me/core/AuthStatus",
+		"me/core/AuthStatus",
     "me/core/Modernizr",
     "me/core/URLServices",
     "me/core/main_widgets/WidgetServices",
@@ -153,20 +153,9 @@ var profile = {
             copyright: "copyright-dojo.txt",
             location: "dojox"
         },{
-            name: "chart",
-            location: "chart",
-            copyright: "copyright-enme.txt"
-        },{
             name: "me",
             location: "me",
             copyright: "copyright-enme.txt"
-
-        },
-        {
-            name: "hammer",
-            location: "hammer",
-            main: "hammer",
-            copyright: "copyright-hammer.txt"
 
         }
     ],

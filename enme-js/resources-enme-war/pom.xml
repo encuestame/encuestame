@@ -22,105 +22,19 @@
       <id>production</id>
       <build>
         <plugins>
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>install node and npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>v0.12.2</nodeVersion>
-                            <npmVersion>2.7.6</npmVersion>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <!-- Optional configuration which provides for running any npm command -->
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>bower install</id>
-                        <goals>
-                            <goal>bower</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>grunt intern-test</id>
-                        <goals>
-                            <goal>grunt</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>--no-color</arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>wagon-maven-plugin</artifactId>
-                <version>1.0-beta-1</version>
-                <executions>
-                    <execution>
-                        <id>download-dojo</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>download-single</goal>
-                        </goals>
-                        <configuration>
-                            <serverId>dojotoolkit</serverId>
-                            <url>http://download.dojotoolkit.org/release-${dojo.version}</url>
-                            <fromFile>dojo-release-${dojo.version}-src.tar.gz</fromFile>
-                            <toDir>${project.build.directory}</toDir>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-antrun-plugin</artifactId>
             <version>${maven-antrun-plugin}</version>
             <executions>
-               <execution>
-                    <id>unpack</id>
-                    <configuration>
-                        <tasks>
-                            <untar compression="gzip" src="${project.build.directory}/dojo-release-${dojo.version}-src.tar.gz" dest="${project.build.directory}/temp" />
-                            <!--<untar compression="gzip"-->
-                                   <!--src="/Users/jpicado/bin/dojo-release-${dojo.version}-src.tar.gz"-->
-                                   <!--dest="${project.build.directory}/temp" />-->
-                        </tasks>
-                    </configuration>
-                    <phase>process-resources</phase>
-                    <goals>
-                        <goal>run</goal>
-                    </goals>
-               </execution>
               <execution>
                 <id>js</id>
                 <phase>compile</phase>
                 <configuration>
-                    <!--<classpath>-->
-                        <!--<pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar" />-->
-                        <!--<pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar" />-->
-                    <!--</classpath>-->
                     <target>
-                        <move todir="${project.build.directory}/temp/dojo-src/js/">
-                            <fileset dir="${project.build.directory}/temp/dojo-release-${dojo.version}-src" />
-                        </move>
+                        <copy todir="${project.build.directory}/temp/dojo-src/js/" verbose="false">
+                            <fileset dir="${basedir}/js/"></fileset>
+                        </copy>
                         <echo message=" ************* COPY RESOURCES *************" />
                         <copy todir="${project.build.directory}/temp/dojo-src" verbose="false">
                             <fileset dir="${basedir}/src/main/resources/resource/">
@@ -134,8 +48,9 @@
                         </copy>
                         <copy todir="${project.build.directory}/temp/dojo-src/js/me" verbose="true">
                             <fileset dir="${basedir}/me/">
-                                <exclude name="**/js/**/GruntFile.js" />
+                                <exclude name="**/GruntFile.js" />
                                 <exclude name="**/tests/**" />
+                                <exclude name="**/html-report/**" />
                             </fileset>
                         </copy>
                         <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />

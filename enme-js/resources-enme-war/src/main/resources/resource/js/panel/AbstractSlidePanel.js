@@ -23,7 +23,6 @@
 define([
   "dojo",
   "dojo/_base/declare",
-  "hammer/hammer",
   "dojo/on",
   "dojo/_base/array",
   "dojo/dom-class",
@@ -36,7 +35,6 @@ define([
   ], function(
   dojo,
   declare,
-  Hammer,
   on,
   array,
   domClass,

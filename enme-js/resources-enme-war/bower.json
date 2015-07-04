@@ -16,6 +16,7 @@
   "dependencies": {
     "dojo": "~1.10.4",
     "dojox": "~1.10.4",
-    "dijit": "~1.10.4"
+    "dijit": "~1.10.4",
+    "util": "dojo-util#~1.10.4"
   }
 }

@@ -18,16 +18,5 @@
     "JSON"
   ],
   "homepage": "https://www.encuestame.org",
-  "dojoBuild": "package.js",
-  "devDependencies": {
-    "digdug": "^1.3.0",
-    "dojo": "^1.10.4",
-    "express": "3.4.0",
-    "grunt": "0.4.5",
-    "grunt-contrib-connect": "^0.8.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "intern": "2.2.2",
-    "jshint-stylish": "^0.4.0",
-    "sinon": "^1.14.1"
-  }
+  "dojoBuild": "package.js"
 }

@@ -29,16 +29,6 @@ require({
       location: 'me',
       main: "main",
       map: {}
-    },
-	{
-      name: 'hammer',
-      location: 'hammer',
-      main: "hammer"
-    },
-    {
-      name: 'chart',
-      location: 'chart',
-      map: {}
     }
   ]
 // Require `me`. This loads the main application module, `me/main`, since we registered the `me` package above.
