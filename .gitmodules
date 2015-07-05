@@ -1,9 +1,3 @@
-[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/bootstrap"]
-	path = enme-js/resources-enme-war/src/main/resources/resource/js/bootstrap
-	url = git://github.com/juanpicado/Dojo-Bootstrap.git
-[submodule "enme-js/resources-enme-war/src/main/resources/resource/js/widget"]
-	path = enme-js/resources-enme-war/src/main/resources/resource/js/widget
-	url = git://github.com/juanpicado/widget-enme
 [submodule "enme-css/src/css/resource/sass"]
 	path = enme-css/src/css/resource/sass
 	url = git://github.com/encuestame/css-theme.git
