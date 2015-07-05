@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        Encuestame Widgets SDK Test Page
+    </title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+
+
+<body style="">
+
+<div class="navbar navbar-inverse navbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                Encuestame Widget SDK
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-4">
+            <p>
+                <div class="widget1">
+                    <a data-id="1" class="enme-poll-form"
+                       data-url="http://localhost:8080/encuestame/poll/1/who-was-the-first-woman-to-drive-in-the-indy"
+                       target="_blank"></a>
+                    <script>
+                        !function(d,s,id){
+                            var js, fjs=d.getElementsByTagName(s)[0],
+                                    h=d.getElementsByTagName('head'),
+                                    p=/^http:/.test(d.location)?'http':'https';
+                            if(!d.getElementById(id)){
+                                js=d.createElement(s);
+                                js.id=id;
+                                js.src="../build/widget.js";
+                                h[0].appendChild(js);
+                                fjs.parentNode.removeChild(fjs);
+                            }
+                        }(document,"script","widget-enme-js");
+                    </script>
+                </div>
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <p>
+
+                <div  class="wwidget2">
+                    <!--<a data-id="82" class="enme-tp-form"-->
+                       <!--data-url="http://localhost:8080/encuestame/tweetpoll/2/ds" target="_blank"></a>-->
+                    <!--<script>-->
+                        <!--!function(d,s,id){-->
+                            <!--var js, fjs=d.getElementsByTagName(s)[0],-->
+                                    <!--h=d.getElementsByTagName('head'),-->
+                                    <!--p=/^http:/.test(d.location)?'http':'https';-->
+                            <!--if(!d.getElementById(id)){-->
+                                <!--js=d.createElement(s);-->
+                                <!--js.id=id;-->
+                                <!--js.src="../build/widget.js";-->
+                                <!--h[0].appendChild(js);-->
+                                <!--fjs.parentNode.removeChild(fjs);-->
+                            <!--}-->
+                        <!--}(document,"script","widget-enme-js");-->
+                    <!--</script>-->
+            <a data-id="25" class="enme-tp-form" data-url="http://www.encuestame.org/encuestame-business" target="_blank"/>
+            <script> !function(d,s,id){
+                var js, fjs=d.getElementsByTagName(s)[0], p=/^http:/.test(d.location)?'http':'https', _
+                __enme_widget={host:p+":///localhost:8080/encuestame/"};
+                if(!d.getElementById(id)){
+                    js=d.createElement(s);
+                    js.id=id;js.src=p+":///localhost:8080/encuestame/resources/js/widget/dist/widget.js";
+                    fjs.parentNode.insertBefore(js,fjs);
+                }
+            }(document,"script","widget-enme-js");</script>
+
+            <a data-id="3" class="enme-profile"
+               data-url="http://localhost:8080/encuestame/tweetpoll/2/ds" target="_blank"></a>
+            <script>
+                !function(d,s,id){
+                    var js, fjs=d.getElementsByTagName(s)[0],
+                            h=d.getElementsByTagName('head'),
+                            p=/^http:/.test(d.location)?'http':'https';
+                    if(!d.getElementById(id)){
+                        js=d.createElement(s);
+                        js.id=id;
+                        js.src="../build/widget.js";
+                        h[0].appendChild(js);
+                        fjs.parentNode.removeChild(fjs);
+                    }
+                }(document,"script","widget-enme-js");
+            </script>
+
+            <a data-id="1" class="enme-profile"
+               data-url="http://localhost:8080/encuestame/tweetpoll/2/ds" target="_blank"></a>
+            <script>
+                !function(d,s,id){
+                    var js, fjs=d.getElementsByTagName(s)[0],
+                            h=d.getElementsByTagName('head'),
+                            p=/^http:/.test(d.location)?'http':'https';
+                    if(!d.getElementById(id)){
+                        js=d.createElement(s);
+                        js.id=id;
+                        js.src="../build/widget.js";
+                        h[0].appendChild(js);
+                        fjs.parentNode.removeChild(fjs);
+                    }
+                }(document,"script","widget-enme-js");
+            </script>
+            <a data-id="2" class="enme-profile"
+               data-url="http://localhost:8080/encuestame/tweetpoll/2/ds" target="_blank"></a>
+            <script>
+                !function(d,s,id){
+                    var js, fjs=d.getElementsByTagName(s)[0],
+                            h=d.getElementsByTagName('head'),
+                            p=/^http:/.test(d.location)?'http':'https';
+                    if(!d.getElementById(id)){
+                        js=d.createElement(s);
+                        js.id=id;
+                        js.src="../build/widget.js";
+                        h[0].appendChild(js);
+                        fjs.parentNode.removeChild(fjs);
+                    }
+                }(document,"script","widget-enme-js");
+            </script>
+
+
+                    <a data-id="3" class="enme-tp-vote"
+                       data-url="http://localhost:8080/encuestame/tweetpoll/2/ds" target="_blank"></a>
+                    <script>
+                        !function(d,s,id){
+                            var js, fjs=d.getElementsByTagName(s)[0],
+                                    h=d.getElementsByTagName('head'),
+                                    p=/^http:/.test(d.location)?'http':'https';
+                            if(!d.getElementById(id)){
+                                js=d.createElement(s);
+                                js.id=id;
+                                js.src="../build/widget.js";
+                                h[0].appendChild(js);
+                                fjs.parentNode.removeChild(fjs);
+                            }
+                        }(document,"script","widget-enme-js");
+                    </script>
+           <!--Poll-->
+            <a data-id="24" class="enme-poll-vote"
+               data-url="http://localhost:8080/encuestame/poll/24/ds" target="_blank"></a>
+            <script>
+                !function(d,s,id){
+                    var js, fjs=d.getElementsByTagName(s)[0],
+                            h=d.getElementsByTagName('head'),
+                            p=/^http:/.test(d.location)?'http':'https';
+                    if(!d.getElementById(id)){
+                        js=d.createElement(s);
+                        js.id=id;
+                        js.src="../build/widget.js";
+                        h[0].appendChild(js);
+                        fjs.parentNode.removeChild(fjs);
+                    }
+                }(document,"script","widget-enme-js");
+            </script>
+                </div>
+
+
+            </p>
+        </div>
+    </div>
+
+    <hr>
+</div>
+</body>
+</html>
