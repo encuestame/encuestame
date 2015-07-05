@@ -19,35 +19,10 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>ro.isdc.wro4j</groupId>
-                <artifactId>wro4j-maven-plugin</artifactId>
-                <version>${wro4j.version}</version>
-                <executions>
-                  <execution>
-                    <phase>compile</phase>
-                    <goals>
-                      <goal>run</goal>
-                    </goals>
-                  </execution>
-                </executions>
-                <configuration>
-                    <options>box-model</options>
-                    <targetGroups>commons,commons-mobile,init,maps</targetGroups>
-                    <wroFile>${basedir}/src/main/webapp/WEB-INF/wro.xml</wroFile>
-                    <jsDestinationFolder>${project.build.directory}/${project.build.finalName}/resource/js/</jsDestinationFolder>
-                    <contextFolder>${basedir}/src/main/resources/</contextFolder>
-                    <wroManagerFactory>ro.isdc.wro.extensions.manager.standalone.GoogleStandaloneManagerFactory</wroManagerFactory>
-                    <ignoreMissingResources>false</ignoreMissingResources>
-                    <minimize>${compress.minimize}</minimize>
-                </configuration>
-                                
-            </plugin>       
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${maven.war.plugin}</version>
             </plugin>
-            
         </plugins>
     </build>
 </project>

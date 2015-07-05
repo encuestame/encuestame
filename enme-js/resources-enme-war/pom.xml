@@ -94,7 +94,7 @@
                             </fileset>
                         </copy>
                         <copy todir="${project.build.directory}/temp/dojo-src/js/me" verbose="true">
-                            <fileset dir="${basedir}/me/">
+                            <fileset dir="${basedir}/me">
                                 <exclude name="**/GruntFile.js" />
                                 <exclude name="**/tests/**" />
                                 <exclude name="**/html-report/**" />
@@ -135,6 +135,8 @@
                       <fileset dir="${project.build.directory}/dojo-compiled/release/dijit/themes/" excludes="**/claro/**/" />
                       <fileset dir="${project.build.directory}/dojo-compiled/release" includes="**/package.json" />
                       <fileset dir="${project.build.directory}/dojo-compiled/release" includes="**/package.js" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release" includes="**/*uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release" includes="**/*.js.map" />
                     </delete>
                     <echo message="ENCUESTAME :: Dojo AMD optimized ::" />
                   </target>
@@ -162,16 +164,24 @@
               </archive>
               <webResources>
                 <resource>
-                  <directory>${project.build.directory}/dojo-compiled/release</directory>
-                  <targetPath>resource/js</targetPath>
+                      <directory>${project.build.directory}/dojo-compiled/release</directory>
+                      <targetPath>resource/js</targetPath>
                 </resource>
-                  <resource>
-                      <directory>${basedir}/src/main/resources/resource/js/widget</directory>
+                <resource>
+                      <directory>${basedir}/widget</directory>
                       <includes>
                           <include>build/*</include>
                           <include>dist/*</include>
                       </includes>
                       <targetPath>resource/js/widget</targetPath>
+                </resource>
+                  <resource>
+                      <directory>${basedir}/commons-dist</directory>
+                      <includes>
+                          <include>*.js</include>
+                          <include>*.min.js</include>
+                      </includes>
+                      <targetPath>resource/js/</targetPath>
                   </resource>
               </webResources>
             </configuration>
