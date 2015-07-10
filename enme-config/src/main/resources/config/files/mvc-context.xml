@@ -228,13 +228,6 @@
   <!-- Resources -->
   <mvc:resources mapping="/resources/**" location="/resource/" cache-period="${cache.period}" order="0"/>
 
-  <!-- <bean id="wroFilter" class="ro.isdc.wro.http.ConfigurableWroFilter">
-    <property name="properties" ref="wroProperties"/>
-  </bean>
-
-  <bean id="wroProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">  
-      <property name="location" value="classpath:wro.properties" />  
-  </bean>   -->
   <!--
     Dispatches requests mapped to flows to FlowHandler implementations
     TEMP: Disabled, last Mileston of webflow is not compatible with Spring 4-->

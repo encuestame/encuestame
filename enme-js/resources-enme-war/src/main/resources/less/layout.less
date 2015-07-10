@@ -1,0 +1,154 @@
+html,body {
+    height: 100%;
+    font-family: "museo-sans", "Museo Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+    background: #F6F6F6;
+    word-wrap: break-word;
+}
+
+/* Smartphones (portrait and landscape)  */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
+    body.mobile{
+        margin: 0;
+        padding: 0;
+    }   
+}
+
+/* Desktops and laptops  */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: @df_background_color;
+}
+
+.enme-header {
+  .center-search {
+      padding: 10px;
+  }
+}
+
+.login-header-logo {
+   .border-radius(4px 4px 0px 0px);
+   img {
+     width: 250px;
+   }
+   padding: 30px;
+   .box-shadow(rgba(0, 0, 0, .1) 1px 3px 3px);
+   &:extend( .centered-block );
+   &:extend( .z-level-1 );
+   border-left: solid 1px @float_background_border;
+   border-right: solid 1px @float_background_border;
+   border-top: solid 1px @float_background_border;
+   width: @float_size;
+   &:extend( .centered-block );
+   text-align: center;
+}
+
+.web-header {
+  font-weight: normal;
+  height: 40px;
+}
+
+.web-header-options .suggest .dijitTextBox {
+  border-radius: 4px 4px 4px 4px;
+  padding: 2px;
+}
+
+.web-header-options .suggest .dijitTextBox .dijitInputContainer {
+  border-radius: 14px 14px 14px 14px;
+  padding: 1px;
+}
+
+.web-header-options .suggest .dijitTextBox .dijitInputInner {
+  color: #A6A6A6;
+  font-size: 13px !important;
+}
+
+.web-header-options .suggest .dijitTextBox .dijitPlaceHolder {
+  color: #DDDDDC;
+  font-size: 13px !important;
+  line-height: 15px;
+  padding-left: 8px;
+}
+
+div.web-header-options {
+  float: right;
+  padding: 3px;
+}
+
+div.web-header div.logo {
+  background: none repeat scroll 0 0 transparent;
+  width: 128px;
+  &:extend( .left );
+}
+
+div.web-header .logo > a {
+    display: block;
+    height: 12px;
+    padding: 5px 12px 15px;
+    font-weight: bold;
+    line-height: 1;
+    color: #BBB;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, .75);
+}
+
+div.web-header div.web-header-wrapper {
+  width: auto;
+}
+
+div.web-header span {
+    display: inline-block;
+}
+
+div.web-header span.link {
+  margin: 4px 4px 3px 0;
+  padding-left: 5px;
+}
+
+div.web-header span.link a {
+  &:extend( .text-white );
+  font-size: 100%;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(72, 72, 72, 0.9);
+}
+
+div.web-header span.link a:hover {
+    text-decoration: none;
+}
+
+#mainWrapper {
+  &:extend( .centered-block );
+}
+
+#content-container {
+  margin-bottom: 0px;
+  padding: 0;
+  border: 1px solid #d4d4d4;
+  background-color: @white;
+}
+.login-page {
+  #content-container {
+    border: 0;
+    background-color: transparent;
+  }
+}
+
+#content-container #enme-content .ui-corner-bottom {
+    .border-radius(0 0 4px 4px);
+}
+
+#content-container #enme-content {
+  a:link {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.text-color {
+    &:extend( .text-white );
+}

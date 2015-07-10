@@ -16,6 +16,8 @@ module.exports = function (grunt) {
 	      widget_build: 'widget/build',
 	      widget_src : 'widget/modules',
 	      widget_test: 'widget/tests',
+	      less_src : 'src/main/resources/less',
+	      css_src : 'src/main/resources/css',
 	      commons: 'commons-dist'
       },
 
@@ -63,6 +65,90 @@ module.exports = function (grunt) {
 				    '<%= dirs.commons %>/commons-mobile.min.js': ['<%= dirs.commons %>/commons-mobile.js'],
 				    '<%= dirs.commons %>/maps.min.js': ['<%= dirs.commons %>/maps.js'],
 				    '<%= dirs.commons %>/init.min.js': ['<%= dirs.commons %>/init.js']
+			    }
+		    }
+	    },
+
+	    less: {
+		    development: {
+			    options: {
+				    compress: false,
+				    yuicompress: false,
+				    //sourceMap : true,
+				    optimization: 2
+			    },
+			    files: {
+				    "<%= dirs.css_src %>/tweetpoll.css": "<%= dirs.less_src %>/tweetpoll.less",
+				    "<%= dirs.css_src %>/home.css": "<%= dirs.less_src %>/home.less",
+				    "<%= dirs.css_src %>/admon.css": "<%= dirs.less_src %>/admon.less",
+				    "<%= dirs.css_src %>/dashboard.css": "<%= dirs.less_src %>/dashboard.less",
+				    "<%= dirs.css_src %>/notifications.css": "<%= dirs.less_src %>/notifications.less",
+				    "<%= dirs.css_src %>/poll.css": "<%= dirs.less_src %>/poll.less",
+				    "<%= dirs.css_src %>/question.css": "<%= dirs.less_src %>/question.less",
+				    "<%= dirs.css_src %>/settings.css": "<%= dirs.less_src %>/settings.less",
+				    "<%= dirs.css_src %>/setup.css": "<%= dirs.less_src %>/setup.less",
+				    "<%= dirs.css_src %>/survey.css": "<%= dirs.less_src %>/survey.less",
+				    "<%= dirs.css_src %>/user.css": "<%= dirs.less_src %>/user.less",
+				    "<%= dirs.css_src %>/vote.css": "<%= dirs.less_src %>/vote.less",
+				    "<%= dirs.css_src %>/resources.css": "<%= dirs.less_src %>/resources.less",
+				    "<%= dirs.css_src %>/menu_logged.css": "<%= dirs.less_src %>/menu_logged.less",
+				    "<%= dirs.css_src %>/map.css": "<%= dirs.less_src %>/map.less",
+				    "<%= dirs.css_src %>/mobile_vote.css": "<%= dirs.less_src %>/mobile_vote.less",
+				    "<%= dirs.css_src %>/mobile_user.css": "<%= dirs.less_src %>/mobile_user.less",
+				    "<%= dirs.css_src %>/mobile_tweetpoll.css": "<%= dirs.less_src %>/mobile_tweetpoll.less",
+				    "<%= dirs.css_src %>/mobile_survey.css": "<%= dirs.less_src %>/mobile_survey.less",
+				    "<%= dirs.css_src %>/mobile_setup.css": "<%= dirs.less_src %>/mobile_setup.less",
+				    "<%= dirs.css_src %>/mobile_settings.css": "<%= dirs.less_src %>/mobile_settings.less",
+				    "<%= dirs.css_src %>/mobile_question.css": "<%= dirs.less_src %>/mobile_question.less",
+				    "<%= dirs.css_src %>/mobile_poll.css": "<%= dirs.less_src %>/mobile_poll.less",
+				    "<%= dirs.css_src %>/mobile_notifications.css": "<%= dirs.less_src %>/mobile_notifications.less",
+				    "<%= dirs.css_src %>/mobile_home.css": "<%= dirs.less_src %>/mobile_home.less",
+				    "<%= dirs.css_src %>/mobile_dashboard.css": "<%= dirs.less_src %>/mobile_dashboard.less",
+				    "<%= dirs.css_src %>/mobile_admon.css": "<%= dirs.less_src %>/mobile_admon.less",
+				    //embebed
+				    "<%= dirs.css_src %>/embebed/detail.css": "<%= dirs.less_src %>/embebed/detail.less",
+				    "<%= dirs.css_src %>/embebed/form.css": "<%= dirs.less_src %>/embebed/form.less",
+				    "<%= dirs.css_src %>/embebed/results.css": "<%= dirs.less_src %>/embebed/results.less"
+			    }
+		    },
+		    production: {
+			    options: {
+				    compress: true,
+				    yuicompress: true,
+				    optimization: 2
+			    },
+			    files: {
+				    "<%= dirs.css_src %>/tweetpoll.min.css": "<%= dirs.less_src %>/tweetpoll.less",
+				    "<%= dirs.css_src %>/home.min.css": "<%= dirs.less_src %>/home.less",
+				    "<%= dirs.css_src %>/admon.min.css": "<%= dirs.less_src %>/admon.less",
+				    "<%= dirs.css_src %>/dashboard.min.css": "<%= dirs.less_src %>/dashboard.less",
+				    "<%= dirs.css_src %>/notifications.min.css": "<%= dirs.less_src %>/notifications.less",
+				    "<%= dirs.css_src %>/poll.min.css": "<%= dirs.less_src %>/poll.less",
+				    "<%= dirs.css_src %>/question.min.css": "<%= dirs.less_src %>/question.less",
+				    "<%= dirs.css_src %>/settings.min.css": "<%= dirs.less_src %>/settings.less",
+				    "<%= dirs.css_src %>/setup.min.css": "<%= dirs.less_src %>/setup.less",
+				    "<%= dirs.css_src %>/survey.min.css": "<%= dirs.less_src %>/survey.less",
+				    "<%= dirs.css_src %>/user.min.css": "<%= dirs.less_src %>/user.less",
+				    "<%= dirs.css_src %>/vote.min.css": "<%= dirs.less_src %>/vote.less",
+				    "<%= dirs.css_src %>/resources.min.css": "<%= dirs.less_src %>/resources.less",
+				    "<%= dirs.css_src %>/menu_logged.min.css": "<%= dirs.less_src %>/menu_logged.less",
+				    "<%= dirs.css_src %>/map.min.css": "<%= dirs.less_src %>/map.less",
+				    "<%= dirs.css_src %>/mobile_vote.min.css": "<%= dirs.less_src %>/mobile_vote.less",
+				    "<%= dirs.css_src %>/mobile_user.min.css": "<%= dirs.less_src %>/mobile_user.less",
+				    "<%= dirs.css_src %>/mobile_tweetpoll.min.css": "<%= dirs.less_src %>/mobile_tweetpoll.less",
+				    "<%= dirs.css_src %>/mobile_survey.min.css": "<%= dirs.less_src %>/mobile_survey.less",
+				    "<%= dirs.css_src %>/mobile_setup.min.css": "<%= dirs.less_src %>/mobile_setup.less",
+				    "<%= dirs.css_src %>/mobile_settings.min.css": "<%= dirs.less_src %>/mobile_settings.less",
+				    "<%= dirs.css_src %>/mobile_question.min.css": "<%= dirs.less_src %>/mobile_question.less",
+				    "<%= dirs.css_src %>/mobile_poll.min.css": "<%= dirs.less_src %>/mobile_poll.less",
+				    "<%= dirs.css_src %>/mobile_notifications.min.css": "<%= dirs.less_src %>/mobile_notifications.less",
+				    "<%= dirs.css_src %>/mobile_home.min.css": "<%= dirs.less_src %>/mobile_home.less",
+				    "<%= dirs.css_src %>/mobile_dashboard.min.css": "<%= dirs.less_src %>/mobile_dashboard.less",
+				    "<%= dirs.css_src %>/mobile_admon.min.css": "<%= dirs.less_src %>/mobile_admon.less",
+				    //embebed
+				    "<%= dirs.css_src %>/embebed/detail.min.css": "<%= dirs.less_src %>/embebed/detail.less",
+				    "<%= dirs.css_src %>/embebed/form.min.css": "<%= dirs.less_src %>/embebed/form.less",
+				    "<%= dirs.css_src %>/embebed/results.min.css": "<%= dirs.less_src %>/embebed/results.less"
 			    }
 		    }
 	    },
@@ -148,20 +234,23 @@ module.exports = function (grunt) {
 		grunt.loadNpmTasks('grunt-contrib-uglify');
 		grunt.loadNpmTasks('grunt-browserify');
 		grunt.loadNpmTasks('grunt-mocha-phantomjs');
+		grunt.loadNpmTasks('grunt-contrib-less');
 
 
-    // task to execute test in saucelabs remotely
-    grunt.registerTask('test-saucelabs', [ 'jshint:all', 'intern:remote_saucelabs' ]);
+
+	// task to execute test in saucelabs remotely
+    grunt.registerTask('test-saucelabs', [ 'jshint-all', 'intern:remote_saucelabs' ]);
 		grunt.registerTask('widget', ['jshint:js_widget', 'browserify', 'uglify:widget' ]);
 		// task to execute test in browserstack.com remotely
-		grunt.registerTask('test', [ 'jshint:all', 'intern:remote' ]);
+		grunt.registerTask('jshint-all', [ 'jshint:all' ]);
+		grunt.registerTask('test', [ 'jshint-all', 'intern:remote' ]);
 		grunt.registerTask('commons', [ 'concat', 'uglify:commons' ]);
-    grunt.registerTask('travis', [ 'jshint:all' ]);
+		grunt.registerTask('css', ['less:development', 'less:production' ]);
     // this task require a local selenium server running
-    grunt.registerTask('test-local', ['jshint:all', 'intern:local_browser']);
+    grunt.registerTask('test-local', ['jshint-all', 'intern:local_browser']);
     // this task is defined for remote quick testing
-    grunt.registerTask('test-remote', ['jshint:all', 'intern:remote_local' ]);
-    grunt.registerTask('dev', [ 'jshint:all', 'connect:server' ]);
-    grunt.registerTask('default', ['commons', 'widget', 'test-remote' ]);
+    grunt.registerTask('test-remote', ['intern:remote_local' ]);
+    grunt.registerTask('dev', [ 'jshint-all', 'connect:server' ]);
+    grunt.registerTask('default', ['jshint-all', 'css', 'commons', 'widget', 'test-remote' ]);
 
 };

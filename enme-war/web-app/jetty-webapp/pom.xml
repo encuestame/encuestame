@@ -76,11 +76,6 @@
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-business</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.google.javascript</groupId>
-            <artifactId>closure-compiler</artifactId>
-            <version>v20141120</version>
-        </dependency>
     </dependencies>
 
 </project>

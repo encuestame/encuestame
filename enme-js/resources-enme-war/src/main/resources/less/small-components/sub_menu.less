@@ -1,0 +1,77 @@
+.nav-home-menu {
+
+}
+
+.nav-admon {
+  .nav-home-menu {
+    //BUG: reduce to 20px;
+    //margin-top: 20px;
+  }
+
+  .nav .nav-link {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+  }
+
+  .nav-link-not {
+    display: block;
+  }
+}
+
+.g-nav {
+  .nav {
+    float: left;
+    margin: 0;
+  }
+
+   .main-nav .nav-link {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 9px;
+    padding-bottom: 7px;
+  }
+
+   .nav .nav-item {
+    float: left;
+//    line-height: 13px;
+    position: relative;
+  }
+
+   .main-nav .nav > li > a:hover, .nav > li > a:focus {
+      color: #FFF;
+      background-color: rgba(0, 0, 0, 0);
+  }
+
+   .nav .nav-link {
+    cursor: pointer;
+    display: block;
+  }
+
+   .nav a {
+    color: #999999;
+    text-decoration: none;
+  }
+
+   .nav a:visited, #footer a:visited {
+    color: #999999;
+  }
+
+}
+
+.main-nav {
+  &:extend( .home-header-color );
+}
+
+.main-nav .nav-item {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.main-nav .main-nav .nav-item:first-child {
+  margin-left: 0px;
+  margin-right: 20px;
+}
+
+.main-nav .right-nav {
+  float: right;
+}

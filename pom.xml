@@ -170,7 +170,6 @@
         <!-- <jetty.ssl>7.0.0.pre5</jetty.ssl> -->
         <keytool.maven.plugin>1.0</keytool.maven.plugin>
         <maven.war.plugin>2.4</maven.war.plugin>
-        <wro4j.version>1.6.3</wro4j.version>
         <maven-eclipse-plugin>2.9</maven-eclipse-plugin>
         <jsonpath.version>1.2.0</jsonpath.version>
         <surefire.failures.ignore>false</surefire.failures.ignore>
@@ -1635,18 +1634,6 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>jcl-over-slf4j</artifactId>
                 <version>${org.slf4j-version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>ro.isdc.wro4j</groupId>
-                <artifactId>wro4j-core</artifactId>
-                <version>${wro4j.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>ro.isdc.wro4j</groupId>
-              <artifactId>wro4j-extensions</artifactId>
-              <version>${wro4j.version}</version>
             </dependency>
 
             <dependency>

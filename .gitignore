@@ -18,6 +18,9 @@ release.properties
 *.settings/*
 enme-war/enme-tomcat-app/.settings
 enme-war/enme-views/.settings
+enme-js/resources-enme-war/me/html-report/
+enme-js/resources-enme-war/src/main/resources/css/
+enme-js/resources-enme-war/commons-dist/
 *.prefs
 enme-js/chart/*.settings/*
 enme-js/cometd/*.settings/*
