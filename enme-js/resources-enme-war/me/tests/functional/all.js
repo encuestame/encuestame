@@ -14,5 +14,12 @@
  *  limitations under the License.
  */
 define([
-
+	'./widgets/folder/folder',
+	'./widgets/cloud/cloud',
+	'./widgets/home/ItemVote',
+	'./widgets/rate_comments/comments',
+	'./widgets/tweetpoll/tweetpollList',
+	'./widgets/tweetpoll/tweetpoll',
+	//'./widgets/poll/poll-new',
+	'./widgets/poll/pollList'
 ], function () {});
