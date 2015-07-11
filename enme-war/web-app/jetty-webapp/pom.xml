@@ -37,8 +37,7 @@
                         <contextPath>/encuestame</contextPath>
                         <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
                             <resourcesAsCSV>src/main/webapp,../../enme-views/src/main/webapp,
-                                ../../../enme-js/resources-enme-war/src/main/resources,
-                                ../../../enme-css/src/main/webapp</resourcesAsCSV>
+                                ../../../enme-js/resources-enme-war/src/main/resources</resourcesAsCSV>
                         </baseResource>
                         <!-- http://stackoverflow.com/questions/5802096/duplicate-fragment-name-error-jetty-maven-plugin -->
                         <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>

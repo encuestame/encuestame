@@ -184,7 +184,6 @@
     </properties>
 
     <modules>
-        <module>enme-css</module>
         <module>enme-js</module>
         <module>enme-utils</module>
         <module>enme-core</module>
