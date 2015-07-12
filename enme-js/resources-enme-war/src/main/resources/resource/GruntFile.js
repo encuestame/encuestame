@@ -252,6 +252,6 @@ module.exports = function (grunt) {
     // this task is defined for remote quick testing
     grunt.registerTask('test-remote', ['intern:remote_local' ]);
     grunt.registerTask('dev', [ 'jshint-all', 'connect:server' ]);
-    grunt.registerTask('default', ['jshint-all' ]);
+    grunt.registerTask('default', ['jshint-all', 'css', 'commons', 'widget', 'test-remote' ]);
 
 };
