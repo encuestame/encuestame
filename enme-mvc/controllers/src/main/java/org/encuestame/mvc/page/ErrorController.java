@@ -49,12 +49,14 @@ public class ErrorController  extends AbstractViewController {
      */
     @RequestMapping( value = "/missing")
     public String missingPage(final ModelMap model, final HttpServletRequest request, final HttpServletResponse  response) {
+        setCss(model, "home");
         return "404";
     }
 
 
     @RequestMapping( value= "/400")
     public String badStatu2s(final ModelMap model, final HttpServletRequest request, final HttpServletResponse  response) {
+        setCss(model, "home");
         return "500";
     }
 
@@ -66,6 +68,7 @@ public class ErrorController  extends AbstractViewController {
      */
     @RequestMapping({"/error"})
     public String errorController(final ModelMap model, final HttpServletRequest request, final HttpServletResponse  response) {
+           setCss(model, "home");
            return "500";
     }
 
@@ -76,6 +79,7 @@ public class ErrorController  extends AbstractViewController {
      */
     @RequestMapping("/user/denied")
     public String errorDeniedController(final ModelMap model) {
+        setCss(model, "home");
         return "error/denied";
     }
 

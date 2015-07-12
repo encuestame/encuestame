@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller.settings;
+package org.encuestame.mvc.page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,6 +53,7 @@ public class SettingsController extends AbstractBaseOperations{
         try {
             user = getProfileUserInfo();
             model.put("account", user);
+            setCss(model, "settings");
             addi18nProperty(model, "settings_config_profile_title", request, response);
             addi18nProperty(model, "settings_config_profile_description", request, response);
             addi18nProperty(model, "settings_config_profile_email", request, response);
@@ -95,6 +96,7 @@ public class SettingsController extends AbstractBaseOperations{
 		   HttpServletRequest request,
    		HttpServletResponse response) {
        log.debug("social");
+       setCss(model, "settings");
        addi18nProperty(model, "settings_config_profile_email", request, response);
        addi18nProperty(model, "settings_config_profile_complete_name", request, response);
        addi18nProperty(model, "settings_social_tp_published_whith_this_account", request, response);

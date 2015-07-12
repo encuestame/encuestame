@@ -58,6 +58,7 @@ public class SearchController extends AbstractViewController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String searchHomePost(ModelMap model) {
         log.debug("search post");
+        setCss(model, "home");
         return "search";
     }
 
@@ -89,6 +90,7 @@ public class SearchController extends AbstractViewController {
             final HttpServletRequest request,
             final HttpServletResponse response) {
        final String keyword = request.getParameter("q");
+       setCss(model, "home");
        final List<TypeSearchResult> types = new ArrayList<TypeSearchResult>();
        types.add(TypeSearchResult.TWEETPOLL);
        types.add(TypeSearchResult.POLL);

@@ -91,6 +91,7 @@ public class HomeController extends AbstractViewController {
         addi18nProperty(model, "home_item_votes", request, response);
         addi18nProperty(model, "home_item_views", request, response);
         addi18nProperty(model, "added", request, response);
+        setCss(model, "home");
         if (privateHome) {
             log.info("signup is disabled");
             return "redirect:/user/signin";
@@ -141,6 +142,7 @@ public class HomeController extends AbstractViewController {
             HttpServletRequest request,
             HttpServletResponse response) {
             try {
+                setCss(model, "question");
                 model.put("question", getSearchService().getQuestionInfo(Long.valueOf(id)));
             } catch (Exception e) {
                  log.error(e);
@@ -158,6 +160,7 @@ public class HomeController extends AbstractViewController {
 
             final Boolean welcome = true;
             if (welcome) {
+                setCss(model, "user");
                 request.setAttribute("hide_header_menu", true);
                 return "user/welcome";
             } else {
@@ -181,6 +184,7 @@ public class HomeController extends AbstractViewController {
         username = filterValue(username);
         try {
             final UserAccountBean accountBean = getSecurityService().searchUserByUsername(username);
+            setCss(model, "home");
             if (accountBean == null) {
                 return "404";
             } else {

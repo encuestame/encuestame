@@ -40,7 +40,7 @@ define({
         },
         loader: {
             packages: [
-                { name: 'me', location: 'me' },
+                { name: 'me', location: 'js/me' },
                 { name: 'dojo', location: 'js/dojo' },
                 { name: 'dojox', location: 'js/dojox' },
                 { name: 'dijit', location: 'js/dijit' },

@@ -71,6 +71,7 @@ public class HashTagController extends AbstractViewController {
         final List<HashTagBean> hashTagList = service.getHashTags(MAX_HASHTAG,
                 0, "hashTagsCloud"); // TODO: Add to file properties number 20
         model.addAttribute("hashtags", hashTagList);
+        setCss(model, "home");
         return "cloud";
     }
 
@@ -88,7 +89,7 @@ public class HashTagController extends AbstractViewController {
     public String tagController(ModelMap model, HttpServletRequest request,
             HttpServletResponse response, @PathVariable String name) {
         name = filterValue(name);
-
+        setCss(model, "home");
         final HashTag tag;
         try {
 

@@ -65,6 +65,7 @@ public class SignUpController extends AbstractViewController {
             HttpServletResponse response,
             final HttpServletRequest request) {
         final Boolean privateHome = EnMePlaceHolderConfigurer.getBooleanProperty("application.signup.enabled");
+        setCss(model, "user");
         addi18nProperty(model, "m_011", request, response);
         addi18nProperty(model, "e_013", request, response);
         addi18nProperty(model, "m_012", request, response);
@@ -101,6 +102,7 @@ public class SignUpController extends AbstractViewController {
             @RequestParam(value = "username", required = true) String usernameForm,
             @RequestParam(value = "email", required = true) String emailForm,
             final HttpServletRequest req) {
+        setCss(model, "user");
         final SignUpBean user = new SignUpBean();
         String finalPath = "/user/created";
         user.setEmail(filterValue(emailForm));
@@ -146,6 +148,7 @@ public class SignUpController extends AbstractViewController {
             HttpServletResponse response,
             HttpServletRequest request) {
         UserAccountBean userAccountBean;
+        setCss(model, "user");
         try {
             userAccountBean = getSecurityService().getUserAccountbyCode(inviteCode);
         } catch (EnMeNoResultsFoundException e) {
@@ -177,6 +180,7 @@ public class SignUpController extends AbstractViewController {
             HttpServletResponse response,
             HttpServletRequest request) {
         try {
+            setCss(model, "user");
             getSecurityService().refreshInviteCode();
         } catch (EnMeNoResultsFoundException e) {
             log.error(e.getMessage());

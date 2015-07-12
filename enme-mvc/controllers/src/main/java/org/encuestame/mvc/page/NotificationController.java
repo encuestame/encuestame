@@ -53,6 +53,7 @@ public class NotificationController extends AbstractViewController{
         //        .loadNotificationByUserAndLimit(200), request));
         ///log.debug(list);
         //model.addAttribute("notifications", list);
+        setCss(model, "notifications");
         return "user/notifications";
     }
 }

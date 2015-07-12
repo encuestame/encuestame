@@ -823,4 +823,14 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         return localeResolver;
     }
 
+
+    /**
+     *
+     * @param map
+     * @param name
+     */
+    public void setCss(ModelMap map, String name) {
+        map.addAttribute("cssFile", name);
+    }
+
 }

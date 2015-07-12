@@ -46,6 +46,7 @@ public class SurveyController  extends AbstractViewController {
     public String surveyController(final ModelMap model) {
          model.addAttribute("survey", "survey" );
         log.debug("survey");
+        setCss(model, "survey");
         return "user/survey";
     }
 
@@ -59,6 +60,7 @@ public class SurveyController  extends AbstractViewController {
             @PathVariable Long id,
             @PathVariable String slug) {
         log.debug("survey");
+        setCss(model, "survey");
         return "survey";
     }
 }

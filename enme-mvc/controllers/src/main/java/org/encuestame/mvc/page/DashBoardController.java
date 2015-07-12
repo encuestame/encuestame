@@ -45,6 +45,7 @@ public class DashBoardController extends AbstractViewController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/dashboard", method = RequestMethod.GET)
     public String dashBoardController(ModelMap model, UserAccount account,  final HttpServletRequest request, HttpServletResponse response) {
+        setCss(model, "dashboard");
         addi18nProperty(model, "dashboard_title", request, response);
         addi18nProperty(model, "dashboard_description", request, response);
         addi18nProperty(model, "dashboard_add_gadget", request, response);

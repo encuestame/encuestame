@@ -25,6 +25,10 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
+                <version>0.0.23</version>
+                <configuration>
+                    <workingDirectory>src/main/resources/resource</workingDirectory>
+                </configuration>
                 <executions>
                     <execution>
                         <id>install node and npm</id>
@@ -79,27 +83,43 @@
                 <phase>compile</phase>
                 <configuration>
                     <target>
-                        <copy todir="${project.build.directory}/temp/dojo-src/js/" verbose="false">
-                            <fileset dir="${basedir}/js/"></fileset>
+                        <echo message=" ************* COPY DOJO *************" />
+                        <copy todir="${project.build.directory}/temp/dojo-src/" verbose="false">
+                            <fileset dir="${basedir}/src/main/resources/resource/" includes="
+                            js/dojo/**,
+                            js/dojox/**,
+                            js/dijit/**,
+                            js/util/**,
+                            js/me/**,
+                            js/chart/**,
+                            js/debug/**,
+                            js/panel/**,
+                            js/widget/**,
+                            js/*.txt,
+                            js/commons/**,
+                            profiles/**,
+                            js/run.js"></fileset>
                         </copy>
-                        <echo message=" ************* COPY RESOURCES *************" />
                         <copy todir="${project.build.directory}/temp/dojo-src" verbose="false">
                             <fileset dir="${basedir}/src/main/resources/resource/">
                                 <exclude name="**/js/**/dojo/**" />
                                 <exclude name="**/js/**/dojox/**" />
                                 <exclude name="**/js/**/dijit/**" />
-                                <exclude name="**/js/**/node_modules/**" />
-                                <exclude name="**/js/**/GruntFile.js" />
+                                <exclude name="node_modules/**" />
+                                <exclude name="node/**" />
+                                <exclude name="GruntFile.js" />
+                                <exclude name="bower.json" />
+                                <exclude name="package.json" />
                                 <exclude name="**/js/**/util/**" />
+                                <exclude name="css/**" />
+                                <exclude name="src/**" />
+                                <exclude name="req/**" />
                             </fileset>
                         </copy>
-                        <copy todir="${project.build.directory}/temp/dojo-src/js/me" verbose="true">
-                            <fileset dir="${basedir}/me">
-                                <exclude name="**/GruntFile.js" />
-                                <exclude name="**/tests/**" />
-                                <exclude name="**/html-report/**" />
-                            </fileset>
-                        </copy>
+                        <delete includeEmptyDirs="true" verbose="true">
+                            <fileset dir="${project.build.directory}/temp/dojo-src/js/me" includes="html-report/**" />
+                            <fileset dir="${project.build.directory}/temp/dojo-src/js/me" includes="tests/**" />
+                        </delete>
                         <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
                         <echo message="$$$$$$ ENCUESTAME DOJO COMPILE PROCESS $$$$$$$$$$$" />
                         <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
@@ -108,7 +128,7 @@
                         <mkdir dir="${project.build.directory}/dojo-compiled" />
                         <java fork="true" failonerror="true" dir="${basedir}" classname="org.mozilla.javascript.tools.shell.Main">
                         <classpath>
-                            <pathelement location="${project.build.directory}/temp/dojo-src/js/util/shrinksafe/js.jar" />
+                            <pathelement location="${basedir}/src/rhino/js.jar" />
                             <pathelement location="${project.build.directory}/temp/dojo-src/js/util/closureCompiler/compiler.jar" />
                         </classpath>
                         <jvmarg value="-Xmx512M" />
@@ -123,29 +143,41 @@
                         <arg value="${project.build.directory}/dojo-compiled" />
                     </java>
                     <delete includeEmptyDirs="true" verbose="false">
-                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="tests/**/" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/tests/**/" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/demos/**/" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="util/**" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/*.psd" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/*.fla" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/*.svg" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/*.as" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release/dojo" includes="**/*.swf" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release/dijit/themes/" excludes="**/claro/**/" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release" includes="**/package.json" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release" includes="**/package.js" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release" includes="**/*uncompressed.js" />
-                      <fileset dir="${project.build.directory}/dojo-compiled/release" includes="**/*.js.map" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="tests/**/" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/tests/**/" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/demos/**/" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="util/**" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.psd" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.fla" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.svg" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.as" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.swf" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.txt" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/dijit/themes/" excludes="**/claro/**/" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/package.json" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/package.js" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/*uncompressed.js" />
+                      <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/*.js.map" />
                     </delete>
-                    <echo message="ENCUESTAME :: Dojo AMD optimized ::" />
+                    <echo message="ENCUESTAME :: Dojo Build End::" />
+                    <copy todir="${project.build.directory}/dojo-compiled/release" verbose="true">
+                        <fileset dir="${project.build.directory}/temp/dojo-src/" includes="
+                        js/chart/**,
+                        js/commons/**,
+                        js/debug/**,
+                        js/widget/**,
+                        js/panel/**"></fileset>
+                    </copy>
+                    <copy todir="${project.build.directory}/dojo-compiled/release" verbose="true">
+                    <fileset dir="${basedir}/src/main/resources/resource/" includes="
+                    css/**"></fileset>
+                    </copy>
                   </target>
                 </configuration>
                 <goals>
                   <goal>run</goal>
                 </goals>
               </execution>
-
             </executions>
           </plugin>
           <plugin>
@@ -154,7 +186,6 @@
               <packagingExcludes>
                 WEB-INF/classes/build.sh,
                 *.jar,
-                resource/js/util/
               </packagingExcludes>
               <archive>
                 <manifest>
@@ -165,24 +196,8 @@
               <webResources>
                 <resource>
                       <directory>${project.build.directory}/dojo-compiled/release</directory>
-                      <targetPath>resource/js</targetPath>
+                      <targetPath>resource</targetPath>
                 </resource>
-                <resource>
-                      <directory>${basedir}/widget</directory>
-                      <includes>
-                          <include>build/*</include>
-                          <include>dist/*</include>
-                      </includes>
-                      <targetPath>resource/js/widget</targetPath>
-                </resource>
-                  <resource>
-                      <directory>${basedir}/commons-dist</directory>
-                      <includes>
-                          <include>*.js</include>
-                          <include>*.min.js</include>
-                      </includes>
-                      <targetPath>resource/js/</targetPath>
-                  </resource>
               </webResources>
             </configuration>
             <version>${maven.war.plugin}</version>
@@ -191,23 +206,4 @@
       </build>
     </profile>
   </profiles>
-  <dependencies>
-    <dependency>
-      <groupId>org.encuestame</groupId>
-      <artifactId>deps</artifactId>
-        <version>${project.version}</version>
-      <type>war</type>
-    </dependency>
-    <dependency>
-      <groupId>com.google.javascript</groupId>
-      <artifactId>closure-compiler</artifactId>
-      <version>v20141120</version>
-    </dependency>
-    <dependency>
-      <groupId>rhino</groupId>
-      <artifactId>js</artifactId>
-      <version>1.7R2</version>
-    </dependency>
-  </dependencies>
-
 </project>

@@ -69,6 +69,7 @@ public class PollController extends AbstractViewController {
             @PathVariable String slug) {
         log.trace("poll Id -->" + id);
         log.trace("poll slug -->" + slug);
+        setCss(model, "poll");
         try {
             final Poll poll = getPollService().getPollSlugById(id, slug);
             // final List<QuestionAnswerBean> answer =
@@ -133,6 +134,7 @@ public class PollController extends AbstractViewController {
         log.debug("/poll/vote//password/post VOTE POLL " + slugName);
         log.debug("/poll/vote//password/poll_password VOTE POLL " + poll_password);
         log.debug("*************************************************");
+        setCss(model, "poll");
         // default path
         final RequestSourceType requestSourceType = RequestSourceType.getSource(type_form);
         final String isEmbedded = !requestSourceType.equals(RequestSourceType.EMBEDDED) ? "" : "embedded/";
@@ -306,6 +308,7 @@ public class PollController extends AbstractViewController {
         log.debug("/poll/vote/post VOTE POLL " + type_form);
         log.debug("/poll/vote/post VOTE POLL " + slugName);
         log.debug("*************************************************");
+        setCss(model, "poll");
         // default path
         final RequestSourceType requestSourceType = RequestSourceType.getSource(type_form);
         final String isEmbedded = !requestSourceType.equals(RequestSourceType.EMBEDDED) ? "" : "embedded/";
@@ -450,7 +453,7 @@ public class PollController extends AbstractViewController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/poll", method = RequestMethod.GET)
     public String tweetPollControllerRedirect(final ModelMap model) {
-        log.debug("tweetpoll");
+        setCss(model, "poll");
         return "redirect:/user/poll/list";
     }
 
@@ -466,7 +469,7 @@ public class PollController extends AbstractViewController {
     public String pollListController(final ModelMap model,
             HttpServletRequest request,
             HttpServletResponse response) throws EnMeExpcetion {
-        log.debug("poll list render view");
+        setCss(model, "poll");
         addItemsManangeMessages(model, request, response);
         addi18nProperty(model, "commons_no_results", request, response);
         addi18nProperty(model, "poll_admon_poll_options", request, response);
@@ -544,6 +547,7 @@ public class PollController extends AbstractViewController {
             HttpServletRequest request,
             HttpServletResponse response) {
         //log.debug("new poll render view", request, response);
+        setCss(model, "poll");
         addi18nProperty(model, "leave_mesage", request, response);
         addi18nProperty(model, "tp_add_hashtag", request, response);
         addi18nProperty(model, "poll_create_question_title", request, response);
@@ -609,6 +613,7 @@ public class PollController extends AbstractViewController {
             @PathVariable String slug) {
         try {
             final Poll poll = getPollService().getPollSlugById(id, slug);
+            setCss(model, "poll");
             final List<QuestionAnswerBean> answer = getPollService()
                     .retrieveAnswerByQuestionId(poll.getQuestion().getQid());
             log.debug("Poll Detail Answers " + answer.size());

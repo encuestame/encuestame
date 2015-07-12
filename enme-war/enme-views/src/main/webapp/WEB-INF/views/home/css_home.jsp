@@ -1,8 +1,4 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<c:if test="${!development}">
-	<link rel="stylesheet"  href="<c:url value="/resources/css/home.min.${detectedDevice ? 'mobile' : 'web'}.css" />" />
-</c:if>
-
 <c:if test="${development}">
-	<link rel="stylesheet"  href="<c:url value="/resources/dev/${detectedDevice ? 'mobile_' : ''}home.css" />" />
+	<link type="text/css" rel="<c:url value="stylesheet${development ? '/less' : ''}" />"  href="<c:url value="/resources/css/${development ? 'less' : 'pages'}/${detectedDevice ? 'mobile_' : ''}${cssFile}.${development ? 'less' : 'min.css'}" />" />
 </c:if>

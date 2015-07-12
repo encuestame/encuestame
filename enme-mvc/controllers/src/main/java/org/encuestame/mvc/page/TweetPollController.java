@@ -77,6 +77,7 @@ public class TweetPollController extends AbstractViewController {
         @PathVariable String tweetId,
         final HttpServletRequest req) throws UnknownHostException {
         log.debug("tweetId: "+tweetId);
+        setCss(model, "tweetpoll");
         String pathVote = "badTweetVote";
         String IP = getIpClient(req);
         // Check IP in BlackListFile
@@ -189,16 +190,17 @@ public class TweetPollController extends AbstractViewController {
             @RequestParam("vote_code") String code,
             @ModelAttribute("captchaForm") UtilVoteCaptcha vote,
             BindingResult result,
-            Model model) throws UnknownHostException {
+            ModelMap model) throws UnknownHostException {
+             setCss(model, "tweetpoll");
              log.info("recaptcha_challenge_field "+challenge);
              log.info("recaptcha_rforgotesponse_field "+response);
              log.info("code "+code.toString());
              log.info("vote "+vote.toString());
-             log.info("model "+model.asMap().toString());
+             log.info("model " + model.toString());
              challenge = filterValue(challenge);
              response = filterValue(response);
              code = filterValue(code);
-             vote = (UtilVoteCaptcha) model.asMap().get("captchaForm");
+             vote = (UtilVoteCaptcha) model.get("captchaForm");
              log.info("vote2--> "+vote.toString());
              final String IP = getIpClient(req);
              //security service
@@ -258,6 +260,7 @@ public class TweetPollController extends AbstractViewController {
             final ModelMap model,
             HttpServletRequest request,
             HttpServletResponse response) {
+        setCss(model, "tweetpoll");
         addItemsManangeMessages(model, request, response);
         addi18nProperty(model, "loading_messages", request, response);
         addi18nProperty(model, "tweetpoo_detail_tab_detail", request, response);
@@ -300,7 +303,7 @@ public class TweetPollController extends AbstractViewController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/tweetpoll", method = RequestMethod.GET)
     public String tweetPollControllerRedirect(final ModelMap model) {
-        log.debug("tweetpoll");
+        setCss(model, "tweetpoll");
         return "redirect:/user/tweetpoll/list";
     }
 
@@ -314,6 +317,7 @@ public class TweetPollController extends AbstractViewController {
     public String newTweetPollController(final ModelMap model, final HttpServletRequest request, HttpServletResponse response) {
         //check social accounts.
         String path = "tweetpoll/new";
+        setCss(model, "tweetpoll");
         try {
             final List<SocialAccountBean> socials = getSecurityService().getValidSocialAccounts(SocialProvider.ALL, false);
             if (socials.size() == 0) {
@@ -398,6 +402,7 @@ public class TweetPollController extends AbstractViewController {
             final HttpServletRequest request) throws UnknownHostException {
         log.debug("detailTweetPollController "+id);
         log.debug("detailTweetPollController "+slug);
+        setCss(model, "tweetpoll");
         try {
             final String ipAddress = getIpClient(request);
             slug = filterValue(slug);

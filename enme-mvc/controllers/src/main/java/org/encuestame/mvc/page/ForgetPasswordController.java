@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller.security;
+package org.encuestame.mvc.page;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.mvc.controller.security.AbstractSecurityController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -26,6 +27,7 @@ import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.security.ForgotPasswordBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,8 +56,9 @@ public class ForgetPasswordController extends AbstractSecurityController {
      * @return
      */
     @RequestMapping(value = "/user/forgot", method = RequestMethod.GET)
-    public String addHandler(Model model) {
+    public String addHandler(ModelMap model) {
         log.info("/forgot");
+        setCss(model, "user");
         final ForgotPasswordBean forgot = new ForgotPasswordBean();
         final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
         forgot.setCaptcha(captcha);
@@ -77,7 +80,7 @@ public class ForgetPasswordController extends AbstractSecurityController {
      */
     @RequestMapping(value = "/user/forgot", method = RequestMethod.POST)
     public String forgotSubmitForm(HttpServletRequest req,
-            Model model,
+            ModelMap model,
             @RequestParam( value = "recaptcha_challenge_field", required = false) String challenge,
             @RequestParam(value = "recaptcha_response_field", required = false) String response,
             @ModelAttribute ForgotPasswordBean user, BindingResult result,
@@ -87,6 +90,7 @@ public class ForgetPasswordController extends AbstractSecurityController {
         log.info("result erros  " + result.getAllErrors().size());
         log.info("result erros  " + result.getErrorCount());
         final String email = user.getEmail() == null ? "" : user.getEmail();
+        setCss(model, "user");
         if (!email.isEmpty()) {
                 log.debug("email " + email);
                 final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(

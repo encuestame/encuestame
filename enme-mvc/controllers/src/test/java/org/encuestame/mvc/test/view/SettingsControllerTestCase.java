@@ -18,7 +18,7 @@
 
 package org.encuestame.mvc.test.view;
 
-import org.encuestame.mvc.controller.settings.SettingsController;
+import org.encuestame.mvc.page.SettingsController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.categories.test.DefaultTest;
@@ -28,7 +28,6 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.springframework.test.web.ModelAndViewAssert.assertViewName;

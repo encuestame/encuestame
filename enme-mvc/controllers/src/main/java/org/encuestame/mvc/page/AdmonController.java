@@ -47,6 +47,7 @@ public class AdmonController extends AbstractViewController {
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/admon/location", method = RequestMethod.GET)
     public String admonLocation(ModelMap model) {
+        setCss(model, "admon");
         log.debug("LOCATION");
         return "location";
     }
@@ -62,6 +63,7 @@ public class AdmonController extends AbstractViewController {
     		ModelMap model,
     		HttpServletRequest request,
     		HttpServletResponse response) {
+        setCss(model, "admon");
         addi18nProperty(model, "admon_create_user", request, response);
         addi18nProperty(model, "admon_username", request, response);
         addi18nProperty(model, "admon_group", request, response);
@@ -106,6 +108,7 @@ public class AdmonController extends AbstractViewController {
     @RequestMapping(value = "/admon/project", method = RequestMethod.GET)
     public String admonProject(ModelMap model) {
         log.debug("PROJECT");
+        setCss(model, "admon");
         return "project";
     }
 }

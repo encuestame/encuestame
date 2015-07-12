@@ -1,6 +1,6 @@
 /*global module */
 
-var server = require('./widget/tests/server/app');
+var server = require('./src/widget/tests/server/app');
 
 module.exports = function (grunt) {
 
@@ -10,15 +10,16 @@ module.exports = function (grunt) {
       pkg: grunt.file.readJSON('package.json'),
 
       dirs : {
-	      src: 'me/',
-	      tests: 'me/tests/',
-	      widget_dist: 'widget/dist',
-	      widget_build: 'widget/build',
-	      widget_src : 'widget/modules',
-	      widget_test: 'widget/tests',
-	      less_src : 'src/main/resources/less',
-	      css_src : 'src/main/resources/css',
-	      commons: 'commons-dist'
+	      src: 'js/me/',
+	      tests: 'js/me/tests/',
+	      widget_dist: 'js/widget',
+	      widget_build: 'src/widget/build',
+	      widget_src : 'src/widget/modules',
+	      widget_test: 'src/widget/tests',
+	      less_src : 'css/less',
+	      css_src : 'css/pages',
+	      commons_src: 'src/commons',
+	      commons: 'js/commons'
       },
 
 	    banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
@@ -34,10 +35,10 @@ module.exports = function (grunt) {
 	    concat: {
 		    basic_and_extras: {
 			    files: {
-				    '<%= dirs.commons %>/commons.js': ['commons/Chart.js','commons/offline.js','commons/intro.js','commons/alertify/lib/alertify.js'],
-				    '<%= dirs.commons %>/commons-mobile.js': ['commons/Chart.js','commons/offline.js', 'commons/alertify/lib/alertify.js'],
-				    '<%= dirs.commons %>/maps.js': ['commons/leaflet-0.7.1/leaflet-src.js'],
-				    '<%= dirs.commons %>/init.js': ['commons/modernizr.js', 'req/json_services.js']
+				    '<%= dirs.commons %>/commons.js': ['<%= dirs.commons_src %>/Chart.js','<%= dirs.commons_src %>/offline.js','<%= dirs.commons_src %>/intro.js','<%= dirs.commons_src %>/alertify/lib/alertify.js'],
+				    '<%= dirs.commons %>/commons-mobile.js': ['<%= dirs.commons_src %>/Chart.js','<%= dirs.commons_src %>/offline.js', '<%= dirs.commons_src %>/alertify/lib/alertify.js'],
+				    '<%= dirs.commons %>/maps.js': ['<%= dirs.commons_src %>/leaflet-0.7.1/leaflet-src.js'],
+				    '<%= dirs.commons %>/init.js': ['<%= dirs.commons_src %>/modernizr.js', 'req/json_services.js']
 			    }
 		    }
 	    },
@@ -251,6 +252,6 @@ module.exports = function (grunt) {
     // this task is defined for remote quick testing
     grunt.registerTask('test-remote', ['intern:remote_local' ]);
     grunt.registerTask('dev', [ 'jshint-all', 'connect:server' ]);
-    grunt.registerTask('default', ['jshint-all', 'css', 'commons', 'widget', 'test-remote' ]);
+    grunt.registerTask('default', ['jshint-all' ]);
 
 };

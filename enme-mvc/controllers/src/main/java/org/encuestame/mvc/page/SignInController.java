@@ -20,8 +20,6 @@ import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.util.SocialUtils;
-import org.encuestame.mvc.controller.AbstractViewController;
-import org.encuestame.mvc.controller.security.ForgetPasswordController;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.oauth2.support.OAuth2Parameters;
 import org.encuestame.oauth2.support.OAuth2RequestFlow;
@@ -68,6 +66,7 @@ public class SignInController extends AbstractSocialController{
             final ModelMap model,
             HttpServletResponse response,
             HttpServletRequest request) {
+        setCss(model, "user");
         request.setAttribute("social", isSocialSignInUpEnabled());
         log.debug("login");
         return "signin";
@@ -230,6 +229,7 @@ public class SignInController extends AbstractSocialController{
            final ModelMap model,
            HttpServletRequest httpRequest,
            WebRequest request) {
+       setCss(model, "user");
        return "user/friends";
    }
 }
