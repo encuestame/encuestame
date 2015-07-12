@@ -8,7 +8,7 @@ For information on how to **build** check out [documentation](http://www.encuest
 
 **Take a look our [demo](http://www.encuestame.org/demo)**
 
-## Latest Stable Version (1.5.1)
+## Latest Stable Version (1.5.2)
 
 The **last release versions** is defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME?report=com.atlassian.jirafisheyeplugin:fisheye-projectpanel&mode=changesets#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
@@ -22,7 +22,7 @@ If you want to download a built version of Encuestame, the files are hosted in S
 * [All Contributors](https://github.com/encuestame/encuestame/graphs/contributors)
 
 ## Direct Download
-* [1.5.1](https://sourceforge.net/projects/encuestame/files/latest/download?source=files)
+* [1.5.2](https://sourceforge.net/projects/encuestame/files/latest/download?source=files)
 * [Latest Build](http://encuestame.org/build/browse/ENME-PRO/latestSuccessful/artifact/shared/encuestame.war/encuestame.war)
 
 ## Revisions Download
