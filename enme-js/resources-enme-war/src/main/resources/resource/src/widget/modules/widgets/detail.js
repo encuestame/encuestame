@@ -29,7 +29,7 @@ var fn = {
         WIDE_MEDIA_PADDING_CL: 60,
         NARROW_MEDIA_PADDING_CL: 12
     },
-    cssStyle: domain + "resources/dev/embebed/detail.css"
+    cssStyle: domain + "resources/css/pages/embebed/detail.css"
 };
 
 module.exports = fn;

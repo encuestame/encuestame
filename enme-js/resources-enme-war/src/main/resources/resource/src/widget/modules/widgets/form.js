@@ -13,7 +13,7 @@ var domain = global.__enme_widget.host;
           WIDE_MEDIA_PADDING_CL: 60,
           NARROW_MEDIA_PADDING_CL: 12
     },
-  cssStyle: domain + "resources/dev/embebed/form.css"
+  cssStyle: domain + "resources/css/pages/embebed/form.css"
 };
 
 module.exports = fn;
