@@ -32,10 +32,10 @@
             </div>
         </div>
             <!-- comments tab -->
-            <div data-dojo-attach-point="_comments"></div>
+            <div id="comments-moderation-container" data-dojo-attach-point="_comments"></div>
             <div data-dojo-attach-point="_social_links"></div>
             <div data-dojo-attach-point="_delete">
-            	<div class="alert alert-block">
+            	<div id="delete-item-button-container" class="alert alert-block">
 					 <h4>
 					  	Warning!! You want remove this item?
 					  </h4>
@@ -43,7 +43,7 @@
 					  		If you continue, you will lost all the content, stats, social links, comments for this item, these changes will not be able to recover.
 					  </p>
 				</div>
-				 <button class="btn btn-danger btn-block" data-dojo-attach-event="onclick:_deleteTweetPoll">
+				 <button id="delete-item-button" class="btn btn-danger btn-block" data-dojo-attach-event="onclick:_deleteTweetPoll">
 					  		Delete this tweetpoll
 				</button>
             </div>

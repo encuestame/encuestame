@@ -2,32 +2,32 @@
          <div id="tweetListContent" class="tweetListContent">
             <div class="web-tweetpoll-options">
                 <div class="web-tweetpoll-sidebar-panel">
-                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByAccount" type="${_type_filter.BYOWNER}">
+                    <div id="type-filter-byOwner-tp" class="optionItem" data-dojo-attach-event="onclick:_searchByAccount" type="${_type_filter.BYOWNER}">
                         <span>
                             ${i18nMessage.detail_manage_by_account}
                         </span>
                     </div>
-                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByLastDay" type="${_type_filter.LASTDAY}">
+                    <div id="type-filter-lastday-tp" class="optionItem" data-dojo-attach-event="onclick:_searchByLastDay" type="${_type_filter.LASTDAY}">
                         <span>
                             ${i18nMessage.detail_manage_today}
                         </span>
                     </div>
-                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByLastWeek" type="${_type_filter.LASTWEEK}">
+                    <div id="type-filter-lastweek-tp" class="optionItem" data-dojo-attach-event="onclick:_searchByLastWeek" type="${_type_filter.LASTWEEK}">
                         <span>
                             ${i18nMessage.detail_manage_last_week}
                         </span>
                     </div>
-                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByFavourites" type="${_type_filter.FAVOURITES}">
+                    <div id="type-filter-favourites-tp" class="optionItem" data-dojo-attach-event="onclick:_searchByFavourites" type="${_type_filter.FAVOURITES}">
                         <span>
                             ${i18nMessage.detail_manage_favorites}
                         </span>
                     </div>
-                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByScheduled" type="${_type_filter.SCHEDULED}">
+                    <div id="type-filter-scheduled-tp" class="optionItem" data-dojo-attach-event="onclick:_searchByScheduled" type="${_type_filter.SCHEDULED}">
                         <span>
                             ${i18nMessage.detail_manage_scheduled}
                         </span>
                     </div>
-                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByAll" type="${_type_filter.ALL}">
+                    <div id="type-filter-all-tp" class="optionItem" data-dojo-attach-event="onclick:_searchByAll" type="${_type_filter.ALL}">
                         <span>
                             ${i18nMessage.detail_manage_all}
                         </span>
@@ -42,8 +42,8 @@
                     -->
                    <div data-dojo-attach-point="_filters" data-dojo-type="me/web/widget/support/ItemsFilterSupport"
                         typeItem="TWEETPOLL"></div>
-                   <div class="web-list-filter-clean">
-                        <span data-dojo-attach-event="onclick:_cleanFilters">
+                   <div id="clean-web-list-filter-clean-tp" class="web-list-filter-clean">
+                        <span id="clean-advanced-search-link-tp" data-dojo-attach-event="onclick:_cleanFilters">
                             ${i18nMessage.detail_clean_filters}
                         </span>
                    </div>

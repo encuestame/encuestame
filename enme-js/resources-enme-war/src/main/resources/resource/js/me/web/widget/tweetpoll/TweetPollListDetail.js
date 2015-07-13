@@ -479,6 +479,7 @@ define([
           domClass.add(data, "data");
           data.appendChild(dataContet);
           rowDetail.appendChild(data);
+          rowDetail.id=labelText.toLowerCase();
           return rowDetail;
         },
 
