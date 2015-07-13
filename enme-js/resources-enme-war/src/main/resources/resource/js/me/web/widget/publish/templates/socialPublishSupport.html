@@ -2,12 +2,12 @@
     <div data-dojo-attach-point="_custom_loading"></div>
     <div data-dojo-attach-point="_social_accounts_wrapper" class="social-account-wrapper">
         <div data-dojo-attach-point="_social" class="social-acount-list-publish"></div>
-        <div class="social-acount-list-publish-options">
-            <div class="publish-counter" data-dojo-attach-point="_counter">
+        <div id="social-acount-list-publish-container" class="social-acount-list-publish-options">
+            <div id="social-networks-selected-counter" class="publish-counter" data-dojo-attach-point="_counter">
                 ${i18nMessage.counter_zero}
             </div>
             <div class="publish-social-button">
-                <button data-dojo-attach-point="_button" class="btn">
+                <button id="publish-on-social-network-bttn" data-dojo-attach-point="_button" class="btn">
                      ${i18nMessage.publish_social}
                 </button>
             </div>
