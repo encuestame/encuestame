@@ -14,7 +14,7 @@
           <ul class="nav pull-right center-search">
             <c:if test="${logged && !hide_header_menu}">
                <li>
-                <a href="<%=request.getContextPath()%>/home">
+                <a id="public-line-header-link" href="<%=request.getContextPath()%>/home">
                     <spring:message code="header.public.line" /> </a>
                </li>
             </c:if>

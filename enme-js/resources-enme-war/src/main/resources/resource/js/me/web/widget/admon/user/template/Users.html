@@ -121,7 +121,7 @@
                         </div>
                     </div>
               </div>
-              <div data-dojo-type="dijit/layout/ContentPane" title="${i18n.admon_users_new_invite_title}" class="css-input">
+              <div id="userInvitation" data-dojo-type="dijit/layout/ContentPane" title="${i18n.admon_users_new_invite_title}" class="css-input">
                   <p>
                       ${i18n.admon_users_invite_subtitle}
                   </p>
@@ -152,7 +152,7 @@
         </div>
 
         <div class="dijitDialogPaneActionBar">
-            <button class="btn btn-info" data-dojo-attach-point="_close" data-dojo-attach-event="onClick:_closeNewDialog">
+            <button id="close-request-button" class="btn btn-info" data-dojo-attach-point="_close" data-dojo-attach-event="onClick:_closeNewDialog">
                 ${i18n.button_close}
            </button>
         </div>
