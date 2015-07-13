@@ -26,7 +26,7 @@
                 <ul class="web-poll-answers"  data-dojo-attach-point="_source">
                 </ul>
                 <div class="section-botton-wrapper" data-dojo-attach-point="_addNew">
-                    <a href="#">
+                    <a id="add-new-answer-link" href="#">
                         ${i18nMessage.poll_create_add_new_answer}
                     </a>
                 </div>
@@ -86,11 +86,11 @@
             </div>
         </div>
 
-        <div class="botton-button-publish" style="text-align: right;">
-            <button class="btn btn-danger" data-dojo-attach-point="_cancel">
+        <div class="poll-buttons-container" style="text-align: right;">
+            <button id="poll-cancel-button" class="btn btn-danger" data-dojo-attach-point="_cancel">
                 ${i18nMessage.commons_cancel}
             </button>
-            <button data-dojo-attach-point="_publish"
+            <button id="poll-create-button" data-dojo-attach-point="_publish"
                     data-dojo-type="dijit/form/Button"
                     type="button"
                     name="submitButtonTwo"

@@ -2,29 +2,29 @@
     <div id="tweetListContent" class="tweetListContent">
         <div class="web-tweetpoll-options">
             <div class="web-tweetpoll-sidebar-panel">
-                <div class="optionItem" data-dojo-attach-event="onclick:_searchByAccount"
+                <div id="type-filter-byOwner-poll" class="optionItem" data-dojo-attach-event="onclick:_searchByAccount"
                     type="BYOWNER">
                     <span>
                        ${i18nMessage.detail_manage_by_account}
                     </span>
                 </div>
-                <div class="optionItem" data-dojo-attach-event="onclick:_searchByLastDay"
+                <div id="type-filter-byLastDay-poll" class="optionItem" data-dojo-attach-event="onclick:_searchByLastDay"
                     type="LASTDAY">
                     <span>
                         ${i18nMessage.detail_manage_today}
                     </span>
                 </div>
-                <div class="optionItem" data-dojo-attach-event="onclick:_searchByLastWeek"
+                <div id="type-filter-byLastWeek-poll" class="optionItem" data-dojo-attach-event="onclick:_searchByLastWeek"
                     type="LASTWEEK">
                     <span> ${i18nMessage.detail_manage_last_week}</span>
                 </div>
-                <div class="optionItem"
+                <div id="type-filter-byFavourites-poll" class="optionItem"
                     data-dojo-attach-event="onclick:_searchByFavourites" type="FAVOURITES">
                     <span>
                         ${i18nMessage.detail_manage_favorites}
                     </span>
                 </div>
-                <div class="optionItem" data-dojo-attach-event="onclick:_searchByAll"
+                <div id="type-filter-all-poll" class="optionItem" data-dojo-attach-event="onclick:_searchByAll"
                     type="ALL">
                     <span>
                         ${i18nMessage.detail_manage_all}
@@ -34,14 +34,14 @@
             <div data-dojo-attach-point="_folder"></div>
         </div>
         <div class="web-list-tweet">
-            <div data-dojo-attach-point="_customMenu" class="web-twettpoll-list-menu enme-ui-gradient-header-color default-top-menu">
+            <div data-dojo-attach-point="_customMenu" id="advanced-search-filters-menu" class="web-twettpoll-list-menu enme-ui-gradient-header-color default-top-menu">
                <!--
                     Filters Support.
                 -->
               <div data-dojo-attach-point="_filters" data-dojo-type="me/web/widget/support/ItemsFilterSupport"
                     typeItem="POLL"></div>
-               <div class="web-list-filter-clean">
-                    <span data-dojo-attach-event="onclick:_cleanFilters">
+               <div id="clean-advanced-search-container" class="web-list-filter-clean">
+                    <span id="clean-advanced-search-link" data-dojo-attach-event="onclick:_cleanFilters">
                         Clean
                     </span>
                </div>
