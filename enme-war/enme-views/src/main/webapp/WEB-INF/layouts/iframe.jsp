@@ -19,7 +19,7 @@
                  if(!d.getElementById(id)){
                      p=/^http:/.test(d.location)?'http':'https';
                      js=d.createElement(s);
-                     js.id=id;js.src=p+":///${domain}/resources/js/widget/build/widget.js";
+                     js.id=id;js.src=p+":///${domain}/resources/js/widget/widget.js";
                      fjs.parentNode.insertBefore(js,fjs);
                      }
                  }(document,"script","widget-enme-js");

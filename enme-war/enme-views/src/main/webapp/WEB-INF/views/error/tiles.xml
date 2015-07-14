@@ -6,25 +6,21 @@
     <definition name="404" extends="page">
         <put-attribute name="title" value="Page not Found | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/error/404.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/error/css.jsp" />
     </definition>
 
     <definition name="500" extends="page">
         <put-attribute name="title" value="Encuestame has crashed" />
         <put-attribute name="content" expression="/WEB-INF/views/error/500.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/error/css.jsp" />
     </definition>
 
      <definition name="error" extends="errorPage">
         <put-attribute name="title" value="Error | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/error/error.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/error/css.jsp" />
     </definition>
 
      <definition name="error/denied" extends="errorPage">
         <put-attribute name="title" value="Error | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/error/denied.jsp" />
-        <put-attribute name="css_module" expression="/WEB-INF/views/error/css.jsp" />
     </definition>
 
 </tiles-definitions>

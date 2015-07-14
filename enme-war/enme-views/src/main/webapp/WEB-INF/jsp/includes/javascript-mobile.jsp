@@ -1,7 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/decorators/dojo-config.jsp"%>
-
-<script  src="<%=request.getContextPath()%>/resources/js/commons-mobile.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/commons/commons-mobile.<c:url value="${development ? '' : 'min.'}" />js"></script>
 <script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/me/run.js"></script>
 
