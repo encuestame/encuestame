@@ -12,10 +12,10 @@
        </div>
        <div class="tb-right">
             <a href="<%=request.getContextPath()%>/user/poll/new">
-                <button id="create_tweetpoll_button" class="btn btn-warning">
+                <button id="create_poll_button" class="btn btn-warning">
                     <spring:message code="tweetpoll.new" />
                 </button>
-                 <span data-dojo-type="dijit/Tooltip" data-dojo-props='connectId:"create_tweetpoll_button"' style="display:none;">
+                 <span data-dojo-type="dijit/Tooltip" data-dojo-props='connectId:"create_poll_button"' style="display:none;">
                        <spring:message code="poll_button_tooltip" />
                  </span>
             </a>
