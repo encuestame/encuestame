@@ -83,7 +83,9 @@ define([
 			//Helper.clean();
 			var tp1 = Helper.createElement('mainWrapper');
 			var tweetPollList = new TweetPollListDetail({
-
+				data : {
+					folder_id : 1
+				}
 			});
 			Helper.place(tweetPollList.domNode, 'mainWrapper');
 			Helper.removeElement(tweetPollList.domNode);

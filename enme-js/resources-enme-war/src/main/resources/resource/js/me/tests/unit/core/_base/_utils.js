@@ -49,7 +49,7 @@ define([
 		'usernameLink Test' : function() {
 			var usernameLink = _utils.usernameLink("test");
 			// note, is not possible to be more accurate due the response change in the time
-			expect(usernameLink).to.equal('../../tests/resources/profile/test');
+			expect(usernameLink).to.equal('/js/me/tests/resources/profile/test');
 		},
 
 		'validateCharacterDigits Test' : function() {
@@ -61,7 +61,7 @@ define([
 		'getImage Test' : function() {
 			var getImage = _utils.getImage("test.png");
 			// note, is not possible to be more accurate due the response change in the time
-			expect(getImage).to.equal('../../tests/resources/resources/images/test.png');
+			expect(getImage).to.equal('/js/me/tests/resources/resources/images/test.png');
 		},
 
 		'getURLParametersAsObject Test' : function() {
@@ -79,7 +79,7 @@ define([
 
 		'shortPicture Test' : function() {
 			var shortPicture = _utils.shortPicture('jotaPicture');
-			expect(shortPicture).to.equal('../../tests/resources/resources/images/social/jotapicture/enme_icon_jotapicture.png');
+			expect(shortPicture).to.equal('/js/me/tests/resources/resources/images/social/jotapicture/enme_icon_jotapicture.png');
 		},
 
 		'relativeQuantity Test' : function() {
@@ -119,11 +119,11 @@ define([
 		},
 
 		'fakeImage Test' : function() {
-			expect(_utils.fakeImage('24')).to.equal('../../tests/resources/resources/images/social/fake_24_24.png');
-			expect(_utils.fakeImage('32')).to.equal('../../tests/resources/resources/images/social/fake_32_32.png');
-			expect(_utils.fakeImage('64')).to.equal('../../tests/resources/resources/images/social/fake_64_64.png');
-			expect(_utils.fakeImage('128')).to.equal('../../tests/resources/resources/images/social/fake_128_128.png');
-			expect(_utils.fakeImage('')).to.equal('../../tests/resources/resources/images/social/fake_24_24.png');
+			expect(_utils.fakeImage('24')).to.equal('/js/me/tests/resources/resources/images/social/fake_24_24.png');
+			expect(_utils.fakeImage('32')).to.equal('/js/me/tests/resources/resources/images/social/fake_32_32.png');
+			expect(_utils.fakeImage('64')).to.equal('/js/me/tests/resources/resources/images/social/fake_64_64.png');
+			expect(_utils.fakeImage('128')).to.equal('/js/me/tests/resources/resources/images/social/fake_128_128.png');
+			expect(_utils.fakeImage('')).to.equal('/js/me/tests/resources/resources/images/social/fake_24_24.png');
 		},
 
 		'numberFormat Test' : function() {
@@ -139,13 +139,13 @@ define([
 		},
 
 		'hashtagContext Test' : function() {
-			expect(_utils.hashtagContext('hashtag1')).to.equal('../../tests/resources/tag/hashtag1/');
-			expect(_utils.hashtagContext('hashtag2')).to.equal('../../tests/resources/tag/hashtag2/');
+			expect(_utils.hashtagContext('hashtag1')).to.equal('/js/me/tests/resources/tag/hashtag1/');
+			expect(_utils.hashtagContext('hashtag2')).to.equal('/js/me/tests/resources/tag/hashtag2/');
 		},
 
 		'pollDetailContext Test' : function() {
-			expect(_utils.pollDetailContext('test', 'test-slug-1')).to.equal('../../tests/resources/poll/test/test-slug-1');
-			expect(_utils.pollDetailContext('test', 'test-slug-2')).to.equal('../../tests/resources/poll/test/test-slug-2');
+			expect(_utils.pollDetailContext('test', 'test-slug-1')).to.equal('/js/me/tests/resources/poll/test/test-slug-1');
+			expect(_utils.pollDetailContext('test', 'test-slug-2')).to.equal('/js/me/tests/resources/poll/test/test-slug-2');
 		},
 
 		'shortAmmount Test' : function() {
