@@ -154,7 +154,6 @@ return declare([ _WidgetBase,
     }
 ],
 
-
 /*
  *
  */
@@ -218,14 +217,17 @@ return declare([ _WidgetBase,
       //add default answers.
 
       for (var i= 0; i <= this._default_answers; i++) {
-           var li = this._newAnswer({ dndEnabled : false});
+           var li = this._newAnswer(
+             {
+               dndEnabled : false
+             });
            this.addItem(li);
       }
 
-      if (parent.isDnD) {
+      if (parent.isDnD && !this.isMobile) {
           this.addDnDSupport();
       } else {
-        //TODO: remove icons to drag
+        //FIXME: remove icons to drag if dnd is disabled
       }
 
       // trigger the validate poll or publish and create
@@ -320,7 +322,6 @@ return declare([ _WidgetBase,
                 e.dataTransfer.clearData("poll-answer");
                 // See the section on the DataTransfer object.
                  [].forEach.call(parent.dnd_sources, function (col) {
-                    //console.info("---> col ",col);
                     //col.classList.remove('over');
                     domClass.remove(col, "me_opa");
                     //this.style.opacity = '1';
@@ -346,7 +347,7 @@ return declare([ _WidgetBase,
    * @param event
    */
   _addAnswer : function(event) {
-      dojo.stopEvent(event);
+      event.preventDefault();
       var li = this._newAnswer({ dndEnabled : true});
       this.addItem(li);
       this.addDnDSupport();
@@ -371,8 +372,10 @@ return declare([ _WidgetBase,
   },
 
 
-  /*
+  /**
    *
+   * @param params
+   * @private
    */
   _createPoll : function(params) {
     var parent = this,
@@ -394,8 +397,9 @@ return declare([ _WidgetBase,
      this.getURLService().post('encuestame.service.list.poll.create', params, load, error , lang.hitch(this, function() {}));
   },
 
-  /*
+  /**
    *
+   * @param params
    */
   createPoll : function(params){
       this._createPoll(params);
@@ -403,18 +407,22 @@ return declare([ _WidgetBase,
 
 /**
  * Validate the poll.
- * @param event Event
+ * @param e Event
  * @method
  */
-
-_validatePoll : function(event) {
-    dojo.stopEvent(event);
+_validatePoll : function(e) {
+    e.preventDefault();
     var valid = this._checkValidations();
     if (valid) {
         this.createPoll(valid);
     }
 },
 
+  /**
+   *
+   * @returns {*}
+   * @private
+   */
 _checkValidations : function() {
       /*
        * options : {
@@ -446,7 +454,7 @@ _checkValidations : function() {
 
       // validate the question
       if (this._questionWidget.getQuestion() !== '' && this._questionWidget.getQuestion() !== null) {
-          dojo.mixin(params, {
+          lang.mixin(params, {
               questionName : this._questionWidget.getQuestion()
           });
       } else {
@@ -472,7 +480,7 @@ _checkValidations : function() {
               if (response !== null && response !== '') {
                   var newArray = params.listAnswers;
                   newArray.push(response.trim());
-                  dojo.mixin(params, {
+                  lang.mixin(params, {
                     listAnswers : newArray
                   });
                   c++;
@@ -489,31 +497,31 @@ _checkValidations : function() {
 
       var repeated_votes = registry.byId("repeated");
       if (repeated_votes.getOptions().checked) {
-          dojo.mixin(params, {
+          lang.mixin(params, {
               allow_repeated_votes : repeated_votes.getOptions().items
           });
       }
 
       var limit_votes = registry.byId("limit");
       if (limit_votes.getOptions().checked) {
-          dojo.mixin(params, {
+          lang.mixin(params, {
             limit_votes : limit_votes.getOptions().items
           });
       }
 
      // is hidden
-    dojo.mixin(params, {
+    lang.mixin(params, {
         is_hidden : registry.byId('isHidden').getValue().checked
     });
 
     //password_protection
-    dojo.mixin(params, {
+    lang.mixin(params, {
         is_password_protected : registry.byId('passwordProtection').getValue().checked
     });
 
     var close = this.closeWidget;
       if (close.getOptions().checked){
-          dojo.mixin(params, {
+          lang.mixin(params, {
               close_date : close.getOptions().complete_date
           });
       }
@@ -525,26 +533,26 @@ _checkValidations : function() {
 
       var comments = registry.byId("comments");
       if (comments.getResponse() !== null) {
-          dojo.mixin(params, {
+          lang.mixin(params, {
             showComments : comments.getResponse()
           });
       }
 
       var results = registry.byId("results");
       if (results.getResponse() !== null) {
-          dojo.mixin(params, {
+          lang.mixin(params, {
               results : results.getResponse()
           });
           //FIXME: this list is not implemented in the json service
       }
 
-      dojo.mixin(params, {
+      lang.mixin(params, {
           multiple : registry.byId('multiple').getValue().checked
       });
 
       //temp: folder select and allow-add disabled by default
-      //dojo.mixin(params, {allow_add : registry.byId('allow-add').getValue().checked});
-      //dojo.mixin(params, {folder_name : this._folderWidget.getSelected()});
+      //lang.mixin(params, {allow_add : registry.byId('allow-add').getValue().checked});
+      //lang.mixin(params, {folder_name : this._folderWidget.getSelected()});
       // recover hashtags
 
       params.hashtags = this.hashTagWidget.getHashTags("hashTagName");
@@ -565,8 +573,10 @@ _checkValidations : function() {
   _publishPoll : function(){},
 
 
-  /*
+  /**
    *
+   * @param pollBean
+   * @private
    */
   _openSuccessMessage : function(pollBean) {
       //social widget.
@@ -586,21 +596,23 @@ _checkValidations : function() {
       this._dialogPublish.show();
   },
 
-  /*
+  /**
    *
+   * @param errorMessage
+   * @private
    */
   _openFailureMessage : function(errorMessage) {
        this.infoMesage(errorMessage);
   },
 
-  /*
+  /**
    *
+   * @private
    */
   _createDialogSupport : function() {
-      this._dialogPublish = new Dialog(
-              {
-                  style :"width: 850px; heigth:400px;"
-              });
+    this._dialogPublish = new Dialog({
+      style :"width: 850px; heigth:400px;"
+    });
   }
 
 });
