@@ -48,7 +48,6 @@
     "intern": "2.2.2",
     "jshint-stylish": "^0.4.0",
     "lodash": "^2.4.1",
-    "mocha": "^1.21.4",
     "should": "^4.0.4",
     "sinon": "^1.14.1",
     "underscore": "^1.7.0"
