@@ -54,7 +54,7 @@ serve
 
 Navigate to
 ````
-http://localhost:3000/node_modules/intern/client.html?config=tests/intern_local_browser
+http://localhost:3000/node_modules/intern/client.html?config=/js/me/tests/intern_browser
 ````
 making sure to adjust the url to match your local web server.
 
@@ -66,17 +66,6 @@ making sure to adjust the url to match your local web server.
     ./node_modules/intern/bin/intern-runner.js config=tests/intern_remote
 
 ### Grunt Support
-
-##### Browser Test
-
-Run a server to
-
-	grunt test
-
-and load in your browser
-````
-http://localhost:3000/node_modules/intern/client.html?config=tests/intern_local_browser
-````
 
 ##### Local Selenium
 
