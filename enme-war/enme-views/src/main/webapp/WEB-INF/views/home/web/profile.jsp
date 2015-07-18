@@ -7,7 +7,11 @@
     <div class="row">
       <div class="profile-header">
           <div class="picture">
-                 <img width="110" height="110" alt="${profile.username}" src="<%=request.getContextPath()%>/picture/profile/${profile.username}/profile">
+                <img data-dojo-type="me/web/widget/pictures/AccountPicture"
+                   type="profile"
+                   picture_width="110"
+                   picture_height="110"
+                   username="${profile.username}"></img>
           </div>
           <h3>
             ${profile.username}
