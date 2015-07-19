@@ -172,6 +172,8 @@
 
     <session-config>
         <session-timeout>180</session-timeout>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
+
 
 </web-app>

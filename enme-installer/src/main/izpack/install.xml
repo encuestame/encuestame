@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<installation version="5.0">
+    <!-->The information given in info, except for javaversion be shown in HelloPanel <-->
+    <info>
+        <appname>ENCUESTAME</appname>
+        <appversion>1.0.0</appversion>
+        <url>http://www.encuestame.org/</url>
+        <javaversion>1.7</javaversion>
+        <authors>
+            <author name="Diana Morales" email="dianmorales@gmail.com"/>
+            <author name="Juan Picado" email="juanpicado19@gmail.com"/>
+        </authors>
+        <!--><pack200/><-->
+        <uninstaller name="encuestame-uninstaller.jar"></uninstaller>
+         <summarylogfilepath>$INSTALL_PATH/encuestame_install.log</summarylogfilepath>
+    </info>
+
+    <variables>
+        <variable name="home.directory" value="home"/> 
+        <variable name="capcha.private.key" value=""/>
+        <variable name="capcha.private.key" value=""/>
+        <variable name="hsql.directory" value="hsqldb"/> 
+        <variable name="db.type.url.connection" value="hsqldb" condition="hsql.db.selected"/>
+        <variable name="db.type.url.connection" value="mysql" condition="mysql.db.selected"/>
+        <variable name="db.type.url.connection" value="postgresql" condition="postgres.db.selected"/>   
+        <variable name="TargetPanel.dir.windows" value="$USER_HOME"/>
+        <variable name="TargetPanel.dir.unix" value="$USER_HOME"/>
+        <variable name="apache.tomcat.version" value="7.0.62"/>
+    </variables>
+
+
+    <dynamicvariables>
+        <variable checkonce="false" ignorefailure="true" name="db.type.selection" value="${db.type.selection}"/>
+        <variable checkonce="false" ignorefailure="true" name="db.hostname" value="localhost"/>
+        <variable checkonce="false" ignorefailure="true" name="db.port" value="3306" condition="mysql.db.selected"/>
+        <variable checkonce="false" ignorefailure="true" name="db.port" value="5432" condition="postgres.db.selected"/>
+        <variable checkonce="false" ignorefailure="true" name="db.username" value="sa" condition="hsql.db.selected"/>
+        <variable checkonce="false" ignorefailure="true" name="db.password" value=""/>
+        <variable checkonce="false" ignorefailure="true" name="db.name" value=""/>
+        <!-->
+           Assigns a value to datasource dialect depending on the fulfillment of the condition(database type and classname)  <-->
+        <variable checkonce="false" ignorefailure="true" name="db.datasource.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect" condition="mysql.classname.selected"/>
+        <variable checkonce="false" ignorefailure="true" name="db.datasource.dialect" value="org.hibernate.dialect.HSQLDialect" condition="hsql.classname.selected"/> 
+        <variable checkonce="false" ignorefailure="true" name="db.datasource.dialect" value="org.hibernate.dialect.PostgreSQLDialect" condition="postgres.classname.selected"/>
+        
+        <!-->Assigns a value to datasource dialect depending on the fulfillment of the condition(database type selected)  <-->
+
+        <variable checkonce="false" ignorefailure="true" name="db.datasource.classname" value="com.mysql.jdbc.Driver" condition="mysql.db.selected"/>
+        <variable checkonce="false" ignorefailure="true" name="db.datasource.classname" value="org.hsqldb.jdbcDriver" condition="hsql.db.selected"/>
+        <variable checkonce="false" ignorefailure="true" name="db.datasource.classname" value="org.postgres.jdbcDriver" condition="postgres.db.selected"/> 
+        
+        <!--> <-->
+        <variable checkonce="false" ignorefailure="true" name="hsqldb.file.name" value="hsql_database"/>
+
+        <!-->Assigns a value to datasource urldb depending on the fulfillment of the condition(database type selected and storage type)  <-->
+        <variable name="db.datasource.urldb" value="jdbc:${db.type.url.connection}:${select.hsql.url.radio}:$INSTALL_PATH$FILE_SEPARATOR${hsql.directory}$FILE_SEPARATOR${hsqldb.file.name}" condition="hsql.url.file.selection"/> 
+
+        <variable name="db.datasource.urldb" value="jdbc:${db.type.url.connection}:${select.hsql.url.radio}:." condition="hsql.url.mem.selection" /> 
+        <variable name="db.datasource.urldb" value="jdbc:${db.type.url.connection}://${db.hostname}:${db.port}/${db.name}?createDatabaseIfNotExist=true" condition="or.database.condition" /> 
+
+        <variable name="db.type.url.connection" value="hsqldb" condition="hsql.db.selected"/>
+        <variable name="db.type.url.connection" value="mysql" condition="mysql.db.selected"/>
+        <variable name="db.type.url.connection" value="postgresql" condition="postgres.db.selected"/>
+
+    </dynamicvariables>
+
+    <!--> Define preference items of graphic user interfaces<-->
+    <guiprefs resizable="yes" width="700" height="600">
+        <laf name="looks"><!-->Specifies the look and feel for a particular OS<-->
+            <param name="variant" value="windows"/>
+            <os family="windows"/>
+        </laf>
+        <modifier key="useHeadingForSummary" value="yes"/>
+        <modifier key="useHeadingPanel" value="yes"/>
+        <modifier key="headingLineCount" value="1"/>
+        <modifier key="headingFontSize" value="1.5"/>
+        <modifier key="headingBackgroundColor" value="0x00ffffff"/>
+        <modifier key="headingPanelCounter" value="progressbar"/>
+        <modifier key="headingPanelCounterPos" value="inNavigationPanel"/>
+        <!--> Use Splash Screen(screen before first panel)
+        <modifier key="useSplashScreen" value="2000"/> <-->  
+    </guiprefs>
+
+    <!--> It is used to define the language packages that you want used in the installation. Not all are available. check DOC<-->
+    <locale>
+        <langpack iso3="eng"/>
+        <langpack iso3="spa" />
+        <!--> <langpack iso3="deu" />  -->
+    </locale>
+
+    <conditions>
+        <!--> If database type selected is = MySQL<-->
+        <condition type="variable" id="mysql.db.selected">
+            <name>db.type.selection</name>
+            <value>mysql</value>
+        </condition>
+        <!--> If database type selected is = hSQL<-->
+        <condition type="variable" id="hsql.db.selected">
+            <name>db.type.selection</name>
+            <value>hsql</value>
+        </condition>
+        <!--> If database type selected is = postgresSQL<-->
+        <condition type="variable" id="postgres.db.selected">
+            <name>db.type.selection</name>
+            <value>postgres</value>
+        </condition>
+
+        <!--> If datasource classname is = hSQL<-->
+        <condition type="variable" id="hsql.classname.selected">
+            <name>db.datasource.classname</name>
+            <value>org.hsqldb.jdbcDriver</value>
+        </condition>
+        <!--> If datasource classname is = mySQL<-->
+        <condition type="variable" id="mysql.classname.selected">
+            <name>db.datasource.classname</name>
+            <value>com.mysql.jdbc.Driver</value>
+        </condition>
+          <!--> If datasource classname is = mySQL<-->
+        <condition type="variable" id="postgres.classname.selected">
+            <name>db.datasource.classname</name>
+            <value>org.postgres.jdbcDriver</value>
+        </condition> 
+ 
+        <!--> If Hsql url is = File <--> 
+        <condition type="variable" id="hsql.urldb.file.selection">
+            <name>select.hsql.url.radio</name>
+            <value>file</value>
+        </condition>
+        <!--> If Hsql url is = Memory <--> 
+         <condition type="variable" id="hsql.urldb.mem.selection">
+            <name>select.hsql.url.radio</name>
+            <value>mem</value>
+        </condition>
+        <!--> Condition to show hsql filename box <--> 
+        <condition type="and" id="show.hsql.filename.box">
+            <condition type="ref" refid="hsql.urldb.file.selection"/>
+            <condition type="ref" refid="hsql.db.selected" />
+        </condition>
+
+           <!-->Validation to shown or hidden filename box<--> 
+          <condition type="and" id="hsql.url.file.selection">
+           <condition type="ref" refid="hsql.db.selected"/>
+            <condition type="ref" refid="hsql.urldb.file.selection" />
+        </condition> 
+ 
+       
+        <!-->Condition when database= hsql and url = MEM <--> 
+        <condition type="and" id="hsql.url.mem.selection">
+            <condition type="ref" refid="hsql.db.selected"/>
+            <condition type="ref" refid="hsql.urldb.mem.selection" />
+        </condition>
+
+          <!-->Validation when has been mysql or postgres database selected <--> 
+        <condition type="or" id="or.database.condition">
+            <condition type="ref" refid="mysql.db.selected"/>
+            <condition type="ref" refid="postgres.db.selected" />
+        </condition> 
+
+        <!-->Condicion db.type = mysql y db.classname= com.mysql.jdbc.Driver <--> 
+        <condition type="and" id="hsql.db.dialect.condition">
+            <condition type="ref" refid="hsql.db.selected"/>
+            <condition type="ref" refid="hsql.classname.selected" />
+        </condition>
+        
+        <!-->Condicion db.type = mysql y db.classname= com.mysql.jdbc.Driver <--> 
+        <condition type="and" id="mysql.db.dialect.condition">
+            <condition type="ref" refid="mysql.db.selected"/>
+            <condition type="ref" refid="mysql.classname.selected" />
+        </condition> 
+
+        <!-->Condicion db.type = mysql y db.classname= com.mysql.jdbc.Driver y  <--> 
+        <condition type="and" id="postgres.db.classname.condition">
+            <condition type="ref" refid="postgres.db.selected"/>
+            <condition type="ref" refid="postgres.classname.selected" />
+        </condition>  
+        <!-->The Packselection Condition can be used to check if a pack has been selected <-->
+         <condition type="or" id="or.installation">
+            <condition type="ref" refid="izpack.macinstall"/>
+            <condition type="ref" refid="izpack.linuxinstall" />
+        </condition> 
+    </conditions> 
+
+    <resources>
+        <!-->Imagen<-->
+        <res id="Heading.image" src="resources/logos-enme/horizontal/encuestame_horizontal_small_alpha.png"/>
+        <res id="atlassian" src="resources/logos-sponsors/atlassian/atlassian-rgb-navy-xsmall.png" />
+        <res id="jetbrain" src="resources/logos-sponsors/jetbrains/logo_jetbrain_xs.png" />
+        <res id="browserstack" src="resources/logos-sponsors/browserstack/browserstack.jpg" />
+        <res id="installer.langsel.img" src="resources/logos-enme/vertical/encuestame_v_small_alpha.png"/> <!-->Image to language selection panel  <--> 
+        <!--> Custom Panels <-->
+        
+        <res id="HTMLHelloPanel.info" src="resources/panels/eng/hello.html"/> 
+        <res id="HTMLInfoPanel.info" src="resources/panels/eng/readme.html"/> 
+        <res id="LicencePanel.licence" src="resources/panels/eng/license.html"/>
+        <res id="HTMLInfoPanel.sponsors" src="resources/panels/eng/sponsors.html"/> 
+        
+        
+        <!--> Custom Panels SPA<-->
+        <res id="HTMLHelloPanel.info_spa" parse="yes" src="resources/panels/spa/hello_spa.html" />
+        <res id="HTMLInfoPanel.info_spa" src="resources/panels/spa/readme_spa.html"/>
+        <res id="LicencePanel.licence_spa" src="resources/panels/spa/license_spa.html"/>
+        <res id="HTMLInfoPanel.sponsors_spa" src="resources/panels/spa/sponsors_spa.html"/>
+
+
+        <res id="userInputSpec.xml" src="resources/userinputSpec.xml"/>
+        
+        <!-->Splash Image Resource
+        <res id="Splash.image" src="resources/logos-enme/vertical/encuestame_v_small_alpha.png"/><-->
+        <!-->Image to language selection panel  <--> 
+
+        <!--> I18n <-->
+        <res id="CustomLangPack.xml_eng" src="resources/i18n/panels/CustomLangPack.xml_eng" />
+        <res id="CustomLangPack.xml_spa" src="resources/i18n/panels/CustomLangPack.xml_spa" /> 
+        <res id="packsLang.xml_eng" src="resources/i18n/panels/packsLang.xml_eng" />      
+        <res id="packsLang.xml_spa" src="resources/i18n/panels/packsLang.xml_spa" />   
+    </resources>
+
+    <jar src="resources/mysql-connector-java-5.1.21.jar" stage="install"/>
+     <!-->  <jar src="resources/log4j-1.2.17.jar" stage="install"/> <-->
+    <jar src="resources/jdbcConnectionValidator.jar" stage="install"/>
+    <jar src="resources/commons-logging-1.2.jar" stage="install"/>
+    <jar src="resources/postgresql-9.0-801.jdbc4.jar" stage="install" />
+
+    <!-->Panels or screens to show. Will be shown in the defined order<-->
+    <panels>
+        <panel classname="HTMLHelloPanel"/>
+        <panel classname="HTMLInfoPanel"/>
+        <panel classname="LicencePanel"/>
+        <panel classname="TargetPanel" id="targetpanel"/> 
+        <panel classname="UserInputPanel" id="select.database.panel"/>
+        <panel classname="UserInputPanel" id="dbase.connection.panel" condition="or.database.condition">
+            <validator classname="org.encuestame.installer.izpack.JDBCConnectionValidator"/>
+        </panel>
+        <panel classname="UserInputPanel" id="recaptcha"/> 
+        <!--><panel classname="PacksPanel" id="enme_pack_select"/><-->
+        <panel classname="TreePacksPanel"/> 
+        <panel classname="InstallPanel" id="installpanel"/> 
+        <panel classname="SummaryPanel" id="summarypanel"/>
+        <panel classname="HTMLInfoPanel" id="sponsors"/>
+        <panel classname="SimpleFinishPanel"/>
+    </panels>
+
+    <packs>  
+        <pack name="Tomcat-Web-container" required="no" preselect="yes">
+            <description> Select web container according your OS.</description>
+        </pack>
+
+        <pack name="linux-mac" preselected="yes" required="no" parent="Tomcat-Web-container" condition="or.installation">
+            <description>Server to be installed on Linux or Mac operating systems</description>
+             
+            <file src="apache-tomcat-7.0.62.zip" targetdir="$INSTALL_PATH/" unpack="true"/> 
+              
+        </pack>
+
+        <pack name="windows-32bits" preselected="no" required="no"   parent="Tomcat-Web-container" condition="izpack.windowsinstall">
+            <onSelect name="!windows-64bits"/> 
+            <description>Server to be installed on Windows 32 bits</description> 
+            <file src="apache-tomcat-7.0.62-windows-x86.zip" targetdir="$INSTALL_PATH/" unpack="true" /> 
+        </pack>
+
+        <pack name="windows-64bits" preselected="no" required="no"  parent="Tomcat-Web-container" condition="izpack.windowsinstall">
+            <description>Server to be installed on Windows 64 bits.</description>  
+            <onSelect name="!windows-32bits"/> 
+            <file src="apache-tomcat-7.0.62-windows-x64.zip" targetdir="$INSTALL_PATH/" unpack="true"/> 
+           
+        </pack> 
+
+        <pack name="Basic Files" preselected="no" required="yes">
+            <description>Basic Files </description>
+
+            <file src="property-files/encuestame-config-custom.properties" targetdir="$INSTALL_PATH/apache-tomcat-7.0.62/lib/"
+                  override="true" /> 
+            <parsable targetfile="$INSTALL_PATH/apache-tomcat-7.0.62/lib/encuestame-config-custom.properties" type="javaprop"/> 
+
+            <file src="home/" targetdir="$INSTALL_PATH/"/>
+            <file src="resources/License.txt" targetdir="$INSTALL_PATH/"/>
+            <file src="resources/Readme.txt" targetdir="$INSTALL_PATH/"/> 
+            <file src="war/encuestame.war" targetdir="$INSTALL_PATH/apache-tomcat-7.0.62/webapps"/> 
+            
+        </pack>
+    </packs>
+</installation>

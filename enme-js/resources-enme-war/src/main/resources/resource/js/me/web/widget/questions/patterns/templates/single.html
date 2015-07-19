@@ -3,10 +3,12 @@
           <div data-dojo-type="me/web/widget/pictures/Icon" img_name="enme-move.png"> </div>
      </div>
      <div class="single-response-input">
-         <input type="text" data-dojo-attach-point="_single" data-dojo-type="dijit/form/TextBox"
+         <input type="text" data-dojo-attach-point="_single" data-dojo-type="dijit/form/ValidationTextBox"
                  maxLength="${max_length}"
                  placeHolder= "${i18nMessage.pattern_question_single}"
                  trim="${trim}"
+                 tooltipPosition="above-centered"
+                 data-dojo-props="regExp:'[\\w]+', invalidMessage:'${i18nMessage.pattern_single_response_error_m}'"
                  class="littleInputClass"></input>
      </div>
 </div>

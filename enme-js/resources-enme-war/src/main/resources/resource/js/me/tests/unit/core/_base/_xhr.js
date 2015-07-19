@@ -36,9 +36,9 @@ define([
 
 		'service GET Test' : function() {
 			var url = _xhr.service('encuestame.service.list.userList');
-			expect(url).to.equal("../../tests/resources/api/admon/users.json");
+			expect(url).to.equal("/js/me/tests/resources/api/admon/users.json");
 			var url1 = _xhr.service('encuestame.service.list.userList');
-			expect(url1).to.equal("../../tests/resources/api/admon/users.json", {});
+			expect(url1).to.equal("/js/me/tests/resources/api/admon/users.json", {});
 		},
 
 		//FIXME: These test it doesn't works well with Selenium

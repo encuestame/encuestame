@@ -39,6 +39,12 @@
                             <resourcesAsCSV>src/main/webapp,../../enme-views/src/main/webapp,
                                 ../../../enme-js/resources-enme-war/src/main/resources</resourcesAsCSV>
                         </baseResource>
+                        <sessionHandler implementation="org.eclipse.jetty.server.session.SessionHandler">
+                            <sessionManager implementation="org.eclipse.jetty.server.session.HashSessionManager">
+                                <!-- Disable url sessions using JSessionID -->
+                                <sessionIdPathParameterName>none</sessionIdPathParameterName>
+                            </sessionManager>
+                        </sessionHandler>
                         <!-- http://stackoverflow.com/questions/5802096/duplicate-fragment-name-error-jetty-maven-plugin -->
                         <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
                     </webAppConfig>

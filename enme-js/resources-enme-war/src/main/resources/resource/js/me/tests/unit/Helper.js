@@ -72,13 +72,13 @@ define([
             };
 
             window.config = {
-                contextPath : '../../tests/resources'
+                contextPath : '/js/me/tests/resources'
             };
             this.createElement();
             // fake Enme initialzation
             var _default = {
-                contextPath: '../../tests/resources',
-                domain : '../../tests/resources',
+                contextPath: '/js/me/tests/resources',
+                domain : '/js/me/tests/resources',
                 suggest_limit : 10,
                 delay : 1800000,
                 isMobile: false,

@@ -1,0 +1,96 @@
+<html>
+	<head>
+		<title>Welcome Panel to ${application.name} Setup</title> 
+	</head>
+
+	<body> 
+	 <div>
+			<h3>${application.name}</h3>
+			<div>
+                <b>
+                    Version
+                </b>
+                : ${application.version}
+            </div>
+            <div>
+                <b>
+                    Project hosted in Github:
+                </b>
+                <a href="${encuestame.site}">${encuestame.site}</a>
+            </div>
+         <div>
+           <b>
+               Authors
+           </b>
+           <ul>
+				<li>
+                    <a href="https://github.com/dianmorales">
+                        ${application.contributor.backend}
+                    </a>
+                </li>
+				<li>
+                    <a href="https://github.com/juanpicado">
+                        ${application.contributor.frontend}
+                    </a>
+                </li>
+				<li>
+                    <a href="https://github.com/orgs/encuestame/people">
+                        Contributors
+                    </a>
+                </li>
+			</ul>
+         </div>
+         <div>
+			 <b>
+                 Contact :
+             </b>
+             <a href="mailto:${encuestame.contact.email}">
+                 ${encuestame.contact.email}
+            </a>
+         </div>
+         <div>
+            <b>
+                Documentation
+            </b>
+            <a href="{application.documentation.url}">
+                ${application.documentation.url}
+            </a>
+         </div>
+	</div>
+	<div id="sponsors">
+        <h3>
+            Sponsors
+        </h3>
+        <div class="row">
+            <div class="row">
+                <div>
+                    <img src="atlassian"/>
+                    <h5>
+                        Atlassian Open Source License
+                    </h5>
+                    <p>
+                        Thanks to Atlassian for all support give use with licenses such JIRA, Bammboo, Confluence and other products.
+                    </p>
+                </div>
+                <div>
+                    <img src="jetbrain"/>
+                    <h5>
+                        JetBrains Open Source License
+                    </h5>
+                    <p>
+                        Thanks to JetBrains the open source licenses for Webstorm and IntelliJ IDEA that we use for code Encuestame everyday
+                    </p>
+                </div>
+                <div>
+                    <img src="browserstack"/>
+                    <h5>
+                        BrowserStack Open Source License
+                    </h5>
+                    <p>
+                        Thanks to BrowserStack for the licenses that help us to test our code in different platforms successfully
+                    </p>
+                </div>
+            </div>
+	</div>
+	</body>
+</html>

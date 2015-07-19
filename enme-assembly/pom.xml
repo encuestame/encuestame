@@ -36,6 +36,8 @@
                         <configuration>
                             <descriptors>
                                 <descriptor>src/main/assembly/tomcat-release.xml</descriptor>
+                                <descriptor>src/main/assembly/installer-jar-release.xml</descriptor>
+                                <descriptor>src/main/assembly/installer-windows-release.xml</descriptor>
                                 <!--<descriptor>src/main/assembly/jboss-release.xml</descriptor>-->
                                 <!--<descriptor>src/main/assembly/weblogic-release.xml</descriptor>-->
                                 <!--<descriptor>src/main/assembly/source.xml</descriptor>-->

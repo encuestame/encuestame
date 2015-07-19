@@ -1,7 +1,7 @@
 <section class="web-filters-wrapper">
      <div class="web-filters-search">
          <div class="web-filters-search-input">
-             <input id="adv-search-keyword-filter" type="text" data-dojo-attach-point="_keyword"
+             <input class="adv-search-keyword-filter" type="text" data-dojo-attach-point="_keyword"
                    data-dojo-type="dijit/form/TextBox" placeholder="${i18nMessage.detail_manage_filters_advanced_type_to_search}"
                    trim="true" class="inputClass"></input>
          </div>
@@ -9,7 +9,7 @@
             <label>
                 ${i18nMessage.detail_manage_filters_advanced_title}
             </label>
-            <select id="social-networks-multi-select-" data-dojo-type="dijit/form/MultiSelect" size="5" data-dojo-attach-point="_social">
+            <select class="social-networks-multi-select-" data-dojo-type="dijit/form/MultiSelect" size="5" data-dojo-attach-point="_social">
                 <option id="fb-social-adv-search" value="FACEBOOK">Facebook</option>
                 <option id="twitter-social-adv-search" value="TWITTER">Twitter</option>
                 <option id="linkedin-social-adv-search" value="LINKEDIN">Linked In</option>
@@ -19,13 +19,13 @@
          </div>
          <div class="web-filters-search-check">
             <div>
-                <input id="published_option_adv-filter" name="schedule_${id}" checked data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_published">
+                <input class="published_option_adv-filter" name="schedule_${id}" checked data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_published">
                 <label for="schedule">
                     ${i18nMessage.detail_manage_published}
                 </label>
             </div>
             <div>
-                <input id="completed_option_adv-filter" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_complete">
+                <input class="completed_option_adv-filter" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_complete">
                 <label for="schedule">
                     ${i18nMessage.detail_manage_only_completed}
                 </label>

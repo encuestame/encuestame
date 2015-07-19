@@ -154,9 +154,9 @@ module.exports = function (grunt) {
 		    }
 	    },
 
-	    mocha_phantomjs: {
-		    all: ['<%= dirs.widget_test %>/**/*.html']
-	    },
+	    //mocha_phantomjs: {
+		   // all: ['<%= dirs.widget_test %>/**/*.html']
+	    //},
 
 	    intern: {
             local_browser: {
@@ -234,7 +234,7 @@ module.exports = function (grunt) {
 		grunt.loadNpmTasks('grunt-contrib-watch');
 		grunt.loadNpmTasks('grunt-contrib-uglify');
 		grunt.loadNpmTasks('grunt-browserify');
-		grunt.loadNpmTasks('grunt-mocha-phantomjs');
+		//grunt.loadNpmTasks('grunt-mocha-phantomjs');
 		grunt.loadNpmTasks('grunt-contrib-less');
 
 
