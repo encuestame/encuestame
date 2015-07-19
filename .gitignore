@@ -42,8 +42,8 @@ enme-war/src/main/webapp/resource/static/
 */.settings
 *DEADJOE*
 enme-war/encuestame-webapp.log*
-encuestame-config-custom.properties
-enme-war/src/main/resources/encuestame-config-custom.properties
+enme-war/web-app/jetty-webapp/src/main/resources/encuestame-config-custom.properties
+enme-war/web-app/selenium-test/src/main/resources/encuestame-config-custom.properties
 .metadata
 encuestame-persistence/.DS_Store
 .DS_Store
