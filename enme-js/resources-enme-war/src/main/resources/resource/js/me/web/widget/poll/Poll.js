@@ -24,6 +24,7 @@
 define([
  "dojo/_base/declare",
  "dojo/_base/lang",
+ "dojo/_base/array",
  "dojo/dom-attr",
  "dojo/query",
  "dojo/dom-class",
@@ -54,6 +55,7 @@ define([
 function(
   declare,
   lang,
+  array,
   domAttr,
   query,
   domClass,
@@ -358,14 +360,14 @@ return declare([ _WidgetBase,
    *
    * @returns {encuestame.org.core.commons.questions.patterns.SingleResponse}
    */
-  _newAnswer : function(params){
+  _newAnswer : function(params) {
       params = params === null ? {} : params;
       var answer = new SingleResponse(params);
       var li = dojo.create("li");
       domAttr.set(li, 'draggable', true);
       domAttr.set(li, 'd-id', answer.id);
       li.appendChild(answer.domNode);
-      if (this.isDnD) {
+      if (this.isDnD && !this.isMobile) {
             this.dnd_sources.push(li);
       }
       return li;
@@ -471,22 +473,28 @@ _checkValidations : function() {
           var _w = registry.byId(target_id);
           parent._answer_widget_array.push(_w);
       });
-
+      var _invalid_answers = false;
       // iterate all answers
-      dojo.forEach(this._answer_widget_array,
-          lang.hitch(this,function(item) {
-          if (item !== null) {
-              var response = item.getResponse();
-              if (response !== null && response !== '') {
-                  var newArray = params.listAnswers;
-                  newArray.push(response.trim());
-                  lang.mixin(params, {
-                    listAnswers : newArray
-                  });
-                  c++;
-              }
+      array.forEach(this._answer_widget_array, lang.hitch(this,function(item) {
+        if (item !== null) {
+          var response = item.getResponse();
+          if (!item.isValid()) {
+            _invalid_answers = true;
           }
+          if (response !== null && response !== '') {
+              var newArray = params.listAnswers;
+              newArray.push(response.trim());
+              lang.mixin(params, {
+                listAnswers : newArray
+              });
+              c++;
+          }
+        }
       }));
+      if (_invalid_answers) {
+        this.warningMesage(_ENME.getMessage("Question length not valid"));
+        return false;
+      }
 
       // check if answer are valid
       if (c < this._min_answer_allowed) {
@@ -581,16 +589,16 @@ _checkValidations : function() {
   _openSuccessMessage : function(pollBean) {
       //social widget.
       var publishWidget = new PublishSupport(
-              {
-                  context: this.context,
-                  item : {
-                      id: pollBean.id,
-                      name : pollBean.question.question_name ,
-                      url : pollBean.shortUrl
-                  },
-                done_button : true,
-                dialogContext : this._dialogPublish
-              });
+      {
+        context: this.context,
+        item : {
+            id: pollBean.id,
+            name : pollBean.question.question_name ,
+            url : pollBean.shortUrl
+        },
+        done_button : true,
+        dialogContext : this._dialogPublish
+      });
       this._dialogPublish.set('title', publishWidget.text_message);
       this._dialogPublish.containerNode.appendChild(publishWidget.domNode);
       this._dialogPublish.show();
