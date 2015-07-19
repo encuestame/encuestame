@@ -2,7 +2,7 @@
 <section class="item">
     <div class="content">
         <div class="title">
-            <a href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}">
+            <a id="item-question" href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}">
                 <h2 class="enme">
                      ${item.questionBean.questionName}
                 </h2>
@@ -12,10 +12,10 @@
              <div class="options">
                  <div class="submited">
                      <spring:message code="submited_by" />
-                         <a href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">${item.ownerUsername}</a>
+                         <a id="submited" href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">${item.ownerUsername}</a>
                      <spring:message code="added" />
                       ${item.relativeTime} |
-                          <a href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}#comments">
+                          <a id="vote-comments-button" href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}#comments">
                              ${item.totalComments} <spring:message code="home_item_comments" />
                           </a>
                  </div>
