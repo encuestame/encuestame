@@ -116,7 +116,7 @@
                                 <exclude name="req/**" />
                             </fileset>
                         </copy>
-                        <delete includeEmptyDirs="true" verbose="true">
+                        <delete includeEmptyDirs="true" verbose="false">
                             <fileset dir="${project.build.directory}/temp/dojo-src/js/me" includes="html-report/**" />
                             <fileset dir="${project.build.directory}/temp/dojo-src/js/me" includes="tests/**" />
                         </delete>
@@ -143,7 +143,7 @@
                         <arg value="${project.build.directory}/dojo-compiled" />
                     </java>
                     <echo message="ENCUESTAME :: Dojo Build End::" />
-                    <copy todir="${project.build.directory}/dojo-compiled/release" verbose="true">
+                    <copy todir="${project.build.directory}/dojo-compiled/release" verbose="false">
                         <fileset dir="${project.build.directory}/temp/dojo-src/" includes="
                         js/chart/**,
                         js/commons/**,
@@ -151,28 +151,28 @@
                         js/widget/**,
                         js/panel/**"></fileset>
                     </copy>
-                    <copy todir="${project.build.directory}/dojo-compiled/release" verbose="true">
-                    <fileset dir="${basedir}/src/main/resources/resource/" includes="
-                    css/**"></fileset>
+                    <copy todir="${project.build.directory}/dojo-compiled/release" verbose="false">
+                        <fileset dir="${basedir}/src/main/resources/resource/" includes="css/**"></fileset>
                     </copy>
-                        <delete includeEmptyDirs="true" verbose="false">
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="tests/**/" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/tests/**/" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/demos/**/" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="util/**" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.psd" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.fla" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.svg" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.as" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.swf" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.txt" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/dijit/themes/" excludes="**/claro/**/" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/package.json" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/package.js" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/*uncompressed.js" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/*.js.map" />
-                            <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/*.txt" />
-                        </delete>
+                    <delete includeEmptyDirs="true" verbose="false">
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="tests/**/" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/tests/**/" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/demos/**/" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="util/**" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.psd" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.fla" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.svg" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.as" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.swf" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.txt" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dijit/themes/" excludes="**/claro/**/" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/package.json" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/package.js" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/*uncompressed.js" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/*.js.map" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/*.txt" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/css/less" includes="**/*.less" />
+                    </delete>
                   </target>
                 </configuration>
                 <goals>

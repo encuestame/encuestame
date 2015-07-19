@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <assembly>
-    <id>tomcat</id>
+    <id>tomcat-war-file</id>
     <formats>
         <format>zip</format>
         <format>tar.gz</format>
@@ -25,19 +25,4 @@
             <outputDirectory>encuestame-tomcat-${artifact.version}</outputDirectory>
         </file>
       </files>
-    <fileSets>
-         <fileSet>
-          <directory>../enme-doc/dev</directory>
-          <outputDirectory>encuestame-tomcat-${artifact.version}/doc</outputDirectory>
-        </fileSet>
-        <fileSet>
-          <directory>../enme-doc/api</directory>
-          <outputDirectory>encuestame-tomcat-${artifact.version}/api</outputDirectory>
-        </fileSet>
-        <fileSet>
-          <directory>../enme-doc/releases</directory>
-          <outputDirectory>encuestame-tomcat-${artifact.version}/releases</outputDirectory>
-        </fileSet>
-    </fileSets>
-
 </assembly>

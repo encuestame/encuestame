@@ -19,10 +19,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <session-config>
-        <tracking-mode>COOKIE</tracking-mode>
-    </session-config>
-
     <!-- Allows attributes to be accessed on the next request -->
     <filter>
         <filter-name>flashMapFilter</filter-name>
@@ -176,6 +172,8 @@
 
     <session-config>
         <session-timeout>180</session-timeout>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
+
 
 </web-app>

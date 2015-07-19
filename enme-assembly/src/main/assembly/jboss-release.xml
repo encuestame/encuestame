@@ -26,19 +26,4 @@
             <outputDirectory>encuestame-${artifact.version}-jboss-release</outputDirectory>
         </file>
     </files>
-    <fileSets>
-         <fileSet>
-          <directory>../enme-doc/dev</directory>
-          <outputDirectory>encuestame-${artifact.version}-jboss-release/doc</outputDirectory>
-        </fileSet>
-        <fileSet>
-          <directory>../enme-doc/api</directory>
-          <outputDirectory>encuestame-${artifact.version}-jboss-release/api</outputDirectory>
-        </fileSet>
-        <fileSet>
-          <directory>../enme-doc/releases</directory>
-          <outputDirectory>encuestame-${artifact.version}-jboss-release/releases</outputDirectory>
-        </fileSet>
-    </fileSets>
-
 </assembly>

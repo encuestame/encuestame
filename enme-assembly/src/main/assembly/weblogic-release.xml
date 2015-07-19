@@ -26,19 +26,4 @@
             <outputDirectory>encuestame-${artifact.version}-release</outputDirectory>
         </file>
     </files>
-    <fileSets>
-         <fileSet>
-          <directory>../enme-doc/dev</directory>
-          <outputDirectory>encuestame-${artifact.version}-release/doc</outputDirectory>
-        </fileSet>
-        <fileSet>
-          <directory>../enme-doc/api</directory>
-          <outputDirectory>encuestame-${artifact.version}-release/api</outputDirectory>
-        </fileSet>
-        <fileSet>
-          <directory>../enme-doc/releases</directory>
-          <outputDirectory>encuestame-${artifact.version}-release/releases</outputDirectory>
-        </fileSet>
-    </fileSets>
-
 </assembly>

@@ -1,0 +1,8 @@
+<langpack> 
+  <!--><-->
+    <str id="core.package" txt="Archivos Basicos"/>
+    <str id="core.package.description" txt="Archivos absolutamente necesario para ejecutar esta aplicación"/>
+
+    <str id="server.package" txt="Tomcat Contenedor"/>
+    <str id="server.package.description" txt="Contenedor servlet Tomcat"/>
+</langpack>

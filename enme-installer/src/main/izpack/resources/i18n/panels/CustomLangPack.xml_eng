@@ -1,0 +1,53 @@
+<langpack>
+	<!-- > UserInputPanel:Database <-->
+    <str id="select.database.radio.txt" txt=" Select the database to be used in the installation "/>
+    <str id="select.hsql.url.txt" txt="Select the type of database to use "/>    
+    <str id="hsqldb.file.name" txt="Enter the name you give to your Database"/>    
+    <str id="staticText.hsql.url.name" txt="Note: Installation path $INSTALL_PATH$FILE_SEPARATOR${hsql.directory}"/>    
+
+	<!-- > UserInputPanel:Database <-->
+	<str id="title.database.panel" txt="Specify credentials data for accessing Database server"/>
+    <str id="db.type.selection.description" txt="Select your Database type"/>
+    <str id="db.host.txt" txt="Enter Server Host Name"/>
+    <str id="db.port.txt" txt="Enter Port Number"/>
+    <str id="db.name.txt" txt="Enter Database Name"/>
+	<str id="db.username.txt" txt="Enter Database Username"/>
+    <str id="db.password.txt" txt="Enter Password"/>
+    
+    <!-- > UserInputPanel:Captcha <-->
+	<str id="captcha.private.key.txt" txt="Enter Private key Captcha"/>
+    <str id="captcha.public.key.txt" txt="Enter Public key Captcha"/>
+    <str id="staticText.text" txt="See this link ${application.documentation.recaptcha} If you don´t know, how to set these reCaptcha key, "/>
+
+    <!-->Tooltips<-->
+    <str id="db.hostname.tt" txt=" "/> 
+    <str id="db.port.tt" txt=" "/>
+    <str id="db.name.tt" txt=" "/>
+    <str id="db.username.tt" txt=" "/>
+    <str id="db.password.tt" txt=" "/>
+    <str id="recaptcha.privatekey.tt" txt=" "/>
+    <str id="recaptcha.publickey.tt" txt="the Private key is"/>
+
+    <!-->Summarykey<-->
+    <str id="database.summaryKey" txt="Database Connection configuration"/>
+    <str id="recaptcha.summaryKey" txt="Recaptcha Configuration"/>
+    
+
+    <!-- > Target Panel <-->
+    <str id="TargetPanel.headline" txt="Choose Install Location."/>  
+    <str id="TargetPanel.summaryCaption" txt="Setup will install Encuestame in the following folder. ."/>  
+    <str id="TargetPanel.browse" txt="Browse"/>  
+    <str id="TargetPanel.info" txt="Destination Directory"/>  
+    <str id="TargetPanel.warn" txt="The directory already exists! Are you sure you want to install here and possibly overwrite existing files."/>  
+
+    <!-- > HTML Hello Panel - Welcome<-->
+    <str id="HTMLHelloPanel.headline" txt="Welcome" />
+    
+    <!-- > HTML Info Panel Readme Instructions<-->
+    <str id="InfoPanel.info" txt="Please read the following Information." /> 
+    <str id="InfoPanel.headline" txt="Info and Instructions" />
+
+    <!-- > License Panel Readme <-->
+    <str id="HTMLLicencePanel.info" txt="Please review the license terms before installing Encuestame . Press page Down to see the rest of the agreement." />
+    <str id="HTMLLicencePanel.headline" txt="License Agreement" /> 
+</langpack>

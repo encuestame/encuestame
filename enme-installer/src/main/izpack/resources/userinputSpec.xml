@@ -1,0 +1,111 @@
+ <userInput> 
+ 	<panel id="select.database.panel" order="0">
+ 		<field type="radio" variable="db.type.selection">
+			<description align="left" txt=" " id="select.database.radio.txt"/>
+  			<spec>
+				<choice txt="hsql" id="db.radio.hsql" value="hsql"/>
+				<choice txt="mysql" id="db.radio.mysql" value="mysql" set="true"/>
+				<choice txt="postgres" id="db.radio.postgres" value="postgres"/> 
+  			</spec>
+		</field>
+		<field type="space"/>
+		<field type="divider"/>
+		<field type="radio" variable="select.hsql.url.radio" conditionid="hsql.db.selected">
+			<description align="left" txt="Select the url" id="select.hsql.url.txt"/>
+  			<spec>
+				<choice txt="In memory" id="hsql.url.mem" value="mem" set="true"/>
+				<choice txt="File" id="hsql.url.file" value="file"/> 
+  			</spec>
+		</field>
+
+		<field type="text" align="left" variable="hsql.url.file.name"  conditionid="show.hsql.filename.box">
+			<spec txt="Enter file Name : " size="12" set=" " id="hsqldb.file.name"/>
+			<validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator" txt="Invalid name!"/> 
+		</field>
+		<field type="space"/>
+		<field type="space"/>
+		<field type="space"/>
+		<field type="space"/>
+		<field type="staticText" align="left" conditionid="show.hsql.filename.box"
+       			txt=" "
+       			id="staticText.hsql.url.name"/> 
+	 
+		
+	</panel>	
+    <panel id="dbase.connection.panel" order="0">
+        <field type="space"/>
+        <field type="title" id="title.database.panel" txt="Specify credentials data for accessing Database server" bold="true" size="1" />
+        <!--> <field type="combo" variable="db.type.selection" revalidate="yes">
+            <description align="left" txt="Select your Database type" id="db.type.selection.description"/>
+            <spec> 
+                <choice txt="mysql" value="mysql"/>
+           <choice txt="postgres" value="postgres"/>
+				<choice txt="hsql" value="hsql"/> 
+			</spec>
+		</field> <-->
+		
+		<!-- Host -->
+		<field type="text" align="left" variable="db.hostname" tooltip="db.hostname.tt">
+			<spec txt="Enter Server Host Name : " size="12" set="localhost" id="db.host.txt"/>
+			<validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator" txt="Invalid host name!">
+			</validator>
+		</field>
+		<!-- Port -->
+		<field type="text" align="left" variable="db.port" tooltip="db.port.tt">
+			<spec txt="Enter Port Number :" size="12" layout="N:5:5"  id="db.port.txt"/>
+			<validator class="com.izforge.izpack.panels.userinput.validator.IsPortValidator" txt="The specified Port is invalid" />
+		</field> 
+
+		<!-- Database name -->
+		<field type="text" align="left" variable="db.name" tooltip="db.name.tt">
+			<spec txt="Enter Database Name:" size="20" id="db.name.txt"/>
+				<validator class="com.izforge.izpack.panels.userinput.validator.RegularExpressionValidator"
+				txt="Invalid Database name!">
+				<param name="pattern" value="[a-zA-Z0-9._-]+" />
+			</validator> 
+		</field>
+		
+		<!-- Username -->
+		<field type="text" align="left" variable="db.username" tooltip="db.username.tt">
+			<spec txt="Enter Database Username:" size="12" id="db.username.txt"/>
+			<validator class="com.izforge.izpack.panels.userinput.validator.RegularExpressionValidator"
+				txt="Username is mandatory">
+				<param name="pattern" value="[a-zA-Z0-9._-]+" />
+			</validator>
+		</field>
+
+		<!-- Password -->
+		<field type="password" align="left" variable="db.password" tooltip="db.password.tt">
+			<spec>
+				<pwd txt="Enter Password:" size="12" id="db.password.txt"/>
+			</spec>
+			<validator class="com.izforge.izpack.panels.userinput.validator.PasswordEqualityValidator"
+				txt="Password not match" id="Password do not match" />
+		</field>    
+	</panel>  
+	<panel id="recaptcha" order="1" >
+        <field type="title" id="captcha.configuration.panel" txt="Captcha Configuration" bold="true" size="1" />
+		<field type="text" align="left" variable="capcha.private.key" tooltip="recaptcha.privatekey.tt">
+			<spec txt="Enter Captcha Private key:" size="12" id="captcha.private.key.txt"/>
+				<validator class="com.izforge.izpack.panels.userinput.validator.RegularExpressionValidator"
+				txt="Private Key is mandatory">
+					<param name="pattern" value="[a-zA-Z0-9._-]+" />
+			</validator>
+		</field>
+		<field type="text" align="left" variable="capcha.public.key" tooltip="recaptcha.publickey.tt">
+			<spec txt="Enter Captcha Public key:" size="12" id="captcha.public.key.txt"/>
+			<validator class="com.izforge.izpack.panels.userinput.validator.RegularExpressionValidator"
+				txt="Public Key is mandatory">
+				<param name="pattern" value="[a-zA-Z0-9._-]+" />
+			</validator>
+		</field> 
+		<field type="space"/>
+		<field type="space"/>
+		<field type="divider" align="top" />
+		<field type="space"/>
+		<field type="space"/>
+		<field type="staticText" align="left"
+       			txt=" "
+       			id="staticText.text"/> 
+	</panel> 
+</userInput>
