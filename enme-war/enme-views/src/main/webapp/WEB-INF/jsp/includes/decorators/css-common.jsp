@@ -36,3 +36,7 @@ table{border-collapse:collapse;border-spacing:0}
 body,figure{margin:0}
 legend,button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
 </style>
+<c:if test="${development}">
+    <link type="text/css" rel="<c:url value="stylesheet${development ? '' : ''}" />"  href="<c:url value="/resources/css/${development ? 'pages' : 'pages'}/${detectedDevice ? 'mobile_' : ''}${cssFile}.${development ? 'css' : 'min.css'}" />" />
+</c:if>
+<link rel="stylesheet"  href="<c:url value="/resources/css/commons/font-awesome.min.css" />" />
