@@ -96,9 +96,9 @@
               <div class="span4">
                   <div class="login">
                       <a href="<%=request.getContextPath()%>/user/signin">
-                        <h4 class="enme">
+                        <h6>
                             <spring:message code="comments.login.post.comment" />
-                        </h4>
+                        </h6>
                       </a>
                   </div>
               </div>
