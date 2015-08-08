@@ -2,29 +2,18 @@
 <%@ include file="/WEB-INF/jsp/includes/decorators/dojo-config.jsp"%>
 
 <script src="<%=request.getContextPath()%>/resources/js/commons/commons-mobile.<c:url value="${development ? '' : 'min.'}" />js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/me/run.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/requirejs/require.js"></script>
 
 <script>
-    require([
-        "dojo",
-        "dojo/_base/declare",
-        "dojo/parser",
-        "dojo/ready",
-        'me/support/Offline',
-        "me/core/AuthStatus",
-        "me/core/enme"
-    ], function(dojo, declare, parser, ready, Offline, AuthStatus, _ENME) {
-        ready(function(){
-            <%@ include file="/WEB-INF/jsp/includes/decorators/enme-init.jsp"%>
-            <c:if test="${logged}">
-                var auth = new AuthStatus();
-            </c:if>
-            parser.parse();
-            <%@ include file="/WEB-INF/jsp/includes/decorators/shared-javascript.jsp"%>
-        });
+    require.config({
+        baseUrl: "<%=request.getContextPath()%>/resources/js/",
+        paths: {
+            "me": "me",
+        }
     });
-    <%@ include file="/WEB-INF/jsp/includes/decorators/dojo-notify.jsp"%>
+    require(["deliteful-build/layer"], function() {
+        require(["mobile/init"]);
+    });
 </script>
 
 <%@ include file="/WEB-INF/jsp/includes/decorators/log-js.jsp"%>

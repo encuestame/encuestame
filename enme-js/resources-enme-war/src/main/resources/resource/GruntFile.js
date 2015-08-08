@@ -75,7 +75,7 @@ grunt.initConfig({
       options: {
         compress: false,
         yuicompress: false,
-        sourceMap : true,
+        //sourceMap : true,
         optimization: 1
       },
       files: {

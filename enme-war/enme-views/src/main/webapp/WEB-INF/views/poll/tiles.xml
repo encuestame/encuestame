@@ -3,7 +3,7 @@
 
 <tiles-definitions>
 
-    <definition name="poll/detail" extends="page-logged">
+    <definition name="poll/detail" extends="page">
         <put-attribute name="title" value="Poll | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/poll.jsp" />
         
