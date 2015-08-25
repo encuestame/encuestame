@@ -6,7 +6,7 @@
     </title>
     <%@ include file="decorators/mobile-meta.jsp"%>
     <%@ include file="/WEB-INF/jsp/includes/web/css.jsp"%>
-    <%--<%@ include file="/WEB-INF/jsp/includes/mobile/css.jsp"%>--%>
+    <%@ include file="/WEB-INF/jsp/includes/mobile/css.jsp"%>
     <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/delite-build/themes/defaultapp.css" />" />
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/commons/dev-mobile.css" />" />
@@ -21,51 +21,15 @@
                 Close
             </a>
         </li>
-        <li class="side-li">
-            <a class=" side-bar-btn side-bar-icon" href="<c:url value="/user/dashboard" />">
-                Dashboard
-            </a>
-        </li>
-        <li class="side-li">
-            <a class=" side-bar-btn side-bar-icon" href="<c:url value="/user/tweetpoll/list" />">
-                TweetPoll Manage
-            </a>
-        </li>
-        <li class="side-li">
-            <a class=" side-bar-btn side-bar-icon"  href="<c:url value="/user/tweetpoll/new" />">
-                Create Tweetpoll
-            </a>
-        </li>
-        <li class="side-li">
-            <a class=" side-bar-btn side-bar-icon"  href="<c:url value="/user/poll" />">
-                Manage Poll
-            </a>
-        </li>
-        <li class="side-li">
-            <a class=" side-bar-btn side-bar-icon"  href="<c:url value="/user/poll/new" />">
-                Create Poll
-            </a>
-        </li>
-        <li class="side-li">
-            <a class=" side-bar-btn side-bar-icon"  href="<c:url value="/admon/members" />">
-                Members
-            </a>
-        </li>
-        <li class="side-li">
-            <a class=" side-bar-btn side-bar-icon"  href="<c:url value="/settings/configuration" />">
-                Settings
-            </a>
-        </li>
-        <li class="side-li">
-            <a class=" side-bar-btn side-bar-icon"  href="<c:url value="/settings/social" />">
-                Social Accounts
-            </a>
-        </li>
-        <li class="side-li">
-            <a class=" side-bar-btn side-bar-icon"  href="<c:url value="/user/logout" />">
-                Logout
-            </a>
-        </li>
+        <menu-link url="<c:url value="/user/dashboard" />" name="Dashboard"></menu-link>
+        <menu-link url="<c:url value="/user/tweetpoll/list" />" name="TweetPoll Manage"></menu-link>
+        <menu-link url="<c:url value="/user/tweetpoll/new" />" name="Create Tweetpoll"></menu-link>
+        <menu-link url="<c:url value="/user/poll" />" name="Manage Poll"></menu-link>
+        <menu-link url="<c:url value="/user/poll/new" />" name="Create Poll"></menu-link>
+        <menu-link url="<c:url value="/admon/members" />" name="Members"></menu-link>
+        <menu-link url="<c:url value="/settings/configuration" />" name="Settings"></menu-link>
+        <menu-link url="<c:url value="/settings/social" />" name="Social Accounts"></menu-link>
+        <menu-link url="<c:url value="/user/logout" />" name="Logout"></menu-link>
     </ul>
 </d-side-pane>
 <div id="page" class="panel-content" style="">
@@ -76,7 +40,10 @@
     </header>
     <article class="content">
         <tiles:insertAttribute name="content"/>
-        <button onclick="sp.show()">Show</button>
+        <menu-link url="<c:url value="/user/tweetpoll/list" />" name="TweetPoll Manage">
+            <button onclick="sp.show()">Show</button>
+        </menu-link>
+
     </article>
     <footer>
         <tiles:insertAttribute name="footer" />

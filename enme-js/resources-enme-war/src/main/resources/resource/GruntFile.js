@@ -111,7 +111,7 @@ grunt.initConfig({
         "<%= dirs.css_src %>/embebed/form.css": "<%= dirs.less_src %>/embebed/form.less",
         "<%= dirs.css_src %>/embebed/results.css": "<%= dirs.less_src %>/embebed/results.less",
         //bootstrap 3
-        "<%= dirs.css_src %>/bootstrap3.css": "<%= dirs.less_src %>/bootstrap3/bootstrap.less"
+        //"<%= dirs.css_src %>/bootstrap3.css": "<%= dirs.less_src %>/bootstrap3/bootstrap.less"
       }
     },
     production: {
