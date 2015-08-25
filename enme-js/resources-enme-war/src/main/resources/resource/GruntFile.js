@@ -109,7 +109,9 @@ grunt.initConfig({
         //embebed
         "<%= dirs.css_src %>/embebed/detail.css": "<%= dirs.less_src %>/embebed/detail.less",
         "<%= dirs.css_src %>/embebed/form.css": "<%= dirs.less_src %>/embebed/form.less",
-        "<%= dirs.css_src %>/embebed/results.css": "<%= dirs.less_src %>/embebed/results.less"
+        "<%= dirs.css_src %>/embebed/results.css": "<%= dirs.less_src %>/embebed/results.less",
+        //bootstrap 3
+        "<%= dirs.css_src %>/bootstrap3.css": "<%= dirs.less_src %>/bootstrap3/bootstrap.less"
       }
     },
     production: {
@@ -262,6 +264,7 @@ grunt.initConfig({
   // this task is defined for remote quick testing
   grunt.registerTask('test-remote', ['intern:remote_local' ]);
   grunt.registerTask('dev', [ 'jshint-all', 'connect:server' ]);
-  grunt.registerTask('default', ['jshint-all', 'css', 'commons', 'widget', 'test-remote' ]);
+  grunt.registerTask('default', ['jshint-all', 'css', 'commons', 'widget']);
+  grunt.registerTask('production', ['jshint-all', 'css', 'commons', 'widget', 'test-remote' ]);
 
 };

@@ -33,6 +33,7 @@
         <env>development</env>
         <!-- js compress options -->
         <compress.minimize>true</compress.minimize>
+        <grunt>default</grunt>
         <spring.webflow.version>2.4.0.RELEASE</spring.webflow.version>
         <spring.security.version>3.2.6.RELEASE</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
