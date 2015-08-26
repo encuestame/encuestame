@@ -67,7 +67,6 @@
                         </goals>
                         <configuration>
                             <arguments>${grunt}</arguments>
-                            <arguments>${grunt}</arguments>
                         </configuration>
                     </execution>
                 </executions>
