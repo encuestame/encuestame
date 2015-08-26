@@ -125,7 +125,6 @@ define([
        * @private
        */
       _getLineChart : function(e) {
-          console.log(e);
           e.preventDefault();
           this._defaultChart = this.type_chart.BAR;
           this._loadVotes();

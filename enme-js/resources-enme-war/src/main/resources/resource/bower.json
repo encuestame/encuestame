@@ -17,6 +17,10 @@
     "dojo": "~1.10.4",
     "dojox": "~1.10.4",
     "dijit": "~1.10.4",
-    "util": "dojo-util#~1.10.4"
+    "util": "dojo-util#~1.10.4",
+    "deliteful": "~0.7.1",
+    "deliteful-build": "0.7.x",
+    "Font-Awesome": "4.3.x",
+    "requirejs": "2.1.x"
   }
 }

@@ -43,12 +43,6 @@
                          Poll
                       </a>
                  </li>
-                 <li>
-                     <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png">
-                     <a href="<%=request.getContextPath()%>/feed/${profile.username}/project.rss">
-                         Projects
-                     </a>
-                 </li>
             </ul>
 
           </div>

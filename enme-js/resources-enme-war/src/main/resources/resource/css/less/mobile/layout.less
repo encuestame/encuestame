@@ -6,7 +6,7 @@
       width: auto;
     }
 
-    > header {
+   .mobile-header-container {
       text-align: center;
       -webkit-box-orient: horizontal;
       -moz-box-orient: horizontal;
@@ -21,7 +21,7 @@
       left: 0;
       width: 100%;
 
-      > a {
+      .mobile-header-link {
         display: block;
         background-color: white;
       }
@@ -71,17 +71,12 @@
 
     }       
 
-     > footer  .mobile-footer {
+     .mobile-footer {
         text-align: left;
         background-color: @black_medium;
         color : @white;
         padding: 6px;
         min-height: 30px;
-        box-shadow: 5px 6px 5px 8px black;
-//        position: absolute;
-//        bottom: 0px;
-//        left: 0px;
-//        width: 100%;
         &:extend( .text-back-image );
      }
 

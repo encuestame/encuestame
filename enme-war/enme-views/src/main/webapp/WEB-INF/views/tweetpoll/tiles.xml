@@ -19,7 +19,7 @@
         <put-attribute name="dojo-layers" expression="/WEB-INF/views/tweetpoll/dojo-new.jsp" />
     </definition>
 
-     <definition name="tweetpoll/detail" extends="page-logged">
+     <definition name="tweetpoll/detail" extends="page">
         <put-attribute name="title" value="TweetPoll Detail" />
         <put-attribute name="ogMetadata" expression="/WEB-INF/views/tweetpoll/ogMetadata.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/detail.jsp" />

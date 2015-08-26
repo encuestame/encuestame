@@ -58,7 +58,6 @@ enme-js/resources-enme-war/src/main/resources/resource/js/util
 enme-js/resources-enme-war/src/main/resources/resource/js/me/html-report
 enme-js/resources-enme-war/src/main/resources/resource/js/dojox
 enme-js/resources-enme-war/src/main/resources/resource/js/dojo
-enme-js/resources-enme-war/src/main/resources/resource/js/dojo
 enme-js/resources-enme-war/src/main/resources/resource/js/dijit
 enme-js/resources-enme-war/src/main/resources/resource/js/widget
 enme-js/resources-enme-war/src/main/resources/resource/js/commons
@@ -66,3 +65,10 @@ enme-war/web-app/jetty-webapp/overlays/
 enme-war/web-app/tomcat-webapp/overlays/
 enme-war/web-app/weblogic-webapp/overlays/
 scripts/clover.license
+
+enme-js/resources-enme-war/src/main/resources/resource/js/d*
+enme-js/resources-enme-war/src/main/resources/resource/js/ecma*
+enme-js/resources-enme-war/src/main/resources/resource/js/Font*
+enme-js/resources-enme-war/src/main/resources/resource/js/jquery*
+enme-js/resources-enme-war/src/main/resources/resource/js/lie*
+enme-js/resources-enme-war/src/main/resources/resource/js/require*
