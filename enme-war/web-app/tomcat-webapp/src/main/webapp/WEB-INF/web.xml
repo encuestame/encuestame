@@ -173,6 +173,9 @@
     <session-config>
         <session-timeout>180</session-timeout>
         <tracking-mode>COOKIE</tracking-mode>
+        <cookie-config>
+            <name>SESSIONID_ENME_WEB_${project.version}</name>
+        </cookie-config>
     </session-config>
 
 
