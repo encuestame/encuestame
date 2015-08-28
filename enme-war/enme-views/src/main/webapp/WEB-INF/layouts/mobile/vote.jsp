@@ -7,7 +7,6 @@
         <%@ include file="decorators/mobile-meta.jsp"%>
         <%@ include file="/WEB-INF/jsp/includes/mobile/css.jsp"%>
         <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
-        <%@ include file="decorators/mobile-meta.jsp"%>
     </head>
     <body class="mobil">
         <%@ include file="/WEB-INF/jsp/includes/decorators/mobile-header.jsp"%>

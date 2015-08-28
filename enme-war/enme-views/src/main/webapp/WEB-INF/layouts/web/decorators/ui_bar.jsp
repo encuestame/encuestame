@@ -1,4 +1,3 @@
-<%@ include file="/WEB-INF/jsp/includes/meta.jsp"%>
 <c:if test="${logged}">
       <div data-dojo-type="me/web/widget/ui/UpgradeBar" validate="${isActivated}" class="hidden">
           <div class="up-message ">
