@@ -4,6 +4,7 @@
 <title>
     <tiles:insertAttribute name="title" defaultValue="encuestame" />
 </title>
+<c:set var="cssFile" value="setup"/>
 <%@ include file="/WEB-INF/jsp/includes/meta.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/web/css.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
