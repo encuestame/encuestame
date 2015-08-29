@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.5.3</version>
     </parent>
     <artifactId>installer</artifactId>
     <name>Encuestame Installer</name>
@@ -166,7 +165,7 @@
                             <!--><unzip src="${izpack.staging}/apache-tomcat-${version.tomcat.file}.zip" dest="${izpack.staging}/tomcat" />
                             <unzip src="${izpack.staging}/apache-tomcat-${version.tomcat.file}-${windows.x64}.zip" dest="${izpack.staging}/tomcat-win64" />
                             <unzip src="${izpack.staging}/apache-tomcat-${version.tomcat.file}-${windows.x86}.zip" dest="${izpack.staging}/tomcat-win32" /><-->
-                            <mkdir dir="${izpack.staging}/home"/>
+                            <mkdir dir="${izpack.staging}/home" />
                         </tasks>
                     </configuration>
                     <phase>process-resources</phase>
