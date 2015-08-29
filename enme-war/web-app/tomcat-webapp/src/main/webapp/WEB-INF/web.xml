@@ -171,7 +171,7 @@
     </welcome-file-list>
 
     <session-config>
-        <session-timeout>180</session-timeout>
+        <session-timeout>18000</session-timeout>
         <tracking-mode>COOKIE</tracking-mode>
         <cookie-config>
             <name>SESSIONID_ENME_WEB_${project.version}</name>
