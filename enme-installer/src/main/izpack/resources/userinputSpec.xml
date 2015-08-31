@@ -112,7 +112,7 @@
 	 <panel id="email.configuration" order="2" >
 		 <field type="title" id="email.configuration.panel" txt="Email Configuration" bold="true" size="1" />
 
-		 <field type="text" align="left" variable="mail.host" tooltip="mail.host.tt">
+		   <field type="text" align="left" variable="mail.host" tooltip="mail.host.tt">
 			 <spec txt="Server name:" size="12" id="mail.host.txt"/>
 
 		 </field>
@@ -141,33 +141,79 @@
 
 		 </field>
 
-		 <field type="check" align="left" variable="mail.smtp.debug" tooltip="mail.smtp.debug.tt">
-			 <spec txt="SMTP Debug:" id="check.label.1" true="on" false="off"
+		 <field type="check" variable="mail.smtp.debug">
+			 <spec txt="mail debug enabled?" id="mail.smtp.debug.check" true="on" false="off"
 				   set="false"/>
 		 </field>
 
-		 <field type="text" align="left" variable="mail.smtp.auth" tooltip="mail.smtp.auth.tt">
-			 <spec txt="SMTP Authentication:" id="mail.smtp.auth.check" true="on" false="off"
+		 <field align="right" type="check" variable="mail.smtp.auth">
+			 <spec txt="SMTP Auth enabled?"  id="mail.smtp.auth.check" true="on" false="off"
 				   set="false"/>
 		 </field>
 
-		 <field type="text" align="left" variable="mail.smtp.starttls.enable" tooltip="mail.smtp.starttls.enable.tt">
-
-			 <spec txt="starttls enabled" id="mail.smtp.starttls.enable.check" true="on" false="off"
+		 <field align="right" type="check" variable="mail.smtp.starttls">
+			 <spec txt="starttls enabled?" id="mail.smtp.starttls.enable.check" true="on" false="off"
 				   set="false"/>
 		 </field>
 
-		 <field type="text" align="left" variable="mail.smtp.starttls.required" tooltip="mail.smtp.starttls.required.tt">
-			 <spec txt="starttls required:" id="mail.smtp.starttls.required" true="on" false="off"
+		 <field type="check" variable="mail.smtp.starttls.required">
+			 <spec txt="starttls required" id="mail.smtp.starttls.required.check" true="on" false="off"
 				   set="false"/>
 		 </field>
-		 <field type="space"/>
-		 <field type="space"/>
-		 <field type="divider" align="top" />
-		 <field type="space"/>
-		 <field type="space"/>
-		 <field type="staticText" align="left"
-				txt=" "
-				id="staticText.text"/>
+
+		<field type="space"/>
+			<field type="space"/>
+			<field type="divider" align="top" />
+			<field type="space"/>
+            <field type="space"/>
+ 			<field type="staticText" align="left" txt=" "  id="staticText.text"/>
 	 </panel>
+	 <panel id="setup.custom.properties" order="3" >
+		<field type="title" id="custom.configuration.panel" txt="Custom Configuration Properties" bold="true" size="1" />
+
+		 <field type="check" variable="mail.server.config" tooltip="rmail.server.config.tt">
+			 <spec txt="Mailserver enabled" id="mail.server.config.check" true="on" false="off"
+				   set="false"/>
+		 </field>
+
+		 <field type="combo" variable="short.default.url.selection" revalidate="yes">
+			 <description align="left" txt="Default short url service" id="short.default.url.txt"/>
+			 <spec>
+				 <choice txt="tiny" value="tiny"/>
+				 <choice txt="googl" value="googl"/>
+			 </spec>
+		 </field>
+
+		 <field type="check" variable="social.signin.enabled" tooltip="social.signin.enabled.tt">
+			 <spec txt="Social Signin enabled" id="social.signin.enabled.check" true="on" false="off"
+				   set="false"/>
+		 </field>
+
+		 <field type="check" variable="private.home.enabled" tooltip="private.home.enabled.tt">
+			 <spec txt="Home page enabled" id="private.home.enabled.check" true="on" false="off"
+				   set="false"/>
+		 </field>
+
+		 <field type="check" variable="debug.enme.enabled" tooltip="debug.enme.enabled.tt">
+			 <spec txt="Debug enabled" id="debug.enme.enabled.check" true="on" false="off"
+				   set="false"/>
+		 </field>
+
+		<field type="combo" variable="debug.error.level.prop.selection">
+			<description align="left" txt="Debug level " id="debug.error.level.prop.txt"/>
+			<spec>
+				<choice txt="1" id="one.debug.level" value="1"/>
+				<choice txt="2" id="two.debug.level" value="2" set="true"/>
+				<choice txt="3" id="three.debug.level" value="3"/>
+			</spec>
+		</field>
+
+		<field type="space"/>
+		<field type="space"/>
+		<field type="divider" align="top" />
+		<field type="space"/>
+		<field type="space"/>
+		<field type="staticText" align="left" txt=" " id="staticText.text"/>
+
+	</panel>
  </userInput>
