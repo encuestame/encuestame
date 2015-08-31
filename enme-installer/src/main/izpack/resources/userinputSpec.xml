@@ -107,5 +107,67 @@
 		<field type="staticText" align="left"
        			txt=" "
        			id="staticText.text"/> 
-	</panel> 
-</userInput>
+	</panel>
+
+	 <panel id="email.configuration" order="2" >
+		 <field type="title" id="email.configuration.panel" txt="Email Configuration" bold="true" size="1" />
+
+		 <field type="text" align="left" variable="mail.host" tooltip="mail.host.tt">
+			 <spec txt="Server name:" size="12" id="mail.host.txt"/>
+
+		 </field>
+		 <field type="text" align="left" variable="mail.port" tooltip="mail.port.tt">
+			 <spec txt="Port:" size="12" id="mail.port.txt"/>
+
+		 </field>
+
+		 <field type="text" align="left" variable="mail.username" tooltip="mail.username.tt">
+			 <spec txt="Username:" size="12" id="mail.username.txt"/>
+
+		 </field>
+
+		 <field type="text" align="left" variable="mail.password" tooltip="mail.password.tt">
+			 <spec txt="Password:" size="12" id="mail.password.txt"/>
+
+		 </field>
+
+		 <field type="text" align="left" variable="mail.noresponse" tooltip="mail.noresponse.tt">
+			 <spec txt="NoResponse:" size="12" id="mail.noresponse.txt"/>
+
+		 </field>
+
+		 <field type="text" align="left" variable="mail.protocol" tooltip="mail.protocol.tt">
+			 <spec txt="Protocol:" size="12" id="mail.protocol.txt"/>
+
+		 </field>
+
+		 <field type="check" align="left" variable="mail.smtp.debug" tooltip="mail.smtp.debug.tt">
+			 <spec txt="SMTP Debug:" id="check.label.1" true="on" false="off"
+				   set="false"/>
+		 </field>
+
+		 <field type="text" align="left" variable="mail.smtp.auth" tooltip="mail.smtp.auth.tt">
+			 <spec txt="SMTP Authentication:" id="mail.smtp.auth.check" true="on" false="off"
+				   set="false"/>
+		 </field>
+
+		 <field type="text" align="left" variable="mail.smtp.starttls.enable" tooltip="mail.smtp.starttls.enable.tt">
+
+			 <spec txt="starttls enabled" id="mail.smtp.starttls.enable.check" true="on" false="off"
+				   set="false"/>
+		 </field>
+
+		 <field type="text" align="left" variable="mail.smtp.starttls.required" tooltip="mail.smtp.starttls.required.tt">
+			 <spec txt="starttls required:" id="mail.smtp.starttls.required" true="on" false="off"
+				   set="false"/>
+		 </field>
+		 <field type="space"/>
+		 <field type="space"/>
+		 <field type="divider" align="top" />
+		 <field type="space"/>
+		 <field type="space"/>
+		 <field type="staticText" align="left"
+				txt=" "
+				id="staticText.text"/>
+	 </panel>
+ </userInput>
