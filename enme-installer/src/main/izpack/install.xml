@@ -62,6 +62,27 @@
         <variable name="db.type.url.connection" value="mysql" condition="mysql.db.selected"/>
         <variable name="db.type.url.connection" value="postgresql" condition="postgres.db.selected"/>
 
+        <!--> Email Configuration<-->
+        <variable checkonce="false" ignorefailure="true" name="mail.host" value=""/>
+        <variable checkonce="false" ignorefailure="true" name="mail.port" value="" />
+        <variable checkonce="false" ignorefailure="true" name="mail.username" value="" />
+        <variable checkonce="false" ignorefailure="true" name="mail.password" value="" />
+        <variable checkonce="false" ignorefailure="true" name="mail.noresponse" value="" />
+        <variable checkonce="false" ignorefailure="true" name="mail.protocol" value="" />
+        <variable checkonce="false" ignorefailure="true" name="mail.encoding" value=""/>
+        <variable checkonce="false" ignorefailure="true" name="mail.smtp.debug" value="" />
+        <variable checkonce="false" ignorefailure="true" name="mail.smtp.auth" value="" />
+        <variable checkonce="false" ignorefailure="true" name="mail.smtp.starttls" value=""/>
+        <variable checkonce="false" ignorefailure="true" name="mail.smtp.starttls.required" value=""/>
+
+        <!--> Properties Customization <-->
+        <variable checkonce="false" ignorefailure="true" name="mail.server.config" value="" />
+        <variable checkonce="false" ignorefailure="true" name="short.default.url.selection" value="" />
+        <variable checkonce="false" ignorefailure="true" name="private.home.enabled" value="" />
+        <variable checkonce="false" ignorefailure="true" name="social.signin.enabled" value="" />
+        <variable checkonce="false" ignorefailure="true" name="debug.enme.enabled" value="" />
+        <variable checkonce="false" ignorefailure="true" name="debug.error.level.selection" value="" />
+
     </dynamicvariables>
 
     <!--> Define preference items of graphic user interfaces<-->
@@ -177,7 +198,16 @@
          <condition type="or" id="or.installation">
             <condition type="ref" refid="izpack.macinstall"/>
             <condition type="ref" refid="izpack.linuxinstall" />
-        </condition> 
+        </condition>
+        <!--> If database type selected is = MySQL<-->
+        <condition type="variable" id="app.mail.server.enabled">
+            <name>mail.server.config</name>
+            <value>true</value>
+        </condition>
+        <condition type="variable" id="app.debug.enabled">
+            <name>debug.enme.enabled</name>
+            <value>true</value>
+        </condition>
     </conditions> 
 
     <resources>
@@ -226,57 +256,60 @@
         <panel classname="HTMLHelloPanel"/>
         <panel classname="HTMLInfoPanel"/>
         <panel classname="LicencePanel"/>
-        <panel classname="TargetPanel" id="targetpanel"/> 
+        <panel classname="TargetPanel" id="targetpanel"/>
         <panel classname="UserInputPanel" id="select.database.panel"/>
         <panel classname="UserInputPanel" id="dbase.connection.panel" condition="or.database.condition">
             <validator classname="org.encuestame.installer.izpack.JDBCConnectionValidator"/>
         </panel>
-        <panel classname="UserInputPanel" id="recaptcha"/> 
-        <!--><panel classname="PacksPanel" id="enme_pack_select"/><-->
-        <panel classname="TreePacksPanel"/> 
-        <panel classname="InstallPanel" id="installpanel"/> 
+        <panel classname="UserInputPanel" id="setup.custom.properties"/>
+        <panel classname="UserInputPanel" id="email.configuration"/>
+
+        <panel classname="UserInputPanel" id="recaptcha"/>
+      <!--><panel classname="PacksPanel" id="enme_pack_select"/> <-->
+        <panel classname="TreePacksPanel"/>
+        <panel classname="InstallPanel" id="installpanel"/>
         <panel classname="SummaryPanel" id="summarypanel"/>
         <panel classname="HTMLInfoPanel" id="sponsors"/>
         <panel classname="SimpleFinishPanel"/>
-    </panels>
+      </panels>
 
-    <packs>  
-        <pack name="Tomcat-Web-container" required="no" preselect="yes">
-            <description> Select web container according your OS.</description>
-        </pack>
+      <packs>
+          <pack name="Tomcat-Web-container" required="no" preselect="yes">
+              <description> Select web container according your OS.</description>
+          </pack>
 
-        <pack name="linux-mac" preselected="yes" required="no" parent="Tomcat-Web-container" condition="or.installation">
-            <description>Server to be installed on Linux or Mac operating systems</description>
-             
-            <file src="apache-tomcat-7.0.62.zip" targetdir="$INSTALL_PATH/" unpack="true"/> 
-              
-        </pack>
+          <pack name="linux-mac" preselected="yes" required="no" parent="Tomcat-Web-container" condition="or.installation">
+              <description>Server to be installed on Linux or Mac operating systems</description>
 
-        <pack name="windows-32bits" preselected="no" required="no"   parent="Tomcat-Web-container" condition="izpack.windowsinstall">
-            <onSelect name="!windows-64bits"/> 
-            <description>Server to be installed on Windows 32 bits</description> 
-            <file src="apache-tomcat-7.0.62-windows-x86.zip" targetdir="$INSTALL_PATH/" unpack="true" /> 
-        </pack>
+              <file src="apache-tomcat-7.0.62.zip" targetdir="$INSTALL_PATH/" unpack="true"/>
 
-        <pack name="windows-64bits" preselected="no" required="no"  parent="Tomcat-Web-container" condition="izpack.windowsinstall">
-            <description>Server to be installed on Windows 64 bits.</description>  
-            <onSelect name="!windows-32bits"/> 
-            <file src="apache-tomcat-7.0.62-windows-x64.zip" targetdir="$INSTALL_PATH/" unpack="true"/> 
-           
-        </pack> 
+          </pack>
 
-        <pack name="Basic Files" preselected="no" required="yes">
-            <description>Basic Files </description>
+          <pack name="windows-32bits" preselected="no" required="no"   parent="Tomcat-Web-container" condition="izpack.windowsinstall">
+              <onSelect name="!windows-64bits"/>
+              <description>Server to be installed on Windows 32 bits</description>
+              <file src="apache-tomcat-7.0.62-windows-x86.zip" targetdir="$INSTALL_PATH/" unpack="true" />
+          </pack>
 
-            <file src="property-files/encuestame-config-custom.properties" targetdir="$INSTALL_PATH/apache-tomcat-7.0.62/lib/"
-                  override="true" /> 
-            <parsable targetfile="$INSTALL_PATH/apache-tomcat-7.0.62/lib/encuestame-config-custom.properties" type="javaprop"/> 
+          <pack name="windows-64bits" preselected="no" required="no"  parent="Tomcat-Web-container" condition="izpack.windowsinstall">
+              <description>Server to be installed on Windows 64 bits.</description>
+              <onSelect name="!windows-32bits"/>
+              <file src="apache-tomcat-7.0.62-windows-x64.zip" targetdir="$INSTALL_PATH/" unpack="true"/>
 
-            <file src="home/" targetdir="$INSTALL_PATH/"/>
-            <file src="resources/License.txt" targetdir="$INSTALL_PATH/"/>
-            <file src="resources/Readme.txt" targetdir="$INSTALL_PATH/"/> 
-            <file src="war/encuestame.war" targetdir="$INSTALL_PATH/apache-tomcat-7.0.62/webapps"/> 
-            
-        </pack>
-    </packs>
-</installation>
+          </pack>
+
+          <pack name="Basic Files" preselected="no" required="yes">
+              <description>Basic Files </description>
+
+              <file src="property-files/encuestame-config-custom.properties" targetdir="$INSTALL_PATH/apache-tomcat-7.0.62/lib/"
+                    override="true" />
+              <parsable targetfile="$INSTALL_PATH/apache-tomcat-7.0.62/lib/encuestame-config-custom.properties" type="javaprop"/>
+
+              <file src="home/" targetdir="$INSTALL_PATH/"/>
+              <file src="resources/License.txt" targetdir="$INSTALL_PATH/"/>
+              <file src="resources/Readme.txt" targetdir="$INSTALL_PATH/"/>
+              <file src="war/encuestame.war" targetdir="$INSTALL_PATH/apache-tomcat-7.0.62/webapps"/>
+
+          </pack>
+      </packs>
+  </installation>
