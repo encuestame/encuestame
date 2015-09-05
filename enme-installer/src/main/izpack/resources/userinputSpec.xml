@@ -102,118 +102,104 @@
 		<field type="space"/>
 		<field type="space"/>
 		<field type="divider" align="top" />
-		<field type="space"/>
-		<field type="space"/>
-		<field type="staticText" align="left"
-       			txt=" "
-       			id="staticText.text"/> 
 	</panel>
-
 	 <panel id="email.configuration" order="2" >
-		 <field type="title" id="email.configuration.panel" txt="Email Configuration" bold="true" size="1" />
-
-		   <field type="text" align="left" variable="mail.host" tooltip="mail.host.tt">
-			 <spec txt="Server name:" size="12" id="mail.host.txt"/>
+		  <field type="title" id="email.configuration.panel" txt="Email Configuration" bold="true" />
+		 <!--><field type="staticText" align="left" txt="Mailserver Configuration :" id="text.dboperation.description" /><-->
+		 <field type="check" variable="mail.server.config" tooltip="rmail.server.config.tt">
+			 <spec txt="Mailserver enabled" true="true" false="false"/>
+		 </field>
+		<field type="space"/>
+		<field type="divider" align="top" conditionid="app.mail.server.enabled"/>
+		<field type="staticText" align="left" txt="Setup configuration :" id="mailserver.conf.title" conditionid="app.mail.server.enabled"/>
+		<field type="text" align="right" variable="mail.host" tooltip="mail.host.tt" conditionid="app.mail.server.enabled">
+			 <spec txt="Mail server:" size="12" id="mail.host.txt"/>
 
 		 </field>
-		 <field type="text" align="left" variable="mail.port" tooltip="mail.port.tt">
+		 <field type="text" align="left" variable="mail.port" tooltip="mail.port.tt" conditionid="app.mail.server.enabled">
 			 <spec txt="Port:" size="12" id="mail.port.txt"/>
 
 		 </field>
 
-		 <field type="text" align="left" variable="mail.username" tooltip="mail.username.tt">
+		 <field type="text" align="left" variable="mail.username" tooltip="mail.username.tt" conditionid="app.mail.server.enabled">
 			 <spec txt="Username:" size="12" id="mail.username.txt"/>
 
 		 </field>
 
-		 <field type="text" align="left" variable="mail.password" tooltip="mail.password.tt">
+		 <field type="text" align="left" variable="mail.password" tooltip="mail.password.tt" conditionid="app.mail.server.enabled">
 			 <spec txt="Password:" size="12" id="mail.password.txt"/>
 
 		 </field>
 
-		 <field type="text" align="left" variable="mail.noresponse" tooltip="mail.noresponse.tt">
+		 <field type="text" align="left" variable="mail.noresponse" tooltip="mail.noresponse.tt" conditionid="app.mail.server.enabled">
 			 <spec txt="NoResponse:" size="12" id="mail.noresponse.txt"/>
 
 		 </field>
 
-		 <field type="text" align="left" variable="mail.protocol" tooltip="mail.protocol.tt">
+		 <field type="text" align="left" variable="mail.protocol" tooltip="mail.protocol.tt" conditionid="app.mail.server.enabled">
 			 <spec txt="Protocol:" size="12" id="mail.protocol.txt"/>
-
 		 </field>
 
-		 <field type="check" variable="mail.smtp.debug">
-			 <spec txt="mail debug enabled?" id="mail.smtp.debug.check" true="on" false="off"
+		 <field type="space"/>
+		 <field type="divider" align="top" conditionid="app.mail.server.enabled"/>
+		 <field type="staticText" align="left" txt="More configuration options :" id="mailserver.conf.setup.title" conditionid="app.mail.server.enabled"/>
+		 <field align="left" type="check" variable="mail.smtp.debug" conditionid="app.mail.server.enabled">
+			 <spec txt="Enable mailserver Debug?" id="mail.smtp.debug.check" true="true" false="false"
 				   set="false"/>
 		 </field>
 
-		 <field align="right" type="check" variable="mail.smtp.auth">
-			 <spec txt="SMTP Auth enabled?"  id="mail.smtp.auth.check" true="on" false="off"
+		 <field type="check" variable="mail.smtp.auth" conditionid="app.mail.server.enabled">
+			 <spec txt="Enable SMTP Authentication?"  id="mail.smtp.auth.check" true="true" false="false"
+				   set="false"/>
+		 </field>
+		 <field type="check" variable="mail.smtp.starttls" conditionid="app.mail.server.enabled">
+			 <spec txt="Enable Starttls ?" id="mail.smtp.starttls.enable.check" true="true" false="false"
 				   set="false"/>
 		 </field>
 
-		 <field align="right" type="check" variable="mail.smtp.starttls">
-			 <spec txt="starttls enabled?" id="mail.smtp.starttls.enable.check" true="on" false="off"
+		 <field type="check" variable="mail.smtp.starttls.required" conditionid="app.mail.server.enabled">
+			 <spec txt="starttls required" id="mail.smtp.starttls.required.check" true="true" false="false"
 				   set="false"/>
 		 </field>
-
-		 <field type="check" variable="mail.smtp.starttls.required">
-			 <spec txt="starttls required" id="mail.smtp.starttls.required.check" true="on" false="off"
+	</panel>
+	<panel id="setup.custom.properties" order="3" >
+		<!--><field type="title" id="custom.configuration.panel" txt="Custom Configuration Properties" bold="true" /><-->
+		<field type="staticText" align="left" txt="Choose the preferred database action:" id="text.dboperation.description" />
+		<field type="check" variable="private.home.enabled" tooltip="private.home.enabled.tt">
+			<spec txt="Enable Home Page - Public line" id="private.home.enabled.check" true="true" false="false"
 				   set="false"/>
-		 </field>
-
+		</field>
+		<field type="check" variable="social.signin.enabled" tooltip="social.signin.enabled.tt">
+			<spec txt="Enable logins with Social Networks"  id="social.signin.enabled.check" true="true" false="false"
+				   set="false"/>
+		</field>
 		<field type="space"/>
-			<field type="space"/>
-			<field type="divider" align="top" />
-			<field type="space"/>
-            <field type="space"/>
- 			<field type="staticText" align="left" txt=" "  id="staticText.text"/>
-	 </panel>
-	 <panel id="setup.custom.properties" order="3" >
-		<field type="title" id="custom.configuration.panel" txt="Custom Configuration Properties" bold="true" size="1" />
+		<field type="divider" align="top" />
+		<field type="space"/>
 
-		 <field type="check" variable="mail.server.config" tooltip="rmail.server.config.tt">
-			 <spec txt="Mailserver enabled" id="mail.server.config.check" true="on" false="off"
+		<field type="radio" variable="short.default.url.selection" revalidate="yes">
+			<description align="left" txt="Select URL shortener" id="short.default.url.txt"/>
+			<spec id="short.default.url.txt">
+				<choice txt="tiny" value="tinyurl" id="url.shortener.tiny"/>
+				<choice txt="googl" value="goo.gl" id="url.shortener.google"/>
+			</spec>
+		</field>
+		<field type="space"/>
+		<field type="divider" align="top" />
+		<field type="space"/>
+		<field type="staticText" align="left" txt="Choose the Debug  action:" id="text.dboperation.description" />
+		<field type="check" variable="debug.enme.enabled" tooltip="debug.enme.enabled.tt">
+			<spec txt="Enable Debug" id="debug.enme.enabled.check" true="true" false="false"
 				   set="false"/>
-		 </field>
-
-		 <field type="combo" variable="short.default.url.selection" revalidate="yes">
-			 <description align="left" txt="Default short url service" id="short.default.url.txt"/>
-			 <spec>
-				 <choice txt="tiny" value="tiny"/>
-				 <choice txt="googl" value="googl"/>
-			 </spec>
-		 </field>
-
-		 <field type="check" variable="social.signin.enabled" tooltip="social.signin.enabled.tt">
-			 <spec txt="Social Signin enabled" id="social.signin.enabled.check" true="on" false="off"
-				   set="false"/>
-		 </field>
-
-		 <field type="check" variable="private.home.enabled" tooltip="private.home.enabled.tt">
-			 <spec txt="Home page enabled" id="private.home.enabled.check" true="on" false="off"
-				   set="false"/>
-		 </field>
-
-		 <field type="check" variable="debug.enme.enabled" tooltip="debug.enme.enabled.tt">
-			 <spec txt="Debug enabled" id="debug.enme.enabled.check" true="on" false="off"
-				   set="false"/>
-		 </field>
-
-		<field type="combo" variable="debug.error.level.prop.selection">
-			<description align="left" txt="Debug level " id="debug.error.level.prop.txt"/>
+		</field>
+		<field type="radio" variable="debug.error.level.selection"  conditionid="app.debug.enabled">
+			<description align="left" txt="Select debug level " id="debug.error.level.txt"/>
 			<spec>
 				<choice txt="1" id="one.debug.level" value="1"/>
 				<choice txt="2" id="two.debug.level" value="2" set="true"/>
 				<choice txt="3" id="three.debug.level" value="3"/>
 			</spec>
 		</field>
-
 		<field type="space"/>
-		<field type="space"/>
-		<field type="divider" align="top" />
-		<field type="space"/>
-		<field type="space"/>
-		<field type="staticText" align="left" txt=" " id="staticText.text"/>
-
 	</panel>
  </userInput>
