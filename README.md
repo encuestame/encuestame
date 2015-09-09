@@ -48,7 +48,7 @@ Pull requests are, of course, very welcome! A few "todos", if anyone is [interes
 * [Twitter](http://www.twitter.com/encuestame)
 * [Facebook](https://www.facebook.com/encuestame)
 
-## Thanks our Sponsors
+## Thanks
 
 #### Atlassian 
 
