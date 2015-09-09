@@ -54,7 +54,7 @@ Pull requests are, of course, very welcome! A few "todos", if anyone is [interes
 
 ![alt tag](http://encuestame.org/images/sponsors/atlassian/atlassian-rgb-navy-small.png)
 
-#### Jet Brains
+#### JetBrains
 ![alt tag](http://encuestame.org/images/sponsors/jetbrains/logo_jetbrains.png)
 
 #### BrowserStack
