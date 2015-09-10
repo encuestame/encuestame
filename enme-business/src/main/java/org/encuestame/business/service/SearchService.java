@@ -252,7 +252,7 @@ public class SearchService extends AbstractIndexService implements
             attachment.setAttachmentId(unitAttachment.getAttachmentId());
             attachment.setFilename(unitAttachment.getFilename());
             attachment.setUploadDate(unitAttachment.getUploadDate());
-            this.getProjectDaoImp().saveOrUpdate(attachment);
+         //   this.getProjectDaoImp().saveOrUpdate(attachment);
         } catch (Exception e) {
             throw new EnMeExpcetion(e);
         }

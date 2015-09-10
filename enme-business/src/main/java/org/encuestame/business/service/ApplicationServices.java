@@ -21,8 +21,7 @@ import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPictureService;
-import org.encuestame.core.service.imp.IPollService;
-import org.encuestame.core.service.imp.IProjectService;
+import org.encuestame.core.service.imp.IPollService; 
 import org.encuestame.core.service.imp.IStatisticsService;
 import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.core.service.imp.ITweetPollService;
@@ -53,8 +52,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     private ITweetPollService tweetPollService;
     /** {@link GeoLocationService}. **/
     private GeoLocationSupport locationService;
-    /** {@link ProjectService}. **/
-    private IProjectService projectService;
+    
     /** {@link ChartService}. **/
     private IChartService chartService;
     /** {@link FrontEndCoreService}. **/
@@ -149,22 +147,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     public void setLocationService(final GeoLocationSupport locationService) {
         this.locationService = locationService;
     }
-
-    /**
-     * @return the projectService
-     */
-    public IProjectService getProjectService() {
-        return projectService;
-    }
-
-    /**
-     * @param projectService the projectService to set
-     */
-    @Autowired
-    public void setProjectService(final IProjectService projectService) {
-        this.projectService = projectService;
-    }
-
+  
     /**
      * @return the chartService
      */

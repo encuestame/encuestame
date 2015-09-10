@@ -17,8 +17,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import org.encuestame.core.service.imp.MailServiceOperations;
-import org.encuestame.persistence.dao.IProjectDao;
+import org.encuestame.core.service.imp.MailServiceOperations; 
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.security.Account;
@@ -49,7 +48,7 @@ public class TestCatEmailLists extends AbstractServiceBase {
     private Account user;
     private UserAccount secondary;
 
-     /** {@link IProjectDao} **/
+      
     @Autowired
     MailServiceOperations  mailService;
 
