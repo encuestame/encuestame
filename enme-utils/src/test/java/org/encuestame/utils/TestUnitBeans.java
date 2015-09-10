@@ -12,7 +12,6 @@
  */
 package org.encuestame.utils;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -55,7 +54,6 @@ import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitAbstractSurvey.CustomFinalMessage;
 import org.encuestame.utils.web.UnitAbstractSurvey.MultipleResponse;
-import org.encuestame.utils.web.UnitAttachment;
 import org.encuestame.utils.web.UnitCatStateBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -1084,28 +1082,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
         assertNotNull(surveyBean.getFavorites());
         assertNotNull(surveyBean.getHashTags());
         assertNotNull(surveyBean.getTotalComments());
-    }
-
-    /**
-     * Test {@link UnitAttachment}
-     */
-    @Test
-    public void testUnitAttachment(){
-        final UnitAttachment attachmentBean = new UnitAttachment();
-        //final UnitProjectBean projectBean = createProjectBean("", 2L, 1L);
-        final File myFile =  new File("/uri/");
-        attachmentBean.setAttachmentId(1L);
-        attachmentBean.setFile(myFile);
-        attachmentBean.setFilename("attachFile");
-        //attachmentBean.setProjectBean(projectBean);
-        attachmentBean.setUploadDate(new Date());
-
-        assertNotNull(attachmentBean.getAttachmentId());
-        assertNotNull(attachmentBean.getFile());
-        assertNotNull(attachmentBean.getFilename());
-       // assertNotNull(attachmentBean.getProjectBean());
-        assertNotNull(attachmentBean.getUploadDate());
-    }
+    } 
 
     /**
      * Test {@link TweetPollResultsBean}.

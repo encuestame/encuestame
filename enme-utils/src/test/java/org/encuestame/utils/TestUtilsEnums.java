@@ -140,10 +140,7 @@ public class TestUtilsEnums extends TestCase{
          assertEquals("Should be equals", "POLL", pollOption.toString());
 
          final TypeSearchResult surveyOption = TypeSearchResult.getTypeSearchResult("SURVEY");
-         assertEquals("Should be equals", "SURVEY", surveyOption.toString());
-
-         final TypeSearchResult attachmentOption = TypeSearchResult.getTypeSearchResult("ATTACHMENT");
-         assertEquals("Should be equals", "ATTACHMENT", attachmentOption.toString());
+         assertEquals("Should be equals", "SURVEY", surveyOption.toString()); 
 
          final TypeSearchResult questionOption = TypeSearchResult.getTypeSearchResult("QUESTION");
          assertEquals("Should be equals", "QUESTION", questionOption.toString());
