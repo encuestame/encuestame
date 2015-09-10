@@ -33,13 +33,11 @@ import org.encuestame.utils.web.CreatePollBean;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.SurveyBean;
-import org.encuestame.utils.web.UnitAttachment;
+import org.encuestame.utils.web.SurveyBean; 
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
-import org.encuestame.utils.web.UnitLocationFolder;
-import org.encuestame.utils.web.UnitProjectBean;
+import org.encuestame.utils.web.UnitLocationFolder; 
 import org.encuestame.utils.web.UnitSurveySection;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.search.PollSearchBean;
@@ -497,24 +495,9 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          bean.setUsername(username);
          bean.setPassword("xxxxx");
          return bean;
-     }
-
-     /**
-      * Create Unit Attachment Bean.
-      * @param filename
-      * @param uploadDate
-      * @param projectBean
-      * @return
-      */
-//     public UnitAttachment createUnitAttachment(final String filename, final Date uploadDate,
-//                            final UnitProjectBean projectBean){
-//        final UnitAttachment unitAttachmentBean = new UnitAttachment();
-//        unitAttachmentBean.setFilename(filename); 
-//        unitAttachmentBean.setUploadDate(uploadDate);
-//        return unitAttachmentBean;
-//     }
-
-     /**
+     } 
+     
+	/**
       * Create folder bean.
       * @param createdAt
       * @param folderName

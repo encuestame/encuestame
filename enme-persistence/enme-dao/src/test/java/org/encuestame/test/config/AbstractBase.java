@@ -52,8 +52,7 @@ import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.ScheduleDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.AbstractSurvey.CustomFinalMessage;
-import org.encuestame.persistence.domain.AccessRate;
-import org.encuestame.persistence.domain.Attachment;
+import org.encuestame.persistence.domain.AccessRate; 
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.Email;
@@ -626,23 +625,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         result.setIpaddress(ip);
         getPollDao().saveOrUpdate(result);
         return result;
-    }
- 
-   /**
-    * Create Attachment.
-    * @param filename
-    * @param uploadDate 
-    * @return Attachment data.
-    */
-    public Attachment createAttachment(
-            final String filename,
-            final Date uploadDate 
-            ){
-        final Attachment attachmentInfo = new Attachment();
-        attachmentInfo.setFilename(filename);
-        attachmentInfo.setUploadDate(uploadDate); 
-        return attachmentInfo;
-    }
+    } 
 
     /**
      * Create {@link Client}.
