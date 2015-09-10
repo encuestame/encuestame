@@ -74,13 +74,11 @@ public class TestSearchService extends AbstractSpringSecurityContext {
         this.user = createAccount();
         this.userAccount = getSpringSecurityLoggedUserAccount();
         resultsAllowed.add(TypeSearchResult.QUESTION);
-        resultsAllowed.add(TypeSearchResult.ATTACHMENT);
         resultsAllowed.add(TypeSearchResult.HASHTAG);
         resultsAllowed.add(TypeSearchResult.TWEETPOLL);
         resultsAllowed.add(TypeSearchResult.COMMENT	);
         resultsAllowed.add(TypeSearchResult.PROFILE);
         resultsAllowed.add(TypeSearchResult.POLL);
-
     }
 
     /**

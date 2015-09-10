@@ -122,8 +122,7 @@ public class SearchUtils {
 
    /**
     * Create PDF Document.
-    * @param file {@link File}
-    * @param Long attachmentId.
+    * @param file {@link File} 
     * @return {@link Document}
     * @throws Exception
     */
