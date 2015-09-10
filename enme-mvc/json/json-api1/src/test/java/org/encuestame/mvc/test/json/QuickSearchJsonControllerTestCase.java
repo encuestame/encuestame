@@ -70,22 +70,19 @@ public class QuickSearchJsonControllerTestCase extends AbstractJsonV1MvcUnitBean
         final JSONObject response = callJsonService();
         Assert.assertEquals(this.getSearchRestuls(response, "tags").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response, "questions").size(), 0);
-        Assert.assertEquals(this.getSearchRestuls(response, "profiles").size(), 0);
-        Assert.assertEquals(this.getSearchRestuls(response, "attachments").size(), 0);
+        Assert.assertEquals(this.getSearchRestuls(response, "profiles").size(), 0); 
         initService("/api/search/quick-suggest.json", MethodJson.GET);
         setParameter("keyword", "a*");
         final JSONObject response2 = callJsonService();
         Assert.assertEquals(this.getSearchRestuls(response2, "tags").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response2, "questions").size(), 3);
-        Assert.assertEquals(this.getSearchRestuls(response2, "profiles").size(), 0);
-        Assert.assertEquals(this.getSearchRestuls(response2, "attachments").size(), 0);
+        Assert.assertEquals(this.getSearchRestuls(response2, "profiles").size(), 0); 
         initService("/api/search/quick-suggest.json", MethodJson.GET);
         setParameter("keyword", "Nicaragua");
         final JSONObject response3 = callJsonService();
         Assert.assertEquals(this.getSearchRestuls(response3, "tags").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response3, "questions").size(), 0);
-        Assert.assertEquals(this.getSearchRestuls(response3, "profiles").size(), 0);
-        Assert.assertEquals(this.getSearchRestuls(response3, "attachments").size(), 0);
+        Assert.assertEquals(this.getSearchRestuls(response3, "profiles").size(), 0); 
     }
 
     /**
@@ -109,22 +106,19 @@ public class QuickSearchJsonControllerTestCase extends AbstractJsonV1MvcUnitBean
         final JSONObject response = callJsonService();
         Assert.assertEquals(this.getSearchRestuls(response, "tags").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response, "questions").size(), 0);
-        Assert.assertEquals(this.getSearchRestuls(response, "profiles").size(), 0);
-        Assert.assertEquals(this.getSearchRestuls(response, "attachments").size(), 0);
+        Assert.assertEquals(this.getSearchRestuls(response, "profiles").size(), 0); 
         initService("/api/search/quick-suggest.json", MethodJson.GET);
         setParameter("keyword", "a*");
         final JSONObject response2 = callJsonService();
         Assert.assertEquals(this.getSearchRestuls(response2, "tags").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response2, "questions").size(), 3);
-        Assert.assertEquals(this.getSearchRestuls(response2, "profiles").size(), 0);
-        Assert.assertEquals(this.getSearchRestuls(response2, "attachments").size(), 0);
+        Assert.assertEquals(this.getSearchRestuls(response2, "profiles").size(), 0); 
         initService("/api/search/quick-suggest.json", MethodJson.GET);
         setParameter("keyword", "Nicaragua");
         final JSONObject response3 = callJsonService();
         Assert.assertEquals(this.getSearchRestuls(response3, "tags").size(), 0);
         Assert.assertEquals(this.getSearchRestuls(response3, "questions").size(), 0);
-        Assert.assertEquals(this.getSearchRestuls(response3, "profiles").size(), 0);
-        Assert.assertEquals(this.getSearchRestuls(response3, "attachments").size(), 0);
+        Assert.assertEquals(this.getSearchRestuls(response3, "profiles").size(), 0); 
     }
 
 }

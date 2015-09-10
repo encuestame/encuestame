@@ -84,8 +84,7 @@ public class QuickSearchJsonController extends AbstractJsonControllerV1 {
 								itemSearchTitle: "Which instrument sounds most like the human voice?",
 								itemSearchDescription: null
 							}
-						],
-						attachments: [ ],
+						], 
 						tags: [ ],
 						Tweetpolls: [ ],
 						Polls: [ ]
@@ -107,8 +106,7 @@ public class QuickSearchJsonController extends AbstractJsonControllerV1 {
             keyword = filterValue(keyword);
             //
             final List<TypeSearchResult> typesEnabled = new ArrayList<TypeSearchResult>();
-            typesEnabled.add(TypeSearchResult.QUESTION);
-            //typesEnabled.add(TypeSearchResult.ATTACHMENT);
+            typesEnabled.add(TypeSearchResult.QUESTION); 
             typesEnabled.add(TypeSearchResult.HASHTAG);
             typesEnabled.add(TypeSearchResult.POLL);
             typesEnabled.add(TypeSearchResult.PROFILE);
