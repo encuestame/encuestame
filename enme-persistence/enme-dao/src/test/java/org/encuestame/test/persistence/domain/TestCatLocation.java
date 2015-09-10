@@ -38,8 +38,7 @@ public class TestCatLocation extends AbstractBase{
         catLoc.setLocationDescription("Managua");
         catLoc.setLocationLatitude(2F);
         catLoc.setLocationLongitude(3F);
-        catLoc.setTidtype(createGeoPointType("aldea"));
-        catLoc.getProjects().add(createProject("encuestame", "survey", "open source",  createAccount()));
+        catLoc.setTidtype(createGeoPointType("aldea")); 
         getGeoPointDao().saveOrUpdate(catLoc);
         assertNotNull(catLoc.getLocateId());
     }

@@ -45,7 +45,7 @@ public class Attachment {
     private Date uploadDate = Calendar.getInstance().getTime();
 
     /** Project. **/
-    private Project projectAttachment ;
+   // private Project projectAttachment ;
 
     /**
     * @return the attachmentId.
@@ -95,19 +95,19 @@ public class Attachment {
         this.uploadDate = uploadDate;
     }
 
-    /**
-    * @return the projectAttachment
-    */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "project_id", nullable = false)
-    public Project getProjectAttachment() {
-        return projectAttachment;
-    }
-
-    /**
-    * @param projectAttachment the projectAttachment to set
-    */
-    public void setProjectAttachment(final Project projectAttachment) {
-        this.projectAttachment = projectAttachment;
-    }
-}
+//    /**
+//    * @return the projectAttachment
+//    */
+//    @ManyToOne(cascade = CascadeType.MERGE)
+//    @JoinColumn(name = "project_id", nullable = false)
+//    public Project getProjectAttachment() {
+//        return projectAttachment;
+//    }
+//
+//    /**
+//    * @param projectAttachment the projectAttachment to set
+//    */
+//    public void setProjectAttachment(final Project projectAttachment) {
+//        this.projectAttachment = projectAttachment;
+//    }
+ }

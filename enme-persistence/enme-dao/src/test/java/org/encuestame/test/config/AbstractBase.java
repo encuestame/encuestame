@@ -37,8 +37,7 @@ import org.encuestame.persistence.dao.IGroupDao;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.IPermissionDao;
-import org.encuestame.persistence.dao.IPoll;
-import org.encuestame.persistence.dao.IProjectDao;
+import org.encuestame.persistence.dao.IPoll; 
 import org.encuestame.persistence.dao.IQuestionDao;
 import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.dao.ISurvey;
@@ -153,11 +152,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /** Catalog Location Dao.**/
     @Autowired
-    private IGeoPoint geoPointDao;
-
-    /** Project Dao Imp.**/
-    @Autowired
-    private IProjectDao projectDaoImp;
+    private IGeoPoint geoPointDao; 
 
     /** Survey Dao Imp.**/
     @Autowired
@@ -325,21 +320,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public void setGroupDaoImp(final IGroupDao groupDaoImp) {
         this.groupDaoImp = groupDaoImp;
     }
-
-    /**
-     * @return the projectDaoImp
-     */
-    public IProjectDao getProjectDaoImp() {
-        return projectDaoImp;
-    }
-
-    /**
-     * @param projectDaoImp the projectDaoImp to set
-     */
-    public void setProjectDaoImp(final IProjectDao projectDaoImp) {
-        this.projectDaoImp = projectDaoImp;
-    }
-
+ 
     /**
      * @return the surveyDaoImp
      */
@@ -657,29 +638,29 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param user user
      * @return {@link Project}
      */
-    public Project createProject(
-            final String name,
-            final String descProject,
-            final String infoProject,
-            final Account user) {
-          final Project project = new Project();
-          final Calendar start = Calendar.getInstance();
-          final Calendar end = Calendar.getInstance();
-          end.add(Calendar.MONTH, 4);
-          project.setProjectDateFinish(end.getTime());
-          project.setProjectDateStart(start.getTime());
-          project.setProjectInfo(infoProject);
-          project.setProjectName(RandomStringUtils.randomAscii(4)+"_name");
-          project.setLead(createUserAccount("tes-"+RandomStringUtils.randomAscii(4), createAccount()));
-          project.setProjectDescription(descProject);
-          project.setProjectStatus(Status.ACTIVE);
-          project.setPriority(Priority.MEDIUM);
-          project.setHideProject(Boolean.FALSE);
-          project.setPublished(Boolean.TRUE);
-          project.setUsers(user);
-          getProjectDaoImp().saveOrUpdate(project);
-          return project;
-    }
+//    public Project createProject(
+//            final String name,
+//            final String descProject,
+//            final String infoProject,
+//            final Account user) {
+//          final Project project = new Project();
+//          final Calendar start = Calendar.getInstance();
+//          final Calendar end = Calendar.getInstance();
+//          end.add(Calendar.MONTH, 4);
+//          project.setProjectDateFinish(end.getTime());
+//          project.setProjectDateStart(start.getTime());
+//          project.setProjectInfo(infoProject);
+//          project.setProjectName(RandomStringUtils.randomAscii(4)+"_name");
+//          project.setLead(createUserAccount("tes-"+RandomStringUtils.randomAscii(4), createAccount()));
+//          project.setProjectDescription(descProject);
+//          project.setProjectStatus(Status.ACTIVE);
+//          project.setPriority(Priority.MEDIUM);
+//          project.setHideProject(Boolean.FALSE);
+//          project.setPublished(Boolean.TRUE);
+//          project.setUsers(user);
+//          getProjectDaoImp().saveOrUpdate(project);
+//          return project;
+//    }
 
    /**
     * Create Attachment.
@@ -696,8 +677,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final Attachment attachmentInfo = new Attachment();
         attachmentInfo.setFilename(filename);
         attachmentInfo.setUploadDate(uploadDate);
-        attachmentInfo.setProjectAttachment(project);
-        getProjectDaoImp().saveOrUpdate(attachmentInfo);
+      //  attachmentInfo.setProjectAttachment(project);
+       // getProjectDaoImp().saveOrUpdate(attachmentInfo);
         return attachmentInfo;
     }
 
@@ -710,7 +691,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public Client createClient(final String name, final Project project){
         final Client client = new Client();
         client.setClientName(name);
-        client.setProject(project);
+       // client.setProject(project);
         client.setClientEmail("");
         client.setClientDescription("");
         client.setClientFax("");

@@ -43,7 +43,7 @@ public class Client {
     private String clientTwitter;
     private String clientFacebook;
     private String clientDescription;
-    private Project project;
+    //private Project project;
 
     /**
      * @return the clientId
@@ -194,16 +194,16 @@ public class Client {
     /**
      * @return the project
      */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "project_id", nullable = true)
-    public Project getProject() {
-        return project;
-    }
-
-    /**
-     * @param project the project to set
-     */
-    public void setProject(Project project) {
-        this.project = project;
-    }
+//    @ManyToOne(cascade = CascadeType.MERGE)
+//    @JoinColumn(name = "project_id", nullable = true)
+//    public Project getProject() {
+//        return project;
+//    }
+//
+//    /**
+//     * @param project the project to set
+//     */
+//    public void setProject(Project project) {
+//        this.project = project;
+//    }
 }

@@ -87,7 +87,7 @@ public class Group implements Serializable{
     /**
      * Projects by Group.
      */
-    private Set<Project> projects = new HashSet<Project>();
+  //  private Set<Project> projects = new HashSet<Project>();
 
     /**
      * Permissions by Group.
@@ -182,20 +182,20 @@ public class Group implements Serializable{
     /**
      * @return the projects
      */
-    @ManyToMany()
-    @JoinTable(name="project_group",
-              joinColumns={@JoinColumn(name="sec_id_group")},
-              inverseJoinColumns={@JoinColumn(name="cat_id_project")})
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    /**
-     * @param projects the projects to set
-     */
-    public void setProjects(final Set<Project> projects) {
-        this.projects = projects;
-    }
+//    @ManyToMany()
+//    @JoinTable(name="project_group",
+//              joinColumns={@JoinColumn(name="sec_id_group")},
+//              inverseJoinColumns={@JoinColumn(name="cat_id_project")})
+//    public Set<Project> getProjects() {
+//        return projects;
+//    }
+//
+//    /**
+//     * @param projects the projects to set
+//     */
+//    public void setProjects(final Set<Project> projects) {
+//        this.projects = projects;
+//    }
 
     /**
      * @return the secUsers

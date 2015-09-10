@@ -69,7 +69,7 @@ public class Survey extends AbstractSurvey {
     private SurveyFolder surveysfolder;
 
     /** {@link HashTag} **/
-    private Project project;
+  //  private Project project;
 
     /**
      * Date init of survey.
@@ -176,17 +176,17 @@ public class Survey extends AbstractSurvey {
     /**
      * @return the project
      */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    public Project getProject() {
-        return project;
-    }
-
-    /**
-     * @param project the project to set
-     */
-    public void setProject(final Project project) {
-        this.project = project;
-    }
+//    @ManyToOne(cascade = CascadeType.MERGE)
+//    public Project getProject() {
+//        return project;
+//    }
+//
+//    /**
+//     * @param project the project to set
+//     */
+//    public void setProject(final Project project) {
+//        this.project = project;
+//    }
 
     /**
      * @return startDate

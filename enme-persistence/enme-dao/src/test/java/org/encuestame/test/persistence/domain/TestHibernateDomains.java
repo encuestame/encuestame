@@ -134,8 +134,7 @@ public class TestHibernateDomains extends AbstractBase{
         catLoc.setLocationDescription("Managua");
         catLoc.setLocationLatitude(2F);
         catLoc.setLocationLongitude(3F);
-        catLoc.setTidtype(createGeoPointType("aldea"));
-        catLoc.getProjects().add(createProject("encuestame", "survey", "open source", createAccount()));
+        catLoc.setTidtype(createGeoPointType("aldea")); 
         getGeoPointDao().saveOrUpdate(catLoc);
         assertNotNull(catLoc.getLocateId());
     }
@@ -155,21 +154,21 @@ public class TestHibernateDomains extends AbstractBase{
     /**
      * Test Project.
      **/
-    @Test
-    public void testProject(){
-        final Project project = new Project();
-        project.setProjectDescription("Tic Municipal");
-        project.setProjectInfo("Tic Project in Nicaraguan Municipalities");
-        project.setProjectDateStart(new Date());
-        project.setProjectDateFinish(new Date());
-        project.setProjectName("Name");
-         project.getSurveyGroups().add(createSurveyGroup("Education"));
-        project.getSecUserSecondaries().add(createUserAccount("Diana",createAccount()));
-        project.getGroups().add(createGroups("editor"));
-        project.getLocations().add(createGeoPoint("Matagalpa","Matalgalpa Department",2, createAccount()));
-        getProjectDaoImp().saveOrUpdate(project);
-        assertNotNull(project.getProyectId());
-    }
+//    @Test
+//    public void testProject(){
+//        final Project project = new Project();
+//        project.setProjectDescription("Tic Municipal");
+//        project.setProjectInfo("Tic Project in Nicaraguan Municipalities");
+//        project.setProjectDateStart(new Date());
+//        project.setProjectDateFinish(new Date());
+//        project.setProjectName("Name");
+//         project.getSurveyGroups().add(createSurveyGroup("Education"));
+//        project.getSecUserSecondaries().add(createUserAccount("Diana",createAccount()));
+//        project.getGroups().add(createGroups("editor"));
+//        project.getLocations().add(createGeoPoint("Matagalpa","Matalgalpa Department",2, createAccount()));
+//        getProjectDaoImp().saveOrUpdate(project);
+//        assertNotNull(project.getProyectId());
+//    }
 
     /**
     *Test Question Location Domain.
@@ -227,8 +226,7 @@ public class TestHibernateDomains extends AbstractBase{
         groups.setGroupName("writers");
         groups.setGroupDescriptionInfo("writers");
         groups.setAccount(createAccount());
-        groups.getPermissions().add(createPermission("administrator"));
-        groups.getProjects().add(createProject("TIC", "TIC", "TIC", createAccount()));
+        groups.getPermissions().add(createPermission("administrator")); 
         getGroup().saveOrUpdate(groups);
         assertNotNull(groups.getGroupId());
     }
@@ -299,8 +297,7 @@ public class TestHibernateDomains extends AbstractBase{
          final SurveyGroup surveyGroup = new SurveyGroup();
          surveyGroup.setGroupName("Education");
          surveyGroup.setDateCreate(new Date());
-         surveyGroup.getSurveyFormats().add(createSurveyFormat("Schools",new Date()));
-         surveyGroup.getProjects().add(createProject("TIC", "TIC", "TIC", createAccount()));
+         surveyGroup.getSurveyFormats().add(createSurveyFormat("Schools",new Date())); 
          getSurveyDaoImp().saveOrUpdate(surveyGroup);
          assertNotNull(surveyGroup.getSgId());
      }
@@ -447,8 +444,7 @@ public class TestHibernateDomains extends AbstractBase{
          client.setClientName("Jhon");
          client.setClientTelephone("34232423432");
          client.setClientTwitter("encuestame");
-         client.setClientUrl("http://www.encuestame.org");
-         client.setProject(createProject("encuestame","open source", "info", createAccount()));
+         client.setClientUrl("http://www.encuestame.org"); 
      }
 
      /** HashTag domain. **/

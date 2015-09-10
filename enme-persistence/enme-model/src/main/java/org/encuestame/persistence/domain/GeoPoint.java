@@ -72,7 +72,7 @@ public class GeoPoint extends AbstractGeoPoint{
     private GeoPointFolder geoPointFolder;
 
     /** Projects. **/
-    private Set<Project> projects = new HashSet<Project>();
+   // private Set<Project> projects = new HashSet<Project>();
 
     /**
      * @return locateId
@@ -118,20 +118,20 @@ public class GeoPoint extends AbstractGeoPoint{
     /**
      * @return the projects
      */
-    @ManyToMany()
-    @JoinTable(name="project_locations",
-              joinColumns={@JoinColumn(name="cat_id_loc")},
-              inverseJoinColumns={@JoinColumn(name="cat_id_project")})
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    /**
-     * @param projects the projects to set
-     */
-    public void setProjects(final Set<Project> projects) {
-        this.projects = projects;
-    }
+//    @ManyToMany()
+//    @JoinTable(name="project_locations",
+//              joinColumns={@JoinColumn(name="cat_id_loc")},
+//              inverseJoinColumns={@JoinColumn(name="cat_id_project")})
+//    public Set<Project> getProjects() {
+//        return projects;
+//    }
+//
+//    /**
+//     * @param projects the projects to set
+//     */
+//    public void setProjects(final Set<Project> projects) {
+//        this.projects = projects;
+//    }
 
     /**
      * @return the secUsers
