@@ -28,9 +28,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.encuestame.persistence.domain.Project;
-
+ 
 /**
  * SecGroups.
  * @author Picado, Juan juanATencuestame.org
@@ -82,12 +80,7 @@ public class Group implements Serializable{
     /**
      * State Id.
      */
-    private Long idState;
-
-    /**
-     * Projects by Group.
-     */
-  //  private Set<Project> projects = new HashSet<Project>();
+    private Long idState; 
 
     /**
      * Permissions by Group.
@@ -177,25 +170,7 @@ public class Group implements Serializable{
      */
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
-    }
-
-    /**
-     * @return the projects
-     */
-//    @ManyToMany()
-//    @JoinTable(name="project_group",
-//              joinColumns={@JoinColumn(name="sec_id_group")},
-//              inverseJoinColumns={@JoinColumn(name="cat_id_project")})
-//    public Set<Project> getProjects() {
-//        return projects;
-//    }
-//
-//    /**
-//     * @param projects the projects to set
-//     */
-//    public void setProjects(final Set<Project> projects) {
-//        this.projects = projects;
-//    }
+    } 
 
     /**
      * @return the secUsers

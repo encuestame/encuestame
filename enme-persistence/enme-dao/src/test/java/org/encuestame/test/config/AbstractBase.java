@@ -64,9 +64,7 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
-import org.encuestame.persistence.domain.Hit;
-import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.Project.Priority;
+import org.encuestame.persistence.domain.Hit; 
 import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
@@ -629,69 +627,31 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         getPollDao().saveOrUpdate(result);
         return result;
     }
-
-    /**
-     * Create project.
-     * @param name Project's name
-     * @param descProject Project Description
-     * @param infoProject Informations's Project
-     * @param user user
-     * @return {@link Project}
-     */
-//    public Project createProject(
-//            final String name,
-//            final String descProject,
-//            final String infoProject,
-//            final Account user) {
-//          final Project project = new Project();
-//          final Calendar start = Calendar.getInstance();
-//          final Calendar end = Calendar.getInstance();
-//          end.add(Calendar.MONTH, 4);
-//          project.setProjectDateFinish(end.getTime());
-//          project.setProjectDateStart(start.getTime());
-//          project.setProjectInfo(infoProject);
-//          project.setProjectName(RandomStringUtils.randomAscii(4)+"_name");
-//          project.setLead(createUserAccount("tes-"+RandomStringUtils.randomAscii(4), createAccount()));
-//          project.setProjectDescription(descProject);
-//          project.setProjectStatus(Status.ACTIVE);
-//          project.setPriority(Priority.MEDIUM);
-//          project.setHideProject(Boolean.FALSE);
-//          project.setPublished(Boolean.TRUE);
-//          project.setUsers(user);
-//          getProjectDaoImp().saveOrUpdate(project);
-//          return project;
-//    }
-
+ 
    /**
     * Create Attachment.
     * @param filename
-    * @param uploadDate
-    * @param project
+    * @param uploadDate 
     * @return Attachment data.
     */
     public Attachment createAttachment(
             final String filename,
-            final Date uploadDate,
-            final Project project
+            final Date uploadDate 
             ){
         final Attachment attachmentInfo = new Attachment();
         attachmentInfo.setFilename(filename);
-        attachmentInfo.setUploadDate(uploadDate);
-      //  attachmentInfo.setProjectAttachment(project);
-       // getProjectDaoImp().saveOrUpdate(attachmentInfo);
+        attachmentInfo.setUploadDate(uploadDate); 
         return attachmentInfo;
     }
 
     /**
      * Create {@link Client}.
-     * @param name name
-     * @param project {@link Project}
+     * @param name name 
      * @return {@link Client}
      */
-    public Client createClient(final String name, final Project project){
+    public Client createClient(final String name){
         final Client client = new Client();
-        client.setClientName(name);
-       // client.setProject(project);
+        client.setClientName(name); 
         client.setClientEmail("");
         client.setClientDescription("");
         client.setClientFax("");

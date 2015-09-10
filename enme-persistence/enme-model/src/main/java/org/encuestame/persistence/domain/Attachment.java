@@ -14,14 +14,11 @@ package org.encuestame.persistence.domain;
 
 import java.util.Calendar;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,10 +39,7 @@ public class Attachment {
     private String filename;
 
     /** Attachment upload date. **/
-    private Date uploadDate = Calendar.getInstance().getTime();
-
-    /** Project. **/
-   // private Project projectAttachment ;
+    private Date uploadDate = Calendar.getInstance().getTime(); 
 
     /**
     * @return the attachmentId.
@@ -93,21 +87,5 @@ public class Attachment {
     */
     public void setUploadDate(final Date uploadDate) {
         this.uploadDate = uploadDate;
-    }
-
-//    /**
-//    * @return the projectAttachment
-//    */
-//    @ManyToOne(cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "project_id", nullable = false)
-//    public Project getProjectAttachment() {
-//        return projectAttachment;
-//    }
-//
-//    /**
-//    * @param projectAttachment the projectAttachment to set
-//    */
-//    public void setProjectAttachment(final Project projectAttachment) {
-//        this.projectAttachment = projectAttachment;
-//    }
+    } 
  }

@@ -87,7 +87,6 @@ import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitPermission;
-import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurveySection;
 import org.encuestame.utils.web.UserAccountBean;
@@ -548,48 +547,8 @@ public class ConvertDomainBean {
                 .getLocationTypeDescription());
         locationTypeBean.setLevel(locationType.getLocationTypeLevel());
         return locationTypeBean;
-    }
-
-    /**
-     * Convert {@link Project} to {@link UnitProjectBean}
-     *
-     * @param project
-     *            {@link UnitProjectBean}
-     * @return {@link UnitProjectBean}
-     */
-//    public static final UnitProjectBean convertProjectDomainToBean(
-//            final Project project) {
-//        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-//                DateUtil.DEFAULT_FORMAT_DATE);
-//        final UnitProjectBean projectBean = new UnitProjectBean();
-//        projectBean.setName(project.getProjectDescription());
-//        projectBean.setDateFinish(project.getProjectDateFinish());
-//        projectBean.setDateInit(project.getProjectDateStart());
-//        projectBean.setId(project.getProyectId());
-//        projectBean.setDescription(project.getProjectDescription());
-//        projectBean.setName(project.getProjectName());
-//        projectBean.setProjectInfo(project.getProjectInfo());
-//        if (project.getLead() != null) {
-//            projectBean.setLeader(project.getLead().getUid());
-//        }
-//        projectBean.setPriority(project.getPriority().name());
-//        projectBean.setPublished(project.getPublished());
-//        projectBean.setState(project.getProjectStatus().name());
-//        if (project.getProjectDateStart() != null) {
-//            projectBean.setFormatedDateInit(simpleDateFormat.format(project
-//                    .getProjectDateStart()));
-//        }
-//        if (project.getProjectDateFinish() != null) {
-//            projectBean.setFormatedDateFinish(simpleDateFormat.format(project
-//                    .getProjectDateFinish()));
-//        }
-//        projectBean.setHide(project.getHideProject());
-//        projectBean.setNotify(project.getNotifyMembers());
-//        // TODO: add other properties.
-//        log.debug("project bean converted " + projectBean.toString());
-//        return projectBean;
-//    }
-
+    } 
+  
     /**
      * Convert {@link Permission} to {@link UnitPermission}
      *

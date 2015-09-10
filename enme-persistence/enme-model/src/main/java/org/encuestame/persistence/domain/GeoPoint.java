@@ -12,9 +12,6 @@
  */
 package org.encuestame.persistence.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,8 +20,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.CascadeType;
@@ -69,10 +64,7 @@ public class GeoPoint extends AbstractGeoPoint{
     private Account account;
 
     /** Location Folder. **/
-    private GeoPointFolder geoPointFolder;
-
-    /** Projects. **/
-   // private Set<Project> projects = new HashSet<Project>();
+    private GeoPointFolder geoPointFolder; 
 
     /**
      * @return locateId
@@ -113,25 +105,7 @@ public class GeoPoint extends AbstractGeoPoint{
     @Column(name = "description")
     public String getLocationDescription() {
         return this.locationDescription;
-    }
-
-    /**
-     * @return the projects
-     */
-//    @ManyToMany()
-//    @JoinTable(name="project_locations",
-//              joinColumns={@JoinColumn(name="cat_id_loc")},
-//              inverseJoinColumns={@JoinColumn(name="cat_id_project")})
-//    public Set<Project> getProjects() {
-//        return projects;
-//    }
-//
-//    /**
-//     * @param projects the projects to set
-//     */
-//    public void setProjects(final Set<Project> projects) {
-//        this.projects = projects;
-//    }
+    } 
 
     /**
      * @return the secUsers

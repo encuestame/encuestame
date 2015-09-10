@@ -64,8 +64,7 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     private IGeoPoint geoPointDao;
     /** {@link GeoPointTypeDao}. */
     @Autowired
-    private IGeoPointTypeDao geoPointTypeDao;
-    /** {@link ProjectDaoImp}. */
+    private IGeoPointTypeDao geoPointTypeDao; 
     
     /** {@link ClientDao}. **/
     @Autowired
@@ -199,85 +198,7 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     public Account getAccount(final String username) throws EnMeNoResultsFoundException{
         return getUserAccount(username).getAccount();
      }
-
-    /**
-     * Load List of Project.
-     * @param userId user id.
-     * @return {@link Collection} of {@link UnitProjectBean}
-     * @throws EnMeExpcetion exception
-     */
-//    public final Collection<UnitProjectBean> loadListProjects(final Long userId) {
-//            final Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
-//            final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(userId);
-//            log.info("project by user id: "+projectList.size());
-//            for (Project project : projectList) {
-//                log.info("adding project "+project.getProjectDescription());
-//                log.info("groups available in this project "+project.getGroups().size());
-//                listProjects.add(ConvertDomainBean.convertProjectDomainToBean(project));
-//            }
-//            log.info("projects loaded: "+ listProjects.size());
-//            return listProjects;
-//    }
-
-//    /**
-//     * Load project info.
-//     * @param projectBean {@link Project}
-//     * @return {@link UnitProjectBean}
-//     * @throws EnMeExpcetion excepcion
-//     */
-//    public UnitProjectBean loadProjectInfo(final UnitProjectBean projectBean) throws EnMeExpcetion {
-//        if (projectBean.getId()!= null) {
-//            final Project projectDomain = getProjectDaoImp().getProjectbyId(projectBean.getId());
-//            if (projectDomain != null) {
-//                final UnitProjectBean projectBeanRetrieved = ConvertDomainBean.convertProjectDomainToBean(projectDomain);
-//                //projectBeanRetrieved.setGroupList(ConvertListDomainSelectBean.convertListGroupDomainToSelect(projectDomain.getGroups()));
-//                return projectBeanRetrieved;
-//            } else {
-//                log.info("id project is not found");
-//                throw new EnMeExpcetion("id project is not found");
-//            }
-//        } else {
-//            log.info("id project is null");
-//            throw new EnMeExpcetion("id project is null");
-//        }
-//    }
-
-//    /**
-//     * Create Project.
-//     * @param projectBean {@link UnitProjectBean}
-//     * @return {@link UnitProjectBean}
-//     * @throws EnMeExpcetion exception
-//     */
-//    public final UnitProjectBean createProject(final UnitProjectBean projectBean) throws EnMeExpcetion {
-//        log.info("create project");
-//        if (projectBean != null) {
-//            try {
-//                final Project projectDomain = new Project();
-//                //projectDomain.setStateProject(getState(projectBean.getState()));
-//                projectDomain.setProjectDateFinish(projectBean.getDateFinish());
-//                projectDomain.setProjectDateStart(projectBean.getDateInit());
-//                projectDomain.setProjectDescription(projectBean.getName());
-//                projectDomain.setProjectInfo(projectBean.getDescription());
-//                projectDomain.setHideProject(projectBean.getHide());
-//                projectDomain.setNotifyMembers(projectBean.getNotify());
-//                if(projectBean.getLeader()!=null){
-//                    projectDomain.setLead(getAccountDao().getUserAccountById(projectBean.getLeader()));
-//                }
-//                projectDomain.setUsers(getAccountDao().getUserById(projectBean.getUserId()));
-//                getProjectDaoImp().saveOrUpdate(projectDomain);
-//                projectBean.setId(projectDomain.getProyectId());
-//                log.debug("created domain project");
-//            } catch (HibernateException e) {
-//                throw new EnMeExpcetion(e);
-//            } catch (Exception e) {
-//                throw new EnMeExpcetion(e);
-//            }
-//            return projectBean;
-//        } else {
-//            throw new EnMeExpcetion("project is null");
-//        }
-//    }
-
+ 
     /**
      * Create {@link HashTag}.
      * @param name tag name

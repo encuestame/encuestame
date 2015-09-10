@@ -30,8 +30,7 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
-import org.encuestame.persistence.domain.Hit;
-import org.encuestame.persistence.domain.Project;
+import org.encuestame.persistence.domain.Hit; 
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
@@ -149,26 +148,7 @@ public class TestHibernateDomains extends AbstractBase{
        catLocType.setLocationTypeLevel(1);
        getGeoPointDao().saveOrUpdate(catLocType);
        assertNotNull(catLocType.getLocationTypeId());
-   }
-
-    /**
-     * Test Project.
-     **/
-//    @Test
-//    public void testProject(){
-//        final Project project = new Project();
-//        project.setProjectDescription("Tic Municipal");
-//        project.setProjectInfo("Tic Project in Nicaraguan Municipalities");
-//        project.setProjectDateStart(new Date());
-//        project.setProjectDateFinish(new Date());
-//        project.setProjectName("Name");
-//         project.getSurveyGroups().add(createSurveyGroup("Education"));
-//        project.getSecUserSecondaries().add(createUserAccount("Diana",createAccount()));
-//        project.getGroups().add(createGroups("editor"));
-//        project.getLocations().add(createGeoPoint("Matagalpa","Matalgalpa Department",2, createAccount()));
-//        getProjectDaoImp().saveOrUpdate(project);
-//        assertNotNull(project.getProyectId());
-//    }
+   } 
 
     /**
     *Test Question Location Domain.
