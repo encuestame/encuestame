@@ -78,7 +78,7 @@ public class IndexRebuilder {
         IndexRebuilder.reindex(fullTextSession, TweetPollFolder.class);
         IndexRebuilder.reindex(fullTextSession, SurveyFolder.class);
         IndexRebuilder.reindex(fullTextSession, PollFolder.class);
-        IndexRebuilder.reindex(fullTextSession, Project.class);
+        //IndexRebuilder.reindex(fullTextSession, Project.class);
         IndexRebuilder.reindex(fullTextSession, Notification.class);
         IndexRebuilder.reindex(fullTextSession, SocialAccount.class);
         IndexRebuilder.reindex(fullTextSession, TweetPollResult.class);
