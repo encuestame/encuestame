@@ -35,7 +35,7 @@ public class UnitAttachment {
     private Date uploadDate;
 
     /** {@link UnitProjectBean} **/
-    private UnitProjectBean projectBean;
+  //  private UnitProjectBean projectBean;
 
     /**
     * @return the attachmentId
@@ -96,14 +96,14 @@ public class UnitAttachment {
     /**
     * @return the projectBean
     */
-    public UnitProjectBean getProjectBean() {
-        return projectBean;
-    }
-
-    /**
-    * @param projectBean the projectBean to set
-    */
-    public void setProjectBean(final UnitProjectBean projectBean) {
-        this.projectBean = projectBean;
-    }
+//    public UnitProjectBean getProjectBean() {
+//        return projectBean;
+//    }
+//
+//    /**
+//    * @param projectBean the projectBean to set
+//    */
+//    public void setProjectBean(final UnitProjectBean projectBean) {
+//        this.projectBean = projectBean;
+//    }
 }

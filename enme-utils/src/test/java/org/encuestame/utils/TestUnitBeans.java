@@ -1092,18 +1092,18 @@ public class TestUnitBeans extends AbstractBaseUtils {
     @Test
     public void testUnitAttachment(){
         final UnitAttachment attachmentBean = new UnitAttachment();
-        final UnitProjectBean projectBean = createProjectBean("", 2L, 1L);
+        //final UnitProjectBean projectBean = createProjectBean("", 2L, 1L);
         final File myFile =  new File("/uri/");
         attachmentBean.setAttachmentId(1L);
         attachmentBean.setFile(myFile);
         attachmentBean.setFilename("attachFile");
-        attachmentBean.setProjectBean(projectBean);
+        //attachmentBean.setProjectBean(projectBean);
         attachmentBean.setUploadDate(new Date());
 
         assertNotNull(attachmentBean.getAttachmentId());
         assertNotNull(attachmentBean.getFile());
         assertNotNull(attachmentBean.getFilename());
-        assertNotNull(attachmentBean.getProjectBean());
+       // assertNotNull(attachmentBean.getProjectBean());
         assertNotNull(attachmentBean.getUploadDate());
     }
 

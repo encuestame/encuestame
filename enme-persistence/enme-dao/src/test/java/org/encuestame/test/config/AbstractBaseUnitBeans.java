@@ -506,14 +506,13 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @param projectBean
       * @return
       */
-     public UnitAttachment createUnitAttachment(final String filename, final Date uploadDate,
-                            final UnitProjectBean projectBean){
-        final UnitAttachment unitAttachmentBean = new UnitAttachment();
-        unitAttachmentBean.setFilename(filename);
-        unitAttachmentBean.setProjectBean(projectBean);
-        unitAttachmentBean.setUploadDate(uploadDate);
-        return unitAttachmentBean;
-     }
+//     public UnitAttachment createUnitAttachment(final String filename, final Date uploadDate,
+//                            final UnitProjectBean projectBean){
+//        final UnitAttachment unitAttachmentBean = new UnitAttachment();
+//        unitAttachmentBean.setFilename(filename); 
+//        unitAttachmentBean.setUploadDate(uploadDate);
+//        return unitAttachmentBean;
+//     }
 
      /**
       * Create folder bean.
