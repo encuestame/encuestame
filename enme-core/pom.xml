@@ -199,10 +199,6 @@
             <artifactId>hsqldb</artifactId>
         </dependency>
         <dependency>
-            <groupId>jasperreports</groupId>
-            <artifactId>jasperreports</artifactId>
-        </dependency>
-        <dependency>
             <groupId>rome</groupId>
             <artifactId>rome</artifactId>
         </dependency>

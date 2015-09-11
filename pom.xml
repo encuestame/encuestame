@@ -77,7 +77,7 @@
         <twitter4j.version>4.0.2</twitter4j.version>
         <!-- Apache PDF Box -->
         <apache.pdf.box>1.4.0</apache.pdf.box>
-        <apache.tiles>3.0.0</apache.tiles>
+        <apache.tiles>3.0.5</apache.tiles>
         <servlet-api>3.0.1</servlet-api>
         <servlet-api-artifact>javax.servlet-api</servlet-api-artifact>
         <!-- Porlets -->
@@ -125,7 +125,6 @@
         <quartz>1.6.1</quartz>
         <rome>1.0</rome>
         <rome-fetcher>1.0</rome-fetcher>
-        <jasper.report>3.5.3</jasper.report>
         <velocity>1.6.2</velocity>
         <antlr>3.0</antlr>
         <cglib-nodep>2.2</cglib-nodep>
@@ -160,7 +159,6 @@
         <maven-resources-plugin>2.5</maven-resources-plugin>
         <cobertura.maven.plugin>2.5.1</cobertura.maven.plugin>
         <maven-javadoc-plugin>2.9.1</maven-javadoc-plugin>
-        <jasperreports-maven-plugin>1.0-beta-2</jasperreports-maven-plugin>
         <maven-pmd-plugin>2.3</maven-pmd-plugin>
         <maven-project-info-reports-plugin>2.2</maven-project-info-reports-plugin>
         <maven-changes-plugin>2.4</maven-changes-plugin>
@@ -1351,11 +1349,6 @@
                 <groupId>postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${postgres.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>jasperreports</groupId>
-                <artifactId>jasperreports</artifactId>
-                <version>${jasper.report}</version>
             </dependency>
             <dependency>
                 <groupId>rome</groupId>

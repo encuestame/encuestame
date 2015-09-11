@@ -25,7 +25,6 @@ import org.encuestame.social.api.operation.FacebookAPIOperations;
 import org.encuestame.social.api.profile.FacebookProfile;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
-import org.jfree.util.Log;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -209,7 +208,7 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
     @Override
     public SocialUserProfile getProfile() {
         final FacebookProfile facebookProfile = this.getUserProfile();
-        Log.debug("Facebook PRofile "+facebookProfile.toString());
+        //Log.debug("Facebook PRofile "+facebookProfile.toString());
         final SocialUserProfile profile = new SocialUserProfile();
         profile.setEmail(facebookProfile.getEmail());
         profile.setFirstName(facebookProfile.getFirstName());
