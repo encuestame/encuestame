@@ -265,6 +265,6 @@ grunt.initConfig({
   grunt.registerTask('test-remote', ['intern:remote_local' ]);
   grunt.registerTask('dev', [ 'jshint-all', 'connect:server' ]);
   grunt.registerTask('default', ['jshint-all', 'css', 'commons', 'widget']);
-  grunt.registerTask('production', ['jshint-all', 'css', 'commons', 'widget', 'test-remote' ]);
+  grunt.registerTask('production', ['jshint-all', 'css', 'commons', 'widget']);
 
 };

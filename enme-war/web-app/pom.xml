@@ -14,9 +14,6 @@
     <modules>
         <module>jetty-webapp</module>
         <module>tomcat-webapp</module>
-        <!--<module>weblogic-webapp</module>-->
-        <!--<module>jboss-webapp</module>-->
-        <!--<module>selenium-test</module>-->
     </modules>
 
     <dependencies>
@@ -222,10 +219,6 @@
             <artifactId>hsqldb</artifactId>
         </dependency>
         <dependency>
-            <groupId>jasperreports</groupId>
-            <artifactId>jasperreports</artifactId>
-        </dependency>
-        <dependency>
             <groupId>rome</groupId>
             <artifactId>rome</artifactId>
         </dependency>
@@ -405,7 +398,7 @@
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>resources-enme-war</artifactId>
+            <artifactId>enme-js</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>

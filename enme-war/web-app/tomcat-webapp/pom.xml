@@ -53,7 +53,7 @@
                         </overlay>
                         <overlay>
                             <groupId>org.encuestame</groupId>
-                            <artifactId>resources-enme-war</artifactId>
+                            <artifactId>enme-js</artifactId>
                             <excludes>
                                 <exclude>WEB-INF/web.xml</exclude>
                                 <exclude>WEB-INF/lib</exclude>
