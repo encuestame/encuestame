@@ -33,10 +33,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
-import org.encuestame.persistence.domain.AbstractGeoPoint;
-import org.encuestame.persistence.domain.Project;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.encuestame.persistence.domain.AbstractGeoPoint;  
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -154,12 +151,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     /**
      * Credentials Non Expired.
      */
-    private boolean credentialsNonExpired = true;
-
-    /**
-     *
-     */
-    private Set<Project> projects = new HashSet<Project>();
+    private boolean credentialsNonExpired = true; 
 
     /**
      *
@@ -344,25 +336,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
      */
     public void setSecUserPermissions(Set<Permission> secUserPermissions) {
         this.secUserPermissions = secUserPermissions;
-    }
-
-    /**
-     * @return the projects
-     */
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="userAccount_project",
-               joinColumns={@JoinColumn(name="sec_id_secondary")},
-               inverseJoinColumns={@JoinColumn(name="cat_id_project")})
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    /**
-     * @param projects the projects to set
-     */
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
-    }
+    } 
 
     /**
      * @return the lastTimeLogged

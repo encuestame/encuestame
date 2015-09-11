@@ -43,8 +43,8 @@
             <list>
                 <value>org.encuestame.persistence.domain.application.Application</value>
                 <value>org.encuestame.persistence.domain.application.ApplicationConnection</value>
-                <value>org.encuestame.persistence.domain.Project</value>
-                <value>org.encuestame.persistence.domain.Project</value>
+                <!--  <value>org.encuestame.persistence.domain.Project</value>
+                <value>org.encuestame.persistence.domain.Project</value>-->
                 <value>org.encuestame.persistence.domain.GeoPoint</value>
                 <value>org.encuestame.persistence.domain.GeoPointType</value>
                 <value>org.encuestame.persistence.domain.GeoPointFolder</value>
@@ -80,8 +80,7 @@
                 <value>org.encuestame.persistence.domain.survey.SurveyPagination</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyFolder</value>
                 <value>org.encuestame.persistence.domain.survey.PollFolder</value>
-                <value>org.encuestame.persistence.domain.notifications.Notification</value>
-                <value>org.encuestame.persistence.domain.Attachment</value>
+                <value>org.encuestame.persistence.domain.notifications.Notification</value> 
                 <value>org.encuestame.persistence.domain.dashboard.Dashboard</value>
                 <value>org.encuestame.persistence.domain.dashboard.Gadget</value>
                 <value>org.encuestame.persistence.domain.dashboard.GadgetProperties</value>

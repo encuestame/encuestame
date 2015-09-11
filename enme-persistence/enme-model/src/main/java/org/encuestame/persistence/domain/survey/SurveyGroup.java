@@ -27,8 +27,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.encuestame.persistence.domain.Project;
+ 
 
 /**
  * SurveyGroup.
@@ -44,8 +43,7 @@ public class SurveyGroup {
     private Long sgId;
     private String groupName;
     private Date dateCreate;
-    private Set<SurveyFormat> surveyFormats = new HashSet<SurveyFormat>();
-    private Set<Project> projects = new HashSet<Project>();
+    private Set<SurveyFormat> surveyFormats = new HashSet<SurveyFormat>(); 
 
     /**
      * @return sgId
@@ -111,23 +109,5 @@ public class SurveyGroup {
      */
     public void setSurveyFormats(Set<SurveyFormat> surveyFormats) {
         this.surveyFormats = surveyFormats;
-    }
-
-    /**
-     * @return the projects
-     */
-    @ManyToMany()
-    @JoinTable(name="survey_group_project",
-               joinColumns={@JoinColumn(name="id_sid_format")},
-               inverseJoinColumns={@JoinColumn(name="cat_id_project")})
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    /**
-     * @param projects the projects to set
-     */
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
-    }
+    } 
 }

@@ -44,8 +44,7 @@
           </list>
         </property>
     </bean>
-    
-    <bean id="reindexAttachmentJob" class="org.encuestame.business.search.ReIndexAttachmentsJob"/>
+ 
     <bean id="reIndexJob" class="org.encuestame.core.cron.ReIndexJob"/>
     <bean id="indexRebuilder" class="org.encuestame.core.cron.IndexRebuilder"/>
     <bean id="calculateHashTagSize" class="org.encuestame.core.cron.CalculateHashTagSize"/>

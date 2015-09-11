@@ -13,13 +13,10 @@
 package org.encuestame.core.service;
 
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.LinkedList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
@@ -33,7 +30,6 @@ import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.IPermissionDao;
 import org.encuestame.persistence.dao.IPoll;
-import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.persistence.dao.IQuestionDao;
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -42,17 +38,12 @@ import org.encuestame.persistence.dao.imp.ClientDao;
 import org.encuestame.persistence.dao.imp.GeoPointTypeDao;
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.NotificationDao;
-import org.encuestame.persistence.dao.imp.ProjectDaoImp;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.ValidationUtils;
-import org.encuestame.utils.web.UnitProjectBean;
-import org.hibernate.HibernateException;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,10 +61,8 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     private IGeoPoint geoPointDao;
     /** {@link GeoPointTypeDao}. */
     @Autowired
-    private IGeoPointTypeDao geoPointTypeDao;
-    /** {@link ProjectDaoImp}. */
-    @Autowired
-    private IProjectDao projectDaoImp;
+    private IGeoPointTypeDao geoPointTypeDao; 
+    
     /** {@link ClientDao}. **/
     @Autowired
     private IClientDao clientDao;
@@ -206,85 +195,7 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     public Account getAccount(final String username) throws EnMeNoResultsFoundException{
         return getUserAccount(username).getAccount();
      }
-
-    /**
-     * Load List of Project.
-     * @param userId user id.
-     * @return {@link Collection} of {@link UnitProjectBean}
-     * @throws EnMeExpcetion exception
-     */
-    public final Collection<UnitProjectBean> loadListProjects(final Long userId) {
-            final Collection<UnitProjectBean> listProjects = new LinkedList<UnitProjectBean>();
-            final Collection<Project> projectList = getProjectDaoImp().findProjectsByUserID(userId);
-            log.info("project by user id: "+projectList.size());
-            for (Project project : projectList) {
-                log.info("adding project "+project.getProjectDescription());
-                log.info("groups available in this project "+project.getGroups().size());
-                listProjects.add(ConvertDomainBean.convertProjectDomainToBean(project));
-            }
-            log.info("projects loaded: "+ listProjects.size());
-            return listProjects;
-    }
-
-    /**
-     * Load project info.
-     * @param projectBean {@link Project}
-     * @return {@link UnitProjectBean}
-     * @throws EnMeExpcetion excepcion
-     */
-    public UnitProjectBean loadProjectInfo(final UnitProjectBean projectBean) throws EnMeExpcetion {
-        if (projectBean.getId()!= null) {
-            final Project projectDomain = getProjectDaoImp().getProjectbyId(projectBean.getId());
-            if (projectDomain != null) {
-                final UnitProjectBean projectBeanRetrieved = ConvertDomainBean.convertProjectDomainToBean(projectDomain);
-                //projectBeanRetrieved.setGroupList(ConvertListDomainSelectBean.convertListGroupDomainToSelect(projectDomain.getGroups()));
-                return projectBeanRetrieved;
-            } else {
-                log.info("id project is not found");
-                throw new EnMeExpcetion("id project is not found");
-            }
-        } else {
-            log.info("id project is null");
-            throw new EnMeExpcetion("id project is null");
-        }
-    }
-
-    /**
-     * Create Project.
-     * @param projectBean {@link UnitProjectBean}
-     * @return {@link UnitProjectBean}
-     * @throws EnMeExpcetion exception
-     */
-    public final UnitProjectBean createProject(final UnitProjectBean projectBean) throws EnMeExpcetion {
-        log.info("create project");
-        if (projectBean != null) {
-            try {
-                final Project projectDomain = new Project();
-                //projectDomain.setStateProject(getState(projectBean.getState()));
-                projectDomain.setProjectDateFinish(projectBean.getDateFinish());
-                projectDomain.setProjectDateStart(projectBean.getDateInit());
-                projectDomain.setProjectDescription(projectBean.getName());
-                projectDomain.setProjectInfo(projectBean.getDescription());
-                projectDomain.setHideProject(projectBean.getHide());
-                projectDomain.setNotifyMembers(projectBean.getNotify());
-                if(projectBean.getLeader()!=null){
-                    projectDomain.setLead(getAccountDao().getUserAccountById(projectBean.getLeader()));
-                }
-                projectDomain.setUsers(getAccountDao().getUserById(projectBean.getUserId()));
-                getProjectDaoImp().saveOrUpdate(projectDomain);
-                projectBean.setId(projectDomain.getProyectId());
-                log.debug("created domain project");
-            } catch (HibernateException e) {
-                throw new EnMeExpcetion(e);
-            } catch (Exception e) {
-                throw new EnMeExpcetion(e);
-            }
-            return projectBean;
-        } else {
-            throw new EnMeExpcetion("project is null");
-        }
-    }
-
+ 
     /**
      * Create {@link HashTag}.
      * @param name tag name
@@ -313,21 +224,7 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
 
     public final void setGeoPointDao(final IGeoPoint geoPointDao) {
         this.geoPointDao = geoPointDao;
-    }
-
-    /**
-     * @return the projectDaoImp
-     */
-    public final IProjectDao getProjectDaoImp() {
-        return projectDaoImp;
-    }
-
-    /**
-     * @param projectDaoImp the projectDaoImp to set
-     */
-    public void setProjectDaoImp(final IProjectDao projectDaoImp) {
-        this.projectDaoImp = projectDaoImp;
-    }
+    }  
 
     /**
      * @return the geoPointTypeDao

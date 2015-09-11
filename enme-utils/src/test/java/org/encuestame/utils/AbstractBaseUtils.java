@@ -46,17 +46,17 @@ public abstract class AbstractBaseUtils extends TestCase{
     * @param userId user owner id
     * @return {@link UnitProjectBean}
     */
-    public UnitProjectBean createProjectBean(final String projectName, final Long leadId, final Long userId){
-        final UnitProjectBean projectBean = new UnitProjectBean();
-        projectBean.setDateFinish(new Date());
-        projectBean.setDateInit(new Date());
-        projectBean.setLeader(leadId);
-        projectBean.setUserId(userId);
-        projectBean.setDescription("description");
-        projectBean.setState("good");
-        projectBean.setName(projectName);
-        return projectBean;
-    }
+//    public UnitProjectBean createProjectBean(final String projectName, final Long leadId, final Long userId){
+//        final UnitProjectBean projectBean = new UnitProjectBean();
+//        projectBean.setDateFinish(new Date());
+//        projectBean.setDateInit(new Date());
+//        projectBean.setLeader(leadId);
+//        projectBean.setUserId(userId);
+//        projectBean.setDescription("description");
+//        projectBean.setState("good");
+//        projectBean.setName(projectName);
+//        return projectBean;
+//    }
 
     /**
     * Create Location Type Bean.

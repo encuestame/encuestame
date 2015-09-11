@@ -37,8 +37,7 @@ import org.encuestame.persistence.dao.IGroupDao;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.IPermissionDao;
-import org.encuestame.persistence.dao.IPoll;
-import org.encuestame.persistence.dao.IProjectDao;
+import org.encuestame.persistence.dao.IPoll; 
 import org.encuestame.persistence.dao.IQuestionDao;
 import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.dao.ISurvey;
@@ -53,8 +52,7 @@ import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.ScheduleDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.AbstractSurvey.CustomFinalMessage;
-import org.encuestame.persistence.domain.AccessRate;
-import org.encuestame.persistence.domain.Attachment;
+import org.encuestame.persistence.domain.AccessRate; 
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.Email;
@@ -65,9 +63,7 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
-import org.encuestame.persistence.domain.Hit;
-import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.Project.Priority;
+import org.encuestame.persistence.domain.Hit; 
 import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
@@ -153,11 +149,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /** Catalog Location Dao.**/
     @Autowired
-    private IGeoPoint geoPointDao;
-
-    /** Project Dao Imp.**/
-    @Autowired
-    private IProjectDao projectDaoImp;
+    private IGeoPoint geoPointDao; 
 
     /** Survey Dao Imp.**/
     @Autowired
@@ -325,21 +317,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public void setGroupDaoImp(final IGroupDao groupDaoImp) {
         this.groupDaoImp = groupDaoImp;
     }
-
-    /**
-     * @return the projectDaoImp
-     */
-    public IProjectDao getProjectDaoImp() {
-        return projectDaoImp;
-    }
-
-    /**
-     * @param projectDaoImp the projectDaoImp to set
-     */
-    public void setProjectDaoImp(final IProjectDao projectDaoImp) {
-        this.projectDaoImp = projectDaoImp;
-    }
-
+ 
     /**
      * @return the surveyDaoImp
      */
@@ -647,70 +625,16 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         result.setIpaddress(ip);
         getPollDao().saveOrUpdate(result);
         return result;
-    }
-
-    /**
-     * Create project.
-     * @param name Project's name
-     * @param descProject Project Description
-     * @param infoProject Informations's Project
-     * @param user user
-     * @return {@link Project}
-     */
-    public Project createProject(
-            final String name,
-            final String descProject,
-            final String infoProject,
-            final Account user) {
-          final Project project = new Project();
-          final Calendar start = Calendar.getInstance();
-          final Calendar end = Calendar.getInstance();
-          end.add(Calendar.MONTH, 4);
-          project.setProjectDateFinish(end.getTime());
-          project.setProjectDateStart(start.getTime());
-          project.setProjectInfo(infoProject);
-          project.setProjectName(RandomStringUtils.randomAscii(4)+"_name");
-          project.setLead(createUserAccount("tes-"+RandomStringUtils.randomAscii(4), createAccount()));
-          project.setProjectDescription(descProject);
-          project.setProjectStatus(Status.ACTIVE);
-          project.setPriority(Priority.MEDIUM);
-          project.setHideProject(Boolean.FALSE);
-          project.setPublished(Boolean.TRUE);
-          project.setUsers(user);
-          getProjectDaoImp().saveOrUpdate(project);
-          return project;
-    }
-
-   /**
-    * Create Attachment.
-    * @param filename
-    * @param uploadDate
-    * @param project
-    * @return Attachment data.
-    */
-    public Attachment createAttachment(
-            final String filename,
-            final Date uploadDate,
-            final Project project
-            ){
-        final Attachment attachmentInfo = new Attachment();
-        attachmentInfo.setFilename(filename);
-        attachmentInfo.setUploadDate(uploadDate);
-        attachmentInfo.setProjectAttachment(project);
-        getProjectDaoImp().saveOrUpdate(attachmentInfo);
-        return attachmentInfo;
-    }
+    } 
 
     /**
      * Create {@link Client}.
-     * @param name name
-     * @param project {@link Project}
+     * @param name name 
      * @return {@link Client}
      */
-    public Client createClient(final String name, final Project project){
+    public Client createClient(final String name){
         final Client client = new Client();
-        client.setClientName(name);
-        client.setProject(project);
+        client.setClientName(name); 
         client.setClientEmail("");
         client.setClientDescription("");
         client.setClientFax("");

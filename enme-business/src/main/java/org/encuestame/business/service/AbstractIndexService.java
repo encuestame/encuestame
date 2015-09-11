@@ -1,14 +1,10 @@
 
 package org.encuestame.business.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.queryParser.ParseException;
-import org.encuestame.business.search.AttachmentSearchItem;
 import org.encuestame.business.search.SearchManagerOperation;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -64,24 +60,7 @@ public abstract class AbstractIndexService extends AbstractBaseService{
                                          userId, null, null);
         return questions;
     }
-
-    /**
-     *
-     * @param keyword
-     * @param maxResults
-     * @param field
-     * @return
-     * @throws IOException
-     * @throws ParseException
-     */
-    public List<AttachmentSearchItem> getAttachmentItem(final String keyword,
-            final int maxResults, final String field) throws IOException,
-            ParseException {
-        final List<Document> attachItems = getSearchOperation().search(keyword,
-                maxResults, field);
-        return this.convertDocumentToListAttachment(attachItems);
-    }
-
+  
     /**
     * @return the searchOperation
     */
@@ -94,31 +73,6 @@ public abstract class AbstractIndexService extends AbstractBaseService{
     */
     public void setSearchOperation(final SearchManagerOperation searchOperation) {
         this.searchOperation = searchOperation;
-    }
-
-    /**
-     * Convert Document Lucene List to Attachment Search Item List.
-     * @param docAttach Attachment
-     * @return
-     */
-    public static final  List<AttachmentSearchItem> convertDocumentToListAttachment(final List<Document> docAttach) {
-        final List<AttachmentSearchItem> attachmentItems = new ArrayList<AttachmentSearchItem>();
-          for (Document item : docAttach) {
-            attachmentItems.add(convertDoctoSearchItem(item));
-          }
-         return attachmentItems;
-    }
-
-    /**
-     * Convert Lucene Document Item to Attachment Search Bean.
-     * @param docItem Lucene Document
-     * @return
-     */
-    public static final AttachmentSearchItem convertDoctoSearchItem(final Document document){
-        final AttachmentSearchItem attachItem = new AttachmentSearchItem();
-        attachItem.setAttachId(1L);
-        attachItem.setDescription(document.get("filename"));
-        return attachItem;
-    }
+    }  
 }
 

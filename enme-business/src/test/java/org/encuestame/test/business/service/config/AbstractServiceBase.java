@@ -30,7 +30,7 @@ import java.io.File;
         "classpath:spring-test/encuestame-test-security-context.xml",
         "classpath:spring-test/encuestame-test-service-context.xml",
         //"classpath:spring-test/encuestame-test-integration.xml",
-        "classpath:spring-test/encuestame-test-search-context.xml",
+        //"classpath:spring-test/encuestame-test-search-context.xml",
         "classpath:spring-test/encuestame-param-test-context.xml"
          })
 public abstract class AbstractServiceBase extends AbstractBaseUnitBeans{

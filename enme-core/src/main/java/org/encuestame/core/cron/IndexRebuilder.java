@@ -14,8 +14,7 @@ package org.encuestame.core.cron;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.Project;
+import org.encuestame.persistence.domain.HashTag; 
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -77,8 +76,7 @@ public class IndexRebuilder {
         IndexRebuilder.reindex(fullTextSession, TweetPollSavedPublishedStatus.class);
         IndexRebuilder.reindex(fullTextSession, TweetPollFolder.class);
         IndexRebuilder.reindex(fullTextSession, SurveyFolder.class);
-        IndexRebuilder.reindex(fullTextSession, PollFolder.class);
-        IndexRebuilder.reindex(fullTextSession, Project.class);
+        IndexRebuilder.reindex(fullTextSession, PollFolder.class); 
         IndexRebuilder.reindex(fullTextSession, Notification.class);
         IndexRebuilder.reindex(fullTextSession, SocialAccount.class);
         IndexRebuilder.reindex(fullTextSession, TweetPollResult.class);

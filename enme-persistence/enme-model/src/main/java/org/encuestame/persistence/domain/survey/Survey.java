@@ -31,10 +31,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.AbstractSurvey;
-import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.Project;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.encuestame.persistence.domain.HashTag;  
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -67,10 +64,7 @@ public class Survey extends AbstractSurvey {
 
     /****/
     private SurveyFolder surveysfolder;
-
-    /** {@link HashTag} **/
-    private Project project;
-
+ 
     /**
      * Date init of survey.
      * **/
@@ -172,22 +166,7 @@ public class Survey extends AbstractSurvey {
     public void setSurveysfolder(SurveyFolder surveysfolder) {
         this.surveysfolder = surveysfolder;
     }
-
-    /**
-     * @return the project
-     */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    public Project getProject() {
-        return project;
-    }
-
-    /**
-     * @param project the project to set
-     */
-    public void setProject(final Project project) {
-        this.project = project;
-    }
-
+ 
     /**
      * @return startDate
      */

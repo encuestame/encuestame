@@ -12,7 +12,6 @@
  */
 package org.encuestame.business.service;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +22,10 @@ import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.queryParser.ParseException;
-import org.encuestame.business.search.AttachmentIndex;
-import org.encuestame.business.search.IndexWriterManager;
-import org.encuestame.business.search.IndexerFile;
 import org.encuestame.business.search.UtilConvertToSearchItems;
 import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.persistence.domain.Attachment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -40,8 +35,6 @@ import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.web.PollBean;
-import org.encuestame.utils.web.UnitAttachment;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,13 +52,7 @@ public class SearchService extends AbstractIndexService implements
     /**
      * Log.
      */
-    private Log log = LogFactory.getLog(this.getClass());
-
-    /**
-     * {@link IndexWriterManager}.
-     */
-    @Autowired
-    private IndexWriterManager indexWriter; //TODO:ENCUESTAME-154
+    private Log log = LogFactory.getLog(this.getClass()); 
 
     /*
      * (non-Javadoc)
@@ -104,8 +91,7 @@ public class SearchService extends AbstractIndexService implements
         hashset.put("Polls", ListUtils.EMPTY_LIST);
         hashset.put("Tweetpolls", ListUtils.EMPTY_LIST);
         hashset.put("profiles", ListUtils.EMPTY_LIST);
-        hashset.put("tags", ListUtils.EMPTY_LIST);
-        hashset.put("attachments", ListUtils.EMPTY_LIST);
+        hashset.put("tags", ListUtils.EMPTY_LIST); 
         hashset.put("comments", ListUtils.EMPTY_LIST);
         limitByItem = limitByItem == null ? 0 : limitByItem;
         // TODO :See ENCUESTAME-670: to know the reason : why has been commented the following block of code.
@@ -160,18 +146,8 @@ public class SearchService extends AbstractIndexService implements
 //            }
             log.debug("tags " + tags.size());
             hashset.put("tags", tags);
-        }
-
-        if (resultsAllowed.indexOf(TypeSearchResult.ATTACHMENT) != -1) {
-            List<GlobalSearchItem> attachments = UtilConvertToSearchItems
-                                        .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword, limitByItem, "content"));
-//            if (limitByItem != 0 && attachments.size() > limitByItem) {
-//                attachments = attachments.subList(0, limitByItem);
-//            }
-            log.debug("attachments " + attachments.size());
-            hashset.put("attachments", attachments);
-        }
-
+        } 
+        
 		if (resultsAllowed.indexOf(TypeSearchResult.COMMENT) != -1) {
 			// TODO: add comment search implementation+
 			List<GlobalSearchItem> comments = UtilConvertToSearchItems
@@ -220,44 +196,8 @@ public class SearchService extends AbstractIndexService implements
             final Integer start, final Integer limit) {
         // TODO Auto-generated method stub
         return null;
-    }
-
-    /**
-     *
-     */
-    public String indexAttachment(final File file, final Long attachmentId){
-     long start = System.currentTimeMillis();
-               try {
-                AttachmentIndex attachmentBean = IndexerFile.createAttachmentDocument(file, attachmentId);
-                IndexerFile.addToIndex(attachmentBean, this.indexWriter);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                log.error(e);
-            }
-            long end = System.currentTimeMillis();
-            log.debug("Indexing " + "numIndexed "+ " files took " + (end - start)
-                    + " milliseconds");
-
-        return "Attachment indexed";
-    }
-
-    /**
-     *
-     * @param unitAttachment
-     * @throws EnMeExpcetion
-     */
-    public final void addAttachment(final UnitAttachment unitAttachment) throws EnMeExpcetion{
-        try {
-            Attachment attachment = new Attachment();
-            attachment.setAttachmentId(unitAttachment.getAttachmentId());
-            attachment.setFilename(unitAttachment.getFilename());
-            attachment.setUploadDate(unitAttachment.getUploadDate());
-            this.getProjectDaoImp().saveOrUpdate(attachment);
-        } catch (Exception e) {
-            throw new EnMeExpcetion(e);
-        }
-    }
-
+    } 
+    
     /**
      *
      * @param typeSearch

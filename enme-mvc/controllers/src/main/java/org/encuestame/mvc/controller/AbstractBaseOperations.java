@@ -22,8 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Locale.Builder;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,8 +32,7 @@ import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.AbstractSurveyService;
-import org.encuestame.business.service.DashboardService;
-import org.encuestame.business.service.ProjectService;
+import org.encuestame.business.service.DashboardService; 
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
@@ -49,8 +46,7 @@ import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPictureService;
-import org.encuestame.core.service.imp.IPollService;
-import org.encuestame.core.service.imp.IProjectService;
+import org.encuestame.core.service.imp.IPollService; 
 import org.encuestame.core.service.imp.IServiceManager;
 import org.encuestame.core.service.imp.IStatisticsService;
 import org.encuestame.core.service.imp.ISurveyService;
@@ -523,15 +519,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     public IPollService getPollService(){
         return getServiceManager().getApplicationServices().getPollService();
     }
-
-    /**
-     * Get {@link ProjectService}.
-     * @return
-     */
-    public IProjectService getProjectService(){
-        return getServiceManager().getApplicationServices().getProjectService();
-    }
-
+  
     /**
      * Get {@link FrontEndCoreService}.
      * @return

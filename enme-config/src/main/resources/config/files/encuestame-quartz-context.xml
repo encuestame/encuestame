@@ -8,7 +8,7 @@
         <property name="indexRebuilder" ref="indexRebuilder"/>
     </bean>
 
-    <bean id="reindexAttachmentJob" class="org.encuestame.business.search.ReIndexAttachmentsJob"/>
+    <!-- <bean id="reindexAttachmentJob" class="org.encuestame.business.search.ReIndexAttachmentsJob"/> -->
     <bean id="sendNotificationsJob" class="org.encuestame.business.cron.SendNotificationsJob"/>
     <bean id="indexRebuilder" class="org.encuestame.core.cron.IndexRebuilder"/>
     <bean id="calculateHashTagSize" class="org.encuestame.core.cron.CalculateHashTagSize"/>

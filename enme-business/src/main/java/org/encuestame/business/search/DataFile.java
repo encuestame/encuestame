@@ -12,9 +12,6 @@
  */
 package org.encuestame.business.search;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDDocumentInformation;
-
 /**
  * Metadata file.
  * @author Morales, Diana Paola paolaATencuestame.org
@@ -32,20 +29,6 @@ public class DataFile {
     private static String producer = "";
 
     /** Subject file. **/
-    private static String subject = "";
-
-    /**
-     * Extract Metadata in PDF Documents.
-     * @param pdDoc
-     * @return
-     */
-    public static AttachmentIndex extractMetadataPDFDocument(final PDDocument pdDoc){
-       PDDocumentInformation docInfo = pdDoc.getDocumentInformation();
-       author = docInfo.getAuthor();
-       title = docInfo.getTitle();
-       producer = docInfo.getProducer();
-       subject = docInfo.getSubject();
-       AttachmentIndex attachmentMetadata =  IndexerFile.addMetadatatoBean(author, title, producer, subject);
-       return attachmentMetadata;
-    }
+    private static String subject = ""; 
+    
 }
