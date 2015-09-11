@@ -139,7 +139,7 @@ public class TestSetupService extends AbstractServiceBase {
        Assert.assertNotNull(uuid2);
     }
 
-    @Test
+    //@Test
     public void testcheckStatus() throws Exception{
         String status = this.setupOperations.checkStatus();
         Assert.assertEquals(status, "install");
