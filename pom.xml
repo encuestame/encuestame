@@ -67,16 +67,8 @@
         <jackson.version>2.3.3</jackson.version>
         <!-- Lucene Version -->
         <lucene.version>3.0.3</lucene.version>
-        <!-- Apache POI Version -->
-        <apache.poi.version>3.5-FINAL</apache.poi.version>
-        <!-- Apache POI Scratchpad Version -->
-        <apache.poi.scratchpad.version>3.5-FINAL</apache.poi.scratchpad.version>
-        <!-- Apache POI Scratchpad Version -->
-        <apache.poi.ooxml.version>3.5-FINAL</apache.poi.ooxml.version>
         <!-- Twitter4J Version -->
         <twitter4j.version>4.0.2</twitter4j.version>
-        <!-- Apache PDF Box -->
-        <apache.pdf.box>1.4.0</apache.pdf.box>
         <apache.tiles>3.0.5</apache.tiles>
         <servlet-api>3.0.1</servlet-api>
         <servlet-api-artifact>javax.servlet-api</servlet-api-artifact>
@@ -1486,28 +1478,6 @@
                 <groupId>org.apache.tiles</groupId>
                 <artifactId>tiles-servlet</artifactId>
                 <version>${apache.tiles}</version>
-            </dependency>
-            <!-- Apache Poi -->
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi-scratchpad</artifactId>
-                <version>${apache.poi.scratchpad.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi</artifactId>
-                <version>${apache.poi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi-ooxml</artifactId>
-                <version>${apache.poi.ooxml.version}</version>
-            </dependency>
-            <!-- PDF Box -->
-            <dependency>
-                <groupId>org.apache.pdfbox</groupId>
-                <artifactId>pdfbox</artifactId>
-                <version>${apache.pdf.box}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
