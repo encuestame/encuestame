@@ -52,8 +52,7 @@
         <log4j>1.2.14</log4j>
         <jstl>1.2</jstl>
         <jsp-api>2.2</jsp-api>
-        <jdom>2.0.6</jdom>
-        <!--><jdom2>2.0.6</jdom2><-->
+        <jdom2>2.0.6</jdom2>
         <jasypt>1.8</jasypt>
         <joda.time>1.6.2</joda.time>
         <!-- Hibernate Version -->
@@ -1258,7 +1257,7 @@
             <dependency>
                 <groupId>org.jdom</groupId>
                 <artifactId>jdom2</artifactId>
-                <version>${jdom}</version>
+                <version>${jdom2}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
