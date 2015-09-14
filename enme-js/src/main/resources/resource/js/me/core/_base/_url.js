@@ -127,7 +127,7 @@ define(function() {
 		"encuestame.service.dashboard.select" : "/api/common/dashboard/select.json",
 		"encuestame.service.gadget.directory" : "/api/common/gadgets/directory/list.json",
 		"encuestame.service.gadget.list" : "/api/common/gadgets/list.json",
-        "encuestame.service.help.status" : '/api/help/status',
+    "encuestame.service.help.status" : '/api/help/status',
 
 		//gadget services
 		//deprecated
