@@ -15,6 +15,7 @@ package org.encuestame.mvc.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.uadetector.ReadableUserAgent;
 import net.sf.uadetector.UserAgent;
 import net.sf.uadetector.UserAgentStringParser;
 import net.sf.uadetector.service.UADetectorServiceFactory;
@@ -71,7 +72,7 @@ public class EnMeMobileInterceptor extends HandlerInterceptorAdapter {
         final String mobil = "detectedDevice";
         final Device device = deviceResolver.resolveDevice(request);
         final UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
-        final UserAgent agent = parser.parse(request.getHeader("User-Agent"));
+        final ReadableUserAgent agent = parser.parse(request.getHeader("User-Agent"));
         log.trace("user agent --->" + agent.toString());
         request.setAttribute("so", agent.getOperatingSystem().getFamily());
         request.setAttribute("bo_vendor", agent.getProducer());

@@ -47,7 +47,6 @@
         <org.slf4j-version>1.6.1</org.slf4j-version>
         <google.guava>15.0</google.guava>
         <scribe>1.0.9</scribe>
-        <webutilities.version>0.0.6</webutilities.version>
         <wurfl>1.2</wurfl>
         <log4j>1.2.14</log4j>
         <jstl>1.2</jstl>
@@ -121,13 +120,13 @@
         <antlr>3.0</antlr>
         <cglib-nodep>2.2</cglib-nodep>
         <aspectjrt>1.6.0</aspectjrt>
-        <jaxen>1.1.1</jaxen>
+        <!--<jaxen>1.1.1</jaxen>-->
         <opencsv.version>2.3</opencsv.version>
         <javassist>3.12.1.GA</javassist>
         <javax.inject>1</javax.inject>
         <javax.persistence>1.0.2</javax.persistence>
         <front.end.plugin>0.0.23</front.end.plugin>
-        <uadetector.version>2013.02</uadetector.version>
+        <uadetector.version>2014.10</uadetector.version>
         <!-- Dojo http://www.mahieu.org/?p=3 -->
         <dojo.version>1.10.4</dojo.version>
         <dojo.build.profile>standard</dojo.build.profile>
@@ -943,25 +942,25 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency>
-                <groupId>jaxen</groupId>
-                <artifactId>jaxen</artifactId>
-                <version>${jaxen}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>xom</artifactId>
-                        <groupId>xom</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>jdom2</artifactId>
-                        <groupId>org.jdom</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>xml-apis</artifactId>
-                        <groupId>xml-apis</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>jaxen</groupId>-->
+                <!--<artifactId>jaxen</artifactId>-->
+                <!--<version>${jaxen}</version>-->
+                <!--<exclusions>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>xom</artifactId>-->
+                        <!--<groupId>xom</groupId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>jdom2</artifactId>-->
+                        <!--<groupId>org.jdom</groupId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>xml-apis</artifactId>-->
+                        <!--<groupId>xml-apis</groupId>-->
+                    <!--</exclusion>-->
+                <!--</exclusions>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -1522,18 +1521,6 @@
                 <groupId>net.sf.uadetector</groupId>
                 <artifactId>uadetector-resources</artifactId>
             <version>${uadetector.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.googlecode.webutilities</groupId>
-                <artifactId>webutilities</artifactId>
-                <version>${webutilities.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>javax.servlet</artifactId>
-                        <groupId>jsp-api</groupId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <dependency>
