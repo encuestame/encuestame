@@ -19,7 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.encuestame.core.rss.AbstractBaseAtomFeedView;
 import org.springframework.stereotype.Component;
 
-import com.sun.syndication.feed.atom.Feed;
+import com.rometools.rome.feed.atom.Feed;
+ 
 
 /**
  * FrontEnd Published Atom Feed View.

@@ -29,15 +29,16 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-import com.sun.syndication.feed.atom.Entry;
-import com.sun.syndication.feed.atom.Link;
-import com.sun.syndication.feed.atom.Person;
-import com.sun.syndication.feed.rss.Category;
-import com.sun.syndication.feed.rss.Content;
-import com.sun.syndication.feed.rss.Description;
-import com.sun.syndication.feed.rss.Guid;
-import com.sun.syndication.feed.rss.Item;
+import com.rometools.rome.feed.atom.Entry;
+import com.rometools.rome.feed.atom.Link;
+import com.rometools.rome.feed.atom.Person;
+import com.rometools.rome.feed.rss.Category;
+import com.rometools.rome.feed.rss.Content;
+import com.rometools.rome.feed.rss.Description;
+import com.rometools.rome.feed.rss.Guid;
+import com.rometools.rome.feed.rss.Item;
 
+ 
 /**
  * Feed Utils.
  *
@@ -187,10 +188,11 @@ public class FeedUtils {
             person.setName(tweetPoll.getOwnerUsername());
             //TODO: set url profile link
             authors.add(person);
-            item.setAuthors(authors);
-            final List<com.sun.syndication.feed.atom.Category> categories = new ArrayList<com.sun.syndication.feed.atom.Category>();
+            //TODO:MIGRATION 
+            //item.setAuthors(authors); Check
+            final List<com.rometools.rome.feed.atom.Category> categories = new ArrayList<com.rometools.rome.feed.atom.Category>();
             for (HashTagBean iterable_element : tweetPoll.getHashTags()) {
-                com.sun.syndication.feed.atom.Category ll = new com.sun.syndication.feed.atom.Category();
+                com.rometools.rome.feed.atom.Category ll = new com.rometools.rome.feed.atom.Category();
                 ll.setLabel(iterable_element.getHashTagName());
                 categories.add(ll);
             }
@@ -207,7 +209,7 @@ public class FeedUtils {
             final Description dd = new Description();
             dd.setValue(string);
             dd.setType("html");
-            final com.sun.syndication.feed.atom.Content content = new com.sun.syndication.feed.atom.Content();
+            final com.rometools.rome.feed.atom.Content content = new com.rometools.rome.feed.atom.Content();
             content.setSrc(urlPoll);
             content.setType("html");
             content.setValue(text);
@@ -246,10 +248,11 @@ public class FeedUtils {
             person.setName(tweetPoll.getOwnerUsername());
             //TODO: set url profile link
             authors.add(person);
-            item.setAuthors(authors);
-            final List<com.sun.syndication.feed.atom.Category> categories = new ArrayList<com.sun.syndication.feed.atom.Category>();
+            //TODO: MIGRATION
+            //item.setAuthors(authors); Check authors List on Entry(Rome) 
+            final List<com.rometools.rome.feed.atom.Category> categories = new ArrayList<com.rometools.rome.feed.atom.Category>();
             for (HashTagBean iterable_element : tweetPoll.getHashTags()) {
-                com.sun.syndication.feed.atom.Category ll = new com.sun.syndication.feed.atom.Category();
+                com.rometools.rome.feed.atom.Category ll = new com.rometools.rome.feed.atom.Category();
                 ll.setLabel(iterable_element.getHashTagName());
                 categories.add(ll);
             }
@@ -266,7 +269,7 @@ public class FeedUtils {
             final Description dd = new Description();
             dd.setValue(string);
             dd.setType("html");
-            final com.sun.syndication.feed.atom.Content content = new com.sun.syndication.feed.atom.Content();
+            final com.rometools.rome.feed.atom.Content content = new com.rometools.rome.feed.atom.Content();
             content.setSrc(urlPoll);
             content.setType("html");
             content.setValue(text);

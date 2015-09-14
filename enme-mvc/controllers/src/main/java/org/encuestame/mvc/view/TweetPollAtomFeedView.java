@@ -17,11 +17,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.encuestame.core.rss.AbstractBaseAtomFeedView;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import com.google.common.annotations.Beta;
-import com.sun.syndication.feed.atom.Feed;
+import com.rometools.rome.feed.atom.Feed;
+ 
 
 /**
  * TweetPoll Published Atom Feed View.

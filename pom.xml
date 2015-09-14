@@ -29,7 +29,7 @@
         <java-version>1.7</java-version>
         <!-- encuestame version -->
         <encuestame.version>1.5.4-SNAPSHOT</encuestame.version>
-        <spring.version>4.0.6.RELEASE</spring.version>
+        <spring.version>4.2.1.RELEASE</spring.version>
         <env>development</env>
         <!-- js compress options -->
         <compress.minimize>true</compress.minimize>
@@ -52,7 +52,8 @@
         <log4j>1.2.14</log4j>
         <jstl>1.2</jstl>
         <jsp-api>2.2</jsp-api>
-        <jdom>1.1</jdom>
+        <jdom>2.0.6</jdom>
+        <!--><jdom2>2.0.6</jdom2><-->
         <jasypt>1.8</jasypt>
         <joda.time>1.6.2</joda.time>
         <!-- Hibernate Version -->
@@ -123,8 +124,8 @@
         <json-org>20090211</json-org>
         <javax.validation>1.0.0.GA</javax.validation>
         <quartz>1.6.1</quartz>
-        <rome>1.0</rome>
-        <rome-fetcher>1.0</rome-fetcher>
+        <rome>1.5.1</rome>
+        <rome-fetcher>1.5.1</rome-fetcher>
         <velocity>1.6.2</velocity>
         <antlr>3.0</antlr>
         <cglib-nodep>2.2</cglib-nodep>
@@ -961,8 +962,8 @@
                         <groupId>xom</groupId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>jdom</artifactId>
-                        <groupId>jdom</groupId>
+                        <artifactId>jdom2</artifactId>
+                        <groupId>org.jdom</groupId>
                     </exclusion>
                     <exclusion>
                         <artifactId>xml-apis</artifactId>
@@ -1256,7 +1257,7 @@
             </dependency>
             <dependency>
                 <groupId>org.jdom</groupId>
-                <artifactId>jdom</artifactId>
+                <artifactId>jdom2</artifactId>
                 <version>${jdom}</version>
             </dependency>
             <dependency>
@@ -1351,12 +1352,12 @@
                 <version>${postgres.version}</version>
             </dependency>
             <dependency>
-                <groupId>rome</groupId>
+                <groupId>com.rometools</groupId>
                 <artifactId>rome</artifactId>
                 <version>${rome}</version>
             </dependency>
             <dependency>
-                <groupId>rome</groupId>
+                <groupId>com.rometools</groupId>
                 <artifactId>rome-fetcher</artifactId>
                 <version>${rome-fetcher}</version>
             </dependency>
@@ -1662,7 +1663,7 @@
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-server</artifactId>
                 <version>${selenium.version}</version>
-            </dependency>
+            </dependency> 
         </dependencies>
     </dependencyManagement>
 </project>

@@ -17,7 +17,9 @@ import java.util.Date;
 import org.encuestame.core.rss.AbstractBaseRssFeedView;
 import org.springframework.stereotype.Component;
 
-import com.sun.syndication.feed.rss.Channel;
+import com.rometools.rome.feed.rss.Channel;
+
+ 
 
 /**
  * Survey Published RSS Feed View.

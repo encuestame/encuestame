@@ -31,7 +31,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sun.syndication.feed.rss.Item;
+import com.rometools.rome.feed.rss.Item;
+
+ 
 
 /**
  * Tweet Poll feed controller, display rss or atom tweetpoll feeds.

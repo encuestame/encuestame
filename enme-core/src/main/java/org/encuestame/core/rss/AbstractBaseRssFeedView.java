@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.view.feed.AbstractRssFeedView;
 
-import com.sun.syndication.feed.rss.Item;
+import com.rometools.rome.feed.rss.Item; 
+ 
 
 /**
  * Dashboard Rss View.
