@@ -53,8 +53,9 @@ public class InstallerDao extends JdbcDaoSupport implements InstallerOperations 
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.jdbc.InstallerOperations#checkDatabaseConection()
      */
-    public int checkDatabaseConection() {
-        return getJdbcTemplate().queryForInt("select 1");
+    public int checkDatabaseConection() { 
+        return getJdbcTemplate().queryForObject("SELECT 1", null, Integer.class);
+        	 
     }
 
     /*

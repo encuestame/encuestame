@@ -18,7 +18,9 @@ import org.encuestame.core.rss.AbstractBaseRssFeedView;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
-import com.sun.syndication.feed.rss.Channel;
+import com.rometools.rome.feed.rss.Channel;
+
+ 
 
 /**
  * Project Published RSS Feed View.

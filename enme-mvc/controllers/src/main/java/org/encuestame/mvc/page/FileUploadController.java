@@ -18,7 +18,6 @@ import java.io.InputStream;
 import org.apache.log4j.Logger;
 import org.encuestame.business.images.ThumbnailGeneratorEngine;
 import org.encuestame.core.files.PathUtil;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
@@ -31,7 +30,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
-import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
+//TODO: MIGRATION. The following sentence has been commented
+//import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 /**
  * Upload File Controller.

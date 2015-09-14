@@ -34,8 +34,10 @@ import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.search.TweetPollSearchBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.sun.syndication.feed.atom.Entry;
-import com.sun.syndication.feed.rss.Item;
+import com.rometools.rome.feed.atom.Entry;
+import com.rometools.rome.feed.rss.Item;
+
+ 
 
 /**
  * Abstract Feed Controller.
