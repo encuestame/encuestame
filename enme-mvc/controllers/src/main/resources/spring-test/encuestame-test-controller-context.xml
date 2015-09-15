@@ -33,7 +33,7 @@
   <bean id="setupInterceptor" class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
 
   <bean name="openSessionInViewInterceptor"
-            class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+            class="org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
