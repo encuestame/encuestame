@@ -31,9 +31,7 @@ import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.WildcardQuery;
 import org.apache.lucene.util.Version;
-import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -52,8 +50,9 @@ import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+
 
 /**
  * Abstract Base Dao Class extend Spring class {@link HibernateDaoSupport}
@@ -88,7 +87,9 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      //@Transactional(readOnly = false)
      public void saveOrUpdate(final Object obj) {
          getHibernateTemplate().saveOrUpdate(obj);
-         getSession().flush();
+       //TODO:MIGRATION  getSession().flush();
+         currentSession().flush();
+         
      }
 
      /**
@@ -98,7 +99,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       */
      public void merge(final Object obj) {
          getHibernateTemplate().merge(obj);
-         getSession().flush();
+         currentSession().flush();
+         //TODO: MIGRATION getSession().flush();
      }
 
      /**
@@ -108,7 +110,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       */
      public void delete(Object obj) throws HibernateException {
           getHibernateTemplate().delete(obj);
-          getSession().flush();
+          currentSession().flush();
+        //TODO: MIGRATION  getSession().flush();
      }
 
 

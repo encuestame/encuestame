@@ -30,7 +30,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -232,9 +232,10 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 	 * org.encuestame.persistence.dao.IHashTagDao#getHashTagRankStats(org.encuestame
 	 * .persistence.domain.HashTag)
 	 */
+	//TODO:MIGRATION
 	@SuppressWarnings("unchecked")
 	public List<HashTagRanking> getHashTagRankStats(final Date maxDate) {
-		return getSession()
+		return currentSession()
 				.createQuery(
 						"FROM HashTagRanking as ht WHERE ht.rankingDate = :startDate ORDER BY average DESC")
 				.setDate("startDate", maxDate).list();

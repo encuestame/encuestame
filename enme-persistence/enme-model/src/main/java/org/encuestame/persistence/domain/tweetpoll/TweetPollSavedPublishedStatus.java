@@ -212,7 +212,7 @@ public class TweetPollSavedPublishedStatus {
     /**
      * @return the tweetContent
      */
-    @Field(index=Index.TOKENIZED, store=Store.NO)
+    @Field(index=Index.YES, store=Store.NO)
     @Column(name = "tweet_content")
     public String getTweetContent() {
         return tweetContent;

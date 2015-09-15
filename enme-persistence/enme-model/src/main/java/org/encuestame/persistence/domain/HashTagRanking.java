@@ -97,7 +97,7 @@ public class HashTagRanking {
      * @return the rankingDate
      */
     @Temporal(TemporalType.DATE)
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @Column(name = "ranking_updated", nullable = true)
     public Date getRankingDate() {
         return rankingDate;

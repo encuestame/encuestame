@@ -216,7 +216,7 @@ public class Survey extends AbstractSurvey {
     /**
      * @return the surveySlugName
      */
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @Column(name = "survey_slug_name", nullable = true)
     public String getSurveySlugName() {
         return surveySlugName;

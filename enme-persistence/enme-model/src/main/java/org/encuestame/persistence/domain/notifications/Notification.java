@@ -85,7 +85,7 @@ public class Notification {
     /**
      * @return the description
      */
-    @Field(index=Index.TOKENIZED, store=Store.NO)
+    @Field(index=Index.YES, store=Store.NO)
     @Column(name = "description", nullable = false)
     @Enumerated(EnumType.STRING)
     public NotificationEnum getDescription() {
@@ -151,7 +151,7 @@ public class Notification {
     /**
      * @return the additionalDescription
      */
-    @Field(index=Index.TOKENIZED, store=Store.NO)
+    @Field(index=Index.YES, store=Store.NO)
     @Column(name = "additional_description", nullable = false)
     public String getAdditionalDescription() {
         return additionalDescription;

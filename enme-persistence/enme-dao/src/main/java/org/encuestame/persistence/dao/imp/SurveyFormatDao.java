@@ -43,9 +43,10 @@ public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISur
      * @return SurveyFormat
      * @throws HibernateException hibernate exception
      */
-    public SurveyFormat getSurveyFormatById(final int idSidFormat) throws HibernateException{
-        return (SurveyFormat) getSession().get(SurveyFormat.class, idSidFormat);
-    }
+    //TODO: MIGRATION
+//    public SurveyFormat getSurveyFormatById(final int idSidFormat) throws HibernateException{
+//        return (SurveyFormat) getSession().get(SurveyFormat.class, idSidFormat);
+//    }
 
     /**
      * Get User By Name.
@@ -53,12 +54,13 @@ public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISur
      * @return SurveyFormat
      * @throws HibernateException hibernate exception
      */
-    public SurveyFormat getSurveyFormatbyname(final String name)throws HibernateException {
-        return  (SurveyFormat) getSession()
-        .createCriteria(SurveyFormat.class)
-        .add(Restrictions.eq("formatname", name))
-        .uniqueResult();
-    }
+    //TODO:MIGRATION
+//    public SurveyFormat getSurveyFormatbyname(final String name)throws HibernateException {
+//        return  (SurveyFormat) getSession()
+//        .createCriteria(SurveyFormat.class)
+//        .add(Restrictions.eq("formatname", name))
+//        .uniqueResult();
+//    }
 
 
     /**
@@ -68,13 +70,14 @@ public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISur
      * @return SurveyFormat
      * @throws HibernateException hibernate exception
      */
-    @SuppressWarnings("unchecked")
-    public List<SurveyFormat> getSurveyFormatbyDate(final Date startDate, final Date endDate){
-
-        return getSession().createQuery("FROM SurveyFormat WHERE date_created >=:start AND date_created<= :end")
-                .setDate("start", startDate)
-                .setDate("end", endDate)
-                .list();
-    }
+    //TODO: MIGRATION
+//    @SuppressWarnings("unchecked")
+//    public List<SurveyFormat> getSurveyFormatbyDate(final Date startDate, final Date endDate){
+//
+//        return getSession().createQuery("FROM SurveyFormat WHERE date_created >=:start AND date_created<= :end")
+//                .setDate("start", startDate)
+//                .setDate("end", endDate)
+//                .list();
+//    }
 
 }

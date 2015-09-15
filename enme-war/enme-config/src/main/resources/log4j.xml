@@ -104,7 +104,7 @@
         <level value="warn" />
     </logger>
 
-    <logger name="org.springframework.orm.hibernate3.support">
+    <logger name="org.springframework.orm.hibernate5.support">
         <level value="warn" />
     </logger>
 

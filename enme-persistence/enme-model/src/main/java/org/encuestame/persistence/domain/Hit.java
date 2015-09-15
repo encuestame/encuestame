@@ -138,7 +138,7 @@ public class Hit { //TODO: Create superMapped class with Access rate.
     /**
      * @return the ipAddress
      */
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @Column(name = "hits_ip_address", nullable = false, length = 100)
     public String getIpAddress() {
         return ipAddress;

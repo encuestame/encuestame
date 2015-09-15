@@ -19,7 +19,8 @@ import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessResourceFailureException;
-import org.springframework.orm.hibernate3.support.OpenSessionInViewFilter;
+import org.springframework.orm.hibernate5.support.OpenSessionInViewFilter;
+ 
 
 /**
  * Session Filter in View
@@ -38,7 +39,7 @@ public class SessionFilter extends OpenSessionInViewFilter {
      */
     protected Session getSession(SessionFactory sessionFactory)
         throws DataAccessResourceFailureException {
-        Session session = super.getSession(sessionFactory);
+        Session session = super.openSession(sessionFactory);
         session.setFlushMode(FlushMode.AUTO);
         return session;
     }

@@ -33,8 +33,8 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.search.FullTextSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-
+import org.springframework.orm.hibernate5.HibernateTemplate;
+ 
 /**
  * Index Rebuilder.
  * @author Picado, Juan juanATencuestame.org

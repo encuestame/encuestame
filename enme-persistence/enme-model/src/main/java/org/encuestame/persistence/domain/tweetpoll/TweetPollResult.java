@@ -104,7 +104,7 @@ public class TweetPollResult extends AbstractGeoPoint{
     /**
      * @return the ipVote
      */
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @Column(name = "ip_vote", nullable = false, length = 100)
     public String getIpVote() {
         return ipVote;

@@ -295,7 +295,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the optionalTitle.
      */
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @Column(name = "optional_title")
     public String getOptionalTitle() {
         return optionalTitle;
@@ -570,7 +570,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the name
      */
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @Column(name = "name")
     public String getName() {
         return name;

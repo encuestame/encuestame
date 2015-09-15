@@ -109,7 +109,7 @@ public class Comment{
     /**
      * @return the comment
      */
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @Column(name = "comment", nullable = false , length = 2000)
     public String getComment() {
         return comment;

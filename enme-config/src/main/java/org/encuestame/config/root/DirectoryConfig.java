@@ -6,25 +6,18 @@ import org.encuestame.business.setup.ApplicationStartup;
 import org.encuestame.business.setup.install.DatabaseInstall;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.MessageSourceFactoryBean;
-import org.encuestame.mvc.interceptor.CheckInstallInterceptor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor;
 
 @Configuration
 @ComponentScan(basePackages = "org.encuestame.core.service.startup")

@@ -73,7 +73,7 @@ public class SurveySection {
     /**
      * @return descSection
      */
-    @Field(index = Index.TOKENIZED, store = Store.YES)
+    @Field(index = Index.YES, store = Store.YES)
     @Column(name = "desc_section")
     public String getDescSection() {
         return this.descSection;

@@ -141,7 +141,7 @@ public class QuestionAnswer {
     /**
      * @return the answer
      */
-    @Field(index = Index.TOKENIZED, store = Store.YES)
+    @Field(index = Index.YES, store = Store.YES)
     @Column(name = "answer", nullable = false)
     public String getAnswer() {
         return answer;

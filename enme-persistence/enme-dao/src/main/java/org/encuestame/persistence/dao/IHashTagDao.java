@@ -79,7 +79,7 @@ public interface IHashTagDao extends IBaseDao	{
     * @param hashTagRankId
     * @return
     * @throws HibernateException
-    */
+    */ 
 	HashTagRanking getHashTagRankStatsById(final Long hashTagRankId) throws HibernateException;
 	
 	/**
@@ -87,6 +87,7 @@ public interface IHashTagDao extends IBaseDao	{
 	 * @param maxDate
 	 * @return
 	 */
+	//TODO: MIGRATION
 	List<HashTagRanking> getHashTagRankStats(final Date maxDate);
 	
 	/**

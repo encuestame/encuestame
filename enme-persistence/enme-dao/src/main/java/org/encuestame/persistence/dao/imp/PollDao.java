@@ -44,7 +44,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -268,6 +268,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#retrieveResultPolls(java.lang.Long, java.lang.Long)
      */
+    //TODO: MIGRATION
     @SuppressWarnings("unchecked")
     public List<Object[]> retrieveResultPolls(final Long pollId,
             final Long answerId) {
@@ -275,7 +276,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                 + "count(poll.pollId) FROM PollResult "
                 + "where poll.pollId= :pollId "
                 + "group by answer.answer, answer.questionAnswerId, answer.color";
-        return new ArrayList<Object[]>(getSession().createQuery(pollResultsCounter).setParameter("pollId", pollId)
+        return new ArrayList<Object[]>(currentSession().createQuery(pollResultsCounter).setParameter("pollId", pollId)
                 .list());
     }
 

@@ -93,7 +93,7 @@ public class HashTag {
     /**
      * @return the hashTag
      */
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @Column(name = "tag")
     public  String getHashTag() {
         return hashTag;
@@ -158,7 +158,7 @@ public class HashTag {
      * @return the updatedDate
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @Column(name = "hashtag_updated_date", nullable = true)
     public Date getUpdatedDate() {
         return updatedDate;

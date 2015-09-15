@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor;
-
+import org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor;
+ 
 @Configuration
 @ComponentScan(basePackages = "org.encuestame")
 @ImportResource({"classpath:/config/files/service-context.xml"})
@@ -45,8 +45,8 @@ public class ServicesAppConfig {
      */
     public @Bean(name="openSessionInViewInterceptor") OpenSessionInViewInterceptor openSessionInViewInterceptor(){
         final OpenSessionInViewInterceptor openSessionInViewInterceptor = new OpenSessionInViewInterceptor();
-        openSessionInViewInterceptor.setSessionFactory(this.sessionFactory);
-        openSessionInViewInterceptor.setSingleSession(true);
+        openSessionInViewInterceptor.setSessionFactory(this.sessionFactory); 
+        //TODO: MIGRATION -->  openSessionInViewInterceptor.setSingleSession(true);
         return openSessionInViewInterceptor;
     }
 }

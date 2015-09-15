@@ -196,7 +196,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     /**
      * @return completeName
      */
-    @Field(index = Index.TOKENIZED, store = Store.YES)
+    @Field(index = Index.YES, store = Store.YES)
     @Column(name = "name", nullable = true, length = 50)
     public String getCompleteName() {
         return this.completeName;
@@ -212,7 +212,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     /**
      * @return userEmail userEmail
      */
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @org.hibernate.annotations.Index(name = "emailIndex")
     @Column(name = "email", unique = true, nullable = false, length = 150)
     public String getUserEmail() {
@@ -229,7 +229,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     /**
      * @return username
      */
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @org.hibernate.annotations.Index(name = "usernameIndex")
     @Column(name = "username", nullable = false, length = 30, unique = true)
     public String getUsername() {

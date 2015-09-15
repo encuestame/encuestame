@@ -196,7 +196,7 @@ public class AccessRate {
     /**
      * @return the ipAddress
      */
-    @Field(index = Index.TOKENIZED, store = Store.YES)
+    @Field(index = Index.YES, store = Store.YES)
     @Column(name = "ipAddress", nullable = false)
     public String getIpAddress() {
         return ipAddress;

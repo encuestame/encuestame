@@ -131,7 +131,7 @@ public class Question {
     /**
      * @return question
      */
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @Column(name = "question", nullable = false)
     public String getQuestion() {
         return this.question;
@@ -147,7 +147,7 @@ public class Question {
     /**
      * @return qidKey
      */
-    @Field(index = Index.TOKENIZED, store = Store.YES)
+    @Field(index = Index.YES, store = Store.YES)
     @Column(name = "qid_key")
     public String getQidKey() {
         return this.qidKey;
@@ -244,7 +244,7 @@ public class Question {
     /**
      * @return the slugQuestion
      */
-    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Field(index=Index.YES, store=Store.YES)
     @Column(name = "question_slug", nullable = false)
     public String getSlugQuestion() {
         return slugQuestion;

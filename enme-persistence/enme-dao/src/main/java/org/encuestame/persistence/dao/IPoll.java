@@ -63,6 +63,7 @@ public interface IPoll extends IBaseDao {
       * @return list of all poll
       * @throws HibernateException hibernate
       */
+     //TODO: MIGRATION
      List<Object[]> retrieveResultPolls(final Long polliId, final Long questionId);
 
      /**

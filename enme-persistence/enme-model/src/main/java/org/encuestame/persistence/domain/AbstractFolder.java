@@ -67,7 +67,7 @@ public abstract class AbstractFolder {
     /**
      * @return the folderName
      */
-    @Field(index = Index.TOKENIZED, store = Store.YES)
+    @Field(index = Index.YES, store = Store.YES)
     @Column(name = "folderName", nullable = false)
     public String getFolderName() {
         return folderName;
