@@ -101,7 +101,7 @@
                 <prop key="hibernate.hbm2ddl.delimiter">${datasource.delimited}</prop>
                 <prop key="hibernate.search.default.directory_provider">${datasource.hibernate.search.provider}</prop>
                 <prop key="hibernate.search.default.indexBase">${encuestame.home.hibernate.search.store.path}</prop>
-                <prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</prop>
+<!--                 <prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</prop> -->
                 <prop key="hibernate.cache.use_second_level_cache">true</prop>
                 <prop key="hibernate.cache.use_query_cache">true</prop>
             </props>
