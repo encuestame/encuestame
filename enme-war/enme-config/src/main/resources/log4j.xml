@@ -120,10 +120,6 @@
 
     <!-- Hibernate -->
 
-    <logger name="net.sf.ehcache">
-        <level value="warn" />
-    </logger>
-
     <logger name="org.hibernate">
         <level value="warn" />
     </logger>
