@@ -198,14 +198,14 @@
     <modules>
         <module>enme-js</module>
         <module>enme-utils</module>
-        <module>enme-core</module>
-        <module>enme-social</module>
-        <module>enme-oauth</module>
         <module>enme-persistence</module>
-        <module>enme-business</module>
-        <module>enme-config</module>
-        <module>enme-mvc</module>
-        <module>enme-war</module>
+        <!--<module>enme-core</module>-->
+        <!--<module>enme-social</module>-->
+        <!--<module>enme-oauth</module>-->
+        <!--<module>enme-business</module>-->
+        <!--<module>enme-config</module>-->
+        <!--<module>enme-mvc</module>-->
+        <!--<module>enme-war</module>-->
         <!-- Disabled 1.6-dev branch -->
         <!--<module>enme-installer</module>-->
         <!--<module>enme-assembly</module>-->

@@ -15,7 +15,6 @@ package org.encuestame.persistence.domain.survey;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.mail.Folder;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -74,7 +73,7 @@ public class Poll extends AbstractSurvey {
     private Boolean publish;
 
     /**
-     * {@link Folder}.
+     * PollFolder
      */
     private PollFolder pollFolder;
 
