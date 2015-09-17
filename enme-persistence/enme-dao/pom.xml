@@ -291,9 +291,5 @@
           <groupId>commons-dbcp</groupId>
           <artifactId>commons-dbcp</artifactId>
         </dependency>
-        <dependency>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-        </dependency>
     </dependencies>
 </project>
