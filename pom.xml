@@ -58,7 +58,7 @@
         <joda.time>1.6.2</joda.time>
         <!-- Hibernate Version -->
         <hibernate.version>5.0.1.Final</hibernate.version>
-        <hibernate.commons.annotations.version>3.3.0.ga</hibernate.commons.annotations.version>
+        <hibernate.commons.annotations.version>4.0.4.Final</hibernate.commons.annotations.version>
         <hibernate.search.version>5.4.0.Final</hibernate.search.version>
         <hibernate.validator>5.2.1.Final</hibernate.validator>
         <ehcache.version>2.3.1</ehcache.version>
@@ -211,7 +211,7 @@
         <module>enme-config</module>
         <module>enme-mvc</module>
         <module>enme-war</module>
-        <module>enme-installer</module>
+        <!--  <module>enme-installer</module>-->
         <module>enme-assembly</module>
     </modules>
 
@@ -912,7 +912,7 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>org.hibernate</groupId>
+                <groupId>org.hibernate.common</groupId>
                 <artifactId>hibernate-commons-annotations</artifactId>
                 <version>${hibernate.commons.annotations.version}</version>
                 <exclusions>
@@ -1631,7 +1631,7 @@
                 <artifactId>mockito-all</artifactId>
                 <version>1.9.5</version>
             </dependency>
-            <!-- installer -->
+            <!-- installer 
             <dependency>
                 <groupId>org.codehaus.izpack</groupId>
                 <artifactId>izpack-panel</artifactId>
@@ -1647,7 +1647,7 @@
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${postgres.version}</version>
-            </dependency>
+            </dependency>-->
             <!-- selenium test-->
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
