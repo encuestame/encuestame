@@ -34,7 +34,7 @@
     </bean>
 
     <bean id="sessionFactory"
-        class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
@@ -99,7 +99,7 @@
                 <prop key="hibernate.search.default.directory_provider">${datasource.hibernate.search.provider}</prop>
                 <prop key="hibernate.search.default.indexBase">${encuestame.home.hibernate.search.store.path}</prop>
                 <prop key="hibernate.cache.use_second_level_cache">true</prop>
-                <prop key="hibernate.cache.use_query_cache">true</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
             </props>
         </property>
     </bean>
