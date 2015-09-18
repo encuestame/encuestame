@@ -43,7 +43,7 @@
         <spring.orm>${spring.version}</spring.orm>
         <spring.support>2.0.8</spring.support>
         <org.aspectj-version>1.6.9</org.aspectj-version>
-        <org.slf4j-version>1.6.1</org.slf4j-version>
+        <org.slf4j-version>1.7.12</org.slf4j-version>
         <google.guava>15.0</google.guava>
         <scribe>1.0.9</scribe>
         <webutilities.version>0.0.6</webutilities.version>
@@ -118,7 +118,7 @@
         <xmlunit>1.1</xmlunit>
         <json-simple>1.1</json-simple>
         <json-org>20090211</json-org>
-        <javax.validation>1.0.0.GA</javax.validation>
+        <javax.validation>1.1.0.Final</javax.validation>
         <quartz>1.6.1</quartz>
         <rome>1.5.1</rome>
         <rome-fetcher>1.5.1</rome-fetcher>
