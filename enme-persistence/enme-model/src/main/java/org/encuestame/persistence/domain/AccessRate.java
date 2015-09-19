@@ -89,8 +89,7 @@ public class AccessRate {
     }
 
     /**
-     * @param tweetPollRateId
-     *            the tweetPollRateId to set
+     * @param rateId the tweetPollRateId to set
      */
     public void setRateId(final Long rateId) {
         this.rateId = rateId;

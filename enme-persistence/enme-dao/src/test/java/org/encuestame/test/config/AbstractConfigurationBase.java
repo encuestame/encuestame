@@ -12,18 +12,28 @@
  */
 package org.encuestame.test.config;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.*;
+import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
 import java.io.File;
+import java.util.Properties;
 
 /**
  * Abstract Junit Configuration File.
@@ -32,14 +42,11 @@ import java.io.File;
  * @version $Id:$
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@TransactionConfiguration(transactionManager = "transactionManager" , defaultRollback = true)
-@Transactional
 @Scope("singleton")
-@ContextConfiguration(locations = {
-        "classpath:spring-test/encuestame-param-test-context.xml",
-        "classpath:spring-test/encuestame-test-hibernate-context.xml"
-         })
-public abstract class AbstractConfigurationBase extends AbstractTransactionalJUnit4SpringContextTests{
+@TransactionConfiguration(defaultRollback = true)
+@ContextConfiguration(classes = TestAppConfig.class)
+@Transactional
+public class AbstractConfigurationBase{
 
     public Log log = LogFactory.getLog(this.getClass());
 

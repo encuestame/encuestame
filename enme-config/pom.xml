@@ -35,13 +35,6 @@
 		</resources>
 	</build>
 
-	<!--<repositories>-->
-		<!--<repository>-->
-			<!--<id>local-project-repo</id>-->
-			<!--<url>file:${basedir}/../lib/repository</url>-->
-		<!--</repository>-->
-	<!--</repositories>-->
-
 	<dependencies>
 		<dependency>
 			<groupId>org.encuestame</groupId>

@@ -30,7 +30,7 @@ import org.springframework.stereotype.Repository;
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 21, 2011
  */
-@Repository("installerDao")
+//@Repository("installerDao")
 public class InstallerDao extends JdbcDaoSupport implements InstallerOperations {
 
     private static Log log = LogFactory.getLog(InstallerDao.class);

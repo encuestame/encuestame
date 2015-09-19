@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,8 +24,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.queryParser.MultiFieldQueryParser;
-import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.PhraseQuery;
 import org.apache.lucene.search.PrefixQuery;
@@ -50,8 +51,9 @@ import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
-import org.springframework.orm.hibernate5.HibernateCallback;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate4.HibernateCallback;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -84,7 +86,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       * @param obj obj
       * @throws HibernateException hibernate
       */
-     //@Transactional(readOnly = false)
+     @Transactional(readOnly = false)
      public void saveOrUpdate(final Object obj) {
          getHibernateTemplate().saveOrUpdate(obj);
        //TODO:MIGRATION  getSession().flush();
@@ -284,7 +286,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @param clazz class reference
      * @param criteria criteria referece
      * @param analyzer {@link Analyzer}.
-     * @param similarity similarity factor
+     * @param @{deprecated} similarity similarity factor
      * @return list of results.
      */
     public List<?> fetchFuzzyQueryFullText(
@@ -294,9 +296,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
             final Criteria criteria,
             final Analyzer analyzer,
             final Float similarity) {
-        final FuzzyQuery query = new FuzzyQuery(new Term(field,
-                keyword), similarity);
-        log.trace("fetchPrefixQueryFullText Query :{"+query.toString()+"}");
+        final FuzzyQuery query = new FuzzyQuery(new Term(field, keyword));
+        log.trace("fetchPrefixQueryFullText Query :{" + query.toString() + "}");
         return fetchFullTextSession(clazz, criteria, analyzer, query);
     }
 

@@ -42,8 +42,7 @@ import org.hibernate.search.annotations.IndexedEmbedded;
  */
 @Indexed(index="Poll")
 @Entity
-@Table(name = "poll",
-       uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
+@Table(name = "poll")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Poll extends AbstractSurvey {
 

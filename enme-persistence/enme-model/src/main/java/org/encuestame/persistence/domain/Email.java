@@ -34,8 +34,7 @@ import javax.persistence.UniqueConstraint;
  */
 
 @Entity
-@Table(name = "email",
-        uniqueConstraints = {@UniqueConstraint(columnNames={"email"})})
+@Table(name = "email")
 public class Email {
 
     private Long idEmail;

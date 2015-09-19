@@ -56,14 +56,14 @@
         <jasypt>1.8</jasypt>
         <joda.time>1.6.2</joda.time>
         <!-- Hibernate Version -->
-        <hibernate.version>5.0.1.Final</hibernate.version>
-        <hibernate.commons.annotations.version>4.0.4.Final</hibernate.commons.annotations.version>
-        <hibernate.search.version>5.4.0.Final</hibernate.search.version>
-        <hibernate.validator>5.2.1.Final</hibernate.validator>
+        <hibernate.version>4.3.11.Final</hibernate.version>
+        <hibernate.commons.annotations.version>4.0.5.Final</hibernate.commons.annotations.version>
+        <hibernate.search.version>5.1.0.Final</hibernate.search.version>
+        <hibernate.validator>4.3.2.Final</hibernate.validator>
         <!-- JSON -->
         <jackson.version>2.3.3</jackson.version>
         <!-- Lucene Version -->
-        <lucene.version>3.0.3</lucene.version>
+        <lucene.version>4.10.4</lucene.version>
         <!-- Apache POI Version -->
         <apache.poi.version>3.5-FINAL</apache.poi.version>
         <!-- Apache POI Scratchpad Version -->
@@ -81,7 +81,7 @@
         <pluto-version>1.1.4</pluto-version>
         <portlet.version>2.0</portlet.version>
         <!-- Test -->
-        <junit.version>4.10</junit.version>
+        <junit.version>4.12</junit.version>
         <cactus.version>1.8.1</cactus.version>
         <selenium.version>2.44.0</selenium.version>
         <tomcat.version>7.0.54</tomcat.version>
@@ -97,7 +97,7 @@
         <!-- JDBC Drivers Version -->
         <mysql.version>5.1.21</mysql.version>
         <postgres.version>9.0-801.jdbc4</postgres.version>
-        <hsqldb.version>1.8.0.10</hsqldb.version>
+        <hsqldb.version>2.3.0</hsqldb.version>
         <commons-codec>1.3</commons-codec>
         <commons-fileupload>1.2.2</commons-fileupload>
         <commons-io>2.0.1</commons-io>
@@ -196,7 +196,7 @@
     </properties>
 
     <modules>
-        <module>enme-js</module>
+        <!--<module>enme-js</module>-->
         <module>enme-utils</module>
         <module>enme-persistence</module>
         <!--<module>enme-core</module>-->
@@ -1308,7 +1308,7 @@
                 <version>${velocity}</version>
             </dependency>
             <dependency>
-                <groupId>hsqldb</groupId>
+                <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
                 <version>${hsqldb.version}</version>
             </dependency>
@@ -1409,7 +1409,11 @@
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-core</artifactId>
                 <version>${lucene.version}</version>
-                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-analyzers-common</artifactId>
+                <version>${lucene.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
@@ -1418,19 +1422,29 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-fast-vector-highlighter</artifactId>
+                <artifactId>lucene-queries</artifactId>
                 <version>${lucene.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-spellchecker</artifactId>
+                <artifactId>lucene-queryparser</artifactId>
                 <version>${lucene.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-snowball</artifactId>
-                <version>${lucene.version}</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>org.apache.lucene</groupId>-->
+                <!--<artifactId>lucene-fast-vector-highlighter</artifactId>-->
+                <!--<version>${lucene.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>org.apache.lucene</groupId>-->
+                <!--<artifactId>lucene-spellchecker</artifactId>-->
+                <!--<version>${lucene.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>org.apache.lucene</groupId>-->
+                <!--<artifactId>lucene-snowball</artifactId>-->
+                <!--<version>${lucene.version}</version>-->
+            <!--</dependency>-->
             <!-- Apache Tiles -->
             <dependency>
                 <groupId>org.apache.tiles</groupId>

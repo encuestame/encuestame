@@ -69,6 +69,7 @@ public class EnMeContext extends ContextLoaderListener implements ServletContext
             throw new IllegalStateException("home not valid, please set a home property in the configuration file");
         } else {
             WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+            servletContext.setInitParameter("spring.profiles.active", "live");
             final StartupProcess startup = (StartupProcess) ctx.getBean("applicationStartup");
             try {
                startup.startProcess();

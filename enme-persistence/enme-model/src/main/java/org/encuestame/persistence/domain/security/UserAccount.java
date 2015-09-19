@@ -46,9 +46,7 @@ import org.hibernate.search.annotations.Store;
  * @since 08/12/2009 19:01:26
  */
 @Entity
-@Table(name = "userAccount",
-       uniqueConstraints = {@UniqueConstraint(columnNames={"username", "email"})}
-  )
+@Table(name = "userAccount")
 @Indexed(index="UserAccount")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserAccount extends AbstractGeoPoint implements Serializable{
@@ -214,7 +212,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
      */
     @Field(index=Index.YES, store=Store.YES)
     @org.hibernate.annotations.Index(name = "emailIndex")
-    @Column(name = "email", unique = true, nullable = false, length = 150)
+    @Column(name = "email_account", unique = true, nullable = false, length = 150)
     public String getUserEmail() {
         return this.userEmail;
     }

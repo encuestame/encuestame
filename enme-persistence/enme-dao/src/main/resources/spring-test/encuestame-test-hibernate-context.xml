@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:tx="http://www.springframework.org/schema/tx"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-       http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-       http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context-3.0.xsd
-       ">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
 
-     <bean id="jdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <bean id="jdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${datasource.classname}"/>
         <property name="url" value="${datasource.urldb}"/>
         <property name="username" value="${datasource.userbd}"/>
@@ -25,134 +15,20 @@
         <property name="dataSource" ref="jdbcDataSource"/>
     </bean>
 
-    <bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${datasource.classname}" />
-        <property name="url" value="${datasource.urldb}" />
-        <property name="username" value="${datasource.userbd}" />
-        <property name="password" value="${datasource.pass}" />
-    </bean>
-
-    <bean id="sessionFactory"
-        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="annotatedClasses">
-            <list>
-                <value>org.encuestame.persistence.domain.application.Application</value>
-                <value>org.encuestame.persistence.domain.application.ApplicationConnection</value>
-                <!--  <value>org.encuestame.persistence.domain.Project</value>
-                <value>org.encuestame.persistence.domain.Project</value>-->
-                <value>org.encuestame.persistence.domain.GeoPoint</value>
-                <value>org.encuestame.persistence.domain.GeoPointType</value>
-                <value>org.encuestame.persistence.domain.GeoPointFolder</value>
-                <value>org.encuestame.persistence.domain.Client</value>
-                <value>org.encuestame.persistence.domain.HashTag</value>
-                <value>org.encuestame.persistence.domain.security.Group</value>
-                <value>org.encuestame.persistence.domain.security.Permission</value>
-                <value>org.encuestame.persistence.domain.security.Account</value>
-                <value>org.encuestame.persistence.domain.security.HelpPage</value>
-                <value>org.encuestame.persistence.domain.security.SocialAccount</value>
-                <value>org.encuestame.persistence.domain.security.UserAccount</value>
-                <value>org.encuestame.persistence.domain.survey.Poll</value>
-                <value>org.encuestame.persistence.domain.survey.PollResult</value>
-                <value>org.encuestame.persistence.domain.question.Question</value>
-                <value>org.encuestame.persistence.domain.question.QuestionAnswer</value>
-                <value>org.encuestame.persistence.domain.question.QuestionDependencies</value>
-                <value>org.encuestame.persistence.domain.question.QuestionDependenceSurvey</value>
-                <value>org.encuestame.persistence.domain.question.QuestionColettion</value>
-                <value>org.encuestame.persistence.domain.question.CatQuestionCategory</value>
-                <value>org.encuestame.persistence.domain.survey.SurveyFormat</value>
-                <value>org.encuestame.persistence.domain.survey.SurveyGroup</value>
-                <value>org.encuestame.persistence.domain.survey.SurveyResult</value>
-                <value>org.encuestame.persistence.domain.survey.Survey</value>
-                <value>org.encuestame.persistence.domain.survey.SurveySection</value>
-                <value>org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch</value>
-                <value>org.encuestame.persistence.domain.tweetpoll.TweetPoll</value>
-                <value>org.encuestame.persistence.domain.tweetpoll.TweetPollResult</value>
-                <value>org.encuestame.persistence.domain.tweetpoll.TweetPollFolder</value>
-                <value>org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus</value>
-                <value>org.encuestame.persistence.domain.Email</value>
-                <value>org.encuestame.persistence.domain.EmailList</value>
-                <value>org.encuestame.persistence.domain.EmailSubscribe</value>
-                <value>org.encuestame.persistence.domain.survey.SurveyPagination</value>
-                <value>org.encuestame.persistence.domain.survey.SurveyFolder</value>
-                <value>org.encuestame.persistence.domain.survey.PollFolder</value>
-                <value>org.encuestame.persistence.domain.notifications.Notification</value> 
-                <value>org.encuestame.persistence.domain.dashboard.Dashboard</value>
-                <value>org.encuestame.persistence.domain.dashboard.Gadget</value>
-                <value>org.encuestame.persistence.domain.dashboard.GadgetProperties</value>
-                <value>org.encuestame.persistence.domain.Comment</value>
-                <value>org.encuestame.persistence.domain.Hit</value>
-                <value>org.encuestame.persistence.domain.AccessRate</value>
-                <value>org.encuestame.persistence.domain.HashTagRanking</value>
-                <value>org.encuestame.persistence.domain.question.QuestionPreferences</value>
-                <value>org.encuestame.persistence.domain.survey.SurveyTemporalResult</value>
-				<value>org.encuestame.persistence.domain.Schedule</value>
-            </list>
-        </property>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.hbm2ddl.auto">${datasource.hbm2ddl.auto}</prop>
-                <prop key="hibernate.dialect">${datasource.dialect}</prop>
-                <prop key="hibernate.show_sql">${datasource.showsql}</prop>
-                <prop key="hibernate.hbm2ddl.delimiter">${datasource.delimited}</prop>
-                <prop key="hibernate.search.default.directory_provider">${datasource.hibernate.search.provider}</prop>
-                <prop key="hibernate.search.default.indexBase">${encuestame.home.hibernate.search.store.path}</prop>
-                <prop key="hibernate.cache.use_second_level_cache">true</prop>
-                <prop key="hibernate.cache.use_query_cache">false</prop>
-            </props>
-        </property>
-    </bean>
-
-    <bean id="hibernateTemplate" autowire="byName" scope="singleton" class="org.springframework.orm.hibernate5.HibernateTemplate">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
-    </bean>
-
-    <!--  Encuestame Transactions Configuration  -->
-    <bean id="transactionManager"
-        class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory">
-            <ref local="sessionFactory" />
-        </property>
-    </bean>
-
-    <!-- Scans the classpath of this application for @Repository Daos-->
-    <context:component-scan base-package="org.encuestame.persistence.dao" />
-
-    <context:annotation-config/>
-
-   <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="delete*" propagation="REQUIRED"/>
-            <tx:method name="save*"  propagation="REQUIRED"/>
-            <tx:method name="update*"  propagation="REQUIRED"/>
-            <tx:method name="*"   propagation="SUPPORTS"/>
-        </tx:attributes>
-    </tx:advice>
-
-    <aop:config>
-        <aop:advisor pointcut="execution(* *..org.encuestame.persistence.dao.*.*(..))" advice-ref="txAdvice"/>
-    </aop:config>
-
-    <!-- This annotation allow declarative transactions.  -->
-    <tx:annotation-driven  transaction-manager="transactionManager"/>
-
     <!-- configuration encryptor used by the property configurer -->
     <bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
-        <property name="config" ref="environmentVariablesConfiguration" />
+        <property name="config" ref="environmentVariablesConfiguration"/>
     </bean>
 
-     <!-- env variables used by configurationEncryptor -->
+    <!-- env variables used by configurationEncryptor -->
     <bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
-        <property name="algorithm" value="spring.sec.encrypt.algorithm.key" />
-        <property name="passwordEnvName" value="${spring.sec.encrypt.password.key}" />
+        <property name="algorithm" value="spring.sec.encrypt.algorithm.key"/>
+        <property name="passwordEnvName" value="${spring.sec.encrypt.password.key}"/>
     </bean>
 
     <bean id="hibernateStringEncryptor" class="org.jasypt.hibernate.encryptor.HibernatePBEStringEncryptor">
         <property name="registeredName">
-        <value>strongHibernateStringEncryptor</value>
+            <value>strongHibernateStringEncryptor</value>
         </property>
         <property name="algorithm">
             <value>${spring.sec.encrypt.algorithm.key}</value>

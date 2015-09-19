@@ -109,13 +109,14 @@ import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.ItemStatDetail;
+import org.hibernate.SessionFactory;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
-import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 
 /**
  * Base Class to Test Cases.
@@ -129,7 +130,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * Hibernate Template.
      */
     @Autowired
-    private HibernateTemplate hibernateTemplate;
+    private SessionFactory sessionFactory;
 
      /** SurveyFormat  Dao.**/
     @Autowired
@@ -257,8 +258,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * Force to push HIBERNATE domains saved to HIBERNATE SEARCH indexes.
      * This is useful to test full text session search on test cases.
      */
-    public void flushIndexes(){
-        final FullTextSession fullTextSession = Search.getFullTextSession(getHibernateTemplate().getSessionFactory().getCurrentSession());
+    public void flushIndexes() {
+        final FullTextSession fullTextSession = Search.getFullTextSession(
+                getSessionFactory().getCurrentSession()
+        );
         fullTextSession.flushToIndexes();
     }
 
@@ -1833,19 +1836,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
 
-    /**
-     * @return the hibernateTemplate
-     */
-    public HibernateTemplate getHibernateTemplate() {
-        return hibernateTemplate;
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 
-
-    /**
-     * @param hibernateTemplate the hibernateTemplate to set
-     */
-    public void setHibernateTemplate(final HibernateTemplate hibernateTemplate) {
-        this.hibernateTemplate = hibernateTemplate;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     /**
