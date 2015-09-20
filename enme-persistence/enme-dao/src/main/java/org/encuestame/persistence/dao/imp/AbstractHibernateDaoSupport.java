@@ -314,22 +314,13 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
             final Criteria criteria,
             final Analyzer analyzer,
             final Query  queryOperation) {
-        @SuppressWarnings({ "unchecked", "rawtypes" })
-        List<?> searchResult = (List<?>) getHibernateTemplate()
-                .execute(new HibernateCallback() {
-                    public Object doInHibernate(org.hibernate.Session session) {
-                        final FullTextSession fullTextSession = Search
-                                .getFullTextSession(session);
-                        log.trace("fetchFullTextSession query:{" + queryOperation.toString()+"}");
-                        final FullTextQuery hibernateQuery = fullTextSession
-                                .createFullTextQuery(queryOperation, clazz);
-                        hibernateQuery.setCriteriaQuery(criteria);
-                        final List<?> result = hibernateQuery.list();
-                        log.info("fetchFullTextSession result size:{" + result.size()+"}");
-                        return result;
-                    }
-                });
-        return searchResult;
+        final FullTextSession fullTextSession = Search.getFullTextSession(getSessionFactory().getCurrentSession());
+        log.trace("fetchFullTextSession query:{" + queryOperation.toString()+"}");
+        final FullTextQuery hibernateQuery = fullTextSession.createFullTextQuery(queryOperation, clazz);
+        hibernateQuery.setCriteriaQuery(criteria);
+        final List<?> result = hibernateQuery.list();
+        log.info("fetchFullTextSession result size:{" + result.size()+"}");
+        return result;
     }
 
     /**
