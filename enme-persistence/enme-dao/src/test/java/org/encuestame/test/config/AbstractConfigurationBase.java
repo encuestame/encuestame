@@ -15,6 +15,7 @@ package org.encuestame.test.config;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.DBConfig;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -24,6 +25,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -44,8 +46,9 @@ import java.util.Properties;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Scope("singleton")
 @TransactionConfiguration(defaultRollback = true)
-@ContextConfiguration(classes = TestAppConfig.class)
+@ContextConfiguration(classes = DBConfig.class)
 @Transactional
+@ActiveProfiles(profiles = "dev")
 public class AbstractConfigurationBase{
 
     public Log log = LogFactory.getLog(this.getClass());

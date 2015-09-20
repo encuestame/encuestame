@@ -16,37 +16,24 @@
  *
  */
 
-package org.encuestame.test.config;
+package org.encuestame.config;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.service.ServiceRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
-import org.springframework.orm.hibernate4.HibernateTemplate;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.util.Log4jConfigurer;
+
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
+import java.io.FileNotFoundException;
+import java.util.Properties;
 
 
 /**
@@ -63,10 +50,16 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
         @PropertySource({ "classpath:properties-test/test-email-config.properties" })
 })
 @ComponentScan({ "org.encuestame.persistence" })
-public class TestAppConfig {
+public class DBConfig {
 
     @Autowired
     private Environment envi;
+
+//
+//    @PostConstruct
+//    public void initLog4j() throws FileNotFoundException {
+//        Log4jConfigurer.initLogging("classpath:production-log4j.properties");
+//    }
 
     /**
      *
@@ -78,7 +71,6 @@ public class TestAppConfig {
         sessionFactory.setDataSource(restDataSource());
         sessionFactory.setPackagesToScan(new String[] { "org.encuestame.persistence.domain" });
         sessionFactory.setHibernateProperties(hibernateProperties());
-
         return sessionFactory;
     }
 
@@ -87,6 +79,7 @@ public class TestAppConfig {
      * @return
      */
     @Bean
+    @Profile("dev")
     public DataSource restDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
@@ -119,6 +112,7 @@ public class TestAppConfig {
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
+
 
     Properties hibernateProperties() {
         return new Properties() {
