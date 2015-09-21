@@ -549,5 +549,5 @@ public interface ITweetPoll extends IBaseDao{
      */
 	List<TweetPoll> retrieveTweetPollByKeyword(final String keyword,
 			final Integer start,
-			final Integer maxResults);
+			final Integer maxResults); 
 }

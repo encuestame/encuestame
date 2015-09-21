@@ -51,7 +51,6 @@ import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
-import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -465,12 +464,12 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
             final String questionNameProperty, final String tableName,
             final String creationDateProperty) {
          //final String queryBetween = this.calculateSearchPeriodForGeo(period, creationDateProperty);
-        final String queryStr ="SELECT " + idProperty + "," + latitudeProperty + "," + fieldLongitude + "," + questionNameProperty +", (acos(sin(radians(lat)) * sin((:latitude)) +"
-                + "cos(radians(lat)) * cos((:latitude)) * "
-                + "cos(radians(lng) - (:longitude))) * :radius) AS "
+        final String queryStr ="SELECT " + idProperty + "," + latitudeProperty + "," + fieldLongitude + "," + questionNameProperty +", (acos(sin(radians(locationLatitude)) * sin((:latitude)) +"
+                + "cos(radians(locationLatitude)) * cos((:latitude)) * "
+                + "cos(radians(locationLongitude) - (:longitude))) * :radius) AS "
                 + "distanceFrom FROM " + tableName
-                + " WHERE (acos(sin(radians(lat)) * sin((:latitude)) + "
-                + "cos(radians(lat)) * cos((:latitude)) * cos(radians(lng) - (:longitude))) * :radius) <= :distance AND " + creationDateProperty +
+                + " WHERE (acos(sin(radians(locationLatitude)) * sin((:latitude)) + "
+                + "cos(radians(locationLatitude)) * cos((:latitude)) * cos(radians(locationLongitude) - (:longitude))) * :radius) <= :distance AND " + creationDateProperty +
                 " BETWEEN :startDate AND :endDate";
           return queryStr;
     }
@@ -505,18 +504,20 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List findByNamedParamGeoLocationItems(final String query,
+    public List<Object[]> findByNamedParamGeoLocationItems(final String query,
             final double latitude, final double longitude,
             final double distance, final double radius, final int maxItems,
-            final Date startDate, final Date endDate) {
-
-        return getHibernateTemplate().findByNamedParam(
-                query,
-                new String[] { "latitude", "longitude", "distance", "radius",
-                        "startDate", "endDate" },
-                new Object[] { latitude, longitude, distance, radius,
-                        startDate, endDate });
-    }
+            final Date startDate, final Date endDate) { 
+    	return (List<Object[]>) (currentSession().createQuery(query)
+    			.setParameter("latitude",latitude)
+    			.setParameter("longitude", longitude)
+    			.setParameter("radius", radius)
+    			.setParameter("distance", distance)
+    			.setParameter("startDate", startDate)
+    			.setParameter("endDate", endDate) 
+    			.list());
+    	  
+   }
 
     /**
      * @return the version
