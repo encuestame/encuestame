@@ -354,18 +354,7 @@ public interface IPoll extends IBaseDao {
 	 * @return
 	 */
 	List<Poll> retrievePollByDate(final PollSearchBean bean, final Long userId, final Date startDate);
-
-
-	/**
-	 * Return a list of votes by {@link Poll}
-	 * @param ip
-	 * @param poll
-	 * @return
-	 */
-	List<PollResult> getListvalidateVoteIP(
-	            final String ip,
-	            final Poll poll);
-
+ 
 	/**
 	 *  Retrieve Folders by keyword.
 	 * @param keyword
