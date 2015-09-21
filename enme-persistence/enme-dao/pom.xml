@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.encuestame</groupId>
-        <artifactId>encuestame-persistence</artifactId>
+        <artifactId>persistence</artifactId>
         <version>1.5.4-SNAPSHOT</version>
     </parent>
-    <artifactId>enme-dao</artifactId>
+    <artifactId>dao</artifactId>
     <packaging>jar</packaging>
     <name>Encuestame DAO</name>
     <build>
@@ -61,25 +61,17 @@
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-queryparser</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.apache.lucene</groupId>-->
-            <!--<artifactId>lucene-fast-vector-highlighter</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.lucene</groupId>-->
-            <!--<artifactId>lucene-spellchecker</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.lucene</groupId>-->
-            <!--<artifactId>lucene-snowball</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>enme-model</artifactId>
+            <artifactId>model</artifactId>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-utils</artifactId>
+            <artifactId>utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>config</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>

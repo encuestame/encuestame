@@ -6,7 +6,7 @@
         <artifactId>encuestame</artifactId>
         <version>1.5.4-SNAPSHOT</version>
     </parent>
-    <artifactId>encuestame-core</artifactId>
+    <artifactId>core</artifactId>
     <packaging>jar</packaging>
     <name>Encuestame Core</name>
     <build>
@@ -43,25 +43,25 @@
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-utils</artifactId>
+            <artifactId>utils</artifactId>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-utils</artifactId>
+            <artifactId>utils</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>enme-dao</artifactId>
+            <artifactId>dao</artifactId>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>enme-model</artifactId>
+            <artifactId>model</artifactId>
         </dependency>
         <dependency> <!-- reuse src/test/java code from encuestame-core! -->
             <groupId>org.encuestame</groupId>
-            <artifactId>enme-dao</artifactId>
+            <artifactId>dao</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
