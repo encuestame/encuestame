@@ -575,19 +575,32 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getListvalidateVoteIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
      */
-    public Integer validateVoteIP(
+    @SuppressWarnings("unchecked")
+	public List<PollResult> getListvalidateVoteIP(
             final String ip,
             final Poll poll) {
     	final DetachedCriteria criteria = DetachedCriteria.forClass(PollResult.class);
     	criteria.setProjection(Projections.rowCount()); 
     	criteria.add(Restrictions.eq("ipaddress", ip));
-    	criteria.add(Restrictions.eq("poll", poll)); 
-    	@SuppressWarnings("unchecked")
-    	List results = getHibernateTemplate().findByCriteria(criteria); 
-    	final Long counter = (Long) (results.get(0) == null ? 0 : results.get(0));
-    	return counter.intValue();
-    	 
+    	criteria.add(Restrictions.eq("poll", poll));  
+    	return (List<PollResult>) getHibernateTemplate().findByCriteria(criteria);  
     }
+    
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#validateVoteIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
+     */
+    @SuppressWarnings("unchecked")
+    public Integer validateVoteIP(
+            final String ip,
+            final Poll poll) {
+        final List total = this.getListvalidateVoteIP(ip, poll);  
+        Long longi =  (Long) (total.get(0) == null ? 0 : total.get(0));
+        return longi.intValue();  
+    }
+
+
 
     /*
      * (non-Javadoc)

@@ -376,4 +376,8 @@ public interface IPoll extends IBaseDao {
 			final UserAccount user,
 			final Integer max,
 			final Integer start);
+	
+    List<PollResult> getListvalidateVoteIP(
+            final String ip,
+            final Poll poll);
 }

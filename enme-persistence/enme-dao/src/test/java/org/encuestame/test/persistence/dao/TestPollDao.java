@@ -577,7 +577,7 @@ public class TestPollDao extends AbstractBase {
         final Integer result = getPollDao().validateVoteIP(ip, poll1);
         assertNotNull(result);
         assertEquals(result, new Integer(1));
-        final Integer resultNull = getPollDao().validateVoteIP(ip2, poll1);
+        final Integer resultNull = getPollDao().validateVoteIP(ip2, poll1); 
         Assert.assertNotNull(resultNull);
         assertEquals(resultNull, new Integer(0));
     }
