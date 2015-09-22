@@ -20,8 +20,6 @@ import javax.persistence.Table;
 
 import org.encuestame.persistence.domain.AbstractFolder;
 import org.encuestame.persistence.interfaces.IFolder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Indexed;
 

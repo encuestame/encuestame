@@ -29,8 +29,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * TweetPoll Switch.

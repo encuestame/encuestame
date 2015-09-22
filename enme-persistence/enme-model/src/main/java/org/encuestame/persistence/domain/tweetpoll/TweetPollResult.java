@@ -27,8 +27,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.AbstractGeoPoint;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;

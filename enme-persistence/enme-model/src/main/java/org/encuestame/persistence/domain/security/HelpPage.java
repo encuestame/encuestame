@@ -18,12 +18,19 @@
 
 package org.encuestame.persistence.domain.security;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.search.annotations.Indexed;
-
-import javax.persistence.*;
 import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.search.annotations.Indexed;
 
 /**
  * Created by jpicado on 01/11/14.

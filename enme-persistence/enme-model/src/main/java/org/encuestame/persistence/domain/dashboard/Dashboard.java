@@ -21,10 +21,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.enums.LayoutEnum;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Dashboard domain.

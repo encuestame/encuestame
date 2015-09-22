@@ -36,8 +36,6 @@ import javax.persistence.TemporalType;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.utils.enums.QuestionPattern;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;

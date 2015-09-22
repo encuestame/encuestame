@@ -32,8 +32,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
-import org.encuestame.persistence.domain.AbstractGeoPoint;  
+
+import org.encuestame.persistence.domain.AbstractGeoPoint;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
