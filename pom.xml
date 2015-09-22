@@ -197,13 +197,14 @@
 
     <modules>
         <!--<module>enme-js</module>-->
+        <module>enme-config</module>
         <module>enme-utils</module>
         <module>enme-persistence</module>
         <!--<module>enme-core</module>-->
         <!--<module>enme-social</module>-->
         <!--<module>enme-oauth</module>-->
         <!--<module>enme-business</module>-->
-        <!--<module>enme-config</module>-->
+        <!---->
         <!--<module>enme-mvc</module>-->
         <!--<module>enme-war</module>-->
         <!-- Disabled 1.6-dev branch -->
@@ -736,28 +737,28 @@
         <dependencies>
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-core</artifactId>
+                <artifactId>core</artifactId>
                 <version>${encuestame.version}</version>
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-core! -->
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-core</artifactId>
+                <artifactId>core</artifactId>
                 <version>${encuestame.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-utils</artifactId>
+                <artifactId>utils</artifactId>
                 <version>${encuestame.version}</version>
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-core! -->
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-utils</artifactId>
+                <artifactId>utils</artifactId>
                <version>${encuestame.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
@@ -776,19 +777,19 @@
             </dependency>
              <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>enme-model</artifactId>
+                <artifactId>model</artifactId>
                 <version>${encuestame.version}</version>
                 <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>enme-dao</artifactId>
+                <artifactId>dao</artifactId>
                 <version>${encuestame.version}</version>
                 <type>jar</type>
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-core! -->
                 <groupId>org.encuestame</groupId>
-                <artifactId>enme-dao</artifactId>
+                <artifactId>dao</artifactId>
                 <version>${encuestame.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
@@ -807,7 +808,7 @@
             </dependency>
             <dependency> <!-- reuse src/test/java code from encuestame-core! -->
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-business</artifactId>
+                <artifactId>business</artifactId>
                 <version>${encuestame.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
@@ -821,27 +822,27 @@
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-social</artifactId>
+                <artifactId>social</artifactId>
                 <version>${encuestame.version}</version>
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-config</artifactId>
+                <artifactId>config</artifactId>
                 <version>${encuestame.version}</version>
                 <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-social</artifactId>
+                <artifactId>social</artifactId>
                 <version>${encuestame.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-oauth</artifactId>
+                <artifactId>oauth</artifactId>
                 <version>${encuestame.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>

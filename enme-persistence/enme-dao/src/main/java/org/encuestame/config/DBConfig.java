@@ -26,34 +26,27 @@ import org.springframework.dao.annotation.PersistenceExceptionTranslationPostPro
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.util.Log4jConfigurer;
 
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
-import java.io.FileNotFoundException;
 import java.util.Properties;
 
 
 /**
  * Created by jpicado on 19/09/15.
  */
+@Configuration
 @ContextConfiguration(locations = {
         "classpath:spring-test/encuestame-test-hibernate-context.xml"
 })
-@Configuration
 @PropertySources({
-        @PropertySource({ "classpath:properties-test/encuestame-test-config.properties" }),
-        @PropertySource({ "classpath:properties-test/hibernate.test.properties" }),
-        @PropertySource({ "classpath:properties-test/lucene.test.index.properties" }),
-        @PropertySource({ "classpath:properties-test/test-email-config.properties" })
+        @PropertySource("classpath:properties-test/encuestame-test-config.properties")
 })
 @ComponentScan({ "org.encuestame.persistence" })
 public class DBConfig {
 
     @Autowired
-    private Environment envi;
+    private Environment env;
 
 //
 //    @PostConstruct
@@ -82,10 +75,10 @@ public class DBConfig {
     @Profile("dev")
     public DataSource restDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
-        dataSource.setUrl("jdbc:hsqldb:mem:encuestame_test2");
-        dataSource.setUsername("sa");
-        dataSource.setPassword("");
+        dataSource.setDriverClassName(env.getRequiredProperty("datasource.classname"));
+        dataSource.setUrl(env.getRequiredProperty("datasource.urldb"));
+        dataSource.setUsername(env.getRequiredProperty("datasource.userbd"));
+        dataSource.setPassword(env.getRequiredProperty("datasource.pass"));
         return dataSource;
     }
 
@@ -117,7 +110,7 @@ public class DBConfig {
     Properties hibernateProperties() {
         return new Properties() {
             {
-                setProperty("hibernate.hbm2ddl.auto", "create");
+                setProperty("hibernate.hbm2ddl.auto", env.getRequiredProperty("datasource.hbm2ddl.auto"));
                 setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
                 setProperty("hibernate.globally_quoted_identifiers", "true");
                 setProperty("hibernate.cache.provider_class", "org.hibernate.cache.NoCacheProvider");
