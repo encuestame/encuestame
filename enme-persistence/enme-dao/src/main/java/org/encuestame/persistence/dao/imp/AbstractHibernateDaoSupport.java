@@ -33,9 +33,6 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.WildcardQuery;
 import org.apache.lucene.util.Version;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.Survey;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.Status;
@@ -51,7 +48,7 @@ import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -204,7 +201,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
             final Criteria criteria,
             final Analyzer analyzer) {
         final MultiFieldQueryParser parser = new MultiFieldQueryParser(
-                version, fields, analyzer);
+                fields, analyzer);
         Query query = null;
         try {
             query = parser.parse(keyword);
