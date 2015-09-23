@@ -56,14 +56,14 @@
         <jasypt>1.8</jasypt>
         <joda.time>1.6.2</joda.time>
         <!-- Hibernate Version -->
-        <hibernate.version>4.3.11.Final</hibernate.version>
+        <hibernate.version>5.0.1.Final</hibernate.version>
         <hibernate.commons.annotations.version>4.0.5.Final</hibernate.commons.annotations.version>
-        <hibernate.search.version>5.1.0.Final</hibernate.search.version>
-        <hibernate.validator>4.3.2.Final</hibernate.validator>
+        <hibernate.search.version>5.5.0.Final</hibernate.search.version>
+        <hibernate.validator>5.2.1.Final</hibernate.validator>
         <!-- JSON -->
         <jackson.version>2.3.3</jackson.version>
         <!-- Lucene Version -->
-        <lucene.version>4.10.4</lucene.version>
+        <lucene.version>5.3.0</lucene.version>
         <!-- Apache POI Version -->
         <apache.poi.version>3.5-FINAL</apache.poi.version>
         <!-- Apache POI Scratchpad Version -->
@@ -1640,8 +1640,7 @@
                 <groupId>javax.transaction</groupId>
                 <artifactId>jta</artifactId>
                 <version>1.0.1B</version>
-            </dependency>
- 
+            </dependency> 
         </dependencies>
     </dependencyManagement>
 </project>
