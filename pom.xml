@@ -130,6 +130,8 @@
         <opencsv.version>2.3</opencsv.version>
         <javax.inject>1</javax.inject>
         <javax.persistence>1.0.2</javax.persistence>
+        <javax.el.api>3.0.1-b04</javax.el.api>
+        <infinispan.version>8.0.1.Final</infinispan.version>
         <front.end.plugin>0.0.23</front.end.plugin>
         <uadetector.version>2013.02</uadetector.version>
         <!-- Dojo http://www.mahieu.org/?p=3 -->
@@ -1640,7 +1642,17 @@
                 <groupId>javax.transaction</groupId>
                 <artifactId>jta</artifactId>
                 <version>1.0.1B</version>
-            </dependency> 
+            </dependency>
+             <dependency>
+               <groupId>javax.el</groupId>
+               <artifactId>javax.el-api</artifactId>
+               <version>${javax.el.api}</version>
+            </dependency>
+             <dependency>
+                 <groupId>org.infinispan</groupId>
+                 <artifactId>infinispan-directory-provider</artifactId>
+                <version>${infinispan.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
