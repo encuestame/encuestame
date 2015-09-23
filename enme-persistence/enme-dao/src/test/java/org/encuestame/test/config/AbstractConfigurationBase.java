@@ -45,7 +45,6 @@ import java.util.Properties;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Scope("singleton")
-@TransactionConfiguration(defaultRollback = true)
 @ContextConfiguration(classes = DBConfig.class)
 @Transactional
 @ActiveProfiles(profiles = "dev")
