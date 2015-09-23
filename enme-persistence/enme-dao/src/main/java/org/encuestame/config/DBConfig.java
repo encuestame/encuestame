@@ -115,7 +115,7 @@ public class DBConfig {
                 setProperty("hibernate.globally_quoted_identifiers", "true");
                 setProperty("hibernate.cache.provider_class", "org.hibernate.cache.NoCacheProvider");
                 setProperty("hibernate.search.default.directory_provider", "org.hibernate.search.store.impl.FSDirectoryProvider");
-                setProperty("hibernate.search.default.indexBase", "/temp");
+                setProperty("hibernate.search.default.indexBase", "/tmp");
             }
         };
     }
