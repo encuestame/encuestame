@@ -4,12 +4,12 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-    <!-- configuration encryptor used by the property configurer -->
+    <!-- configuration encryptor used by the property configurer
     <bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
         <property name="config" ref="environmentVariablesConfiguration" />
     </bean>
 
-     <!-- env variables used by configurationEncryptor -->
+     <!-- env variables used by configurationEncryptor
     <bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
         <property name="algorithm" value="spring.sec.encrypt.algorithm.key" />
         <property name="passwordEnvName" value="${spring.sec.encrypt.password.key}" />
@@ -26,5 +26,5 @@
             <value>${spring.sec.encrypt.password.key}</value>
         </property>
     </bean>
-
+     -->
 </beans>

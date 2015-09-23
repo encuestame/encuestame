@@ -53,7 +53,7 @@
         <jsp-api>2.2</jsp-api>
         <jdom>2.0.6</jdom>
         <!--><jdom2>2.0.6</jdom2><-->
-        <jasypt>1.8</jasypt>
+        <jasypt>1.9.2</jasypt>
         <joda.time>1.6.2</joda.time>
         <!-- Hibernate Version -->
         <hibernate.version>5.0.1.Final</hibernate.version>
@@ -1232,7 +1232,11 @@
                 <groupId>org.jasypt</groupId>
                 <artifactId>jasypt</artifactId>
                 <version>${jasypt}</version>
-                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jasypt</groupId>
+                <artifactId>jasypt-hibernate4</artifactId>
+                <version>${jasypt}</version>
             </dependency>
             <dependency>
                 <groupId>org.jdom</groupId>

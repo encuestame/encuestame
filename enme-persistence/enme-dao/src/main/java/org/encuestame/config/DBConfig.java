@@ -18,16 +18,21 @@
 
 package org.encuestame.config;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
+//import org.jasypt.hibernate.encryptor.HibernatePBEStringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.stereotype.Service;
 import org.springframework.test.context.ContextConfiguration;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -36,9 +41,9 @@ import java.util.Properties;
  * Created by jpicado on 19/09/15.
  */
 @Configuration
-@ContextConfiguration(locations = {
-        "classpath:spring-test/encuestame-test-hibernate-context.xml"
-})
+//@ContextConfiguration(locations = {
+//        "classpath:spring-test/encuestame-test-hibernate-context.xml"
+//})
 @PropertySources({
         @PropertySource("classpath:properties-test/encuestame-test-config.properties")
 })
@@ -47,12 +52,6 @@ public class DBConfig {
 
     @Autowired
     private Environment env;
-
-//
-//    @PostConstruct
-//    public void initLog4j() throws FileNotFoundException {
-//        Log4jConfigurer.initLogging("classpath:production-log4j.properties");
-//    }
 
     /**
      *
@@ -72,7 +71,6 @@ public class DBConfig {
      * @return
      */
     @Bean
-    @Profile("dev")
     public DataSource restDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getRequiredProperty("datasource.classname"));
@@ -80,6 +78,24 @@ public class DBConfig {
         dataSource.setUsername(env.getRequiredProperty("datasource.userbd"));
         dataSource.setPassword(env.getRequiredProperty("datasource.pass"));
         return dataSource;
+    }
+
+    @Bean(name = "jdbcDataSource")
+    public BasicDataSource jdbcDataSource() {
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName(env.getRequiredProperty("datasource.classname"));
+        dataSource.setUrl(env.getRequiredProperty("datasource.urldb"));
+        dataSource.setUsername(env.getRequiredProperty("datasource.userbd"));
+        dataSource.setPassword(env.getRequiredProperty("datasource.pass"));
+        return dataSource;
+    }
+
+    @Bean
+    @Autowired
+    public JdbcTemplate jdbcTemplate(BasicDataSource dataSource) {
+        final JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(dataSource);
+        return jdbcTemplate;
     }
 
     /**
@@ -96,6 +112,15 @@ public class DBConfig {
 
         return txManager;
     }
+
+//    @Bean
+//    public HibernatePBEStringEncryptor hibernateStringEncryptor(){
+//        final HibernatePBEStringEncryptor encryptor = new HibernatePBEStringEncryptor();
+//        encryptor.setRegisteredName("strongHibernateStringEncryptor");
+//        encryptor.setAlgorithm(env.getRequiredProperty("spring.sec.encrypt.algorithm.key"));
+//        encryptor.setPassword(env.getRequiredProperty("spring.sec.encrypt.password.key"));
+//        return encryptor;
+//    }
 
     /**
      *
