@@ -25,6 +25,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -36,7 +37,7 @@ import javax.persistence.TemporalType;
 import org.encuestame.persistence.domain.AbstractGeoPoint;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
+//import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 
@@ -45,9 +46,11 @@ import org.hibernate.search.annotations.Store;
  * @author Picado, Juan juanATencuestame.org
  * @since 08/12/2009 19:01:26
  */
+
+@Table(name = "userAccount", indexes= {@Index(columnList = "email_account", name = "emailIndex"), @Index(columnList= "username", name="usernameIndex")})
 @Entity
-@Table(name = "userAccount")
 @Indexed(index="UserAccount")
+// indexes = { @Index("name")})
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserAccount extends AbstractGeoPoint implements Serializable{
 
@@ -194,7 +197,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     /**
      * @return completeName
      */
-    @Field(index = Index.YES, store = Store.YES)
+    @Field(index = org.hibernate.search.annotations.Index.YES, store = Store.YES)
     @Column(name = "name", nullable = true, length = 50)
     public String getCompleteName() {
         return this.completeName;
@@ -210,8 +213,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     /**
      * @return userEmail userEmail
      */
-    @Field(index=Index.YES, store=Store.YES)
-    @org.hibernate.annotations.Index(name = "emailIndex")
+    @Field(index= org.hibernate.search.annotations.Index.YES, store=Store.YES)
     @Column(name = "email_account", unique = true, nullable = false, length = 150)
     public String getUserEmail() {
         return this.userEmail;
@@ -227,8 +229,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     /**
      * @return username
      */
-    @Field(index=Index.YES, store=Store.YES)
-    @org.hibernate.annotations.Index(name = "usernameIndex")
+    @Field(index= org.hibernate.search.annotations.Index.YES, store=Store.YES)
     @Column(name = "username", nullable = false, length = 30, unique = true)
     public String getUsername() {
         return this.username;
