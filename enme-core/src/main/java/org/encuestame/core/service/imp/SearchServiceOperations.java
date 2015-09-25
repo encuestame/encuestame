@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;

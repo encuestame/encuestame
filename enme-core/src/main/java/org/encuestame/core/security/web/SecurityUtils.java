@@ -10,15 +10,15 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.security;
+package org.encuestame.core.security.web;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.security.details.EnMeSocialUserAccount;
-import org.encuestame.core.security.details.EnMeUserAccountDetails;
+import org.encuestame.core.security.web.details.EnMeSocialUserAccount;
+import org.encuestame.core.security.web.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.token.EnMeSecurityToken;
 import org.encuestame.core.security.token.SocialAuthenticationToken;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;

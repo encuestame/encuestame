@@ -10,7 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
-@ImportResource({"classpath:/config/files/email-context.xml"})
+@ImportResource({"classpath:/org/encuestame/config/xml/email-context.xml"})
 public class EnMeEmail {
 
 

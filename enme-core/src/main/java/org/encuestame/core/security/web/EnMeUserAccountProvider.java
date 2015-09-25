@@ -10,10 +10,9 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.security;
+package org.encuestame.core.security.web;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.security.service.EnMeSocialAccountUserService;
 import org.encuestame.core.security.token.EnMeSecurityToken;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.authentication.AuthenticationProvider;

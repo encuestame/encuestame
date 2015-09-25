@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.validator.UrlValidator;
 import org.apache.log4j.Logger;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 
 /**
  * Internet Utils.

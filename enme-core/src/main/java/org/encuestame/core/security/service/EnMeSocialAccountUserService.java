@@ -14,8 +14,8 @@ package org.encuestame.core.security.service;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
-import org.encuestame.core.security.SecurityUtils;
-import org.encuestame.core.security.SocialAccountConnectionException;
+import org.encuestame.core.security.web.SecurityUtils;
+import org.encuestame.core.security.web.SocialAccountConnectionException;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;

@@ -10,10 +10,10 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.security;
+package org.encuestame.core.security.web;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.security.details.EnMeUserAccount;
+import org.encuestame.core.security.web.details.EnMeUserAccount;
 import org.encuestame.core.security.service.EnMeUserServiceImp;
 import org.jasypt.spring.security3.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;

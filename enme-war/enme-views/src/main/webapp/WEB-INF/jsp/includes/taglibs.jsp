@@ -7,4 +7,4 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@page import="org.encuestame.core.security.util.WidgetUtil"%>
 <%@page import="org.encuestame.utils.DateUtil"%>
-<%@page import="org.encuestame.core.config.EnMePlaceHolderConfigurer"%>
+<%@page import="org.encuestame.core.util.EnMePlaceHolderConfigurer"%>

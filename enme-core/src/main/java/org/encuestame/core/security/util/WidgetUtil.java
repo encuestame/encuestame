@@ -21,20 +21,17 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.LocaleUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.files.PathUtil;
-import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.ShortUrlProvider;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**

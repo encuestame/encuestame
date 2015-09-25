@@ -10,40 +10,28 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.security.details;
+package org.encuestame.core.security.web;
 
-import org.encuestame.persistence.domain.security.UserAccount;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.AuthenticationException;
 
 /**
- * EnMe UserAccount.
+ * Social account connection exception.
  * @author Picado, Juan juanATencuestame.org
- * @since
+ * @since May 2, 2011
  */
-public interface EnMeUserAccount extends UserDetails{
-
-    /**
-     * Get User Email.
-     * @return email
-     */
-    String getUserEmail();
-
-    /**
-     * Complete Name.
-     */
-    String getCompleteName();
-
-
-    /**
-     * Get {@link UserAccount}.
-     * @return
-     */
-    UserAccount getUserAccount();
+public class SocialAccountConnectionException extends AuthenticationException {
 
     /**
      *
-     * @return
      */
-    boolean isSocialCredentials();
+    private static final long serialVersionUID = -1761157686032683893L;
+
+    public SocialAccountConnectionException(String msg) {
+        super(msg);
+    }
+
+    public SocialAccountConnectionException(String msg, Throwable t) {
+        super(msg, t);
+    }
 
 }

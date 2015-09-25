@@ -26,7 +26,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 /**
  * Initialize encuestame context.
  * Extend spring {@link ContextLoaderListener}.
- * @author Picado, Juan juanATencuestame.org
+ * @au thor Picado, Juan juanATencuestame.org
  * @since Mar 19, 2011
  */
 public class EnMeContext extends ContextLoaderListener implements ServletContextListener {

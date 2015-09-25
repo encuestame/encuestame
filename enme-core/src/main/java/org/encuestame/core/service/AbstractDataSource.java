@@ -16,7 +16,7 @@ import java.util.Calendar;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;

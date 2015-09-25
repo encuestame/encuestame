@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.velocity.app.VelocityEngine;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;

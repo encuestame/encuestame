@@ -17,8 +17,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.security.SecurityUtils;
-import org.encuestame.core.security.details.EnMeUserAccountDetails;
+import org.encuestame.core.security.web.SecurityUtils;
+import org.encuestame.core.security.web.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.security.UserAccount;
