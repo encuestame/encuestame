@@ -72,8 +72,8 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List findAllEmailList(){
-        return getHibernateTemplate().find("FROM EmailList");
+    public List<EmailList> findAllEmailList(){
+        return (List<EmailList>) getHibernateTemplate().find("FROM EmailList");
     }
 
     /**
@@ -81,10 +81,10 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List getListEmailsByKeyword(final String keyword, final Long userId){
+    public List<EmailList> getListEmailsByKeyword(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(EmailList.class);
         criteria.add(Restrictions.like("listName", keyword, MatchMode.ANYWHERE));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<EmailList>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**
@@ -92,10 +92,10 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List getEmailsByKeyword(final String keyword, final Long userId){
+    public List<Email> getEmailsByKeyword(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Email.class);
         criteria.add(Restrictions.like("email", keyword, MatchMode.ANYWHERE));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<Email>) getHibernateTemplate().findByCriteria(criteria);
 
     }
 

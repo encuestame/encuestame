@@ -206,7 +206,7 @@ public interface IFrontEndDao extends IBaseDao{
      * @param question
      * @return
      */
-    List getVotesByType(final TypeSearchResult type,
+    List<Hit> getVotesByType(final TypeSearchResult type,
                         final UserAccount userAccount,
                         final Question question);
 

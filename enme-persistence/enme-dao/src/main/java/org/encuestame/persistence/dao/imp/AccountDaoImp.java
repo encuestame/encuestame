@@ -63,32 +63,32 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
     * (non-Javadoc)
     * @see org.encuestame.persistence.dao.IAccountDao#findAll()
     */
-    public final List findAll() throws HibernateException {
-        return getHibernateTemplate().find("from UserAccount");
+    public final List<UserAccount> findAll() throws HibernateException {
+        return (List<UserAccount>) getHibernateTemplate().find("from UserAccount");
     }
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#retrieveListOwnerUsers(org.encuestame.persistence.domain.security.Account, java.lang.Integer, java.lang.Integer)
      */
-    public final List retrieveListOwnerUsers(final Account account,
+    public final List<UserAccount> retrieveListOwnerUsers(final Account account,
                final Integer maxResults, final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("account", account));
         criteria.setFetchMode("secUserPermissions", FetchMode.SELECT);
         criteria.addOrder(Order.asc("enjoyDate"));
         getHibernateTemplate().setCacheQueries(true);
-        return getHibernateTemplate().findByCriteria(criteria, start, maxResults);
+        return (List<UserAccount>) getHibernateTemplate().findByCriteria(criteria, start, maxResults);
     }
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#retrieveListUserUnconfirmedByAccount(org.encuestame.persistence.domain.security.Account)
      */
-    public final List retrieveListUserUnconfirmedByAccount(final Account account) {
+    public final List<UserAccount> retrieveListUserUnconfirmedByAccount(final Account account) {
      final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
      criteria.add(Restrictions.isNotNull("inviteCode"));
-     return getHibernateTemplate().findByCriteria(criteria);
+     return (List<UserAccount>) getHibernateTemplate().findByCriteria(criteria);
  }
 
     /*
@@ -152,10 +152,10 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
     * (non-Javadoc)
     * @see org.encuestame.persistence.dao.IAccountDao#searchUsersByEmail(java.lang.String)
     */
-    public List searchUsersByEmail(final String email){
+    public List<UserAccount> searchUsersByEmail(final String email){
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.like("userEmail", email) );
-        return   getHibernateTemplate().findByCriteria(criteria);
+        return   (List<UserAccount>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**
@@ -163,8 +163,8 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
      * @param userId
      * @return
      */
-    public List getTotalTweetPollByUser(final Long userId){ //editorOwner
-        return getHibernateTemplate().findByNamedParam("select count(tweetPollId) "
+    public List<Long> getTotalTweetPollByUser(final Long userId){ //editorOwner
+        return (List<Long>) getHibernateTemplate().findByNamedParam("select count(tweetPollId) "
                +" from TweetPoll where editorOwner.id = :editorOwner", "editorOwner", userId);
     }
 
@@ -173,8 +173,8 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
      * @param userId
      * @return
      */
-    public List getTotalPollByUser(final Long userId) { //editorOwner
-        return getHibernateTemplate().findByNamedParam("select count(pollId) "
+    public List<Long> getTotalPollByUser(final Long userId) { //editorOwner
+        return (List<Long>) getHibernateTemplate().findByNamedParam("select count(pollId) "
                +" from Poll where editorOwner.id = :editorOwner", "editorOwner", userId);
     }
 
@@ -374,19 +374,18 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
     public List<UserAccount> getUserAccountsbyStatus(final Boolean status, final Date beforeDate, final Date afterDate){
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("userStatus", status));
-        criteria.add(Restrictions.between("enjoyDate", beforeDate, afterDate));
-        final List statusUserAccount = getHibernateTemplate().findByCriteria(criteria);
-        return statusUserAccount;
+        criteria.add(Restrictions.between("enjoyDate", beforeDate, afterDate)); 
+        return (List<UserAccount>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#getUserAccounts(java.lang.Boolean)
      */
-    public List getUserAccounts(final Boolean status) {
+    public List<UserAccount> getUserAccounts(final Boolean status) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("userStatus", status));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<UserAccount>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**

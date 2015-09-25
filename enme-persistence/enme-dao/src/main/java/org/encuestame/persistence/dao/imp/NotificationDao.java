@@ -52,7 +52,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     @SuppressWarnings("unchecked")
-    public final List loadNotificationByUserAndLimit(
+    public final List<Notification> loadNotificationByUserAndLimit(
             final Account user,
             final Integer limit,
             final Integer start,
@@ -63,7 +63,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
                 criteria.add(Restrictions.eq("readed", Boolean.FALSE));
             }
             criteria.addOrder(Order.desc("created"));
-            return getHibernateTemplate().findByCriteria(criteria, start, limit);
+            return (List<Notification>) getHibernateTemplate().findByCriteria(criteria, start, limit);
     }
 
     /*
@@ -71,7 +71,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @see org.encuestame.persistence.dao.INotification#loadNotificationByDate(org.encuestame.persistence.domain.security.Account, java.lang.Integer, java.lang.Integer, java.util.Date, java.util.Date, java.lang.Boolean)
      */
     @SuppressWarnings("unchecked")
-    public final List loadNotificationByDate(
+    public final List<Notification> loadNotificationByDate(
             final Account user,
             final Integer limit,
             final Integer start,
@@ -82,7 +82,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
             criteria.add(Restrictions.or(Restrictions.eq("account", user), Restrictions.isNull("account")));
             criteria.add(Restrictions.between("created", startDate, endDate));
             criteria.addOrder(Order.desc("created"));
-            return getHibernateTemplate().findByCriteria(criteria, start, limit);
+            return (List<Notification>) getHibernateTemplate().findByCriteria(criteria, start, limit);
     }
 
     /**
@@ -128,7 +128,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
          final DetachedCriteria crit = DetachedCriteria.forClass(Notification.class);
          crit.setProjection(Projections.rowCount());
          crit.add(Restrictions.eq("readed", Boolean.FALSE));
-         final List results = getHibernateTemplate().findByCriteria(crit);
+         final List<Notification> results = (List<Notification>) getHibernateTemplate().findByCriteria(crit);
          log.debug("retrieveTotalNotReadedNotificationStatus "+results.size());
          return (Long) (results.get(0) == null ? 0 : results.get(0));
     }

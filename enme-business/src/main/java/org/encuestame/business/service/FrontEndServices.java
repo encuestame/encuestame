@@ -134,7 +134,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
                 if (this.isWellAuthenticated()) {
                     //FIXME: ENCUESTAME-530 is not an optimal solution
                     final TweetPoll tp = getTweetPollDao().getTweetPollById(tweetPoll.getId());
-                    final List pollItems = getFrontEndDao().getVotesByType(TypeSearchResult.TWEETPOLL, getUserAccountonSecurityContext(), tp.getQuestion());
+                    final List<Hit> pollItems = getFrontEndDao().getVotesByType(TypeSearchResult.TWEETPOLL, getUserAccountonSecurityContext(), tp.getQuestion());
                     tweetPoll.setVoteUp(!(pollItems.size() > 0));
                 } else {
                     tweetPoll.setVoteUp(Boolean.TRUE);
@@ -330,7 +330,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
                   if (this.isWellAuthenticated()) {
                       //FIXME: ENCUESTAME-530 is not an optimal solution
                       final Poll poll = getPollDao().getPollById(pollbean.getId());
-                      final List pollItems = getFrontEndDao().getVotesByType(TypeSearchResult.POLL, getUserAccountonSecurityContext(), poll.getQuestion());
+                      final List<Hit> pollItems = getFrontEndDao().getVotesByType(TypeSearchResult.POLL, getUserAccountonSecurityContext(), poll.getQuestion());
                       pollbean.setVoteUp(!(pollItems.size() > 0));
                   } else {
                       pollbean.setVoteUp(Boolean.TRUE);

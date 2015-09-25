@@ -67,13 +67,14 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 	 * @return
 	 * @throws HibernateException
 	 */
-	@SuppressWarnings("unchecked")
+	 
 	public HashTag getHashTagByName(final String hashTag)
 			throws HibernateException {
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(HashTag.class);
 		criteria.add(Restrictions.eq("hashTag", hashTag));
-		final List results = getHibernateTemplate().findByCriteria(
+		@SuppressWarnings("unchecked")
+		final List<HashTag> results = (List<HashTag>) getHibernateTemplate().findByCriteria(
 				criteria);
 		if (results.size() >= 1) {
 			return (HashTag) results.get(0); // TODO: it's possible repeated HashTags?
@@ -234,7 +235,7 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 		criteria.add(Restrictions.not(Restrictions.eq("rankingDate", maxDate)));
 		criteria.addOrder(Order.desc("average")); 
 		@SuppressWarnings("unchecked")
-		List results = getHibernateTemplate().findByCriteria(
+		List<HashTagRanking> results = (List<HashTagRanking>) getHibernateTemplate().findByCriteria(
 				criteria);
 		return results;
 	} 
@@ -250,7 +251,7 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 				.forClass(HashTagRanking.class);
 		criteria.setProjection(Projections.max("rankingDate"));
 		@SuppressWarnings("unchecked")
-		List results = getHibernateTemplate().findByCriteria(criteria);
+		List<HashTagRanking> results = (List<HashTagRanking>) getHibernateTemplate().findByCriteria(criteria);
 		return (Date) (results.get(0) == null ? new Date() : results.get(0));
 	}
 	 
@@ -275,12 +276,12 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List getMaxMinTagFrecuency() {
+	public List<Object[]> getMaxMinTagFrecuency() {
 		final DetachedCriteria criteria = DetachedCriteria.forClass(HashTag.class);
 		ProjectionList projectList = Projections.projectionList();
 		projectList.add(Projections.max("hits"));
 		projectList.add(Projections.min("hits"));
 		criteria.setProjection(projectList);
-		return getHibernateTemplate().findByCriteria(criteria); 
+		return (List<Object[]>) getHibernateTemplate().findByCriteria(criteria); 
 	}
 }

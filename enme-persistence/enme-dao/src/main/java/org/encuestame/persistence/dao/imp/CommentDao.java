@@ -63,8 +63,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.CommentsOperations#getCommentByIdandUser(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public Comment getCommentByIdandUser(final Long commentId, final UserAccount userAcc) throws HibernateException {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
         criteria.add(Restrictions.eq("user", userAcc));
@@ -184,7 +183,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
   				calculateSearchPeriodsDates(period, criteria, "createdAt");
             }
           @SuppressWarnings("unchecked")
-          List results = getHibernateTemplate().findByCriteria(criteria);
+          List<Comment> results = (List<Comment>) getHibernateTemplate().findByCriteria(criteria);
           log.trace("Retrieve total comments by  " + itemType + "--->"
                   + results.size());
           return (Long) (results.get(0) == null ? 0 : results.get(0));
@@ -222,7 +221,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 				calculateSearchPeriodsDates(period, criteria, "createdAt");
          }
 		@SuppressWarnings("unchecked")
-		List results = getHibernateTemplate().findByCriteria(criteria);
+		List<Comment> results = (List<Comment>) getHibernateTemplate().findByCriteria(criteria);
 		log.trace("Retrieve total comments by  " + itemType + "--->"
 				+ results.size());
 		return (Long) (results.get(0) == null ? 0 : results.get(0));
@@ -270,7 +269,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
             final Integer maxResults,
             final Long[] excludes){
             log.info("keyword "+keyword);
-            List<Comment> searchResult = (List) getHibernateTemplate().execute(
+            List<Comment> searchResult = (List<Comment>) getHibernateTemplate().execute(
                     new HibernateCallback() {
                         @SuppressWarnings("deprecation")
                         public Object doInHibernate(org.hibernate.Session session) {
