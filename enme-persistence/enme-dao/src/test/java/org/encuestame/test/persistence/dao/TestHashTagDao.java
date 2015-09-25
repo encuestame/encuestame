@@ -16,16 +16,14 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
-import junit.framework.Assert;
-
+import java.util.List;  
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.joda.time.DateTime;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -56,7 +54,7 @@ public class TestHashTagDao  extends AbstractBase{
     }
 
     /**
-     * Test Get List HashTags by Keyword.
+     * Test Get List HashTags by Keyword.  
      */
 
     public void testGetListHashTagsByKeyword(){
@@ -81,6 +79,7 @@ public class TestHashTagDao  extends AbstractBase{
         final int start = 0;
         final List<HashTag> results = getHashTagDao().getHashTags(limit, start, "");
         Assert.assertNotNull(results);
+         
         assertEquals("Should be equals", 6, results.size());
 
         final HashTag expHas1 = results.get(0);
@@ -101,8 +100,10 @@ public class TestHashTagDao  extends AbstractBase{
     public void testGetMaxMinTagFrecuency(){
         createHashTag("America", 20L);
         createHashTag("Amazonas", 90L);
-        createHashTag("Carazo",  50L);
+        createHashTag("Carazo",  50L); 
         final List<Object[]>  frecuency = getHashTagDao().getMaxMinTagFrecuency();
+        assertEquals("Maximum value should be equals", frecuency.get(0)[0], 90L);
+        assertEquals("Minimum value should be equals", frecuency.get(0)[1], 10L); 
     }
 
 	/**
@@ -184,7 +185,7 @@ public class TestHashTagDao  extends AbstractBase{
 		final DateTime time9 = time.minusDays(3);
 		createHashTagRank(tag2, time.toDate(), 30D);
 
- 		final Date tRank = getHashTagDao().getMaxHashTagRankingDate();
+ 		final Date tRank = getHashTagDao().getMaxHashTagRankingDate(); 
 
  		final List<HashTagRanking> rankStats = getHashTagDao().getHashTagRankStats(tRank);
 		assertEquals("Should be equals", rankStats.size(), 6);

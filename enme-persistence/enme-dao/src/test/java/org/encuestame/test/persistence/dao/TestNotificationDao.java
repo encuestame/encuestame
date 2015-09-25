@@ -80,6 +80,6 @@ public class TestNotificationDao extends AbstractBase{
         final Long list4 = getNotification().retrieveTotalNotReadedNotificationStatus(this.account);
         assertEquals("Should be equals", 10L, list4.longValue());
         final Notification expected = getNotification().retrieveNotificationById(not1.getNotificationId());
-        Assert.assertNotNull(expected);
+        assertEquals("Should be equals", not1.getNotificationId(), expected.getNotificationId());
     }
 }

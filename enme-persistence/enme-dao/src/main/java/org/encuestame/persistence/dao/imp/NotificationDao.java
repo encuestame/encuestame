@@ -91,7 +91,14 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     public final Long retrieveTotalNotificationStatus(final Account secUser) {
-        return retrieveCountNotification(secUser, "select count(*) from Notification WHERE account = :secUser");
+    	final DetachedCriteria criteria = DetachedCriteria.forClass(Notification.class);
+    	criteria.setProjection(Projections.rowCount());
+    	criteria.add(Restrictions.eq("account", secUser));
+    	@SuppressWarnings("unchecked")
+		final List<Notification> results = (List<Notification>) getHibernateTemplate().findByCriteria(criteria);
+    	log.debug("retrieveTotalNotReadedNotificationStatus "+results.size());
+    	return (Long) (results.get(0) == null ? 0 : results.get(0)); 
+        //return retrieveCountNotification(secUser, "select count(*) from Notification WHERE account = :secUser");
     }
 
     /**

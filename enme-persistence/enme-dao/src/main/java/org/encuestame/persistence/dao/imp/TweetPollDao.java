@@ -45,6 +45,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -357,25 +358,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.add(Restrictions.eq(param, value));
         return (TweetPollSwitch) DataAccessUtils
                 .uniqueResult(getHibernateTemplate().findByCriteria(criteria));
-    }
-
-    /**
-     * Validate Vote IP.
-     * @param ip  ip
-     * @param tweetPoll tweetPoll
-     * @return {@link TweetPollSwitch}
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public TweetPollResult validateVoteIP(final String ip,
-            final TweetPoll tweetPoll) {
-        return (TweetPollResult) DataAccessUtils
-                .uniqueResult(getHibernateTemplate()
-                        .findByNamedParam(
-                                "from TweetPollResult where ipVote = :ipVote and  tweetPollSwitch.tweetPoll = :tweetPoll",
-                                new String[] { "ipVote", "tweetPoll" },
-                                new Object[] { ip, tweetPoll }));
-    }
+    } 
 
     /*
      * (non-Javadoc)
@@ -386,11 +369,11 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      */
     @SuppressWarnings("unchecked")
     public List validateTweetPollResultsIP(final String ip, final TweetPoll tweetPoll) {
-        return getHibernateTemplate()
-                .findByNamedParam(
-                        "from TweetPollResult where ipVote = :ipVote and  tweetPollSwitch.tweetPoll = :tweetPoll",
-                        new String[] { "ipVote", "tweetPoll" },
-                        new Object[] { ip, tweetPoll });
+    	final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollResult.class);
+    	criteria.add(Restrictions.eq("ipVote", ip)); 
+    	criteria.createAlias("tweetPollSwitch", "tpSwitch");
+    	criteria.add(Restrictions.eq("tpSwitch.tweetPoll", tweetPoll));
+    	return getHibernateTemplate().findByCriteria(criteria); 
     }
 
     /**
@@ -493,11 +476,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      */
     @SuppressWarnings("unchecked")
     public List getVotesByAnswer(final TweetPollSwitch pollSwitch) {
-        return getHibernateTemplate()
-                .findByNamedParam(
-                        "select count(tweetPollResultId) "
-                                + " from TweetPollResult where tweetPollSwitch = :tweetPollSwitch",
-                        "tweetPollSwitch", pollSwitch);
+    	final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollResult.class); 
+    	criteria.setProjection(Projections.rowCount());
+    	criteria.add(Restrictions.eq("tweetPollSwitch", pollSwitch));
+    	return getHibernateTemplate().findByCriteria(criteria);  
     }
 
     /**
