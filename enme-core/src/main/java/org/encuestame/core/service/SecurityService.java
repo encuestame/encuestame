@@ -60,7 +60,7 @@ import org.springframework.mail.MailSendException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.googlecode.ehcache.annotations.Cacheable;
+
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -140,7 +140,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @param username username
      * @return {@link UserAccountBean}
      */
-    @Cacheable(cacheName = "searchUserByUsername")
+    //@Cacheable(cacheName = "searchUserByUsername")
     public UserAccountBean searchUserByUsername(final String username) {
         final UserAccount userDomain = getAccountDao().getUserByUsername(username);
         UserAccountBean user = null;

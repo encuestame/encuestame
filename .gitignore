@@ -1,6 +1,7 @@
 */target/*
 .svn*
 .idea
+.recommenders
 obj/
 *.iml
 bin/
