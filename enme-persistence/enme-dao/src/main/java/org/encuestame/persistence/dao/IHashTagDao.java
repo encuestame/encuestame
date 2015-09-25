@@ -26,14 +26,7 @@ import org.hibernate.HibernateException;
  * @since Jul 25, 2010 5:32:28 PM
  * @version Id:
  */
-public interface IHashTagDao extends IBaseDao	{
-
-    /**
-     * Create Hash TAg.
-     * @param hashTag
-     * @throws HibernateException
-     */
-    void createHashTag(final HashTag hashTag) throws HibernateException;
+public interface IHashTagDao extends IBaseDao	{ 
 
     /**
      * Get List of HashTags by Keyword.
@@ -58,15 +51,7 @@ public interface IHashTagDao extends IBaseDao	{
      * @param tagCriteria
      * @return
      */
-    List<HashTag> getHashTags( final Integer maxResults,final Integer start, final String tagCriteria);
-
-    /**
-     * Get hashTag by Id.
-     * @param hashTagId
-     * @return
-     * @throws HibernateException
-     */
-    HashTag getHashTagById(final Long hashTagId) throws HibernateException;
+    List<HashTag> getHashTags( final Integer maxResults,final Integer start, final String tagCriteria); 
 
     /**
      * Get max-min tag frecuency.
