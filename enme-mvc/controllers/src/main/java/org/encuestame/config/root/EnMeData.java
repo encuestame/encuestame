@@ -20,8 +20,8 @@ import java.util.Properties;
 @EnableTransactionManagement
 //@EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 @ImportResource({
-	"classpath:/config/files/encrypt-context.xml", 
-	"classpath:/config/files/data-context.xml"})
+	"classpath:/org/encuestame/config/xml/encrypt-context.xml",
+	"classpath:/org/encuestame/config/xml/data-context.xml"})
 //@ComponentScan({ "org.encuestame.persistence.dao" })
 public class EnMeData {
 

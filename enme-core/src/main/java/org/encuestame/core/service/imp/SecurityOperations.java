@@ -15,7 +15,7 @@ package org.encuestame.core.service.imp;
 import java.util.Collection;
 import java.util.List;
 
-import org.encuestame.core.config.AdministratorProfile;
+import org.encuestame.core.admin.AdministratorProfile;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;

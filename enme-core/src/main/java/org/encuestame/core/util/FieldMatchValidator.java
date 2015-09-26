@@ -10,13 +10,12 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.config;
+package org.encuestame.core.util;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.encuestame.core.annotations.FieldMatch;
 
 /**
  * Field MatchValidator.

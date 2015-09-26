@@ -15,7 +15,7 @@ package org.encuestame.core.service;
 import java.io.IOException;
 import java.util.List;
 
-import org.encuestame.core.config.AdministratorProfile;
+import org.encuestame.core.admin.AdministratorProfile;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.social.SocialNetworkBean;

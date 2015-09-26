@@ -10,12 +10,10 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.annotations;
+package org.encuestame.core.util;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-
-import org.encuestame.core.config.FieldMatchValidator;
 
 import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;

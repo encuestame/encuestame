@@ -22,8 +22,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 @ComponentScan(basePackages = "org.encuestame.core.service.startup")
 @ImportResource({
-    "classpath:/config/files/security-context.xml",
-    "classpath:/config/files/security-oauth-context.xml",
+    "classpath:/org/encuestame/config/xml/security-context.xml",
+    "classpath:/org/encuestame/config/xml/security-oauth-context.xml",
     })
 public class DirectoryConfig {
 

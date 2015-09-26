@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
-import org.encuestame.core.config.XMLConfigurationFileSupport;
+import org.encuestame.core.util.XMLConfigurationFileSupport;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;

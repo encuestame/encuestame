@@ -16,8 +16,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.springframework.scheduling.annotation.Scheduled;
 
 /**

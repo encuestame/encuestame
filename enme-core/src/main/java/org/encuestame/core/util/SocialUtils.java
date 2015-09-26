@@ -18,9 +18,6 @@ import java.io.PrintWriter;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.validation.Path.Node;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -31,9 +28,6 @@ import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import javax.xml.xpath.XPath;
-
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
@@ -41,7 +35,6 @@ import org.encuestame.utils.social.SocialProvider;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.util.Assert;
-import org.w3c.dom.Document;
 
 /**
  * Social Util Helpers.

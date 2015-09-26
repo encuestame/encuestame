@@ -10,13 +10,13 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.config;
+package org.encuestame.core.admin;
 
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-import org.encuestame.core.annotations.FieldMatch;
+import org.encuestame.core.util.FieldMatch;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
