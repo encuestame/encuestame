@@ -27,7 +27,7 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.encuestame.core.admin.AdministratorProfile;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
-import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.core.security.web.SecurityUtils;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.imp.IDashboardService;

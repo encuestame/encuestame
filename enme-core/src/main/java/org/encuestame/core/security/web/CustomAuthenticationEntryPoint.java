@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.security;
+package org.encuestame.core.security.web;
 
 import java.io.IOException;
 
@@ -31,8 +31,7 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
  * @since Jan 30, 2011 1:11:52 PM
  * @version Id:
  */
-public class CustomAuthenticationEntryPoint extends
-        LoginUrlAuthenticationEntryPoint {
+public class CustomAuthenticationEntryPoint extends LoginUrlAuthenticationEntryPoint {
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -41,6 +40,16 @@ public class CustomAuthenticationEntryPoint extends
     private boolean useForward = false;
 
     private static final Log logger = LogFactory.getLog(CustomAuthenticationEntryPoint.class);
+
+    /**
+     * 
+     * @param loginFormUrl
+     * @param redirectStrategy
+     */
+    public CustomAuthenticationEntryPoint(String loginFormUrl, RedirectStrategy redirectStrategy) {
+        super(loginFormUrl);
+        this.redirectStrategy = redirectStrategy;
+    }
 
     /**
      *

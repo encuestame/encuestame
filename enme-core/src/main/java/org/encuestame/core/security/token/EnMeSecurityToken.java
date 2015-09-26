@@ -12,7 +12,7 @@
  */
 package org.encuestame.core.security.token;
 
-import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.core.security.web.SecurityUtils;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

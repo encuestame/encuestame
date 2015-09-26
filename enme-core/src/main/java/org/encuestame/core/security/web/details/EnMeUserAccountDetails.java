@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.security.details;
+package org.encuestame.core.security.web.details;
 
 import java.util.ArrayList;
 import java.util.Collection;
