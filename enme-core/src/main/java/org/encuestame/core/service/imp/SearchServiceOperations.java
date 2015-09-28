@@ -51,7 +51,7 @@ public interface SearchServiceOperations extends ServiceOperations {
 			final String language, final Integer start, final Integer limit,
 			final Integer limitByItem,
 			final List<TypeSearchResult> resultsAllowed)
-            throws EnMeNoResultsFoundException, IOException, ParseException ;
+            throws EnMeNoResultsFoundException, IOException ;
 
     /**
      * @param keyword

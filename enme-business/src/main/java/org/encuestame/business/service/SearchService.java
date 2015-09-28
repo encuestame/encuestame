@@ -73,12 +73,12 @@ public class SearchService extends AbstractIndexService implements
      */
     public Map<String, List<GlobalSearchItem>> quickSearch(
             final String keyword,
-            String language,
+            final String language,
             final Integer start,
             final Integer limit,
-            Integer limitByItem,
+            	Integer limitByItem,
             final List<TypeSearchResult> resultsAllowed)
-            throws EnMeNoResultsFoundException, IOException, ParseException {
+            throws EnMeNoResultsFoundException, IOException {
        log.debug("******************************");
        log.debug("keyword "+keyword);
        log.debug("language "+language);

@@ -1,7 +1,6 @@
 package org.encuestame.config.annotations;
 
 import com.google.common.collect.Lists;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
