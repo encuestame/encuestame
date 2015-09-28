@@ -42,8 +42,8 @@ public class GeoPointTypeDao extends AbstractHibernateDaoSupport implements IGeo
      * @throws HibernateException hibernate exception.
      */
     @SuppressWarnings("unchecked")
-    public List findAll() throws HibernateException {
-        return getHibernateTemplate().find("from GeoPointType");
+    public List<GeoPointType> findAll() throws HibernateException {
+        return (List<GeoPointType>) getHibernateTemplate().find("from GeoPointType");
     }
 
     /**

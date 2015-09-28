@@ -105,10 +105,10 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      * Counter Users by Group
      * @param GroupId
      * @return
-     */
-     
+     */ 
     public Long getCountUserbyGroup(final Long groupId){
-        List counter = getHibernateTemplate().findByNamedParam("select count(uid) "
+        @SuppressWarnings("unchecked")
+		List<Long> counter = (List<Long>) getHibernateTemplate().findByNamedParam("select count(uid) "
                   +" from UserAccount where group.groupId = :groupId", "groupId", groupId);
          return (Long) counter.get(0);
     }
@@ -119,8 +119,8 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
     * @return
     */
     @SuppressWarnings("unchecked")
-    public List getUsersbyGroups(final Account user){
-         return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.group.groupId) "
+    public List<Object[]> getUsersbyGroups(final Account user){
+         return (List<Object[]>) getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.group.groupId) "
                                                          + "FROM UserAccount as scu, Group as sg "
                                                          + "WHERE scu.group.groupId = sg.groupId AND "
                                                          + "scu.account = :account "
@@ -133,8 +133,8 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List countUsersbyGroups(final Long user){
-        return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.group.groupId) "
+    public List<Object[]> countUsersbyGroups(final Long user){
+        return (List<Object[]>) getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.group.groupId) "
                                                         + "FROM UserAccount as scu, Group as sg "
                                                         + "WHERE scu.group.groupId = sg.groupId AND "
                                                         + "scu.account.uid = :account "

@@ -56,7 +56,8 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      * @param questionName
      * @return
      */
-    public CreatePollBean createPollBean(
+    @SuppressWarnings("deprecation")
+	public CreatePollBean createPollBean(
             final String questionName,
             final String[] answer,
             final String[] hashtag,
@@ -120,13 +121,12 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      * @param listAnswers
      * @param pattern
      * @return
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public QuestionBean createUnitQuestionBean(
             final String questionName,
             final Long stateId,
             final Long userId,
-            final List listAnswers){
+            final List<QuestionAnswerBean> listAnswers){
          final QuestionBean question = new QuestionBean();
          question.setQuestionName(questionName);
          question.setStateId(stateId);
@@ -374,14 +374,13 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @param listAnswers
       * @param pattern
       * @return
-      */
-     @SuppressWarnings("unchecked")
+      */ 
      public QuestionBean createUnitQuestion(
              final Long questionId,
              final String questionName,
              final Long stateId,
              final Long userId,
-             final List listAnswers){
+             final List<QuestionAnswerBean> listAnswers){
           final QuestionBean question = new QuestionBean();
           question.setId(questionId);
           question.setQuestionName(questionName);
@@ -637,7 +636,8 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      * @param start
      * @return
      */
-    public TweetPollSearchBean createTweetpollSearchBean(
+    @SuppressWarnings("deprecation")
+	public TweetPollSearchBean createTweetpollSearchBean(
             final Boolean isPublished, final Boolean isComplete,
             final Boolean isFavourite, final Boolean isScheduled,
             final String keyword, final String period, final Integer max,
@@ -670,7 +670,8 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      * @param isPasswordProtected
      * @return
      */
-    public PollSearchBean createPollSearchBean(
+    @SuppressWarnings("deprecation")
+	public PollSearchBean createPollSearchBean(
             final Boolean isPublished,
             final Boolean isComplete,
             final Boolean isFavourite,

@@ -97,7 +97,7 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
      */
     public final Long retrieveTotalUsers(final Account account){
          Long resultsSize = 0L;
-         final List list =  getHibernateTemplate().findByNamedParam("select count(*) from UserAccount WHERE account = :account", "account", account);
+         final List<Long> list =  (List<Long>) getHibernateTemplate().findByNamedParam("select count(*) from UserAccount WHERE account = :account", "account", account);
          if (list.get(0) instanceof Long){
              log.debug("instace of Long");
              resultsSize = (Long) list.get(0);
@@ -203,7 +203,7 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
         final DetachedCriteria criteria = DetachedCriteria.forClass(Account.class);
         criteria.add(Restrictions.eq("enabled", status));
         criteria.setProjection(Projections.id());
-        final List accountsId = getHibernateTemplate().findByCriteria(criteria);
+        final List<Long> accountsId = (List<Long>) getHibernateTemplate().findByCriteria(criteria);
         return accountsId;
     }
 
