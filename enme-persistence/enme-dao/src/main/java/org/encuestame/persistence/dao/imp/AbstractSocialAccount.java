@@ -173,11 +173,9 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
 
     /**
      * Create new social connection
-     * @param provider {@link SocialProvider}
+     ider}
      * @param accessGrant {@link AccessGrant}
      * @param socialAccountId social account id.
-     * @param userAccount {@link UserAccount}
-     * @param providerProfileUrl provider profile url.
      * @return
      */
  	public SocialAccount updateSocialAccountConnection(
@@ -228,7 +226,6 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
     /**
      * Get Account Connection.
      * @param accountId
-     * @param proviver
      * @return
      */ 
     public SocialAccount getAccountConnection(final String accountId, final SocialProvider provider){
@@ -299,7 +296,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
         criteria.add(Restrictions.eq("socialAccount", socialAccount));
         criteria.setProjection(Projections.rowCount());
         @SuppressWarnings("unchecked")
-		final List<TweetPollSavedPublishedStatus> tweetPollstats = (List<TweetPollSavedPublishedStatus>) getHibernateTemplate().findByCriteria(criteria);
+		final List tweetPollstats =  getHibernateTemplate().findByCriteria(criteria);
         log.debug("getSocialAccountStats "+tweetPollstats.size());
         log.debug("getSocialAccountStats "+tweetPollstats);
         if(tweetPollstats.size() > 0) {

@@ -20,6 +20,8 @@ import java.util.List;
 import org.apache.commons.collections.ListUtils;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IFrontEndDao;
+import org.encuestame.persistence.dao.IPoll;
+import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
@@ -68,6 +70,13 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
     public FrontEndDao(SessionFactory sessionFactory) {
            setSessionFactory(sessionFactory);
     }
+    
+    @Autowired
+    private ITweetPoll tweetPoll;
+   
+    /** {@link PollDao}. **/
+    @Autowired
+    private IPoll poll;
 
     /**
      * Get TweetPoll Front End.
@@ -494,7 +503,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             final TypeSearchResult itemType,
             final SearchPeriods searchPeriods,
             final Integer start,
-            final Integer max) {
+            final Integer max, 
+            final List<TweetPoll> tpollsByHashTag, final List<Poll> pollsByHashtag) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPollSavedPublishedStatus.class);
         // define if is necessary execute a query, if not exist filters it's not necessary run a query
@@ -509,27 +519,23 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         } else if (itemType.equals(TypeSearchResult.POLL)) {
             criteria.add(Restrictions.eq("poll", poll));
             queryRequired = true;
-//        } else if (itemType.equals(TypeSearchResult.HASHTAG)) {
-//            //social links by hashtag
-//            final List<TweetPoll> d = getTweetPoll().getTweetpollByHashTagName(hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG,
-//                    searchPeriods);
-//            final List<Poll> polls = getPoll().getPollByHashTagName(hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG, searchPeriods);
-//              // FUTURE: We need include Surveys by Hashtag
-//            // include on the query all published items by tweetpoll
-//            if (d.size() != 0) {
-//                criteria.add(Restrictions.in("tweetPoll", d));
-//                queryRequired = true;
-//            }
-//            // include on the query all published items by poll
-//            if (polls.size() != 0) {
-//                criteria.add(Restrictions.in("poll", polls));
-//                queryRequired = true;
-//            }
-//            //BUG: We have a serial problem here, if poll and tweetpoll are null the criteria retrieve ALL items. ENCUESTAME-490
-//        } else if (itemType.equals(TypeSearchResult.PROFILE)) {
-//            //TODO: future
-//            //return ListUtils.EMPTY_LIST;
-//            //queryRequired = true;
+        } else if (itemType.equals(TypeSearchResult.HASHTAG)) {
+              // FUTURE: We need include Surveys by Hashtag
+            // include on the query all published items by tweetpoll
+            if (tpollsByHashTag.size() != 0) {
+                criteria.add(Restrictions.in("tweetPoll", tpollsByHashTag));
+                queryRequired = true;
+            }
+            // include on the query all published items by poll
+            if (pollsByHashtag.size() != 0) {
+                criteria.add(Restrictions.in("poll", pollsByHashtag));
+                queryRequired = true;
+            }
+            //BUG: We have a serial problem here, if poll and tweetpoll are null the criteria retrieve ALL items. ENCUESTAME-490
+        } else if (itemType.equals(TypeSearchResult.PROFILE)) {
+            //TODO: future
+            //return ListUtils.EMPTY_LIST;
+            //queryRequired = true;
         } else {
             log.error("Item type not valid: " + itemType);
         }
@@ -543,5 +549,5 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             tweetPollSavedPublishedStatus =  (List<TweetPollSavedPublishedStatus>) getHibernateTemplate().findByCriteria(criteria, start, max);
         }
         return tweetPollSavedPublishedStatus;
-    }
+    } 
 }

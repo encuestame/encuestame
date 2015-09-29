@@ -12,7 +12,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+//import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.*;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -384,8 +384,6 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
 
     /**
      * Get TweetPolls by hashTag id.
-     *
-     * @param hashTagId
      * @param limit
      * @return
      */
@@ -1458,9 +1456,11 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      */
     public List<LinksSocialBean> getHashTagLinks(final HashTag hash, final Integer start,
             final Integer max) {
+        final List<TweetPoll> tpollByHashtag = getTweetPollDao().getTweetpollByHashTagName(hash.getHashTag(), null, null, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
+        final List<Poll> pollsByHashtag = getPollDao().getPollByHashTagName(hash.getHashTag(), null, null, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
         final List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                 .getLinksByHomeItem(hash, null, null, null, null,
-                        TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME, start, max);
+                        TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME, start, max, tpollByHashtag, pollsByHashtag);
         log.debug("getTweetPollLinks getHashTagLinks HASHTAG: " + links.size());
         return ConvertDomainBean.convertTweetPollSavedPublishedStatus(links);
     }

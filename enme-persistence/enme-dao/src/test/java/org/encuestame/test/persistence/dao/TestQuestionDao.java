@@ -98,7 +98,7 @@ public class TestQuestionDao extends AbstractBase{
     /**
      * Test Retrieve Indexed QuestionsByName.
      */
-    @Test
+    //@Test
     public void testRetrieveIndexedQuestionsByName(){
         //flush indexes
         flushIndexes();

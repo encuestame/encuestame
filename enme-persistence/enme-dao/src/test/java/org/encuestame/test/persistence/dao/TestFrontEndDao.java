@@ -86,7 +86,7 @@ public class TestFrontEndDao extends AbstractBase {
                 TypeSearchResult.HASHTAG);
         assertNotNull(hitsbyIp);
         assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(),
-                this.ipAddress);
+				this.ipAddress);
         assertEquals("Should be equals", hitsbyIp.size(), 1);
     }
 
@@ -118,7 +118,7 @@ public class TestFrontEndDao extends AbstractBase {
         createTweetPollRate(Boolean.TRUE, tweet, ipAddress);
         flushIndexes();
         final List<AccessRate> tpRate = getFrontEndDao().getAccessRatebyItem(
-                ipAddress, tweet.getTweetPollId(), TypeSearchResult.TWEETPOLL);
+				ipAddress, tweet.getTweetPollId(), TypeSearchResult.TWEETPOLL);
         assertNotNull(tpRate);
         assertEquals("Should be equals", 1, tpRate.size());
     }
@@ -152,10 +152,13 @@ public class TestFrontEndDao extends AbstractBase {
     @Test
     public void testGetLinksByHomeItemHashtag(){
     	this.testGetLinksByHomeItem();
+		System.out.println("PERRITO---------");
+		final List<TweetPoll> tpolls = getTweetPoll().getTweetpollByHashTagName(this.hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
+		final List<Poll> pollsByHashtag = getPollDao().getPollByHashTagName(this.hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
     	// TODO: Include Polls to searchlist with hashtag
     	 List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                  .getLinksByHomeItem(this.hashTag, null, null, null, null,
-                         TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME, 0, 100);
+                         TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME, 0, 100, tpolls, pollsByHashtag);
          assertEquals("Should be equals", 4, links.size());
     }
 
@@ -177,12 +180,14 @@ public class TestFrontEndDao extends AbstractBase {
 				"test testTweet dad");
 		createTweetPollSavedPublishedStatus(tp1, "553322532", null,
 				"testTweettxt test dad");
+		final List<Poll> pollsBy = this.retrievePollsByHashtag(this.hashTag);
 
+		final List<TweetPoll> tpollsBy = this.retrieveTweetpollsByHashtag(this.hashTag);
 
 		List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
 				.getLinksByHomeItem(this.hashTag, null, tp1, null, null,
 						TypeSearchResult.TWEETPOLL, SearchPeriods.ALLTIME, 0,
-						100);
+						100, tpollsBy, pollsBy);
 
          assertEquals("Should be equals", 3, links.size());
     }
@@ -200,10 +205,13 @@ public class TestFrontEndDao extends AbstractBase {
 				"testTweettxt99 test dad");
     	createPollSavedPublishedStatus(poll2, "553332532", null,
 				"testTweettxt89 test dad");
+		final List<Poll> pollsBy = this.retrievePollsByHashtag(this.hashTag);
+
+		final List<TweetPoll> tpollsBy = this.retrieveTweetpollsByHashtag(this.hashTag);
 
      	 List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                  .getLinksByHomeItem(this.hashTag, null, null, null, poll1,
-                         TypeSearchResult.POLL, SearchPeriods.ALLTIME, 0, 100);
+                         TypeSearchResult.POLL, SearchPeriods.ALLTIME, 0, 100, tpollsBy, pollsBy);
          assertEquals("Should be equals", 1, links.size());
     }
 
@@ -216,10 +224,12 @@ public class TestFrontEndDao extends AbstractBase {
 
     	createSurveySavedPublishedStatus(survey1, "553882532", null,
 				"testTweettxt99 test dad");
+		final List<Poll> pollsBy = this.retrievePollsByHashtag(this.hashTag);
 
+		final List<TweetPoll> tpollsBy = this.retrieveTweetpollsByHashtag(this.hashTag);
      	 List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                  .getLinksByHomeItem(this.hashTag, null, null, survey1, null,
-                         TypeSearchResult.SURVEY, SearchPeriods.ALLTIME, 0, 100);
+                         TypeSearchResult.SURVEY, SearchPeriods.ALLTIME, 0, 100, tpollsBy, pollsBy);
          assertEquals("Should be equals", 1, links.size());
     }
 
@@ -444,5 +454,21 @@ public class TestFrontEndDao extends AbstractBase {
 
 		final List<Hit> allHits3 = getFrontEndDao().getAllHitsByType(tpoll1, null, null);
 		assertEquals("Should be equals", 1, allHits3.size());
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	private List<TweetPoll> retrieveTweetpollsByHashtag(final HashTag tag){
+		return getTweetPoll().getTweetpollByHashTagName(tag.getHashTag(), null, null, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	private List<Poll> retrievePollsByHashtag(final HashTag tag){
+		return  getPollDao().getPollByHashTagName(tag.getHashTag(), null, null, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
 	}
 }
