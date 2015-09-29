@@ -2455,7 +2455,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * Create poll access rate.
      * @param rate
-     * @param tweetPoll
      * @param ipAddress
      * @return
      */

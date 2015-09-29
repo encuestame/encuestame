@@ -60,6 +60,12 @@ public class TestFrontEndDao extends AbstractBase {
     /** **/
 	private DateTime initDate = new DateTime();
 
+	/** **/
+	private Survey survey;
+
+	/** **/
+	private Poll poll;
+
 	/** {@link Question} **/
 	private Question initQuestion;
 
@@ -70,10 +76,18 @@ public class TestFrontEndDao extends AbstractBase {
         final String ipAddress2 = "192.168.1.2";
         final String ipAddress3 = "192.168.1.3";
         this.hit = createHashTagHit(hashTag, ipAddress, this.initDate.toDate());
-        createHashTagHit(hashTag, ipAddress2,  this.initDate.minusDays(3).toDate());
+        createHashTagHit(hashTag, ipAddress2, this.initDate.minusDays(3).toDate());
         createHashTagHit(hashTag, ipAddress3, this.initDate.minusDays(4).toDate());
 
-        this.initQuestion = createDefaultQuestion("Question example");
+		// Create Survey hit
+		this.survey = createDefaultSurvey(this.secondary.getAccount());
+		createSurveyHit(survey, ipAddress);
+		// Create Poll Hit
+		final Question question = createDefaultQuestion("Star Wars or Star Trek ?");
+		this.poll = createDefaultPoll(question, this.secondary);
+		createPollHit(this.poll, ipAddress);
+		createPollHit(this.poll, ipAddress2);
+		this.initQuestion = createDefaultQuestion("Question example");
     }
 
     /** Test Get hash tags by ip.**/
@@ -90,19 +104,56 @@ public class TestFrontEndDao extends AbstractBase {
         assertEquals("Should be equals", hitsbyIp.size(), 1);
     }
 
-   @Test
-   public void testGetHitsByIpandType(){
-       assertNotNull(this.hashTag);
-       flushIndexes();
-       final List<Hit> hitsbyIp = getFrontEndDao().getHitsByIpAndType(
-               ipAddress,
-               this.hashTag.getHashTagId(),
-               TypeSearchResult.HASHTAG);
-       assertNotNull(hitsbyIp);
-       assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
-       final Long totalHits = getFrontEndDao().getTotalHitsbyType(hashTag.getHashTagId(), TypeSearchResult.HASHTAG, null);
-       assertEquals("total hits should be equals", 3, totalHits.intValue());
-   }
+	/**
+	 *  Retrieve Total hits by Poll and IP address
+	 */
+	@Test
+	public void testGetHitsByIpandSurvey(){
+		assertNotNull(this.hashTag);
+		flushIndexes();
+		final List<Hit> hitsbyIp = getFrontEndDao().getHitsByIpAndType(
+				ipAddress,
+				this.survey.getSid(),
+				TypeSearchResult.SURVEY);
+	   assertNotNull(hitsbyIp);
+	   final Long totalHits = getFrontEndDao().getTotalHitsbyType(this.survey.getSid(), TypeSearchResult.SURVEY, null);
+	   assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
+	   assertEquals("total hits should be equals", 1, totalHits.intValue());
+	}
+
+	/**
+	 *  Retrieve Total hits by Poll and IP address
+	 */
+	@Test
+	public void testGetHitsByIpandPolls(){
+		assertNotNull(this.hashTag);
+		flushIndexes();
+		final List<Hit> hitsbyIp = getFrontEndDao().getHitsByIpAndType(
+				ipAddress,
+				this.poll.getPollId(),
+				TypeSearchResult.POLL);
+		assertNotNull(hitsbyIp);
+		assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
+		final Long totalHits = getFrontEndDao().getTotalHitsbyType(this.poll.getPollId(), TypeSearchResult.POLL, null);
+ 		assertEquals("total hits should be equals", 2, totalHits.intValue());
+	}
+
+	/**
+	 * Retrieve Total hits by HashTag and IP address
+	 */
+	@Test
+	public void testGetHitsByIpandType(){
+		assertNotNull(this.hashTag);
+		flushIndexes();
+		final List<Hit> hitsbyIp = getFrontEndDao().getHitsByIpAndType(
+				ipAddress,
+				this.hashTag.getHashTagId(),
+				TypeSearchResult.HASHTAG);
+		assertNotNull(hitsbyIp);
+		assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
+		final Long totalHits = getFrontEndDao().getTotalHitsbyType(hashTag.getHashTagId(), TypeSearchResult.HASHTAG, null);
+		assertEquals("total hits should be equals", 3, totalHits.intValue());
+	}
 
     /**
      * Test get access rateby item.
@@ -122,6 +173,32 @@ public class TestFrontEndDao extends AbstractBase {
         assertNotNull(tpRate);
         assertEquals("Should be equals", 1, tpRate.size());
     }
+
+	/**
+	 * Test Retrieve Rate by Poll
+	 */
+	@Test
+	public void testGetAccessRateByPoll(){
+		createPollRate(Boolean.TRUE, this.poll, this.ipAddress);
+		flushIndexes();
+		final List<AccessRate> pollRate = getFrontEndDao().getAccessRatebyItem(
+				this.ipAddress, this.poll.getPollId(), TypeSearchResult.POLL);
+		 assertNotNull(pollRate);
+		assertEquals("Should be equals", 1, pollRate.size());
+	}
+
+	/**
+	 * Test Retrieve Rate by Survey
+	 */
+	@Test
+	public void testGetAccessRateBySurvey(){
+		createSurveyRate(Boolean.TRUE, this.survey, this.ipAddress);
+		flushIndexes();
+		final List<AccessRate> surveyRate = getFrontEndDao().getAccessRatebyItem(
+				this.ipAddress, this.survey.getSid(), TypeSearchResult.SURVEY);
+		assertNotNull(surveyRate);
+		assertEquals("Should be equals", 1, surveyRate.size());
+	}
 
     /**
      *
@@ -152,7 +229,6 @@ public class TestFrontEndDao extends AbstractBase {
     @Test
     public void testGetLinksByHomeItemHashtag(){
     	this.testGetLinksByHomeItem();
-		System.out.println("PERRITO---------");
 		final List<TweetPoll> tpolls = getTweetPoll().getTweetpollByHashTagName(this.hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
 		final List<Poll> pollsByHashtag = getPollDao().getPollByHashTagName(this.hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
     	// TODO: Include Polls to searchlist with hashtag
@@ -211,7 +287,7 @@ public class TestFrontEndDao extends AbstractBase {
 
      	 List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                  .getLinksByHomeItem(this.hashTag, null, null, null, poll1,
-                         TypeSearchResult.POLL, SearchPeriods.ALLTIME, 0, 100, tpollsBy, pollsBy);
+						 TypeSearchResult.POLL, SearchPeriods.ALLTIME, 0, 100, tpollsBy, pollsBy);
          assertEquals("Should be equals", 1, links.size());
     }
 
@@ -229,7 +305,7 @@ public class TestFrontEndDao extends AbstractBase {
 		final List<TweetPoll> tpollsBy = this.retrieveTweetpollsByHashtag(this.hashTag);
      	 List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                  .getLinksByHomeItem(this.hashTag, null, null, survey1, null,
-                         TypeSearchResult.SURVEY, SearchPeriods.ALLTIME, 0, 100, tpollsBy, pollsBy);
+						 TypeSearchResult.SURVEY, SearchPeriods.ALLTIME, 0, 100, tpollsBy, pollsBy);
          assertEquals("Should be equals", 1, links.size());
     }
 
@@ -258,7 +334,7 @@ public class TestFrontEndDao extends AbstractBase {
         getTweetPoll().saveOrUpdate(hit2);
 
         // Retrieve hits for tag Id in the last 7 days.
-        List<Hit> myHits = getFrontEndDao().getHashTagHitsbyDateRange( hashTag1.getHashTagId(), 7);
+        List<Hit> myHits = getFrontEndDao().getHashTagHitsbyDateRange(hashTag1.getHashTagId(), 7);
         assertEquals("Should be equals", 1, myHits.size());
     }
 
@@ -454,6 +530,31 @@ public class TestFrontEndDao extends AbstractBase {
 
 		final List<Hit> allHits3 = getFrontEndDao().getAllHitsByType(tpoll1, null, null);
 		assertEquals("Should be equals", 1, allHits3.size());
+	}
+
+	/**
+	 * Retrieve total Hits by Poll.
+	 */
+	@Test
+	public void testGetAllHitsByPoll(){
+		createPollHit(this.poll, "192.168.1.22");
+		createPollHit(this.poll, "192.168.1.21");
+		createPollHit(this.poll, "192.168.1.20");
+		createPollHit(this.poll, "192.168.1.23");
+		final List<Hit> hitsByPoll = getFrontEndDao().getAllHitsByType(null, this.poll, null);
+		assertEquals("Should be equals", 6, hitsByPoll.size());
+	}
+
+	/**
+	 *  Retrieve total Hits by Survey
+	 */
+	@Test
+	public void testGetAllHitsBySurvey(){
+		createSurveyHit(this.survey, "192.168.1.31");
+		createSurveyHit(this.survey, "192.168.1.32");
+		createSurveyHit(this.survey, "192.168.1.33");
+		final List<Hit> hitsBySurvey = getFrontEndDao().getAllHitsByType(null, null, this.survey);
+		assertEquals("Should be equals", 4, hitsBySurvey.size());
 	}
 
 	/**
