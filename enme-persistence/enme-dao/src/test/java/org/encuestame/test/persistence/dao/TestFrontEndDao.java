@@ -346,7 +346,7 @@ public class TestFrontEndDao extends AbstractBase {
 		this.createSurveys();
 		final List<Survey> last30DaysSurveys = getFrontEndDao()
 				.getSurveyFrontEndLast30Days(0, 10);
-		assertEquals("Should be equals", 9, last30DaysSurveys.size());
+		assertEquals("Should be equals", 10, last30DaysSurveys.size());
 	}
 
 	/**
@@ -356,7 +356,7 @@ public class TestFrontEndDao extends AbstractBase {
 	public void testGetSurveyFrontEndLast7Days() {
 		this.createSurveys();
 		final List<Survey> last7DaysSurveys = getFrontEndDao().getSurveyFrontEndLast7Days(0, 10);
-		assertEquals("Should be equals", 6, last7DaysSurveys.size());
+		assertEquals("Should be equals", 7, last7DaysSurveys.size());
 	}
 
 	/**
@@ -366,7 +366,7 @@ public class TestFrontEndDao extends AbstractBase {
 	public void testGetSurveyFrontEndLast24() {
 		this.createSurveys();
 		final List<Survey> last24Surveys = getFrontEndDao().getSurveyFrontEndLast24(0, 10);
-		assertEquals("Should be equals", 2, last24Surveys.size());
+		assertEquals("Should be equals", 3, last24Surveys.size());
 
 	}
 
@@ -448,7 +448,7 @@ public class TestFrontEndDao extends AbstractBase {
     public void testGetPollFrontEndLast7Days(){
     	this.createPolls();
     	final List<Poll> last7DaysPoll = getFrontEndDao().getPollFrontEndLast7Days(0, 10);
-    	assertEquals("Should be equals", 7, last7DaysPoll.size());
+    	assertEquals("Should be equals", 8, last7DaysPoll.size());
     }
 
 	/**
@@ -458,7 +458,7 @@ public class TestFrontEndDao extends AbstractBase {
     public void testGetPollFrontEndLast24(){
     	this.createPolls();
     	final List<Poll> last24HoursPoll = getFrontEndDao().getPollFrontEndLast24(0, 10);
-    	assertEquals("Should be equals", 3, last24HoursPoll.size());
+    	assertEquals("Should be equals", 4, last24HoursPoll.size());
 	}
 
 	/**

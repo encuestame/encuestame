@@ -32,6 +32,7 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
@@ -326,7 +327,7 @@ public class TestTweetPollDao extends AbstractBase {
         assertNotNull(tweetPoll);
         final Long userId = this.secondary.getAccount().getUid();
         final String peri = "7";
-        final List<TweetPoll> tweets = getTweetPoll().retrieveTweetsByUserId(" ", userId, 10, 0,  Boolean.TRUE,  Boolean.TRUE,  Boolean.TRUE,  Boolean.TRUE, peri);
+        final List<TweetPoll> tweets = getTweetPoll().retrieveTweetsByUserId(" ", userId, 10, 0, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, peri);
         assertEquals("Should be equals", 1, tweets.size());
     }
 
@@ -837,6 +838,7 @@ public class TestTweetPollDao extends AbstractBase {
                         TypeSearchResult.TWEETPOLL);
         Assert.assertEquals("Should be", 1, tpsavedPublished.size());
     }
+
 
     /**
      * Test get total tweetpolls by user.
@@ -1380,5 +1382,24 @@ public class TestTweetPollDao extends AbstractBase {
 
         final List<Schedule> list = getScheduleDao().retrieveFailedScheduledItems(5, Status.SUCCESS);
         Assert.assertEquals("Should be", 2, list.size());
+    }
+
+    /**
+     * Test Retrieve TweeetPollSavedPublished by Id.
+     */
+    @Test
+    public void testRetrieveTweetPollPublishedStatusbyId(){
+        final TweetPollSavedPublishedStatus tpSavedPublished = createTweetPollSavedPublishStatus(this.tweetPoll, this.socialAccount, SocialProvider.FACEBOOK );
+        final TweetPollSavedPublishedStatus tweetpollSaved = getTweetPoll().getTweetPollPublishedStatusbyId(tpSavedPublished.getId());
+        assertNotNull(tweetpollSaved);
+    }
+
+    /**
+     * Retrieve Answer
+     */
+    @Test
+    public void testRetrieveAnswerTweetSwitch(){
+        final TweetPollSwitch tpSwitch = getTweetPoll().getAnswerTweetSwitch(this.tweetPoll, this.questionsAnswers1);
+        assertNotNull(tpSwitch);
     }
 }

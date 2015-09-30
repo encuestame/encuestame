@@ -190,4 +190,15 @@ public class TestHashTagDao  extends AbstractBase{
  		final List<HashTagRanking> rankStats = getHashTagDao().getHashTagRankStats(tRank);
 		assertEquals("Should be equals", rankStats.size(), 6);
 	}
+
+	/**
+	 * Test Retrieve Hashtag ranking.
+	 */
+	@Test
+	public void testRetrieveHashTagRankStatsById(){
+		final HashTagRanking rank1 = createHashTagRank(this.hashTag, new Date(), 50D);
+		final HashTagRanking rank2 = createHashTagRank(this.hashTag, new Date(), 25D);
+		final HashTagRanking hastagRanking = getHashTagDao().getHashTagRankStatsById(rank1.getRankId());
+		Assert.assertNotNull(hastagRanking);
+	}
 }
