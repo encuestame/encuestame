@@ -27,7 +27,7 @@ import junit.framework.Assert;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.TweetPollService;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+//import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
@@ -885,11 +885,11 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
         providers.add(SocialProvider.LINKEDIN);
 
         // Create TweetPollSavedPublished - Social Links
-        createTweetPollSavedPublishStatus(tp, socialAccount,
+        final TweetPollSavedPublishedStatus tpSaved1 = createTweetPollSavedPublishStatus(tp, socialAccount,
                 SocialProvider.FACEBOOK);
-        createTweetPollSavedPublishStatus(tp, socialAccount,
+        final TweetPollSavedPublishedStatus tpSaved2 =  createTweetPollSavedPublishStatus(tp, socialAccount,
                 SocialProvider.TWITTER);
-        createTweetPollSavedPublishStatus(tp, socialAccount,
+        final TweetPollSavedPublishedStatus tpSaved3 = createTweetPollSavedPublishStatus(tp, socialAccount,
                 SocialProvider.LINKEDIN);
 
         final List<TweetPollSavedPublishedStatus> tpsp = getTweetPollService().retrieveTweetPollSavedPublished(tp);
@@ -1143,9 +1143,9 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
         providers.add(SocialProvider.LINKEDIN);
 
         // Create TweetPollSavedPublished - Social Links
-        createTweetPollSavedPublishStatus(tweetPoll1, socialAccount,
+        final TweetPollSavedPublishedStatus tpSaved4 =  createTweetPollSavedPublishStatus(tweetPoll1, socialAccount,
                 SocialProvider.FACEBOOK);
-        createTweetPollSavedPublishStatus(tweetPoll1, socialAccount,
+        final TweetPollSavedPublishedStatus tpSaved5 =  createTweetPollSavedPublishStatus(tweetPoll1, socialAccount,
                 SocialProvider.TWITTER);
 
         /* ***** BEFORE ***** */
@@ -1363,8 +1363,8 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
                 socialAcc, Status.FAILED, 5, tpSaved3, RandomStringUtils.randomAlphabetic(7),
                 TypeSearchResult.POLL);
 
-        final String attemptsProp = EnMePlaceHolderConfigurer
-                .getProperty("attempts.scheduled.publication");
+//        final String attemptsProp = EnMePlaceHolderConfigurer
+//                .getProperty("attempts.scheduled.publication");
 
         final List<Schedule> scheduleBefore = getScheduleDao()
                 .retrieveFailedScheduledItems(5, Status.SUCCESS);

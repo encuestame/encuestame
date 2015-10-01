@@ -154,7 +154,7 @@ public class TestCommentService extends AbstractSpringSecurityContext {
     @Test
     public void testCreateComment() throws EnMeNoResultsFoundException, EnmeNotAllowedException{
         final CommentBean commentBean = createCommentBean("totally Agree", new Date(),
-                getSpringSecurityLoggedUserAccount().getUid(), this.tweetPoll.getTweetPollId(), null);
+				getSpringSecurityLoggedUserAccount().getUid(), this.tweetPoll.getTweetPollId(), null);
         final Comment comment = getCommentsOperationsService().createComment(commentBean);
         assertNotNull(comment);
     }
@@ -166,7 +166,7 @@ public class TestCommentService extends AbstractSpringSecurityContext {
     @Test
     public void testGetCommentsbyTweetPoll() throws EnMeNoResultsFoundException{
         final List<Comment> comments = getCommentsOperationsService().getCommentsbyTweetPoll(
-                this.tweetPoll, this.MAX_RESULTS, this.START);
+				this.tweetPoll, this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 4, comments.size());
     }
 
@@ -195,7 +195,7 @@ public class TestCommentService extends AbstractSpringSecurityContext {
         assertEquals("Should be equals", 7, comments.size());
         final List<CommentBean> topList = getCommentsOperationsService()
                 .getTopRatedComments(CommentsSocialOptions.LIKE_VOTE,
-                        this.MAX_RESULTS, this.START);
+						this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 7, topList.size());
     }
 
@@ -236,7 +236,7 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 		final List<CommentBean> alltweetPollComments = getCommentsOperationsService()
 				.retrieveCommentsByTypeAndStatus(
 						this.tweetPoll.getTweetPollId(),
-						 TypeSearchResult.TWEETPOLL, 20, 0,
+						TypeSearchResult.TWEETPOLL, 20, 0,
 						CommentOptions.ALL, null);
 		assertEquals("Should be equals", 19, alltweetPollComments.size());
 
@@ -458,4 +458,12 @@ public class TestCommentService extends AbstractSpringSecurityContext {
     public void setCommentsOperationsService(final ICommentService commentsOperationsService) {
         this.commentsOperationsService = commentsOperationsService;
     }
+
+	/**
+	 * Test Retrieve Comments
+	 */
+	@Test
+	public void testRetrieveAllTweetPollComments() throws EnMeExpcetion {
+		final List<Comment> comments = getCommentsOperationsService().getComments(TypeSearchResult.TWEETPOLL, this.tweetPoll.getTweetPollId(), 10, 0);
+ 	}
 }

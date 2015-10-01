@@ -77,7 +77,7 @@ public enum HashTagRate {
 		} else if (type.equalsIgnoreCase("11")) {
 			return NOVEMBER;
 		} else if (type.equalsIgnoreCase("12")) {
-			return NOVEMBER;
+			return DECEMBER;
 		} else
 			return null;
 	}

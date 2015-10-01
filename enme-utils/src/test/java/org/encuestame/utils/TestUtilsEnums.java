@@ -15,15 +15,7 @@ package org.encuestame.utils;
 import junit.framework.TestCase;
 
 import org.encuestame.utils.categories.test.DefaultTest;
-import org.encuestame.utils.enums.CommentOptions;
-import org.encuestame.utils.enums.CommentsSocialOptions;
-import org.encuestame.utils.enums.EnMePermission;
-import org.encuestame.utils.enums.GadgetType;
-import org.encuestame.utils.enums.LayoutEnum;
-import org.encuestame.utils.enums.Profile;
-import org.encuestame.utils.enums.SearchPeriods;
-import org.encuestame.utils.enums.TypeSearch;
-import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.enums.*;
 import org.encuestame.utils.social.SocialProvider;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -46,6 +38,15 @@ public class TestUtilsEnums extends TestCase{
         assertEquals("Should be equals", "RESTRICT", optRestrict.toString());
         final CommentOptions optModerate = CommentOptions.getCommentOption("MODERATE");
         assertEquals("Should be equals", "MODERATE", optModerate.toString());
+
+        final CommentOptions optPublished = CommentOptions.getCommentOption("PUBLISHED");
+        assertEquals("Should be equals", "PUBLISHED", optModerate.toString());
+
+        final CommentOptions optSpam = CommentOptions.getCommentOption("SPAM");
+        assertEquals("Should be equals", "SPAM", optModerate.toString());
+
+        final CommentOptions optAll = CommentOptions.getCommentOption("ALL");
+        assertEquals("Should be equals", "ALL", optModerate.toString());
     }
 
     /**
@@ -148,6 +149,20 @@ public class TestUtilsEnums extends TestCase{
          final TypeSearchResult hashTagOption = TypeSearchResult.getTypeSearchResult("HASHTAG");
          assertEquals("Should be equals", "HASHTAG", hashTagOption.toString());
 
+        final TypeSearchResult hashTagRatedOption = TypeSearchResult.getTypeSearchResult("HASHTAGRATED");
+        assertEquals("Should be equals", "HASHTAGRATED", hashTagOption.toString());
+
+        final TypeSearchResult socialNetworkOption = TypeSearchResult.getTypeSearchResult("SOCIALNETWORK");
+        assertEquals("Should be equals", "SOCIALNETWORK", hashTagOption.toString());
+
+        final TypeSearchResult hitsOption = TypeSearchResult.getTypeSearchResult("HITS");
+        assertEquals("Should be equals", "HITS", hashTagOption.toString());
+
+        final TypeSearchResult votesOption = TypeSearchResult.getTypeSearchResult("VOTES");
+        assertEquals("Should be equals", "VOTES", hashTagOption.toString());
+
+        final TypeSearchResult allOption = TypeSearchResult.getTypeSearchResult("ALL");
+        assertEquals("Should be equals", "ALL", hashTagOption.toString());
     }
 
     /**
@@ -209,6 +224,27 @@ public class TestUtilsEnums extends TestCase{
 
         final SearchPeriods allTimeOpt = SearchPeriods.getPeriodString("all");
         assertEquals("Should be equals", "all", allTimeOpt.toString());
+
+        final SearchPeriods oneYearTimeOpt = SearchPeriods.getPeriodString("365");
+        assertEquals("Should be equals", "365", oneYearTimeOpt.toString());
+
+        final SearchPeriods yearsTimeOpt = SearchPeriods.getPeriodString("1095");
+        assertEquals("Should be equals", "1095", yearsTimeOpt.toString());
+
+        final SearchPeriods todayOpt = SearchPeriods.TWENTYFOURHOURS;
+        assertEquals("Should be equals", "24", todayOpt.toNumber().toString());
+
+        final SearchPeriods weekOpt = SearchPeriods.SEVENDAYS;
+        assertEquals("Should be equals", "7", weekOpt.toNumber().toString());
+
+        final SearchPeriods monthOpt = SearchPeriods.THIRTYDAYS;
+        assertEquals("Should be equals", "30", monthOpt.toNumber().toString());
+
+        final SearchPeriods allOpt = SearchPeriods.ALLTIME;
+        assertEquals("Should be equals", "1095", allOpt.toNumber().toString());
+
+        final SearchPeriods oneYearOpt = SearchPeriods.ONEYEAR;
+        assertEquals("Should be equals", "365", oneYearOpt.toNumber().toString());
     }
 
     /**
@@ -233,6 +269,12 @@ public class TestUtilsEnums extends TestCase{
 
         final Profile realNameOpt = Profile.findProfile("REAL_NAME");
         assertEquals("Should be equals", "completeName", realNameOpt.toString());
+
+        final Profile welcomeeOpt = Profile.findProfile("WELCOME");
+        assertEquals("Should be equals", "welcome", realNameOpt.toString());
+
+        final Profile infoOpt = Profile.findProfile("PAGE_INFO");
+        assertEquals("Should be equals", "page_info", realNameOpt.toString());
     }
 
     /**
@@ -260,5 +302,211 @@ public class TestUtilsEnums extends TestCase{
 
         final SocialProvider yahooProvider = SocialProvider.getProvider("MYSPACE");
         assertEquals("Should be equals", "MYSPACE", yahooProvider.toString());
+    }
+
+    /**
+     *  Test HitCategory Enum.
+     */
+    @Test
+    public void testHitCategory(){
+        final HitCategory catVote = HitCategory.getCategory("VOTE");
+        assertEquals("Hit Category Should be equals", "VOTE", catVote.toString());
+        final HitCategory catVisit = HitCategory.getCategory("VISIT");
+        assertEquals("Hit Category Should be equals", "VISIT", catVisit.toString());
+    }
+
+    /**
+     * Test RelativeTime Enum
+     */
+    @Test
+    public void testRelativeTime(){
+        final RelativeTimeEnum rightnow = RelativeTimeEnum.RIGTH_NOW;
+        assertEquals("Relative time should be equals", "1" , rightnow.toNumber().toString());
+
+        final RelativeTimeEnum oneSecond = RelativeTimeEnum.ONE_SECOND_AGO;
+        assertEquals("Relative time should be equals", "15" , oneSecond.toNumber().toString());
+
+        final RelativeTimeEnum aSecondsAgo = RelativeTimeEnum.SECONDS_AGO;
+        assertEquals("Relative time should be equals", "70" , aSecondsAgo.toNumber().toString());
+
+        final RelativeTimeEnum aMinuteAgo = RelativeTimeEnum.A_MINUTE_AGO;
+        assertEquals("Relative time should be equals", "1" , aMinuteAgo.toNumber().toString());
+
+        final RelativeTimeEnum minutesAgo = RelativeTimeEnum.MINUTES_AGO;
+        assertEquals("Relative time should be equals", "80" , minutesAgo.toNumber().toString());
+
+        final RelativeTimeEnum anHourAgo = RelativeTimeEnum.AN_HOUR_AGO;
+        assertEquals("Relative time should be equals", "1" , anHourAgo.toNumber().toString());
+
+        final RelativeTimeEnum hoursAgo = RelativeTimeEnum.HOURS_AGO;
+        assertEquals("Relative time should be equals", "18" , hoursAgo.toNumber().toString());
+
+        final RelativeTimeEnum yesterday = RelativeTimeEnum.YESTERDAY;
+        assertEquals("Relative time should be equals", "1" , yesterday.toNumber().toString());
+
+        final RelativeTimeEnum daysAgo = RelativeTimeEnum.DAYS_AGO;
+        assertEquals("Relative time should be equals", "4" , daysAgo.toNumber().toString());
+
+        final RelativeTimeEnum aMonthAgo = RelativeTimeEnum.ONE_MONTH_AGO;
+        assertEquals("Relative time should be equals", "8" , aMonthAgo.toNumber().toString());
+
+        final RelativeTimeEnum monthsAgo = RelativeTimeEnum.MONTHS_AGO;
+        assertEquals("Relative time should be equals", "11" , monthsAgo.toNumber().toString());
+
+        final RelativeTimeEnum oneYearAgo = RelativeTimeEnum.ONE_YEAR_AGO;
+        assertEquals("Relative time should be equals", "1" , oneYearAgo.toNumber().toString());
+
+        final RelativeTimeEnum yearsAgo = RelativeTimeEnum.YEARS_AGO;
+        assertEquals("Relative time should be equals", "6" , yearsAgo.toNumber().toString());
+
+    }
+
+    /**
+     * Test TypeDatabase Enum.
+     */
+    @Test
+    public void testTypeDatabase(){
+        final TypeDatabase oracleDBase = TypeDatabase.getTypeDatabaseByString("oracle");
+        assertEquals("Database type should be equals", "ORACLE" , oracleDBase.toString());
+
+        final TypeDatabase hsqlDBase = TypeDatabase.getTypeDatabaseByString("hsqldb");
+        assertEquals("Database type should be equals", "HSQLDB" , hsqlDBase.toString());
+
+        final TypeDatabase mysqlDBase = TypeDatabase.getTypeDatabaseByString("mysql");
+        assertEquals("Database type should be equals", "MYSQL" , mysqlDBase.toString());
+
+        final TypeDatabase postgresDBase = TypeDatabase.getTypeDatabaseByString("postgres");
+        assertEquals("Database type should be equals", "POSTGRES" , postgresDBase.toString());
+
+        final TypeDatabase mssqlDBase = TypeDatabase.getTypeDatabaseByString("mssql");
+        assertEquals("Database type should be equals", "MSSQL", mssqlDBase.toString());
+
+        final TypeDatabase derbyDBase = TypeDatabase.getTypeDatabaseByString("derby");
+        assertEquals("Database type should be equals", "DERBY", derbyDBase.toString());
+
+        final TypeDatabase db2DBase = TypeDatabase.getTypeDatabaseByString("db2");
+        assertEquals("Database type should be equals", "DB2" , db2DBase.toString());
+    }
+
+    /**
+     * Test DateClasificated Enum.
+     */
+    @Test
+    public void testDateClasificated(){
+
+        final DateClasificatedEnum dcToday = DateClasificatedEnum.TODAY;
+        assertEquals("DateClasificatedEnum should be equals", "1" , dcToday.toNumber().toString());
+
+        final DateClasificatedEnum dcWeek = DateClasificatedEnum.THIS_WEEK;
+        assertEquals("DateClasificatedEnum should be equals", "7", dcWeek.toNumber().toString());
+
+        final DateClasificatedEnum dcMonth = DateClasificatedEnum.THIS_MONTH;
+        assertEquals("DateClasificatedEnum should be equals", "30" , dcMonth.toNumber().toString());
+
+        final DateClasificatedEnum dcLastMonth = DateClasificatedEnum.LAST_MONTH;
+        assertEquals("DateClasificatedEnum  should be equals", "180" , dcLastMonth.toNumber().toString());
+
+        final DateClasificatedEnum dcMonthsAgo = DateClasificatedEnum.FEW_MONTHS_AGO;
+        assertEquals("DateClasificatedEnum should be equals", "360" , dcMonthsAgo.toNumber().toString());
+
+        final DateClasificatedEnum dcLastYear = DateClasificatedEnum.LAST_YEAR;
+        assertEquals(" DateClasificatedEnum should be equals", "366" , dcLastYear.toNumber().toString());
+
+        final DateClasificatedEnum dcLongTimeAgo = DateClasificatedEnum.LONG_TIME_AGO;
+        assertEquals("DateClasificatedEnum should be equals", "720" , dcLongTimeAgo.toNumber().toString());
+    }
+
+    /**
+     * Test RequestSourceType
+     */
+    @Test
+    public void testRequestSourceType(){
+        final RequestSourceType embedded = RequestSourceType.getSource("embedded");
+        assertEquals("Request type should be equals", "embedded" , embedded.toString());
+
+        final RequestSourceType normal = RequestSourceType.getSource("normal");
+        assertEquals("Request type should be equals", "normal", normal.toString());
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testHashtagRate(){
+        final HashTagRate label1 = HashTagRate.getHashTagMonthLabel("1");
+        assertEquals("Month Label should be equals", "JANUARY" , label1.toString());
+
+        final HashTagRate label2 = HashTagRate.getHashTagMonthLabel("2");
+        assertEquals("Month Label should be equals", "FEBRUARY" , label1.toString());
+
+        final HashTagRate label3 = HashTagRate.getHashTagMonthLabel("3");
+        assertEquals("Month Label should be equals", "MARCH" , label1.toString());
+
+        final HashTagRate label4 = HashTagRate.getHashTagMonthLabel("4");
+        assertEquals("Month Label should be equals", "APRIL" , label1.toString());
+
+        final HashTagRate label5 = HashTagRate.getHashTagMonthLabel("5");
+        assertEquals("Month Label should be equals", "MAY" , label1.toString());
+
+        final HashTagRate label6 = HashTagRate.getHashTagMonthLabel("6");
+        assertEquals("Month Label should be equals", "JUNE" , label1.toString());
+
+        final HashTagRate label7 = HashTagRate.getHashTagMonthLabel("7");
+        assertEquals("Month Label should be equals", "JULY" , label1.toString());
+
+        final HashTagRate label8 = HashTagRate.getHashTagMonthLabel("8");
+        assertEquals("Month Label should be equals", "AUGUST" , label1.toString());
+
+        final HashTagRate label9 = HashTagRate.getHashTagMonthLabel("9");
+        assertEquals("Month Label should be equals", "SEPTEMBER" , label1.toString());
+
+        final HashTagRate label10 = HashTagRate.getHashTagMonthLabel("10");
+        assertEquals("Month Label should be equals", "OCTOBER" , label1.toString());
+
+        final HashTagRate label11 = HashTagRate.getHashTagMonthLabel("11");
+        assertEquals("Month Label should be equals", "NOVEMBER" , label1.toString());
+
+        final HashTagRate label12 = HashTagRate.getHashTagMonthLabel("12");
+        assertEquals("Month Label should be equals", "DECEMBER" , label1.toString());
+
+
+        final HashTagRate lblWeek1 = HashTagRate.getHashTagMonthLabel("2");
+        assertEquals("Week Label should be equals", "MONDAY" , label1.toString());
+
+
+        final HashTagRate lblWeek2 = HashTagRate.getHashTagMonthLabel("3");
+        assertEquals("Week Label should be equals", "TUESDAY" , label1.toString());
+
+
+        final HashTagRate lblWeek3 = HashTagRate.getHashTagMonthLabel("4");
+        assertEquals("Week Label should be equals", "WEDNESDAY" , label1.toString());
+
+        final HashTagRate lblWeek4 = HashTagRate.getHashTagWeekDayLabel("1");
+        assertEquals("Week Label should be equals", "THURSDAY", label1.toString());
+
+        final HashTagRate lblWeek5 = HashTagRate.getHashTagMonthLabel("5");
+        assertEquals("Week Label should be equals", "FRIDAY" , label1.toString());
+
+        final HashTagRate lblWeek6 = HashTagRate.getHashTagMonthLabel("6");
+        assertEquals("Week Label should be equals", "SATURDAY" , label1.toString());
+
+
+        final HashTagRate lblWeek7 = HashTagRate.getHashTagMonthLabel("7");
+        assertEquals("Week Label should be equals", "SUNDAY" , label1.toString());
+    }
+
+    /**
+     * Test ShowResultsOptions Enum.
+     */
+    @Test
+    public void testShowResultsOptions(){
+        final ShowResultsOptions percentOpt = ShowResultsOptions.getShowResults("PERCENT");
+        assertEquals("Should be equals", "PERCENT" , percentOpt.toString());
+
+        final ShowResultsOptions restrictedOpt = ShowResultsOptions.getShowResults("RESTRICTED");
+        assertEquals("Should be equals", "RESTRICTED" , restrictedOpt.toString());
+
+        final ShowResultsOptions allOpt = ShowResultsOptions.getShowResults("ALL");
+        assertEquals("Should be equals", "ALL" , allOpt.toString());
     }
 }
