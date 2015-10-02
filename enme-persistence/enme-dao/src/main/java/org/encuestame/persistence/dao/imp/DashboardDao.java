@@ -53,8 +53,7 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IDashboardDao#getDashboard(java.lang.Long, java.lang.Long)
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public Dashboard getDashboardbyIdandUser(final Long boardId, final UserAccount userAcc){
           final DetachedCriteria criteria = DetachedCriteria.forClass(Dashboard.class);
           criteria.add(Restrictions.eq("userBoard", userAcc));
@@ -94,8 +93,7 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IDashboardDao#getGadgetbyId(java.lang.Long)
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public Gadget getGadgetbyIdandBoard(final Long gadgetId, final Dashboard dashboard){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
          criteria.add(Restrictions.eq("dashboard", dashboard));
@@ -147,11 +145,11 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
      * @see org.encuestame.persistence.dao.IDashboardDao#retrievePropertiesbyGadget(java.lang.Long)
      */
     @SuppressWarnings("unchecked")
-    public List retrievePropertiesbyGadget(final Long gadgetId){
+    public List<GadgetProperties> retrievePropertiesbyGadget(final Long gadgetId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(GadgetProperties.class);
         criteria.createAlias("gadget", "gadget");
         criteria.add(Restrictions.eq("gadget.gadgetId", gadgetId));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<GadgetProperties>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /*
@@ -159,11 +157,11 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
      * @see org.encuestame.persistence.dao.IDashboardDao#retrieveGadgetsbyDashboard(java.lang.Long)
      */
     @SuppressWarnings("unchecked")
-    public List retrieveGadgetsbyDashboard(final Long boardId) {
+    public List<Gadget> retrieveGadgetsbyDashboard(final Long boardId) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
         criteria.createAlias("dashboard","dashboard");
         criteria.add(Restrictions.eq("dashboard.boardId", boardId));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<Gadget>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /*
@@ -171,10 +169,10 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
      * @see org.encuestame.persistence.dao.IDashboardDao#retrieveGadgetsbyType(java.lang.String)
      */
     @SuppressWarnings("unchecked")
-    public List retrieveGadgetsbyType(final GadgetType gadgetType) {
+    public List<Gadget> retrieveGadgetsbyType(final GadgetType gadgetType) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
         criteria.add(Restrictions.eq("gadgetType", gadgetType));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<Gadget>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /*
@@ -182,9 +180,9 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
      * @see org.encuestame.persistence.dao.IDashboardDao#retrieveGadgets(java.lang.Boolean)
      */
     @SuppressWarnings("unchecked")
-    public List retrieveGadgets(final Dashboard board){
+    public List<Gadget> retrieveGadgets(final Dashboard board){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
         criteria.add(Restrictions.eq("dashboard", board));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<Gadget>) getHibernateTemplate().findByCriteria(criteria);
     }
 }

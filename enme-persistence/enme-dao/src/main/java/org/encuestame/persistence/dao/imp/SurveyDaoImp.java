@@ -68,12 +68,12 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @throws HibernateException
      */
     @SuppressWarnings("unchecked")
-    public List searchSurveyByUserId(String searchString, final Long userId)
+    public List<Survey> searchSurveyByUserId(String searchString, final Long userId)
             throws HibernateException {
          final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
          criteria.add(Restrictions.like("name", searchString, MatchMode.ANYWHERE));
          criteria.add(Restrictions.eq("owner.uid", userId));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<Survey>) getHibernateTemplate().findByCriteria(criteria);
 
     }
 
@@ -83,16 +83,16 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List retrieveFolderByUserId(final Long userId){
-        return getHibernateTemplate().findByNamedParam("FROM SurveyFolder where users.uid=:userId","userId", userId);
+    public List<SurveyFolder> retrieveFolderByUserId(final Long userId){
+        return (List<SurveyFolder>) getHibernateTemplate().findByNamedParam("FROM SurveyFolder where users.uid=:userId","userId", userId);
     }
 
     @SuppressWarnings("unchecked")
-    public List retrieveSurveyFolderByUserAccount(final UserAccount account){
+    public List<SurveyFolder> retrieveSurveyFolderByUserAccount(final UserAccount account){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SurveyFolder.class);
         criteria.add(Restrictions.eq("createdBy", account));
         criteria.add(Restrictions.eq("status", org.encuestame.utils.enums.Status.ACTIVE));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<SurveyFolder>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**
@@ -102,11 +102,11 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List retrieveSurveyByFolder(final Long userId, final Long folderId){
+    public List<Survey> retrieveSurveyByFolder(final Long userId, final Long folderId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
         criteria.add(Restrictions.eq("owner.uid", userId));
         criteria.add(Restrictions.eq("surveysfolder.id", folderId));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<Survey>) getHibernateTemplate().findByCriteria(criteria);
    }
 
     /**
@@ -114,8 +114,8 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List retrieveAllFolders(final Long userId){
-        return getHibernateTemplate().find("FROM SurveyFolder");
+    public List<SurveyFolder> retrieveAllFolders(final Long userId){
+        return (List<SurveyFolder>) getHibernateTemplate().find("FROM SurveyFolder");
     }
 
     /**
@@ -124,8 +124,8 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List retrieveSectionsByPage(final Long surveyId){
-        return getHibernateTemplate().findByNamedParam("FROM SurveyFolder where surveyFolderId:folderId","folderId", surveyId);
+    public List<Survey> retrieveSectionsByPage(final Long surveyId){
+        return (List<Survey>) getHibernateTemplate().findByNamedParam("FROM SurveyFolder where surveyFolderId:folderId","folderId", surveyId);
     }
 
     /**
@@ -154,10 +154,10 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * Retrieve Sections by Page in Survey.
      */
     @SuppressWarnings("unchecked")
-    public List retrieveSectionByPagination(final Integer pagId) {
+    public List<SurveyPagination> retrieveSectionByPagination(final Integer pagId) {
         final DetachedCriteria criteria = DetachedCriteria	.forClass(SurveyPagination.class);
         criteria.add(Restrictions.eq("pageNumber", 1));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<SurveyPagination>) getHibernateTemplate().findByCriteria(criteria);
         // return getHibernateTemplate().findByNamedParam("FROM SurveyPagination where pageNumber=:pagId","pagId", pagId);
     }
 
@@ -169,9 +169,15 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
     public SurveyFolder getSurveyFolderById(final Long folderId){
         return getHibernateTemplate().get(SurveyFolder.class,folderId);
     }
-
-    @SuppressWarnings("unchecked")
-    public SurveyFolder getSurveyFolderByIdandUser(final Long FolderId, final Long userId){
+    
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.persistence.dao.ISurvey#getSurveyFolderByIdandUser(java.
+	 * lang.Long, java.lang.Long)
+	 */
+	public SurveyFolder getSurveyFolderByIdandUser(final Long FolderId, final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(SurveyFolder.class);
          criteria.add(Restrictions.eq("users.id", userId));
          criteria.add(Restrictions.eq("id", FolderId));
@@ -184,8 +190,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @param userId
      * @return
      */
-    @SuppressWarnings("unchecked")
-    public Survey getSurveyByIdandUserId(final Long surveyId, final Long userId){
+     public Survey getSurveyByIdandUserId(final Long surveyId, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
          criteria.add(Restrictions.eq("owner.uid", userId));
          criteria.add(Restrictions.eq("sid", surveyId));
@@ -198,8 +203,8 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List getTotalSurveyByOwner(final Long userId){ //editorOwner
-        return getHibernateTemplate().findByNamedParam("select count(sid) "
+    public List<Long> getTotalSurveyByOwner(final Long userId){ //editorOwner
+        return (List<Long>) getHibernateTemplate().findByNamedParam("select count(sid) "
                +" from Survey where editorOwner.id = :editorOwner", "editorOwner", userId);
     }
 
@@ -381,7 +386,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @see org.encuestame.persistence.dao.ISurvey#getSurveyResponseBySurvey(org.encuestame.persistence.domain.survey.Survey)
      */
     @SuppressWarnings("unchecked")
-    public List getSurveyResponseBySurvey(final Survey survey, final Question question) {
+    public List<SurveyResult> getSurveyResponseBySurvey(final Survey survey, final Question question) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(SurveyResult.class);
         if (question != null) {
@@ -390,7 +395,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         } else {
             criteria.add(Restrictions.eq("survey", survey));
         }
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<SurveyResult>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /*
@@ -398,10 +403,10 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @see org.encuestame.persistence.dao.ISurvey#getSurveySection(org.encuestame.persistence.domain.survey.Survey)
      */
     @SuppressWarnings("unchecked")
-    public List getSurveySection(final Survey survey){
+    public List<SurveySection> getSurveySection(final Survey survey){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SurveySection.class);
         criteria.add(Restrictions.eq("survey", survey));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<SurveySection>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     @SuppressWarnings("unchecked")
@@ -438,7 +443,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
 	 * (java.lang.String, java.lang.Integer)
 	 */
     @SuppressWarnings("unchecked")
-       public List getSurveysbyHashTagNameAndDateRange(
+       public List<Survey> getSurveysbyHashTagNameAndDateRange(
                final String tagName, final SearchPeriods period) {
            final DetachedCriteria detached = DetachedCriteria
                    .forClass(Survey.class)
@@ -456,12 +461,18 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
            criteria.add(Subqueries.propertyIn("survey.sid", detached));
            criteria.addOrder(Order.desc("survey.createDate"));
            calculateSearchPeriodsDates(period, criteria, "survey.createDate");
-           return getHibernateTemplate().findByCriteria(criteria);
+           return (List<Survey>) getHibernateTemplate().findByCriteria(criteria);
        }
 
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.persistence.dao.ISurvey#getSurveysRangeStats(java.lang.
+	 * String, org.encuestame.utils.enums.SearchPeriods)
+	 */
 	@SuppressWarnings("unchecked")
-	public List getSurveysRangeStats(final String tagName,
+	public List<Object[]> getSurveysRangeStats(final String tagName,
 			final SearchPeriods period) {
 		final DetachedCriteria detached = DetachedCriteria
 				.forClass(Survey.class)
@@ -482,6 +493,6 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
 		projList.add(Projections.groupProperty("createDate"));
 		projList.add(Projections.rowCount());
 		criteria.setProjection(projList);
-		return getHibernateTemplate().findByCriteria(criteria);
+		return (List<Object[]>) getHibernateTemplate().findByCriteria(criteria);
 	}
 }

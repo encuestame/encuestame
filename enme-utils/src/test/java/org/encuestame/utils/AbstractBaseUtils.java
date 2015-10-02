@@ -15,8 +15,6 @@ package org.encuestame.utils;
 import java.util.Date;
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.DashboardBean;
@@ -29,8 +27,9 @@ import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
-import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UserAccountBean;
+
+import junit.framework.TestCase;
 
 /**
  * Abstract base utils.
@@ -132,14 +131,12 @@ public abstract class AbstractBaseUtils extends TestCase{
     * @param version version
     * @param unitAnswer unitAnswer
     * @return {@link QuestionBean}
-    */
-
-
+    */ 
     public QuestionBean createUnitQuestionBean(
         final Long questionId,
         final String questionName,
         final String version,
-        final List unitAnswer
+        final List<QuestionAnswerBean> unitAnswer
     ){
         final QuestionBean unitQuestionBean = new QuestionBean();
         unitQuestionBean.setId(questionId);

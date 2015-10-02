@@ -27,6 +27,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,17 +59,7 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 	public HashTagDao(SessionFactory sessionFactory) {
 		setSessionFactory(sessionFactory);
 	}
-
-	/**
-	 * Create Hash TAg.
-	 * 
-	 * @param hashTag
-	 * @throws HibernateException
-	 */
-	public void createHashTag(final HashTag hashTag) throws HibernateException {
-		saveOrUpdate(hashTag);
-	}
-
+ 
 	/**
 	 * Get HashTag By Name.
 	 * 
@@ -75,13 +67,14 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 	 * @return
 	 * @throws HibernateException
 	 */
-	@SuppressWarnings("unchecked")
+	 
 	public HashTag getHashTagByName(final String hashTag)
 			throws HibernateException {
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(HashTag.class);
 		criteria.add(Restrictions.eq("hashTag", hashTag));
-		final List results = getHibernateTemplate().findByCriteria(
+		@SuppressWarnings("unchecked")
+		final List<HashTag> results = (List<HashTag>) getHibernateTemplate().findByCriteria(
 				criteria);
 		if (results.size() >= 1) {
 			return (HashTag) results.get(0); // TODO: it's possible repeated HashTags?
@@ -212,19 +205,7 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 				});
 		return searchResult;
 	}
-
-	/**
-	 * Get hashTag by Id.
-	 * 
-	 * @param hashTagId
-	 * @return
-	 * @throws HibernateException
-	 */
-	public HashTag getHashTagById(final Long hashTagId)
-			throws HibernateException {
-		return (HashTag) getHibernateTemplate().get(HashTag.class, hashTagId);
-	}
-
+  
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -235,10 +216,10 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 	//TODO:MIGRATION
 	@SuppressWarnings("unchecked")
 	public List<HashTagRanking> getHashTagRankStats(final Date maxDate) {
-		return currentSession()
-				.createQuery(
-						"FROM HashTagRanking as ht WHERE ht.rankingDate = :startDate ORDER BY average DESC")
-				.setDate("startDate", maxDate).list();
+		final DetachedCriteria criteria = DetachedCriteria.forClass(HashTagRanking.class);
+		criteria.add(Restrictions.eq("rankingDate", maxDate));
+		criteria.addOrder(Order.desc("average"));
+		return (List<HashTagRanking>) getHibernateTemplate().findByCriteria(criteria); 
 	}
 	
 	/*
@@ -254,7 +235,7 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 		criteria.add(Restrictions.not(Restrictions.eq("rankingDate", maxDate)));
 		criteria.addOrder(Order.desc("average")); 
 		@SuppressWarnings("unchecked")
-		List results = getHibernateTemplate().findByCriteria(
+		List<HashTagRanking> results = (List<HashTagRanking>) getHibernateTemplate().findByCriteria(
 				criteria);
 		return results;
 	} 
@@ -264,13 +245,13 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 	 * 
 	 * @see
 	 * org.encuestame.persistence.dao.IHashTagDao#getMaxHashTagRankingDate()
-	 */
+	 */ 
 	public Date getMaxHashTagRankingDate() {
 		DetachedCriteria criteria = DetachedCriteria
 				.forClass(HashTagRanking.class);
 		criteria.setProjection(Projections.max("rankingDate"));
 		@SuppressWarnings("unchecked")
-		List results = getHibernateTemplate().findByCriteria(criteria);
+		List<HashTagRanking> results = (List<HashTagRanking>) getHibernateTemplate().findByCriteria(criteria);
 		return (Date) (results.get(0) == null ? new Date() : results.get(0));
 	}
 	 
@@ -295,8 +276,12 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List getMaxMinTagFrecuency() {
-		final String maxHit = "Select max(hits) as maximum, min(hits) as minimum from HashTag";
-		return getHibernateTemplate().find(maxHit);
+	public List<Object[]> getMaxMinTagFrecuency() {
+		final DetachedCriteria criteria = DetachedCriteria.forClass(HashTag.class);
+		ProjectionList projectList = Projections.projectionList();
+		projectList.add(Projections.max("hits"));
+		projectList.add(Projections.min("hits"));
+		criteria.setProjection(projectList);
+		return (List<Object[]>) getHibernateTemplate().findByCriteria(criteria); 
 	}
 }

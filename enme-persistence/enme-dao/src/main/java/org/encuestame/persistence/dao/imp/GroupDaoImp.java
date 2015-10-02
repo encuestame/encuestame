@@ -44,8 +44,8 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      */
     //@Secured("ENCUESTAME_SUPER_ADMIN")
     @SuppressWarnings("unchecked")
-    public List findAllGroups() {
-        return getHibernateTemplate().find("from Group");
+    public List<Group> findAllGroups() {
+        return (List<Group>) getHibernateTemplate().find("from Group");
     }
 
     /**
@@ -54,8 +54,8 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      * @return list of groups.
      */
     @SuppressWarnings("unchecked")
-    public List loadGroupsByUser(final Account user) {
-        return getHibernateTemplate().findByNamedParam("from Group where account = :user ", "user", user);
+    public List<Group> loadGroupsByUser(final Account user) {
+        return (List<Group>) getHibernateTemplate().findByNamedParam("from Group where account = :user ", "user", user);
     }
 
     /**
@@ -71,8 +71,7 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      * @param groupId group id
      * @param secUser {@link Account}
      * @return
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public Group getGroupById(final Long groupId, final Account secUser){
         return (Group) DataAccessUtils.uniqueResult(getHibernateTemplate()
                .findByNamedParam("from Group where groupId = :groupId and  account = :account",
@@ -93,8 +92,7 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      * @param groupId group id
      * @param secUser {@link Account}
      * @return
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public Group getGroupByIdandUser(final Long groupId, final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Group.class);
          criteria.createAlias("account", "account");
@@ -107,10 +105,10 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      * Counter Users by Group
      * @param GroupId
      * @return
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public Long getCountUserbyGroup(final Long groupId){
-        List counter = getHibernateTemplate().findByNamedParam("select count(uid) "
+        @SuppressWarnings("unchecked")
+		List<Long> counter = (List<Long>) getHibernateTemplate().findByNamedParam("select count(uid) "
                   +" from UserAccount where group.groupId = :groupId", "groupId", groupId);
          return (Long) counter.get(0);
     }
@@ -121,8 +119,8 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
     * @return
     */
     @SuppressWarnings("unchecked")
-    public List getUsersbyGroups(final Account user){
-         return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.group.groupId) "
+    public List<Object[]> getUsersbyGroups(final Account user){
+         return (List<Object[]>) getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.group.groupId) "
                                                          + "FROM UserAccount as scu, Group as sg "
                                                          + "WHERE scu.group.groupId = sg.groupId AND "
                                                          + "scu.account = :account "
@@ -135,8 +133,8 @@ public class GroupDaoImp extends AbstractHibernateDaoSupport implements IGroupDa
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List countUsersbyGroups(final Long user){
-        return getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.group.groupId) "
+    public List<Object[]> countUsersbyGroups(final Long user){
+        return (List<Object[]>) getHibernateTemplate().findByNamedParam("SELECT sg.groupName, COUNT(scu.group.groupId) "
                                                         + "FROM UserAccount as scu, Group as sg "
                                                         + "WHERE scu.group.groupId = sg.groupId AND "
                                                         + "scu.account.uid = :account "

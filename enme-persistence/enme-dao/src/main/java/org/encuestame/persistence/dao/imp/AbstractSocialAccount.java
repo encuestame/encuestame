@@ -12,11 +12,8 @@
  */
 package org.encuestame.persistence.dao.imp;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-import junit.framework.Assert;
 
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -32,12 +29,15 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.support.DataAccessUtils;
 
+import junit.framework.Assert;
+
 
 /**
  * SocialAccount dao support.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 30, 2011
  */
+@SuppressWarnings("deprecation")
 public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport {
 
     /**
@@ -54,8 +54,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
      * @param socialProvider {@link SocialProvider}
      * @param socialProfileId social profile id.
      * @return {@link SocialAccount}.
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public final SocialAccount getSocialAccount(
             final SocialProvider socialProvider,
             final String socialProfileId) {
@@ -71,8 +70,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
      * @param socialProfileId
      * @param socialUsername
      * @return
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public final SocialAccount getSocialAccount(
             final SocialProvider socialProvider,
             final String socialProfileId,
@@ -89,8 +87,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
      * @param socialAccountId
      * @param account
      * @return
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public final SocialAccount getSocialAccount(
             final Long socialAccountId,
             final Account account) {
@@ -106,8 +103,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
      * @param account
      * @param userAccount
      * @return
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public final SocialAccount getSocialAccount(
             final Long socialAccountId,
             final Account account,
@@ -124,8 +120,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
      * @param socialProfileId
      * @param userAccount
      * @return
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public final SocialAccount getSocialAccount(
             final Long socialProfileId,
             final UserAccount userAccount) {
@@ -142,9 +137,9 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
      * @param account {@link Account}
      * @param provider {@link SocialProvider}
      * @return list of {@link SocialAccount}
-     */
+     */ 
     @SuppressWarnings("unchecked")
-    public final List getSocialAccountByAccount(
+	public final List<SocialAccount> getSocialAccountByAccount(
             final Account account,
             final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
@@ -153,7 +148,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
         if (provider != null) {
             criteria.add(Restrictions.eq("accounType", provider));
         }
-        return   getHibernateTemplate().findByCriteria(criteria);
+        return  (List<SocialAccount>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**
@@ -163,7 +158,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
      * @return
      */
     @SuppressWarnings("unchecked")
-    public final List getSocialVerifiedAccountByUserAccount(
+    public final List<SocialAccount> getSocialVerifiedAccountByUserAccount(
             final Account account, final SocialProvider provider) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(SocialAccount.class);
@@ -172,20 +167,18 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
         if (!provider.equals(SocialProvider.ALL)) { // if provider is ALL, we fetch everything
             criteria.add(Restrictions.eq("accounType", provider));
         }
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<SocialAccount>) getHibernateTemplate().findByCriteria(criteria);
     }
 
 
     /**
      * Create new social connection
-     * @param provider {@link SocialProvider}
+     ider}
      * @param accessGrant {@link AccessGrant}
      * @param socialAccountId social account id.
-     * @param userAccount {@link UserAccount}
-     * @param providerProfileUrl provider profile url.
      * @return
      */
-    public SocialAccount updateSocialAccountConnection(
+ 	public SocialAccount updateSocialAccountConnection(
                 final AccessGrant accessGrant, //OAuth2
                 final String socialAccountId,
                 final SocialAccount currentSocialAccount){
@@ -233,10 +226,8 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
     /**
      * Get Account Connection.
      * @param accountId
-     * @param proviver
      * @return
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public SocialAccount getAccountConnection(final String accountId, final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         criteria.createAlias("userAccout","userAccout");
@@ -283,8 +274,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#findAccountConnectionBySocialProfileId(org.encuestame.persistence.domain.social.SocialProvider, java.lang.String)
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public SocialAccount findAccountConnectionBySocialProfileId(final SocialProvider provider,
                        final String socialProfileId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
@@ -298,15 +288,15 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
      * Get social accounts stats.
      * @param socialAccount {@link SocialAccount}.
      * @return
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public HashMap<String, Long> getSocialAccountStats(final SocialAccount socialAccount) {
         final HashMap<String, Long> stats = new HashMap<String, Long>();
         log.debug("getSocialAccountStats "+socialAccount.getId());
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSavedPublishedStatus.class);
         criteria.add(Restrictions.eq("socialAccount", socialAccount));
         criteria.setProjection(Projections.rowCount());
-        final List tweetPollstats = getHibernateTemplate().findByCriteria(criteria);
+        @SuppressWarnings("unchecked")
+		final List tweetPollstats =  getHibernateTemplate().findByCriteria(criteria);
         log.debug("getSocialAccountStats "+tweetPollstats.size());
         log.debug("getSocialAccountStats "+tweetPollstats);
         if(tweetPollstats.size() > 0) {

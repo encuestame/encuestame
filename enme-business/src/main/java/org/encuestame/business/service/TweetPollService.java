@@ -1132,18 +1132,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tweetPollResult.setAnswerBean(ConvertDomainBean.convertAnswerToBean(answer));
         return tweetPollResult;
     }
-
-    /**
-     * Validate TweetPoll IP.
-     * @param ipVote  ipVote
-     * @param tweetPoll tweetPoll
-     * @return {@link TweetPollResult}
-     */
-    @Deprecated
-    public TweetPollResult validateTweetPollIP(final String ipVote, final TweetPoll tweetPoll){
-        return getTweetPollDao().validateVoteIP(ipVote, tweetPoll);
-    }
-
+  
     /*
      * (non-Javadoc)
      *

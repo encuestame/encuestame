@@ -42,8 +42,8 @@ public class ClientDao extends AbstractHibernateDaoSupport implements IClientDao
      * @throws HibernateException exception
      */
     @SuppressWarnings("unchecked")
-    public List findAll() throws HibernateException {
-        return getHibernateTemplate().find("from Client");
+    public List<Client> findAll() throws HibernateException {
+        return (List<Client>) getHibernateTemplate().find("from Client");
     }
 
     /**
@@ -52,8 +52,8 @@ public class ClientDao extends AbstractHibernateDaoSupport implements IClientDao
      * @return clients.
      */
     @SuppressWarnings("unchecked")
-    public List findAllClientByProjectId(final Long projectId){
-        return getHibernateTemplate().findByNamedParam("from Client c where c.project.id = :projectId", "projectId", projectId);
+    public List<Client> findAllClientByProjectId(final Long projectId){
+        return (List<Client>) getHibernateTemplate().findByNamedParam("from Client c where c.project.id = :projectId", "projectId", projectId);
     }
 
     /**

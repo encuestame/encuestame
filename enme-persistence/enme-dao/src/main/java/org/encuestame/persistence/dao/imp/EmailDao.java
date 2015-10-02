@@ -15,8 +15,8 @@ package org.encuestame.persistence.dao.imp;
 import java.util.List;
 
 import org.encuestame.persistence.dao.IEmail;
-import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.Email;
+import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EmailSubscribe;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -45,9 +45,12 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List findListbyUser(final Long userId){
-        return getHibernateTemplate().findByNamedParam(
-                "from EmailList where usuarioEmail.uid= :userId", "userId", userId);
+    public List<EmailList> findListbyUser(final Long userId){
+    	// return (Notification) getHibernateTemplate().get(Notification.class, notificationId);
+    	final DetachedCriteria criteria = DetachedCriteria.forClass(EmailList.class);
+    	criteria.createAlias("user", "usuarioEmail");
+    	criteria.add(Restrictions.eq("user.uid", userId));
+    	return (List<EmailList>) getHibernateTemplate().findByCriteria(criteria);
      }
 
     /**
@@ -56,8 +59,12 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List findEmailsByListId(final Long idList){
-        return getHibernateTemplate().findByNamedParam("FROM Email WHERE idListEmail.idList= :idList", "idList", idList);
+    public List<Email> findEmailsByListId(final Long idList){
+    	final DetachedCriteria criteria = DetachedCriteria.forClass(Email.class);
+    	criteria.createAlias("emailList", "idListEmail");
+    	criteria.add(Restrictions.eq("emailList.idList", idList));
+    	return (List<Email>) getHibernateTemplate().findByCriteria(criteria); 
+      
      }
 
     /**
@@ -65,8 +72,8 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List findAllEmailList(){
-        return getHibernateTemplate().find("FROM EmailList");
+    public List<EmailList> findAllEmailList(){
+        return (List<EmailList>) getHibernateTemplate().find("FROM EmailList");
     }
 
     /**
@@ -74,10 +81,10 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List getListEmailsByKeyword(final String keyword, final Long userId){
+    public List<EmailList> getListEmailsByKeyword(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(EmailList.class);
         criteria.add(Restrictions.like("listName", keyword, MatchMode.ANYWHERE));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<EmailList>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**
@@ -85,10 +92,10 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List getEmailsByKeyword(final String keyword, final Long userId){
+    public List<Email> getEmailsByKeyword(final String keyword, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Email.class);
         criteria.add(Restrictions.like("email", keyword, MatchMode.ANYWHERE));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<Email>) getHibernateTemplate().findByCriteria(criteria);
 
     }
 
@@ -98,7 +105,8 @@ public class EmailDao extends AbstractHibernateDaoSupport implements IEmail{
      * @return
      */
     public EmailSubscribe getSubscribeAccount(final String code){
-           return (EmailSubscribe) getHibernateTemplate().findByNamedParam("FROM EmailSubscribe WHERE hashCode= :code", "code", code);
-    }
-
+    	final DetachedCriteria criteria = DetachedCriteria.forClass(Email.class); 
+    	criteria.add(Restrictions.eq("hashCode", code));
+    	return (EmailSubscribe) getHibernateTemplate().findByCriteria(criteria); 
+    } 
 }

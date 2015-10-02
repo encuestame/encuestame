@@ -12,12 +12,6 @@
  */
 package org.encuestame.persistence.dao;
 
-import java.util.Date;
-import java.util.List;
-
-import org.encuestame.persistence.domain.survey.SurveyFormat;
-import org.hibernate.HibernateException;
-
 /**
  * SurveyFormat Interface.
  * @author Morales Urbina, Diana paolaATencuestame.org

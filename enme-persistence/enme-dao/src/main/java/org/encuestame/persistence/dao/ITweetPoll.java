@@ -81,15 +81,7 @@ public interface ITweetPoll extends IBaseDao{
       * @param tweetCode tweetCode
       * @return switch
       */
-     TweetPollSwitch retrieveTweetsPollSwitch(final String tweetCode);
-
-     /**
-      * Validate Vote IP.
-      * @param ip ip
-      * @param tweetPoll tweetPoll
-      * @return {@link TweetPollSwitch}
-      */
-     TweetPollResult validateVoteIP(final String ip, final TweetPoll tweetPoll);
+     TweetPollSwitch retrieveTweetsPollSwitch(final String tweetCode); 
 
      /**
       * Get Results By {@link TweetPoll} && {@link QuestionAnswer}.

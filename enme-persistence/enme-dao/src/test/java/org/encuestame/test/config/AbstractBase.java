@@ -74,12 +74,8 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
 import org.encuestame.persistence.domain.question.QuestionColettion;
 import org.encuestame.persistence.domain.question.QuestionPreferences;
-import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.Group;
+import org.encuestame.persistence.domain.security.*;
 import org.encuestame.persistence.domain.security.Group.Type;
-import org.encuestame.persistence.domain.security.Permission;
-import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
@@ -491,7 +487,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 			final UserAccount userAccount, final Boolean isHidden,
 			final Boolean isPasswordProtected) {
 		final Poll poll = this.createPoll(new Date(), question, userAccount,
-				Boolean.TRUE, Boolean.TRUE);
+                Boolean.TRUE, Boolean.TRUE);
 		poll.setIsHidden(isHidden);
 		poll.setIsPasswordProtected(isPasswordProtected);
 		poll.setPassword(this.generatePassword());
@@ -606,7 +602,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public PollResult createPollResults(final QuestionAnswer questionAnswer, final Poll poll){
         final PollResult pollRes = new PollResult();
         pollRes.setAnswer(questionAnswer);
-        pollRes.setIpaddress("127.0.0."+RandomStringUtils.random(10));
+        pollRes.setIpaddress("127.0.0." + RandomStringUtils.random(10));
         pollRes.setPoll(poll);
         pollRes.setVotationDate(new Date());
         getPollDao().saveOrUpdate(pollRes);
@@ -658,14 +654,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public UserAccount createUserAccount(
             final String name,
             final Account account){
-        return createUserAccount(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", account);
+        return createUserAccount(name, name.replace(" ", "") + "." + RandomStringUtils.randomNumeric(6) + "@users.com", account);
     }
 
     public UserAccount createSecondaryUserGroup(
             final String name,
             final Account secUser,
             final Group group){
-        return createSecondaryUserGroup(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, group);
+        return createSecondaryUserGroup(name, name.replace(" ", "") + "." + RandomStringUtils.randomNumeric(6) + "@users.com", secUser, group);
     }
 
     public GadgetProperties createGadgetProperties(final String name, final String value,
@@ -1356,7 +1352,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return tweet poll
      */
     public TweetPoll createFastTweetPollVotes(){
-        final UserAccount secondary = createUserAccount("jhon-"+RandomStringUtils.randomAscii(4), createAccount());
+        final UserAccount secondary = createUserAccount("jhon-" + RandomStringUtils.randomAscii(4), createAccount());
         final Question question = createQuestion("who I am?", "");
         final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
         final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "12346");
@@ -1981,10 +1977,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         createQuestion("Do you buy iPods?",  user);
         createQuestion("Do you like sky iPods Touch?",  user);
         createQuestion("Ipad VS Ipad2?",  user);
-        createQuestion("How Often Do You Tweet? Survey Says Not That Often",  user);
-        createQuestion("Is survey usseful on Twitter?",  user);
-        createQuestion("Should be happy?",  user);
-        createQuestion("Are you home alone?",  user);
+        createQuestion("How Often Do You Tweet? Survey Says Not That Often", user);
+        createQuestion("Is survey usseful on Twitter?", user);
+        createQuestion("Should be happy?", user);
+        createQuestion("Are you home alone?", user);
     }
 
     /**
@@ -2455,7 +2451,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * Create poll access rate.
      * @param rate
-     * @param tweetPoll
      * @param ipAddress
      * @return
      */
@@ -2538,13 +2533,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
-    *
-    * @param tpoll
+    *  @param tpoll
     * @param socialAccount
-    * @param provider
-    */
-    public void createTweetPollSavedPublishStatus(final TweetPoll tpoll,
-            final SocialAccount socialAccount, final SocialProvider provider) {
+     * @param provider
+     */
+    public TweetPollSavedPublishedStatus createTweetPollSavedPublishStatus(final TweetPoll tpoll,
+                                                                           final SocialAccount socialAccount, final SocialProvider provider) {
         final String randomTweetContent = RandomStringUtils
                 .randomAlphanumeric(6);
 
@@ -2556,6 +2550,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         tpSaved.setPublicationDateTweet(new Date());
         getTweetPoll().saveOrUpdate(tpSaved);
         assertNotNull(tpSaved);
+        return  tpSaved;
 
     }
 
@@ -2674,4 +2669,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 	public String generatePassword() {
 		return RandomStringUtils.randomAlphanumeric(5);
 	}
+
+    /**
+     *
+     */
+    public void createHelpPageReferences(final String path, final UserAccount user){
+    final HelpPage hpage = new HelpPage();
+        hpage.setPagePath(path);
+        hpage.setUserAccount(user);
+        getAccountDao().saveOrUpdate(hpage);
+    }
 }

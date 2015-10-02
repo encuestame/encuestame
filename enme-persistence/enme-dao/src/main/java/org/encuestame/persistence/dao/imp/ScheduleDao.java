@@ -40,13 +40,19 @@ public class ScheduleDao  extends AbstractHibernateDaoSupport implements ISchedu
         setSessionFactory(sessionFactory);
     }
 
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.persistence.dao.IScheduled#retrieveMinimumScheduledDate(
+	 * org.encuestame.utils.enums.Status)
+	 */
 	@SuppressWarnings("unchecked")
 	public Date retrieveMinimumScheduledDate(final Status status) {
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(Schedule.class);
 		criteria.setProjection(Projections.min("scheduleDate"));
-		List results = getHibernateTemplate().findByCriteria(criteria);
+		List<Schedule> results = (List<Schedule>) getHibernateTemplate().findByCriteria(criteria);
 		return (Date) (results.get(0) == null ? new Date() : results.get(0));
 
 	}
@@ -59,14 +65,14 @@ public class ScheduleDao  extends AbstractHibernateDaoSupport implements ISchedu
 	 * .utils.enums.Status)
 	 */
 	@SuppressWarnings("unchecked")
-	public List retrieveScheduled(final Status status, final Date minimumDate) {
+	public List<Schedule> retrieveScheduled(final Status status, final Date minimumDate) {
 
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(Schedule.class);
 		// Between Minimun date and currently date
 		criteria.add(Restrictions.between("scheduleDate", minimumDate, DateUtil.getCurrentCalendarDate()));
   		criteria.add(Restrictions.eq("status", status));
-		return getHibernateTemplate().findByCriteria(criteria);
+		return (List<Schedule>) getHibernateTemplate().findByCriteria(criteria);
 	}
 
 	/*
@@ -77,13 +83,13 @@ public class ScheduleDao  extends AbstractHibernateDaoSupport implements ISchedu
 	 * .lang.Integer, org.encuestame.utils.enums.Status)
 	 */
 	@SuppressWarnings("unchecked")
-	public List retrieveFailedScheduledItems(final Integer attempts,
+	public List<Schedule> retrieveFailedScheduledItems(final Integer attempts,
 			final Status status) {
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(Schedule.class);
 		criteria.add(Restrictions.or(Restrictions.eq("publishAttempts", attempts),
 				Restrictions.eq("status", status)));
-		return getHibernateTemplate().findByCriteria(criteria);
+		return (List<Schedule>) getHibernateTemplate().findByCriteria(criteria);
 
 	}
 }

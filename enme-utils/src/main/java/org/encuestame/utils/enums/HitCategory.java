@@ -35,10 +35,10 @@ public enum HitCategory {
      * To String.
      */
     public String toString() {
-        String pictureSize = null;
-        if (this == VISIT) { pictureSize = "VISIT"; }
-        else if (this == VOTE) { pictureSize = "VOTE"; }
-        return pictureSize;
+        String hitCategory = "VISIT";
+        if (this == VISIT) { hitCategory = "VISIT"; }
+        else if (this == VOTE) { hitCategory = "VOTE"; }
+        return hitCategory;
     }
     
     /**
@@ -46,10 +46,10 @@ public enum HitCategory {
      * @param type {@link HitCategory}
      * @return
      */
-    public static String getCategory(final HitCategory type) {
+    public static HitCategory getCategory(final String type) {
         if (null == type) { return null; }
-        else if (type.equals(VISIT)) { return "VISIT"; }
-        else if (type.equals(VOTE)) {  return "VOTE";}
+        else if (type.equalsIgnoreCase("VISIT")) { return VISIT; }
+        else if (type.equalsIgnoreCase("VOTE")) {  return VOTE;}
         else return null;
     }
 }

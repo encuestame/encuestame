@@ -69,10 +69,10 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollFolderBySecUser(org.encuestame.persistence.domain.security.UserAccount)
      */
     @SuppressWarnings("unchecked")
-    public List getPollFolderByUserAccount(final UserAccount userAccount){
+    public List<PollFolder> getPollFolderByUserAccount(final UserAccount userAccount){
           final DetachedCriteria criteria = DetachedCriteria.forClass(PollFolder.class);
           criteria.add(Restrictions.eq("createdBy", userAccount));
-          return getHibernateTemplate().findByCriteria(criteria);
+          return (List<PollFolder>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /*
@@ -80,11 +80,11 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollsByPollFolder(org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.survey.PollFolder)
      */
     @SuppressWarnings("unchecked")
-    public List getPollsByPollFolder(final UserAccount userAcc, final PollFolder folder) {
+    public List<Poll> getPollsByPollFolder(final UserAccount userAcc, final PollFolder folder) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("owner.uid", userAcc.getAccount().getUid()));
         criteria.add(Restrictions.eq("pollFolder", folder));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<Poll>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /*
@@ -92,12 +92,12 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollsByPollFolderId(org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.survey.PollFolder)
      */
     @SuppressWarnings("unchecked")
-    public List getPollsByPollFolderId(final UserAccount userId, final PollFolder folder) {
+    public List<Poll> getPollsByPollFolderId(final UserAccount userId, final PollFolder folder) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         //criteria.createAlias("tweetOwner", "tweetOwner");
         criteria.add(Restrictions.eq("owner.uid", userId.getAccount().getUid()));
         criteria.add(Restrictions.eq("pollFolder", folder));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<Poll>) getHibernateTemplate().findByCriteria(criteria);
     }
 
      /*
@@ -175,7 +175,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollsbyHashTagNameAndDateRange(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
-    public List getPollsbyHashTagNameAndDateRange(
+    public List<Poll> getPollsbyHashTagNameAndDateRange(
             final String tagName, final SearchPeriods period) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Poll.class)
@@ -194,7 +194,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.addOrder(Order.desc("poll.createDate"));
         calculateSearchPeriodsDates(period, criteria, "createDate");
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<Poll>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /*
@@ -205,7 +205,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * org.encuestame.utils.enums.SearchPeriods)
      */
     @SuppressWarnings("unchecked")
-    public List getPollsRangeStats(
+    public List<Object[]> getPollsRangeStats(
             final String tagName, final SearchPeriods period) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Poll.class)
@@ -228,9 +228,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         ProjectionList projList = Projections.projectionList();
         projList.add(Projections.groupProperty("createDate"));
         projList.add(Projections.rowCount());
-        criteria.setProjection(projList);
-
-        return getHibernateTemplate().findByCriteria(criteria);
+        criteria.setProjection(projList); 
+        return (List<Object[]>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /*
@@ -244,8 +243,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getPollById(java.lang.Long, java.lang.String, boolean)
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public Poll getPollById(final Long pollId, final String slugQuestion, final boolean encode) {
         final DetachedCriteria detached = DetachedCriteria
         .forClass(Poll.class)
@@ -285,11 +283,11 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#retrievePollResults(org.encuestame.persistence.domain.survey.Poll)
      */
     @SuppressWarnings("unchecked")
-    public List retrievePollResults(final Poll poll) {
+    public List<PollResult> retrievePollResults(final Poll poll) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(PollResult.class);
         criteria.add(Restrictions.eq("poll", poll));
-        return getHibernateTemplate().findByCriteria(criteria);
+        return (List<PollResult>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     /*
@@ -306,7 +304,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         if (period != null) {
             calculateSearchPeriodsDates(period, criteria, "votationDate");
         }
-        List results = getHibernateTemplate().findByCriteria(criteria);
+        @SuppressWarnings("unchecked")
+		List<PollResult> results = (List<PollResult>) getHibernateTemplate().findByCriteria(criteria);
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
 
@@ -408,8 +407,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getPollByIdandUserId(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public Poll getPollById(final Long pollId, UserAccount userAcc) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("editorOwner", userAcc));
@@ -420,8 +418,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getPollFolderByIdandUser(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public PollFolder getPollFolderByIdandUser(final Long pollFolderId, final UserAccount userAcc){
         final DetachedCriteria criteria = DetachedCriteria.forClass(PollFolder.class);
         criteria.add(Restrictions.eq("createdBy", userAcc));
@@ -474,7 +471,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.createAlias("editorOwner", "editorOwner");
         criteria.add(Restrictions.eq("editorOwner.uid", userId));
         criteria.add(Restrictions.between("createDate", dateFrom, dateTo));
-        List results = getHibernateTemplate().findByCriteria(criteria);
+        @SuppressWarnings("unchecked")
+		List<Poll> results = (List<Poll>) getHibernateTemplate().findByCriteria(criteria);
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
 
@@ -565,7 +563,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.setProjection(Projections.rowCount());
         criteria.add(Restrictions.eq("editorOwner", user));
         criteria.add(Restrictions.eq("publish", publishStatus));
-        List results = getHibernateTemplate().findByCriteria(criteria);
+        @SuppressWarnings("unchecked")
+		List<Poll> results = (List<Poll>) getHibernateTemplate().findByCriteria(criteria);
         log.trace("Retrieve total polls by  " + user.getUsername() + "--->"
                 + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
@@ -590,12 +589,11 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#validateVoteIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public Integer validateVoteIP(
             final String ip,
             final Poll poll) {
-        final List total = this.getListvalidateVoteIP(ip, poll);  
+        final List<PollResult> total = this.getListvalidateVoteIP(ip, poll);  
         Long longi =  (Long) (total.get(0) == null ? 0 : total.get(0));
         return longi.intValue();  
     }
@@ -605,8 +603,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getPollbyQuestion(java.lang.Long)
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public Poll getPollbyQuestion(final Long questionId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.createAlias("question", "question");
@@ -620,15 +617,16 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     * @param answerId
     * @return
     */
-   public List retrieveResultPollsbyAnswer(final Long pollId,
+   @SuppressWarnings("unchecked")
+   public List<Object[]> retrieveResultPollsbyAnswer(final Long pollId,
            final Long answerId) {
        final String pollResultsCounter = "select answer.questionAnswerId, answer.answer, answer.color,"
                + "count(poll.pollId) FROM PollResult "
                + "where poll.pollId= :pollId AND answer.questionAnswerId= :answerId "
                + "group by answer.answer, answer.questionAnswerId, answer.color";
-       final List myObject = getHibernateTemplate().findByNamedParam(pollResultsCounter, new String[] {"pollId", "answerId"}, new Long[] {pollId, answerId});
-       return myObject;
-}
+       return (List<Object[]>) getHibernateTemplate().findByNamedParam(pollResultsCounter, new String[] {"pollId", "answerId"}, new Long[] {pollId, answerId});
+        
+   }
 
     /*
      * (non-Javadoc)
@@ -718,8 +716,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#retrievePollByDate(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long, java.util.Date)
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public List<Poll> retrievePollByDate(final PollSearchBean bean, final Long userId, final Date initDate) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.createAlias("owner", "owner");
@@ -741,8 +738,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#retrieveFavouritesPoll(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long)
-     */
-    @SuppressWarnings("unchecked")
+     */ 
     public List<Poll> retrieveFavouritesPoll(final PollSearchBean bean, final Long userId) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.createAlias("owner", "owner");
@@ -753,8 +749,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#retrieveScheduledPoll(org.encuestame.utils.web.search.PollSearchBean, java.lang.Long)
-     */
-   @SuppressWarnings("unchecked")
+     */ 
    public List<Poll> retrieveScheduledPoll(final PollSearchBean bean, final Long userId) {
        final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
        criteria.createAlias("owner", "owner");
@@ -769,6 +764,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     * @param bean
     * @return
     */
+   @SuppressWarnings("unchecked")
    private List<Poll> useAvancedSearch(final DetachedCriteria criteria, final PollSearchBean bean){
        advancedPollSearchOptions(criteria, bean.getIsComplete(), bean.getIsScheduled(), bean.getIsFavourite(),
                 bean.getIsPublished(), bean.getIsHidden(), bean.getIsPasswordProtected(), bean.getKeyword(), bean.getPeriod());

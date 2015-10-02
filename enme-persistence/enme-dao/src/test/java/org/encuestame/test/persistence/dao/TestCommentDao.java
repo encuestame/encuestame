@@ -25,6 +25,7 @@ import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
@@ -70,6 +71,9 @@ public class TestCommentDao extends AbstractBase {
     /** **/
     private DateTime creationDate  = new DateTime();
 
+	/** **/
+	private Survey survey;
+
     @Before
     public void initData(){
         this.user = createUserAccount("isabelle", createAccount());
@@ -77,6 +81,7 @@ public class TestCommentDao extends AbstractBase {
         this.tpoll = createPublishedTweetPoll(user, this.question);
         this.comment = createDefaultTweetPollCommentVoted("I was working", this.tpoll, user, 150L, 985L, new Date());
         this.poll = createDefaultPoll(this.question, this.user);
+		this.survey = createDefaultSurvey(this.user.getAccount());
     }
 
     /**
@@ -144,9 +149,38 @@ public class TestCommentDao extends AbstractBase {
         assertEquals("Should be equals", 2, commentbyTweetPoll.size());
         final Long totalComment = getCommentsOperations()
                 .getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
-                        TypeSearchResult.TWEETPOLL, CommentOptions.ALL, null);
+						TypeSearchResult.TWEETPOLL, CommentOptions.ALL, null);
         assertEquals("Should be equals", 2, totalComment.intValue());
     }
+
+	/**
+	 * Test Retrieve Total Polls Comments.
+	 */
+	@Test
+	public void testGetCommentsbySurvey(){
+		createDefaultSurveyComment("First Anonymous Comment", this.survey, this.user);
+		createDefaultSurveyComment("Second Anonymous Comment", this.survey, this.user);
+		createDefaultSurveyComment("Third Anonymous Comment", this.survey, this.user);
+
+		final Long totalComment = getCommentsOperations()
+				.getTotalCommentsbyItem(this.survey.getSid(),
+						TypeSearchResult.SURVEY, CommentOptions.ALL, null);
+		assertEquals("Should be equals", 3, totalComment.intValue());
+	}
+
+	/**
+	 * Test Retrieve Total Polls Comments.
+	 */
+	@Test
+	public void testGetCommentsbyPoll(){
+		createDefaultPollComment("First Anonymous Comment", this.poll, this.user);
+		createDefaultPollComment("Second Anonymous Comment", this.poll, this.user);
+
+		final Long totalComment = getCommentsOperations()
+				.getTotalCommentsbyItem(this.poll.getPollId(),
+						TypeSearchResult.POLL, CommentOptions.ALL, null);
+		assertEquals("Should be equals", 2, totalComment.intValue());
+	}
 
     /**
      *
@@ -415,4 +449,75 @@ public class TestCommentDao extends AbstractBase {
 		//assertEquals("Should be equals", 1, approvedComments.size());
     }
 
+	/**
+	 * Test Retrieve Poll Comments with Approved Status.
+	 */
+	@Test
+	public void testRetrievePollApprovedComments(){
+		// Today
+		createDefaultPollCommentWithStatus("Third comment", this.poll,
+				this.user, CommentOptions.APPROVE, this.creationDate.toDate());
+		// Last week
+		this.creationDate.minusDays(2);
+		createDefaultPollCommentWithStatus("Second comment", this.poll,
+				this.user, CommentOptions.APPROVE, this.creationDate.minusDays(2).toDate());
+
+
+		final List<Comment> approvedComments = getCommentsOperations()
+				.getCommentsbyTypeAndStatus(this.poll.getPollId(),
+						TypeSearchResult.POLL, 10, 0,
+						CommentOptions.APPROVE, SearchPeriods.SEVENDAYS);
+
+		assertEquals("Should be equals", 2, approvedComments.size());
+
+		final List<Comment> approvedCommentsToday = getCommentsOperations()
+				.getCommentsbyTypeAndStatus(this.poll.getPollId(),
+						TypeSearchResult.POLL, 10, 0,
+						CommentOptions.APPROVE, SearchPeriods.TWENTYFOURHOURS);
+		assertEquals("Should be equals today", 1, approvedCommentsToday.size());
+	}
+
+	/**
+	 * Retrieve Survey Comments
+	 */
+	@Test
+	public void testRetrieveSurveyApprovedComments(){
+		// Today
+		createDefaultSurveyCommentWithStatus("Third comment", this.survey,
+				this.user, CommentOptions.APPROVE, this.creationDate.toDate());
+
+		createDefaultSurveyCommentWithStatus("Fourth comment", this.survey,
+				this.user, CommentOptions.APPROVE, this.creationDate.toDate());
+
+		// Last week
+		this.creationDate.minusDays(2);
+		createDefaultSurveyCommentWithStatus("Second comment", this.survey,
+				this.user, CommentOptions.APPROVE, this.creationDate.minusDays(2).toDate());
+
+
+		final List<Comment> approvedComments = getCommentsOperations()
+				.getCommentsbyTypeAndStatus(this.survey.getSid(),
+						TypeSearchResult.SURVEY, 10, 0,
+						CommentOptions.APPROVE, SearchPeriods.SEVENDAYS);
+
+		assertEquals("Should be equals", 3, approvedComments.size());
+
+		final List<Comment> approvedCommentsToday = getCommentsOperations()
+				.getCommentsbyTypeAndStatus(this.survey.getSid(),
+						TypeSearchResult.SURVEY, 10, 0,
+						CommentOptions.APPROVE, SearchPeriods.TWENTYFOURHOURS);
+		assertEquals("Should be equals today", 2, approvedCommentsToday.size());
+	}
+
+	/**
+	 * Test Retrieve List Polls Comments.
+	 */
+	@Test
+	public void testRetrieveCommentsByPoll(){
+		createDefaultPollComment("First anonymous comment", this.poll, this.user);
+		createDefaultPollComment("Second anonymous comment", this.poll, this.user);
+		createDefaultPollComment("Third anonymous comment", this.poll, this.user);
+		final List<Comment> pollComments = getCommentsOperations().getCommentsbPoll(this.poll, 10, 0);
+		assertEquals("Should be equals today", 3, pollComments.size());
+	}
 }

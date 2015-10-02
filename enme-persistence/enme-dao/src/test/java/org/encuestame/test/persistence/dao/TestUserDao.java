@@ -22,11 +22,7 @@ import java.util.List;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.Group;
-import org.encuestame.persistence.domain.security.Permission;
-import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.security.*;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
@@ -480,5 +476,17 @@ public class TestUserDao extends AbstractBase {
         final List<UserAccount> userAccountList = getAccountDao()
                 .getUserAccounts(Boolean.TRUE);
         assertEquals("Should be equals", 2, userAccountList.size());
+    }
+
+    /**
+     * Retrieve the Help guide path.
+     */
+    public void testGetHelpReference(){
+        createHelpPageReferences("/user/twetpoll", this.userAccount);
+        createHelpPageReferences("/user/poll", this.userAccount);
+        createHelpPageReferences("/user/survey", this.userAccount);
+        createHelpPageReferences("/user/settings", this.userAccount);
+        createHelpPageReferences("/user/notifications", this.userAccount);
+        final List<HelpPage> pages = getAccountDao().getHelpReference("/user/twetpoll", this.userAccount);
     }
 }

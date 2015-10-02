@@ -12,14 +12,12 @@
  */
 package org.encuestame.persistence.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPreferences;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.HibernateException;
 
