@@ -40,13 +40,13 @@ public class TestUtilsEnums extends TestCase{
         assertEquals("Should be equals", "MODERATE", optModerate.toString());
 
         final CommentOptions optPublished = CommentOptions.getCommentOption("PUBLISHED");
-        assertEquals("Should be equals", "PUBLISHED", optModerate.toString());
+        assertEquals("Should be equals", "PUBLISHED", optPublished.toString());
 
         final CommentOptions optSpam = CommentOptions.getCommentOption("SPAM");
-        assertEquals("Should be equals", "SPAM", optModerate.toString());
+        assertEquals("Should be equals", "SPAM", optSpam.toString());
 
         final CommentOptions optAll = CommentOptions.getCommentOption("ALL");
-        assertEquals("Should be equals", "ALL", optModerate.toString());
+        assertEquals("Should be equals", "ALL", optAll.toString());
     }
 
     /**
@@ -150,19 +150,19 @@ public class TestUtilsEnums extends TestCase{
          assertEquals("Should be equals", "HASHTAG", hashTagOption.toString());
 
         final TypeSearchResult hashTagRatedOption = TypeSearchResult.getTypeSearchResult("HASHTAGRATED");
-        assertEquals("Should be equals", "HASHTAGRATED", hashTagOption.toString());
+        assertEquals("Should be equals", "HASHTAGRATED", hashTagRatedOption.toString());
 
         final TypeSearchResult socialNetworkOption = TypeSearchResult.getTypeSearchResult("SOCIALNETWORK");
-        assertEquals("Should be equals", "SOCIALNETWORK", hashTagOption.toString());
+        assertEquals("Should be equals", "SOCIALNETWORK", socialNetworkOption.toString());
 
         final TypeSearchResult hitsOption = TypeSearchResult.getTypeSearchResult("HITS");
-        assertEquals("Should be equals", "HITS", hashTagOption.toString());
+        assertEquals("Should be equals", "HITS", hitsOption.toString());
 
         final TypeSearchResult votesOption = TypeSearchResult.getTypeSearchResult("VOTES");
-        assertEquals("Should be equals", "VOTES", hashTagOption.toString());
+        assertEquals("Should be equals", "VOTES", votesOption.toString());
 
         final TypeSearchResult allOption = TypeSearchResult.getTypeSearchResult("ALL");
-        assertEquals("Should be equals", "ALL", hashTagOption.toString());
+        assertEquals("Should be equals", "ALL", allOption.toString());
     }
 
     /**
@@ -229,7 +229,7 @@ public class TestUtilsEnums extends TestCase{
         assertEquals("Should be equals", "365", oneYearTimeOpt.toString());
 
         final SearchPeriods yearsTimeOpt = SearchPeriods.getPeriodString("1095");
-        assertEquals("Should be equals", "1095", yearsTimeOpt.toString());
+        assertEquals("Should be equals", "all", yearsTimeOpt.toString());
 
         final SearchPeriods todayOpt = SearchPeriods.TWENTYFOURHOURS;
         assertEquals("Should be equals", "24", todayOpt.toNumber().toString());
@@ -271,10 +271,10 @@ public class TestUtilsEnums extends TestCase{
         assertEquals("Should be equals", "completeName", realNameOpt.toString());
 
         final Profile welcomeeOpt = Profile.findProfile("WELCOME");
-        assertEquals("Should be equals", "welcome", realNameOpt.toString());
+        assertEquals("Should be equals", "welcome", welcomeeOpt.toString());
 
         final Profile infoOpt = Profile.findProfile("PAGE_INFO");
-        assertEquals("Should be equals", "page_info", realNameOpt.toString());
+        assertEquals("Should be equals", "page_info", infoOpt.toString());
     }
 
     /**
@@ -437,62 +437,61 @@ public class TestUtilsEnums extends TestCase{
         assertEquals("Month Label should be equals", "JANUARY" , label1.toString());
 
         final HashTagRate label2 = HashTagRate.getHashTagMonthLabel("2");
-        assertEquals("Month Label should be equals", "FEBRUARY" , label1.toString());
+        assertEquals("Month Label should be equals", "FEBRUARY" , label2.toString());
 
         final HashTagRate label3 = HashTagRate.getHashTagMonthLabel("3");
-        assertEquals("Month Label should be equals", "MARCH" , label1.toString());
+        assertEquals("Month Label should be equals", "MARCH" , label3.toString());
 
         final HashTagRate label4 = HashTagRate.getHashTagMonthLabel("4");
-        assertEquals("Month Label should be equals", "APRIL" , label1.toString());
+        assertEquals("Month Label should be equals", "APRIL" , label4.toString());
 
         final HashTagRate label5 = HashTagRate.getHashTagMonthLabel("5");
-        assertEquals("Month Label should be equals", "MAY" , label1.toString());
+        assertEquals("Month Label should be equals", "MAY" , label5.toString());
 
         final HashTagRate label6 = HashTagRate.getHashTagMonthLabel("6");
-        assertEquals("Month Label should be equals", "JUNE" , label1.toString());
+        assertEquals("Month Label should be equals", "JUNE" , label6.toString());
 
         final HashTagRate label7 = HashTagRate.getHashTagMonthLabel("7");
-        assertEquals("Month Label should be equals", "JULY" , label1.toString());
+        assertEquals("Month Label should be equals", "JULY" , label7.toString());
 
         final HashTagRate label8 = HashTagRate.getHashTagMonthLabel("8");
-        assertEquals("Month Label should be equals", "AUGUST" , label1.toString());
+        assertEquals("Month Label should be equals", "AUGUST" , label8.toString());
 
         final HashTagRate label9 = HashTagRate.getHashTagMonthLabel("9");
-        assertEquals("Month Label should be equals", "SEPTEMBER" , label1.toString());
+        assertEquals("Month Label should be equals", "SEPTEMBER" , label9.toString());
 
         final HashTagRate label10 = HashTagRate.getHashTagMonthLabel("10");
-        assertEquals("Month Label should be equals", "OCTOBER" , label1.toString());
+        assertEquals("Month Label should be equals", "OCTOBER" , label10.toString());
 
         final HashTagRate label11 = HashTagRate.getHashTagMonthLabel("11");
-        assertEquals("Month Label should be equals", "NOVEMBER" , label1.toString());
+        assertEquals("Month Label should be equals", "NOVEMBER" , label11.toString());
 
         final HashTagRate label12 = HashTagRate.getHashTagMonthLabel("12");
-        assertEquals("Month Label should be equals", "DECEMBER" , label1.toString());
+        assertEquals("Month Label should be equals", "DECEMBER" , label12.toString());
 
 
-        final HashTagRate lblWeek1 = HashTagRate.getHashTagMonthLabel("2");
-        assertEquals("Week Label should be equals", "MONDAY" , label1.toString());
+        final HashTagRate lblWeek1 = HashTagRate.getHashTagWeekDayLabel("1");
+        assertEquals("Week Label should be equals", "MONDAY" , lblWeek1.toString());
 
 
-        final HashTagRate lblWeek2 = HashTagRate.getHashTagMonthLabel("3");
-        assertEquals("Week Label should be equals", "TUESDAY" , label1.toString());
+        final HashTagRate lblWeek2 = HashTagRate.getHashTagWeekDayLabel("2");
+        assertEquals("Week Label should be equals", "TUESDAY" , lblWeek2.toString());
 
 
-        final HashTagRate lblWeek3 = HashTagRate.getHashTagMonthLabel("4");
-        assertEquals("Week Label should be equals", "WEDNESDAY" , label1.toString());
+        final HashTagRate lblWeek3 = HashTagRate.getHashTagWeekDayLabel("3");
+        assertEquals("Week Label should be equals", "WEDNESDAY" , lblWeek3.toString());
 
-        final HashTagRate lblWeek4 = HashTagRate.getHashTagWeekDayLabel("1");
-        assertEquals("Week Label should be equals", "THURSDAY", label1.toString());
+        final HashTagRate lblWeek4 = HashTagRate.getHashTagWeekDayLabel("4");
+        assertEquals("Week Label should be equals", "THURSDAY", lblWeek4.toString());
 
-        final HashTagRate lblWeek5 = HashTagRate.getHashTagMonthLabel("5");
-        assertEquals("Week Label should be equals", "FRIDAY" , label1.toString());
+        final HashTagRate lblWeek5 = HashTagRate.getHashTagWeekDayLabel("5");
+        assertEquals("Week Label should be equals", "FRIDAY" , lblWeek5.toString());
 
-        final HashTagRate lblWeek6 = HashTagRate.getHashTagMonthLabel("6");
-        assertEquals("Week Label should be equals", "SATURDAY" , label1.toString());
+        final HashTagRate lblWeek6 = HashTagRate.getHashTagWeekDayLabel("6");
+        assertEquals("Week Label should be equals", "SATURDAY" , lblWeek6.toString());
 
-
-        final HashTagRate lblWeek7 = HashTagRate.getHashTagMonthLabel("7");
-        assertEquals("Week Label should be equals", "SUNDAY" , label1.toString());
+        final HashTagRate lblWeek7 = HashTagRate.getHashTagWeekDayLabel("7");
+        assertEquals("Week Label should be equals", "SUNDAY" , lblWeek7.toString());
     }
 
     /**
