@@ -204,8 +204,9 @@
         <module>enme-utils</module>
         <module>enme-persistence</module>
         <module>enme-core</module>
-        <!--<module>enme-social</module>-->
-        <!--<module>enme-oauth</module>-->
+        <module>enme-oauth</module>
+        <module>enme-social</module>
+
         <!--<module>enme-business</module>-->
         <!---->
         <!--<module>enme-mvc</module>-->
@@ -818,7 +819,7 @@
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-oauth</artifactId>
+                <artifactId>oauth</artifactId>
                 <version>${encuestame.version}</version>
                 <type>jar</type>
                 <scope>compile</scope>
@@ -1104,11 +1105,6 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-core</artifactId>
-                <version>${spring.security.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-config</artifactId>
                 <version>${spring.security.version}</version>
             </dependency>
             <dependency>

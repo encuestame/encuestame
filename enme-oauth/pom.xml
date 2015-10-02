@@ -6,22 +6,18 @@
         <artifactId>encuestame</artifactId>
         <version>1.5.4-SNAPSHOT</version>
     </parent>
-    <artifactId>encuestame-oauth</artifactId>
+    <artifactId>oauth</artifactId>
     <packaging>jar</packaging>
-    <name>Encuestame OAuth1, OAuth2</name>
+    <name>Encuestame OAuth1, OAuth2 Consumers</name>
     <dependencies>      
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-core</artifactId>
+            <artifactId>core</artifactId>
         </dependency>                     
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>       
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>${servlet-api-artifact}</artifactId>
-        </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
@@ -33,7 +29,11 @@
         <dependency>
             <groupId>org.twitter4j</groupId>
             <artifactId>twitter4j-core</artifactId>
-        </dependency>               
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>${servlet-api-artifact}</artifactId>
+        </dependency>
         <!-- Spring Framework Dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -69,11 +69,5 @@
             </resource>
         </resources>
     </build>
- <!--    <repositories>
-        <repository>
-            <id>local-project-repo</id>
-            <url>file:${basedir}/../lib/repository</url>
-        </repository>
-    </repositories> -->
 </project>
 
