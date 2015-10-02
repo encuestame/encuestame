@@ -1054,19 +1054,6 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>aouth-web</artifactId>
                 <version>${spring.security.version}</version>
-                <exclusions>
-                    <!-- Exclude Commons Logging in favor of SLF4j -->
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                    <!-- Not required, since we don't use method-level security with pointcut
-                        expressions -->
-                    <exclusion>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <dependency>
@@ -1117,6 +1104,11 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-core</artifactId>
+                <version>${spring.security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
                 <version>${spring.security.version}</version>
             </dependency>
             <dependency>

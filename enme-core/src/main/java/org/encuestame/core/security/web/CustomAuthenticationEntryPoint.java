@@ -42,7 +42,7 @@ public class CustomAuthenticationEntryPoint extends LoginUrlAuthenticationEntryP
     private static final Log logger = LogFactory.getLog(CustomAuthenticationEntryPoint.class);
 
     /**
-     * 
+     *
      * @param loginFormUrl
      * @param redirectStrategy
      */

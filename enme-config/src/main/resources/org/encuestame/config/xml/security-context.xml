@@ -13,41 +13,40 @@
                                      jsr250-annotations="enabled" />
 
     <!-- Authentication Manager -->
-    <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider
-            ref="socialAccountProvider" />
-        <security:authentication-provider
-            ref="enMeUserAccountProvider" />
-        <security:authentication-provider
-             user-service-ref="enMeAuthenticationUserService">
-            <security:password-encoder ref="passwordEncoder" />
-        </security:authentication-provider>
-    </security:authentication-manager>
+    <!--<security:authentication-manager alias="authenticationManager">-->
+        <!--<security:authentication-provider-->
+            <!--ref="socialAccountProvider" />-->
+        <!--<security:authentication-provider-->
+            <!--ref="enMeUserAccountProvider" />-->
+        <!--<security:authentication-provider user-service-ref="enMeAuthenticationUserService">-->
+        <!--<security:password-encoder ref="passwordEncoder" />-->
+        <!--</security:authentication-provider>-->
+    <!--</security:authentication-manager>-->
 
     <!-- Custom authentication providers -->
-    <bean id="enmeprovider" class="org.encuestame.core.security.EnMeUsernameProvider" autowire="byName"  />
-    <bean id="socialAccountProvider"
-        class="org.encuestame.core.security.SocialAccountAuthenticationProvider"  autowire="byName" />
-    <bean id="enMeUserAccountProvider"
-        class="org.encuestame.core.security.EnMeUserAccountProvider"  autowire="byName" />
+    <!--<bean id="enmeprovider" class="org.encuestame.core.security.EnMeUsernameProvider" autowire="byName"  />-->
+    <!--<bean id="socialAccountProvider"-->
+        <!--class="org.encuestame.core.security.SocialAccountAuthenticationProvider"  autowire="byName" />-->
+    <!--<bean id="enMeUserAccountProvider"-->
+        <!--class="org.encuestame.core.security.EnMeUserAccountProvider"  autowire="byName" />-->
 
     <!-- User Services -->
-    <bean id="enMeAuthenticationUserService" class="org.encuestame.core.security.service.EnMeUserServiceImp"
-          autowire="byName">
-        <property name="roleGroupAuth" value="${spring.sec.roleByGroup}" />
-        <property name="roleUserAuth" value="${spring.sec.roleByAuthor}" />
-    </bean>
-    <bean id="enMeAuthenticationSocialUserService"
-        class="org.encuestame.core.security.service.EnMeSocialAccountUserService" autowire="byName" />
+    <!--<bean id="enMeAuthenticationUserService" class="org.encuestame.core.security.service.EnMeUserServiceImp"-->
+          <!--autowire="byName">-->
+        <!--<property name="roleGroupAuth" value="${spring.sec.roleByGroup}" />-->
+        <!--<property name="roleUserAuth" value="${spring.sec.roleByAuthor}" />-->
+    <!--</bean>-->
+    <!--<bean id="enMeAuthenticationSocialUserService"-->
+        <!--class="org.encuestame.core.security.service.EnMeSocialAccountUserService" autowire="byName" />-->
 
 
     <!-- Password Encoders -->
-    <bean id="passwordEncoder" class="org.jasypt.spring.security3.PasswordEncoder">
-        <property name="passwordEncryptor">
-            <ref bean="jasyptPasswordEncryptor" />
-        </property>
-    </bean>
-    <bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
+    <!--<bean id="passwordEncoder" class="org.jasypt.spring.security3.PasswordEncoder">-->
+        <!--<property name="passwordEncryptor">-->
+            <!--<ref bean="jasyptPasswordEncryptor" />-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />-->
 
     <!-- General Configuration -->
     <security:http
@@ -81,7 +80,6 @@
         <security:intercept-url pattern="/user/signup/create" access="permitAll" />
         <security:intercept-url pattern="/user/confirm/**" access="permitAll" />
         <security:intercept-url pattern="/user/forgot/**" access="permitAll" />
-        <security:intercept-url pattern="/activity/**" access="permitAll"  />
         <security:intercept-url pattern="/user/welcome" access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/user/logout" access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/admon/**/*"  access="hasRole('ENCUESTAME_OWNER')" />        

@@ -36,6 +36,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class EnMeUserServiceImp implements UserDetailsService {
 
     /**
+     *
+     * @param roleGroupAuth
+     * @param roleUserAuth
+     */
+    public EnMeUserServiceImp(Boolean roleGroupAuth, Boolean roleUserAuth) {
+        this.roleGroupAuth = roleGroupAuth;
+        this.roleUserAuth = roleUserAuth;
+    }
+
+    /**
      * {@link AccountDaoImp}.
      */
     @Autowired
