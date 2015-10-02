@@ -17,7 +17,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.oauth2.support.ProtectedResourceClientFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.social.AbstractSocialAPISupport;

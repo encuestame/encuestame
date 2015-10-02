@@ -6,7 +6,7 @@
         <artifactId>encuestame</artifactId>
         <version>1.5.4-SNAPSHOT</version>
     </parent>
-    <artifactId>encuestame-business</artifactId>
+    <artifactId>business</artifactId>
     <version>1.5.4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Encuestame Business</name>
@@ -52,7 +52,7 @@
         <!--</dependency>-->
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>enme-dao</artifactId>
+            <artifactId>dao</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
@@ -68,21 +68,21 @@
         <!--</dependency>-->
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-core</artifactId>
+            <artifactId>core</artifactId>
         </dependency>
         <dependency> <!-- reuse src/test/java code from encuestame-core! -->
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-core</artifactId>
+            <artifactId>core</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-social</artifactId>
+            <artifactId>social</artifactId>
         </dependency>
         <dependency> <!-- reuse src/test/java code from encuestame-core! -->
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-social</artifactId>
+            <artifactId>social</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
@@ -331,15 +331,23 @@
         </dependency>
         <dependency>
             <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-highlighter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-fast-vector-highlighter</artifactId>
+            <artifactId>lucene-queries</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-spellchecker</artifactId>
+            <artifactId>lucene-queryparser</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

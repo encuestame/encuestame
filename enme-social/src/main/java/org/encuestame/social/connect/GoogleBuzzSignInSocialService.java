@@ -12,7 +12,7 @@
  */
 package org.encuestame.social.connect;
 
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.social.api.templates.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.operation.GoogleContactsAPIOperations;
 import org.encuestame.social.connect.service.ConnectOperations;
