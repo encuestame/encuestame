@@ -1,4 +1,4 @@
-define([
+define( [
  "dojo/_base/declare",
  "dijit/_WidgetBase",
  "dijit/_TemplatedMixin",
@@ -19,53 +19,54 @@ function(
         hashTagInfo,
         toggleMenu,
         _ENME,
-         template) {
-    return declare([ _WidgetBase, _TemplatedMixin, main_widget, toggleMenu, _WidgetsInTemplateMixin], {
+         template ) {
+    return declare( [ _WidgetBase, _TemplatedMixin, main_widget, toggleMenu, _WidgetsInTemplateMixin ], {
 
-  // template string.
-    templateString : template,
+  // Template string.
+    templateString: template,
 
     /*
-    * the complete username
+    * The complete username
     */
-   completeName : "",
+   completeName: "",
 
    /*
-    * the logged username
+    * The logged username
     */
-   username : "",
+   username: "",
 
    /*
-    * class to replace on toggle event is triggered
+    * Class to replace on toggle event is triggered
     */
-   _classReplace : "profileOpenPanel",
+   _classReplace: "profileOpenPanel",
 
    /*
-    * post create life cycle.
+    * Post create life cycle.
     */
-  postCreate : function() {
-      // add the menus, find the nodes before render the template
+  postCreate: function() {
+
+      // Add the menus, find the nodes before render the template
       // to create all menu nodes.
       var append_node = this._nodes;
-      dojo.query("div.profile-menu", this.srcNodeRef).forEach(
-              dojo.hitch(this, function(node) {
-                 var li = dojo.create('li'),
-                 a = dojo.create('a'),
-                 url = node.getAttribute('data-url'),
+      dojo.query("div.profile-menu", this.srcNodeRef ).forEach(
+              dojo.hitch( this, function( node ) {
+                 var li = dojo.create( "li" ),
+                 a = dojo.create( "a" ),
+                 url = node.getAttribute( "data-url" ),
                  label = node.innerHTML;
                  a.href = url;
                  a.innerHTML = label;
-                 a.id = "profile-menu-"+label;
-                 li.appendChild(a);
-                 append_node.appendChild(li);
+                 a.id = "profile-menu-" + label;
+                 li.appendChild( a );
+                 append_node.appendChild( li );
               })
        );
-    //set the toggle menu support
-      this.addMenuSupport(this._image);
-      this.addMenuSupport(this._name);
+
+    //Set the toggle menu support
+      this.addMenuSupport( this._image );
+      this.addMenuSupport( this._name );
 
   }
-
 
     });
 });

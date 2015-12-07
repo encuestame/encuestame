@@ -21,7 +21,7 @@
  *  @namespace Widgets
  *  @class TweetPoll
  */
-define([
+define( [
  "dojo",
  "me/third-party/moment",
  "dojo/on",
@@ -105,28 +105,28 @@ function(
         hash,
         ioQuery,
         registry,
-        template) {
-    return declare([
+        template ) {
+    return declare( [
         _WidgetBase,
         _TemplatedMixin,
         main_widget,
         TweetPollCore,
         ContextSupport,
-        _WidgetsInTemplateMixin], {
+        _WidgetsInTemplateMixin ], {
 
-    // template string.
-    templateString : template,
+    // Template string.
+    templateString: template,
 
     /**
      * @private
      * @param _started manage the
      */
-    _started : false,
+    _started: false,
 
     /**
      * Define the context
      */
-    context : "tweetpoll",
+    context: "tweetpoll",
 
     /***
      * @param hashTagWidget hashtag widgets
@@ -136,87 +136,87 @@ function(
     /**
      * @param answer widget reference.
      */
-    answerWidget : null,
+    answerWidget: null,
 
     /**
      * @param question widget.
      */
-    questionWidget : null,
+    questionWidget: null,
 
     /**
      * @param preview widget.
      */
-    previeWidget : null,
+    previeWidget: null,
 
     /**
      * @param the fixed preview appear on the top of the page.
      */
-    previewFixedWiget : null,
+    previewFixedWiget: null,
 
     /**
      * @param social widget.
      */
-    socialWidget : null,
+    socialWidget: null,
 
     /**
      * @param the publish dialog to alocate the publish widget.
      */
-    dialogWidget : null,
+    dialogWidget: null,
 
     /**
-     * schedule widget.
+     * Schedule widget.
      */
-    scheduleWidget : null,
-
-    /**
-     *
-     */
-    scheduledDateWidget  : null,
+    scheduleWidget: null,
 
     /**
      *
      */
-    scheduledTimeWidget  : null,
+    scheduledDateWidget: null,
 
     /**
      *
      */
-    captchaWidget : null,
+    scheduledTimeWidget: null,
+
+    /**
+     *
+     */
+    captchaWidget: null,
 
     /**
      * Limit Votes
      */
-    limitVotesWidget  : null,
+    limitVotesWidget: null,
 
     /**
      *
      */
-    limitNumbersWidget  : null,
+    limitNumbersWidget: null,
 
     /**
      * Allow Repeated Votes.
      */
-    ipWidget  : null,
+    ipWidget: null,
 
     /**
      *
      */
-    repeatedNumbersWidget  : null,
+    repeatedNumbersWidget: null,
 
     /**
-     * report widget.
+     * Report widget.
      */
-    resumeWidget  : null,
+    resumeWidget: null,
 
     /**
      *
      */
-    _isValidMessage : null,
+    _isValidMessage: null,
 
     /**
-     * dashboard widget.
+     * Dashboard widget.
      */
-    dashboardWidget  : null,
+    dashboardWidget: null,
 
     /**
      *
@@ -226,117 +226,117 @@ function(
     /**
      *
      */
-    _questionTextLastSucessMessage : "",
+    _questionTextLastSucessMessage: "",
 
     /**
-     * every 5 minutes.
+     * Every 5 minutes.
      */
     delay: 300000,
 
     /**
      * Scroll flag
      */
-    _scroll : true,
+    _scroll: true,
 
     /**
      * Disable unload on close window
       */
-    forceClose : false,
+    forceClose: false,
 
     /**
      * The key to store / restore the last tweetpoll.
      * @property
      */
-    _tp_storage_key : "tp_new",
+    _tp_storage_key: "tp_new",
 
    /**
-    * i18n Message.
+    * I18n Message.
     */
-   i18nMessage : {
-     question : _ENME.getMessage("tp_write_questions"),
-     answer : _ENME.getMessage("tp_add_answer"),
-     hashtag : _ENME.getMessage("tp_add_hashtag"),
-     options : _ENME.getMessage("tp_customize"),
-     button_scheduled : _ENME.getMessage("button_scheduled"),
-     squeduled : _ENME.getMessage("tp_scheduled"),
-     squeduled_tp : _ENME.getMessage("tp_options_scheduled_this_tweetpoll"),
-     chart_features : _ENME.getMessage("tp_options_chart"),
-     allow_live_results : _ENME.getMessage("tp_options_resume_live_results"),
-     anti_spam : _ENME.getMessage("tp_options_spam"),
-     limit_votes : _ENME.getMessage("tp_options_limit_votes"),
-     repeated_votes : _ENME.getMessage("tp_options_allow_repeated_votes"),
-     resume_live_results : _ENME.getMessage("tp_options_resume_live_results"),
-     captcha : _ENME.getMessage("commons_captcha"),
-     tp_options_report : _ENME.getMessage("tp_options_report"),
-     follow_dashboard : _ENME.getMessage("tp_options_follow_dashboard"),
-     button_publish : _ENME.getMessage("button_publish"),
-     tp_select_publish : _ENME.getMessage("tp_select_publish"),
-     leave_mesage : _ENME.getMessage("leave_mesage"),
-     commons_tab_to_save : _ENME.getMessage("commons_tab_to_save")
+   i18nMessage: {
+     question: _ENME.getMessage("tp_write_questions"),
+     answer: _ENME.getMessage("tp_add_answer"),
+     hashtag: _ENME.getMessage("tp_add_hashtag"),
+     options: _ENME.getMessage("tp_customize"),
+     button_scheduled: _ENME.getMessage("button_scheduled"),
+     squeduled: _ENME.getMessage("tp_scheduled"),
+     squeduled_tp: _ENME.getMessage("tp_options_scheduled_this_tweetpoll"),
+     chart_features: _ENME.getMessage("tp_options_chart"),
+     allow_live_results: _ENME.getMessage("tp_options_resume_live_results"),
+     anti_spam: _ENME.getMessage("tp_options_spam"),
+     limit_votes: _ENME.getMessage("tp_options_limit_votes"),
+     repeated_votes: _ENME.getMessage("tp_options_allow_repeated_votes"),
+     resume_live_results: _ENME.getMessage("tp_options_resume_live_results"),
+     captcha: _ENME.getMessage("commons_captcha"),
+     tp_options_report: _ENME.getMessage("tp_options_report"),
+     follow_dashboard: _ENME.getMessage("tp_options_follow_dashboard"),
+     button_publish: _ENME.getMessage("button_publish"),
+     tp_select_publish: _ENME.getMessage("tp_select_publish"),
+     leave_mesage: _ENME.getMessage("leave_mesage"),
+     commons_tab_to_save: _ENME.getMessage("commons_tab_to_save")
    },
 
-    helpSteps : [
+    helpSteps: [
         {
-            element: '.tp-help',
-            intro: _ENME.getMessage('help_tp_quick_help')
+            element: ".tp-help",
+            intro: _ENME.getMessage( "help_tp_quick_help" )
         },
         {
-            element: '.help-option',
-            intro: _ENME.getMessage('help_tp_hide_help')
+            element: ".help-option",
+            intro: _ENME.getMessage( "help_tp_hide_help" )
         },
         {
-            element: '.web-tweetpoll-preview-top',
-            intro: _ENME.getMessage('help_tp_counter_characters')
+            element: ".web-tweetpoll-preview-top",
+            intro: _ENME.getMessage( "help_tp_counter_characters" )
         },
         {
-            element: '.web-tweetpoll-preview-top  .tp-counter',
-            intro: _ENME.getMessage('help_tp_counter_available')
+            element: ".web-tweetpoll-preview-top  .tp-counter",
+            intro: _ENME.getMessage( "help_tp_counter_available" )
         },
         {
-            element: '.tweetThis',
-            intro: _ENME.getMessage('help_tp_question_text')
+            element: ".tweetThis",
+            intro: _ENME.getMessage( "help_tp_question_text" )
         },
         {
-            element: '.cancel-button > .dijitButton',
-            intro: _ENME.getMessage('help_tp_new_cancel_button')
+            element: ".cancel-button > .dijitButton",
+            intro: _ENME.getMessage( "help_tp_new_cancel_button" )
         }
     ],
 
     /***
      * Stored save tweetPoll.
      **/
-    tweetPoll : {
-       tweetPollId : null,
-       started : false,
+    tweetPoll: {
+       tweetPollId: null,
+       started: false,
        question: {},
-       scheduled : false,
-       scheduledTime : null,
-       scheduledDate : null,
+       scheduled: false,
+       scheduledTime: null,
+       scheduledDate: null,
        liveResults: false,
-       captcha : false,
+       captcha: false,
        limitVotes: false,
-       maxLimitVotes : 100,
-       repeatedVotes : false,
-       maxRepeatedVotes : 2,
-       resumeLiveResults : false,
-       followDashBoard : false
+       maxLimitVotes: 100,
+       repeatedVotes: false,
+       maxRepeatedVotes: 2,
+       resumeLiveResults: false,
+       followDashBoard: false
     },
 
     /**
-     * enable or disable autosave.
+     * Enable or disable autosave.
      */
-    autosave : true,
+    autosave: true,
 
     /**
      * Save the status if is saving.
      * @property _is_saving
      */
-    _is_saving : false,
+    _is_saving: false,
 
     /**
-     * tweet poll publish widget reference.
+     * Tweet poll publish widget reference.
      */
-    tweetPollPublishWidget : null,
+    tweetPollPublishWidget: null,
 
     /**
      * Help Widget.
@@ -347,20 +347,21 @@ function(
     /**
      * Return the help status.
      */
-    getHelpStatus : function () {
-        //return _ENME.getBoolean(_ENME.restoreItem("tp-help", true) || true);
-        return true; //always we must show the help
+    getHelpStatus: function() {
+
+        //Return _ENME.getBoolean(_ENME.restoreItem("tp-help", true) || true);
+        return true; //Always we must show the help
     },
 
     /**
-     * post create.
+     * Post create.
      */
     postCreate: function() {
         var r = _ENME.FORMAT_TIME.timeFormat;
         var _help_status = this.getHelpStatus();
         this.helpWidget = new HelpContext({
-                status : _help_status,
-                list_messages : [
+                status: _help_status,
+                list_messages: [
                     _ENME.getMessage("tp_help_1"),
                     _ENME.getMessage("tp_help_2"),
                     _ENME.getMessage("tp_help_3"),
@@ -368,15 +369,15 @@ function(
                 ]
         });
 
-        if (this._help) {
-            domConstruct.empty(this._help);
-            domConstruct.place( this.helpWidget.domNode, this._help);
+        if ( this._help ) {
+            domConstruct.empty( this._help );
+            domConstruct.place( this.helpWidget.domNode, this._help );
         }
 
-        // button events
+        // Button events
 
         this.cancelButton = this._cancelButton;
-        this.cancelButton.onClick = _lang.hitch(this, function(){
+        this.cancelButton.onClick = _lang.hitch( this, function() {
             this._redirectList();
         });
         this.questionWidget = registry.byId("question");
@@ -384,111 +385,121 @@ function(
         this.answerWidget = registry.byId("answers");
         this.hashTagWidget = registry.byId("hashtags");
 
-        // save a reference of main object
+        // Save a reference of main object
         this.answerWidget.tweetPoll = this.tweetPoll;
         this.hashTagWidget.tweetPoll = this.tweetPoll;
 
-        //create preview widget.
-        this.previeWidget = this._createPreviewWidget(this._preview);
-        //create preview fixed widet.
-        this.previewFixedWiget  = this._createPreviewWidget(this._previewFixed);
-        if(this.questionWidget || this.answerWidget|| this.hashTagWidget){
+        //Create preview widget.
+        this.previeWidget = this._createPreviewWidget( this._preview );
+
+        //Create preview fixed widet.
+        this.previewFixedWiget  = this._createPreviewWidget( this._previewFixed );
+        if ( this.questionWidget || this.answerWidget || this.hashTagWidget ) {
             this.initialize();
         }
 
-        //hack// scroll event for IE
-        document.addEventListener(!dojo.isMozilla ? "onmousewheel" : "DOMMouseScroll", _lang.hitch(this, this.scroll), false);
-        // scroll wheel for
-        if (this._scroll) {
-            window.onscroll = _lang.hitch(this, this.scroll);
-        }
-        // leave message
-        if (!this.forceClose) {
-            this.unLoadSupport(this.i18nMessage.leave_mesage);
+        //Hack// scroll event for IE
+        document.addEventListener( !dojo.isMozilla ? "onmousewheel" : "DOMMouseScroll", _lang.hitch( this, this.scroll ), false );
+
+        // Scroll wheel for
+        if ( this._scroll ) {
+            window.onscroll = _lang.hitch( this, this.scroll );
         }
 
-        // offline execution
+        // Leave message
+        if ( !this.forceClose ) {
+            this.unLoadSupport( this.i18nMessage.leave_mesage );
+        }
+
+        // Offline execution
         this.addOfflineExecution({
-            "down" : function() {
-                //console.log("tweetpoll DOWN1");
+            "down": function() {
+
+                //Console.log("tweetpoll DOWN1");
             },
-            "up" : function() {
-                //console.log("tweetpoll UP2");
+            "up": function() {
+
+                //Console.log("tweetpoll UP2");
             }
         });
 
-        // enable auto save channels
-        if (this.autosave) {
-          //publish suport.
-          topic.subscribe("/encuestame/tweetpoll/autosave", _lang.hitch(this, this._autoSave));
-          topic.subscribe("/encuestame/tweetpoll/block", _lang.hitch(this, this._block));
-          topic.subscribe("/encuestame/tweetpoll/unblock", _lang.hitch(this, this._unblock));
+        // Enable auto save channels
+        if ( this.autosave ) {
+
+          //Publish suport.
+          topic.subscribe("/encuestame/tweetpoll/autosave", _lang.hitch( this, this._autoSave ) );
+          topic.subscribe("/encuestame/tweetpoll/block", _lang.hitch( this, this._block ) );
+          topic.subscribe("/encuestame/tweetpoll/unblock", _lang.hitch( this, this._unblock ) );
         }
 
-        // live results.
+        // Live results.
         this.liveResultsWidget = registry.byId("liveResults");
-        this.liveResultsWidget.onChange = _lang.hitch(this, function(event){
+        this.liveResultsWidget.onChange = _lang.hitch( this, function( event ) {
           this.tweetPoll.liveResults = event;
           topic.publish("/encuestame/tweetpoll/autosave");
         });
 
         /**
-         * replace by encuestame.org.core.shared.options.DateToClose.
+         * Replace by encuestame.org.core.shared.options.DateToClose.
          */
-        //scheduled
+
+        //Scheduled
         this.scheduleWidget = registry.byId("schedule");
-        this.scheduleWidget.onChange = _lang.hitch(this, function(event){
-            //console.debug("shecduled", event);
-            if (event) {
-                domClass.remove(this._scheduledTime, "defaultDisplayHide");
-                domClass.remove(this._scheduledDate, "defaultDisplayHide");
-                domClass.add(this._publish.domNode, "hidden");
-                domClass.remove(this._scheduled_tweetpoll.domNode, "hidden");
+        this.scheduleWidget.onChange = _lang.hitch( this, function( event ) {
+
+            //Console.debug("shecduled", event);
+            if ( event ) {
+                domClass.remove( this._scheduledTime, "defaultDisplayHide");
+                domClass.remove( this._scheduledDate, "defaultDisplayHide");
+                domClass.add( this._publish.domNode, "hidden");
+                domClass.remove( this._scheduled_tweetpoll.domNode, "hidden");
             } else {
-                domClass.add(this._scheduledTime, "defaultDisplayHide");
-                domClass.add(this._scheduledDate, "defaultDisplayHide");
-                domClass.remove(this._publish.domNode, "hidden");
-                domClass.add(this._scheduled_tweetpoll.domNode, "hidden");
+                domClass.add( this._scheduledTime, "defaultDisplayHide");
+                domClass.add( this._scheduledDate, "defaultDisplayHide");
+                domClass.remove( this._publish.domNode, "hidden");
+                domClass.add( this._scheduled_tweetpoll.domNode, "hidden");
             }
-            this.tweetPoll.scheduledTime = _ENME.getFormatTime(new Date(), _ENME.FORMAT_TIME.timeFormat);
-            this.scheduledDateWidget.set("value", moment(new Date()).toDate());
-            this.scheduledTimeWidget.set("value", new Date());
-            this.tweetPoll.scheduledTime = _ENME.getFormatTime(new Date(), _ENME.FORMAT_TIME.timeFormat);
-            this.tweetPoll.scheduledDate = _ENME.getFormatTime(new Date(), _ENME.FORMAT_TIME.dateFormat);
+            this.tweetPoll.scheduledTime = _ENME.getFormatTime( new Date(), _ENME.FORMAT_TIME.timeFormat );
+            this.scheduledDateWidget.set("value", moment( new Date() ).toDate() );
+            this.scheduledTimeWidget.set("value", new Date() );
+            this.tweetPoll.scheduledTime = _ENME.getFormatTime( new Date(), _ENME.FORMAT_TIME.timeFormat );
+            this.tweetPoll.scheduledDate = _ENME.getFormatTime( new Date(), _ENME.FORMAT_TIME.dateFormat );
             this.tweetPoll.scheduled = event;
             topic.publish("/encuestame/tweetpoll/autosave");
         });
 
-        // date widget.
+        // Date widget.
         this.scheduledDateWidget = registry.byId("scheduledDate");
         var date = new Date(); //FIXME: repeated code in TweetPollPublishedItemFAILUREStatus
-        date.setDate(date.getDate() + 365);
-        var _max = moment(date);
+        date.setDate( date.getDate() + 365 );
+        var _max = moment( date );
         this.scheduledDateWidget.constraints = {
-            min : moment().toDate(),
-            datePattern: 'dd-MMM-yyyy',
+            min: moment().toDate(),
+            datePattern: "dd-MMM-yyyy",
             selector: "date",
-            max : _max.toDate()
+            max: _max.toDate()
         };
-        this.scheduledDateWidget.onChange = _lang.hitch(this, function(event){
+        this.scheduledDateWidget.onChange = _lang.hitch( this, function( event ) {
+
             //.debug("Scheduled Date", this.scheduledDateWidget.get("value"));
-          this.tweetPoll.scheduledDate = _ENME.getFormatTime(this.scheduledDateWidget.get("value"),
-                  _ENME.FORMAT_TIME.dateFormat);
+          this.tweetPoll.scheduledDate = _ENME.getFormatTime( this.scheduledDateWidget.get("value"),
+                  _ENME.FORMAT_TIME.dateFormat );
           topic.publish("/encuestame/tweetpoll/autosave");
         });
 
-        // time widget.
+        // Time widget.
         this.scheduledTimeWidget = registry.byId("scheduledTime");
-        this.scheduledTimeWidget.onChange = _lang.hitch(this, function(event){
-            //console.debug("Scheduled Time", _ENME.getFormatTime(this.scheduledTimeWidget.get("value"),
+        this.scheduledTimeWidget.onChange = _lang.hitch( this, function( event ) {
+
+            //Console.debug("Scheduled Time", _ENME.getFormatTime(this.scheduledTimeWidget.get("value"),
              //       _ENME.TIME.timeFormat));
-            this.tweetPoll.scheduledTime = _ENME.getFormatTime(this.scheduledTimeWidget.get("value"),
-                    _ENME.FORMAT_TIME.timeFormat);
+            this.tweetPoll.scheduledTime = _ENME.getFormatTime( this.scheduledTimeWidget.get("value"),
+                    _ENME.FORMAT_TIME.timeFormat );
             topic.publish("/encuestame/tweetpoll/autosave");
         });
 
         this.captchaWidget = registry.byId("captcha");
-        this.captchaWidget.onChange = _lang.hitch(this, function(event){
+        this.captchaWidget.onChange = _lang.hitch( this, function( event ) {
             this.tweetPoll.captcha = event;
             topic.publish("/encuestame/tweetpoll/autosave");
         });
@@ -496,81 +507,83 @@ function(
         // Limit Votes
         // this code should be replace by encuestame.org.core.shared.options.LimitVotes.
         this.limitVotesWidget = registry.byId("limitVotes");
-        this.limitVotesWidget.onChange = _lang.hitch(this, function(event) {
-            if (event) {
-                domClass.remove(this._limitNumbers, "defaultDisplayHide");
+        this.limitVotesWidget.onChange = _lang.hitch( this, function( event ) {
+            if ( event ) {
+                domClass.remove( this._limitNumbers, "defaultDisplayHide");
             } else {
-                domClass.add(this._limitNumbers, "defaultDisplayHide");
+                domClass.add( this._limitNumbers, "defaultDisplayHide");
             }
             this.tweetPoll.limitVotes = event;
             topic.publish("/encuestame/tweetpoll/autosave");
         });
         this.limitNumbersWidget = registry.byId("limitNumbers");
-        this.limitNumbersWidget.onChange = _lang.hitch(this, function(event){
+        this.limitNumbersWidget.onChange = _lang.hitch( this, function( event ) {
           this.tweetPoll.maxLimitVotes = this.limitNumbersWidget.get("value");
           topic.publish("/encuestame/tweetpoll/autosave");
         });
 
         /**
-         * this code should be replace by encuestame.org.core.shared.options.RepeatedVotes.
+         * This code should be replace by encuestame.org.core.shared.options.RepeatedVotes.
          */
         this.ipWidget = registry.byId("ip");
-        this.ipWidget.onChange = _lang.hitch(this, function(event) {
-            //console.debug("ipWidget", event);
-            if (event) {
-                domClass.remove(this._repeatedNumbers, "defaultDisplayHide");
+        this.ipWidget.onChange = _lang.hitch( this, function( event ) {
+
+            //Console.debug("ipWidget", event);
+            if ( event ) {
+                domClass.remove( this._repeatedNumbers, "defaultDisplayHide");
             } else {
-                domClass.add(this._repeatedNumbers, "defaultDisplayHide");
+                domClass.add( this._repeatedNumbers, "defaultDisplayHide");
             }
             this.tweetPoll.repeatedVotes = event;
             topic.publish("/encuestame/tweetpoll/autosave");
         });
         this.repeatedNumbersWidget = registry.byId("repeatedNumbers");
-        this.repeatedNumbersWidget.onChange = _lang.hitch(this, function(event) {
+        this.repeatedNumbersWidget.onChange = _lang.hitch( this, function( event ) {
           this.tweetPoll.maxRepeatedVotes = this.repeatedNumbersWidget.get("value");
           topic.publish("/encuestame/tweetpoll/autosave");
         });
         /**
-         * end warning.
+         * End warning.
          */
 
-        //report
+        //Report
         this.resumeWidget = registry.byId("resume");
-        this.resumeWidget.onChange = _lang.hitch(this, function(event){
-            //console.debug("resumeWidget ", event);
+        this.resumeWidget.onChange = _lang.hitch( this, function( event ) {
+
+            //Console.debug("resumeWidget ", event);
             this.tweetPoll.resumeLiveResults = event;
             topic.publish("/encuestame/tweetpoll/autosave");
         });
         this.dashboardWidget = registry.byId("dashboard");
-        this.dashboardWidget.onChange = _lang.hitch(this, function(event){
+        this.dashboardWidget.onChange = _lang.hitch( this, function( event ) {
             this.tweetPoll.followDashBoard = event;
             topic.publish("/encuestame/tweetpoll/autosave");
         });
-        //button publish event.
-        on(this._publish, "click", _lang.hitch(this, function(event) {
+
+        //Button publish event.
+        on( this._publish, "click", _lang.hitch( this, function( event ) {
             this._checkPublish();
-        }));
+        }) );
 
-        on(this._scheduled_tweetpoll, "click", _lang.hitch(this, function(event) {
+        on( this._scheduled_tweetpoll, "click", _lang.hitch( this, function( event ) {
             this._checkPublish("scheduled");
-        }));
+        }) );
 
-
-        topic.subscribe("/encuestame/dialog/close", _lang.hitch(this, this._hideDialog));
-        topic.subscribe("/encuestame/tweetpoll/dialog/error", _lang.hitch(this, this._showErrorMessage));
+        topic.subscribe("/encuestame/dialog/close", _lang.hitch( this, this._hideDialog ) );
+        topic.subscribe("/encuestame/tweetpoll/dialog/error", _lang.hitch( this, this._showErrorMessage ) );
         this.enableBlockTweetPollOnProcess();
 
-        //help links
-        this.initHelpLinks(_lang.hitch(this, function() {
-            this.updateHelpPageStatus(_ENME.config('currentPath'), true);
-        }));
+        //Help links
+        this.initHelpLinks( _lang.hitch( this, function() {
+            this.updateHelpPageStatus( _ENME.config( "currentPath" ), true );
+        }) );
     },
 
     /***
      *  @method Hide the current dialog.
      */
-    _hideDialog : function(){
-        if (this.dialogWidget !== null) {
+    _hideDialog: function() {
+        if ( this.dialogWidget !== null ) {
             this.dialogWidget.hide();
         }
     },
@@ -578,19 +591,19 @@ function(
     /***
      * @method create preview widget.
      */
-    _createPreviewWidget : function(node) {
+    _createPreviewWidget: function( node ) {
         var widget = new TweetPollPreview(
                  {
-                     _widgetReferences : {question : this.questionWidget, answer : this.answerWidget, hashtag : this.hashTagWidget }
+                     _widgetReferences: { question: this.questionWidget, answer: this.answerWidget, hashtag: this.hashTagWidget }
                  });
-         node.appendChild(widget.domNode);
+         node.appendChild( widget.domNode );
          return widget;
     },
 
     /**
      * @method block widgets.
      */
-    _block : function() {
+    _block: function() {
         this.answerWidget.block();
         this.hashTagWidget.block();
         this.questionWidget.block = true;
@@ -599,7 +612,7 @@ function(
     /**
      * @method unblock items.
      */
-    _unblock : function() {
+    _unblock: function() {
         this.answerWidget.unblock();
         this.questionWidget.block = false;
         this.hashTagWidget.unblock();
@@ -609,14 +622,15 @@ function(
      * @method Load AutoSave timer
      * Create timer to autosave the tweetpoll.
      */
-    loadAutoSaveTimer : function() {
+    loadAutoSaveTimer: function() {
         var widget = this;
-        this.timerAutoSave = new dojox.timing.Timer(this.delay);
+        this.timerAutoSave = new dojox.timing.Timer( this.delay );
         this.timerAutoSave.onTick = function() {
           widget._autoSave();
         };
         this.timerAutoSave.onStart = function() {
-          //nothing to do
+
+          //Nothing to do
         };
         this.timerAutoSave.start();
     },
@@ -628,18 +642,18 @@ function(
      * @param hastags [id,id,id,id]
      * @param anseerws { id, question}
      */
-    _autoSave : function(tweetPollId, /*** widget **/ question, /*** answers. **/ answers, /***hashtags **/ hashtags) {
+    _autoSave: function( tweetPollId, /*** widget **/ question, /*** answers. **/ answers, /***hashtags **/ hashtags ) {
         var params = this.tweetPoll;
-        if (this.tweetPoll.tweetPollId === null) {
-            params = { question : params.question };
+        if ( this.tweetPoll.tweetPollId === null ) {
+            params = { question: params.question };
         } else {
            this.tweetPoll.hashtags = this.hashTagWidget.getHashTags();
            this.tweetPoll.answers = this.answerWidget.getAnswersId();
         }
         this.loading_show();
 
-        var load = _lang.hitch(this, function(data) {
-            if ('success' in data) {
+        var load = _lang.hitch( this, function( data ) {
+            if ( "success" in data ) {
                 var id = data.success.tweetPoll.id;
                 this.tweetPoll.tweetPollId = id;
                 this.hashTagWidget.tweetPollId = this.tweetPoll.tweetPollId;
@@ -649,15 +663,15 @@ function(
             }
         });
 
-        var error = _lang.hitch(this, function(error) {
+        var error = _lang.hitch( this, function( error ) {
               this.loading_hide();
-              this._showErrorMessage(error.response.data.error.message || _ENME.getMessage("tp_autosave_error", "An error occurred when trying to save"));
+              this._showErrorMessage( error.response.data.error.message || _ENME.getMessage("tp_autosave_error", "An error occurred when trying to save") );
               this._is_saving = false;
         });
 
-        if (params.question !== '' && !this._is_saving) {
+        if ( params.question !== "" && !this._is_saving ) {
             this._is_saving = true;
-            this.getURLService().post("encuestame.service.tweetpoll.autosave", params, load, error , _lang.hitch(this, function() {}));
+            this.getURLService().post("encuestame.service.tweetpoll.autosave", params, load, error, _lang.hitch( this, function() {}) );
         } else {
             this.loading_hide();
         }
@@ -667,45 +681,45 @@ function(
       * @method Get activity services response after save tweetpoll.
       * @param status {Object}
       */
-     _autoSaveStatus : function(status) {
-        // console.debug("auto save status", status);
+     _autoSaveStatus: function( status ) {
+
+        // Console.debug("auto save status", status);
         this.loading_hide();
-        if (this.tweetPoll.tweetPollId === null) {
+        if ( this.tweetPoll.tweetPollId === null ) {
            this.tweetPoll.tweetPollId = status.data.tweetPollId;
            var tweetPoll = {
-               id : this.tweetPoll.tweetPollId
+               id: this.tweetPoll.tweetPollId
            };
            this.hashTagWidget.tweetPollId = this.tweetPoll.tweetPollId;
            this.answerWidget.tweetPollId = this.tweetPoll.tweetPollId;
-           // store the tweetpoll data
-           _ENME.storeItem(this._tp_storage_key, this.tweetPoll);
+
+           // Store the tweetpoll data
+           _ENME.storeItem( this._tp_storage_key, this.tweetPoll );
          }
          this._started = true;
          this.initializeInterface();
      },
 
-
-
      /**
       * Initialize the interface after user create the question
       * @method initializeInterface
       */
-     initializeInterface : function () {
-            var _steps = query('div [data-step]');
-            array.forEach(_steps, function(entry, i) {
-                domClass.remove(entry, "hidden");
+     initializeInterface: function() {
+            var _steps = query( "div [data-step]" );
+            array.forEach( _steps, function( entry, i ) {
+                domClass.remove( entry, "hidden");
                 var fadeArgs = {
                     node: entry
                 };
-                dojo.fadeIn(fadeArgs).play();
+                dojo.fadeIn( fadeArgs ).play();
             });
 
-            domConstruct.empty(this._pre_cancel);
+            domConstruct.empty( this._pre_cancel );
 
-            // hide the help if iexist
-           if (this.helpWidget.status) {
+            // Hide the help if iexist
+           if ( this.helpWidget.status ) {
                this.helpWidget.hide();
-              _ENME.storeItem("tp-help", false, true);
+              _ENME.storeItem("tp-help", false, true );
             }
 
      },
@@ -713,44 +727,46 @@ function(
     /***
      * @method Auto-scroll publish top bar.
      */
-    scroll : function() {
+    scroll: function() {
         var node = this._tweetQuestion;
         var mainWrapper = dom.byId("mainWrapper");
         var nodeFixed = dom.byId("previewWrapperFixed");
-        var _preview_fixed  = query(".web-tweetpoll-preview-top")[0];
-        domStyle.set(nodeFixed, {
+        var _preview_fixed  = query(".web-tweetpoll-preview-top")[ 0 ];
+        domStyle.set( nodeFixed, {
             width: mainWrapper.offsetWidth - 20 + "px",
             top: nodeFixed.offsetHeight - 6 + "px"
         });
-        var coords2 = domGeom.position(_preview_fixed);
-        if (coords2.y < 0) {
-          this.previewFixedWiget.show(nodeFixed);
+        var coords2 = domGeom.position( _preview_fixed );
+        if ( coords2.y < 0 ) {
+          this.previewFixedWiget.show( nodeFixed );
         } else {
-          this.previewFixedWiget.hide(nodeFixed);
+          this.previewFixedWiget.hide( nodeFixed );
         }
       },
 
     /***
      * @method Initialize new tweetpoll create.
      */
-    initialize : function() {
+    initialize: function() {
          this.questionWidget.block = false;
 
          //FIXME: changed by on change event
          //on(this.questionWidget, "onKeyPress",);
          //var handle = on(this.questionWidget, "keypress",  _lang.hitch(this, this._questionKeypress));
 
-         // send the data to comed service
-         this.questionWidget.onChange = _lang.hitch(this, function(){
+         // Send the data to comed service
+         this.questionWidget.onChange = _lang.hitch( this, function() {
              this.tweetPoll.question = this.questionWidget.get("value");
              topic.publish("/encuestame/tweetpoll/autosave");
          });
          this.socialWidget = registry.byId("social");
-         //initialize publish widget.
+
+         //Initialize publish widget.
          this.tweetPollPublishWidget = new TweetPollPublishInfo({
-            tweetPollWidget : this
+            tweetPollWidget: this
          });
-//         this.questionWidget.onKeyPress = function(e){
+
+//         This.questionWidget.onKeyPress = function(e){
 //            e.preventDefault();
 //         };
     },
@@ -777,31 +793,33 @@ function(
     /**
      * @method check if tweetpoll is valid and start the process to publish.
      */
-    _checkPublish : function(type) {
+    _checkPublish: function( type ) {
         topic.publish("/encuestame/tweetpoll/updatePreview");
         var valid = this.previeWidget.isValid();
-        this.tweetPollPublishWidget.initialize(type);
-        this.tweetPollPublishWidget.setListOfSocialAccounts(this.socialWidget.getSocialCompleteAccounts());
-        if(!valid) {
-           this.errorMessage(this.previeWidget.isValidMessage());
+        this.tweetPollPublishWidget.initialize( type );
+        this.tweetPollPublishWidget.setListOfSocialAccounts( this.socialWidget.getSocialCompleteAccounts() );
+        if ( !valid ) {
+           this.errorMessage( this.previeWidget.isValidMessage() );
         } else {
             valid = this.socialWidget.isValid();
-            if (!valid) {
-                this.errorMessage(this.socialWidget.isValidMessage());
+            if ( !valid ) {
+                this.errorMessage( this.socialWidget.isValidMessage() );
             } else {
-                //if is valid.
-                if (valid) {
+
+                //If is valid.
+                if ( valid ) {
                     this.dialogWidget = new Dialog({
                          content: this.tweetPollPublishWidget.domNode,
                          style: "width: 700px",
-                         draggable : false
+                         draggable: false
                      });
-                    //domConstruct.empty(myDialog.titleBar);
-                    domClass.add(this.dialogWidget.titleBar,"defaultDisplayHide");
+
+                    //DomConstruct.empty(myDialog.titleBar);
+                    domClass.add( this.dialogWidget.titleBar, "defaultDisplayHide");
                     this.dialogWidget.show();
-                    if (typeof type === 'undefined') {
+                    if ( typeof type === "undefined" ) {
                         this._publishTweet();
-                    } else if (type === 'scheduled') {
+                    } else if ( type === "scheduled" ) {
                         this._scheduledTweetPoll();
                     }
                 }
@@ -812,26 +830,26 @@ function(
     /**
      * @method show error message.
      */
-    _showErrorMessage : function(errorMessage) {
-        this.infoMesage(errorMessage);
+    _showErrorMessage: function( errorMessage ) {
+        this.infoMesage( errorMessage );
     },
 
     /**
      *  @method publish tweet poll.
      */
-    _publishTweet : function() {
+    _publishTweet: function() {
         var params = {
-                 "id" : this.tweetPoll.tweetPollId,
-                 "twitterAccounts" : this.socialWidget.getSocialAccounts()
+                 "id": this.tweetPoll.tweetPollId,
+                 "twitterAccounts": this.socialWidget.getSocialAccounts()
         };
-        var load = _lang.hitch(this, function(data) {
+        var load = _lang.hitch( this, function( data ) {
             var socialArray = [];
-            if ("success" in data) {
+            if ("success" in data ) {
                 socialArray = data.success.socialPublish;
             }
             this.autosave = false;
             this.cancelUnLoadSupport();
-            this.tweetPollPublishWidget.process(socialArray);
+            this.tweetPollPublishWidget.process( socialArray );
         });
 
         /***
@@ -840,31 +858,31 @@ function(
          *  - Display a Error message
          *
          */
-        var error = _lang.hitch(this, function(error) {
+        var error = _lang.hitch( this, function( error ) {
             this.autosave = true;
             this.dialogWidget.hide();
-            this._showErrorMessage(error.response.data.error.message || _ENME.getMessage("tp_publish_error", "An error occurred when trying to publish your survey"));
+            this._showErrorMessage( error.response.data.error.message || _ENME.getMessage("tp_publish_error", "An error occurred when trying to publish your survey") );
         });
-        return URLServices.post('encuestame.service.list.publishTweetPoll',  params, load, error , _lang.hitch(this, function() {
+        return URLServices.post( "encuestame.service.list.publishTweetPoll",  params, load, error, _lang.hitch( this, function() {
 
-        }));
+        }) );
     },
 
     /**
      *
      * @method
      */
-    _scheduledTweetPoll : function() {
+    _scheduledTweetPoll: function() {
          var params = {
-                 "id" : this.tweetPoll.tweetPollId,
-                 "social_accounts" : this.socialWidget.getSocialCompleteAccounts()
+                 "id": this.tweetPoll.tweetPollId,
+                 "social_accounts": this.socialWidget.getSocialCompleteAccounts()
         };
-        var load = _lang.hitch(this, function(data) {
+        var load = _lang.hitch( this, function( data ) {
             this.autosave = false; //FIXME ???? is used?
             this.cancelUnLoadSupport();
-            if ('success' in data) {
+            if ( "success" in data ) {
                var items = data.success.schedulded_items;
-               this.tweetPollPublishWidget.processScheduledFinalStep(items);
+               this.tweetPollPublishWidget.processScheduledFinalStep( items );
             }
 
         });
@@ -875,29 +893,29 @@ function(
          *  - Display a Error message
          *
          */
-        var error = _lang.hitch(this, function(error) {
+        var error = _lang.hitch( this, function( error ) {
             this.autosave = true;
             this.dialogWidget.hide();
-            this._showErrorMessage(error.response.data.error.message || _ENME.getMessage("tp_publish_error", "An error occurred when trying to publish your survey"));
+            this._showErrorMessage( error.response.data.error.message || _ENME.getMessage("tp_publish_error", "An error occurred when trying to publish your survey") );
         });
-        return URLServices.post(['encuestame.service.list.scheduleUnPublishedTweetPoll', ['tweetpoll']],  params, load, error , _lang.hitch(this, function() {
+        return URLServices.post( [ "encuestame.service.list.scheduleUnPublishedTweetPoll", [ "tweetpoll" ]],  params, load, error, _lang.hitch( this, function() {
 
-        }));
+        }) );
     },
 
     /**
      * Redirect to list page.
      * @method _redirectList
      */
-    _redirectList : function() {
-        document.location.href = _ENME.config('contextPath') + "/user/tweetpoll/list";
+    _redirectList: function() {
+        document.location.href = _ENME.config( "contextPath" ) + "/user/tweetpoll/list";
     },
 
     /**
      * Cancel the tweetpoll.
      * @method _cancelTweetPoll
      */
-    _cancelTweetPoll : function (e) {
+    _cancelTweetPoll: function( e ) {
              e.preventDefault();
              this._redirectList();
     }

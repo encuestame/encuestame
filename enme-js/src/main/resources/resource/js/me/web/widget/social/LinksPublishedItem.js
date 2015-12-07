@@ -1,7 +1,7 @@
 ///**
 // * Represents a social item external link.
 // */
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
@@ -16,52 +16,51 @@ define([
     _WidgetsInTemplateMixin,
     main_widget,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase,
+  return declare( [ _WidgetBase,
                    _TemplatedMixin,
                    main_widget,
-                   _WidgetsInTemplateMixin], {
+                   _WidgetsInTemplateMixin ], {
 
-   // template string.
-   templateString : template,
+   // Template string.
+   templateString: template,
 
     /**
     * Social data.
     */
-   social : null,
+   social: null,
 
    /**
     * Date of publication
     */
-   date : "",
+   date: "",
 
    /**
     * Text of publication
     */
-   text : "",
+   text: "",
 
    /**
     * Default link.
     */
-   link : "#",
+   link: "#",
 
    /**
     * Triggered before render the template.
     */
-   postMixInProperties : function() {
-     if ( this.date) {
-       this.date = _ENME.fromNow(this.date, "YYYY-MM-DD");
+   postMixInProperties: function() {
+     if ( this.date ) {
+       this.date = _ENME.fromNow( this.date, "YYYY-MM-DD");
      }
    },
 
    /*
-    * post create.
+    * Post create.
     */
-   postCreate : function() {
-            this._image.src = _ENME.shortPicture(this.social);
+   postCreate: function() {
+            this._image.src = _ENME.shortPicture( this.social );
    }
-
 
   });
 });

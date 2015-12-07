@@ -22,39 +22,39 @@
  *  @class FileName
  */
 
-define([
-	'intern!object',
-	'intern/chai!assert',
-	'me/core/_base/_config'
-], function (registerSuite, assert, _config) {
+define( [
+	"intern!object",
+	"intern/chai!assert",
+	"me/core/_base/_config"
+], function( registerSuite, assert, _config ) {
 
 	var store;
 
 	registerSuite({
-		name: 'Config Test',
+		name: "Config Test",
 
-		setup: function () {
+		setup: function() {
 			_config.merge({
 				param1: 0
 			});
 		},
 
-		merge: function () {
+		merge: function() {
 			_config.merge({
 				param1: 1
 			});
-			assert.strictEqual(_config.get('param1'), 1, 'Param 1 should be override');
+			assert.strictEqual( _config.get( "param1" ), 1, "Param 1 should be override" );
 		},
 
-		get: function () {
-			var path = _config.get('contextPath');
-			assert.strictEqual(path, '../../json', 'context path by default /');
+		get: function() {
+			var path = _config.get( "contextPath" );
+			assert.strictEqual( path, "../../json", "context path by default /" );
 		},
 
-		set: function () {
-			_config.set('test', 1);
-			var path = _config.get('test');
-			assert.strictEqual(path, 1);
+		set: function() {
+			_config.set( "test", 1 );
+			var path = _config.get( "test" );
+			assert.strictEqual( path, 1 );
 		}
 	});
 });

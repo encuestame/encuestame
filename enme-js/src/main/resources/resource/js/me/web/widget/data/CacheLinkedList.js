@@ -22,47 +22,47 @@
  *  @namespace Widget
  *  @class CacheLinkedList
  */
-define([
+define( [
      "dojo/_base/declare",
      "me/core/main_widgets/EnmeMainLayoutWidget",
      "me/web/widget/ui/More",
-     "me/core/enme"],
+     "me/core/enme" ],
     function(
     declare,
     main_widget,
     more,
-    _ENME) {
+    _ENME ) {
 
-  return declare(main_widget, {
+  return declare( main_widget, {
 
     /**
     * Internal cache to store items retrieved from dataset.
     */
-   items_array : [],
+   items_array: [],
 
    /**
     * The root property of data retrieved from server.
     * eg: data { error : null, success : { property : { more data ... } }}
     * Could be: poll, tweetpoll, survey.
     */
-   property : null,
+   property: null,
 
    /**
-    * more widget reference.
+    * More widget reference.
     */
-   more_widget : null,
+   more_widget: null,
 
    /**
-    * enable the link "more" to add more items to the stream, like in facebook.
+    * Enable the link "more" to add more items to the stream, like in facebook.
     */
-   enable_more_support : true,
-
+   enable_more_support: true,
 
    /**
     *
     * @property
     */
-   //items : 0,
+
+   //Items : 0,
 
    /**
     * Enable the more support, this retrieve next X items from provide service.
@@ -71,18 +71,18 @@ define([
     * @param node node to append
     * @method
     */
-   enableMoreSupport : function(start, max, node) {
-       if (node) {
+   enableMoreSupport: function( start, max, node ) {
+       if ( node ) {
          var channel =  "/encuestame/more/" + this.id;
-           var pagination = {_start : start, _maxResults : max };
+           var pagination = { _start: start, _maxResults: max };
            this.more_widget = new more({
                        pagination: pagination,
-                       channel : channel
+                       channel: channel
            });
-           dojo.place(this.more_widget.domNode, node);
-           dojo.subscribe(channel, this, dojo.hitch(this, function() {
+           dojo.place( this.more_widget.domNode, node );
+           dojo.subscribe( channel, this, dojo.hitch( this, function() {
 
-           }));
+           }) );
        }
    },
 
@@ -90,31 +90,32 @@ define([
     *
     * @method
     */
-   getItems : function(){},
+   getItems: function() {},
 
    /**
     *
     * @method
     */
-   setItems : function(){},
+   setItems: function() {},
 
    /**
     * A service support to retrieve items based on list of parameters.
     */
-   loadItems : function(url) {
+   loadItems: function( url ) {
      var real_url = this.getUrl() || url;
-       var load = dojo.hitch(this, function(data) {
-           if ("success" in data) {
-               //this._empty();
-               var items = data.success[this.property];
-               this.setItems(items.length);
-               if (items && items.length > 0) {
-                   dojo.forEach(items, dojo.hitch(this, function(
-                           data, index) {
-                       if (dojo.isFunction(this.processItem)) {
-                           this.items_array.push(this.processItem(data, index));
+       var load = dojo.hitch( this, function( data ) {
+           if ("success" in data ) {
+
+               //This._empty();
+               var items = data.success[ this.property ];
+               this.setItems( items.length );
+               if ( items && items.length > 0 ) {
+                   dojo.forEach( items, dojo.hitch( this, function(
+                           data, index ) {
+                       if ( dojo.isFunction( this.processItem ) ) {
+                           this.items_array.push( this.processItem( data, index ) );
                        }
-                   }));
+                   }) );
                    this.showMore();
                } else {
                    this.displayEmptyMessage();
@@ -126,10 +127,10 @@ define([
            }
        });
        var error = this.handlerError;
-       if (real_url) {
-         this.getURLService().get(real_url, this.getParams(), load, error , dojo.hitch(this, function() {
+       if ( real_url ) {
+         this.getURLService().get( real_url, this.getParams(), load, error, dojo.hitch( this, function() {
 
-         }));
+         }) );
        } else {
          this.handlerError("error");
        }
@@ -139,8 +140,8 @@ define([
     *
     * @method
     */
-   hideMore : function() {
-      if (this.more_widget) {
+   hideMore: function() {
+      if ( this.more_widget ) {
          this.more_widget.hide();
        }
    },
@@ -149,8 +150,8 @@ define([
     *
     * @method
     */
-   showMore : function() {
-      if (this.more_widget) {
+   showMore: function() {
+      if ( this.more_widget ) {
          this.more_widget.show();
        }
    },
@@ -158,33 +159,33 @@ define([
    /**
     * Display empty message.
     */
-   displayEmptyMessage : function() {},
+   displayEmptyMessage: function() {},
 
    /*
     *
     */
-   _afterEach : function() {},
+   _afterEach: function() {},
 
    /*
     *
     */
-   _empty : function() {},
+   _empty: function() {},
 
    /*
     *
     */
-   handlerError : function(){},
+   handlerError: function() {},
 
    /**
     * Process a items on successfull server response.
     * Always override by child widgets.
     */
-   processItem : function(data, index){},
+   processItem: function( data, index ) {},
 
    /**
     * List of parameters, always override by child widgets.
     */
-   getParams : function() {
+   getParams: function() {
            return {};
    }
 

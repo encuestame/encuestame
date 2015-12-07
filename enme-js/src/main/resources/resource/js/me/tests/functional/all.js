@@ -13,13 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-define([
-	'./widgets/folder/folder',
-	'./widgets/cloud/cloud',
-	'./widgets/home/ItemVote',
-	'./widgets/rate_comments/comments',
-	'./widgets/tweetpoll/tweetpollList',
-	'./widgets/tweetpoll/tweetpoll',
+define( [
+	"./widgets/folder/folder",
+	"./widgets/cloud/cloud",
+	"./widgets/home/ItemVote",
+	"./widgets/rate_comments/comments",
+	"./widgets/tweetpoll/tweetpollList",
+	"./widgets/tweetpoll/tweetpoll",
+
 	//'./widgets/poll/poll-new',
-	'./widgets/poll/pollList'
-], function () {});
+	"./widgets/poll/pollList"
+], function() {});

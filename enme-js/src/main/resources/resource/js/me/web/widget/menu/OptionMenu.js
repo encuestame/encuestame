@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -17,49 +17,50 @@ define([
                 OptionMenuItem,
                 ToggleMenu,
                 _ENME,
-                 template) {
+                 template ) {
 
         "use strict";
 
-        return declare([ _WidgetBase, _TemplatedMixin, main_widget, ToggleMenu, _WidgetsInTemplateMixin], {
+        return declare( [ _WidgetBase, _TemplatedMixin, main_widget, ToggleMenu, _WidgetsInTemplateMixin ], {
 
-       // template string.
-       templateString : template,
+       // Template string.
+       templateString: template,
 
        /*
         *
         */
-       _openBox : true,
+       _openBox: true,
 
        /*
         * Display icon by default.
         */
-       enableIcon : true,
+       enableIcon: true,
 
        /*
         *
         */
-       _classReplace : "",
+       _classReplace: "",
 
        /*
         *
         */
-       menu_items : [{
-           label : "label1",
-           action : function() {
-           }},
-           {label : "label2",
-           action : function() {
+       menu_items: [{
+           label: "label1",
+           action: function() {
+           } },
+           { label: "label2",
+           action: function() {
            }
        }],
 
        /*
         *
         */
-       postCreate : function() {
-           if (this.enableIcon) {
-               this.addMenuSupport(this._icon, "click");
+       postCreate: function() {
+           if ( this.enableIcon ) {
+               this.addMenuSupport( this._icon, "click");
            } else {
+
                //TODO: enable open context menu on click defined dom node.
            }
            this._buildMenus();
@@ -68,18 +69,19 @@ define([
        /*
         * Build a item menu.
         */
-       _buildMenus : function() {
-           dojo.forEach(this.menu_items,
-               dojo.hitch(this, function(item, action) {
-                    //console.debug("_buildMenus", item);
+       _buildMenus: function() {
+           dojo.forEach( this.menu_items,
+               dojo.hitch( this, function( item, action ) {
+
+                    //Console.debug("_buildMenus", item);
                    var widget = new OptionMenuItem(
                            {
-                               label : item.label,
-                               action : item.action
+                               label: item.label,
+                               action: item.action
                            });
-                   dojo.connect(widget.domNode, "onclick", this, item.action);
-                   this._menu.appendChild(widget.domNode);
-          }));
+                   dojo.connect( widget.domNode, "onclick", this, item.action );
+                   this._menu.appendChild( widget.domNode );
+          }) );
        }
 
     });

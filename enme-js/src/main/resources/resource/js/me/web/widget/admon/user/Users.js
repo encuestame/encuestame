@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -32,7 +32,7 @@ define([
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/admon/user/UserTableRow",
          "me/web/widget/validator/UsernameValidator",
-         'me/web/widget/validator/EmailValidator',
+         "me/web/widget/validator/EmailValidator",
          "me/web/widget/data/Table",
          "me/web/widget/ui/DialogGenericContentMessage",
          "me/core/enme",
@@ -59,44 +59,44 @@ define([
                 Table,
                 DialogGenericContentMessage,
                 _ENME,
-                template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, Table, _WidgetsInTemplateMixin], {
+                template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, Table, _WidgetsInTemplateMixin ], {
 
             /**
-             * template string.
+             * Template string.
              *
              */
-            templateString : template,
+            templateString: template,
 
             /**
              * @param the publish dialog to alocate the publish widget.
              */
-            dialogWidget : null,
+            dialogWidget: null,
 
             /**
              *
              * @property
              */
-            jsonServiceUrl : 'encuestame.service.list.userList',
+            jsonServiceUrl: "encuestame.service.list.userList",
 
             /**
              *
              * @property
              */
-            total : 0,
+            total: 0,
 
-            helpSteps : [
+            helpSteps: [
                 {
-                    element: '.admon-table-options > .tb-right',
-                    intro: _ENME.getMessage('help_admon_button_new')
+                    element: ".admon-table-options > .tb-right",
+                    intro: _ENME.getMessage( "help_admon_button_new" )
                 },
                 {
-                    element: 'table',
-                    intro: _ENME.getMessage('help_admon_menu_search')
+                    element: "table",
+                    intro: _ENME.getMessage( "help_admon_menu_search" )
                 },
                 {
-                    element: 'table tbody',
-                    intro: _ENME.getMessage('help_admon_list_view')
+                    element: "table tbody",
+                    intro: _ENME.getMessage( "help_admon_list_view" )
                 }
             ],
 
@@ -104,41 +104,42 @@ define([
             * Post create.
             * @method postCreate
             */
-           postCreate : function () {
-                this.inherited(arguments);
-               //help links
-               this.initHelpLinks(dojo.hitch(this, function(){
-                   this.updateHelpPageStatus(_ENME.config('currentPath'), true);
-               }));
+           postCreate: function() {
+                this.inherited( arguments );
+
+               //Help links
+               this.initHelpLinks( dojo.hitch( this, function() {
+                   this.updateHelpPageStatus( _ENME.config( "currentPath" ), true );
+               }) );
            },
 
             /**
              * Build Row.
              * @method
              */
-            buildRow : function(data) {
-                var widgetRow = new UserTableRow({data: data });
-                this._body.appendChild(widgetRow.domNode);
+            buildRow: function( data ) {
+                var widgetRow = new UserTableRow({ data: data });
+                this._body.appendChild( widgetRow.domNode );
             },
 
             /**
              * Iterate Items.
              * @method
              */
-            iterateResponseItems : function(data){
+            iterateResponseItems: function( data ) {
                 this.total = data.success.total;
-                this._total.innerHTML = this.start +" of "+this.total;
+                this._total.innerHTML = this.start + " of " + this.total;
                 dojo.forEach(
                     data.success.users,
-                    dojo.hitch(this, function(data, index) {
-                        this.buildRow(data);
-                    }));
+                    dojo.hitch( this, function( data, index ) {
+                        this.buildRow( data );
+                    }) );
             },
 
             /**
              * Update User.
              */
-            _updateUser : function(event) {
+            _updateUser: function( event ) {
                 registry.byId("name");
                 registry.byId("email");
                 registry.byId("realName");
@@ -148,10 +149,10 @@ define([
              *
              * @method
              */
-            _newUser : function(event) {
+            _newUser: function( event ) {
                 var newUser = registry.byId("newUser");
-                if (newUser) {
-                    newUser.title = 'i18n.admon_users_new_title';
+                if ( newUser ) {
+                    newUser.title = "i18n.admon_users_new_title";
                     newUser.show();
                 }
             },
@@ -160,7 +161,7 @@ define([
              *
              * @method
              */
-            _closeNewDialog : function (event) {
+            _closeNewDialog: function( event ) {
                 registry.byId("newUser").hide();
                 this._clearForms();
             },
@@ -169,7 +170,7 @@ define([
              *
              * @method
              */
-            _clearForms : function () {
+            _clearForms: function() {
                 var newUsername = registry.byId("newUsername");
                 var newEmailUser = registry.byId("newEmailUser");
                 newUsername.clear();
@@ -180,51 +181,53 @@ define([
              * Send a user invitation.
              * @method _sendInvitation
              */
-            _sendInvitation : function () {
+            _sendInvitation: function() {
                  var parent = this;
                     var emailInvitationText = registry.byId("emailInvitationText");
-                    if (emailInvitationText.isValid) {
-                        var load = dojo.hitch(this, function(data) {
+                    if ( emailInvitationText.isValid ) {
+                        var load = dojo.hitch( this, function( data ) {
                             parent.dialogWidget.hide();
-                            if ('success' in data) {
+                            if ( "success" in data ) {
                                 this.loading_hide();
                                 parent._request_button.disabled = false;
-                                if (data.success.r === 0) {
+                                if ( data.success.r === 0 ) {
                                      this.loadItems();
                                      parent._clearForms();
-                                     parent.successMesage("The request has been sent to " + newEmailUser.getValue());
+                                     parent.successMesage("The request has been sent to " + newEmailUser.getValue() );
                                      newUsername.clear();
                                      newEmailUser.clear();
                                 }
                             }
                         }),
-                        error = function(error) {
-                            //parent.loading_hide();
+                        error = function( error ) {
+
+                            //Parent.loading_hide();
                             parent.dialogWidget.hide();
-                            if ("message" in error.response.data.error) {
-                                parent.errorMessage(error.response.data.error.message);
+                            if ("message" in error.response.data.error ) {
+                                parent.errorMessage( error.response.data.error.message );
                             }
                             parent._request_button.disabled = false;
                         };
                         var params = {
-                            email : emailInvitationText.getValue()
+                            email: emailInvitationText.getValue()
                         };
                         this.loading_show();
-                        // create the dialog
+
+                        // Create the dialog
                         var content_widget = new DialogGenericContentMessage({
-                                message_content : "Sending Invitation",
-                                icon_class : "loading-icon"
+                                message_content: "Sending Invitation",
+                                icon_class: "loading-icon"
                              });
                              parent.dialogWidget = new Dialog({
                                  content: content_widget.domNode,
                                  style: "width: 700px",
-                                 draggable : false
+                                 draggable: false
                              });
                              parent.dialogWidget.show();
 
-                        this.getURLService().put('encuestame.user.invite', params, load, error , dojo.hitch(this, function() {
+                        this.getURLService().put( "encuestame.user.invite", params, load, error, dojo.hitch( this, function() {
 
-                        }));
+                        }) );
                     } else {
                         this.warningMesage("the email is invalid");
                     }
@@ -234,55 +237,56 @@ define([
              * Create a user based on username and password
              * @method _createDirectlyUser
              */
-            _createDirectlyUser : function(event) {
+            _createDirectlyUser: function( event ) {
                     var parent = this;
                     var newUsername = registry.byId("newUsername");
                     var newEmailUser = registry.byId("newEmailUser");
-                    if (newUsername.isValid && newEmailUser.isValid) {
-                        var load = dojo.hitch(this, function(data) {
+                    if ( newUsername.isValid && newEmailUser.isValid ) {
+                        var load = dojo.hitch( this, function( data ) {
                             parent.dialogWidget.hide();
-                            if ('success' in data) {
+                            if ( "success" in data ) {
                                 this.loading_hide();
                                 parent._request_button.disabled = false;
-                                if (data.success.r === 0) {
+                                if ( data.success.r === 0 ) {
                                      this.loadItems();
                                      parent._clearForms();
-                                     parent.successMesage("The request has been sent to " + newEmailUser.getValue());
+                                     parent.successMesage("The request has been sent to " + newEmailUser.getValue() );
                                      newUsername.clear();
                                      newEmailUser.clear();
                                 }
                             }
                         }),
-                        error = function(error) {
-                            //parent.loading_hide();
+                        error = function( error ) {
+
+                            //Parent.loading_hide();
                             parent.dialogWidget.hide();
-                            if ("message" in error.response.data.error) {
-                                parent.errorMessage(error.response.data.error.message);
+                            if ("message" in error.response.data.error ) {
+                                parent.errorMessage( error.response.data.error.message );
                             }
                             parent._request_button.disabled = false;
                         };
                         var params = {
-                            newUsername : newUsername.getValue(),
-                            newEmailUser : newEmailUser.getValue()
+                            newUsername: newUsername.getValue(),
+                            newEmailUser: newEmailUser.getValue()
                         };
                         this.loading_show();
                         this._request_button.disabled = true;
 
-                        // create the dialog
+                        // Create the dialog
                         var content_widget = new DialogGenericContentMessage({
-                                message_content : "Creando usuario",
-                                icon_class : "loading-icon"
+                                message_content: "Creando usuario",
+                                icon_class: "loading-icon"
                              });
                              parent.dialogWidget = new Dialog({
                                  content: content_widget.domNode,
                                  style: "width: 700px",
-                                 draggable : false
+                                 draggable: false
                              });
                              parent.dialogWidget.show();
 
-                        this.getURLService().post('encuestame.service.list.createUser', params, load, error , dojo.hitch(this, function() {
+                        this.getURLService().post( "encuestame.service.list.createUser", params, load, error, dojo.hitch( this, function() {
 
-                        }));
+                        }) );
                     } else {
                         this.warningMesage("the new member data it's not valid, recheck your data");
                     }

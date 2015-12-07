@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -23,34 +23,33 @@ define([
                 PublishSupport,
                 ContextSupport,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, PublishSupport, ContextSupport, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, PublishSupport, ContextSupport, _WidgetsInTemplateMixin ], {
 
-         // template string.
-         templateString : template,
+         // Template string.
+         templateString: template,
 
-
-         options_label : [
+         options_label: [
              {
-                label : "option 1",
-                value : "value1"
+                label: "option 1",
+                value: "value1"
              },
              {
-                 label : "option 2",
-                 value : "value 2"
+                 label: "option 2",
+                 value: "value 2"
              },
              {
-                 label : "option 3",
-                 value : "value 3"
+                 label: "option 3",
+                 value: "value 3"
              }],
 
-         //option_value : "value",
+         //Option_value : "value",
 
-         option_name : "value_comments",
+         option_name: "value_comments",
 
-         _default_selected_item : 1,
+         _default_selected_item: 1,
 
-         _widgets_list : [],
+         _widgets_list: [],
 
          /*
          *
@@ -63,53 +62,53 @@ define([
          /*
           *
           */
-         postCreate : function() {
-             dojo.forEach(this.options_label, dojo.hitch(this,function(_option, index) {
+         postCreate: function() {
+             dojo.forEach( this.options_label, dojo.hitch( this, function( _option, index ) {
                     var selected = false;
-                     if (index === this._default_selected_item) {
+                     if ( index === this._default_selected_item ) {
                          selected = true;
                     }
-                    this._createOption(_option, selected);
-             }));
+                    this._createOption( _option, selected );
+             }) );
          },
 
          /*
           *
           */
-         getResponse : function() {
-             var form = registry.byId('options_form_' + this.id);
-             if (form) {
-                 var value = form.attr('value');
-                 return value[this.option_name];
+         getResponse: function() {
+             var form = registry.byId( "options_form_" + this.id );
+             if ( form ) {
+                 var value = form.attr( "value" );
+                 return value[ this.option_name ];
              } else {
                  return null;
              }
          },
 
          /*
-          * create option.
+          * Create option.
           */
-         _createOption : function(_option, selected){
+         _createOption: function( _option, selected ) {
              var div = dojo.create("div");
-             dojo.addClass(div, "space-option");
+             dojo.addClass( div, "space-option");
              var radioOne = new RadioButton({
                  checked: selected,
                  value: _option.value,
                  name: this.option_name
              });
-             this._widgets_list.push(radioOne);
-             div.appendChild(radioOne.domNode);
+             this._widgets_list.push( radioOne );
+             div.appendChild( radioOne.domNode );
              /*
               * <label for="name">
                   title
                 </label>
               */
              var label = dojo.create("label");
-             dojo.addClass(label, "pattern-label");
+             dojo.addClass( label, "pattern-label");
              label.innerHTML = _option.label;
-             label.setAttribute("for", radioOne.id);
-             div.appendChild(label);
-             this._options.appendChild(div);
+             label.setAttribute("for", radioOne.id );
+             div.appendChild( label );
+             this._options.appendChild( div );
          }
 
   });

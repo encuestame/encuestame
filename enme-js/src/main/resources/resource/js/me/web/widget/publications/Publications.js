@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
@@ -17,36 +17,37 @@ define([
     accountPicture,
     hashTagInfo,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-     // template string.
-    templateString : template,
+     // Template string.
+    templateString: template,
 
-    username : "",
+    username: "",
 
-      title : "",
+      title: "",
 
-      url : "",
+      url: "",
 
-      added : "",
+      added: "",
 
-      relativeTime : "",
+      relativeTime: "",
 
       displayImage: true,
 
-      itemId : "",
+      itemId: "",
 
-      ht : "",
+      ht: "",
 
-      type : "",
+      type: "",
 
-      _tagsCloned : [],
+      _tagsCloned: [],
 
-      postMixInProperties : function(){
-          if (this.ht !== null) {
-            //console.info("this.ht.trim().split(",");", this.ht.trim().split(","));
+      postMixInProperties: function() {
+          if ( this.ht !== null ) {
+
+            //Console.info("this.ht.trim().split(",");", this.ht.trim().split(","));
               this._tagsCloned = this.ht.trim().split(",");
           }
       },
@@ -54,34 +55,36 @@ define([
       /*
        * Post create.
        */
-      postCreate : function() {
+      postCreate: function() {
           var node = this._tags;
 
-          if (!this.displayImage && this._picture) {
-              dojo.destroy(this._picture);
+          if ( !this.displayImage && this._picture ) {
+              dojo.destroy( this._picture );
           }
 
-          dojo.forEach(this._tagsCloned, function(entry, i) {
-            if (entry !== '') {
+          dojo.forEach( this._tagsCloned, function( entry, i ) {
+            if ( entry !== "" ) {
                 var widget = new hashTagInfo(
                         {
-                          hashTagName : entry,
-                          autoCreateUrl : true, //create url automatically
-                          cssClass : "tag"
+                          hashTagName: entry,
+                          autoCreateUrl: true, //Create url automatically
+                          cssClass: "tag"
                         });
-                node.appendChild(widget.domNode);
+                node.appendChild( widget.domNode );
             }
           });
+
           //TODO: ????????
           var nodeCustom;
-          if (dojo.indexOf(_ENME.SURVEYS, dojo.trim(this.type)) === 0) { //tp
+          if ( dojo.indexOf( _ENME.SURVEYS, dojo.trim( this.type ) ) === 0 ) { //Tp
 
-          } else if (dojo.indexOf(_ENME.SURVEYS, dojo.trim(this.type)) == 1) { //pll
+          } else if ( dojo.indexOf( _ENME.SURVEYS, dojo.trim( this.type ) ) == 1 ) { //Pll
 
-          } else if (dojo.indexOf(_ENME.SURVEYS, dojo.trim(this.type)) === 0) { //survey
+          } else if ( dojo.indexOf( _ENME.SURVEYS, dojo.trim( this.type ) ) === 0 ) { //Survey
 
           } else {
-              //error
+
+              //Error
           }
       }
 

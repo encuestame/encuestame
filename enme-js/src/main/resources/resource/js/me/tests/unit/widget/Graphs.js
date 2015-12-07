@@ -1,36 +1,37 @@
-define([
-    'intern!object',
-    'intern/chai!assert',
-    'me/web/widget/chart/AbstractChartVoteSupport',
-    'me/web/widget/chart/ChartLayerSupport',
-    'me/web/widget/chart/EncuestamePieChart'
-], function (
+define( [
+    "intern!object",
+    "intern/chai!assert",
+    "me/web/widget/chart/AbstractChartVoteSupport",
+    "me/web/widget/chart/ChartLayerSupport",
+    "me/web/widget/chart/EncuestamePieChart"
+], function(
     registerSuite,
     assert,
     AbstractChartVoteSupport,
     ChartLayerSupport,
-    EncuestamePieChart) {
+    EncuestamePieChart ) {
     registerSuite({
-        name: 'Encuestame Pie Chart',
-        
-        'default data': function () {
-//            var encuestamePieChart = new EncuestamePieChart({
+        name: "Encuestame Pie Chart",
+
+        "default data": function() {
+
+//            Var encuestamePieChart = new EncuestamePieChart({
 //
 //            });
         },
 
-        'AbstractChartVote Widget': function () {
+        "AbstractChartVote Widget": function() {
             var abstractChart = new AbstractChartVoteSupport({
 
             });
-            assert.isObject(abstractChart, 'AbstractChartVote should be an object');
+            assert.isObject( abstractChart, "AbstractChartVote should be an object" );
         },
 
-        'ChartLayerSupport Widget': function () {
+        "ChartLayerSupport Widget": function() {
             var chartLayer = new ChartLayerSupport({
 
             });
-            assert.isObject(chartLayer, 'ChartLayerSupport should be an object');
+            assert.isObject( chartLayer, "ChartLayerSupport should be an object" );
         }
 
     });

@@ -21,25 +21,25 @@
  *  @namespace Widget
  *  @class LayoutSelected
  */
-define([ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin",
+define( [ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
     "me/core/main_widgets/EnmeMainLayoutWidget",
     "me/core/enme",
     "dojo/text!me/web/widget/dashboard/template/layout.html" ], function(
     declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
-    main_widget, _ENME, template) {
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget,
+    main_widget, _ENME, template ) {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget,
       _WidgetsInTemplateMixin ], {
 
-    // template string.
-    templateString : template,
+    // Template string.
+    templateString: template,
 
      /*
       *
       */
-     _selectLayout : function(layout) {
-         if (typeof layout == "string") {
-             dojo.publish("/encuestame/dashboard/grid/layout", [layout]);
+     _selectLayout: function( layout ) {
+         if ( typeof layout == "string") {
+             dojo.publish("/encuestame/dashboard/grid/layout", [ layout ] );
          }
      },
 
@@ -47,30 +47,30 @@ define([ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin",
       * Close the gadget dialog.
       * @method
       */
-     _close : function() {
+     _close: function() {
         this.dialog.hide();
      },
 
      /*
       *
       */
-     postCreate : function() {
-          dojo.create("img", { src: _ENME.getImage('layout/B.png') }, this.layouta);
-          dojo.create("img", { src: _ENME.getImage('layout/BB.png') }, this.layoutaa);
-          dojo.create("img", { src: _ENME.getImage('layout/BA.png') }, this.layoutba);
-          dojo.create("img", { src: _ENME.getImage('layout/AB.png') }, this.layoutab);
-          dojo.connect(this.layouta, "onclick", dojo.hitch(this, function() {
+     postCreate: function() {
+          dojo.create("img", { src: _ENME.getImage( "layout/B.png" ) }, this.layouta );
+          dojo.create("img", { src: _ENME.getImage( "layout/BB.png" ) }, this.layoutaa );
+          dojo.create("img", { src: _ENME.getImage( "layout/BA.png" ) }, this.layoutba );
+          dojo.create("img", { src: _ENME.getImage( "layout/AB.png" ) }, this.layoutab );
+          dojo.connect( this.layouta, "onclick", dojo.hitch( this, function() {
               this._selectLayout("B");
-          }));
-          dojo.connect(this.layoutaa, "onclick", dojo.hitch(this,function() {
+          }) );
+          dojo.connect( this.layoutaa, "onclick", dojo.hitch( this, function() {
               this._selectLayout("BB");
-          }));
-          dojo.connect(this.layoutba, "onclick", dojo.hitch(this, function() {
+          }) );
+          dojo.connect( this.layoutba, "onclick", dojo.hitch( this, function() {
               this._selectLayout("BA");
-          }));
-          dojo.connect(this.layoutab, "onclick", dojo.hitch(this,function() {
+          }) );
+          dojo.connect( this.layoutab, "onclick", dojo.hitch( this, function() {
               this._selectLayout("AB");
-          }));
+          }) );
      }
 
   });

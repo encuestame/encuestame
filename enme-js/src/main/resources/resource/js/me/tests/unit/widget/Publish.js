@@ -1,28 +1,28 @@
-define([
-    'intern!object',
-    'intern/chai!assert',
-	'../Helper',
-    'me/web/widget/publish/PublishEmailSupport',
-    'me/web/widget/publish/PublishEmbebedSupport',
-    'me/web/widget/publish/PublishPanelItem',
-    'me/web/widget/publish/PublishSocialStatus',
-    'me/web/widget/publish/PublishSocialSupport',
-    'me/web/widget/publish/PublishSupport',
-    'me/core/support/ContextSupport'
+define( [
+    "intern!object",
+    "intern/chai!assert",
+	"../Helper",
+    "me/web/widget/publish/PublishEmailSupport",
+    "me/web/widget/publish/PublishEmbebedSupport",
+    "me/web/widget/publish/PublishPanelItem",
+    "me/web/widget/publish/PublishSocialStatus",
+    "me/web/widget/publish/PublishSocialSupport",
+    "me/web/widget/publish/PublishSupport",
+    "me/core/support/ContextSupport"
 
-], function (
+], function(
     registerSuite,
     assert,
     Helper,
     PublishEmailSupport,
     PublishEmbebedSupport,
     PublishPanelItem,
-    PublishSocialStatus,    
+    PublishSocialStatus,
     PublishSocialSupport,
     PublishSupport,
-    ContextSupport) {
+    ContextSupport ) {
 
-    'use strict';
+    "use strict";
 
     var createPublishPanelItem  = function(
                 contentWidget,
@@ -30,93 +30,93 @@ define([
                 title,
                 defaultDisplayHide,
                 tp1,
-                mainWrapper) {
+                mainWrapper ) {
 
         var publishPanelItem = new PublishPanelItem({
-            contentWidget : contentWidget,
-            context : context,
-            title : title,
-            defaultDisplayHide : defaultDisplayHide
+            contentWidget: contentWidget,
+            context: context,
+            title: title,
+            defaultDisplayHide: defaultDisplayHide
 
         });
 
-        Helper.place(publishPanelItem.domNode, mainWrapper);
-        Helper.removeElement(tp1);
-        assert.isObject(publishPanelItem, 'PublishPanelItem should be an object');
+        Helper.place( publishPanelItem.domNode, mainWrapper );
+        Helper.removeElement( tp1 );
+        assert.isObject( publishPanelItem, "PublishPanelItem should be an object" );
         };
 
     registerSuite({
-        name: 'Publish Widgets',
-	    setup: function () {
+        name: "Publish Widgets",
+	    setup: function() {
 		    Helper.init({
-			    params : {
-				    counter_zero : "0"
+			    params: {
+				    counter_zero: "0"
 			    }
 		    });
 	    },
 
-        'default data': function () {
+        "default data": function() {
             var publishSupport = new PublishSupport({
             });
 
         },
 
-        'PublishEmailSupport Widget': function () {
+        "PublishEmailSupport Widget": function() {
             var publishEmailSupport = new PublishEmailSupport({
 
             });
-            assert.isObject(publishEmailSupport, 'PublishEmailSupport should be an object');
+            assert.isObject( publishEmailSupport, "PublishEmailSupport should be an object" );
         },
 
-        'PublishEmbebedSupport Widget': function () {
-            var tp1 = Helper.createElement('mainWrapper');
+        "PublishEmbebedSupport Widget": function() {
+            var tp1 = Helper.createElement( "mainWrapper" );
 
             var ctxSupport = new ContextSupport({
-                context : "tweetpoll"
+                context: "tweetpoll"
             });
             var publishEmbebed = new PublishEmbebedSupport({
-                contentWidget : ctxSupport,
-                itemId : "12345",
-                name : "Publish test"
+                contentWidget: ctxSupport,
+                itemId: "12345",
+                name: "Publish test"
             });
-            assert.isObject(publishEmbebed, 'PublishEmbebedSupport should be an object');
+            assert.isObject( publishEmbebed, "PublishEmbebedSupport should be an object" );
 
-            createPublishPanelItem(publishEmbebed, ctxSupport, "title", true ,tp1 , "mainWrapper");
+            createPublishPanelItem( publishEmbebed, ctxSupport, "title", true, tp1, "mainWrapper");
 
         },
 
-        'PublishPanelItem Widget': function () {
-            var tp1 = Helper.createElement('mainWrapper');
+        "PublishPanelItem Widget": function() {
+            var tp1 = Helper.createElement( "mainWrapper" );
 	        var publishSupport = new PublishSupport({
 
 	        });
             var publishPanelItem = new PublishPanelItem({
 	            contentWidget: publishSupport
             });
-            Helper.place(publishPanelItem.domNode, 'mainWrapper');
-            Helper.removeElement(tp1);
-            assert.isObject(publishPanelItem, 'PublishPanelItem should be an object');
+            Helper.place( publishPanelItem.domNode, "mainWrapper" );
+            Helper.removeElement( tp1 );
+            assert.isObject( publishPanelItem, "PublishPanelItem should be an object" );
         },
 
-        'PublishSocialStatus Widget': function () {
+        "PublishSocialStatus Widget": function() {
             var publishSocialStatus = new PublishSocialStatus({
 
             });
-            assert.isObject(publishSocialStatus, 'PublishSocialStatus should be an object');
+            assert.isObject( publishSocialStatus, "PublishSocialStatus should be an object" );
         },
 
-        'PublishSocialSupport Widget': function () {
+        "PublishSocialSupport Widget": function() {
             var publishSocialSupport = new PublishSocialSupport({
 
             });
-            assert.isObject(publishSocialSupport, 'PublishSocialSupport should be an object');
+            assert.isObject( publishSocialSupport, "PublishSocialSupport should be an object" );
         },
 
-        'PublishSupport Widget': function () {
+        "PublishSupport Widget": function() {
             var publishSupport = new PublishSupport({
 
 	        });
-            assert.isObject(publishSupport, 'PublishSupport should be an object');
+            assert.isObject( publishSupport, "PublishSupport should be an object" );
         }
     });
 });

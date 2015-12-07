@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class UserEdit
  */
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -44,30 +44,30 @@ define([
                 Button,
                 UserPermissions,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-            templateString : template,
+          // Template string.
+            templateString: template,
 
             user: null,
 
             permissions: [],
 
-            widgetPermissions : [],
+            widgetPermissions: [],
 
             postCreate: function() {
                 var widget = new UserPermissions({
-                    user : this.user
-                })
-                this._permissions.appendChild(widget.domNode);
+                    user: this.user
+                });
+                this._permissions.appendChild( widget.domNode );
             },
 
             /**
              *
              * @method
              */
-            _close : function () {
+            _close: function() {
                 var edit = registry.byId("userEdit");
                     edit.hide();
             }

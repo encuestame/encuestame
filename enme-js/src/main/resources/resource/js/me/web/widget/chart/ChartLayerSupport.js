@@ -1,19 +1,19 @@
-define([
+define( [
      "dojo/_base/declare",
      "me/web/widget/chart/EncuestamePieChart",
-     "me/core/enme"],
+     "me/core/enme" ],
     function(
     declare,
     EncuestamePieChart,
-    _ENME) {
+    _ENME ) {
 
-  return declare(null, {
+  return declare( null, {
 
-    nodeChart : null,
+    nodeChart: null,
 
-    widgetChart : null,
+    widgetChart: null,
 
-    _size : 100,
+    _size: 100,
 
     /**
      * ChartLayerSupport
@@ -25,16 +25,16 @@ define([
      * Build a new Chart.
      * @param options
      */
-      buildChart : function(options) {
-          this.widgetChart = new EncuestamePieChart(options.id, options.results, this._size);
+      buildChart: function( options ) {
+          this.widgetChart = new EncuestamePieChart( options.id, options.results, this._size );
           return this.widgetChart;
       },
 
         /**
      * Render the chart
      */
-    renderChart : function(render) {
-         if ( this.widgetChart) {
+    renderChart: function( render ) {
+         if ( this.widgetChart ) {
              this.widgetChart.render();
          }
     }

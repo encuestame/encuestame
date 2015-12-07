@@ -1,4 +1,4 @@
-define([
+define( [
   "dojo/_base/declare",
   "dojo/topic",
   "dojo/_base/lang",
@@ -29,11 +29,11 @@ define([
   AbstractPattern,
   Icon,
   _ENME,
-  template) {
+  template ) {
 
-  //var
+  //Var
 
-  //lang.extend(ValidationTextBox, {
+  //Lang.extend(ValidationTextBox, {
   // validator : function(value, constraints) {
   //    if (false) {
   //      return true;
@@ -43,30 +43,29 @@ define([
   //  }
   //});
 
+ return declare( [ _WidgetBase, _TemplatedMixin, main_widget, AbstractPattern, _WidgetsInTemplateMixin ], {
 
- return declare([ _WidgetBase, _TemplatedMixin, main_widget, AbstractPattern, _WidgetsInTemplateMixin], {
-
-  templateString : template,
-  dndEnabled : false,
-  group : "A",
+  templateString: template,
+  dndEnabled: false,
+  group: "A",
 
   /**
-  * i18n message for this widget.
+  * I18n message for this widget.
   */
-  i18nMessage : {
-    pattern_question_single : _ENME.getMessage("pattern_question_single"),
-    pattern_single_response_error_m :  _ENME.getMessage("pattern_single_response_error_m")
+  i18nMessage: {
+    pattern_question_single: _ENME.getMessage("pattern_question_single"),
+    pattern_single_response_error_m:  _ENME.getMessage("pattern_single_response_error_m")
   },
 
   /**
   * Max length for the answer.
   */
-  max_length : 100,
+  max_length: 100,
 
   /**
   * Trim the the text.
   */
-  trim : true,
+  trim: true,
 
    /**
     * Define if the textbox is valid or not
@@ -74,34 +73,34 @@ define([
     */
   _validate: true,
 
-  postCreate : function() {
+  postCreate: function() {
 
-    if (this.dndEnabled && !this.isMobile) {
-      domClass.add(this._handle, "dojoDndHandle");
+    if ( this.dndEnabled && !this.isMobile ) {
+      domClass.add( this._handle, "dojoDndHandle");
     }
 
-    this._single.onBlur = lang.hitch(this, function() {
-      topic.publish("/encuestame/survey/singleresponse/" + this.group, this.id, this._single.get('value'));
+    this._single.onBlur = lang.hitch( this, function() {
+      topic.publish("/encuestame/survey/singleresponse/" + this.group, this.id, this._single.get( "value" ) );
     });
 
-    this._single.validator = lang.hitch(this, function(value) {
-      if (this._validate) {
+    this._single.validator = lang.hitch( this, function( value ) {
+      if ( this._validate ) {
         return true;
       } else {
         return false;
       }
     });
 
-    topic.subscribe("/encuestame/survey/singleresponse/" + this.group, lang.hitch(this, function(id, answer_text) {
-      if (this.id != id && answer_text !== '') {
-          if (answer_text === this._single.get('value')) {
+    topic.subscribe("/encuestame/survey/singleresponse/" + this.group, lang.hitch( this, function( id, answer_text ) {
+      if ( this.id != id && answer_text !== "" ) {
+          if ( answer_text === this._single.get( "value" ) ) {
             this._validate = false;
           } else {
             this._validate = true;
           }
-          this._single.validate(false);
+          this._single.validate( false );
         }
-    }));
+    }) );
 
    },
 
@@ -109,16 +108,16 @@ define([
     *
     * @returns {*}
     */
-    isValid : function() {
+    isValid: function() {
       return this._single.isValid();
     },
 
    /**
-    * response.
+    * Response.
     */
-    getResponse : function() {
-     if (this._single) {
-        return this._single.get('value');
+    getResponse: function() {
+     if ( this._single ) {
+        return this._single.get( "value" );
      }
   }
  });

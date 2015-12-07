@@ -1,4 +1,4 @@
-define([
+define( [
  "dojo/_base/declare",
  "dijit/_WidgetBase",
  "dijit/_TemplatedMixin",
@@ -27,84 +27,86 @@ function(
     PublishSupport,
     ContextSupport,
     _ENME,
-     template) {
-return declare([ _WidgetBase, _TemplatedMixin, main_widget, PublishSupport, ContextSupport, _WidgetsInTemplateMixin], {
+     template ) {
+return declare( [ _WidgetBase, _TemplatedMixin, main_widget, PublishSupport, ContextSupport, _WidgetsInTemplateMixin ], {
 
-	  // template string.
-	  templateString : template,
+	  // Template string.
+	  templateString: template,
 
 	 /*
 	  * Allow other widgets in the template.
 	  */
 	 widgetsInTemplate: true,
 
-	 default_time : "T15:00:00",
+	 default_time: "T15:00:00",
 
-    default_date : new Date(),
+    default_date: new Date(),
 
-	 scheduleWidget : null,
+	 scheduleWidget: null,
 
-	 scheduledDateWidget  : null,
+	 scheduledDateWidget: null,
 
-	 scheduledTimeWidget  : null,
+	 scheduledTimeWidget: null,
 
-	 label : _ENME.getMessage('widget_date_to_close'),
+	 label: _ENME.getMessage( "widget_date_to_close" ),
 
 	 /*
 	 *
 	 */
-	options : {
-		checked : false,
-		time : null,
-		date : null
+	options: {
+		checked: false,
+		time: null,
+		date: null
 	},
 
-
     /**
-     *  post create life cycle.
+     *  Post create life cycle.
      */
-     postCreate : function() {
+     postCreate: function() {
 
-        // creating objects
+        // Creating objects
         this.scheduledDateWidget  = new DateTextBox({
             value: this.default_date
         });
-        this._scheduledDate_widget.appendChild(this.scheduledDateWidget.domNode);
+        this._scheduledDate_widget.appendChild( this.scheduledDateWidget.domNode );
 
-        //scheduled
-         this.scheduleWidget = registry.byId("schedule_"+this.id);
-         this.scheduleWidget.onChange = dojo.hitch(this, function(event) {
-             if (event) {
-                 dojo.removeClass(this._scheduledTime, "defaultDisplayHide");
-                 dojo.removeClass(this._scheduledDate, "defaultDisplayHide");
+        //Scheduled
+         this.scheduleWidget = registry.byId("schedule_" + this.id );
+         this.scheduleWidget.onChange = dojo.hitch( this, function( event ) {
+             if ( event ) {
+                 dojo.removeClass( this._scheduledTime, "defaultDisplayHide");
+                 dojo.removeClass( this._scheduledDate, "defaultDisplayHide");
              } else {
-                 dojo.addClass(this._scheduledTime, "defaultDisplayHide");
-                 dojo.addClass(this._scheduledDate, "defaultDisplayHide");
+                 dojo.addClass( this._scheduledTime, "defaultDisplayHide");
+                 dojo.addClass( this._scheduledDate, "defaultDisplayHide");
              }
              var currentTime = new Date();
-             //this.scheduledDateWidget.set("value", currentTime);
-             this.scheduledTimeWidget.set("value", currentTime);
-             this.options.time = _ENME.getFormatTime(currentTime,  _ENME.timeFormat);
+
+             //This.scheduledDateWidget.set("value", currentTime);
+             this.scheduledTimeWidget.set("value", currentTime );
+             this.options.time = _ENME.getFormatTime( currentTime,  _ENME.timeFormat );
              this.options.time_millis = currentTime.getTime();
-             this.options.date = _ENME.getFormatTime(currentTime, _ENME.dateFormat);
+             this.options.date = _ENME.getFormatTime( currentTime, _ENME.dateFormat );
              this.options.date_millis = currentTime.getTime();
              this.options.checked = event;
              this.publish({}); ///TODO: ???????
 
          });
-         //this.scheduledDateWidget = registry.byId("scheduledDate_"+this.id);
-         this.scheduledDateWidget.onChange = dojo.hitch(this, function(event) {
+
+         //This.scheduledDateWidget = registry.byId("scheduledDate_"+this.id);
+         this.scheduledDateWidget.onChange = dojo.hitch( this, function( event ) {
              var selectedDate = this.default_date;
-             this.options.date = _ENME.getFormatTime(selectedDate, _ENME.dateFormat);
+             this.options.date = _ENME.getFormatTime( selectedDate, _ENME.dateFormat );
              this.options.date_millis = selectedDate.getTime();
              this.publish({}); ///TODO: ???????
 
          });
-         //time widget.
-         this.scheduledTimeWidget = registry.byId("scheduledTime_"+this.id);
-         this.scheduledTimeWidget.onChange = dojo.hitch(this, function(event) {
+
+         //Time widget.
+         this.scheduledTimeWidget = registry.byId("scheduledTime_" + this.id );
+         this.scheduledTimeWidget.onChange = dojo.hitch( this, function( event ) {
              var selectedTime = this.scheduledTimeWidget.get("value");
-             this.options.time = _ENME.getFormatTime(selectedTime, _ENME.timeFormat);
+             this.options.time = _ENME.getFormatTime( selectedTime, _ENME.timeFormat );
              this.options.time_millis = selectedTime.getTime();
              this.publish({}); ///TODO: ???????
          });
@@ -114,11 +116,11 @@ return declare([ _WidgetBase, _TemplatedMixin, main_widget, PublishSupport, Cont
      *
      * @returns {*}
      */
-    getOptions : function() {
-        if (this.scheduleWidget.get('checked')){
-           dojo.mixin(this.options, {
-	           checked : true,
-	           complete_date : this.options.date_millis + this.options.time_millis
+    getOptions: function() {
+        if ( this.scheduleWidget.get( "checked" ) ) {
+           dojo.mixin( this.options, {
+	           checked: true,
+	           complete_date: this.options.date_millis + this.options.time_millis
            });
         }
         return this.options;
@@ -127,11 +129,11 @@ return declare([ _WidgetBase, _TemplatedMixin, main_widget, PublishSupport, Cont
 	/**
 	 * Check if the selected date is valid
 	 */
-	isValid : function() {
+	isValid: function() {
 		var currentDate = new Date().getTime();
-        if (this._scheduledCheckTime.checked) {
-            return (this.options.complete_date != null &&
-                    currentDate < this.options.complete_date);
+        if ( this._scheduledCheckTime.checked ) {
+            return ( this.options.complete_date != null &&
+                    currentDate < this.options.complete_date );
         } else {
             return true;
         }

@@ -22,33 +22,33 @@
  *  @class FileName
  */
 
-define([
-	'intern!object',
-	'intern/chai!assert',
+define( [
+	"intern!object",
+	"intern/chai!assert",
 	"dojo/sniff",
-	'me/core/features/base'
-], function (registerSuite, assert, sniff, features) {
+	"me/core/features/base"
+], function( registerSuite, assert, sniff, features ) {
 	var store;
 
 	registerSuite({
-		name: 'HTML5 Features Detector',
+		name: "HTML5 Features Detector",
 
-		geolocation: function () {
-			if (sniff("chrome") ||
+		geolocation: function() {
+			if ( sniff("chrome") ||
 				sniff("safari") ||
 				sniff("android") ||
 				sniff("ios") ||
 				sniff("opera") ||
-				sniff("mozilla")) {
-				assert.strictEqual(features.geolocation(), true, 'Geolocation should be true in this browser');
-				assert.strictEqual(features.websocket(), true, 'Websocket should be true in this browser');
-				assert.strictEqual(features.input.placeholder(), undefined, 'Placeholder should be true in this browser');
-				assert.strictEqual(features.sessionstorage(), true, 'SessionStorage should be true in this browser');
+				sniff("mozilla") ) {
+				assert.strictEqual( features.geolocation(), true, "Geolocation should be true in this browser" );
+				assert.strictEqual( features.websocket(), true, "Websocket should be true in this browser" );
+				assert.strictEqual( features.input.placeholder(), undefined, "Placeholder should be true in this browser" );
+				assert.strictEqual( features.sessionstorage(), true, "SessionStorage should be true in this browser" );
 			}
-			if (sniff("chrome") ||
+			if ( sniff("chrome") ||
 				sniff("safari") ||
-				sniff("mozilla")) {
-				assert.strictEqual(features.draganddrop(), true, 'Drag and Drop should be true in this browser');
+				sniff("mozilla") ) {
+				assert.strictEqual( features.draganddrop(), true, "Drag and Drop should be true in this browser" );
 			}
 		}
 	});

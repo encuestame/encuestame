@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dojo/dom-construct",
          "dijit/_WidgetBase",
@@ -9,7 +9,7 @@ define([
          "me/web/widget/tweetpoll/TweetPollPublishItemSCHEDULEDtatus",
          "me/web/widget/tweetpoll/TweetPollPublishItemFAILUREStatus",
          "me/core/enme",
-         "dojo/text!me/web/widget/tweetpoll/templates/tweetPollPublishItemStatus.html"],
+         "dojo/text!me/web/widget/tweetpoll/templates/tweetPollPublishItemStatus.html" ],
         function(
                 declare,
                 domConstruct,
@@ -21,102 +21,103 @@ define([
                 TweetPollPublishItemSCHEDULEDtatus,
                 TweetPollPublishItemFAILUREStatus,
                 _ENME,
-                 template) {
-        return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+        return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
        /*
-        *  template string.
+        *  Template string.
         */
-        templateString : template,
+        templateString: template,
 
         /**
          * Store all TweetPoll widget data
          * @param tweetPollWidget
          */
-        tweetPollWidget : null,
+        tweetPollWidget: null,
 
           /**
           *
           */
-         data : {},
+         data: {},
          /**
           * Social account data.
           */
-         socialAccount : {},
+         socialAccount: {},
 
          /**
           * Post create lyfe cycle.
           */
-         postCreate : function() {
+         postCreate: function() {
              this.initialize();
          },
 
          /**
-          * initialize widget.
+          * Initialize widget.
           */
-         initialize : function() {
+         initialize: function() {
              var _node;
-             if (this.data.status_tweet === _ENME.STATUS[0]) {  //SUCCESS
-                 _node = this._showSuccessMessage(this.data);
-                 if (_node) {
-                    domConstruct.place(_node, this._detailStatus);
-                    //this._detailStatus.appendChild();
+             if ( this.data.status_tweet === _ENME.STATUS[ 0 ] ) {  //SUCCESS
+                 _node = this._showSuccessMessage( this.data );
+                 if ( _node ) {
+                    domConstruct.place( _node, this._detailStatus );
+
+                    //This._detailStatus.appendChild();
                  }
-             } else if (this.data.status_tweet === _ENME.STATUS[1]) { //FAILURE
-                 _node = this._showFailureMessage(this.data);
-                 if (_node) {
-                   domConstruct.place(_node, this._detailStatus);
+             } else if ( this.data.status_tweet === _ENME.STATUS[ 1 ] ) { //FAILURE
+                 _node = this._showFailureMessage( this.data );
+                 if ( _node ) {
+                   domConstruct.place( _node, this._detailStatus );
                  }
-             } else if (this.data.status_tweet === _ENME.STATUS[3]) { //SCHEDULED
-                 _node = this._showScheduldedMessage(this.data);
-                 if (_node) {
-                   domConstruct.place(_node, this._detailStatus);
+             } else if ( this.data.status_tweet === _ENME.STATUS[ 3 ] ) { //SCHEDULED
+                 _node = this._showScheduldedMessage( this.data );
+                 if ( _node ) {
+                   domConstruct.place( _node, this._detailStatus );
                  }
              }
-             this._accountProviderIcon.src = _ENME.shortPicture(this.socialAccount.type_account);
+             this._accountProviderIcon.src = _ENME.shortPicture( this.socialAccount.type_account );
          },
 
          /**
           * Convert a failure status to success status
           * @method
           */
-         convertToSuccess : function(data, status) {
-            if (status === 'scheduled') {
-               return this._showScheduldedMessage(data);
+         convertToSuccess: function( data, status ) {
+            if ( status === "scheduled" ) {
+               return this._showScheduldedMessage( data );
             } else {
-               return this._showSuccessMessage(data);
+               return this._showSuccessMessage( data );
             }
          },
 
          /*
-          * build succes message.
+          * Build succes message.
           */
-         _showScheduldedMessage : function(data) {
-            data.scheduled_date = moment(data.scheduled_date).format("MM-DD-YYYY hh:mm:ss");
+         _showScheduldedMessage: function( data ) {
+            data.scheduled_date = moment( data.scheduled_date ).format("MM-DD-YYYY hh:mm:ss");
              var success = new TweetPollPublishItemSCHEDULEDtatus({
-                 metadata : data
+                 metadata: data
              });
              return success.domNode;
          },
 
          /*
-          * build succes message.
+          * Build succes message.
           */
-         _showSuccessMessage : function(data) {
+         _showSuccessMessage: function( data ) {
              var success = new TweetPollPublishItemSUCCESStatus({
-                 metadata : data
+                 metadata: data
              });
              return success.domNode;
          },
 
          /*
-          * build failure message.
+          * Build failure message.
           */
-         _showFailureMessage : function(data) {
+         _showFailureMessage: function( data ) {
              var fail = new TweetPollPublishItemFAILUREStatus({
-                 metadata : data,
-                 parentStatusWidget : this,
-                 tweetPollWidget : this.tweetPollWidget // important, transfer the main widget reference
+                 metadata: data,
+                 parentStatusWidget: this,
+                 tweetPollWidget: this.tweetPollWidget // Important, transfer the main widget reference
              });
              return fail.domNode;
          }

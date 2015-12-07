@@ -22,9 +22,9 @@
  *  @class NotificationList
  */
 
-define([
+define( [
          "dojo",
-         'dojo/_base/json',
+         "dojo/_base/json",
          "dojo/dom-construct",
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -45,203 +45,214 @@ define([
                 main_widget,
                 NotificationListItem,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
         /**
-         * template string.
+         * Template string.
          * @property templateString
          */
-        templateString : template,
+        templateString: template,
 
         /**
          *
          * @property arrayNotifications
          */
-        arrayNotifications : null,
+        arrayNotifications: null,
 
         /**
          *
          * @property mobile
          */
-        mobile : false,
+        mobile: false,
 
         /**
          *
          * @property _start
          */
-        _start : 0,
+        _start: 0,
 
         /**
          *
          * @property _limit
          */
-        _limit :  600,
+        _limit:  600,
 
         /**
          *
          * @property
          */
-        _seeMoreValue : false,
+        _seeMoreValue: false,
 
         /**
-         * postCreate life cycle
+         * PostCreate life cycle
          * @method postCreate
          */
-        postCreate : function() {
-            this._loadNotifications(this._start);
+        postCreate: function() {
+            this._loadNotifications( this._start );
         },
 
         /**
          * Load notifications.
          * @method _loadNotifications
          */
-        _loadNotifications : function(start) {
+        _loadNotifications: function( start ) {
+
              //
-            var load = dojo.hitch(this, function(data) {
+            var load = dojo.hitch( this, function( data ) {
                  this.arrayNotifications = data.success.notifications;
                  this._showListCategories();
-                 console.debug("notifications", this.arrayNotifications);
+                 console.debug("notifications", this.arrayNotifications );
              });
+
              //
-             var error = function(error) {
-                 console.debug("error", error);
+             var error = function( error ) {
+                 console.debug("error", error );
              };
+
              //
-             if (start === null) {
+             if ( start === null ) {
                  start = 0;
              }
-             // params
+
+             // Params
              var params = {
-                    limit : this._limit,
+                    limit: this._limit,
                     start: start,
                     categorized: true
                 };
-             this.getURLService().get("encuestame.service.list.getAllNotifications", params, load, error , dojo.hitch(this, function() { }));
+             this.getURLService().get("encuestame.service.list.getAllNotifications", params, load, error, dojo.hitch( this, function() { }) );
         },
 
         /*
          *
          * @method _loadMoreNotifications
          */
-        _loadMoreNotifications : function(event){
-                //console.debug("MORE ENCUESTAME-234", event);
+        _loadMoreNotifications: function( event ) {
+
+                //Console.debug("MORE ENCUESTAME-234", event);
         },
 
         /**
-         * see more items.
+         * See more items.
          * @method _seeMore
          */
-        _seeMore : function(){
-            //only for mobile interface. override.
+        _seeMore: function() {
+
+            //Only for mobile interface. override.
         },
 
         /**
-         * build notification category section.
+         * Build notification category section.
          * @method _buildSection
          */
-        _buildSection : function(name, content) {
+        _buildSection: function( name, content ) {
              var section = dojo.doc.createElement("div");
-             dojo.addClass(section, "section");
+             dojo.addClass( section, "section");
 
              var title = domConstruct.create("div"),
              inner_title = domConstruct.create("span");
-             dojo.addClass(title, 'web-sub-tittle');
-             dojo.addClass(title, 'web-b-top-bottom');
-             dojo.addClass(title, 'web-bottomborder');
+             dojo.addClass( title, "web-sub-tittle" );
+             dojo.addClass( title, "web-b-top-bottom" );
+             dojo.addClass( title, "web-bottomborder" );
              inner_title.innerHTML = name;
-             //add title
-             title.appendChild(inner_title);
-             section.appendChild(title);
-             //add content
-             section.appendChild(content);
-             //add see more
-             if( this._seeMoreValue) {
-                 section.appendChild(this._seeMore());
+
+             //Add title
+             title.appendChild( inner_title );
+             section.appendChild( title );
+
+             //Add content
+             section.appendChild( content );
+
+             //Add see more
+             if ( this._seeMoreValue ) {
+                 section.appendChild( this._seeMore() );
              }
-             this._list.appendChild(section);
+             this._list.appendChild( section );
         },
 
         /**
          * Create a notification list item
          * @method _createNotificationItem
          */
-        _createNotificationItem : function(item, category) {
+        _createNotificationItem: function( item, category ) {
              var widget = new NotificationListItem({
-                 item : item,
-                 category : "TODAY"});
+                 item: item,
+                 category: "TODAY" });
             return widget;
         },
 
         /*
-         * show list categories.
+         * Show list categories.
          */
-        _showListCategories : function() {
+        _showListCategories: function() {
             var today = this.arrayNotifications.TODAY;
-            if (today.length > 0) {
+            if ( today.length > 0 ) {
                 var items = dojo.doc.createElement("ul");
-                dojo.forEach(today, dojo.hitch(this, function(item, index) {
-                    var todayWidget = this._createNotificationItem(item, "TODAY");
-                    items.appendChild(todayWidget.domNode);
-                }));
-               this._buildSection("Today", items);
+                dojo.forEach( today, dojo.hitch( this, function( item, index ) {
+                    var todayWidget = this._createNotificationItem( item, "TODAY");
+                    items.appendChild( todayWidget.domNode );
+                }) );
+               this._buildSection("Today", items );
             }
+
             //TODO: ENCUESTAME-
             var thisWeek = this.arrayNotifications.THIS_WEEK;
-            if (thisWeek.length > 0) {
+            if ( thisWeek.length > 0 ) {
                 var items_week = dojo.doc.createElement("ul");
-                dojo.forEach(thisWeek, dojo.hitch(this, function(item, index) {
-                    var todayWidget = this._createNotificationItem(item, "THIS WEEK");
-                    items_week.appendChild(todayWidget.domNode);
-                }));
-               this._buildSection("This Week", items_week);
+                dojo.forEach( thisWeek, dojo.hitch( this, function( item, index ) {
+                    var todayWidget = this._createNotificationItem( item, "THIS WEEK");
+                    items_week.appendChild( todayWidget.domNode );
+                }) );
+               this._buildSection("This Week", items_week );
             }
             var thisMonth = this.arrayNotifications.THIS_MONTH;
-             if (thisMonth.length > 0) {
+             if ( thisMonth.length > 0 ) {
                 var items_month = dojo.doc.createElement("ul");
-                dojo.forEach(thisMonth, dojo.hitch(this, function(item, index) {
-                    var todayWidget = this._createNotificationItem(item, "THIS MONTH");
-                    items_month.appendChild(todayWidget.domNode);
-                }));
-               this._buildSection("This Month", items_month);
+                dojo.forEach( thisMonth, dojo.hitch( this, function( item, index ) {
+                    var todayWidget = this._createNotificationItem( item, "THIS MONTH");
+                    items_month.appendChild( todayWidget.domNode );
+                }) );
+               this._buildSection("This Month", items_month );
             }
             var lastMonth = this.arrayNotifications.LAST_MONTH;
-            if (lastMonth.length > 0) {
+            if ( lastMonth.length > 0 ) {
                 var items_last_month = dojo.doc.createElement("ul");
-                dojo.forEach(lastMonth, dojo.hitch(this, function(item, index) {
-                    var todayWidget = this._createNotificationItem(item, "LAST MONTH");
-                    items_last_month.appendChild(todayWidget.domNode);
-                }));
-               this._buildSection("Last Month", items_last_month);
+                dojo.forEach( lastMonth, dojo.hitch( this, function( item, index ) {
+                    var todayWidget = this._createNotificationItem( item, "LAST MONTH");
+                    items_last_month.appendChild( todayWidget.domNode );
+                }) );
+               this._buildSection("Last Month", items_last_month );
             }
             var fewMonthsAgo = this.arrayNotifications.FEW_MONTHS_AGO;
-            if (fewMonthsAgo.length > 0) {
+            if ( fewMonthsAgo.length > 0 ) {
                 var items_months_ago = dojo.doc.createElement("ul");
-                dojo.forEach(fewMonthsAgo, dojo.hitch(this, function(item, index) {
-                    var todayWidget = this._createNotificationItem(item, "FEW MOTNHS AGO");
-                    items_months_ago.appendChild(todayWidget.domNode);
-                }));
-               this._buildSection("Few Months Ago", items_months_ago);
+                dojo.forEach( fewMonthsAgo, dojo.hitch( this, function( item, index ) {
+                    var todayWidget = this._createNotificationItem( item, "FEW MOTNHS AGO");
+                    items_months_ago.appendChild( todayWidget.domNode );
+                }) );
+               this._buildSection("Few Months Ago", items_months_ago );
             }
             var lastYear = this.arrayNotifications.LAST_YEAR;
-            if (lastYear.length > 0) {
+            if ( lastYear.length > 0 ) {
                 var items_last_year = dojo.doc.createElement("ul");
-                dojo.forEach(lastYear, dojo.hitch(this, function(item, index) {
-                    var todayWidget = this._createNotificationItem(item, "LAST YEAR");
-                    items_last_year.appendChild(todayWidget.domNode);
-                }));
-               this._buildSection("Last Year", items_last_year);
+                dojo.forEach( lastYear, dojo.hitch( this, function( item, index ) {
+                    var todayWidget = this._createNotificationItem( item, "LAST YEAR");
+                    items_last_year.appendChild( todayWidget.domNode );
+                }) );
+               this._buildSection("Last Year", items_last_year );
             }
             var longTimeAgo = this.arrayNotifications.LONG_TIME_AGO;
-            if (longTimeAgo.length > 0) {
+            if ( longTimeAgo.length > 0 ) {
                 var items_time_ago = dojo.doc.createElement("ul");
-                dojo.forEach(longTimeAgo, dojo.hitch(this, function(item, index) {
-                    var todayWidget = this._createNotificationItem(item, "LONG TIME AGO");
-                    items_time_ago.appendChild(todayWidget.domNode);
-                }));
-               this._buildSection("Long Time Ago", items_time_ago);
+                dojo.forEach( longTimeAgo, dojo.hitch( this, function( item, index ) {
+                    var todayWidget = this._createNotificationItem( item, "LONG TIME AGO");
+                    items_time_ago.appendChild( todayWidget.domNode );
+                }) );
+               this._buildSection("Long Time Ago", items_time_ago );
             }
-            // console.debug("thisWeek", thisWeek);
+
+            // Console.debug("thisWeek", thisWeek);
             // console.debug("thisMonth", thisMonth);
             // console.debug("lastMonth", lastMonth);
             // console.debug("fewMonthsAgo", fewMonthsAgo);

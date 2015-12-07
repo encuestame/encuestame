@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -19,96 +19,97 @@ define([
                 SocialAccountsSupport,
                 SocialFilterMenuItem,
                 _ENME,
-                 template) {
-          return declare([ _WidgetBase, _TemplatedMixin, main_widget, AbstractFilterSupport, SocialAccountsSupport, _WidgetsInTemplateMixin], {
+                 template ) {
+          return declare( [ _WidgetBase, _TemplatedMixin, main_widget, AbstractFilterSupport, SocialAccountsSupport, _WidgetsInTemplateMixin ], {
 
           /**
            * The template reference.
            */
-          templateString : template,
+          templateString: template,
 
          /*
-          * the key to restore / save the status of the widget in the browser
+          * The key to restore / save the status of the widget in the browser
           */
-          _key_save : 'filter-social',          
+          _key_save: "filter-social",
 
           /**
            * Object to save the status of the widget.--
            */
-          _status : {
-                social_account_networks : []
+          _status: {
+                social_account_networks: []
           },
 
          /**
-          * i18n message for this widget.
+          * I18n message for this widget.
           */
-         i18nMessage : {
-           social_picker_filter_selected : _ENME.getMessage("social_picker_filter_selected"),
-           commons_filter : _ENME.getMessage("commons_filter")
+         i18nMessage: {
+           social_picker_filter_selected: _ENME.getMessage("social_picker_filter_selected"),
+           commons_filter: _ENME.getMessage("commons_filter")
          },
 
          /**
           *
           */
-         postCreate : function() {
+         postCreate: function() {
              dojo.subscribe("/encuestame/social/picker/counter/reload", this, "_reloadCounter");
              this._loadSocialConfirmedAccounts();
-             // on click in the filter button
+
+             // On click in the filter button
              //this._button.onClick = dojo.hitch(this, function() {});
          },
 
          /**
           *
           */
-         cleanSocialAccounts : function() {
-             dojo.empty(this._items);
+         cleanSocialAccounts: function() {
+             dojo.empty( this._items );
          },
 
-
          /**
-          * reload counter
+          * Reload counter
           */
-         _reloadCounter : function() {
+         _reloadCounter: function() {
              var counter = this._countSelected();
              this._counter.innerHTML =  counter + " " + this.i18nMessage.social_picker_filter_selected;
-             if (typeof this.arrayAccounts === 'object') {
-                this.storeSelected(this.arrayAccounts);
-             }             
+             if ( typeof this.arrayAccounts === "object" ) {
+                this.storeSelected( this.arrayAccounts );
+             }
          },
 
        /*
         * Customized re-build
         */
-       _buildStatusObject : function(data) {
+       _buildStatusObject: function( data ) {
+
           //TODO: Restore selected social accounts, need refactorize some methods on SocialFilterMenuItem
        },
-
 
          /**
           *  Store the selected social networks.
           *  @param {Array} list of social
           */
-         storeSelected : function (_arrayList) {
-            // list to social id to store.
+         storeSelected: function( _arrayList ) {
+
+            // List to social id to store.
             var _iAccount = [];
-            dojo.forEach(_arrayList,
-               dojo.hitch(this, function(data, index) {
-                  if ("id" in data) {
-                      _iAccount.push(data.id);
-                  }                
-            }));
+            dojo.forEach( _arrayList,
+               dojo.hitch( this, function( data, index ) {
+                  if ("id" in data ) {
+                      _iAccount.push( data.id );
+                  }
+            }) );
             this._status.social_account_networks = _iAccount;
-            this._saveStatus(this._status);
+            this._saveStatus( this._status );
          },
 
          /**
           * Create a pick social account.
           * @param data
           */
-         createPickSocialAccount : function(data) {
-             var widget = new SocialFilterMenuItem({data : data});
-             this._items.appendChild(widget.domNode);
-             this.arrayWidgetAccounts.push(widget);          
+         createPickSocialAccount: function( data ) {
+             var widget = new SocialFilterMenuItem({ data: data });
+             this._items.appendChild( widget.domNode );
+             this.arrayWidgetAccounts.push( widget );
          }
 
     });

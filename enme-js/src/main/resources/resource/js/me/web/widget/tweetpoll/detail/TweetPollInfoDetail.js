@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -15,78 +15,80 @@ define([
                 main_widget,
                 _ENME,
                 registry,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-            templateString : template,
+          // Template string.
+            templateString: template,
 
           /*
-          * widget
+          * Widget
           */
          widgetsInTemplate: true,
          /*
-          * date
+          * Date
           */
-         date : "",
+         date: "",
          /*
-          * owner
+          * Owner
           */
-         owner : "",
+         owner: "",
 
          /*
-          * question name.
+          * Question name.
           */
-         question : "",
+         question: "",
 
          /*
-          * tweetpoll id
+          * Tweetpoll id
           */
-         tweetPollid : null,
+         tweetPollid: null,
          /*
           *
           */
-         completed : false,
-
-         /*
-          *
-          */
-         votes : 0,
+         completed: false,
 
          /*
           *
           */
-         hits : 0,
+         votes: 0,
 
          /*
           *
           */
-         countdownWidget : null,
+         hits: 0,
 
          /*
           *
           */
-         statusWidget : null,
+         countdownWidget: null,
 
          /*
           *
           */
-         postCreate : function() {
-             //console.debug("this.date", this.date);
-             this.statusWidget = registry.byId("status_"+this.id);
-             if (this._hits) {
-                 this._hits.innerHTML = _ENME.shortAmmount(this.hits);
+         statusWidget: null,
+
+         /*
+          *
+          */
+         postCreate: function() {
+
+             //Console.debug("this.date", this.date);
+             this.statusWidget = registry.byId("status_" + this.id );
+             if ( this._hits ) {
+                 this._hits.innerHTML = _ENME.shortAmmount( this.hits );
              }
-             if (this._votes) {
-                 this._votes.innerHTML = _ENME.shortAmmount(this.votes);
+             if ( this._votes ) {
+                 this._votes.innerHTML = _ENME.shortAmmount( this.votes );
              }
-             if (this._question_title) {
+             if ( this._question_title ) {
                  this._question_title.innerHTML = this.question;
              }
-             if (!this.completed) {
-                 if (this.date !== null) {
-                     this.date = new Date(this.date);
-                     //console.debug("this.date 2 ", this.date);
+             if ( !this.completed ) {
+                 if ( this.date !== null ) {
+                     this.date = new Date( this.date );
+
+                     //Console.debug("this.date 2 ", this.date);
 //                     this.countdownWidget = new encuestame.org.core.shared.utils.CountDown({
 //                         limitDate : {
 //                             day : this.date.getDate(),
@@ -116,16 +118,18 @@ define([
          /*
           *
           */
-         _completeTweetPoll : function() {
-//             if(this.countdownWidget){
+         _completeTweetPoll: function() {
+
+//             If(this.countdownWidget){
 //                 this.countdownWidget.hide();
 //             }
-             if (this.statusWidget) {
+             if ( this.statusWidget ) {
                  this.statusWidget.setClose();
              }
          },
 
-         _reloadHits : function() {
+         _reloadHits: function() {
+
              //TODO: reload hits.
          }
 

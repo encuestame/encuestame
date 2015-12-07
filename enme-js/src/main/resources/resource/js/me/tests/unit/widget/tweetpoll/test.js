@@ -14,9 +14,11 @@
  *  limitations under the License.
  */
 
-define([
+define( [
+
 	//'intern/node_modules/dojo/has!host-browser?./TweetPoll',
-	'intern/node_modules/dojo/has!host-browser?./list',
+	"intern/node_modules/dojo/has!host-browser?./list",
+
 	//'intern/node_modules/dojo/has!host-browser?./publish',
-	'intern/node_modules/dojo/has!host-browser?./answers'
-], function () {});
+	"intern/node_modules/dojo/has!host-browser?./answers"
+], function() {});

@@ -13,20 +13,20 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-define(['./intern_common'], function(common) {
+define( [ "./intern_common" ], function( common ) {
 	common.useLoader = {
-		'host-node'   : 'dojo/dojo',
-		'host-browser': '../../js/dojo/dojo.js'
+		"host-node": "dojo/dojo",
+		"host-browser": "../../js/dojo/dojo.js"
 	};
-	common.environments= [
-		{ browserName: 'chrome'}
+	common.environments = [
+		{ browserName: "chrome" }
 	];
 	common.capabilities = {
-		'browserstack.debug'	: true,
-		'project'				: 'encuestame intern test',
-		'idleTimeout'			: '300',
-		'idle-timeout'			: '300'
+		"browserstack.debug": true,
+		"project": "encuestame intern test",
+		"idleTimeout": "300",
+		"idle-timeout": "300"
 	};
-	common.tunnel = 'BrowserStackTunnel';
+	common.tunnel = "BrowserStackTunnel";
 	return common;
 });

@@ -21,13 +21,14 @@
  *  @namespace support
  *  @class Websocket
  */
-define(["dojo",
+define( [ "dojo",
          "me/core/enme",
-        'dojo/domReady!'], function(
+        "dojo/domReady!" ], function(
             dojo,
-            _ENME) {
+            _ENME ) {
 
         var _options = {
+
           // Should we check the connection status immediatly on page load.
           checkOnLoad: true,
 
@@ -36,8 +37,10 @@ define(["dojo",
 
           // Should we automatically retest periodically when the connection is down (set to false to disable).
           reconnect: {
+
             // How many seconds should we wait before rechecking.
             initialDelay: 3
+
             // How long should we wait between retries.
             //delay: (1.5 * last delay, capped at 1 hour)
           },
@@ -49,27 +52,27 @@ define(["dojo",
           // It's not included in the normal build, you should bring in js/snake.js in addition to
           // offline.min.js.
           game: false
-        };  
+        };
 
-        var OFFLINE = function(options) {
+        var OFFLINE = function( options ) {
             this.executions = [];
-            this.bindExecutions(options);
+            this.bindExecutions( options );
         };
 
         OFFLINE.prototype = {
-           
+
             /**
              * Add additional executions
              * @property functions [Array]
              */
-            bindExecutions : function(functions) {
-                for (var key in functions) {
-                   if (functions.hasOwnProperty(key)) {
-                      Offline.on(key, functions[key], this);
+            bindExecutions: function( functions ) {
+                for ( var key in functions ) {
+                   if ( functions.hasOwnProperty( key ) ) {
+                      Offline.on( key, functions[ key ], this );
                    }
                 }
             }
-        }
+        };
 
         return OFFLINE;
     }

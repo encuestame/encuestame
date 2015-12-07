@@ -23,7 +23,7 @@
  */
 
 define(
-	["dojo/cookie",
+	[ "dojo/cookie",
 	 "dojo/on",
 	 "dojo/dom-construct",
 	 "dojo/_base/lang",
@@ -31,14 +31,14 @@ define(
 	 "dojo/dom-class",
 	 "dojo/query",
 	 "dojo/dom-attr"
-	],function(cookie,
+	], function( cookie,
 	           on,
 	           domConstruct,
 	           lang,
 	           array,
 	           domClass,
 	           query,
-	           domAttr) {
+	           domAttr ) {
 		return {
 
 		/**
@@ -46,9 +46,10 @@ define(
 		 * @method
 		 */
 		createCaret: function() {
+
 			//<b class="caret"></b>
-			var b = domConstruct.create('b');
-			domClass.add(b,'caret');
+			var b = domConstruct.create( "b" );
+			domClass.add( b, "caret" );
 			return b;
 		},
 
@@ -57,14 +58,15 @@ define(
 		 * attribute.
 		 * @param selector a selector
 		 */
-		clone : function(selector) {
-			var x = query(selector),
-				c = lang.clone(x);
-			if(c.length === 0) {
+		clone: function( selector ) {
+			var x = query( selector ),
+				c = lang.clone( x );
+			if ( c.length === 0 ) {
 				return;
 			}
+
 			//FIXME: I don't like so much this workaround
-			domAttr.remove(c[0], "id");
+			domAttr.remove( c[ 0 ], "id");
 			return x;
 		},
 
@@ -72,9 +74,9 @@ define(
 		 * Toggle a class name
 		 * @method
 		 */
-		toggleClassName : function(element, className) {
-			if (element) {
-				domClass.toggle(element, className);
+		toggleClassName: function( element, className ) {
+			if ( element ) {
+				domClass.toggle( element, className );
 			}
 		},
 
@@ -82,24 +84,23 @@ define(
 		 *
 		 * @method
 		 */
-		setVisible : function(element, show) {
-			if (!element) {
+		setVisible: function( element, show ) {
+			if ( !element ) {
 				return;
 			}
-			query(element).forEach(function(node) {
-				var isHidden = domClass.contains(node, "hidden");
-				if (isHidden && show) {
-					domClass.remove(node, "hidden");
-				} else if (!isHidden && !show) {
-					domClass.add(node, "hidden");
+			query( element ).forEach( function( node ) {
+				var isHidden = domClass.contains( node, "hidden");
+				if ( isHidden && show ) {
+					domClass.remove( node, "hidden");
+				} else if ( !isHidden && !show ) {
+					domClass.add( node, "hidden");
 				}
 			});
 		},
 
-		isVisible : function(element) {
-			return !query(element).hasClass("hidden");
+		isVisible: function( element ) {
+			return !query( element ).hasClass("hidden");
 		}
-
 
 	};
 });

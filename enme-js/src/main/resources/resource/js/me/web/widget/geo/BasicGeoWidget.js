@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class Message
  */
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
@@ -29,7 +29,7 @@ define([
      "me/core/main_widgets/EnmeMainLayoutWidget",
      "me/core/enme",
      "me/core/support/GeolocationSupport",
-     "dojo/text!me/web/widget/geo/templates/basic-geo-template.html"],
+     "dojo/text!me/web/widget/geo/templates/basic-geo-template.html" ],
     function(
     declare,
     _WidgetBase,
@@ -38,38 +38,39 @@ define([
     main_widget,
     _ENME,
     GeolocationSupport,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
      /**
-      * template string.
+      * Template string.
       * @property
       */
-     templateString : template,
+     templateString: template,
 
       /**
        * Post create
        * @method postCreate
        */
-      postCreate : function () {
+      postCreate: function() {
          var geo = new GeolocationSupport({
 
           /**
            *
            * @method
            */
-          success: function(p) {
-            console.log("success", arguments);
-            //alert(p.coords.latitude);
+          success: function( p ) {
+            console.log("success", arguments );
+
+            //Alert(p.coords.latitude);
           },
 
           /**
            *
            * @method
            */
-          error: function(){
-            console.log("error", arguments);
+          error: function() {
+            console.log("error", arguments );
           }
          });
       }

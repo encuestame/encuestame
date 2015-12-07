@@ -21,7 +21,7 @@
  *  @namespace Widgets
  *  @class SuggestItem
  */
-define([
+define( [
          "dojo",
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -40,43 +40,42 @@ define([
                 main_widget,
                 hashTagInfo,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-        // template string.
-        templateString : template,
+        // Template string.
+        templateString: template,
 
         /**
          *
          * @property
          */
-         data : null,
+         data: null,
 
          /**
           *
           * @property
           */
-         parentWidget  : null,
+         parentWidget: null,
 
         /**
          * Define if is selected.
          * @property
          */
-         _selected : false,
+         _selected: false,
 
          /**
           *
           * @method postCreate
           */
-        postCreate : function(){},
-
+        postCreate: function() {},
 
         /**
          * Select this item.
          * @method selected
          */
-        selected : function () {
-            dojo.addClass(this.domNode, "suggest-selected");
+        selected: function() {
+            dojo.addClass( this.domNode, "suggest-selected");
             this._selected = true;
         },
 
@@ -84,8 +83,8 @@ define([
          * Un select this item
          * @method unSelect
          */
-        unSelect : function () {
-            dojo.removeClass(this.domNode, "suggest-selected");
+        unSelect: function() {
+            dojo.removeClass( this.domNode, "suggest-selected");
             this._selected = false;
         },
 
@@ -93,21 +92,20 @@ define([
          * Check if is selected
          * @method
          */
-        isSelected : function () {
+        isSelected: function() {
             return this._selected;
         },
 
-
        /**
-        * select item
+        * Select item
         * @method _selectItem
         */
-        _selectItem: function(event) {
-            dojo.stopEvent(event);
+        _selectItem: function( event ) {
+            dojo.stopEvent( event );
             this._selected = false;
             this.parentWidget.selectedItem = this.data;
             this.parentWidget.hide();
-            this.processItem(this.data);
+            this.processItem( this.data );
         }
     });
 });

@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/_base/declare",
      "dojo/on",
      "dojo/dom-class",
@@ -23,41 +23,41 @@ define([
     main_widget,
     abstractChartVoteSupport,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, abstractChartVoteSupport, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, abstractChartVoteSupport, _WidgetsInTemplateMixin ], {
 
-     // template string.
-     templateString : template,
+     // Template string.
+     templateString: template,
      /**
      *
      */
-    pollId : null,
+    pollId: null,
 
     /**
      * Owner of the tweetpoll.
      */
-    username : "",
+    username: "",
 
     /**
      * Post create.
      */
-    postCreate : function(){
+    postCreate: function() {
         this._loadVotes();
-        this.enableVoteTime(this._live);
-        if (!this.isMobile) {
-            on(this._embebed, "click", dojo.hitch(this, function (e) {
-                this.stopEvent(e);
+        this.enableVoteTime( this._live );
+        if ( !this.isMobile ) {
+            on( this._embebed, "click", dojo.hitch( this, function( e ) {
+                this.stopEvent( e );
                 this._embebed_options.initialize();
                 this._embebed_options_dialog.show();
-            }));
+            }) );
             this._embebed_options.dialogWidget = this._embebed_options_dialog;
         } else {
-            domClass.add(this._embebed, 'hidden');
+            domClass.add( this._embebed, "hidden" );
         }
     },
 
-      _closeEmbebedDialog: function(e) {
+      _closeEmbebedDialog: function( e ) {
           this._embebed_options_dialog.hide();
       },
 
@@ -65,28 +65,32 @@ define([
      * Override _loadVotes.
      * Load current votes for a poll.
      */
-    _loadVotes : function() {
-        var response = dojo.hitch(this, function(dataJson) {
-            if ("success" in dataJson) {
+    _loadVotes: function() {
+        var response = dojo.hitch( this, function( dataJson ) {
+            if ("success" in dataJson ) {
                 var votes = dataJson.success.votesResult,
                 totalVotes = 0;
-                if (votes.length > 0) {
+                if ( votes.length > 0 ) {
                 var results = [];
                 dojo.forEach(
                         votes,
-                        dojo.hitch(this, function(data, index) {
+                        dojo.hitch( this, function( data, index ) {
                           var votes = data.answer_votes === null ? 0 : data.answer_votes;
-                            var answer = [this.percents ? data.percent : data.answer.answers, (votes), data.answer.color];
-                            results.push(answer);
+                            var answer = [ this.percents ? data.percent : data.answer.answers, ( votes ), data.answer.color ];
+                            results.push( answer );
                             totalVotes += votes;
-                            //dojo.publish("/encuestame/poll/detail/answer/reload", [data.id, [votes, data.percent]]);
-                }));
-                //clean chart node.
-                dojo.empty(this._chart);
-                //check if votes are 0
-                if (totalVotes > 0) {
-                    //create new chart
-                    this.createChart(this._chart, results, this._defaultChart);
+
+                            //Dojo.publish("/encuestame/poll/detail/answer/reload", [data.id, [votes, data.percent]]);
+                }) );
+
+                //Clean chart node.
+                dojo.empty( this._chart );
+
+                //Check if votes are 0
+                if ( totalVotes > 0 ) {
+
+                    //Create new chart
+                    this.createChart( this._chart, results, this._defaultChart );
                     } else {
                         this._noVotes();
                     }
@@ -94,14 +98,15 @@ define([
                   console.info("NO VOTES");
                 }
               }
-            //dojo.publish("/encuestame/poll/detail/answer/reload");
-          });
-        var error = function(error) {
-            console.debug("error", error);
-        };
-        this.getURLService().get(["encuestame.service.list.poll.getVotes", [this.username]], { id : this.pollId }, response, error , dojo.hitch(this, function() {
 
-        }));
+            //Dojo.publish("/encuestame/poll/detail/answer/reload");
+          });
+        var error = function( error ) {
+            console.debug("error", error );
+        };
+        this.getURLService().get( [ "encuestame.service.list.poll.getVotes", [ this.username ]], { id: this.pollId }, response, error, dojo.hitch( this, function() {
+
+        }) );
     }
 
   });

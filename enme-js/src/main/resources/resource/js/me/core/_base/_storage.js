@@ -22,11 +22,10 @@
  *  @class FileName
  */
 
-
-define([
-	'me/core/features/base',
-	'dojo/_base/json'
-],function(features, json) {
+define( [
+	"me/core/features/base",
+	"dojo/_base/json"
+], function( features, json ) {
 	return {
 
 		/*
@@ -36,15 +35,15 @@ define([
 		 * @param value
 		 * @param local
 		 */
-		storeItem : function (key, value, local) {
+		storeItem: function( key, value, local ) {
 			local = local || false;
-			if (typeof features !== 'undefined' && features.sessionstorage) {
-				sessionStorage.setItem(key, json.toJson(value));
+			if ( typeof features !== "undefined" && features.sessionstorage ) {
+				sessionStorage.setItem( key, json.toJson( value ) );
 			} else {
+
 				//TODO: save on COOKIE
 			}
 		},
-
 
 		/*
 		 * Remove a item from session storage
@@ -52,11 +51,12 @@ define([
 		 * @param key the key item
 		 * @param local define if the source is local
 		 */
-		removeItem: function (key, local) {
+		removeItem: function( key, local ) {
 			local = local || false;
-			if (typeof features !== 'undefined' && features.sessionstorage) {
-				sessionStorage.removeItem(key);
+			if ( typeof features !== "undefined" && features.sessionstorage ) {
+				sessionStorage.removeItem( key );
 			} else {
+
 				//TODO: remove on COOKIE
 			}
 		},
@@ -66,13 +66,14 @@ define([
 		 * @param key
 		 * @param local
 		 */
-		restoreItem: function (key, local) {
+		restoreItem: function( key, local ) {
 			local = local || false;
-			if (typeof features !== 'undefined' && features.sessionstorage) {
-				return sessionStorage.getItem(key);
+			if ( typeof features !== "undefined" && features.sessionstorage ) {
+				return sessionStorage.getItem( key );
 			} else {
+
 				//TODO: get on COOKIE
 			}
 		}
-	}
+	};
 });

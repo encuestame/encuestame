@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class Profile
  */
-define([
+define( [
          "dojo",
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -52,112 +52,112 @@ define([
                 URLServices,
                 _ENME,
                 BusyButton,
-                 template) {
+                 template ) {
 
-
-  lang.extend(ValidationTextBox, {
+  lang.extend( ValidationTextBox, {
 
       /*
-       * validate back end.
+       * Validate back end.
        */
-      validateBackEnd : function(type) {
-          var isValidUsername = _ENME.validateCharacterDigits(this.textbox.value);
+      validateBackEnd: function( type ) {
+          var isValidUsername = _ENME.validateCharacterDigits( this.textbox.value );
           var message;
-          if (isValidUsername) {
-              if (type !== null) {
-                  var load = dojo.hitch(this, function(response) {
-                      if (!response.success.validate) {
-                          message = response.success.messages[type];
+          if ( isValidUsername ) {
+              if ( type !== null ) {
+                  var load = dojo.hitch( this, function( response ) {
+                      if ( !response.success.validate ) {
+                          message = response.success.messages[ type ];
                           this.invalidMessage = message;
-                          this.getErrorMessage(true);
+                          this.getErrorMessage( true );
                           this._maskValidSubsetError = true;
-                          this.displayMessage(message);
-                          dojo.publish('/encuestame/settings/profile/message', [message, 'error']);
+                          this.displayMessage( message );
+                          dojo.publish( "/encuestame/settings/profile/message", [ message, "error" ] );
                       } else {
-                          message = response.success.messages[type] || "Not Defined";
-                          dojo.publish('/encuestame/settings/profile/message', [message, 'success']);
+                          message = response.success.messages[ type ] || "Not Defined";
+                          dojo.publish( "/encuestame/settings/profile/message", [ message, "success" ] );
                       }
                   });
-                  var error = function(error) {
-                      dojo.publish('/encuestame/settings/profile/message', [message, 'error']);
+                  var error = function( error ) {
+                      dojo.publish( "/encuestame/settings/profile/message", [ message, "error" ] );
                   };
-                  _ENME.xhr.get('encuestame.service.list.checkProfile', {
+                  _ENME.xhr.get( "encuestame.service.list.checkProfile", {
                     type:type,
-                    value : this.textbox.value
+                    value: this.textbox.value
                   },
-                  load, error);
+                  load, error );
               }
           } else {
               message = "Username is not valid. Only characters and digits";
               this.invalidMessage = message;
-              this.getErrorMessage(true);
+              this.getErrorMessage( true );
               this._maskValidSubsetError = true;
-              this.displayMessage(message);
-              dojo.publish('/encuestame/settings/profile/message', [message, 'error']);
+              this.displayMessage( message );
+              dojo.publish( "/encuestame/settings/profile/message", [ message, "error" ] );
           }
       }
   });
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
           /**
-           * template string.
+           * Template string.
            * @property templateString
            */
-           templateString : template,
+           templateString: template,
 
           /**
            *
            * @property
            */
-           _openBox : false,
+           _openBox: false,
 
            /**
             *
             * @property
             */
-           username : "",
+           username: "",
 
            /**
             *
             * @method
             */
-           email : "",
+           email: "",
 
            /**
             *
             * @method
             */
-           complete_name : "",
+           complete_name: "",
 
            /**
             *
             * @method
             */
-           language : "",
+           language: "",
 
            /**
-            * i18n Message.
+            * I18n Message.
             */
-           i18nMessage : {
-             settings_config_profile_title : _ENME.getMessage("settings_config_profile_title"),
-             settings_config_profile_description : _ENME.getMessage("settings_config_profile_description"),
-             settings_config_profile_email : _ENME.getMessage("settings_config_profile_email"),
-             settings_config_profile_email_description : _ENME.getMessage("settings_config_profile_email_description"),
-             settings_config_profile_username : _ENME.getMessage("settings_config_profile_username"),
-             settings_config_profile_username_description : _ENME.getMessage("settings_config_profile_username_description"),
-             settings_config_profile_complete_name : _ENME.getMessage("settings_config_profile_complete_name"),
-             settings_config_profile_language : _ENME.getMessage("settings_config_profile_language"),
-             e_005 :  _ENME.getMessage("e_005"),
-             commons_update :  _ENME.getMessage("commons_update")
+           i18nMessage: {
+             settings_config_profile_title: _ENME.getMessage("settings_config_profile_title"),
+             settings_config_profile_description: _ENME.getMessage("settings_config_profile_description"),
+             settings_config_profile_email: _ENME.getMessage("settings_config_profile_email"),
+             settings_config_profile_email_description: _ENME.getMessage("settings_config_profile_email_description"),
+             settings_config_profile_username: _ENME.getMessage("settings_config_profile_username"),
+             settings_config_profile_username_description: _ENME.getMessage("settings_config_profile_username_description"),
+             settings_config_profile_complete_name: _ENME.getMessage("settings_config_profile_complete_name"),
+             settings_config_profile_language: _ENME.getMessage("settings_config_profile_language"),
+             e_005:  _ENME.getMessage("e_005"),
+             commons_update:  _ENME.getMessage("commons_update")
            },
 
            /**
             *
             */
-           postCreate : function() {
-             // create subcribe to display errors.
-             dojo.subscribe("/encuestame/settings/profile/message", this, this._displayMessage);
+           postCreate: function() {
+
+             // Create subcribe to display errors.
+             dojo.subscribe("/encuestame/settings/profile/message", this, this._displayMessage );
              this.events();
 
              //TODO: review the click event
@@ -183,21 +183,25 @@ define([
            /**
             *
             */
-           events : function() {
+           events: function() {
                var email = registry.byId("email");
-               email.onChange = dojo.hitch(this, function() {
-                   //console.debug("change");
+               email.onChange = dojo.hitch( this, function() {
+
+                   //Console.debug("change");
                    email.validateBackEnd("email");
                });
-               email.onKeyPress = dojo.hitch(this, function() {
-                 //console.info("PRESSS");
+               email.onKeyPress = dojo.hitch( this, function() {
+
+                 //Console.info("PRESSS");
                });
-               email.onKeyDown = dojo.hitch(this, function() {
-                 //console.info("onKeyDown");
+               email.onKeyDown = dojo.hitch( this, function() {
+
+                 //Console.info("onKeyDown");
                });
                var username = registry.byId("username");
-               username.onChange = dojo.hitch(this, function() {
-                   //console.debug("change");
+               username.onChange = dojo.hitch( this, function() {
+
+                   //Console.debug("change");
                    username.validateBackEnd("username");
                });
            },
@@ -205,77 +209,83 @@ define([
            /**
             *
             */
-           _displayMessage : function(message, type) {
-             if (type === 'error') {
-               this.errorMessage(message);
-             } else if (type === 'success') {
-               this.successMesage(message);
+           _displayMessage: function( message, type ) {
+             if ( type === "error" ) {
+               this.errorMessage( message );
+             } else if ( type === "success" ) {
+               this.successMesage( message );
              }
            },
 
            /*
-            * get profile.
+            * Get profile.
             */
-           _getMyProfile :function() {
-               var load = dojo.hitch(this, function(response) {
-                   if (response.success) {
+           _getMyProfile:function() {
+               var load = dojo.hitch( this, function( response ) {
+                   if ( response.success ) {
                        var profile = response.success.account;
-                       if (profile !== null) {
+                       if ( profile !== null ) {
                            var email = registry.byId("email");
-                           email.set('value', profile.email);
-                           //console.info("EMAIL");
+                           email.set( "value", profile.email );
+
+                           //Console.info("EMAIL");
                            var username = registry.byId("username");
-                           username.set('value', profile.username);
-                           //console.info("USERNAMe");
+                           username.set( "value", profile.username );
+
+                           //Console.info("USERNAMe");
                            var completeName = registry.byId("completeName");
-                           completeName.set('value', profile.name);
+                           completeName.set( "value", profile.name );
                        }
                    }
-                   // attach the events
+
+                   // Attach the events
                    //console.debug("EVENTS");
                    this.events();
                });
-               var error = function(error) {
-                   _ENME.log("error", error);
+               var error = function( error ) {
+                   _ENME.log("error", error );
                };
-              URLServices.get('encuestame.service.list.profile.my', {}, load, error , dojo.hitch(this, function() {
+              URLServices.get( "encuestame.service.list.profile.my", {}, load, error, dojo.hitch( this, function() {
 
-              }));
+              }) );
            },
 
            /*
-            * update profile.
+            * Update profile.
             */
-           _updateProfile : function(event) {
-               dojo.stopEvent(event);
+           _updateProfile: function( event ) {
+               dojo.stopEvent( event );
                var form = dojo.byId("profileForm");
                var formDijit = registry.byId("profileForm");
-               if (formDijit.isValid()) {
+               if ( formDijit.isValid() ) {
                    var params = formDijit.getValues();
-                   var load = dojo.hitch(this, function(data) {
-                     if ("success" in data) {
+                   var load = dojo.hitch( this, function( data ) {
+                     if ("success" in data ) {
                        var message = data.success.message;
-                       if (message != 'undefined') {
-                          this.successMesage(message);
+                       if ( message != "undefined" ) {
+                          this.successMesage( message );
                        }
                      }
-                     //this._submit.cancel();
+
+                     //This._submit.cancel();
                    });
 
-                   var error = dojo.hitch(this,function(error) {
-                       //console.debug("error", error);
-                     dojo.publish('/encuestame/settings/profile/message', [error.message, 'error']);
+                   var error = dojo.hitch( this, function( error ) {
+
+                       //Console.debug("error", error);
+                     dojo.publish( "/encuestame/settings/profile/message", [ error.message, "error" ] );
                      this._submit.cancel();
                    });
-                    //var query = {};
+
+                    //Var query = {};
                     //query.username =  registry.byId("username").get("value") ;
                     //query.email = registry.byId("email").get("value");
                     //var queryStr = dojo.objectToQuery(query);
-                    URLServices.post('encuestame.service.list.updateProfile',  params, load, error , dojo.hitch(this, function() {
+                    URLServices.post( "encuestame.service.list.updateProfile",  params, load, error, dojo.hitch( this, function() {
 
-                    }));
+                    }) );
                } else {
-                 dojo.publish('/encuestame/settings/profile/message', [_ENME.getMessage('settings_config_profile_form_not_valid'), 'error']);
+                 dojo.publish( "/encuestame/settings/profile/message", [ _ENME.getMessage( "settings_config_profile_form_not_valid" ), "error" ] );
                }
            }
 

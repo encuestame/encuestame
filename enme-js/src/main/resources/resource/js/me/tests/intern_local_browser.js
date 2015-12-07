@@ -13,12 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-define(['./intern_common'], function(common) {
-	common.environments= [{browserName: 'firefox'}];
-	common.tunnel = 'NullTunnel';
+define( [ "./intern_common" ], function( common ) {
+	common.environments = [{ browserName: "firefox" }];
+	common.tunnel = "NullTunnel";
 	common.useLoader = {
-		'host-node'   : 'dojo/dojo',
-		'host-browser': '../js/dojo/dojo.js'
+		"host-node": "dojo/dojo",
+		"host-browser": "../js/dojo/dojo.js"
 	};
 	return common;
 });

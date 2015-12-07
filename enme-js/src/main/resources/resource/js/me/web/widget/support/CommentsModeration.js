@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class CommentModeration
  */
-define([
+define( [
          "dojo/_base/declare",
          "dojo/on",
          "dijit/_WidgetBase",
@@ -56,23 +56,23 @@ define([
                 Dialog,
                 template,
                 templateResponse,
-                templateItem) {
+                templateItem ) {
 
           /**
            * Comment Moderation Item Widget.
            * @property
            */
-          var CommentResponse = declare([
+          var CommentResponse = declare( [
                       _WidgetBase,
                       _TemplatedMixin,
                       main_widget,
-                      _WidgetsInTemplateMixin], {
+                      _WidgetsInTemplateMixin ], {
 
             /**
-             * template string
+             * Template string
              * @property
              */
-            templateString : templateResponse,
+            templateString: templateResponse,
 
             /**
              *
@@ -91,17 +91,19 @@ define([
              * @method
              */
             postCreate: function() {
-                // create a comment response
-                this._createCommentResponse.onClick = dojo.hitch(this, function() {
+
+                // Create a comment response
+                this._createCommentResponse.onClick = dojo.hitch( this, function() {
                     var value = this._textarea.value;
-                    if (this.isValid(value)) {
-                      this.sendComment(this._textarea.value);
+                    if ( this.isValid( value ) ) {
+                      this.sendComment( this._textarea.value );
                     } else {
-                      this.displayError('Comment is empty');
+                      this.displayError( "Comment is empty" );
                     }
                 });
-                // cancel the comment response
-                this._cancelCommentResponse.onClick = dojo.hitch(this, function() {
+
+                // Cancel the comment response
+                this._cancelCommentResponse.onClick = dojo.hitch( this, function() {
                     this.dialog.hide();
                 });
             },
@@ -110,19 +112,20 @@ define([
              * Display a error inside the dialog content.
              * @method displayError
              */
-            displayError: function(error) {
-              dojo.empty(this._message);
-              var widget = this.createAlert(error, "error");
-              this._message.appendChild(widget.domNode);
+            displayError: function( error ) {
+              dojo.empty( this._message );
+              var widget = this.createAlert( error, "error");
+              this._message.appendChild( widget.domNode );
             },
 
             /**
              * Check if the comment if valid.
              * @method isValid
              */
-            isValid: function(value) {
+            isValid: function( value ) {
+
                 //TODO: More validations
-                return value !== '' ? true: false;
+                return value !== "" ? true : false;
             }
 
           });
@@ -131,17 +134,17 @@ define([
            * Comment Moderation Item Widget.
            * @property
            */
-          var CommentModerationItem = declare([
+          var CommentModerationItem = declare( [
                       _WidgetBase,
                       _TemplatedMixin,
                       main_widget,
-                      _WidgetsInTemplateMixin], {
+                      _WidgetsInTemplateMixin ], {
 
             /**
-             * template string
+             * Template string
              * @property
              */
-            templateString : templateItem,
+            templateString: templateItem,
 
             /**
              *
@@ -154,7 +157,6 @@ define([
              * @property
              */
             type: null,
-
 
             /**
              *
@@ -173,95 +175,96 @@ define([
              * @method
              */
             postCreate: function() {
-              this._negative.appendChild(this._createLinkRate(false, true, this.data.dislike_vote));
-              this._positive.appendChild(this._createLinkRate(true, false, this.data.likeVote));
+              this._negative.appendChild( this._createLinkRate( false, true, this.data.dislike_vote ) );
+              this._positive.appendChild( this._createLinkRate( true, false, this.data.likeVote ) );
 
-              var menu = new DropDownMenu({ style: "display: none;"});
+              var menu = new DropDownMenu({ style: "display: none;" });
 
-              // set as spam
+              // Set as spam
               var menuItem1 = new MenuItem({
                   label: "SPAM",
                   iconClass:"dijitEditorIcon dijitEditorIconSave",
-                  onClick: dojo.hitch(this, function() {
+                  onClick: dojo.hitch( this, function() {
                     var div = this.createAlert("This message will be removed in 24 hours", "warn"),
                     parent = this;
-                    this. createConfirmDialog("Dou you want set this comment as SPAM?", div.domNode, function(){
-                        console.log('marcado como spam');
+                    this. createConfirmDialog("Dou you want set this comment as SPAM?", div.domNode, function() {
+                        console.log( "marcado como spam" );
                         parent.spamComment();
-                    })
+                    });
                   })
               });
-              menu.addChild(menuItem1);
+              menu.addChild( menuItem1 );
 
-              // remove the comment
+              // Remove the comment
               var menuItem2 = new MenuItem({
                   label: "Remove",
                   iconClass:"dijitEditorIcon dijitEditorIconCut",
-                  onClick: dojo.hitch(this, function() {
+                  onClick: dojo.hitch( this, function() {
                     var div = this.createAlert("You are removing this comment, it'll not be possible recover it.", "warn"),
                     parent = this;
-                    this. createConfirmDialog("Are you sure to remove this comment?", div.domNode, function(){
-                        console.log('remove');
+                    this. createConfirmDialog("Are you sure to remove this comment?", div.domNode, function() {
+                        console.log( "remove" );
                         parent.removeComment();
                     });
                   })
               });
-              menu.addChild(menuItem2);
+              menu.addChild( menuItem2 );
 
-              // response this comment
+              // Response this comment
               var menuItem3 = new MenuItem({
                   label: "Response",
                   iconClass:"dijitEditorIcon dijitEditorIconCut",
-                  onClick: dojo.hitch(this, function() {
+                  onClick: dojo.hitch( this, function() {
                     this.responseComment();
                   })
               });
-              menu.addChild(menuItem3);
+              menu.addChild( menuItem3 );
 
               var button = new DropDownButton({
                   label: "Options",
                   name: "drop_comment_optionw",
                   dropDown: menu
               });
-              this._spam.appendChild(button.domNode);
+              this._spam.appendChild( button.domNode );
 
-              // publish comment events
-              on(this._publish, "click", dojo.hitch(this, function(e) {
-                    this.stopEvent(e);
+              // Publish comment events
+              on( this._publish, "click", dojo.hitch( this, function( e ) {
+                    this.stopEvent( e );
                     var div = this.createAlert("Will be available for all users", "warn"),
                     parent = this;
-                    this. createConfirmDialog("This comment will be published, Are you sure?", div.domNode, function(){
-                        console.log('publish comment');
+                    this. createConfirmDialog("This comment will be published, Are you sure?", div.domNode, function() {
+                        console.log( "publish comment" );
                         parent.publishComment();
                     });
-              }));
+              }) );
             },
 
             /**
              *
              * @method commentItemErrorHandler
              */
-            commentItemErrorHandler: function(error) {
-                console.error('commentItemErrorHandler', error);
+            commentItemErrorHandler: function( error ) {
+                console.error( "commentItemErrorHandler", error );
             },
 
             /**
              *
              * @method
              */
-            _changeStatus: function(successHandler, status, params) {
-                 var load = dojo.hitch(this, function(data) {
-                    if ("success" in data) {
-                        this.successHandler(data);
+            _changeStatus: function( successHandler, status, params ) {
+                 var load = dojo.hitch( this, function( data ) {
+                    if ("success" in data ) {
+                        this.successHandler( data );
                     }
                 });
-                // error handler
-                var error = dojo.hitch(this, function(error) {
-                    this.commentItemErrorHandler(error);
-                });
-                this.getURLService().post(['encuestame.service.comments.admon.status', [this.type, status]], params, load, error , dojo.hitch(this, function() {
 
-                }));
+                // Error handler
+                var error = dojo.hitch( this, function( error ) {
+                    this.commentItemErrorHandler( error );
+                });
+                this.getURLService().post( [ "encuestame.service.comments.admon.status", [ this.type, status ]], params, load, error, dojo.hitch( this, function() {
+
+                }) );
             },
 
             /**
@@ -269,9 +272,10 @@ define([
              * @method publishComment
              */
             publishComment: function() {
-                this._changeStatus(dojo.hitch(this, function(data) {
+                this._changeStatus( dojo.hitch( this, function( data ) {
+
                   //TODO: remove publish button
-                }), 'publish', {
+                }), "publish", {
                     id: this.item_id
                 });
             },
@@ -281,9 +285,10 @@ define([
              * @method spamComment
              */
             spamComment: function() {
-                this._changeStatus(dojo.hitch(this, function(data) {
+                this._changeStatus( dojo.hitch( this, function( data ) {
+
                   //TODO: set opacity class
-                }), 'spam', {
+                }), "spam", {
                     id: this.item_id
                 });
             },
@@ -293,9 +298,10 @@ define([
              * @method publishComment
              */
             removeComment: function() {
-                this._changeStatus(dojo.hitch(this, function(data) {
+                this._changeStatus( dojo.hitch( this, function( data ) {
+
                   //TODO: remove comment
-                }), 'remove', {
+                }), "remove", {
                     id: this.item_id
                 });
             },
@@ -304,19 +310,20 @@ define([
              * Save a new comment.
              * @property
              */
-            _saveComment: function(params, successHandler, errorHandler) {
-                var load = dojo.hitch(this, function(data) {
-                    if ("success" in data) {
-                        successHandler(data);
+            _saveComment: function( params, successHandler, errorHandler ) {
+                var load = dojo.hitch( this, function( data ) {
+                    if ("success" in data ) {
+                        successHandler( data );
                     }
                 });
-                // error handler
-                var error = dojo.hitch(this, function(error) {
-                    errorHandler(error);
-                });
-                this.getURLService().post(['encuestame.service.comments.admon.create', [this.type]], params, load, error , dojo.hitch(this, function() {
 
-                }));
+                // Error handler
+                var error = dojo.hitch( this, function( error ) {
+                    errorHandler( error );
+                });
+                this.getURLService().post( [ "encuestame.service.comments.admon.create", [ this.type ]], params, load, error, dojo.hitch( this, function() {
+
+                }) );
             },
 
             /**
@@ -334,20 +341,20 @@ define([
                     style: "width: 800px"
                 });
                 widget.dialog = myDialog;
-                widget.sendComment = dojo.hitch(this, function(value) {
+                widget.sendComment = dojo.hitch( this, function( value ) {
                   var params = {
                       commentId: this.data.id,
                       tweetPollId: this.data.item_id,
                       comment: value
                   };
-                  this._saveComment(params, function() {
+                  this._saveComment( params, function() {
                       myDialog.hide();
-                  }, dojo.hitch(this, function(error) {
-                      widget.displayError(parent.getErrorMessage(error));
-                  }));
+                  }, dojo.hitch( this, function( error ) {
+                      widget.displayError( parent.getErrorMessage( error ) );
+                  }) );
 
                 });
-                myDialog.onHide = dojo.hitch(this, function(){
+                myDialog.onHide = dojo.hitch( this, function() {
                     myDialog.destroy();
                     widget.destroy();
                 });
@@ -359,23 +366,23 @@ define([
               * @param value
               * @returns
               */
-             _createLinkRate : function(positive, negative, value) {
+             _createLinkRate: function( positive, negative, value ) {
                var widget = new LikeRate({
-                 positive : positive,
-                 value : value,
-                 negative : negative
+                 positive: positive,
+                 value: value,
+                 negative: negative
                });
                return widget.domNode;
              }
 
           });
 
-          return declare([Comments, main_widget], {
+          return declare( [ Comments, main_widget ], {
 
           /**
            * The template reference.
            */
-          templateString : template,
+          templateString: template,
 
           /**
            * Define the type of comments source
@@ -390,38 +397,39 @@ define([
           item_id: null,
 
          /**
-          * i18n message for this widget.
+          * I18n message for this widget.
           */
-         i18nMessage : {
-           social_picker_filter_selected : _ENME.getMessage("social_picker_filter_selected"),
-           commons_filter : _ENME.getMessage("commons_filter")
+         i18nMessage: {
+           social_picker_filter_selected: _ENME.getMessage("social_picker_filter_selected"),
+           commons_filter: _ENME.getMessage("commons_filter")
          },
 
          /**
           *
           * @method successHandler
           */
-         successHandler: function(data) {
+         successHandler: function( data ) {
             var comments = data.success.comments;
-            if (comments.length > 0) {
-                dojo.forEach(comments, dojo.hitch(this, function(data, index) {
+            if ( comments.length > 0 ) {
+                dojo.forEach( comments, dojo.hitch( this, function( data, index ) {
                     var widget = new CommentModerationItem(
                       {
                         data: data,
                         type: this.type,
                         item_id: this.item_id
                       });
-                  this._comments.appendChild(widget.domNode);
-                }));
+                  this._comments.appendChild( widget.domNode );
+                }) );
             } else {
-                this._printNoCommentsText(comments);
+                this._printNoCommentsText( comments );
             }
          },
 
           /**
            *
            */
-          _printNoCommentsText : function(comments) {
+          _printNoCommentsText: function( comments ) {
+
               //TODO
 //              if (comments.length === 0) {
 //                  var div = dojo.create("div");
@@ -434,8 +442,8 @@ define([
          /**
           *
           */
-         postCreate : function() {
-            this.inherited(arguments);
+         postCreate: function() {
+            this.inherited( arguments );
          }
     });
 });

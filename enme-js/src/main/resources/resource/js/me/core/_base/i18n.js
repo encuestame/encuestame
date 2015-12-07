@@ -22,7 +22,7 @@
  *  @class FileName
  */
 
-define(function() {
+define( function() {
 	return {
 
 	};

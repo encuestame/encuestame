@@ -14,31 +14,31 @@
  *  limitations under the License.
  */
 
-define([
-	'intern!object',
-	'intern/chai!assert',
-	'../../Helper',
-	'me/core/_base/_storage'
-], function (
+define( [
+	"intern!object",
+	"intern/chai!assert",
+	"../../Helper",
+	"me/core/_base/_storage"
+], function(
 	registerSuite,
 	assert,
 	Helper,
-	_storage) {
+	_storage ) {
 
 	registerSuite({
-		name: 'Base Storage Test',
+		name: "Base Storage Test",
 
-		setup: function () {
+		setup: function() {
 			Helper.init();
 		},
 
-		'storeItem, removeItem && restoreItem Test' : function() {
-			_storage.storeItem("test", { a: 1});
+		"storeItem, removeItem && restoreItem Test": function() {
+			_storage.storeItem("test", { a: 1 });
 			var a = _storage.restoreItem("test");
-			assert.isNumber(Helper.json(a).a);
-			_storage.removeItem('test');
+			assert.isNumber( Helper.json( a ).a );
+			_storage.removeItem( "test" );
 			var a1 = _storage.restoreItem("test");
-			assert.isNull(a1);
+			assert.isNull( a1 );
 		}
 	});
 });

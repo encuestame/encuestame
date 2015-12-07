@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/dom-attr",
      "dijit/registry",
      "dojo/_base/declare",
@@ -16,7 +16,7 @@ define([
      "dojo/dom-class",
      "me/web/widget/menu/SearchSuggestItemsByType",
      "dojo/text!me/web/widget/menu/template/searchMenu.html",
-     "dijit/form/TextBox"], function(
+     "dijit/form/TextBox" ], function(
     domAttr,
     registry,
     declare,
@@ -33,197 +33,204 @@ define([
     mouse,
     domClass,
     searchSuggestItemsByType,
-    template) {
+    template ) {
 
   "use strict";
 
-  var SearchMenu = declare([main_widget, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+  var SearchMenu = declare( [ main_widget, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
 
     /*
-     * template string.
+     * Template string.
      */
     templateString: template,
 
        /*
-        * default label.
+        * Default label.
         */
-       label : "Search",
+       label: "Search",
 
        /*
-        * suggest widget referece.
+        * Suggest widget referece.
         */
-       textBoxWidget : null,
+       textBoxWidget: null,
 
        /*
-        * store all items.
+        * Store all items.
         */
-       listItems : [],
+       listItems: [],
 
        /*
-        * default search params.
+        * Default search params.
         */
-       searchParam: { limitByItem : 5, keyword : ""},
+       searchParam: { limitByItem: 5, keyword: "" },
 
        /*
-        * index item selected.
+        * Index item selected.
         */
-       _indexItem : -1,
+       _indexItem: -1,
 
        /*
-        * store the item selected temp.
+        * Store the item selected temp.
         */
-       _selectedNode : null,
+       _selectedNode: null,
 
        /*
-        * define if a key process is on curse.
+        * Define if a key process is on curse.
         */
-       _inProcessKey : false,
+       _inProcessKey: false,
 
        /*
-        * the time to delay key events.
+        * The time to delay key events.
         */
-       _delay : 300,
+       _delay: 300,
 
        /*
         *
         */
-       limitByItem : 5,
+       limitByItem: 5,
 
        /*
-        * post create process.
+        * Post create process.
         */
        postCreate: function() {
-          this.textBoxWidget = registry.byId(this._suggest);
-          if (this.textBoxWidget) {
+          this.textBoxWidget = registry.byId( this._suggest );
+          if ( this.textBoxWidget ) {
               this._searchSuggestSupport();
           }
        },
 
        /*
-        * set params
+        * Set params
         * @param object of values.
         */
-       _setParams: function(value){
+       _setParams: function( value ) {
            this.searchParam = value;
        },
 
-
        /*
-        * hide with fade out the suggest box.
+        * Hide with fade out the suggest box.
         */
        hide: function() {
            this.listItems = [];
            var fadeArgs = {
                    node: this._suggestItems
            };
-           dojo.fadeOut(fadeArgs).play();
+           dojo.fadeOut( fadeArgs ).play();
            this.clear();
        },
 
        /*
         *
         */
-       clear : function() {
-           if (this.textBoxWidget) {
+       clear: function() {
+           if ( this.textBoxWidget ) {
                this._selectedNode = null;
                this.textBoxWidget.set("value", "");
            }
-           dojo.empty(this._suggestItems);
+           dojo.empty( this._suggestItems );
        },
 
        /*
         *
         */
-       _moveSelected : function(position) {
-            dojo.query(".web-search-item").forEach(function(node, index, arr){
-                 domClass.remove(node, "selected");
+       _moveSelected: function( position ) {
+            dojo.query(".web-search-item").forEach( function( node, index, arr ) {
+                 domClass.remove( node, "selected");
             });
-           if (this._indexItem == -1) {
-               if (position == "up") {
+           if ( this._indexItem == -1 ) {
+               if ( position == "up") {
                    this._indexItem = this.listItems.length;
                } else {
                    this._indexItem = 0;
                }
-           } else  if (this._indexItem === 0) {
-               if (position == "up") {
+           } else if ( this._indexItem === 0 ) {
+               if ( position == "up") {
                    this._indexItem = this.listItems.length - 1;
-               } else if (position == "down") {
+               } else if ( position == "down") {
                    this._indexItem = this._indexItem + 1;
                }
-           } else if (this._indexItem >= this.listItems.length) {
-                if (position == "up") {
+           } else if ( this._indexItem >= this.listItems.length ) {
+                if ( position == "up") {
                     this._indexItem = this.listItems.length - 1;
                 } else {
                     this._indexItem = 0;
                 }
                this._indexItem = 0;
            } else {
-               if (position == "up") {
+               if ( position == "up") {
                    this._indexItem = this._indexItem - 1;
                } else {
                    this._indexItem = this._indexItem + 1;
                }
            }
-           //find node in the array.
-           var node = this.listItems[this._indexItem];
+
+           //Find node in the array.
+           var node = this.listItems[ this._indexItem ];
            this._selectedNode = node;
-           if (node) {
-               this.textBoxWidget.attr("value", dojo.attr(node, "data-value"));
-               domClass.add(node, "selected");
+           if ( node ) {
+               this.textBoxWidget.attr("value", dojo.attr( node, "data-value") );
+               domClass.add( node, "selected");
            }
        },
 
        /*
-        * on press enter.
+        * On press enter.
         * @param selectedItem the item selected by user.
         */
-       processEnterAction : function(selectedItem) {
-           //if item is null, search whith value in the input, if not use the data-value attribute.
-           var searchUrl =  _ENME.config('contextPath');
-           if (selectedItem === null || domAttr.get(selectedItem, "data-url") === null) {
+       processEnterAction: function( selectedItem ) {
+
+           //If item is null, search whith value in the input, if not use the data-value attribute.
+           var searchUrl =  _ENME.config( "contextPath" );
+           if ( selectedItem === null || domAttr.get( selectedItem, "data-url") === null ) {
                searchUrl = searchUrl.concat("/search?q=");
-               searchUrl = searchUrl.concat(this.textBoxWidget.get("value"));
+               searchUrl = searchUrl.concat( this.textBoxWidget.get("value") );
            } else {
-               searchUrl = searchUrl.concat(dojo.attr(selectedItem, "data-url"));
+               searchUrl = searchUrl.concat( dojo.attr( selectedItem, "data-url") );
            }
-           // redirect to the asset
+
+           // Redirect to the asset
            window.location = _ENME.getHttpProtocol() + searchUrl;
        },
 
        /**
         * Search suggest support.
         */
-       _searchSuggestSupport : function() {
+       _searchSuggestSupport: function() {
            /**
-             * initialize the key up event.
+             * Initialize the key up event.
              */
            var that = this;
-           on(this.textBoxWidget, "keypress", function(e){
+           on( this.textBoxWidget, "keypress", function( e ) {
             var text = that.textBoxWidget.get("value");
+
             // ENTER key
-            if (dojo.keys.ENTER == e.keyCode) {
+            if ( dojo.keys.ENTER == e.keyCode ) {
                  e.preventDefault();
-                that.processEnterAction(that._selectedNode);
+                that.processEnterAction( that._selectedNode );
+
             // ESC key
-            } else if (dojo.keys.ESCAPE == e.keyCode) {
+            } else if ( dojo.keys.ESCAPE == e.keyCode ) {
                 that.hide();
+
             // UP ARROW KEY
-            } else if (dojo.keys.UP_ARROW == e.keyCode) {
+            } else if ( dojo.keys.UP_ARROW == e.keyCode ) {
                 that._moveSelected("up");
+
             // DOWN ARROW KEY
-            } else if (dojo.keys.DOWN_ARROW == e.keyCode) {
+            } else if ( dojo.keys.DOWN_ARROW == e.keyCode ) {
                 that._moveSelected("down");
+
             // THE REST OF KEYBOARD
             } else {
-                if (text !== '' && text.length > 1) {
+                if ( text !== "" && text.length > 1 ) {
                     var parent = this;
-                    if (!that._inProcessKey) {
+                    if ( !that._inProcessKey ) {
                        that._inProcessKey = true;
                        that._setParams(
-                            { limit: _ENME.config('suggest_limit'),
-                                keyword : text,
-                                limitByItem : that.limitByItem,
-                                excludes : that.exclude
+                            { limit: _ENME.config( "suggest_limit" ),
+                                keyword: text,
+                                limitByItem: that.limitByItem,
+                                excludes: that.exclude
                             });
                        that._inProcessKey = false;
                        that._searchCallService();
@@ -242,45 +249,47 @@ define([
         *  "label":"itemSearchTitle","identifier":"id"
         *  }}
         */
-       _searchCallService : function() {
-           var load = dojo.hitch(this, function(data) {
-               //console.debug("social _searchCallService", data);
-               dojo.empty(this._suggestItems);
-               if("items" in data.success) {
+       _searchCallService: function() {
+           var load = dojo.hitch( this, function( data ) {
+
+               //Console.debug("social _searchCallService", data);
+               dojo.empty( this._suggestItems );
+               if ("items" in data.success ) {
                    var fadeArgs = {
                            node: this._suggestItems
                    };
-                   //reset selected values.
+
+                   //Reset selected values.
                    this.listItems = [];
                    this._indexItem = -1;
                    this._selectedNode = null;
-                   dojo.fadeIn(fadeArgs).play();
-                   //print new items.
-                   this.printItems(data.success.items);
+                   dojo.fadeIn( fadeArgs ).play();
+
+                   //Print new items.
+                   this.printItems( data.success.items );
                }
            });
-           var error = function(error) {
-               console.debug("error", error);
+           var error = function( error ) {
+               console.debug("error", error );
            };
-           this.getURLService().get('encuestame.service.search.suggest', this.searchParam, load, error , dojo.hitch(this, function() {
+           this.getURLService().get( "encuestame.service.search.suggest", this.searchParam, load, error, dojo.hitch( this, function() {
 
-           }));
+           }) );
        },
 
        /**
         * Create a list of item.
         * @param data suggested search item.
         */
-       printItems : function(data) {
+       printItems: function( data ) {
            var widget = new searchSuggestItemsByType(
                    {
-                    data : data,
-                    parentWidget : this
+                    data: data,
+                    parentWidget: this
                     });
-           this._suggestItems.appendChild(widget.domNode);
+           this._suggestItems.appendChild( widget.domNode );
        }
     });
-
 
   return SearchMenu;
 });

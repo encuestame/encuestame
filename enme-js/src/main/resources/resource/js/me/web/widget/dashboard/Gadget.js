@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class Gadget
  */
-define([
+define( [
          "dojo/_base/declare",
          "dojo/dom-attr",
          "dijit/_WidgetBase",
@@ -46,50 +46,48 @@ define([
                 TweetPollvotes,
                 DnDSupport,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin, DnDSupport], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin, DnDSupport ], {
 
             /**
-              * template string.
+              * Template string.
               */
-            templateString : template,
+            templateString: template,
 
             /*
-             * gadget info.
+             * Gadget info.
              */
-            data : null,
-
-            /*
-             *
-             */
-            dashboardId  : null,
+            data: null,
 
             /*
              *
              */
-            _widgetInside : null,
+            dashboardId: null,
+
+            /*
+             *
+             */
+            _widgetInside: null,
 
             /*
              * Post create.
              */
             postCreate: function() {
                 dojo.subscribe("/encuestame/dashboard/gadget/remove", this, "_removeGadget");
-                if (this.data) {
-                    if (this.data.id) {
-                        this.domNode.setAttribute("gid",  this.data.id);
+                if ( this.data ) {
+                    if ( this.data.id ) {
+                        this.domNode.setAttribute("gid",  this.data.id );
                         this._initialize();
                     }
                 }
             },
 
-
-
             /*
              * Set gadget title.
              * @method _setTitle
              */
-            _setTitle : function(title) {
-                if (title) {
+            _setTitle: function( title ) {
+                if ( title ) {
                     this._title.innerHTML = title;
                 }
             },
@@ -98,23 +96,23 @@ define([
             *
             * @method _initialize
             */
-            _initialize : function() {
+            _initialize: function() {
                 try {
-                    this._widgetInside = this._loadGadget(this.data.gadget_name, {
-                        gadgetId : this.data.id
+                    this._widgetInside = this._loadGadget( this.data.gadget_name, {
+                        gadgetId: this.data.id
                     });
                      var node = this.domNode;
-                     domAttr.set(node, 'data-id', this.data.id);
-                     this.dragItem(node, {
-                        effectDrop: 'move',
+                     domAttr.set( node, "data-id", this.data.id );
+                     this.dragItem( node, {
+                        effectDrop: "move",
                         onDrag: function() {
 
                         }
                      });
-                     this._content.appendChild(this._widgetInside.domNode);
+                     this._content.appendChild( this._widgetInside.domNode );
                      this._widgetInside.startup();
-                } catch(error) {
-                     this.errorMessage("Error on gadget "+ this.data.gadget_name);
+                } catch ( error ) {
+                     this.errorMessage("Error on gadget " + this.data.gadget_name );
                 }
             },
 
@@ -122,12 +120,12 @@ define([
              * Remove a gadget
              * @method
              */
-            _remove: function(e) {
+            _remove: function( e ) {
                 e.preventDefault();
                 var div = this.createAlert("You are removing this gadget, you can recover it in the gadget directory.", "warn"),
                 parent = this;
-                this. createConfirmDialog("Are you sure?", div.domNode, function(){
-                       parent._removeGadget(parent.data.id);
+                this. createConfirmDialog("Are you sure?", div.domNode, function() {
+                       parent._removeGadget( parent.data.id );
                 });
             },
 
@@ -135,25 +133,25 @@ define([
              * Remove the gadget.
              * @method _removeGadget
              */
-            _removeGadget : function(controlId) {
-                if (controlId === this.data.id) {
+            _removeGadget: function( controlId ) {
+                if ( controlId === this.data.id ) {
                     var params = {
                         dashboardId: this.dashboardId
                     };
-                    var load = dojo.hitch(this, function(data) {
-                        if ("success" in data) {
-                           this._widgetInside.destroyRecursive(true);
-                           this.destroyRecursive(true);
-                           dojo.destroy(this.id);
+                    var load = dojo.hitch( this, function( data ) {
+                        if ("success" in data ) {
+                           this._widgetInside.destroyRecursive( true );
+                           this.destroyRecursive( true );
+                           dojo.destroy( this.id );
                            this.successMesage("Gadget Removed");
                         }
                     });
-                    var error = function(error) {
+                    var error = function( error ) {
                         this.errorMessage("Gadget not removed");
                     };
-                    this.getURLService().del(['encuestame.service.gadget', [this.data.id]], params, load, error , dojo.hitch(this, function() {
+                    this.getURLService().del( [ "encuestame.service.gadget", [ this.data.id ]], params, load, error, dojo.hitch( this, function() {
 
-                   }), true);
+                   }), true );
                 }
            },
 
@@ -164,19 +162,19 @@ define([
               * @method _loadGadget
               * @returns
               */
-            _loadGadget : function(type, params) {
+            _loadGadget: function( type, params ) {
                 try {
-                    if (type == "stream") {
-                        return new Activity(params);
-                    } else if (type == "comments") {
-                        return new Comments(params);
-                    } else if (type == "tweetpollsvotes") {
-                        return new TweetPollvotes(params);
+                    if ( type == "stream") {
+                        return new Activity( params );
+                    } else if ( type == "comments") {
+                        return new Comments( params );
+                    } else if ( type == "tweetpollsvotes") {
+                        return new TweetPollvotes( params );
                     }  else {
                        throw new Error("gadget is missing");
                     }
-                } catch(error) {
-                    console.log('error loading gadget', error);
+                } catch ( error ) {
+                    console.log( "error loading gadget", error );
                 }
             },
 
@@ -184,7 +182,7 @@ define([
              *
              * @method
              */
-            _editConfiguration : function(){}
+            _editConfiguration: function() {}
 
     });
 });

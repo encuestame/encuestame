@@ -17,16 +17,16 @@
  * More information about everything described about the loader throughout this file can be found at
  * <http://dojotoolkit.org/reference-guide/loader/amd.html>.
  */
-define([
-    'dojo/has',
-    'require',
-    'me/core/IconSupport' ], function (has, require, TemplatedMixin) {
+define( [
+    "dojo/has",
+    "require",
+    "me/core/IconSupport" ], function( has, require, TemplatedMixin ) {
   /**
    * This main.js file conditionally executes different code depending upon the host environment it is loaded in.
    * This is an increasingly common pattern when dealing with applications that run in different environments that
    * require different functionality (i.e. client/server or desktop/tablet/phone).
    */
-  if (has('host-browser')) {
+  if ( has( "host-browser" ) ) {
     /*
      * This require call's first dependency, `./Dialog`, uses a relative module identifier; you should use this
      * type of notation for dependencies *within* a package in order to ensure the package is fully portable. It
@@ -40,23 +40,24 @@ define([
      * require just `dojo/domReady`, it would load that module just like any other module, without the special
      * plugin functionality.
      */
+
     //
-    require([
+    require( [
               "dojo/dom",
               "me/core/enme",
               "me/core/ui/Loading",
-              "dojo/dom-construct"], function (
+              "dojo/dom-construct" ], function(
                       dom,
                       _ENME,
-                      Loading, 
-                      domConstruct) {
-       var _dom = dom.byId('loading');
-       if (_dom) {
+                      Loading,
+                      domConstruct ) {
+       var _dom = dom.byId( "loading" );
+       if ( _dom ) {
            var _loading_widget = new Loading({
-               id : 'loading'
+               id: "loading"
            });
-           if (_loading_widget && _loading_widget.domNode) {
-             domConstruct.place(_loading_widget.domNode, _dom);
+           if ( _loading_widget && _loading_widget.domNode ) {
+             domConstruct.place( _loading_widget.domNode, _dom );
            }
        }
     });

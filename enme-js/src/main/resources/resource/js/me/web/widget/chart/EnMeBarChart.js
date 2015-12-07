@@ -1,13 +1,13 @@
-define([
+define( [
     "dojo/_base/declare",
     "me/web/widget/chart/AbstractChart",
-    "me/core/enme"],
+    "me/core/enme" ],
     function(
         declare,
         AbstractChart,
-        _ENME) {
+        _ENME ) {
 
-        return declare([AbstractChart], {
+        return declare( [ AbstractChart ], {
 
             /**
              * Constructor.
@@ -15,7 +15,7 @@ define([
              * @param results
              * @param size
              */
-            constructor: function(node, results, size) {},
+            constructor: function( node, results, size ) {},
 
             /**
              * Render the chart.
@@ -27,20 +27,20 @@ define([
                         color:"#F38630"
                     },
                     {
-                        value : 50,
-                        color : "#E0E4CC"
+                        value: 50,
+                        color: "#E0E4CC"
                     },
                     {
-                        value : 100,
-                        color : "#69D2E7"
+                        value: 100,
+                        color: "#69D2E7"
                     }
                 ];
-                var _chart = this.getChart().Bar(this._buildSeries(), {});
+                var _chart = this.getChart().Bar( this._buildSeries(), {});
 
             },
 
             /**
-             * var data = {
+             * Var data = {
                     labels: ["January", "February", "March", "April", "May", "June", "July"],
                     datasets: [
                         {
@@ -69,22 +69,22 @@ define([
              * this.data = [Array[3],Array[3]]
              * [ label, value, color ]
              */
-            _buildSeries : function() {
+            _buildSeries: function() {
                 var _seriesData = {
-                    labels : [""],
-                    datasets : []
+                    labels: [ "" ],
+                    datasets: []
                 };
                 dojo.forEach(
                     this.data,
-                    dojo.hitch(this, function(data, index) {
+                    dojo.hitch( this, function( data, index ) {
                         var d = {
-                            label : data[0],
-                            fillColor: data[2],
-                            strokeColor: data[2],
-                            data: [data[1]]
+                            label: data[ 0 ],
+                            fillColor: data[ 2 ],
+                            strokeColor: data[ 2 ],
+                            data: [ data[ 1 ]]
                         };
-                        _seriesData.datasets.push(d);
-                    }));
+                        _seriesData.datasets.push( d );
+                    }) );
                 return _seriesData;
             }
 

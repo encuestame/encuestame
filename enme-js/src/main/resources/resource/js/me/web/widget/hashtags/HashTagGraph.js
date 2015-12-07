@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -19,79 +19,79 @@ define([
                 hashTagGraphStatsButton,
                 hashTagGraphStatsUsageHandler,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase,
+                 template ) {
+            return declare( [ _WidgetBase,
                              _TemplatedMixin,
                              main_widget,
-                             _WidgetsInTemplateMixin], {
+                             _WidgetsInTemplateMixin ], {
 
-           // template string.
-           templateString : template,
+           // Template string.
+           templateString: template,
 
             /**
             * Hashtag name.
             */
-           hashtagName : "",
+           hashtagName: "",
 
            /**
             * Default filter.
             */
-           default_filter : "HASHTAG",
+           default_filter: "HASHTAG",
 
            /**
             * Default filter.
             */
-           default_range : _ENME.YEAR,
+           default_range: _ENME.YEAR,
 
           /**
            * Default graph options
            * @property
            */
            graph_options: {
-              width : 700,
+              width: 700,
               height: 400,
-              label : {
-                y : "votes"
+              label: {
+                y: "votes"
               }
            },
 
            /**
             * Define the channel to refresh the graph.
             */
-           channel : "",
+           channel: "",
 
            /**
             * Create all buttons.
             * @param period {String} Define the period to filter the data.
             */
-           _createButtons : function(period) {
+           _createButtons: function( period ) {
               var params = {
-                  tagName : this.hashtagName,
-                  filter  : _ENME.HASHTAGRATED
+                  tagName: this.hashtagName,
+                  filter: _ENME.HASHTAGRATED
               };
-              if ( period) {
+              if ( period ) {
                 params.period = period;
               }
-              var error = dojo.hitch(this, function(e){
+              var error = dojo.hitch( this, function( e ) {
                   this.errorMessage("error button load");
               });
-                var load = dojo.hitch(this, function(data) {
-                if (_ENME.SUCCESS in data) {
+                var load = dojo.hitch( this, function( data ) {
+                if ( _ENME.SUCCESS in data ) {
                   var hashTagButtonStats = data.success.hashTagButtonStats;
                   var usage_by_item = hashTagButtonStats.usage_by_item;
                   var total_usage_by_social_network = hashTagButtonStats.total_usage_by_social_network;
                   var total_hits = hashTagButtonStats.total_hits;
                   var usage_by_votes = hashTagButtonStats.usage_by_votes;
-                  if (this._stat) {
-                    dojo.empty(this._stat);
-                    this._stat.appendChild(this._createAButton({title : usage_by_item.label, value : usage_by_item.value , sub_label : usage_by_item.sub_label, filter : usage_by_item.filter }, true, period));
-                    this._stat.appendChild(this._createAButton({title : total_usage_by_social_network.label, value : total_usage_by_social_network.value , sub_label : total_usage_by_social_network.sub_label,  filter : total_usage_by_social_network.filter}, false, period));
-                    this._stat.appendChild(this._createAButton({title : total_hits.label, value : total_hits.value , sub_label : total_hits.sub_label, filter : total_hits.filter}, false, period));
-                    this._stat.appendChild(this._createAButton({title : usage_by_votes.label, value : usage_by_votes.value , sub_label : usage_by_votes.sub_label, filter : usage_by_votes.filter}, false, period));
+                  if ( this._stat ) {
+                    dojo.empty( this._stat );
+                    this._stat.appendChild( this._createAButton({ title: usage_by_item.label, value: usage_by_item.value, sub_label: usage_by_item.sub_label, filter: usage_by_item.filter }, true, period ) );
+                    this._stat.appendChild( this._createAButton({ title: total_usage_by_social_network.label, value: total_usage_by_social_network.value, sub_label: total_usage_by_social_network.sub_label,  filter: total_usage_by_social_network.filter }, false, period ) );
+                    this._stat.appendChild( this._createAButton({ title: total_hits.label, value: total_hits.value, sub_label: total_hits.sub_label, filter: total_hits.filter }, false, period ) );
+                    this._stat.appendChild( this._createAButton({ title: usage_by_votes.label, value: usage_by_votes.value, sub_label: usage_by_votes.sub_label, filter: usage_by_votes.filter }, false, period ) );
                   }
                 }
               });
-              this.getURLService().get('encuestame.service.list.rate.buttons', params, load, error, null);
+              this.getURLService().get( "encuestame.service.list.rate.buttons", params, load, error, null );
            },
 
            /**
@@ -99,38 +99,39 @@ define([
             * @param {Object}  button_data
             * @param {Boolean} selectedButton
             */
-           _createAButton : function (button_data, selectedButton, period) {
+           _createAButton: function( button_data, selectedButton, period ) {
                 var handler_params = {
-                     data : {
-                         "title" : button_data.title,
-                         "value" : button_data.value,
-                         "label" : button_data.sub_label,
-                         "filter" : button_data.filter
+                     data: {
+                         "title": button_data.title,
+                         "value": button_data.value,
+                         "label": button_data.sub_label,
+                         "filter": button_data.filter
                      }
                 };
-               // if period exist, override the default period.
-               if (period) {
+
+               // If period exist, override the default period.
+               if ( period ) {
                  handler_params.period = period;
                }
                var params = {
-                       selectedButton : selectedButton || false,
-                     _handler : new hashTagGraphStatsUsageHandler(handler_params)
+                       selectedButton: selectedButton || false,
+                     _handler: new hashTagGraphStatsUsageHandler( handler_params )
                };
-               var button = new hashTagGraphStatsButton(params);
+               var button = new hashTagGraphStatsButton( params );
               return button.domNode;
            },
 
            /**
             * Create a new chart
             */
-           _createNewChart : function(filter, range) {
-             this._callRateService(filter, range);
+           _createNewChart: function( filter, range ) {
+             this._callRateService( filter, range );
            },
 
            /**
             * Reload the chart.
             */
-           _reload : function () {
+           _reload: function() {
 
            },
 
@@ -139,9 +140,9 @@ define([
             * @param valuesx
             * @param valuesy
             */
-           _createGraph : function(data, period) {
-             dojo.empty(this._graph);
-             this.widgetChart = new EnMeLineChart(this._graph, data, period);
+           _createGraph: function( data, period ) {
+             dojo.empty( this._graph );
+             this.widgetChart = new EnMeLineChart( this._graph, data, period );
              return this.widgetChart;
            },
 
@@ -149,38 +150,39 @@ define([
             * Call a hashtag rate service.
             * @param filter
             */
-           _callRateService : function (filter, range) {
+           _callRateService: function( filter, range ) {
              var params = {
-                     tagName : this.hashtagName,
-                     period : range || this.default_range,
-                     filter  : filter || this.default_filter
+                     tagName: this.hashtagName,
+                     period: range || this.default_range,
+                     filter: filter || this.default_filter
                  };
-                 var load = dojo.hitch(this, function(data) {
+                 var load = dojo.hitch( this, function( data ) {
                    var parent = this;
-                   if ("success" in data) {
+                   if ("success" in data ) {
                       var stats = data.success.statsByRange;
-                      parent._createGraph(stats, params.period);
+                      parent._createGraph( stats, params.period );
                    }
                  });
-                 //this.getURLService().get('encuestame.service.list.range.hashtag', params, load, null, null);
+
+                 //This.getURLService().get('encuestame.service.list.range.hashtag', params, load, null, null);
                  // v2 test
-                 this.getURLService().post(['encuestame.service.list.range.hashtag2', [params.tagName]], params, load, null, null);
+                 this.getURLService().post( [ "encuestame.service.list.range.hashtag2", [ params.tagName ]], params, load, null, null );
            },
 
            /**
             * Start the post create cycle.
             */
-           postCreate : function() {
-               if (this.hashtagName) {
-                   dojo.subscribe("/encuestame/hashtag/chart/new", this, this._createNewChart);
-                   dojo.subscribe("/encuestame/hashtag/chart/reload", this, this._reload);
-                   this._createButtons(this.default_range);
-                   dojo.addOnLoad(dojo.hitch(this, function() {
-                     if (typeof(this.default_filter) === 'string') {
-                       this._callRateService(this.default_filter, this.default_range);
+           postCreate: function() {
+               if ( this.hashtagName ) {
+                   dojo.subscribe("/encuestame/hashtag/chart/new", this, this._createNewChart );
+                   dojo.subscribe("/encuestame/hashtag/chart/reload", this, this._reload );
+                   this._createButtons( this.default_range );
+                   dojo.addOnLoad( dojo.hitch( this, function() {
+                     if ( typeof( this.default_filter ) === "string" ) {
+                       this._callRateService( this.default_filter, this.default_range );
                      }
-                   }));
-                   dojo.subscribe(this.channel, this, this._refreshPublish);
+                   }) );
+                   dojo.subscribe( this.channel, this, this._refreshPublish );
                }
            },
 
@@ -188,10 +190,11 @@ define([
             *
             * @param period
             */
-           _refreshPublish : function (period) {
+           _refreshPublish: function( period ) {
+
              //ENME.log(period);
-             this._callRateService(this.default_filter, period);
-             this._createButtons(period);
+             this._callRateService( this.default_filter, period );
+             this._createButtons( period );
            }
     });
 });

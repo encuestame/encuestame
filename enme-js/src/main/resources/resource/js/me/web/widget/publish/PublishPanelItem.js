@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dojo/Deferred",
          "dijit/_WidgetBase",
@@ -19,48 +19,48 @@ define([
                 ContextSupport,
                 Wipe,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, ContextSupport, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, ContextSupport, _WidgetsInTemplateMixin ], {
 
          /*
-          * template string.
+          * Template string.
           */
-         templateString : template,
+         templateString: template,
 
-         panelWidget : null,
+         panelWidget: null,
 
-         contentWidget : null,
+         contentWidget: null,
 
-         title : "replace this title",
+         title: "replace this title",
 
-         defaultDisplayHide : true,
+         defaultDisplayHide: true,
 
-         _open : false,
+         _open: false,
 
-         postCreate : function(){
-             this._content.appendChild(this.contentWidget.domNode);
+         postCreate: function() {
+             this._content.appendChild( this.contentWidget.domNode );
              dojo.subscribe("/encuestame/support/panel/remote/select", this, "remoteClick");
              dojo.subscribe("/encuestame/support/panel/unselect", this, "unselect");
-             if (this.defaultDisplayHide) {
-                 dojo.addClass(this.domNode, "hidden");
+             if ( this.defaultDisplayHide ) {
+                 dojo.addClass( this.domNode, "hidden");
              } else {
-                 dojo.removeClass(this.domNode, "hidden");
+                 dojo.removeClass( this.domNode, "hidden");
              }
          },
 
          /*
           *
           */
-         unselect : function(id) {
-            dojo.addClass(this.domNode, 'hidden');
+         unselect: function( id ) {
+            dojo.addClass( this.domNode, "hidden" );
          },
 
          /*
           *
           */
-         remoteClick : function(id) {
-             if (id === this) {
-                 dojo.removeClass(this.domNode, 'hidden');
+         remoteClick: function( id ) {
+             if ( id === this ) {
+                 dojo.removeClass( this.domNode, "hidden" );
              }
          }
     });

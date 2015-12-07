@@ -22,25 +22,24 @@
  *  @class FileName
  */
 
-
-define([
+define( [
 	"me/core/_base/_config",
 	"me/core/support/iosOverlay",
 	"me/core/support/Spinner"
-],function(_config,
+], function( _config,
            iosOverlay,
-           Spinner) {
+           Spinner ) {
 
 	/**
 	 *
 	 */
-	var _publish = function(message, description, type) {
-		description = description === null ? '' : description;
-		if (typeof(message === 'string')) {
-			var image_path = _config.get('contextPath') + "/resources/images/";
-			if (type === "error" || type === "fatal" || type === "warning") {
+	var _publish = function( message, description, type ) {
+		description = description === null ? "" : description;
+		if ( typeof( message === "string" ) ) {
+			var image_path = _config.get( "contextPath" ) + "/resources/images/";
+			if ( type === "error" || type === "fatal" || type === "warning") {
 				image_path += "cross.png";
-			} else  {
+			} else {
 				image_path += "check.png";
 			}
 			iosOverlay({
@@ -58,20 +57,20 @@ define([
 	};
 
 	return {
-		success : function (message, description) {
-			_publish(message, description, messageTypes.MESSAGE);
+		success: function( message, description ) {
+			_publish( message, description, messageTypes.MESSAGE );
 		},
 
-		warning : function (message, description) {
-			_publish(message, description, messageTypes.WARNING);
+		warning: function( message, description ) {
+			_publish( message, description, messageTypes.WARNING );
 		},
 
-		error : function (message, description) {
-			_publish(message, description, messageTypes.ERROR);
+		error: function( message, description ) {
+			_publish( message, description, messageTypes.ERROR );
 		},
 
-		fatal : function (message, description) {
-			_publish(message, description, messageTypes.FATAL);
+		fatal: function( message, description ) {
+			_publish( message, description, messageTypes.FATAL );
 		}
 	};
 });

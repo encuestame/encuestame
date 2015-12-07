@@ -22,18 +22,18 @@
  *  @class FileName
  */
 
-define([
-    'dojo/has',
+define( [
+    "dojo/has",
     "dojo/_base/lang",
 	"dojo/topic",
-    'me/core/_base/_log',
+    "me/core/_base/_log",
     "dojo/_base/array",
-    'me/core/_base/_url',
-    'me/core/_base/_config',
+    "me/core/_base/_url",
+    "me/core/_base/_config",
     "dojo/request",
     "me/core/support/iosOverlay",
     "me/core/support/Spinner"
-    ],function(
+    ], function(
     has,
     lang,
     topic,
@@ -43,13 +43,15 @@ define([
     _config,
     request,
     iosOverlay,
-    Spinner) {
+    Spinner ) {
 
-    // json-comment-optional, json-comment-filtered
+    // Json-comment-optional, json-comment-filtered
     var _handleAs = "json",
+
         // Indicates whether a request should be allowed to
         _failOk = true,
         _timeout = 20000,
+
         //_cross_browsing = false,
         _preventCache = true,
         spinner_opts = {
@@ -59,37 +61,38 @@ define([
             radius: 17, // The radius of the inner circle
             corners: 1, // Corner roundness (0..1)
             rotate: 0, // The rotation offset
-            color: '#FFF', // #rgb or #rrggbb
+            color: "#FFF", // #rgb or #rrggbb
             speed: 1, // Rounds per second
             trail: 60, // Afterglow percentage
             shadow: false, // Whether to render a shadow
             hwaccel: false, // Whether to use hardware acceleration
-            className: 'spinner', // The CSS class to assign to the spinner
+            className: "spinner", // The CSS class to assign to the spinner
             zIndex: 2e9, // The z-index (defaults to 2000000000)
-            top: 'auto', // Top position relative to parent in px
-            left: 'auto' // Left position relative to parent in px
+            top: "auto", // Top position relative to parent in px
+            left: "auto" // Left position relative to parent in px
         };
 
     /**
      * Identify
      * @method
      */
-    var _service = function(key, params) {
-        //log("_service key-->", key);
+    var _service = function( key, params ) {
+
+        //Log("_service key-->", key);
         //log("_service params-->", params);
         var _service_store = _url,
             url,
             _parent = this;
-        if (!params) {
-            url = _config.get('contextPath');
-            url = url.concat(_service_store[key]);
+        if ( !params ) {
+            url = _config.get( "contextPath" );
+            url = url.concat( _service_store[ key ] );
             return url;
         } else {
-            url = _config.get('contextPath');
-            url = url.concat(_service_store[key]);
-            _array.forEach(params, function(entry, i) {
-                if (entry !== "undefined" && entry !== '') {
-                    url = url.replace("$" + i, entry);
+            url = _config.get( "contextPath" );
+            url = url.concat( _service_store[ key ] );
+            _array.forEach( params, function( entry, i ) {
+                if ( entry !== "undefined" && entry !== "" ) {
+                    url = url.replace("$" + i, entry );
                 }
             });
             return url;
@@ -106,127 +109,138 @@ define([
      * @param loaderHandler method will be executed after the call
      * @param loadingSpinner enable the loading spinner component
      */
-    var _makeCall = function(url , params, method, response, error, loaderHandler, loadingSpinner) {
+    var _makeCall = function( url, params, method, response, error, loaderHandler, loadingSpinner ) {
         var _load = response,
             _error = error;
             loadingSpinner = loadingSpinner || false;
-            loaderHandler = loaderHandler || function(){};
+            loaderHandler = loaderHandler || function() {};
             var spinner = null,
             overlay = null,
             make_call_parent = this;
 
-        if (loadingSpinner && has("host-browser")) {
+        if ( loadingSpinner && has("host-browser") ) {
             var target = document.createElement("div");
-            document.body.appendChild(target);
-            spinner = new Spinner(spinner_opts).spin(target);
+            document.body.appendChild( target );
+            spinner = new Spinner( spinner_opts ).spin( target );
         }
 
-        if (loaderHandler !== 'undefined' && typeof loaderHandler === 'function') {
-            // load default handler
-            _load = function (r) {
-               // console.log("XHR LOAD", r.success);
-                if (loadingSpinner && has("host-browser")) {
+        if ( loaderHandler !== "undefined" && typeof loaderHandler === "function" ) {
+
+            // Load default handler
+            _load = function( r ) {
+
+               // Console.log("XHR LOAD", r.success);
+                if ( loadingSpinner && has("host-browser") ) {
                     overlay.hide();
                 }
                 try {
+
                     //TODO: this sentence is repeated
-                    if (typeof loaderHandler === 'function') {
+                    if ( typeof loaderHandler === "function" ) {
                         loaderHandler();
                     }
-                    response(r);
-                } catch (error) {
-                    console.error(error.stack);
+                    response( r );
+                } catch ( error ) {
+                    console.error( error.stack );
                 }
             };
-            // error default handler
-            _error = lang.hitch( this, function (e) {
-                //console.log("XHR ERROR", e);
-                if (loadingSpinner && has("host-browser")) {
+
+            // Error default handler
+            _error = lang.hitch( this, function( e ) {
+
+                //Console.log("XHR ERROR", e);
+                if ( loadingSpinner && has("host-browser") ) {
                     overlay.hide();
                 }
                     try {
-                        // trigger the loader handler
-                        if (typeof loaderHandler === 'function') {
+
+                        // Trigger the loader handler
+                        if ( typeof loaderHandler === "function" ) {
                             loaderHandler();
                         }
-	                    // custom error handler
-	                    if (typeof error === 'function') {
-		                    error(e);
+
+	                    // Custom error handler
+	                    if ( typeof error === "function" ) {
+		                    error( e );
 	                    }
-                    } catch (error) {
-                        console.error("crash xhr", error);
+                    } catch ( error ) {
+                        console.error("crash xhr", error );
                     }
             });
 
-            // default xhr parameters
+            // Default xhr parameters
             var _params = {
-                handleAs : _handleAs,
-                failOk : _failOk,
-                timeout : _timeout,
-                method : method,
-                preventCache : _preventCache
+                handleAs: _handleAs,
+                failOk: _failOk,
+                timeout: _timeout,
+                method: method,
+                preventCache: _preventCache
             };
 
-	        //test environments support only get
-	        if (_config.get('forceGET')) {
-		        _params.method = 'GET'
+	        //Test environments support only get
+	        if ( _config.get( "forceGET" ) ) {
+		        _params.method = "GET";
 	        }
 
-            // on dependes the method, the way to send the data it's different
+            // On dependes the method, the way to send the data it's different
 
-            if (method === 'POST' || method === 'PUT') {
-                _params = lang.mixin(_params, {
-                    data: JSON.stringify(params),
-                    // this parameter it's not necesary, to be removed
+            if ( method === "POST" || method === "PUT" ) {
+                _params = lang.mixin( _params, {
+                    data: JSON.stringify( params ),
+
+                    // This parameter it's not necesary, to be removed
 	                //FIXME: we need a way to remove query without broke POST PUT services
                     query: params,
                     headers: {
                         "Content-Type": "application/json"
                     }
                 });
-            } else if (method === 'POST-FORM') {
-                _params = lang.mixin(_params, {
+            } else if ( method === "POST-FORM" ) {
+                _params = lang.mixin( _params, {
                     data: params,
                     method: "POST",
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded"
                     }
                 });
-            } else if (method === 'GET' || method === 'DELETE') {
-                _params = lang.mixin(_params, {
-                    query : params,
+            } else if ( method === "GET" || method === "DELETE" ) {
+                _params = lang.mixin( _params, {
+                    query: params,
                     headers: {
                         "Content-Type": "application/json"
                     }
                 });
             }
 
-            // resolve complex url
+            // Resolve complex url
             try {
                 var _service_url = null;
-                if (typeof url === 'string') {
-                    _service_url = _service(url);
-                } else if (lang.isArray(url) && url.length === 2) {
-                    _service_url = _service(url[0], url[1]);
-                } else if (lang.isArray(url) && url.length === 1) {
-                    _service_url = _service(url[0]);
+                if ( typeof url === "string" ) {
+                    _service_url = _service( url );
+                } else if ( lang.isArray( url ) && url.length === 2 ) {
+                    _service_url = _service( url[ 0 ], url[ 1 ] );
+                } else if ( lang.isArray( url ) && url.length === 1 ) {
+                    _service_url = _service( url[ 0 ] );
                 }
-                if (_service_url !== null ) {
-                    // make the request
-                    if (loadingSpinner && has("host-browser")) {
+                if ( _service_url !== null ) {
+
+                    // Make the request
+                    if ( loadingSpinner && has("host-browser") ) {
                         overlay = iosOverlay({
                             text: "Loading", ///TODO: i18n
                             spinner: spinner
                         });
                     }
-                    //console.log("XHR _service_url", _service_url);
+
+                    //Console.log("XHR _service_url", _service_url);
                     //console.log("XHR _params", _params);
-                    var r = request(_service_url, _params).then(_load, _error, function(evt) {});
-                    //console.log("XHR", r);
+                    var r = request( _service_url, _params ).then( _load, _error, function( evt ) {});
+
+                    //Console.log("XHR", r);
                     return r;
                 }
-            } catch (error) {
-                console.error("error service ", error.stack, arguments);
+            } catch ( error ) {
+                console.error("error service ", error.stack, arguments );
             }
         }
     };
@@ -235,40 +249,39 @@ define([
         /*
          *
          */
-        get  : function (url, params, load, error, loaderHandler, loadingSpinner) {
-            return _makeCall(url, params, 'GET', load, error, loaderHandler, loadingSpinner);
+        get: function( url, params, load, error, loaderHandler, loadingSpinner ) {
+            return _makeCall( url, params, "GET", load, error, loaderHandler, loadingSpinner );
         },
 
         /*
          *
          */
-        post : function (url, params, load, error, loaderHandler, loadingSpinner) {
-            return _makeCall(url, params, 'POST', load, error, loaderHandler, loadingSpinner);
+        post: function( url, params, load, error, loaderHandler, loadingSpinner ) {
+            return _makeCall( url, params, "POST", load, error, loaderHandler, loadingSpinner );
         },
 
         /*
          *
          */
-        formU: function (url, params, load, error, loaderHandler, loadingSpinner) {
-            return _makeCall(url, params, 'POST-FORM', load, error, loaderHandler, loadingSpinner);
+        formU: function( url, params, load, error, loaderHandler, loadingSpinner ) {
+            return _makeCall( url, params, "POST-FORM", load, error, loaderHandler, loadingSpinner );
         },
         /*
          *
          */
-        del  : function (url, params, load, error, loaderHandler, loadingSpinner) {
-            return _makeCall(url, params, 'DELETE', load, error, loaderHandler, loadingSpinner);
+        del: function( url, params, load, error, loaderHandler, loadingSpinner ) {
+            return _makeCall( url, params, "DELETE", load, error, loaderHandler, loadingSpinner );
         },
 
         /*
          *
          */
-        put  : function (url, params, load, error, loaderHandler, loadingSpinner) {
-            return _makeCall(url, params, 'PUT', load, error, loaderHandler, loadingSpinner);
+        put: function( url, params, load, error, loaderHandler, loadingSpinner ) {
+            return _makeCall( url, params, "PUT", load, error, loaderHandler, loadingSpinner );
         },
 
         service: _service
-    }
+    };
 
 });
-
 

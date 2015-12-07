@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
@@ -21,52 +21,53 @@ define([
     userProfile,
     More,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, ratedOperations,  main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, ratedOperations,  main_widget, _WidgetsInTemplateMixin ], {
 
-     // template string.
-     templateString : template,
+     // Template string.
+     templateString: template,
 
      /**
       *
       * @property
       */
-     _params : {
-        status : true
+     _params: {
+        status: true
      },
 
       /*
       *
       */
-     service : 'encuestame.service.list.rate.profile',
+     service: "encuestame.service.list.rate.profile",
 
      /*
       *
       */
-     _key : ["profile"],
+     _key: [ "profile" ],
 
-
-     clean_after_reload : false,
+     clean_after_reload: false,
 
     /*
      *
      */
-    postCreate : function() {
+    postCreate: function() {
       this.more = new More({
-           parentWidget : this
+           parentWidget: this
       });
 
       var parent = this;
-      this.more.loadItems = dojo.hitch(this, function () {
+      this.more.loadItems = dojo.hitch( this, function() {
           parent._loadItems();
       });
-      // if more
-      if(this._more) {
-        this._more.appendChild(this.more.domNode);
+
+      // If more
+      if ( this._more ) {
+        this._more.appendChild( this.more.domNode );
       }
-      // if service exist, load items.
-      if (this.service !== null) {
+
+      // If service exist, load items.
+      if ( this.service !== null ) {
           this._loadItems();
       }
      },
@@ -74,9 +75,9 @@ define([
      /*
       *
       */
-      _createItem : function(item) {
+      _createItem: function( item ) {
           var widget = new userProfile({
-              data : item
+              data: item
           });
           return widget.domNode;
       },
@@ -85,8 +86,8 @@ define([
        * Return a list of service parameters.
        * @method getParams
        */
-      getParams : function() {
-          return this.more.merge(this._params);
+      getParams: function() {
+          return this.more.merge( this._params );
       }
   });
 });

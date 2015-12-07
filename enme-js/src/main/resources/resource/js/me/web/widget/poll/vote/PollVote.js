@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -13,22 +13,23 @@ define([
                 _WidgetsInTemplateMixin,
                 main_widget,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-            // template string.
-            templateString : template,
+            // Template string.
+            templateString: template,
 
             /**
-             * postCreate
+             * PostCreate
              * @method postCreate
              */
-             postCreate : function() {
+             postCreate: function() {
+
                 // Retrieve the dojoType from template and append inside to this widget
-                dojo.query("> [data-dojo-type]", this.srcNodeRef).forEach(
-                    dojo.hitch(this, function(node) {
-                        this._responses.appendChild(node);
-                }));
+                dojo.query("> [data-dojo-type]", this.srcNodeRef ).forEach(
+                    dojo.hitch( this, function( node ) {
+                        this._responses.appendChild( node );
+                }) );
              }
     });
 });

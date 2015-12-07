@@ -19,7 +19,7 @@
 /**
  * Created by jpicado on 09/06/15.
  */
-define([
+define( [
 	"dojo/_base/declare",
 	"dojo/on",
 	"dojo/request/script",
@@ -40,24 +40,25 @@ function(
 		main_widget,
 		Tooltip,
 		_ENME,
-		template) {
-		return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+		template ) {
+		return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
 		/**
-		 * template string.
+		 * Template string.
 		 * @property
 		 */
-		templateString : template,
+		templateString: template,
 
-		password : "",
+		password: "",
 
-		itemType : "",
+		itemType: "",
 
 		/**
 		 *
 		 * @method postCreate
 		 */
-		postCreate : function() {
+		postCreate: function() {
+
 			//TODO: future, regenerate password
 		}
 

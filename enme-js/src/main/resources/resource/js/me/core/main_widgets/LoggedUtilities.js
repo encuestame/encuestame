@@ -1,28 +1,28 @@
-define([  "dojo",
+define( [ "dojo",
           "dojo/_base/declare",
           "me/core/main_widgets/EnmeMainLayoutWidget",
           "dijit/registry",
-          "me/core/enme"], function(
+          "me/core/enme" ], function(
             dojo,
             declare,
             EnmeMainLayoutWidget,
             registry,
-            _ENME) {
+            _ENME ) {
 
-  return declare([EnmeMainLayoutWidget], {
+  return declare( [ EnmeMainLayoutWidget ], {
 
       /*
        *
        */
-      loading : function() {
-          dojo.publish('encuestame/loading/display/on');
+      loading: function() {
+          dojo.publish( "encuestame/loading/display/on" );
       },
 
       /*
        *
        */
-      unloading : function() {
-          dojo.publish('encuestame/loading/display/off');
+      unloading: function() {
+          dojo.publish( "encuestame/loading/display/off" );
       }
   });
 });

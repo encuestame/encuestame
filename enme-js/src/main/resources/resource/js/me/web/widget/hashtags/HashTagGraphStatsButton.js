@@ -10,42 +10,43 @@ define(
       "me/core/main_widgets/EnmeMainLayoutWidget",
       "me/core/enme",
       "dojo/text!me/web/widget/hashtags/template/hashTagGraphStatsButton.html" ],
-    function(declare, on, _WidgetBase, _TemplatedMixin,
-        _WidgetsInTemplateMixin, main_widget, _ENME, template) {
-      return declare([ _WidgetBase, _TemplatedMixin, main_widget,
+    function( declare, on, _WidgetBase, _TemplatedMixin,
+        _WidgetsInTemplateMixin, main_widget, _ENME, template ) {
+      return declare( [ _WidgetBase, _TemplatedMixin, main_widget,
           _WidgetsInTemplateMixin ], {
 
-        // template string.
-        templateString : template,
+        // Template string.
+        templateString: template,
 
               /**
          * Button handler.
          */
-        _handler : null,
+        _handler: null,
 
         /**
          * Define if the button is selected by default.
          */
-        selectedButton : false,
+        selectedButton: false,
 
         /**
          * Post create cycle.
          */
-        postCreate : function() {
-          if (this._handler !== null) {
+        postCreate: function() {
+          if ( this._handler !== null ) {
             var that = this;
             dojo.subscribe("/encuestame/hashtag/buttons", this,
-                this._switchButton);
-            dojo.connect(this._button, "onclick", dojo.hitch(this,
-                function(event) {
+                this._switchButton );
+            dojo.connect( this._button, "onclick", dojo.hitch( this,
+                function( event ) {
                   this._handler.onClick();
-                }));
-            this._handler.init(this);
-            if (this.selectedButton) {
-              dojo.addClass(this.domNode, "selected");
+                }) );
+            this._handler.init( this );
+            if ( this.selectedButton ) {
+              dojo.addClass( this.domNode, "selected");
             }
-            this._button.appendChild(this._handler.domNode);
-//            if (this.isMobile) {
+            this._button.appendChild( this._handler.domNode );
+
+//            If (this.isMobile) {
 //               console.log("ww", window.innerHeight);
 //               on(window, "resize", function() {
 //                  console.log("got resize");
@@ -59,14 +60,14 @@ define(
         },
 
         /**
-         * review the state of the button.
+         * Review the state of the button.
          */
-        _switchButton : function(ref) {
-          if (this.domNode == ref.domNode) {
-            dojo.addClass(ref.domNode, "selected");
+        _switchButton: function( ref ) {
+          if ( this.domNode == ref.domNode ) {
+            dojo.addClass( ref.domNode, "selected");
             ref.selectedButton = true;
           } else {
-            dojo.removeClass(this.domNode, "selected");
+            dojo.removeClass( this.domNode, "selected");
             this.selectedButton = false;
           }
         }

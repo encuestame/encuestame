@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class TableRow
  */
-define([
+define( [
          "dojo/_base/declare",
          "dojo/dom-construct",
          "dijit/_WidgetBase",
@@ -38,11 +38,11 @@ define([
                 _WidgetsInTemplateMixin,
                 main_widget,
                 _ENME,
-                template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-            templateString : template,
+          // Template string.
+            templateString: template,
 
             data: null,
 
@@ -56,58 +56,56 @@ define([
             /**
              * Build Default Row.
              */
-            buildDefaultRow : function(){
+            buildDefaultRow: function() {
                 var data = this.data;
-                this.createInput(data.id)
-                this.createColumnDialog(data.name);
-                this.createColumn(data.email);
-                this.createColumn(data.email);
-                this.createColumn(data.email);
-                this.buildStatus(data.status);
-                this.createColumn(data.id);
+                this.createInput( data.id );
+                this.createColumnDialog( data.name );
+                this.createColumn( data.email );
+                this.createColumn( data.email );
+                this.createColumn( data.email );
+                this.buildStatus( data.status );
+                this.createColumn( data.id );
             },
 
             /**
              * Build Options.
              */
-            buildOptions : function(id){
+            buildOptions: function( id ) {
 
             },
 
             /**
              * Create Column.
              */
-            createColumnDialog : function(text){
-                 var td = dojo.doc.createElement('td');
+            createColumnDialog: function( text ) {
+                 var td = dojo.doc.createElement( "td" );
                  td.innerHTML = text;
-                 this._trbody.appendChild(td);
-                 dojo.connect(this.source, "onClick", this, this.onDndDrop);
+                 this._trbody.appendChild( td );
+                 dojo.connect( this.source, "onClick", this, this.onDndDrop );
             },
-
-
 
             /**
              * Create Column.
              */
-            createColumn : function(text){
-                 var td = dojo.doc.createElement('td');
+            createColumn: function( text ) {
+                 var td = dojo.doc.createElement( "td" );
                  td.innerHTML = text;
-                 this._trbody.appendChild(td);
+                 this._trbody.appendChild( td );
             },
 
             /**
              * Create Input.
              */
-            createInput : function(id){
+            createInput: function( id ) {
                 var widgetInput = new dijit.form.CheckBox({});
-                widgetInput.setValue(id);
-                this._trbody.appendChild(widgetInput.domNode);
+                widgetInput.setValue( id );
+                this._trbody.appendChild( widgetInput.domNode );
             },
 
-            buildStatus : function(status){
-                var td = dojo.doc.createElement('td');
+            buildStatus: function( status ) {
+                var td = dojo.doc.createElement( "td" );
                 td.innerHTML = status;
-                this._trbody.appendChild(td);
+                this._trbody.appendChild( td );
             }
 
         });

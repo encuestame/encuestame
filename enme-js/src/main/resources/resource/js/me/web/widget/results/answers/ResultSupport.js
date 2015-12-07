@@ -1,26 +1,26 @@
-define([
+define( [
      "dojo/_base/declare",
-     "me/core/enme"],
+     "me/core/enme" ],
     function(
     declare,
-    _ENME) {
+    _ENME ) {
 
-  return declare(null, {
+  return declare( null, {
 
      /**
       * Represent the unique item id of the result.
       */
-     itemId : null,
+     itemId: null,
 
      /**
       * Represent the label of the result / answer.
       */
-     labelResponse : null,
+     labelResponse: null,
 
      /**
       * Represent the color of the result.
       */
-     color : null,
+     color: null,
 
      /**
       * The current total of votes.
@@ -30,12 +30,12 @@ define([
      /**
       * The question id.
       */
-     questionId : null,
+     questionId: null,
 
      /**
       * Constructor.
       */
-    constructor : function() {}
+    constructor: function() {}
 
   });
 });

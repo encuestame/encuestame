@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
@@ -13,27 +13,28 @@ define([
     _WidgetsInTemplateMixin,
     main_widget,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-     // template string.
-    templateString : template,
+     // Template string.
+    templateString: template,
 
-    value : 0,
+    value: 0,
 
-    negative : false,
+    negative: false,
 
-    positive : false,
+    positive: false,
 
-    postCreate : function() {
+    postCreate: function() {
       this._value.innerHTML = this.value;
-      if (this.positive && this.negative) {
-        // nothing to do.
-      } else if (this.positive) {
-        dojo.addClass(this._likeRate, "positive");
-      } else if (this.negative) {
-        dojo.addClass(this._likeRate, "negative");
+      if ( this.positive && this.negative ) {
+
+        // Nothing to do.
+      } else if ( this.positive ) {
+        dojo.addClass( this._likeRate, "positive");
+      } else if ( this.negative ) {
+        dojo.addClass( this._likeRate, "negative");
       }
     }
 

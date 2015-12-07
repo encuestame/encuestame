@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class DialogGenericContentMessage
  */
-define([
+define( [
     "dojo/_base/declare",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
@@ -35,35 +35,35 @@ define([
       _WidgetsInTemplateMixin,
       main_widget,
       _ENME,
-      template) {
-  return declare([ _WidgetBase,
+      template ) {
+  return declare( [ _WidgetBase,
                    _TemplatedMixin,
                     main_widget,
                    _WidgetsInTemplateMixin ], {
 
     /**
-     * template string.
+     * Template string.
      * @property templateString
      */
-    templateString : template,
+    templateString: template,
 
     /**
      *
      * @property
      */
-    icon_class : "",
+    icon_class: "",
 
     /**
      *
      * @property
      */
-    message_content : "",
+    message_content: "",
 
     /**
      *
      * @property
      */
-    postCreate : function() {
+    postCreate: function() {
 
     }
 

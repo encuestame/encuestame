@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class TweetPollPublishItemFAILUREStatus
  */
-define([
+define( [
         "dojo/_base/declare",
         "dojo/dom-construct",
          "me/core/enme",
@@ -40,107 +40,106 @@ define([
                 TimeTextBox,
                 DateTextBox,
                 Button,
-                template) {
-            return declare([TweetPollPublishItemAbstractStatus], {
+                template ) {
+            return declare( [ TweetPollPublishItemAbstractStatus ], {
 
         /**
         * Template string.
         * @property
         */
-        templateString : template,
+        templateString: template,
 
         /**
          * Store all TweetPoll widget data
          * @param tweetPollWidget
          */
-        tweetPollWidget : null,
+        tweetPollWidget: null,
 
-
-        _attempts : 5,
+        _attempts: 5,
 
         /**
-         * i18N Message.
+         * I18N Message.
          * @property
          */
-        i18nMessage : {
-            commons_failure : _ENME.getMessage("commons_failure", "FAILURE"),
-            button_try_later : _ENME.getMessage("button_try_later", ""),
-            button_ignore : _ENME.getMessage("button_ignore", ""),
-            button_try_again : _ENME.getMessage("button_try_again", ""),
-            pubication_failure_status : _ENME.getMessage("pubication_failure_status", "pubication_failure_status")
+        i18nMessage: {
+            commons_failure: _ENME.getMessage("commons_failure", "FAILURE"),
+            button_try_later: _ENME.getMessage("button_try_later", ""),
+            button_ignore: _ENME.getMessage("button_ignore", ""),
+            button_try_again: _ENME.getMessage("button_try_again", ""),
+            pubication_failure_status: _ENME.getMessage("pubication_failure_status", "pubication_failure_status")
         },
-
 
         /**
         * Post Create life cycle.
         * @method postCreate
         */
-        postCreate : function () {
-         this.inherited(arguments);
+        postCreate: function() {
+         this.inherited( arguments );
          var that = this;
          var date = new Date();
-         date.setDate(date.getDate() + 365);
-         var _max = moment(date);
+         date.setDate( date.getDate() + 365 );
+         var _max = moment( date );
          this._calendar.constraints = {
-            min : moment(),
-            datePattern: 'dd-MMM-yyyy',
-            max : _max
+            min: moment(),
+            datePattern: "dd-MMM-yyyy",
+            max: _max
          };
-         if (this._ignore) {
-               this._ignore.onClick = dojo.hitch(this, function() {
-                  dojo.destroy(this.parentStatusWidget.domNode);
+         if ( this._ignore ) {
+               this._ignore.onClick = dojo.hitch( this, function() {
+                  dojo.destroy( this.parentStatusWidget.domNode );
               });
            }
 
-         // trigger the try to publish later
-         this._try_later.onClick = dojo.hitch(this, function() {
-              dojo.removeClass(this._options_scheduled, "hidden");
+         // Trigger the try to publish later
+         this._try_later.onClick = dojo.hitch( this, function() {
+              dojo.removeClass( this._options_scheduled, "hidden");
          });
 
-         // trigger on confirm the scheduled date
-         this._confirm.onClick = dojo.hitch(this, function() {
+         // Trigger on confirm the scheduled date
+         this._confirm.onClick = dojo.hitch( this, function() {
               this._confirmExecute();
          });
 
-         // triggered on cancel the "try later"  action
-         this._cancel_scheduled.onClick = dojo.hitch(this, function() {
-              dojo.addClass(this._options_scheduled, "hidden");
+         // Triggered on cancel the "try later"  action
+         this._cancel_scheduled.onClick = dojo.hitch( this, function() {
+              dojo.addClass( this._options_scheduled, "hidden");
          });
 
-
-         // trigger the try to publish again
-         this._try.onClick = dojo.hitch(this, function() {
-                var moveAttemps = dojo.hitch(this, function() {
-                    dojo.addClass(this._att, "badge badge-important");
+         // Trigger the try to publish again
+         this._try.onClick = dojo.hitch( this, function() {
+                var moveAttemps = dojo.hitch( this, function() {
+                    dojo.addClass( this._att, "badge badge-important");
                     this._att.innerHTML = this._attempts;
                 });
-                if (this._attempts > 0) {
+                if ( this._attempts > 0 ) {
                     var params = {
-                                 "id" : this.tweetPollWidget.tweetPoll.tweetPollId,
-                                 "twitterAccounts" : [this.metadata.social_account_id]
+                                 "id": this.tweetPollWidget.tweetPoll.tweetPollId,
+                                 "twitterAccounts": [ this.metadata.social_account_id ]
                    };
-                   var load = dojo.hitch(this, function(data) {
-                      var __status = data.success.socialPublish[0].status_tweet;
-                      if (__status === 'FAILED') {
+                   var load = dojo.hitch( this, function( data ) {
+                      var __status = data.success.socialPublish[ 0 ].status_tweet;
+                      if ( __status === "FAILED" ) {
                           moveAttemps();
-                      } else if (__status === 'SUCCESS') {
-                           //  create a success status
-                          var _node = this.parentStatusWidget.convertToSuccess(data.success.socialPublish[0]);
-                          domConstruct.place(_node, this.parentStatusWidget._detailStatus);
-                          // destroy the current node
-                          dojo.addClass(this.domNode, "hidden");
+                      } else if ( __status === "SUCCESS" ) {
+
+                           //  Create a success status
+                          var _node = this.parentStatusWidget.convertToSuccess( data.success.socialPublish[ 0 ] );
+                          domConstruct.place( _node, this.parentStatusWidget._detailStatus );
+
+                          // Destroy the current node
+                          dojo.addClass( this.domNode, "hidden");
                       } else {
-                          console.error("not defined status", __status);
+                          console.error("not defined status", __status );
                       }
                    });
-                   var error = dojo.hitch(this, function(error) {
-                     this.errorMessage(error.response.data ? error.response.data.error.message : _ENME.getMessage("tp_publish_error", "Service unavailable, please try again"));
+                   var error = dojo.hitch( this, function( error ) {
+                     this.errorMessage( error.response.data ? error.response.data.error.message : _ENME.getMessage("tp_publish_error", "Service unavailable, please try again") );
                      moveAttemps();
                    });
-                   this._attempts --;
-                   URLServices.post('encuestame.service.list.publishTweetPoll', params, load, error , dojo.hitch(this, function() {
+                   this._attempts--;
+                   URLServices.post( "encuestame.service.list.publishTweetPoll", params, load, error, dojo.hitch( this, function() {
 
-                   }), true);
+                   }), true );
               } else {
                 this.removeTryAgainButton();
               }
@@ -152,44 +151,45 @@ define([
          * @method _confirm
          */
         _confirmExecute: function() {
-              var convertDate = dojo.hitch(this, function() {
-                  var time = moment(this._time.get('value')).format("hh:mm:ss");
-                  var date = moment(this._calendar.get('value')).format("MM-DD-YYYY");
-                  var merged_date = new Date(date + " " + time);
+              var convertDate = dojo.hitch( this, function() {
+                  var time = moment( this._time.get( "value" ) ).format("hh:mm:ss");
+                  var date = moment( this._calendar.get( "value" ) ).format("MM-DD-YYYY");
+                  var merged_date = new Date( date + " " + time );
                   return merged_date.getTime();
               });
-              if (this._time.isValid() && this._calendar.isValid()) {
+              if ( this._time.isValid() && this._calendar.isValid() ) {
                     var params = {
-                      "publish_response" : this.metadata,
-                      "scheduled_date" :  convertDate()
+                      "publish_response": this.metadata,
+                      "scheduled_date":  convertDate()
                     };
-                    var load = dojo.hitch(this, function(data) {
-                         //  create a success status
-                         var _node = this.parentStatusWidget.convertToSuccess(data.success.schedulded_item, 'scheduled');
-                         domConstruct.place(_node, this.parentStatusWidget._detailStatus);
-                         // destroy the current node
-                        dojo.addClass(this.domNode, "hidden");
+                    var load = dojo.hitch( this, function( data ) {
+
+                         //  Create a success status
+                         var _node = this.parentStatusWidget.convertToSuccess( data.success.schedulded_item, "scheduled" );
+                         domConstruct.place( _node, this.parentStatusWidget._detailStatus );
+
+                         // Destroy the current node
+                        dojo.addClass( this.domNode, "hidden");
                     });
-                    var error = dojo.hitch(this, function(error) {
-                       this.errorMessage(error.response.data ? error.response.data.error.message : _ENME.getMessage("tp_publish_error", "Is not possible to schedule, please try again"));
+                    var error = dojo.hitch( this, function( error ) {
+                       this.errorMessage( error.response.data ? error.response.data.error.message : _ENME.getMessage("tp_publish_error", "Is not possible to schedule, please try again") );
                     });
                     var publish_date = new Date();
-                    URLServices.post(['encuestame.service.list.scheduleTweetPoll', [this.metadata.type_item, this.metadata.id]], params, load, error , dojo.hitch(this, function() {
+                    URLServices.post( [ "encuestame.service.list.scheduleTweetPoll", [ this.metadata.type_item, this.metadata.id ]], params, load, error, dojo.hitch( this, function() {
 
-                    }), true);
+                    }), true );
                 } else {
-                    this.errorMessage(_ENME.getMessage("scheduled_error_confirm", "Your scheduled date is not valid"));
+                    this.errorMessage( _ENME.getMessage("scheduled_error_confirm", "Your scheduled date is not valid") );
                 }
         },
-
 
         /**
          * Remove the try again button;
          * @method removeTryAgainButton
          */
         removeTryAgainButton: function() {
-            dojo.destroy(this._try.domNode);
-            dojo.destroy(this._att);
+            dojo.destroy( this._try.domNode );
+            dojo.destroy( this._att );
         }
     });
 });

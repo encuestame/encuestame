@@ -1,27 +1,27 @@
-define([
+define( [
          "dojo/_base/declare",
          "me/web/widget/options/ConstrainNumberPicker",
-         "me/core/enme"],
+         "me/core/enme" ],
         function(
                 declare,
                 ConstrainNumberPicker,
-                _ENME) {
-            return declare([ ConstrainNumberPicker], {
+                _ENME ) {
+            return declare( [ ConstrainNumberPicker ], {
 
            /*
             *
             */
-           label : _ENME.getMessage('widget_repated_votes'),
+           label: _ENME.getMessage( "widget_repated_votes" ),
 
            /*
-            * to enable publish support, replace null value for publish valid url.
+            * To enable publish support, replace null value for publish valid url.
             * eg: /encuestame/tweetpoll/autosave
             */
-           publish_url : null,
+           publish_url: null,
 
            /*
             *
             */
-           constraints : "{min:2, max:10}"
+           constraints: "{min:2, max:10}"
     });
 });

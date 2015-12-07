@@ -21,7 +21,7 @@
  *  @namespace Widgets
  *  @class TweetPollPublishInfo
  */
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -40,112 +40,111 @@ define([
                 TweetPollPublishItemStatus,
                 _ENME,
                 registry,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-            templateString : template,
+          // Template string.
+            templateString: template,
 
           /**
            * The list of social accounts.
            */
-          _socialAccounts : [],
+          _socialAccounts: [],
 
           /**
-           * i18N Message.
+           * I18N Message.
            */
-          i18nMessage : {
-            button_finish : _ENME.getMessage("button_finish", "Close")
+          i18nMessage: {
+            button_finish: _ENME.getMessage("button_finish", "Close")
           },
 
           /**
            * Store all TweetPoll widget data
            * @param tweetPollWidget
            */
-          tweetPollWidget : null,
+          tweetPollWidget: null,
 
           /**
            *
            */
-          _inProcess : false,
+          _inProcess: false,
 
           /**
            * Post create.
            */
-          postCreate : function() {
-              var button = registry.byId(this._close);
-                  button.onClick = dojo.hitch(this, function(event) {
+          postCreate: function() {
+              var button = registry.byId( this._close );
+                  button.onClick = dojo.hitch( this, function( event ) {
                      dojo.publish("/encuestame/dialog/close");
                      document.location.href = _ENME.config("contextPath") + "/user/tweetpoll/list";
               });
           },
 
           /**
-           * set social account array.
+           * Set social account array.
            */
-          setListOfSocialAccounts : function(accounts) {
+          setListOfSocialAccounts: function( accounts ) {
               this._socialAccounts = accounts;
           },
 
           /**
-           * initialize widget.
+           * Initialize widget.
            */
-          initialize : function(type) {
+          initialize: function( type ) {
               this._inProcess = true;
-              if (typeof type === "undefined") {
+              if ( typeof type === "undefined") {
                   this._showProcessingMessage();
-              } else if('scheduled') {
-                  this._showProcessingMessage(type, _ENME.getMessage("schedulded_inprocess_status", "Your tweetpoll is beeing scheduled, please wait ..."));
+              } else if ( "scheduled" ) {
+                  this._showProcessingMessage( type, _ENME.getMessage("schedulded_inprocess_status", "Your tweetpoll is beeing scheduled, please wait ...") );
               }
           },
 
           /**
            * Display proccessing message.
            */
-          _showProcessingMessage : function(message_text) {
-            dojo.empty(this._message);
+          _showProcessingMessage: function( message_text ) {
+            dojo.empty( this._message );
               var message = dojo.doc.createElement("div");
-              dojo.addClass(this._message, "defaultDisplayBlock");
-              dojo.removeClass(this._message, "defaultDisplayHide");
+              dojo.addClass( this._message, "defaultDisplayBlock");
+              dojo.removeClass( this._message, "defaultDisplayHide");
               message.innerHTML = message_text || _ENME.getMessage("pubication_inprocess_status");
-              this._message.appendChild(message);
+              this._message.appendChild( message );
           },
 
           /**
            * Hidde the processing message.
            */
-          _hideProcessingMessage : function() {
-            dojo.empty(this._message);
-              dojo.removeClass(this._message, "defaultDisplayBlock");
-              dojo.addClass(this._message, "defaultDisplayHide");
-              dojo.empty(this._message);
+          _hideProcessingMessage: function() {
+            dojo.empty( this._message );
+              dojo.removeClass( this._message, "defaultDisplayBlock");
+              dojo.addClass( this._message, "defaultDisplayHide");
+              dojo.empty( this._message );
           },
-
 
           /**
            *
            * @method
            */
-          processScheduledFinalStep : function(items) {
-             if (items) {
+          processScheduledFinalStep: function( items ) {
+             if ( items ) {
                   this._hideProcessingMessage();
-                  dojo.empty(this._container);
-                  dojo.empty(this._message);
-                  dojo.forEach(items, dojo.hitch(this,function(data) {
-                      try  {
-                          data.scheduled_date = moment(data.scheduled_date).format("MM-DD-YYYY hh:mm:ss");
+                  dojo.empty( this._container );
+                  dojo.empty( this._message );
+                  dojo.forEach( items, dojo.hitch( this, function( data ) {
+                      try {
+                          data.scheduled_date = moment( data.scheduled_date ).format("MM-DD-YYYY hh:mm:ss");
                           data.social_account_id =  data.social_bean.id;
                           data.picture_url =  data.social_bean.picture_url;
                           data.status_tweet = "SCHEDULED";
-                          var row = this._buildTweetProcessView(data);
-                          if (row) {
-                              this._container.appendChild(row);
+                          var row = this._buildTweetProcessView( data );
+                          if ( row ) {
+                              this._container.appendChild( row );
                           }
-                       }  catch(error) {
-                          console.error("scheduled row ", error);
+                       }  catch ( error ) {
+                          console.error("scheduled row ", error );
                        }
-                 }));
-                 dojo.removeClass(this._closeWrapper, "hidden");
+                 }) );
+                 dojo.removeClass( this._closeWrapper, "hidden");
               } else {
                   this.errorMesage("data tweet process is empty");
               }
@@ -155,55 +154,56 @@ define([
            * Process date published.
            * @param socialPublish
            */
-          process: function(socialPublish) {
-              if (socialPublish) {
+          process: function( socialPublish ) {
+              if ( socialPublish ) {
                   this._hideProcessingMessage();
-                  dojo.empty(this._container);
-                  dojo.empty(this._message);
-                  dojo.forEach(socialPublish,
-                          dojo.hitch(this,function(tweet) {
-                              var row = this._buildTweetProcessView(tweet);
-                              if (row) {
-                                  this._container.appendChild(row);
+                  dojo.empty( this._container );
+                  dojo.empty( this._message );
+                  dojo.forEach( socialPublish,
+                          dojo.hitch( this, function( tweet ) {
+                              var row = this._buildTweetProcessView( tweet );
+                              if ( row ) {
+                                  this._container.appendChild( row );
                               }
-                 }));
-                 dojo.removeClass(this._closeWrapper, "hidden");
+                 }) );
+                 dojo.removeClass( this._closeWrapper, "hidden");
               } else {
                   this.errorMesage("data tweet process is empty");
               }
           },
 
           /**
-           * search by id the complete info for selected social account.
+           * Search by id the complete info for selected social account.
            */
-          _getSocialAccountWidget : function(id) {
-              //this._socialAccounts
+          _getSocialAccountWidget: function( id ) {
+
+              //This._socialAccounts
               var selected = null;
-              dojo.forEach(this._socialAccounts,
-                      dojo.hitch(this,function(account) {
-                          if (account.id == id) {
+              dojo.forEach( this._socialAccounts,
+                      dojo.hitch( this, function( account ) {
+                          if ( account.id == id ) {
                               selected = account;
                           }
-               }));
+               }) );
               return selected;
           },
 
           /**
            * Build tweet process view.
            */
-          _buildTweetProcessView : function(data) {
-                return this._createStatusTweet(data);
+          _buildTweetProcessView: function( data ) {
+                return this._createStatusTweet( data );
           },
 
           /**
            * Create status tweet.
            */
-          _createStatusTweet : function(data){
+          _createStatusTweet: function( data ) {
               var widget = new TweetPollPublishItemStatus(
                       {
-                          data : data,
-                          tweetPollWidget : this.tweetPollWidget, // important, transfer the main widget reference
-                          socialAccount : this._getSocialAccountWidget(data.social_account_id)
+                          data: data,
+                          tweetPollWidget: this.tweetPollWidget, // Important, transfer the main widget reference
+                          socialAccount: this._getSocialAccountWidget( data.social_account_id )
                       });
               return widget.domNode;
           }

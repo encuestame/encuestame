@@ -3,49 +3,50 @@
  * @author Picado, Juan juanATencuestame.org
  * @since
  */
-//dojo.require("dojox.fx");
-define([
+
+//Dojo.require("dojox.fx");
+define( [
      "dojo/_base/declare",
      "dojo/topic",
      "dojo/dom-class",
      "dojo/fx",
-     "me/core/enme"],
+     "me/core/enme" ],
     function(
     declare,
     topic,
     domClass,
     coreFx,
-    _ENME) {
+    _ENME ) {
 
-  return declare(null, {
+  return declare( null, {
 
       /*
-      * node.
+      * Node.
       */
-     node : null,
+     node: null,
      /*
-      * duration.
+      * Duration.
       */
-     duration : 200,
+     duration: 200,
      /*
-      * height.
+      * Height.
       */
-     height : 300,
+     height: 300,
 
      /*
-      * default status.
+      * Default status.
       */
-     _open : false,
+     _open: false,
 
      /*
-      * default group.
+      * Default group.
       */
-     group : "default",
+     group: "default",
 
      /*
-      * id.
+      * Id.
       */
-     id : "",
+     id: "",
 
      /*
       * Constructor of wipe.
@@ -55,22 +56,22 @@ define([
       * @param {String} group
       * @param {Number} id
       */
-     constructor: function(node, duration, height, group, id) {
-         dojo.subscribe("/encuestame/wipe/close", this, dojo.hitch(this, function(id, group) {
-           this._close(id, group);
-         }));
-         dojo.subscribe("/encuestame/wipe/close/group", this, dojo.hitch(this, function(id, group) {
-           this._group(id, group);
-         }));
+     constructor: function( node, duration, height, group, id ) {
+         dojo.subscribe("/encuestame/wipe/close", this, dojo.hitch( this, function( id, group ) {
+           this._close( id, group );
+         }) );
+         dojo.subscribe("/encuestame/wipe/close/group", this, dojo.hitch( this, function( id, group ) {
+           this._group( id, group );
+         }) );
          this.node = node;
-         this.duration = (duration === null) ? this.duration : duration;
-         this.height = (height === null) ? this.height : height;
-         this.group = (group === null) ? this.group : group;
-         this.id = (id === null) ? this.id : id;
+         this.duration = ( duration === null ) ? this.duration : duration;
+         this.height = ( height === null ) ? this.height : height;
+         this.group = ( group === null ) ? this.group : group;
+         this.id = ( id === null ) ? this.id : id;
      },
 
     /*
-     * on wite in.
+     * On wite in.
      */
     wipeInOne: function() {
         coreFx.wipeIn({
@@ -81,30 +82,30 @@ define([
     },
 
     /*
-     * close the wipe.
+     * Close the wipe.
      */
-    _group : function(group) {
-        if (group === this.group) {
+    _group: function( group ) {
+        if ( group === this.group ) {
             this.wipeOutOne();
             this._open = false;
         }
     },
 
     /*
-     * close the wipe.
+     * Close the wipe.
      */
-    _close : function(id, group) {
-        if (id !== this.id && group === this.group) {
+    _close: function( id, group ) {
+        if ( id !== this.id && group === this.group ) {
             this.wipeOutOne();
             this._open = false;
         }
     },
 
     /*
-     * on wipe out.
+     * On wipe out.
      */
-    wipeOutOne : function() {
-        if (this.node) {
+    wipeOutOne: function() {
+        if ( this.node ) {
             coreFx.wipeOut({
                 node: this.node,
                 duration: this.duration
@@ -113,15 +114,15 @@ define([
     },
 
     /*
-     * provide toggle suport to wipe panel.
+     * Provide toggle suport to wipe panel.
      */
-    togglePanel : function(node) {
-        if (this._open) {
+    togglePanel: function( node ) {
+        if ( this._open ) {
             this.wipeOutOne();
          } else {
             this.wipeInOne();
-            if(node !== null){
-                domClass.add(node, "selected")
+            if ( node !== null ) {
+                domClass.add( node, "selected");
             }
          }
          this._open = !this._open;

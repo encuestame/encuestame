@@ -22,7 +22,7 @@
  *  @class AnswerItem
  */
 
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -45,44 +45,45 @@ define([
                 main_widget,
                 OptionMenu,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-         // template string.
-         templateString : template,
+         // Template string.
+         templateString: template,
 
            /**
-           * tweetpoll Id reference.
+           * Tweetpoll Id reference.
            */
-          tweetPollId : null,
+          tweetPollId: null,
 
           /**
-           * provider list.
+           * Provider list.
            */
-          _provider : null,
+          _provider: null,
 
           /**
-           * answer data.
+           * Answer data.
            */
-          data : {},
+          data: {},
 
           /**
-           * parent answer.
+           * Parent answer.
            */
-          parentAnswer : null,
+          parentAnswer: null,
 
           /**
-           * loading reference.
+           * Loading reference.
            */
-          loadingRef : null,
+          loadingRef: null,
 
           /**
            * @method constructor.
            */
-          postCreate : function() {
+          postCreate: function() {
               this._provider = _ENME.shortUrlProvider;
-              if (this._item) {
-                  // var answer = dojo.doc.createElement("div");
+              if ( this._item ) {
+
+                  // Var answer = dojo.doc.createElement("div");
                   // answer.innerHTML = this.data.answer.answers;
                   // dojo.addClass(answer, "answerItemTitle");
                   // dojo.addClass(answer, "wrap");
@@ -96,58 +97,59 @@ define([
                   // dojo.addClass(url, "answerItemShortUrl");
                   // dojo.addClass(url, "wrap");
                   var menuWidget = new OptionMenu({
-                      _classReplace : "hidden",
-                      menu_items : [{
-                          label : _ENME.getMessage("button_remove", "Remove"),
-                          action : dojo.hitch(this, this._removeAnswer)}
-                  ]});
-                  this._options.appendChild(menuWidget.domNode);
-                  //this._item.appendChild(answer);
+                      _classReplace: "hidden",
+                      menu_items: [{
+                          label: _ENME.getMessage("button_remove", "Remove"),
+                          action: dojo.hitch( this, this._removeAnswer ) }
+                  ] });
+                  this._options.appendChild( menuWidget.domNode );
+
+                  //This._item.appendChild(answer);
                   //this._item.appendChild(url);
               }
           },
 
           /**
-           * display or short url
+           * Display or short url
            */
-          editShortUrl : function(event) {
-              dojo.stopEvent(event);
+          editShortUrl: function( event ) {
+              dojo.stopEvent( event );
           },
 
           /***
-           * start the process to remove this answer.
+           * Start the process to remove this answer.
            */
-          _removeAnswer : function() {
+          _removeAnswer: function() {
               /**
-               * parameters.
+               * Parameters.
                */
             var params = {
-                "id" : this.data.tweet_poll_id,
-                "answerId" : this.data.answer.answer_id
+                "id": this.data.tweet_poll_id,
+                "answerId": this.data.answer.answer_id
               };
               /**
-               * on success
+               * On success
                */
-              var load = dojo.hitch(this, function(data) {
+              var load = dojo.hitch( this, function( data ) {
                 this.loading_hide();
-                  var i = dojo.indexOf(this.parentAnswer.listItems, this);
-                  console.debug("removing answer", i);
-                  this.parentAnswer.listItems.splice(i, 1);
+                  var i = dojo.indexOf( this.parentAnswer.listItems, this );
+                  console.debug("removing answer", i );
+                  this.parentAnswer.listItems.splice( i, 1 );
                   dojo.publish("/encuestame/tweetpoll/updatePreview");
-                  dojo.destroy(this.domNode, true);
+                  dojo.destroy( this.domNode, true );
               });
 
               /**
-               * on error.
+               * On error.
                */
-              var error = function(error) {
+              var error = function( error ) {
                 this.loading_hide();
-                  dojo.publish("/encuestame/tweetpoll/dialog/error", [error]);
+                  dojo.publish("/encuestame/tweetpoll/dialog/error", [ error ] );
               };
               this.loading_show();
-              this.getURLService().get("encuestame.service.list.removeAnswer", params, load, error , dojo.hitch(this, function() {
+              this.getURLService().get("encuestame.service.list.removeAnswer", params, load, error, dojo.hitch( this, function() {
 
-              }));
+              }) );
           },
 
           /**

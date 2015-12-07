@@ -1,18 +1,18 @@
-define([
-    'intern!object',
-    'intern/chai!assert',
-    'me/web/widget/geo/BasicGeoWidget'
-], function (
+define( [
+    "intern!object",
+    "intern/chai!assert",
+    "me/web/widget/geo/BasicGeoWidget"
+], function(
     registerSuite,
     assert,
-    BasicGeoWidget) {
+    BasicGeoWidget ) {
     registerSuite({
-        name: 'Geo Widgets',
-        
-        'default data': function () {
+        name: "Geo Widgets",
+
+        "default data": function() {
             var basicGeoWidget = new BasicGeoWidget({
 
             });
-        }      
+        }
     });
 });

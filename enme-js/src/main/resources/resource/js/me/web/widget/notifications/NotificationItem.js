@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class NotificationItem
  */
-define([
+define( [
          "dojo",
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -38,24 +38,24 @@ define([
                 _WidgetsInTemplateMixin,
                 main_widget,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
             /**
-             * template as stirng
+             * Template as stirng
              * @property templateString
              */
-            templateString : template,
+            templateString: template,
 
             /**
-             * item
+             * Item
              * @property
              */
-            item : null,
+            item: null,
 
             /**
              * Parent reference
-             * @property 
+             * @property
              */
             parentWidget: null,
 
@@ -63,43 +63,44 @@ define([
              *
              * @property
              */
-            clickItem : null,
+            clickItem: null,
 
             /**
              * Post create life cycle.
              * @method postCreate
              */
-            postCreate : function() {
+            postCreate: function() {
                 this.activity = _ENME.getActivity();
-                this.clickItem = dojo.connect(this.domNode, "onclick", dojo.hitch(this, function(e) {
+                this.clickItem = dojo.connect( this.domNode, "onclick", dojo.hitch( this, function( e ) {
                     this._markAsReaded();
-               }));
+               }) );
             },
 
             /**
              * Mark the notification as readed
              * @method _markAsReaded
              */
-            _markAsReaded : function() {
+            _markAsReaded: function() {
                 var parent = this,
-                 load = dojo.hitch(this, function(data) {
+                 load = dojo.hitch( this, function( data ) {
                      this.parentWidget.callTotals();
-                     dojo.disconnect(this.clickItem);
-                     dojo.addClass(parent.domNode, "web-not-item-removed");
+                     dojo.disconnect( this.clickItem );
+                     dojo.addClass( parent.domNode, "web-not-item-removed");
                  }),
-                 error =  dojo.hitch(this, function(error) {
+                 error =  dojo.hitch( this, function( error ) {
+
                     //TODO: error handler.
                  });
-                 this.getURLService().get("encuestame.service.list.changeStatusNotification", {id:this.item.id}, load, error , dojo.hitch(this, function() {
-                  }));
+                 this.getURLService().get("encuestame.service.list.changeStatusNotification", { id:this.item.id }, load, error, dojo.hitch( this, function() {
+                  }) );
             },
 
             /**
              * Remove Notification
              * @method removeNotification
              */
-            removeNotification : function(notificationId){
-                var url = '/encuestame/api/remove-notification.json';
+            removeNotification: function( notificationId ) {
+                var url = "/encuestame/api/remove-notification.json";
             }
 
     });

@@ -21,51 +21,51 @@
  *  @namespace Widgets
  *  @class AbstractValidator
  */
-define([
+define( [
      "dojo/_base/declare",
 	"dojo/dom",
      "me/core/enme",
-     "me/core/URLServices"],
+     "me/core/URLServices" ],
     function(
     declare,
     dom,
     _ENME,
-    URLServices) {
+    URLServices ) {
 
-  return declare(null, {
+  return declare( null, {
 
     /*
      *
      */
-    noEvents : false,
+    noEvents: false,
 
     /*
      * Define if has the focus on load
      */
-    focusDefault : false,
+    focusDefault: false,
 
     /**
      * Default enviroment to validate.
      * @property
      */
-    enviroment : "external",
+    enviroment: "external",
 
     /**
      *
      * @property
      */
-    isValid : false,
+    isValid: false,
 
     /**
      *
      * @property inputTextValue
      */
-    inputTextValue : "",
+    inputTextValue: "",
 
     /*
      * @deprecated
      */
-    toolTip : true,
+    toolTip: true,
 
     /**
      * HTML5 Input placegolder
@@ -73,39 +73,39 @@ define([
      */
     placeholder: "",
 
-
-    urlService : URLServices,
+    urlService: URLServices,
 
     /**
      * Post create
      */
-    postCreate : function() {
-        this.inherited(arguments);
-        var _input = dom.byId("input_" + this.id);
-        dojo.connect(_input, "onkeyup", dojo.hitch(this, function(e) {
-            if (dojo.keys.ENTER === e.keyCode) {
-               dojo.stopEvent(e);
-               this._validate(e);
+    postCreate: function() {
+        this.inherited( arguments );
+        var _input = dom.byId("input_" + this.id );
+        dojo.connect( _input, "onkeyup", dojo.hitch( this, function( e ) {
+            if ( dojo.keys.ENTER === e.keyCode ) {
+               dojo.stopEvent( e );
+               this._validate( e );
             }
-        }));
-        dojo.connect(_input, "onkeypress", dojo.hitch(this, function(e) {
-            if (dojo.keys.ENTER === e.keyCode) {
-               dojo.stopEvent(e);
-               dojo.publish('/encuestame/singup/validate');
+        }) );
+        dojo.connect( _input, "onkeypress", dojo.hitch( this, function( e ) {
+            if ( dojo.keys.ENTER === e.keyCode ) {
+               dojo.stopEvent( e );
+               dojo.publish( "/encuestame/singup/validate" );
             }
-        }));
-        if (_input) {
-            if (this.focusDefault) {
-                dijit.focus(_input);
+        }) );
+        if ( _input ) {
+            if ( this.focusDefault ) {
+                dijit.focus( _input );
             }
         }
-        if (!this.noEvents) {
-            dojo.connect(this._input, "onchange", dojo.hitch(this, function(event) {
-                dojo.stopEvent(event);
-                this._validate(event);
-            }));
+        if ( !this.noEvents ) {
+            dojo.connect( this._input, "onchange", dojo.hitch( this, function( event ) {
+                dojo.stopEvent( event );
+                this._validate( event );
+            }) );
         }
-        // insert placeholder support for browsers that not support this feature
+
+        // Insert placeholder support for browsers that not support this feature
         // http://caniuse.com/#search=placeholder
         //if( !Modernizr.input.placeholder) {
             //FUTURE: NON HTML5 placeholder
@@ -115,155 +115,159 @@ define([
     /**
      *
      */
-    getServiceUrl : function() {
+    getServiceUrl: function() {
         return "";
     },
 
     /**
      *
      */
-    recheck : function(data) {
+    recheck: function( data ) {
         var params = {
-            context : this.enviroment
+            context: this.enviroment
         };
-        params[data] = this.inputTextValue;
-         this._loadService( this.getServiceUrl(), params, this.error);
+        params[ data ] = this.inputTextValue;
+         this._loadService( this.getServiceUrl(), params, this.error );
     },
 
     /**
      *
      */
-    error : function() {
-        //console.info("override");
+    error: function() {
+
+        //Console.info("override");
     },
 
     /**
      *
      */
-    _showToolTip : function(){
-        var position = dojo.position(dom.byId("input_"+this.id), true);
-        var node = dom.byId("_tooltip_"+this.id);
-        //console.info("_showToolTip", position);
-        if (node) {
-            dojo.style(node, "opacity", "0");
+    _showToolTip: function() {
+        var position = dojo.position( dom.byId("input_" + this.id ), true );
+        var node = dom.byId("_tooltip_" + this.id );
+
+        //Console.info("_showToolTip", position);
+        if ( node ) {
+            dojo.style( node, "opacity", "0");
             var fadeArgs = {
                     node: node,
                     duration: 500
                 };
-            dojo.style(node, "display", "block");
-            dojo.fadeIn(fadeArgs).play();
-            dojo.style(node, "top",  "0px");
-            //console.info("_showToolTip", node);
+            dojo.style( node, "display", "block");
+            dojo.fadeIn( fadeArgs ).play();
+            dojo.style( node, "top",  "0px");
+
+            //Console.info("_showToolTip", node);
         }
     },
 
     /**
      *
      */
-    _hideToolTip : function() {
-        var node = dom.byId("_tooltip_"+this.id);
-        //console.info("_hideToolTip", node);
-        if (node) {
-            dojo.style(node, "opacity", "1");
+    _hideToolTip: function() {
+        var node = dom.byId("_tooltip_" + this.id );
+
+        //Console.info("_hideToolTip", node);
+        if ( node ) {
+            dojo.style( node, "opacity", "1");
             var fadeArgs = {
                 node: node,
                 duration: 500
             };
-            dojo.fadeOut(fadeArgs).play();
+            dojo.fadeOut( fadeArgs ).play();
         }
     },
-
 
     /**
      *
      */
-    _evaluateShadowMessage : function(event) {
-        if (this._shadow && dom.byId("input_" + this.id) !== null) {
-            var textLenght = dom.byId("input_" + this.id).value.length;
-            //console.info(textLenght);
-            if (textLenght > 0) {
-                dojo.style(this._shadow, "display", "none");
+    _evaluateShadowMessage: function( event ) {
+        if ( this._shadow && dom.byId("input_" + this.id ) !== null ) {
+            var textLenght = dom.byId("input_" + this.id ).value.length;
+
+            //Console.info(textLenght);
+            if ( textLenght > 0 ) {
+                dojo.style( this._shadow, "display", "none");
             } else {
-                dojo.style(this._shadow, "display", "block");
+                dojo.style( this._shadow, "display", "block");
             }
         }
     },
 
-
     /**
      *
      */
-    _loadService : function(service, params, error) {
-        var load = dojo.hitch(this, function(data) {
-            if (data.success.valid) {
+    _loadService: function( service, params, error ) {
+        var load = dojo.hitch( this, function( data ) {
+            if ( data.success.valid ) {
                 this.isValid = true;
-                this._showSuccessMessage(data.success);
-                this._additionalSuccessHandler(data.success);
+                this._showSuccessMessage( data.success );
+                this._additionalSuccessHandler( data.success );
             } else {
                 this.isValid = false;
-                this._showErrorMessage(data.success);
-                this._additionalErrorHandler(data.success);
+                this._showErrorMessage( data.success );
+                this._additionalErrorHandler( data.success );
             }
         });
-        this.urlService.get(service, params, load, error , dojo.hitch(this, function() {
+        this.urlService.get( service, params, load, error, dojo.hitch( this, function() {
 
-        }));
+        }) );
     },
 
     /**
      *
      */
-    _additionalErrorHandler : function(data){},
+    _additionalErrorHandler: function( data ) {},
 
     /**
      *
      */
-    _additionalSuccessHandler : function(data){},
+    _additionalSuccessHandler: function( data ) {},
 
     /**
      *
      * @method
      */
-    cleanMessage : function () {
-        var node = dom.byId("_message_" + this.id);
-        if (node) {
-            dojo.empty(node);
+    cleanMessage: function() {
+        var node = dom.byId("_message_" + this.id );
+        if ( node ) {
+            dojo.empty( node );
         }
     },
 
     /**
      *
      */
-    _showSuccessMessage : function(data){
-         var node = dom.byId("_message_" + this.id);
-         if (node) {
-             dojo.empty(node);
+    _showSuccessMessage: function( data ) {
+         var node = dom.byId("_message_" + this.id );
+         if ( node ) {
+             dojo.empty( node );
              var p = dojo.doc.createElement("p");
-             dojo.addClass(p, "success-message");
+             dojo.addClass( p, "success-message");
              p.innerHTML = data.msg;
-             node.appendChild(p);
+             node.appendChild( p );
          }
     },
 
     /**
      *
      */
-    _showErrorMessage : function(data) {
-        var node = dom.byId("_message_" + this.id);
-        if (node) {
-            dojo.empty(node);
+    _showErrorMessage: function( data ) {
+        var node = dom.byId("_message_" + this.id );
+        if ( node ) {
+            dojo.empty( node );
             var p = dojo.doc.createElement("p");
-            dojo.addClass(p, "error-message");
+            dojo.addClass( p, "error-message");
             p.innerHTML = data.msg;
-            node.appendChild(p);
+            node.appendChild( p );
         }
     },
 
     /**
      *
      */
-    _validate : function(event) {
-        //console.debug("validate", event);
+    _validate: function( event ) {
+
+        //Console.debug("validate", event);
     }
   });
 });

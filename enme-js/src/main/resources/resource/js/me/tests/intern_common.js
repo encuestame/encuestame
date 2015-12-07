@@ -16,39 +16,40 @@
 
 var dojoConfig = {
     async: true,
-    requestProvider: 'dojo/request/registry',
+    requestProvider: "dojo/request/registry",
     has: {
-        'dojo-undef-api': 1
+        "dojo-undef-api": 1
     }
 };
 
 define({
-        environments: [{browserName: 'chrome'}],
+        environments: [{ browserName: "chrome" }],
         maxConcurrency: 2,
         capabilities: {
-            'browserstack.debug' : true,
-            'project' : 'encuestame intern test',
-            'idleTimeout': '300',
-            'idle-timeout' : '300',
-            'browserstack.selenium_version': "2.45.0"
+            "browserstack.debug": true,
+            "project": "encuestame intern test",
+            "idleTimeout": "300",
+            "idle-timeout": "300",
+            "browserstack.selenium_version": "2.45.0"
         },
-        reporters : ['console'],
-        tunnel: 'BrowserStackTunnel',
+        reporters: [ "console" ],
+        tunnel: "BrowserStackTunnel",
 				useLoader: {
-        'host-node': 'dojo/dojo',
-            'host-browser': '../../js/dojo/dojo.js'
+        "host-node": "dojo/dojo",
+            "host-browser": "../../js/dojo/dojo.js"
         },
         loader: {
             packages: [
-                { name: 'me', location: 'js/me' },
-                { name: 'dojo', location: 'js/dojo' },
-                { name: 'dojox', location: 'js/dojox' },
-                { name: 'dijit', location: 'js/dijit' },
-                { name: 'sinon', location: 'node_modules/sinon/pkg', main: 'sinon' }
+                { name: "me", location: "js/me" },
+                { name: "dojo", location: "js/dojo" },
+                { name: "dojox", location: "js/dojox" },
+                { name: "dijit", location: "js/dijit" },
+                { name: "sinon", location: "node_modules/sinon/pkg", main: "sinon" }
             ],
-            requestProvider: 'dojo/request/registry'
+            requestProvider: "dojo/request/registry"
         },
-        suites: [ 'me/tests/all' ],
-        //functionalSuites: ['me/tests/functional/all'],
+        suites: [ "me/tests/all" ],
+
+        //FunctionalSuites: ['me/tests/functional/all'],
         excludeInstrumentation: /^(?:tests|third-party|node_modules|web\/widgets|js\/dojo|js\/dijit|js\/dojox)\//
 });

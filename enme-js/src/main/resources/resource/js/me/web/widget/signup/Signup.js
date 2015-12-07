@@ -21,7 +21,7 @@
  *  @namespace Widgets
  *  @class SignUp
  */
-define([
+define( [
          "dojo/_base/declare",
 		 "dojo/dom",
          "dijit/_WidgetBase",
@@ -30,10 +30,10 @@ define([
          "dijit/form/Form",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/core/enme",
-         'me/web/widget/validator/RealNameValidator',
-         'me/web/widget/validator/PasswordValidator',
-         'me/web/widget/validator/EmailValidator',
-         'me/web/widget/validator/UsernameValidator',
+         "me/web/widget/validator/RealNameValidator",
+         "me/web/widget/validator/PasswordValidator",
+         "me/web/widget/validator/EmailValidator",
+         "me/web/widget/validator/UsernameValidator",
          "dijit/registry",
          "dojo/text!me/web/widget/signup/templates/signup.html" ],
         function(
@@ -50,18 +50,18 @@ define([
                 EmailValidator,
                 UsernameValidator,
                 registry,
-                template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
        /*
-        * template string.
+        * Template string.
         */
-       templateString : template,
+       templateString: template,
 
        /*
         *
         */
-        value : 'Sign Up Now',
+        value: "Sign Up Now",
 
        /*
         *
@@ -91,59 +91,60 @@ define([
        /**
         *
         */
-       postCreate : function() {
+       postCreate: function() {
            var rn = dom.byId("rm"),
            pssw = dom.byId("pssw"),
            em = dom.byId("em"),
-           _form = dom.byId('signupForm'),
+           _form = dom.byId( "signupForm" ),
            usrva = dom.byId("usrva");
            this.passWidget =  new PasswordValidator({
                id: "password" + this.id,
-               enviroment : "ext"
+               enviroment: "ext"
            });
            this.userWidget =  new UsernameValidator({
                id: "username_" + this.id,
-               enviroment : "ext"
+               enviroment: "ext"
            });
            this.realWidget =  new RealNameValidator({
                id: "real_name" + this.id,
-               enviroment : "ext"
+               enviroment: "ext"
            });
            this.emailWidget = new EmailValidator({
                id: "email_user" + this.id,
-               enviroment : "ext"
+               enviroment: "ext"
            });
            var widget_form = new Form();
-           rn.appendChild(this.realWidget.domNode);
-           pssw.appendChild(this.passWidget.domNode);
-           em.appendChild(this.emailWidget.domNode);
-           usrva.appendChild(this.userWidget.domNode);
-           _form.appendChild(widget_form.domNode);
-          if (this.userWidget === null ||
+           rn.appendChild( this.realWidget.domNode );
+           pssw.appendChild( this.passWidget.domNode );
+           em.appendChild( this.emailWidget.domNode );
+           usrva.appendChild( this.userWidget.domNode );
+           _form.appendChild( widget_form.domNode );
+          if ( this.userWidget === null ||
                     this.passWidget === null ||
-                    this.emailWidget === null || 
-                    this.realWidget === null) {
+                    this.emailWidget === null ||
+                    this.realWidget === null ) {
                        throw new Error("NO WIDGETS FOUND");
                    }
-                   // prevent cowboy user handler
-                   dojo.connect(this._input, "ondoubleclick", dojo.hitch(this, function(event) {
+
+                   // Prevent cowboy user handler
+                   dojo.connect( this._input, "ondoubleclick", dojo.hitch( this, function( event ) {
                          event.preventDefault();
                          return false;
-                   }));
-           dojo.subscribe("/encuestame/singup/validate", this, this._checkValidWidgets);
+                   }) );
+           dojo.subscribe("/encuestame/singup/validate", this, this._checkValidWidgets );
        },
 
        /**
         *
         */
-       _onSubmit : function(event) {
-           dojo.stopEvent(event);
+       _onSubmit: function( event ) {
+           dojo.stopEvent( event );
            this._checkValidWidgets();
        },
 
        /**
-        * 
-        * @method 
+        *
+        * @method
         */
        blockSubmitButton: function() {
           this._submit.disabled = true;
@@ -152,7 +153,7 @@ define([
        /**
         *
         */
-       createNewAccountService : function(){
+       createNewAccountService: function() {
             this.blockSubmitButton();
             signupForm.submit();
        },
@@ -160,20 +161,20 @@ define([
        /**
         *
         */
-       _checkValidWidgets : function(){
+       _checkValidWidgets: function() {
            var that = this,
            _submit = function() {
-               that.createNewAccountService(this.userWidget, this.passWidget, this.emailWidget, this.realWidget);
+               that.createNewAccountService( this.userWidget, this.passWidget, this.emailWidget, this.realWidget );
            };
-           if (!this.userWidget.isValid) {
+           if ( !this.userWidget.isValid ) {
                this.userWidget.recheck("username");
-           } else if (!this.userWidget.isValid) {
+           } else if ( !this.userWidget.isValid ) {
                this.userWidget.recheck("username");
-           } else if (!this.passWidget.isValid) {
+           } else if ( !this.passWidget.isValid ) {
                this.passWidget.validatePassword();
-           } else if (!this.emailWidget.isValid) {
+           } else if ( !this.emailWidget.isValid ) {
                this.emailWidget.recheck("email");
-           } else if (!this.realWidget.isValid) {
+           } else if ( !this.realWidget.isValid ) {
                this.realWidget.recheck("real_name");
            } else {
                _submit();
@@ -183,7 +184,7 @@ define([
        /**
         *
         */
-       _create : function(event){
+       _create: function( event ) {
            this.uploadImage();
        }
 

@@ -1,5 +1,5 @@
-//dojo.require("dojox.fx");
-define([
+//Dojo.require("dojox.fx");
+define( [
  "dojo/_base/declare",
  "dojo/dom-construct",
  "dojo/topic",
@@ -24,63 +24,65 @@ function(
     FolderOperations,
     FoldersItemAction,
     _ENME,
-     template) {
-    return declare([ _WidgetBase, _TemplatedMixin, main_widget, FolderOperations, _WidgetsInTemplateMixin], {
+     template ) {
+    return declare( [ _WidgetBase, _TemplatedMixin, main_widget, FolderOperations, _WidgetsInTemplateMixin ], {
 
-    // template string.
-    templateString : template,
+    // Template string.
+    templateString: template,
 
-	// load items on load
-	loadFolderItems : true,
+	// Load items on load
+	loadFolderItems: true,
 
-	// save folders on load
-    _foldersStorage : [],
+	// Save folders on load
+    _foldersStorage: [],
 
     /*
-    * i18n message for this widget.
+    * I18n message for this widget.
     */
-   i18nMessage : {
-     detail_manage_new : _ENME.getMessage("detail_manage_new"),
-     detail_manage_folder_title : _ENME.getMessage("detail_manage_folder_title"),
-     detail_manage_search : _ENME.getMessage("detail_manage_search"),
-     detail_manage_delete : _ENME.getMessage("detail_manage_delete")
+   i18nMessage: {
+     detail_manage_new: _ENME.getMessage("detail_manage_new"),
+     detail_manage_folder_title: _ENME.getMessage("detail_manage_folder_title"),
+     detail_manage_search: _ENME.getMessage("detail_manage_search"),
+     detail_manage_delete: _ENME.getMessage("detail_manage_delete")
    },
 
    /*
     *
     */
-   _folderSourceWidget : null,
+   _folderSourceWidget: null,
 
    /*
-    * post create.
+    * Post create.
     */
-   postCreate : function() {
-       this.inherited(arguments);
-	   if (this.loadFolderItems) {
+   postCreate: function() {
+       this.inherited( arguments );
+	   if ( this.loadFolderItems ) {
 		   this._loadFolders();
 	   }
-       dojo.connect(this._new, "onclick", this, this._addNewFolder);
-	   topic.subscribe("/encuestame/folder/distribute/update", lang.hitch(this, function() {
-		   topic.publish("/encuestame/folder/distribute/load", this._foldersStorage);
-	   }));
-	   topic.subscribe("/encuestame/folder/item/add", lang.hitch(this, function(folderId, itemId) {
-		   this._callFolderService( lang.hitch(this,function(items) {
-			    //on save the item into the folder
-			   topic.publish("/encuestame/folder/item/" + itemId + "/update/counter/", items);
+       dojo.connect( this._new, "onclick", this, this._addNewFolder );
+	   topic.subscribe("/encuestame/folder/distribute/update", lang.hitch( this, function() {
+		   topic.publish("/encuestame/folder/distribute/load", this._foldersStorage );
+	   }) );
+	   topic.subscribe("/encuestame/folder/item/add", lang.hitch( this, function( folderId, itemId ) {
+		   this._callFolderService( lang.hitch( this, function( items ) {
+
+			    //On save the item into the folder
+			   topic.publish("/encuestame/folder/item/" + itemId + "/update/counter/", items );
 		   }), {
-			   folderId : folderId,
-			   itemId : itemId
-		   }, this.getAction("move"), false);
-	   }));
+			   folderId: folderId,
+			   itemId: itemId
+		   }, this.getAction("move"), false );
+	   }) );
    },
 
    /**
     * Add new folder.
     */
-   _addNewFolder : function(event){
-       dojo.stopEvent(event);
-       var node = this._createFolder({folderId: null, items: 0, name : _ENME.getMessage("detail_manage_folder_replace_name")});
-       domConstruct.place(node.domNode, this._folders, "first");
+   _addNewFolder: function( event ) {
+       dojo.stopEvent( event );
+       var node = this._createFolder({ folderId: null, items: 0, name: _ENME.getMessage("detail_manage_folder_replace_name") });
+       domConstruct.place( node.domNode, this._folders, "first");
+
        // Not ready for AMD modules
        // http://dojotoolkit.org/reference-guide/1.8/dojox/fx.html
        //dojox.fx.highlight({node:node.domNode, duration: 800 }).play();
@@ -89,43 +91,43 @@ function(
     /**
      * Load folders.
      */
-	loadFolders : function() {
+	loadFolders: function() {
 		this._loadFolders();
 	},
 
    /**
     * Load folders.
     */
-   _loadFolders : function() {
+   _loadFolders: function() {
        this.getAction("list");
-       var load = function(data) {
+       var load = function( data ) {
 	       this._foldersStorage = data;
-	       topic.publish("/encuestame/folder/distribute/load", data);
-           dojo.empty(this._folders);
+	       topic.publish("/encuestame/folder/distribute/load", data );
+           dojo.empty( this._folders );
            dojo.forEach(
                data.success.folders,
-               dojo.hitch(this, function(data, index) {
-                   var node = this._createFolder(data);
-                   this._folders.appendChild(node.domNode);
-           }));
+               dojo.hitch( this, function( data, index ) {
+                   var node = this._createFolder( data );
+                   this._folders.appendChild( node.domNode );
+           }) );
        };
        var params = {
-           max : this.max,
-           start : this.start
+           max: this.max,
+           start: this.start
            };
-       return this._callFolderService(load, params, this.getAction("list"), false);
+       return this._callFolderService( load, params, this.getAction("list"), false );
    },
 
    /**
     * Create folder
     */
-   _createFolder : function(data) {
+   _createFolder: function( data ) {
        var folder = new FoldersItemAction(
                {
 	             folderId: data.id,
-                 name : data.name,
-	             counter : data.items,
-                 folderContext : this.folderContext,
+                 name: data.name,
+	             counter: data.items,
+                 folderContext: this.folderContext,
                  folderParentWidget: this
                 });
        return folder;

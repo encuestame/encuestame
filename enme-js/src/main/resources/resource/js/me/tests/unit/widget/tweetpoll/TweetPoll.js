@@ -14,34 +14,34 @@
  *  limitations under the License.
  */
 
-define([
-    'intern!object',
-    'intern/chai!assert',
-    'dojo/dom-construct',
-    'dojo/on',
-    'dojo/request/registry',
-    'dojo/when',
-    '../../Helper',
-    '../../support/requestMocker',
-    'me/web/widget/tweetpoll/TweetPollList',
-    'me/web/widget/tweetpoll/TweetPoll',
-    'me/web/widget/tweetpoll/TweetPollCore',
-    'me/web/widget/tweetpoll/TweetPollListDetail',
-    'me/web/widget/tweetpoll/TweetPollListItem',
-    'me/web/widget/tweetpoll/TweetPollPreview',
-    'me/web/widget/tweetpoll/AnswerItem',
-    'me/web/widget/tweetpoll/Answers',
-    'me/web/widget/tweetpoll/detail/TweetPollAnswer',
-    'me/web/widget/tweetpoll/detail/TweetPollChartDetail',
-    'me/web/widget/tweetpoll/detail/TweetPollInfoDetail',
-    'me/web/widget/tweetpoll/HashTags',
-    'me/web/widget/tweetpoll/HashTagsItem',
-    'me/web/widget/tweetpoll/TweetPollPublishInfo',
-    'me/web/widget/tweetpoll/TweetPollPublishItemAbstractStatus',
-    'me/web/widget/tweetpoll/TweetPollPublishItemFAILUREStatus',
-    'me/web/widget/tweetpoll/TweetPollPublishItemStatus',
-    'me/web/widget/tweetpoll/TweetPollPublishItemSUCCESStatus'
-], function (
+define( [
+    "intern!object",
+    "intern/chai!assert",
+    "dojo/dom-construct",
+    "dojo/on",
+    "dojo/request/registry",
+    "dojo/when",
+    "../../Helper",
+    "../../support/requestMocker",
+    "me/web/widget/tweetpoll/TweetPollList",
+    "me/web/widget/tweetpoll/TweetPoll",
+    "me/web/widget/tweetpoll/TweetPollCore",
+    "me/web/widget/tweetpoll/TweetPollListDetail",
+    "me/web/widget/tweetpoll/TweetPollListItem",
+    "me/web/widget/tweetpoll/TweetPollPreview",
+    "me/web/widget/tweetpoll/AnswerItem",
+    "me/web/widget/tweetpoll/Answers",
+    "me/web/widget/tweetpoll/detail/TweetPollAnswer",
+    "me/web/widget/tweetpoll/detail/TweetPollChartDetail",
+    "me/web/widget/tweetpoll/detail/TweetPollInfoDetail",
+    "me/web/widget/tweetpoll/HashTags",
+    "me/web/widget/tweetpoll/HashTagsItem",
+    "me/web/widget/tweetpoll/TweetPollPublishInfo",
+    "me/web/widget/tweetpoll/TweetPollPublishItemAbstractStatus",
+    "me/web/widget/tweetpoll/TweetPollPublishItemFAILUREStatus",
+    "me/web/widget/tweetpoll/TweetPollPublishItemStatus",
+    "me/web/widget/tweetpoll/TweetPollPublishItemSUCCESStatus"
+], function(
     registerSuite,
     assert,
     domConstruct,
@@ -67,27 +67,28 @@ define([
     TweetPollPublishItemAbstractStatus,
     TweetPollPublishItemFAILUREStatus,
     TweetPollPublishItemStatus,
-    TweetPollPublishItemSUCCESStatus) {
+    TweetPollPublishItemSUCCESStatus ) {
 
-    'use strict';
+    "use strict";
 
     var tp, tp2;
     var handle, handleAddAnswer, handleSocial;
 
     registerSuite({
-        name: 'TweetPoll Widgets',
+        name: "TweetPoll Widgets",
 
-        setup: function () {
+        setup: function() {
             Helper.init();
-            tp = Helper.createElement('mainWrapper');
-            tp2 = Helper.createElement('previewWrapperFixed');
-            Helper.addCss(5, "../../tests/resources/resources/css/dev/tweetpoll.css");
+            tp = Helper.createElement( "mainWrapper" );
+            tp2 = Helper.createElement( "previewWrapperFixed" );
+            Helper.addCss( 5, "../../tests/resources/resources/css/dev/tweetpoll.css");
         },
 
-        before : function() {
+        before: function() {
+
             //Helper.createFakeServer('../../tests/resources' + Helper.url('encuestame.service.list.publishTweetPoll'), {hola:1});
-            handleSocial = registry.register(require.toUrl('../../tests/resources' + Helper.url('encuestame.service.list.allSocialAccount')), function () {
-                return when(Helper.buildSuccessResponse({
+            handleSocial = registry.register( require.toUrl( "../../tests/resources" + Helper.url( "encuestame.service.list.allSocialAccount" ) ), function() {
+                return when( Helper.buildSuccessResponse({
                     "items": [
                         {
                             "account": "facebookUserNickname",
@@ -130,11 +131,12 @@ define([
                     ],
                     "label": "socialAccounts",
                     "identifier": "id"
-                }));
+                }) );
             });
-            // handler publish
-            handle = registry.register(require.toUrl('../../tests/resources' + Helper.url('encuestame.service.list.publishTweetPoll')), function () {
-                return when(Helper.buildSuccessResponse({
+
+            // Handler publish
+            handle = registry.register( require.toUrl( "../../tests/resources" + Helper.url( "encuestame.service.list.publishTweetPoll" ) ), function() {
+                return when( Helper.buildSuccessResponse({
                     "socialPublish":[
                         {
                             "id":764,
@@ -150,12 +152,13 @@ define([
                             "type_item":"TWEETPOLL"
                         }
                     ]
-                }));
+                }) );
             });
-            // handler social
-            handleAddAnswer = registry.register(require.toUrl('../../tests/resources' + Helper.url('encuestame.service.list.addAnswer')), function () {
+
+            // Handler social
+            handleAddAnswer = registry.register( require.toUrl( "../../tests/resources" + Helper.url( "encuestame.service.list.addAnswer" ) ), function() {
                 console.log("add answer handler");
-                return when(Helper.buildSuccessResponse({
+                return when( Helper.buildSuccessResponse({
                     "newAnswer":{
                         "id": 161,
                         "tweet_poll_id": 80,
@@ -172,90 +175,101 @@ define([
                         "relative_url":"http://www.test.com",
                         "results":null
                     }
-                }));
+                }) );
             });
         },
 
-        after: function () {
+        after: function() {
+
             // Step 1.2
-            if (handle) {
+            if ( handle ) {
                 handleAddAnswer.remove();
                 handle.remove();
                 handleSocial.remove();
             }
         },
 
-        'TweetPoll Widget': function () {
+        "TweetPoll Widget": function() {
             var tweetPoll = new TweetPoll({
-                _scroll : false
+                _scroll: false
             });
-            Helper.place(tweetPoll.domNode, 'mainWrapper');
+            Helper.place( tweetPoll.domNode, "mainWrapper" );
             tweetPoll.cancelUnLoadSupport();
-            //fake tp id
+
+            //Fake tp id
             var aW = tweetPoll.answerWidget;
             var hW = tweetPoll.hashTagWidget;
             var tweetPollId = 12345;
             tweetPoll.tweetPollId = tweetPollId;
             aW.tweetPollId = tweetPollId;
             hW.tweetPollId = tweetPollId;
-            // set the question name
 
-            tweetPoll.questionWidget.setValue('test');
-            // set answers
-            aW._suggest.setValue('answer1');
-            aW._suggest.setValue('answer2');
-            // simulating click
+            // Set the question name
+
+            tweetPoll.questionWidget.setValue( "test" );
+
+            // Set answers
+            aW._suggest.setValue( "answer1" );
+            aW._suggest.setValue( "answer2" );
+
+            // Simulating click
             var event = Helper.createEvent();
-            //create an answer 1
-            aW.buttonWidget.onClick(event);
-            //create an answer 2
-            aW.buttonWidget.onClick(event);
-            //hashtag
+
+            //Create an answer 1
+            aW.buttonWidget.onClick( event );
+
+            //Create an answer 2
+            aW.buttonWidget.onClick( event );
+
+            //Hashtag
             hW.hashTagWidget._suggest.setValue("hastahg1");
-            hW.hashTagWidget._suggest.onKeyUp(event);
-            // emit a click event in the hashtag widget
-            on.emit(hW.hashTagWidget.buttonWidget.domNode, "click", {
+            hW.hashTagWidget._suggest.onKeyUp( event );
+
+            // Emit a click event in the hashtag widget
+            on.emit( hW.hashTagWidget.buttonWidget.domNode, "click", {
                 bubbles: true,
                 cancelable: true
             });
 
-            //deselect all social networks
-            tweetPoll.socialWidget._selectAllItems(event);
-            //select all social networks
-            tweetPoll.socialWidget._selectAllItems(event);
+            //Deselect all social networks
+            tweetPoll.socialWidget._selectAllItems( event );
 
-            hW.hashTagWidget.buttonWidget.onClick(event);
-            hW.hashTagWidget._suggest.setValue('');
-            // remove all
+            //Select all social networks
+            tweetPoll.socialWidget._selectAllItems( event );
+
+            hW.hashTagWidget.buttonWidget.onClick( event );
+            hW.hashTagWidget._suggest.setValue( "" );
+
+            // Remove all
             //Helper.removeElement(tweetPoll);
             //Helper.removeElement(tp);
             //Helper.removeElement(tp2);
-            tweetPoll.liveResultsWidget.set('checked', false);
-            tweetPoll.captchaWidget.set('checked', false);
-            tweetPoll.limitVotesWidget.set('checked', false);
-            tweetPoll.ipWidget.set('checked', false);
-            tweetPoll.resumeWidget.set('checked', false);
-            tweetPoll.dashboardWidget.set('checked', false);
-            tweetPoll.scheduleWidget.set('checked', false);
-            tweetPoll.liveResultsWidget.set('checked', true);
-            tweetPoll.captchaWidget.set('checked', true);
-            tweetPoll.limitVotesWidget.set('checked', true);
-            tweetPoll.ipWidget.set('checked', true);
-            tweetPoll.resumeWidget.set('checked', true);
-            tweetPoll.dashboardWidget.set('checked', true);
-            tweetPoll.scheduleWidget.set('checked', true);
+            tweetPoll.liveResultsWidget.set( "checked", false );
+            tweetPoll.captchaWidget.set( "checked", false );
+            tweetPoll.limitVotesWidget.set( "checked", false );
+            tweetPoll.ipWidget.set( "checked", false );
+            tweetPoll.resumeWidget.set( "checked", false );
+            tweetPoll.dashboardWidget.set( "checked", false );
+            tweetPoll.scheduleWidget.set( "checked", false );
+            tweetPoll.liveResultsWidget.set( "checked", true );
+            tweetPoll.captchaWidget.set( "checked", true );
+            tweetPoll.limitVotesWidget.set( "checked", true );
+            tweetPoll.ipWidget.set( "checked", true );
+            tweetPoll.resumeWidget.set( "checked", true );
+            tweetPoll.dashboardWidget.set( "checked", true );
+            tweetPoll.scheduleWidget.set( "checked", true );
             var that = this;
-            var dfd = that.async(7000);
-            setTimeout(function(){
+            var dfd = that.async( 7000 );
+            setTimeout( function() {
                 tweetPoll._checkPublish();
-                tweetPoll._publishTweet().then(dfd.callback(function(){
+                tweetPoll._publishTweet().then( dfd.callback( function() {
                     console.log("callback publish tweetpoll");
-                }));
-            }, 6000);
+                }) );
+            }, 6000 );
 
         },
 
-        teardown: function () {
+        teardown: function() {
 
         }
     });

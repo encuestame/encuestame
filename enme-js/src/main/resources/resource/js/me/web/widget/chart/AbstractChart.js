@@ -2,43 +2,43 @@
  * Created by jpicado on 14/06/14.
  */
 
-define([
+define( [
     "dojo/_base/declare",
     "dojo/dom-style",
     "dojo/dom-construct",
-    "dojo/dom-attr"],
+    "dojo/dom-attr" ],
     function(
         declare,
         domStyle,
         domConstruct,
-        domAttr) {
+        domAttr ) {
 
-        'use strict';
+        "use strict";
 
-        return declare(null, {
+        return declare( null, {
 
-            MONTHS_YEAR : ["January","February","March","April","May","June","July", "August", "October", "November", "December"],
+            MONTHS_YEAR: [ "January", "February", "March", "April", "May", "June", "July", "August", "October", "November", "December" ],
 
-            WEEK_DAYS : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            WEEK_DAYS: [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ],
 
             /**
              *
              */
-            nodeChart : null,
+            nodeChart: null,
 
             /**
              * ChartLayerSupport
              * @param node node to append the cart.
              */
-            constructor: function(id, data, period, question, options) {
+            constructor: function( id, data, period, question, options ) {
                 this.nodeChart = domConstruct.create("canvas");
-                var _width = domStyle.get(id, 'width');
-                var _height = domStyle.get(id, 'height');
-                domAttr.set(this.nodeChart, 'width', _width);
-                domAttr.set(this.nodeChart, 'height', _height);
-                domConstruct.place(this.nodeChart, id);
+                var _width = domStyle.get( id, "width" );
+                var _height = domStyle.get( id, "height" );
+                domAttr.set( this.nodeChart, "width", _width );
+                domAttr.set( this.nodeChart, "height", _height );
+                domConstruct.place( this.nodeChart, id );
                 this.ctx = this.nodeChart.getContext("2d");
-                this.chart = new Chart(this.ctx);
+                this.chart = new Chart( this.ctx );
                 this.period = period;
                 this.question = question;
                 this.data = data || [];
@@ -49,20 +49,21 @@ define([
             /**
              * Build series.
              */
-            _buildSeries : function() {
-                //should be implemented in each chart
+            _buildSeries: function() {
+
+                //Should be implemented in each chart
             },
 
             /**
              *
              */
-            getChart : function() {
+            getChart: function() {
                 return this.chart;
             },
 
             /**
              *
              */
-            render : function(data) {}
+            render: function( data ) {}
         });
     });

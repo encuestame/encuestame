@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -23,58 +23,58 @@ define([
                 PublishSupport,
                 ContextSupport,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, PublishSupport, ContextSupport, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, PublishSupport, ContextSupport, _WidgetsInTemplateMixin ], {
 
-            // template string.
-            templateString : template,
+            // Template string.
+            templateString: template,
 
             /*
             * Allow Repeated Votes.
             */
-           checkWidget  : null,
+           checkWidget: null,
 
            /*
             *
             */
-           numberSpinner : null,
+           numberSpinner: null,
 
            /*
             *
             */
-           label : "Allow Repeated Votes.",
+           label: "Allow Repeated Votes.",
 
            /*
             *
             */
-           contextPath : _ENME.config('contextPath'),
+           contextPath: _ENME.config( "contextPath" ),
 
            /*
-            * to enable publish support, replace null value for publish valid url.
+            * To enable publish support, replace null value for publish valid url.
             * eg: /encuestame/tweetpoll/autosave
             */
-           publish_url : null,
+           publish_url: null,
 
            /*
             *
             */
-           options : {
-	           checked : false,
-	           items : 2
+           options: {
+	           checked: false,
+	           items: 2
            },
 
-           constraints_custom : {min:2, max:10},
+           constraints_custom: { min:2, max:10 },
 
            /*
             *
             */
-           postCreate : function() {
-               this.checkWidget = registry.byId("check_widget_"+this.id);
-               this.checkWidget.onChange = dojo.hitch(this, function(event) {
-                   if (event) {
-                       dojo.removeClass(this._repeatedNumbers, "defaultDisplayHide");
+           postCreate: function() {
+               this.checkWidget = registry.byId("check_widget_" + this.id );
+               this.checkWidget.onChange = dojo.hitch( this, function( event ) {
+                   if ( event ) {
+                       dojo.removeClass( this._repeatedNumbers, "defaultDisplayHide");
                    } else {
-                       dojo.addClass(this._repeatedNumbers, "defaultDisplayHide");
+                       dojo.addClass( this._repeatedNumbers, "defaultDisplayHide");
                    }
                    this.options.checked = event;
                    this.publish({});
@@ -85,17 +85,17 @@ define([
                    intermediateChanges: true,
                    style: "width:100px"
                });
-               this._spinner.appendChild(this.numberSpinner.domNode);
+               this._spinner.appendChild( this.numberSpinner.domNode );
            },
 
            /*
             *
             */
-           getOptions : function() {
-               if (this.checkWidget.get('checked')){
-                               dojo.mixin(this.options, {
-                               checked : true,
-                               items : this.numberSpinner.get("value")
+           getOptions: function() {
+               if ( this.checkWidget.get( "checked" ) ) {
+                               dojo.mixin( this.options, {
+                               checked: true,
+                               items: this.numberSpinner.get("value")
                });
                }
                return this.options;

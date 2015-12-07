@@ -22,7 +22,7 @@
  *  @class Comments
  */
 
-define([
+define( [
 	"dojo/_base/declare",
 	"dojo/hash",
 	"dojo/dom",
@@ -51,49 +51,48 @@ define([
     main_widget,
     Comment,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
      /**
-      * template string.
+      * Template string.
       * @property
       */
-     templateString : template,
+     templateString: template,
 
      /**
       *
       * @property
       */
-      type : "",
+      type: "",
 
       /**
        *
        * @property
        */
-      item_id : null,
-
+      item_id: null,
 
         /*
          *
          */
-        postCreate : function() {
-            if (this.item_id) {
+        postCreate: function() {
+            if ( this.item_id ) {
                 this._loadComments({});
             }
-            dojo.subscribe("/encuestame/commons/home/comments/add", this, this._addComment);
+            dojo.subscribe("/encuestame/commons/home/comments/add", this, this._addComment );
         },
 
         /**
          * Manage the success handler
          * @method successHandler
          */
-        successHandler: function(data) {
-            var comments = _ENME.orderByDate(data.success.comments, 'created_at', 'desc').reverse();
-            if (comments.length > 0) {
-                dojo.forEach(comments, dojo.hitch(this, function(data, index) {
-                    this._addComment(data);
-                }));
+        successHandler: function( data ) {
+            var comments = _ENME.orderByDate( data.success.comments, "created_at", "desc" ).reverse();
+            if ( comments.length > 0 ) {
+                dojo.forEach( comments, dojo.hitch( this, function( data, index ) {
+                    this._addComment( data );
+                }) );
             }
         },
 
@@ -101,13 +100,12 @@ define([
          *
          * @method errorHandler
          */
-        errorHandler: function(error) {
-            console.error('error', error);
+        errorHandler: function( error ) {
+            console.error( "error", error );
         },
 
-
         /*
-         * load all comments.
+         * Load all comments.
             error: {},
             success: {
               comments: [
@@ -125,40 +123,44 @@ define([
               ]
             }
          */
-        _loadComments : function() {
-                // success handler
-                var load = dojo.hitch(this, function(data) {
-                    if ("success" in data) {
-                        this.successHandler(data);
+        _loadComments: function() {
+
+                // Success handler
+                var load = dojo.hitch( this, function( data ) {
+                    if ("success" in data ) {
+                        this.successHandler( data );
                     }
-	                //read hash {#comment130}
+
+	                //Read hash {#comment130}
 	                var hashValue = hash();
-	                if (hashValue) {
-		                var node = dojo.byId(hashValue);
+	                if ( hashValue ) {
+		                var node = dojo.byId( hashValue );
+
 		                //FIXME: posible confliects with TweetPollList/PollNavigate hash
-		                if (node) {
-			                var node_y = dojo.position(node).y;
-			                window.scrollTo(0, node_y);
+		                if ( node ) {
+			                var node_y = dojo.position( node ).y;
+			                window.scrollTo( 0, node_y );
 		                }
+
 		                //FUTURE: we need a smooth scroll motion here
 	                }
                 });
-                // error handler
-                var error = dojo.hitch(this, function(error) {
-                    this.errorHandler(error);
-                });
-                this.getURLService().get(['encuestame.service.comments.list', [this.type]], { id : this.item_id, max: 10}, load, error , dojo.hitch(this, function() {
 
-                }));
+                // Error handler
+                var error = dojo.hitch( this, function( error ) {
+                    this.errorHandler( error );
+                });
+                this.getURLService().get( [ "encuestame.service.comments.list", [ this.type ]], { id: this.item_id, max: 10 }, load, error, dojo.hitch( this, function() {
+
+                }) );
         },
 
       /**
        *
        */
-        _printNoCommentsText : function() {
+        _printNoCommentsText: function() {
           console.warn("should be implemented into the child widget");
         },
-
 
         /**
          * Print a comment.
@@ -167,25 +169,25 @@ define([
          * @param is_moderated
          * @method _addComment
          */
-        _addComment : function(data, top, is_moderated) {
+        _addComment: function( data, top, is_moderated ) {
             var widget = new Comment({
-                data : data,
+                data: data,
                 is_moderated: is_moderated
             });
-            if (!top) {
-                this._items.appendChild(widget.domNode);
+            if ( !top ) {
+                this._items.appendChild( widget.domNode );
             }
 
-            if (top) {
-                style.set(widget.domNode, "opacity", "0");
-                this._items.insertBefore(widget.domNode, dojo.query('.comment:first-child')[0]);
+            if ( top ) {
+                style.set( widget.domNode, "opacity", "0");
+                this._items.insertBefore( widget.domNode, dojo.query( ".comment:first-child" )[ 0 ] );
                 var fadeArgs = {
                     node: widget.domNode,
-                    onEnd: function(){
-                      style.set(widget.domNode, "opacity", "");
+                    onEnd: function() {
+                      style.set( widget.domNode, "opacity", "");
                     }
                 };
-                fx.fadeIn(fadeArgs).play();
+                fx.fadeIn( fadeArgs ).play();
             }
         }
   });

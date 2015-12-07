@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -17,21 +17,21 @@ define([
                 hashTagInfo,
                 URLServices,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-            templateString : template,
+          // Template string.
+            templateString: template,
 
             /**
            * Done to append hashtag cloud.
            */
-           _hashtagCloud : null,
+           _hashtagCloud: null,
 
           /**
            * Post create.
            */
-          postCreate : function() {
+          postCreate: function() {
               this._loadCloud();
           },
 
@@ -39,46 +39,48 @@ define([
            *
            * @param items
            */
-          _printCloud : function(items) {
-              dojo.forEach(items,
-                  dojo.hitch(this,function(item) {
+          _printCloud: function( items ) {
+              dojo.forEach( items,
+                  dojo.hitch( this, function( item ) {
                     var wrapper = dojo.doc.createElement("div");
-                    dojo.style(wrapper, "display", "inline-block");
-                    dojo.style(wrapper, "margin", "5px");
-                    dojo.style(wrapper, "fontSize", "1"+item.size+"%");
-                    if (item.hashTagName !== "") { //to avoid null
+                    dojo.style( wrapper, "display", "inline-block");
+                    dojo.style( wrapper, "margin", "5px");
+                    dojo.style( wrapper, "fontSize", "1" + item.size + "%");
+                    if ( item.hashTagName !== "") { //To avoid null
                         var url = this.contextDefaultPath;
                         url = url.concat("/tag/");
-                        url = url.concat(item.hashTagName);
+                        url = url.concat( item.hashTagName );
                         url = url.concat("/");
                         var widget = new hashTagInfo(
                                 {
-                                 hashTagName : item.hashTagName,
-                                 url : url,
-                                 size : item.size
+                                 hashTagName: item.hashTagName,
+                                 url: url,
+                                 size: item.size
                                 });
-                        wrapper.appendChild(widget.domNode);
-                        this._cloud.appendChild(wrapper);
+                        wrapper.appendChild( widget.domNode );
+                        this._cloud.appendChild( wrapper );
                     }
-                  }));
+                  }) );
           },
 
           /*
            *
            */
-          _loadCloud : function(){
-              var load = dojo.hitch(this, function(data) {
+          _loadCloud: function() {
+              var load = dojo.hitch( this, function( data ) {
                   this.arrayAccounts = data.success.cloud;
-                  dojo.empty(this._cloud);
-                  //console.debug("social", this._hashtagCloud);
-                  this._printCloud(data.success.cloud);
-              });
-              var error = function(error) {
-                  //console.debug("error", error);
-              };
-              _ENME.xhr.get('encuestame.service.list.cloud', {}, load, error , dojo.hitch(this, function() {
+                  dojo.empty( this._cloud );
 
-              }));
+                  //Console.debug("social", this._hashtagCloud);
+                  this._printCloud( data.success.cloud );
+              });
+              var error = function( error ) {
+
+                  //Console.debug("error", error);
+              };
+              _ENME.xhr.get( "encuestame.service.list.cloud", {}, load, error, dojo.hitch( this, function() {
+
+              }) );
           }
     });
 });

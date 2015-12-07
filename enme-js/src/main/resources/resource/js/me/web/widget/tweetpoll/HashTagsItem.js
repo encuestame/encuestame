@@ -22,7 +22,7 @@
  *  @class HashtagItem
  */
 
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -39,33 +39,33 @@ define([
                 main_widget,
                 HashTagsSuggest,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase,
+                 template ) {
+            return declare( [ _WidgetBase,
                              _TemplatedMixin,
                              main_widget,
-                             _WidgetsInTemplateMixin], {
+                             _WidgetsInTemplateMixin ], {
 
-          // template string.
-          templateString : template,
+          // Template string.
+          templateString: template,
 
           /***
-          * the body of hashtag.
+          * The body of hashtag.
           */
-           data : null,
+           data: null,
 
            /***
-            * the label of the hashtag.
+            * The label of the hashtag.
             */
-           label : null,
+           label: null,
 
            /***
             * Parent widget reference.
             */
-           parentWidget : null,
+           parentWidget: null,
 
            /***
             *
             */
-           postCreate : function() {}
+           postCreate: function() {}
     });
 });

@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -13,55 +13,56 @@ define([
         _WidgetsInTemplateMixin,
         main_widget,
         _ENME,
-         template) {
+         template ) {
 
-    return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+    return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-        // template string.
-        templateString : template,
-
-        /*
-         * the hashtag name.
-         */
-        hashTagName : "",
+        // Template string.
+        templateString: template,
 
         /*
-         * customized the size of font.
+         * The hashtag name.
          */
-        size : null,
+        hashTagName: "",
 
         /*
-         * set true to create url automatically.
+         * Customized the size of font.
          */
-        autoCreateUrl : false,
+        size: null,
 
         /*
-         * default class of css.
+         * Set true to create url automatically.
          */
-        cssClass : "tag",
-
-        url : "",
+        autoCreateUrl: false,
 
         /*
-         * initialized before render.
+         * Default class of css.
          */
-        postMixInProperties : function(){
-            if (this.autoCreateUrl) {
+        cssClass: "tag",
+
+        url: "",
+
+        /*
+         * Initialized before render.
+         */
+        postMixInProperties: function() {
+            if ( this.autoCreateUrl ) {
+
                 //<%=request.getContextPath()%>/tag/${h.hashTagName}/
-                this.url = this.url.concat(_ENME.config('domain'));
+                this.url = this.url.concat( _ENME.config( "domain" ) );
                 this.url = this.url.concat("/tag/");
-                this.url = this.url.concat(this.hashTagName);
+                this.url = this.url.concat( this.hashTagName );
             }
         },
 
         /*
          * Post create.
          */
-        postCreate : function() {
-            if (this.size) {
-               dojo.style(this._label, "font-size", this.size + "px");
-               dojo.style(this._label, "line-height", "25px");
-               dojo.style(this._label, "padding", "5px");
+        postCreate: function() {
+            if ( this.size ) {
+               dojo.style( this._label, "font-size", this.size + "px");
+               dojo.style( this._label, "line-height", "25px");
+               dojo.style( this._label, "padding", "5px");
             }
         }
 

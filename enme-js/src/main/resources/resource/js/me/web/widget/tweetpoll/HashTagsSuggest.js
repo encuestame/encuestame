@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class HashtagSuggest
  */
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -40,24 +40,24 @@ define([
                 main_widget,
                 Suggest,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase,
+                 template ) {
+            return declare( [ _WidgetBase,
                              _TemplatedMixin,
                              main_widget,
                              Suggest,
-                             _WidgetsInTemplateMixin], {
+                             _WidgetsInTemplateMixin ], {
 
-           // template string.
-           templateString : template,
-
-          /*
-           *
-           */
-          block : function(){},
+           // Template string.
+           templateString: template,
 
           /*
            *
            */
-          unblock : function(){}
+          block: function() {},
+
+          /*
+           *
+           */
+          unblock: function() {}
     });
 });

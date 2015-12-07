@@ -1,14 +1,13 @@
-define([
+define( [
 		"dojo",
 		"dojo/_base/declare",
-		"me/core/enme"],
+		"me/core/enme" ],
 	function(
 		dojo,
 		declare,
-		_ENME) {
+		_ENME ) {
 
-		return declare(null, {
-
+		return declare( null, {
 
 		});
 	});

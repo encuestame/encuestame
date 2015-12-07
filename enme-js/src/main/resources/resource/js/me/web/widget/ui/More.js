@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class More
  */
-define([
+define( [
     "dojo/_base/declare",
     "dojo/_base/lang",
     "dijit/_WidgetBase",
@@ -37,95 +37,96 @@ define([
       _WidgetsInTemplateMixin,
       main_widget,
       _ENME,
-      template) {
-  return declare([ _WidgetBase,
+      template ) {
+  return declare( [ _WidgetBase,
                    _TemplatedMixin,
                     main_widget,
                    _WidgetsInTemplateMixin ], {
 
     /**
-     * template string.
+     * Template string.
      * @property templateString
      */
-    templateString : template,
+    templateString: template,
 
     /**
      *
      * @property pagination
      */
-    pagination : {
-       end : 10,
-       start : 0
+    pagination: {
+       end: 10,
+       start: 0
     },
 
     /**
      *
      * @method
      */
-    more_max : 5,
+    more_max: 5,
 
     /**
      *
      * @method
      */
-    parentWidget : 0,
+    parentWidget: 0,
 
    /**
-    * save the connect event
+    * Save the connect event
     */
-    _event : null,
+    _event: null,
 
     /**
      * Merge external object with more pagination
      * @property
      */
-    merge : function (params) {
-      return lang.mixin(this.pagination, params);
+    merge: function( params ) {
+      return lang.mixin( this.pagination, params );
     },
 
     /**
      *
      * @property
      */
-    postCreate : function() {
-      this._event = dojo.connect(this._stream, "onclick", dojo.hitch(this, function(event) {
-        if (dojo.isFunction(this.loadItems)) {
+    postCreate: function() {
+      this._event = dojo.connect( this._stream, "onclick", dojo.hitch( this, function( event ) {
+        if ( dojo.isFunction( this.loadItems ) ) {
            this.pagination.start = this.parentWidget.items;
            this.pagination.end = this.pagination.start + this.more_max;
            this.loadItems();
            this.pagination.start = this.pagination.start + this.pagination.end;
         }
-      }));
+      }) );
     },
 
    /**
     * Remove onclick the load items event
     */
-    removeEvent : function() {
-        if (this._event !== null) {
-            dojo.disconnect(this._event);
+    removeEvent: function() {
+        if ( this._event !== null ) {
+            dojo.disconnect( this._event );
         }
     },
 
     /**
      *
      */
-    loadItems : function() {
-        // override method
+    loadItems: function() {
+
+        // Override method
     },
 
     /**
      *
      */
-    hide : function() {
-      dojo.addClass(this.domNode, "hidden");
+    hide: function() {
+      dojo.addClass( this.domNode, "hidden");
     },
 
     /**
      *
      */
-    show : function() {
-      dojo.removeClass(this.domNode, "hidden");
+    show: function() {
+      dojo.removeClass( this.domNode, "hidden");
     }
 
   });

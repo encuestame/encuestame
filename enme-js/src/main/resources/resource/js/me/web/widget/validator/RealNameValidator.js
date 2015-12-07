@@ -21,7 +21,7 @@
  *  @namespace Widgets
  *  @class RealNameValidator
  */
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -38,11 +38,11 @@ define([
                 main_widget,
                 abstractValidatorWidget,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, abstractValidatorWidget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, abstractValidatorWidget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-           templateString : template,
+          // Template string.
+           templateString: template,
 
        /*
         * Set the focus on load.
@@ -52,41 +52,40 @@ define([
          /*
           * Place holder html5 text
           */
-         placeholder : "Write your Real Name",
+         placeholder: "Write your Real Name",
 
          /*
           *
           */
-         postCreate : function() {
-             this.inherited(arguments);
+         postCreate: function() {
+             this.inherited( arguments );
          },
 
         /**
          *
          */
-        _validate : function(event) {
+        _validate: function( event ) {
             this.inputTextValue = this._input.value;
                 this._loadService(
                  this.getServiceUrl(), {
-                context : this.enviroment,
-                real_name : this._input.value
-            }, this.error);
+                context: this.enviroment,
+                real_name: this._input.value
+            }, this.error );
         },
 
         /**
          *
          */
-        getServiceUrl : function(){
-            return 'encuestame.service.publicService.validate.realName';
+        getServiceUrl: function() {
+            return "encuestame.service.publicService.validate.realName";
         },
 
         /**
          *
          */
-         error : function(error) {
-            console.debug("error", error);
+         error: function( error ) {
+            console.debug("error", error );
          }
-
 
     });
 });

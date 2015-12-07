@@ -14,73 +14,72 @@
  *  limitations under the License.
  */
 
-define([
-	'intern!object',
-	'intern/chai!assert',
-	'../../Helper',
-	'me/core/_base/_browser'
-], function (
+define( [
+	"intern!object",
+	"intern/chai!assert",
+	"../../Helper",
+	"me/core/_base/_browser"
+], function(
 		registerSuite,
 		assert,
 		Helper,
-		_browser) {
+		_browser ) {
 
 	registerSuite({
-		name: 'Base Browser Test',
+		name: "Base Browser Test",
 
-		setup: function () {
+		setup: function() {
 			Helper.init();
 		},
 
-		'createCaret Test' : function() {
+		"createCaret Test": function() {
 			var a = _browser.createCaret();
-			assert.isDefined(a);
-			Helper.removeElement(a);
+			assert.isDefined( a );
+			Helper.removeElement( a );
 		},
 
-		'toggleClassName Test' : function() {
+		"toggleClassName Test": function() {
 			var dom1 = Helper.createElement("test1");
-			assert.isDefined(dom1);
-			Helper.addClass(dom1, "test1-class");
-			_browser.toggleClassName(dom1, "test2-class");
-			assert.isTrue(Helper.hasClass(dom1, "test2-class"));
-			Helper.removeElement(dom1);
+			assert.isDefined( dom1 );
+			Helper.addClass( dom1, "test1-class");
+			_browser.toggleClassName( dom1, "test2-class");
+			assert.isTrue( Helper.hasClass( dom1, "test2-class") );
+			Helper.removeElement( dom1 );
 		},
 
-		'clone Test' : function() {
+		"clone Test": function() {
 			var dom1 = Helper.createElement("test2");
-			assert.isDefined(dom1);
+			assert.isDefined( dom1 );
 			var clonedNode = _browser.clone("#test2");
-			assert.isDefined(clonedNode);
-			Helper.removeElement(dom1);
+			assert.isDefined( clonedNode );
+			Helper.removeElement( dom1 );
 		},
 
-
-		'setVisible Test' : function() {
+		"setVisible Test": function() {
 			var dom1 = Helper.createElement("test-d-1");
 			var dom2 = Helper.createElement("test-d-2");
 			var dom3 = Helper.createElement("test-d-3");
 			var dom4 = Helper.createElement("test-d-4");
 			var dom5 = Helper.createElement("test-d-5");
-			Helper.addClass(dom1, "item");
-			Helper.addClass(dom2, "item");
-			Helper.addClass(dom3, "item");
-			Helper.addClass(dom4, "item");
-			Helper.addClass(dom5, "item");
+			Helper.addClass( dom1, "item");
+			Helper.addClass( dom2, "item");
+			Helper.addClass( dom3, "item");
+			Helper.addClass( dom4, "item");
+			Helper.addClass( dom5, "item");
 			_browser.setVisible(".item");
-			assert.isTrue(Helper.hasClass(dom1, "item"));
-			assert.isTrue(Helper.hasClass(dom2, "item"));
-			assert.isTrue(Helper.hasClass(dom3, "item"));
-			assert.isTrue(Helper.hasClass(dom4, "item"));
-			assert.isTrue(Helper.hasClass(dom5, "item"));
-			Helper.removeElement(dom1);
-			Helper.removeElement(dom2);
-			Helper.removeElement(dom3);
-			Helper.removeElement(dom4);
-			Helper.removeElement(dom5);
+			assert.isTrue( Helper.hasClass( dom1, "item") );
+			assert.isTrue( Helper.hasClass( dom2, "item") );
+			assert.isTrue( Helper.hasClass( dom3, "item") );
+			assert.isTrue( Helper.hasClass( dom4, "item") );
+			assert.isTrue( Helper.hasClass( dom5, "item") );
+			Helper.removeElement( dom1 );
+			Helper.removeElement( dom2 );
+			Helper.removeElement( dom3 );
+			Helper.removeElement( dom4 );
+			Helper.removeElement( dom5 );
 		},
 
-		teardown: function () {
+		teardown: function() {
 
 		}
 	});

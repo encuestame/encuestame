@@ -4,28 +4,27 @@
  * @author juanATencuestame.org
  * @since 2013-07-13 23:46:29
  */
-define([
+define( [
      "dojo/_base/declare",
      "dojo/_base/lang",
      "me/web/widget/support/ItemsFilterSupport",
-     "me/core/enme"],
+     "me/core/enme" ],
     function(
     declare,
     _lang,
     ItemsFilterSupport,
-    _ENME) {
+    _ENME ) {
 
-  return declare(null, {
-
+  return declare( null, {
 
       /**
        * Get filter data, if exist
        */
-      getFilterData : function (params) {
-        if (this._filters) {
-          _lang.mixin(params, this._filters.getFilterData());
+      getFilterData: function( params ) {
+        if ( this._filters ) {
+          _lang.mixin( params, this._filters.getFilterData() );
         }
-        return this.applyExtraFilters(params);
+        return this.applyExtraFilters( params );
       },
 
 	  /**
@@ -33,21 +32,21 @@ define([
 	   * @param a
 	   * @returns {*}
 	   */
-	  applyExtraFilters : function(a) { return a; },
+	  applyExtraFilters: function( a ) { return a; },
 
       /**
        * Clean filters trigger function
        */
-      _cleanFilters : function (e) {
-            dojo.stopEvent(e);
+      _cleanFilters: function( e ) {
+            dojo.stopEvent( e );
             this.cleanFilterData();
       },
 
       /**
        * Clean the widget
        */
-      cleanFilterData : function () {
-        if (this._filters) {
+      cleanFilterData: function() {
+        if ( this._filters ) {
             this._filters.cleanFilterData();
         }
       }

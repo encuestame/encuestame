@@ -1,4 +1,4 @@
-define([
+define( [
  "dojo/_base/declare",
  "dojo/_base/lang",
  "dojo/_base/array",
@@ -31,33 +31,34 @@ function(
     _ENME,
     Target,
     registry,
-    template) {
-        return declare([ _WidgetBase, _TemplatedMixin, main_widget, FolderOperations, _WidgetsInTemplateMixin], {
+    template ) {
+        return declare( [ _WidgetBase, _TemplatedMixin, main_widget, FolderOperations, _WidgetsInTemplateMixin ], {
 
-  // template string.
-  templateString : template,
+  // Template string.
+  templateString: template,
 
-  name : "",
+  name: "",
 
    counter: 0,
 
   folderParentWidget: null,
 
   /**
-   * enable drop support. _getContextUrlService
+   * Enable drop support. _getContextUrlService
    */
-  dropSupport : false,
+  dropSupport: false,
 
-  folderId : null,
+  folderId: null,
 
-  _accept : ["tweetpoll", "poll", "survey"],
+  _accept: [ "tweetpoll", "poll", "survey" ],
 
-  _foldersourceWidget : null,
+  _foldersourceWidget: null,
 
   /*
-   * post create cycle.
+   * Post create cycle.
    */
-  postCreate : function() {
+  postCreate: function() {
+
 	    // DnD support removed, used combo instead
         //if (this.dropSupport) {
         //  this._folderSourceWidget  = new Target(this._folder, {
@@ -66,94 +67,97 @@ function(
         //      dojo.connect(this._folderSourceWidget, "onDndDrop", lang.hitch(this, this.onDndDropFolder));
         // }
          var name = this._name;
-         if (name !== null) {
+         if ( name !== null ) {
+
              // TODO: on change event issues, review.
-             name.onChange = lang.hitch(this, function() {
-                 if (!this.folderId) {
-                     this.folderId = this._create(name.get('value'));
+             name.onChange = lang.hitch( this, function() {
+                 if ( !this.folderId ) {
+                     this.folderId = this._create( name.get( "value" ) );
                  } else {
-                     this._update(name.get('value'));
+                     this._update( name.get( "value" ) );
                  }
              });
          } else {
            console.error("inline error");
          }
-        on(this.domNode, "click",  lang.hitch(this, function() {
+        on( this.domNode, "click",  lang.hitch( this, function() {
             this._items();
-        }));
-        this.inherited(arguments);
+        }) );
+        this.inherited( arguments );
   },
 
     /**
      * Return all items for this folder
      * @private
      */
-	_items : function() {
-        var load = lang.hitch(this, function(data) {
-	        if ('success' in data) {
-		        if ("success" in data) {
+	_items: function() {
+        var load = lang.hitch( this, function( data ) {
+	        if ( "success" in data ) {
+		        if ("success" in data ) {
 			        var items;
-			        if(this.folderContext === 'poll') {
+			        if ( this.folderContext === "poll" ) {
 				        items = data.success.pollsByFolder;
-			        } else if(this.folderContext === 'tweetpoll') {
+			        } else if ( this.folderContext === "tweetpoll" ) {
 				        items = data.success.tweetPollsByFolder;
 			        }
-			        topic.publish('/encuestame/list/items/print', items);
+			        topic.publish( "/encuestame/list/items/print", items );
 		        }
 	        }
 	    });
 	    var params = {
-	      folderId : this.folderId
+	      folderId: this.folderId
 	    };
-	    this._callFolderService(load, params, this.getAction("items"));
+	    this._callFolderService( load, params, this.getAction("items") );
 	},
 
   /*
-   * add folder.
+   * Add folder.
    */
-  _create : function(name) {
+  _create: function( name ) {
       var id = null;
-      var load = lang.hitch(this, function(data) {
-          if ('success' in data) {
+      var load = lang.hitch( this, function( data ) {
+          if ( "success" in data ) {
               this.folderId = data.success.folder.id;
               id = this.folderId;
           }
       });
       var params = {
-          name : name
+          name: name
       };
-      this._callFolderService(load, params, this.getAction("create"));
+      this._callFolderService( load, params, this.getAction("create") );
       return id;
   },
 
   /*
-   * update folder.
+   * Update folder.
    */
-  _update : function(name) {
-      var load = lang.hitch(this, function(data) {
-          // nothing to do
+  _update: function( name ) {
+      var load = lang.hitch( this, function( data ) {
+
+          // Nothing to do
       });
       var params = {
-        folderId : this.folderId,
-        folderName : name
+        folderId: this.folderId,
+        folderName: name
       };
-      this._callFolderService(load, params, this.getAction("update"));
+      this._callFolderService( load, params, this.getAction("update") );
   },
 
   /**
    * Add item.
    * @id id of the item
    */
-  _addItem : function(id) {
-     var load = function(data) {
-          //console.debug("data", data);
+  _addItem: function( id ) {
+     var load = function( data ) {
+
+          //Console.debug("data", data);
           //console.info("Item Added");
      };
      var params = {
-          folderId :this.folderId,
-          itemId : id
+          folderId:this.folderId,
+          itemId: id
      };
-     this._callFolderService(load, params, this.getAction("move"));
+     this._callFolderService( load, params, this.getAction("move") );
   },
 
   /**
@@ -163,28 +167,30 @@ function(
    * @copy
    * @target
    */
-  onDndDropFolder : function(source, nodes, copy, target) {
-      array.forEach(dojo.query(".dojoDndItemSelected"), function(item) {
-          dojo.removeClass(item, "dojoDndItemSelected");
+  onDndDropFolder: function( source, nodes, copy, target ) {
+      array.forEach( dojo.query(".dojoDndItemSelected"), function( item ) {
+          dojo.removeClass( item, "dojoDndItemSelected");
       });
-      array.forEach(dojo.query(".dojoDndItemAnchor"), function(item) {
-          dojo.removeClass(item, "dojoDndItemAnchor");
+      array.forEach( dojo.query(".dojoDndItemAnchor"), function( item ) {
+          dojo.removeClass( item, "dojoDndItemAnchor");
       });
-      if(dojo.dnd.manager().target !== this._folderSourceWidget) {
+      if ( dojo.dnd.manager().target !== this._folderSourceWidget ) {
           return;
       }
-      if(dojo.dnd.manager().target == dojo.dnd.manager().source) {
+      if ( dojo.dnd.manager().target == dojo.dnd.manager().source ) {
           console.debug("same");
       } else {
-          array.forEach(this._folderSourceWidget.getSelectedNodes(), lang.hitch(this, function(item) {
-              //console.debug("item", item);
-              var tweetPollId = item.getAttribute('tweetpollId');
-              var type = item.getAttribute('dndtype');
-              //console.debug("tweetpollId", tweetPollId);
+          array.forEach( this._folderSourceWidget.getSelectedNodes(), lang.hitch( this, function( item ) {
+
+              //Console.debug("item", item);
+              var tweetPollId = item.getAttribute( "tweetpollId" );
+              var type = item.getAttribute( "dndtype" );
+
+              //Console.debug("tweetpollId", tweetPollId);
               //console.debug("type", type);
-              this._addItem(parseInt(tweetPollId));
-              dojo.destroy(item);
-          }));
+              this._addItem( parseInt( tweetPollId ) );
+              dojo.destroy( item );
+          }) );
       }
   }
   });

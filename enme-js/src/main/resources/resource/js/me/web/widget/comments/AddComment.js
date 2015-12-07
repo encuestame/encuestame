@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class Comments
  */
-define([
+define( [
      "dojo/string",
      "dojo/_base/declare",
      "dijit/_WidgetBase",
@@ -35,7 +35,7 @@ define([
      "me/web/widget/comments/Comment",
      "me/web/widget/pictures/AccountPicture",
      "me/core/enme",
-     "dojo/text!me/web/widget/comments/templates/commentForm.html"],
+     "dojo/text!me/web/widget/comments/templates/commentForm.html" ],
     function(
     string,
     declare,
@@ -50,29 +50,29 @@ define([
     comment,
     AccountPicture,
     _ENME,
-     template) {
+     template ) {
 
-  'use strict';
+  "use strict";
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
      /**
       * Template string.
       * @property  templateString
       */
-    templateString : template,
+    templateString: template,
 
     /**
      * Save the
      * @property type
      */
-    type : "",
+    type: "",
 
     /**
      * Save the item id.
      * @property
      */
-    item_id : null,
+    item_id: null,
 
     /**
      *
@@ -84,19 +84,19 @@ define([
      * Define if the comment moderation is enabled
      * @property
      */
-    isModerated : false,
+    isModerated: false,
 
     /**
      * Limit the text content
      * @property comment_limit
      */
-    comment_limit : 2000,
+    comment_limit: 2000,
 
     /*
      *
      */
-    postCreate : function() {
-        if (this.item_id) {
+    postCreate: function() {
+        if ( this.item_id ) {
             this.initializeForm({});
         }
     },
@@ -105,62 +105,64 @@ define([
      *
      * @method
      */
-    initializeForm : function() {
+    initializeForm: function() {
 
-        if (this._new_comment.get('value').length === 0) {
-            this._post.attr('disabled', true);
+        if ( this._new_comment.get( "value" ).length === 0 ) {
+            this._post.attr( "disabled", true );
         }
 
-        this._new_comment.onChange = dojo.hitch(this, function(e) {
-            if (this._new_comment.get('value').length > 0) {
-                this._post.attr('disabled', false);
+        this._new_comment.onChange = dojo.hitch( this, function( e ) {
+            if ( this._new_comment.get( "value" ).length > 0 ) {
+                this._post.attr( "disabled", false );
             } else {
-                this._post.attr('disabled', true);
+                this._post.attr( "disabled", true );
             }
             return false;
         });
-        // event to control the post button
-        this._post.onClick = dojo.hitch(this, function(e) {
+
+        // Event to control the post button
+        this._post.onClick = dojo.hitch( this, function( e ) {
             this._post.setLabel("Posting ....");
-            this._post.attr('disabled', true);
+            this._post.attr( "disabled", true );
             this._saveComment();
         });
     },
-
 
     /**
      * Save comment.
      * @method _saveComment
      */
-    _saveComment : function() {
+    _saveComment: function() {
         var params = {
-            comment : string.trim(this._new_comment.get('value')),
-            tweetPollId : this.item_id
+            comment: string.trim( this._new_comment.get( "value" ) ),
+            tweetPollId: this.item_id
         };
 
-        var restoreButton = dojo.hitch(this, function(){
+        var restoreButton = dojo.hitch( this, function() {
             this._post.setLabel("Post");
-            this._post.attr('disabled', false);
+            this._post.attr( "disabled", false );
         });
 
-        if (params.comment !== '') {
-            // success handler
-            var load = dojo.hitch(this, function(data) {
-                if ("success" in data) {
-                    dojo.publish('/encuestame/commons/home/comments/add', [data.success.comment, true, this.isModerated]);
+        if ( params.comment !== "" ) {
+
+            // Success handler
+            var load = dojo.hitch( this, function( data ) {
+                if ("success" in data ) {
+                    dojo.publish( "/encuestame/commons/home/comments/add", [ data.success.comment, true, this.isModerated ] );
                     restoreButton();
-                    this._new_comment.set('value', '');
-                    this._post.attr('disabled', true);
+                    this._new_comment.set( "value", "" );
+                    this._post.attr( "disabled", true );
                 }
             });
-            // error handler
-            var error = dojo.hitch(this, function(error) {
-                this.errorMessage(_ENME.getMessage("comment_post_error", "There was a problem saving your comment. Please try again."));
+
+            // Error handler
+            var error = dojo.hitch( this, function( error ) {
+                this.errorMessage( _ENME.getMessage("comment_post_error", "There was a problem saving your comment. Please try again.") );
                 restoreButton();
             });
-            this.getURLService().formU(['encuestame.service.comments.create', [this.type]], params, load, error , dojo.hitch(this, function() {
+            this.getURLService().formU( [ "encuestame.service.comments.create", [ this.type ]], params, load, error, dojo.hitch( this, function() {
 
-            }));
+            }) );
         }
     }
   });

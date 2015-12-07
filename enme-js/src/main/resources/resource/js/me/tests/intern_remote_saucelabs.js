@@ -13,21 +13,21 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-define(['./intern_common'], function(common) {
-	common.environments= [
-		{ browserName: 'internet explorer', version: '11', platform: 'WIN8', fixSessionCapabilities: false },
-		{ browserName: 'firefox', version: '35', platform: [ 'WINDOWS' ], timeout:'300', idleTimeout:'300', fixSessionCapabilities: false },
-		{ browserName: 'chrome', version: '38', platform: [ 'MAC'], timeout:'300', idleTimeout:'300', fixSessionCapabilities: false }
+define( [ "./intern_common" ], function( common ) {
+	common.environments = [
+		{ browserName: "internet explorer", version: "11", platform: "WIN8", fixSessionCapabilities: false },
+		{ browserName: "firefox", version: "35", platform: [ "WINDOWS" ], timeout:"300", idleTimeout:"300", fixSessionCapabilities: false },
+		{ browserName: "chrome", version: "38", platform: [ "MAC" ], timeout:"300", idleTimeout:"300", fixSessionCapabilities: false }
 	];
 	common.capabilities = {
-		'browserstack.debug'           : true,
-		'project'                      : 'encuestame intern test saucelabs',
-		'idleTimeout'                  : '300',
-		'idle-timeout'                 : '300'
+		"browserstack.debug": true,
+		"project": "encuestame intern test saucelabs",
+		"idleTimeout": "300",
+		"idle-timeout": "300"
 	};
-	common.tunnel = 'SauceLabsTunnel';
+	common.tunnel = "SauceLabsTunnel";
 	common.useLoader = {
-		'host-browser': '../../js/dojo/dojo.js'
+		"host-browser": "../../js/dojo/dojo.js"
 	};
 	return common;
 });

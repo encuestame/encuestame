@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class UserTableRow
  */
-define([
+define( [
          "dojo/_base/declare",
          "dojo/dom-construct",
 		 "me/third-party/moment",
@@ -52,15 +52,15 @@ define([
                 UserGroup,
                 UserEdit,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-            templateString : template,
+          // Template string.
+            templateString: template,
 
             data: null,
 
-            postMixInProperties: function(){},
+            postMixInProperties: function() {},
 
             /**
              * Post Create.
@@ -72,26 +72,27 @@ define([
             /**
              * Build Default Row.
              */
-            buildDefaultRow : function() {
+            buildDefaultRow: function() {
                 var data = this.data;
-                this.createInput(data);
-                this.createColumnDialog(data.username);
-                this.createGroupWidget(data);
-                this.createColumn(data.relateTimeEnjoy);
-                this.buildStatus(data.status);
-                this.createColumn(data.tweetPoll, true);
-                this.createColumn(data.poll, true);
-                this.createColumn(data.survey, true);
-                // moment replace by ENME.fromNow
-                var _date = moment(data.lastTimeLogged || "never").fromNow();
-                this.createColumn(_date, true);
-                this.createColumn(data.followers === null ? 0 : data.followers, true);
+                this.createInput( data );
+                this.createColumnDialog( data.username );
+                this.createGroupWidget( data );
+                this.createColumn( data.relateTimeEnjoy );
+                this.buildStatus( data.status );
+                this.createColumn( data.tweetPoll, true );
+                this.createColumn( data.poll, true );
+                this.createColumn( data.survey, true );
+
+                // Moment replace by ENME.fromNow
+                var _date = moment( data.lastTimeLogged || "never").fromNow();
+                this.createColumn( _date, true );
+                this.createColumn( data.followers === null ? 0 : data.followers, true );
             },
 
             /**
              * Build Options.
              */
-            buildOptions : function(id){
+            buildOptions: function( id ) {
 
             },
 
@@ -101,43 +102,43 @@ define([
              * @param
              * @param
              */
-            createColumnDialog : function(text, centered) {
-                 var td = domConstruct.create('td');
-                 var a = domConstruct.create('a');
-                 dojo.addClass(a, "link");
+            createColumnDialog: function( text, centered ) {
+                 var td = domConstruct.create( "td" );
+                 var a = domConstruct.create( "a" );
+                 dojo.addClass( a, "link");
                  a.innerHTML = text;
                  a.href = "#";
-                 dojo.connect(a, "onclick", this, this.editUSer);
+                 dojo.connect( a, "onclick", this, this.editUSer );
                  new Tooltip({
                     connectId: a,
                     label: "Click to edit the user preferences"
                  });
-                 td.appendChild(a);
-                 this._trbody.appendChild(td);
+                 td.appendChild( a );
+                 this._trbody.appendChild( td );
             },
 
             /*
              *
              */
-            createGroupWidget : function(data){
-                var td = domConstruct.create('td');
+            createGroupWidget: function( data ) {
+                var td = domConstruct.create( "td" );
                 var groupWidget = new UserGroup(
                         {
                          dataUser: data,
                          parentWidget: this
                          });
-                td.appendChild(groupWidget.domNode);
-                this._trbody.appendChild(td);
+                td.appendChild( groupWidget.domNode );
+                this._trbody.appendChild( td );
             },
 
             /**
              * Edit User.
              */
-            editUSer : function() {
+            editUSer: function() {
                 var userEdit = registry.byId("userEdit");
                 userEdit.data = this.data;
-                if (userEdit !== null) {
-                    this.getUserInfo(this.data.id);
+                if ( userEdit !== null ) {
+                    this.getUserInfo( this.data.id );
                 }
             },
 
@@ -145,60 +146,61 @@ define([
              * Get User.
              * @method
              */
-            getUserInfo : function(id ) {
-                var load = dojo.hitch(this, function(response) {
-                    if ("success" in response) {
+            getUserInfo: function( id ) {
+                var load = dojo.hitch( this, function( response ) {
+                    if ("success" in response ) {
                         var data = response.success.user;
                         var userEditWidget = new UserEdit({
-                            user : data
+                            user: data
                         });
-                        // display the
+
+                        // Display the
                         var edit = registry.byId("userEdit");
-                        edit.set('content', userEditWidget.domNode);
+                        edit.set( "content", userEditWidget.domNode );
                         edit.show();
                     }
                 });
-                var error = function(error) {
-                    console.debug("error", error);
+                var error = function( error ) {
+                    console.debug("error", error );
                 };
-                _ENME.xhr.get('encuestame.service.list.userInfo', {id: id}, load, error , dojo.hitch(this, function() {}));
+                _ENME.xhr.get( "encuestame.service.list.userInfo", { id: id }, load, error, dojo.hitch( this, function() {}) );
             },
 
             /**
              * Create Column.
              * @method
              */
-            createColumn : function(text, centered) {
-                var td = domConstruct.create('td');
-                if (centered) {
+            createColumn: function( text, centered ) {
+                var td = domConstruct.create( "td" );
+                if ( centered ) {
                     td.setAttribute("align", "center");
                 }
                 td.innerHTML = text;
-                this._trbody.appendChild(td);
+                this._trbody.appendChild( td );
             },
 
             /**
              * Create Input.
              * @method
              */
-            createInput : function(data) {
-                var td = domConstruct.create('td');
+            createInput: function( data ) {
+                var td = domConstruct.create( "td" );
                 var widgetInput = new AccountPicture({
-	                 username : data.username,
-                     target : "_blank"
+	                 username: data.username,
+                     target: "_blank"
                  });
-                td.appendChild(widgetInput.domNode);
-                this._trbody.appendChild(td);
+                td.appendChild( widgetInput.domNode );
+                this._trbody.appendChild( td );
             },
 
             /**
              *
              * @method
              */
-             buildStatus : function(status) {
-                var td = domConstruct.create('td');
+             buildStatus: function( status ) {
+                var td = domConstruct.create( "td" );
                 td.innerHTML = status;
-                this._trbody.appendChild(td);
+                this._trbody.appendChild( td );
              }
     });
 });

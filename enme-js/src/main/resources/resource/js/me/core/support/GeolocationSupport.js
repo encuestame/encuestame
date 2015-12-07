@@ -1,14 +1,13 @@
-define([
+define( [
      "dojo/_base/declare",
-	 'me/core/features/base',
-     "me/core/enme"],
+	 "me/core/features/base",
+     "me/core/enme" ],
     function(
     declare,
     features,
-    _ENME) {
+    _ENME ) {
 
-    'use strict';
-
+    "use strict";
 
   /**
     * Represent a geo location
@@ -16,7 +15,7 @@ define([
     * @property long longitude
     * @method Location
     */
-   var Location = function(lat, lng) {
+   var Location = function( lat, lng ) {
       this.lat = lat || 0.0;
       this.lng = lng || 0.0;
    };
@@ -27,7 +26,7 @@ define([
        * Get the latitude.
        * @method
        */
-      getLatitude : function() {
+      getLatitude: function() {
         return this.lng;
       },
 
@@ -35,7 +34,7 @@ define([
        * Get the latitude.
        * @method
        */
-      getLongitude : function() {
+      getLongitude: function() {
         return this.lat;
       }
    };
@@ -44,24 +43,24 @@ define([
    * Geolocation support
    * @method
    */
-  var GeoLocationSupport = function(options) {
+  var GeoLocationSupport = function( options ) {
        var parent = this;
        this.location = null;
        try {
-          if (features.geolocation) {
+          if ( features.geolocation ) {
               navigator.geolocation.getCurrentPosition(
-                      function(){
-                        options.success.apply(parent, arguments);
+                      function() {
+                        options.success.apply( parent, arguments );
                       },
-                      options.error , {
+                      options.error, {
                         timeout: 10000
               });
           } else {
               parent.location = new Location();
               options.error();
           }
-       } catch(error) {
-          console.info("error geo object", error);
+       } catch ( error ) {
+          console.info("error geo object", error );
        }
 
   };
@@ -72,7 +71,7 @@ define([
      * Return a boolean response if the objects contains a longitud and latitude.
      * @method
      */
-    isLocated : function() {
+    isLocated: function() {
         return this.isLocated || false;
     },
 
@@ -80,7 +79,7 @@ define([
      * Return the location Object.
      * @method
      */
-    getLocation : function() {
+    getLocation: function() {
         return this.position;
     }
   };

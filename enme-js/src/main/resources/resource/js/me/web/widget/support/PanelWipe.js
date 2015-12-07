@@ -2,44 +2,45 @@
  * Panel Wipe Support.
  * @author Picado, Juan juanATencuestame.org
  */
-//dojo.require("dojox.fx");
-define([
+
+//Dojo.require("dojox.fx");
+define( [
      "dojo/_base/declare",
      "dojo/fx",
-     "me/core/enme"],
+     "me/core/enme" ],
     function(
     declare,
     coreFx,
-    _ENME) {
+    _ENME ) {
 
-  return declare(null, {
+  return declare( null, {
 
     /*
     *
     */
-   content : null,
+   content: null,
 
    /*
     *
     */
-   duration : 200,
+   duration: 200,
 
    /*
     *
     */
-   height : 300,
+   height: 300,
 
    /*
     *
     */
-   selected : false,
+   selected: false,
 
    /*
     *
     */
-   constructor: function(/* node */ content, /** title */ title, /* selected by default */ selected, heightOp) {
+   constructor: function( /* node */ content, /** title */ title, /* selected by default */ selected, heightOp ) {
        this.height = heightOp === null ? this.height :  heightOp;
-       if (content) {
+       if ( content ) {
            this.content = content;
        } else {
            throw new Error("content is required");
@@ -50,7 +51,8 @@ define([
    *
    */
   wipeInOne: function() {
-      //console.info("connect wipeInOne", this.content);
+
+      //Console.info("connect wipeInOne", this.content);
       this.preWipe();
       coreFx.wipeIn({
            node: this.content,
@@ -62,9 +64,10 @@ define([
   /*
    *
    */
-  wipeOutOne : function() {
-      //console.info("connect wipeOutOne", this.content);
-      if (this.content) {
+  wipeOutOne: function() {
+
+      //Console.info("connect wipeOutOne", this.content);
+      if ( this.content ) {
           this.postWipe();
           coreFx.wipeOut({
               node: this.content,
@@ -76,32 +79,35 @@ define([
   /**
    * Event called after wipe.
    */
-  preWipe : function() {
+  preWipe: function() {
 
   },
 
   /**
    * Event called before wipe.
    */
-  postWipe : function() {
+  postWipe: function() {
 
   },
 
-   // connect the node with wipe effect
-   connect : function(node, functionCall) {
-       //console.info("connect with", node);
-       if (node) {
-           dojo.connect(node, "onclick", dojo.hitch(this, function(event) {
-               //console.info("connect click", node);
-               if (this.selected) {
+   // Connect the node with wipe effect
+   connect: function( node, functionCall ) {
+
+       //Console.info("connect with", node);
+       if ( node ) {
+           dojo.connect( node, "onclick", dojo.hitch( this, function( event ) {
+
+               //Console.info("connect click", node);
+               if ( this.selected ) {
                    this.wipeOutOne();
                } else {
                     this.wipeInOne();
                     functionCall();
                }
-               this.selected =!this.selected;
-               //console.info("connect click", this.selected);
-           }));
+               this.selected = !this.selected;
+
+               //Console.info("connect click", this.selected);
+           }) );
        }
    }
 

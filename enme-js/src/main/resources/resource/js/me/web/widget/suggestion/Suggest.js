@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class Suggest
  */
-define([
+define( [
     "dojo/parser",
      "dojo/ready",
      "dojo/on",
@@ -57,16 +57,16 @@ define([
     _ENME,
     main_widget,
     SuggestItem,
-    template) {
+    template ) {
 
-  lang.extend(dojox.data.QueryReadStore, {
-        _filterResponse: function(data) {
+  lang.extend( dojox.data.QueryReadStore, {
+        _filterResponse: function( data ) {
          data = data.success;
          return data;
      }
   });
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, queryReadStore ], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, queryReadStore ], {
 
         /**
          * @property templateString
@@ -81,37 +81,37 @@ define([
         /**
          * @property label
          */
-        label : _ENME.getMessage("button_add"),
+        label: _ENME.getMessage("button_add"),
 
         /**
          * @property url
          */
-        url : 'encuestame.service.list.hashtags',
+        url: "encuestame.service.list.hashtags",
 
         /**
          * @property textBoxWidget
          */
-        textBoxWidget : null,
+        textBoxWidget: null,
 
         /**
          * @property buttonWidget
          */
-        buttonWidget : null,
+        buttonWidget: null,
 
         /**
          * @property hideLabel
          */
-        hideLabel : false,
+        hideLabel: false,
 
         /**
          * @property selectedItem
          */
-        selectedItem : null,
+        selectedItem: null,
 
         /**
          * @property addButton
          */
-        addButton : true,
+        addButton: true,
 
         /**
          * @property ignoreCase
@@ -121,133 +121,142 @@ define([
         /**
          * @property modeMultiSearch
          */
-        modeMultiSearch : false,
+        modeMultiSearch: false,
 
         /**
          * @property multiStores
          */
-        multiStores : [],
+        multiStores: [],
 
         /**
          * @property modeQuery
          */
-        modeQuery : "get",
+        modeQuery: "get",
 
         /**
          * @property limit
          */
-        limit : 10,
+        limit: 10,
 
         /**
          * @property query
          */
-        query :  {hashTagName : "*"},
+        query:  { hashTagName: "*" },
 
         /**
          * @property sortFields
          */
-        sortFields : [{attribute: 'hashTagName', descending: true}],
+        sortFields: [{ attribute: "hashTagName", descending: true }],
 
         /*
          * Default search parameters.
          */
-        searchParam: { limit : 10, keyword : ""},
+        searchParam: { limit: 10, keyword: "" },
 
         /*
          * A filter list to exluce from suggested items.
          */
-        exclude : [],
+        exclude: [],
 
         /**
          *
          * @property
          */
-        _itemStored : [],
+        _itemStored: [],
 
         /**
          *
          * @property
          */
-        _delay : 50,
+        _delay: 50,
 
         /**
          *
          * @property
          */
-        _inProcessKey : false,
+        _inProcessKey: false,
 
         /**
          * Array of items appear in the suggestion, usefull to navigate
          * in the collection of item displayed after the search
          * @property _temp_suggestion_items
          */
-        _temp_suggestion_items : [],
+        _temp_suggestion_items: [],
 
         /*
-         * post create life cylce.
+         * Post create life cylce.
          * @method postCreate
          */
         postCreate: function() {
-            this.textBoxWidget = registry.byId(this._suggest);
+            this.textBoxWidget = registry.byId( this._suggest );
             var parent = this;
-            if (this.textBoxWidget) {
-              //enable keyword events
-                on(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
-                    if (!this._inProcessKey) {
+            if ( this.textBoxWidget ) {
+
+              //Enable keyword events
+                on( this.textBoxWidget, "onKeyUp", dojo.hitch( this, function( e ) {
+                    if ( !this._inProcessKey ) {
                         this._inProcessKey = true;
                         var parent = this;
-                        dojo.hitch(this, setTimeout(function () {
+                        dojo.hitch( this, setTimeout( function() {
                             parent._inProcessKey = false;
-                            if (keys.SPACE == e.keyCode || keys.ENTER == e.keyCode) {
+                            if ( keys.SPACE == e.keyCode || keys.ENTER == e.keyCode ) {
                                 parent.processSpaceAction();
-                            } else if (keys.ESCAPE == e.keyCode) {
+                            } else if ( keys.ESCAPE == e.keyCode ) {
                                 parent.hide();
-                            } else if (keys.UP_ARROW == e.keyCode) {
+                            } else if ( keys.UP_ARROW == e.keyCode ) {
+
                                 //TODO: down by suggestion list.
-                                parent.moveBetweenItems(-1);
-                            } else if (keys.DOWN_ARROW == e.keyCode) {
+                                parent.moveBetweenItems( -1 );
+                            } else if ( keys.DOWN_ARROW == e.keyCode ) {
+
                                 //TODO: up by suggestion list.
-                                parent.moveBetweenItems(+1);
+                                parent.moveBetweenItems( +1 );
                             } else {
                                 parent._setParams(
                                         { limit: parent.limit,
-                                          keyword : parent.textBoxWidget.get("value"),
-                                          excludes : parent.exclude});
-                                //console.debug("suggest", this.textBoxWidget.get("value"));
-                                if (!_ENME.isEmpty(parent.textBoxWidget.get("value"))) {
-                                    //call first time suggest.
+                                          keyword: parent.textBoxWidget.get("value"),
+                                          excludes: parent.exclude });
+
+                                //Console.debug("suggest", this.textBoxWidget.get("value"));
+                                if ( !_ENME.isEmpty( parent.textBoxWidget.get("value") ) ) {
+
+                                    //Call first time suggest.
                                      parent.callSuggest();
                                  }
                               }
-                              // this.textBoxWidget //TODO: this.hide() on lost focus.
-                        }, this._delay));
+
+                              // This.textBoxWidget //TODO: this.hide() on lost focus.
+                        }, this._delay ) );
                       }
-                }));
-                //query read store.
+                }) );
+
+                //Query read store.
                 this.store = new dojox.data.QueryReadStore({
-                    url : _ENME.xhr.service(this.url),
-                    sortFields : this.sortFields,
-                    requestMethod : this.modeQuery
+                    url: _ENME.xhr.service( this.url ),
+                    sortFields: this.sortFields,
+                    requestMethod: this.modeQuery
                 });
                  this.callSuggest();
-                //enable add button, if not the default add is click on item.
-                if (this.addButton) {
-                  //check if node exist.
-                  if (this._suggestButton) {
-                      dojo.style(this._suggestButton, "display", "block");
+
+                //Enable add button, if not the default add is click on item.
+                if ( this.addButton ) {
+
+                  //Check if node exist.
+                  if ( this._suggestButton ) {
+                      dojo.style( this._suggestButton, "display", "block");
                       this.buttonWidget = new Button({
                           label: _ENME.getMessage("button_add", "Add"),
-                          onClick: dojo.hitch(this, function(event) {
-                              dojo.stopEvent(event);
+                          onClick: dojo.hitch( this, function( event ) {
+                              dojo.stopEvent( event );
                               this.processSelectedItemButton();
                           })
                       },
-                      this._suggestButton);
+                      this._suggestButton );
                   }
                 }
-                if (this.hideLabel) {
-                   if(this._label) {
-                     dojo.addClass(this._label,"defaultDisplayHide");
+                if ( this.hideLabel ) {
+                   if ( this._label ) {
+                     dojo.addClass( this._label, "defaultDisplayHide");
                    }
                 }
             } else {
@@ -255,29 +264,30 @@ define([
             }
         },
 
-        block : function() {
+        block: function() {
 
         },
 
-        unblock : function() {
+        unblock: function() {
 
         },
 
         /*
-         * if user click up space bar.
+         * If user click up space bar.
          */
-        processSpaceAction : function() {
-            //overide.
+        processSpaceAction: function() {
+
+            //Overide.
         },
 
-        _setParams: function(value){
+        _setParams: function( value ) {
             this.searchParam = value;
         },
 
         /*
-         * start suggestion call.
+         * Start suggestion call.
          */
-        callSuggest : function(){
+        callSuggest: function() {
             var fetch = {
                     query: this.query,
                     queryOptions: {
@@ -285,54 +295,56 @@ define([
                         deep: true
                     },
                     serverQuery: this.searchParam,
-                    onComplete: dojo.hitch(this, function(result, dataObject){
+                    onComplete: dojo.hitch( this, function( result, dataObject ) {
                         this._itemStored = result;
                         this.evaluateItems();
                     }),
-                    onError: function(errText){
-                        console.error('dijit.form.FilteringSelect: ' + errText);
+                    onError: function( errText ) {
+                        console.error( "dijit.form.FilteringSelect: " + errText );
                     }
                 };
-            this.store.fetch(fetch);
+            this.store.fetch( fetch );
         },
 
         /**
          * Evaluate Items.
          * @method evaluateItems
          */
-        evaluateItems : function() {
-            // reset the temporal suggestion list
+        evaluateItems: function() {
+
+            // Reset the temporal suggestion list
             this._temp_suggestion_items = [];
             var fadeArgs;
-            if (this._itemStored.length > 0) {
-                 dojo.empty(this._suggestItems);
+            if ( this._itemStored.length > 0 ) {
+                 dojo.empty( this._suggestItems );
                  fadeArgs = {
                          node: this._suggestItems
                  };
-                 dojo.fadeIn(fadeArgs).play();
+                 dojo.fadeIn( fadeArgs ).play();
                  dojo.forEach(
                         this._itemStored,
-                        dojo.hitch(this, function(data, index) {
-                            this.buildRow(data.i);
-                        }));
+                        dojo.hitch( this, function( data, index ) {
+                            this.buildRow( data.i );
+                        }) );
             } else {
                 fadeArgs = {
                      node: this._suggestItems
                  };
-                 dojo.fadeOut(fadeArgs).play();
+                 dojo.fadeOut( fadeArgs ).play();
             }
         },
 
         /*
-         * hide with fade out the suggest box.
+         * Hide with fade out the suggest box.
          */
-        hide : function() {
-            //console.info("HIDE");
+        hide: function() {
+
+            //Console.info("HIDE");
             this._itemStored = [];
             var fadeArgs = {
                     node: this._suggestItems
             };
-            dojo.fadeOut(fadeArgs).play();
+            dojo.fadeOut( fadeArgs ).play();
             this.clear();
         },
 
@@ -341,63 +353,64 @@ define([
          * @method
          * @param
          */
-        moveBetweenItems : function (flag) {
-            // create a selected item after keyboard select
+        moveBetweenItems: function( flag ) {
+
+            // Create a selected item after keyboard select
             var isAnySelected = true,
             parent = this,
             t_length = this._temp_suggestion_items.length,
-            create_item = function(id, hashTagName) {
+            create_item = function( id, hashTagName ) {
                  return {
-                        data: { id : id,
-                                label : hashTagName
+                        data: { id: id,
+                                label: hashTagName
                               },
-                        parentWidget : parent
+                        parentWidget: parent
                         };
             };
-            for (var i = 0; i < t_length; i++) {
-                var entry = parent._temp_suggestion_items[i];
-                if( entry.isSelected()) {
+            for ( var i = 0; i < t_length; i++ ) {
+                var entry = parent._temp_suggestion_items[ i ];
+                if ( entry.isSelected() ) {
                     isAnySelected = false;
                     entry.unSelect();
                     var next_item;
-                    if (t_length -1  === i) { // is the last one
-                        if (flag < 0 ) { // up -1
-                            next_item = parent._temp_suggestion_items[t_length - 2];
-                        } else { // down +1
-                            next_item = parent._temp_suggestion_items[0];
+                    if ( t_length - 1  === i ) { // Is the last one
+                        if ( flag < 0 ) { // Up -1
+                            next_item = parent._temp_suggestion_items[ t_length - 2 ];
+                        } else { // Down +1
+                            next_item = parent._temp_suggestion_items[ 0 ];
                         }
-                        if (next_item) {
+                        if ( next_item ) {
                             next_item.selected();
                         }
-                        parent.selectedItem = create_item(next_item.data.id, next_item.data.label);
+                        parent.selectedItem = create_item( next_item.data.id, next_item.data.label );
                         return true;
-                    } else if ( i === 0 && flag < 0) {
-                        next_item = parent._temp_suggestion_items[t_length - 1];
-                        if (next_item) {
+                    } else if ( i === 0 && flag < 0 ) {
+                        next_item = parent._temp_suggestion_items[ t_length - 1 ];
+                        if ( next_item ) {
                             next_item.selected();
                         }
-                        parent.selectedItem = create_item(next_item.data.id, next_item.data.label);
+                        parent.selectedItem = create_item( next_item.data.id, next_item.data.label );
                         return true;
                     } else {
-                        next_item = parent._temp_suggestion_items[i + flag];
-                        if (next_item) {
+                        next_item = parent._temp_suggestion_items[ i + flag ];
+                        if ( next_item ) {
                             next_item.selected();
                         }
-                        parent.selectedItem = create_item(next_item.data.id, next_item.data.label);
+                        parent.selectedItem = create_item( next_item.data.id, next_item.data.label );
                         return true;
                     }
                 }
             }
-            if (isAnySelected) {
+            if ( isAnySelected ) {
                 var entry2;
-                if (flag < 0) {
-                    entry2 = this._temp_suggestion_items[t_length - 1];
+                if ( flag < 0 ) {
+                    entry2 = this._temp_suggestion_items[ t_length - 1 ];
                     entry2.selected();
                 } else {
-                    entry2 = this._temp_suggestion_items[0];
+                    entry2 = this._temp_suggestion_items[ 0 ];
                     entry2.selected();
                 }
-                parent.selectedItem = create_item(entry2.data.id, entry2.data.label);
+                parent.selectedItem = create_item( entry2.data.id, entry2.data.label );
             }
         },
 
@@ -406,46 +419,46 @@ define([
         * @method buildRow
         * @param data hashtag item
         */
-        buildRow : function(/** hashtag item. **/ data) {
+        buildRow: function( /** hashtag item. **/ data ) {
             var widget = new SuggestItem(
                     {
-                        data: { id : data.id, label : data.hashTagName},
-                        parentWidget : this
+                        data: { id: data.id, label: data.hashTagName },
+                        parentWidget: this
                     });
-            this._suggestItems.appendChild(widget.domNode);
+            this._suggestItems.appendChild( widget.domNode );
             widget.processItem = this.processSelectedItem;
-            this._temp_suggestion_items.push(widget);
+            this._temp_suggestion_items.push( widget );
         },
 
         //Process after click add button.
-        processSelectedItemButton : function() {
-            if (this.textBoxWidget && this.addButton) {
+        processSelectedItemButton: function() {
+            if ( this.textBoxWidget && this.addButton ) {
                 this.hide();
                 var newValue = {
-                    id : null,
+                    id: null,
                     label: "",
                     newValue: true
                 };
                 newValue.label = this.textBoxWidget.get("value");
                 this.selectedItem = newValue;
-                if (!_ENME.isEmpty(newValue.label)) {
-                    this.processSelectedItem(this.selectedItem);
+                if ( !_ENME.isEmpty( newValue.label ) ) {
+                    this.processSelectedItem( this.selectedItem );
                 }
                 this.clear();
             }
         },
 
-        clear : function(){
-              if(this.textBoxWidget){
+        clear: function() {
+              if ( this.textBoxWidget ) {
                   this.selectedItem = null;
                   this.textBoxWidget.set("value", "");
               }
-              dojo.empty(this._suggestItems);
+              dojo.empty( this._suggestItems );
         },
 
         //Process Selected Item.
-        processSelectedItem : function(selectedItem){
-            _ENME.log("implemt this method in the parent widget 2", selectedItem);
+        processSelectedItem: function( selectedItem ) {
+            _ENME.log("implemt this method in the parent widget 2", selectedItem );
         }
   });
 });

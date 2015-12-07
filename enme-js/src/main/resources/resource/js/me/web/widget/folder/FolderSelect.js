@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class FolderSelect
  */
-define([
+define( [
          "dojo/_base/declare",
          "dojo/data/ItemFileReadStore",
          "dijit/_WidgetBase",
@@ -44,83 +44,84 @@ define([
                 FolderOperations,
                 FoldersItemAction,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, FolderOperations, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, FolderOperations, _WidgetsInTemplateMixin ], {
 
-          // template string.
-            templateString : template,
-
-           /*
-            * label.
-            */
-           label :  _ENME.getMessage("widget_folder_select_label"),
+          // Template string.
+            templateString: template,
 
            /*
-            *
+            * Label.
             */
-           _addComboStoreWidget : null,
+           label:  _ENME.getMessage("widget_folder_select_label"),
 
            /*
             *
             */
-           _addComboWidget : null,
+           _addComboStoreWidget: null,
 
            /*
             *
             */
-           postCreate : function(){
-               this.inherited(arguments);
+           _addComboWidget: null,
+
+           /*
+            *
+            */
+           postCreate: function() {
+               this.inherited( arguments );
                this._loadStore();
            },
 
            /*
             *
             */
-           _loadStore : function() {
-               var load = function(data) {
+           _loadStore: function() {
+               var load = function( data ) {
                    this._addComboStoreWidget = new ItemFileReadStore({
                        data: data.success
                    });
-                   if (this._addComboWidget === null) {
+                   if ( this._addComboWidget === null ) {
                        this._buildCombo();
                    } else {
                        this._addComboWidget.store = this._addComboStoreWidget;
                    }
                };
                var params = {
-                   max : 600,
-                   start : 0
+                   max: 600,
+                   start: 0
                    };
-               this._callFolderService(load, params, this.getAction("list"), true);
+               this._callFolderService( load, params, this.getAction("list"), true );
            },
 
            /*
             *
             */
-           getSelected : function() {
-              return this._addComboWidget.attr('value');
+           getSelected: function() {
+              return this._addComboWidget.attr( "value" );
            },
 
            /*
             *
             */
-           _buildCombo : function() {
+           _buildCombo: function() {
                this._addComboWidget = new ComboBox({
                    name: "folder_select",
                    store:  this._addComboStoreWidget,
                    searchAttr: "name"
                });
-               dojo.empty(this._combo);
-               this._combo.appendChild(this._addComboWidget.domNode);
-               this._addComboWidget.onChange = dojo.hitch(this, function(value) {
+               dojo.empty( this._combo );
+               this._combo.appendChild( this._addComboWidget.domNode );
+               this._addComboWidget.onChange = dojo.hitch( this, function( value ) {
+
                    //TODO: item is null when check id null values.
-                   var id = (this._addComboWidget.item.id === null ?  0 : this._addComboWidget.item.id[0]);
-                   if (id) {
-                       //console.info("id", id);
+                   var id = ( this._addComboWidget.item.id === null ?  0 : this._addComboWidget.item.id[ 0 ] );
+                   if ( id ) {
+
+                       //Console.info("id", id);
                    }
                });
            }
-
 
     });
 });

@@ -1,4 +1,4 @@
-define([ "dojo/_base/declare",
+define( [ "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -12,35 +12,36 @@ define([ "dojo/_base/declare",
     _WidgetsInTemplateMixin,
     Standby,
     main_widget,
-    _ENME, template) {
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget,
+    _ENME, template ) {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget,
       _WidgetsInTemplateMixin ], {
 
-    // template string.
-    templateString : template,
+    // Template string.
+    templateString: template,
 
-    size : "medium",
+    size: "medium",
 
-    target : "",
+    target: "",
 
-    postCreate : function() {
+    postCreate: function() {
        this.init();
     },
 
-    init : function() {
+    init: function() {
 
     },
 
-    start : function() {
-        //console.debug("STAND BY START", standById);
+    start: function() {
+
+        //Console.debug("STAND BY START", standById);
         standById.show();
     },
 
-    stop : function() {
-        //console.debug("STAND BY START", standById);
+    stop: function() {
+
+        //Console.debug("STAND BY START", standById);
         standById.hide();
     }
-
 
   });
 });

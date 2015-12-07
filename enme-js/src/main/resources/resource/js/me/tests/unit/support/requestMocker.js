@@ -14,17 +14,17 @@
  *  limitations under the License.
  */
 
-// in tests/support/requestMocker.js
+// In tests/support/requestMocker.js
 // http://www.sitepen.com/blog/2014/07/14/mocking-data-with-intern/
-define([
-	'dojo/request/registry',
-	'dojo/when'
-], function (registry, when) {
+define( [
+	"dojo/request/registry",
+	"dojo/when"
+], function( registry, when ) {
 	var mocking = false,
 		handles = [];
 
 	function start() {
-		if (mocking) {
+		if ( mocking ) {
 			return;
 		}
 
@@ -33,18 +33,19 @@ define([
 		// Set up a handler for requests to '/info' that mocks a
 		// response without requesting from the server at all
 		handles.push(
-			registry.register('/info', function (url, options) {
+			registry.register( "/info", function( url, options ) {
+
 				// Wrap using `when` to return a promise;
 				// you could also delay the response
 				return when({
-					hello: 'world'
+					hello: "world"
 				});
 			})
 	);
 	}
 
 	function stop() {
-		if (!mocking) {
+		if ( !mocking ) {
 			return;
 		}
 
@@ -52,7 +53,7 @@ define([
 
 		var handle;
 
-		while ((handle = handles.pop())) {
+		while ( ( handle = handles.pop() ) ) {
 			handle.remove();
 		}
 	}

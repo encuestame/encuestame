@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class Table
  */
-define([
+define( [
          "dojo/_base/declare",
          "dojo/dom-construct",
          "dijit/_WidgetBase",
@@ -40,82 +40,82 @@ define([
                 main_widget,
                 TableRow,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-            templateString : template,
+          // Template string.
+            templateString: template,
 
             /** Principal service. **/
-            jsonServiceUrl : null,
+            jsonServiceUrl: null,
 
-            limit : 10,
+            limit: 10,
 
-            start : 0,
+            start: 0,
 
-            total : null,
+            total: null,
 
-            showPagination : false,
+            showPagination: false,
 
-            postMixInProperties: function(){
+            postMixInProperties: function() {
             },
 
             postCreate: function() {
                 this.loadItems();
             },
 
-            cleanTable : function(){
-                if(this._body){
-                    dojo.empty(this._body);
+            cleanTable: function() {
+                if ( this._body ) {
+                    dojo.empty( this._body );
                 }
             },
 
             /**
              * Load Users.
              */
-            loadItems : function() {
-                var load = dojo.hitch(this, function(data){
+            loadItems: function() {
+                var load = dojo.hitch( this, function( data ) {
                     this.cleanTable();
-                    this.iterateResponseItems(data);
+                    this.iterateResponseItems( data );
                 });
-                var error = dojo.hitch(this, function(error) {
-                    console.debug("error table", error);
+                var error = dojo.hitch( this, function( error ) {
+                    console.debug("error table", error );
                 });
-                this.getURLService().get(this.jsonServiceUrl, {
+                this.getURLService().get( this.jsonServiceUrl, {
                     limit: this.limit,
                     start: this.start
-                }, load, error , dojo.hitch(this, function() {
+                }, load, error, dojo.hitch( this, function() {
 
-                }));
+                }) );
             },
 
             /**
              * Iterate Response Items.
              */
-            iterateResponseItems : function(response){
-                console.error('this function should be override');
+            iterateResponseItems: function( response ) {
+                console.error( "this function should be override" );
             },
 
             /**
              * Error Response.
              */
-            errorResponse : function(error){
-                console.error('this function should be override');
+            errorResponse: function( error ) {
+                console.error( "this function should be override" );
             },
 
             /**
              * Build Row.
              */
-            buildRow : function(data){
-                var widgetRow = new TableRow({data: data });
-                this._body.appendChild(widgetRow.domNode);
+            buildRow: function( data ) {
+                var widgetRow = new TableRow({ data: data });
+                this._body.appendChild( widgetRow.domNode );
             },
 
             /**
              * Next.
              */
-            next : function(event){
-                dojo.stopEvent(event);
+            next: function( event ) {
+                dojo.stopEvent( event );
                 this.start = this.start + this.limit;
                 this.loadItems();
             },
@@ -123,10 +123,10 @@ define([
             /**
              * Previous.
              */
-            previous : function(event){
-                dojo.stopEvent(event);
+            previous: function( event ) {
+                dojo.stopEvent( event );
                 this.start = this.start - this.limit;
-                if(this.start < 0){
+                if ( this.start < 0 ) {
                     this.start = 0;
                 }
                 this.loadItems();
@@ -135,15 +135,15 @@ define([
             /**
              * Last.
              */
-            last : function(event){
-                dojo.stopEvent(event);
+            last: function( event ) {
+                dojo.stopEvent( event );
             },
 
             /**
              * First.
              */
-            first : function(event){
-              dojo.stopEvent(event);
+            first: function( event ) {
+              dojo.stopEvent( event );
               this.start = 0;
               this.loadItems();
             }

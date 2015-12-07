@@ -1,3 +1,3 @@
-define(function() {
-	return  {}; //@deprecated by features/base
+define( function() {
+	return {}; //@deprecated by features/base
 });

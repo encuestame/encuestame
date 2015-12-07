@@ -1,4 +1,4 @@
-define([
+define( [
 	"dojo/_base/declare",
 	"dojo/on",
 	"dojo/request/script",
@@ -19,14 +19,14 @@ define([
 	    main_widget,
 	    Tooltip,
 	    _ENME,
-	     template) {
-	return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+	     template ) {
+	return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
 		/**
-		* template string.
+		* Template string.
 		* @property
 		*/
-		templateString : template,
+		templateString: template,
 
 		/**
 		*
@@ -34,51 +34,51 @@ define([
 		*/
 		itemType: "",
 
-        print_height : "300",
+        print_height: "300",
 
         /**
          * Contains a posible dialog widget.
          */
-        dialogWidget : null,
+        dialogWidget: null,
 
 		/**
 		 *
 		 */
-	    itemId : null,
+	    itemId: null,
 
         /**
          *
          */
-        preview : true,
+        preview: true,
 
 		/**
 		 *
 		 * @method postCreate
 		 */
-		postCreate : function() {
-		  on(this._iframe, "click", dojo.hitch(this, function(e) {
-		      this.stopEvent(e);
-		      this.callService("iframe", this.itemId);
-		      dojo.addClass(this._iframe, "selected-script");
-		      dojo.removeClass(this._script_label, "selected-script");
-              dojo.removeClass(this._wordpress, "selected-script");
-		  }));
+		postCreate: function() {
+		  on( this._iframe, "click", dojo.hitch( this, function( e ) {
+		      this.stopEvent( e );
+		      this.callService("iframe", this.itemId );
+		      dojo.addClass( this._iframe, "selected-script");
+		      dojo.removeClass( this._script_label, "selected-script");
+              dojo.removeClass( this._wordpress, "selected-script");
+		  }) );
 
-		  on(this._script_label, "click", dojo.hitch(this, function(e) {
-		      this.stopEvent(e);
-		      this.callService("script", this.itemId);
-		      dojo.addClass(this._script_label, "selected-script");
-		      dojo.removeClass(this._iframe, "selected-script");
-              dojo.removeClass(this._wordpress, "selected-script");
-		  }));
+		  on( this._script_label, "click", dojo.hitch( this, function( e ) {
+		      this.stopEvent( e );
+		      this.callService("script", this.itemId );
+		      dojo.addClass( this._script_label, "selected-script");
+		      dojo.removeClass( this._iframe, "selected-script");
+              dojo.removeClass( this._wordpress, "selected-script");
+		  }) );
 
-        on(this._wordpress, "click", dojo.hitch(this, function(e) {
-            this.stopEvent(e);
-            this.callService("wordpress", this.itemId);
-            dojo.addClass(this._wordpress, "selected-script");
-            dojo.removeClass(this._iframe, "selected-script");
-            dojo.removeClass(this._script_label, "selected-script");
-        }));
+        on( this._wordpress, "click", dojo.hitch( this, function( e ) {
+            this.stopEvent( e );
+            this.callService("wordpress", this.itemId );
+            dojo.addClass( this._wordpress, "selected-script");
+            dojo.removeClass( this._iframe, "selected-script");
+            dojo.removeClass( this._script_label, "selected-script");
+        }) );
 
 		},
 
@@ -87,13 +87,13 @@ define([
 		* @method
 		*/
 		initialize: function() {
-		  this.callService("script", this.itemId);
+		  this.callService("script", this.itemId );
 		},
 
         /**
          *
          */
-        printPreview : function(){
+        printPreview: function() {
             var parent = this;
             var iframe = this._iframe_dom;
             iframe.width = "400";
@@ -108,29 +108,28 @@ define([
 		*
 		* @method
 		*/
-		callService: function(type, id) {
+		callService: function( type, id ) {
 		  var parent = this;
-		  embebed = function(response) {
-		    var code = response.body.replace(/(\r\n|\n|\r)/gm,"");
-		    parent._script.value = decodeURIComponent(code);
+		  embebed = function( response ) {
+		    var code = response.body.replace( /(\r\n|\n|\r)/gm, "");
+		    parent._script.value = decodeURIComponent( code );
 		    parent._script.focus();
 		    parent._script.select();
-            if (parent.preview) {
+            if ( parent.preview ) {
                 parent.printPreview();
             }
 		  };
-		  script.get(_ENME.config('domain') + "/api/jsonp/generate/code/" + this.itemType + "/embedded", {
+		  script.get( _ENME.config( "domain" ) + "/api/jsonp/generate/code/" + this.itemType + "/embedded", {
 		    query: {
 		      id: id,
 		      embedded_type: type,
 		      callback: "embebed"
 		    },
 		    jsonp: "callback"
-		  }).then(function(response) {
-		      console.log("dsadsadsadas", response);
+		  }).then( function( response ) {
+		      console.log("dsadsadsadas", response );
 		  });
 		}
-
 
     });
 });

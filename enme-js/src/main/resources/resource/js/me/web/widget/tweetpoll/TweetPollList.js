@@ -21,9 +21,9 @@
  *  @namespace Widget
  *  @class TweetPollList
  */
-define([
+define( [
  "dojo",
- 'dojo/_base/json',
+ "dojo/_base/json",
  "dojo/_base/declare",
  "dojo/_base/array",
  "dojo/query",
@@ -70,207 +70,211 @@ function(
         hash,
         ioQuery,
         domConstruct,
-        template) {
-    return declare([ _WidgetBase,
+        template ) {
+    return declare( [ _WidgetBase,
                      _TemplatedMixin,
                      LoggedUtilities,
                      FilterSupport,
-                     _WidgetsInTemplateMixin], {
+                     _WidgetsInTemplateMixin ], {
 
         /**
-         * template string.
+         * Template string.
          */
-        templateString : template,
+        templateString: template,
 
         /*
-        * the url to search tweetpoll
+        * The url to search tweetpoll
         */
-        url : 'encuestame.service.list.listTweetPoll',
+        url: "encuestame.service.list.listTweetPoll",
 
         /*
-        * main channel
+        * Main channel
         */
-        _publish_update_channel : "/encuestame/tweetpoll/list/updateOptions",
+        _publish_update_channel: "/encuestame/tweetpoll/list/updateOptions",
         /*
-        * store list of items.
+        * Store list of items.
         */
-        listItems : null,
+        listItems: null,
         /*
-        * default filter.
+        * Default filter.
         */
-        defaultSearch : "ALL",
+        defaultSearch: "ALL",
         /*
-        * store the current search.
+        * Store the current search.
         */
-        currentSearch : "",
+        currentSearch: "",
         /*
-        * enable folder support.
+        * Enable folder support.
         */
-        folder_support : true,
+        folder_support: true,
 
         /*
-        * max of items to show.
+        * Max of items to show.
         */
-        max : 60,
+        max: 60,
 
         /*
-        * start from 0.
+        * Start from 0.
         */
-        start : 0,
+        start: 0,
 
         /*
-        * enable drag support.
+        * Enable drag support.
         */
-        dragSupport : true,
+        dragSupport: true,
 
         /**
          * Flag to control nested calls
          */
-        _loadingService : false,
+        _loadingService: false,
 
         /*
         *
         */
-        _tweetpollListSourceWidget : null,
+        _tweetpollListSourceWidget: null,
 
         /*
         * The storage  key.
         */
-        _tp_storage_key : "tp-key",
+        _tp_storage_key: "tp-key",
 
         /*
         * Tist of filters, this content should coincide with api enum.
         */
-        _type_filter : {
-          BYOWNER : 'BYOWNER',
-          LASTDAY : 'LASTDAY',
-          LASTWEEK : 'LASTWEEK',
-          FAVOURITES : 'FAVOURITES',
-          SCHEDULED : 'SCHEDULED',
-          ALL : 'ALL'
+        _type_filter: {
+          BYOWNER: "BYOWNER",
+          LASTDAY: "LASTDAY",
+          LASTWEEK: "LASTWEEK",
+          FAVOURITES: "FAVOURITES",
+          SCHEDULED: "SCHEDULED",
+          ALL: "ALL"
         },
 
         /*
-        * i18n message for this widget.
+        * I18n message for this widget.
         */
-        i18nMessage : {
-          detail_manage_by_account : _ENME.getMessage("detail_manage_by_account"),
-          detail_manage_today : _ENME.getMessage("detail_manage_today"),
-          detail_manage_last_week : _ENME.getMessage("detail_manage_last_week"),
-          detail_manage_favorites : _ENME.getMessage("detail_manage_favorites"),
-          detail_manage_scheduled : _ENME.getMessage("detail_manage_scheduled"),
-          detail_manage_all : _ENME.getMessage("detail_manage_all"),
-          detail_manage_published : _ENME.getMessage("detail_manage_published"),
-          detail_manage_unpublished : _ENME.getMessage("detail_manage_unpublished"),
-          detail_manage_only_completed : _ENME.getMessage("detail_manage_only_completed"),
-          detail_clean_filters : _ENME.getMessage("detail_clean_filters"),
-          loading_message : _ENME.getMessage("loading_message")
+        i18nMessage: {
+          detail_manage_by_account: _ENME.getMessage("detail_manage_by_account"),
+          detail_manage_today: _ENME.getMessage("detail_manage_today"),
+          detail_manage_last_week: _ENME.getMessage("detail_manage_last_week"),
+          detail_manage_favorites: _ENME.getMessage("detail_manage_favorites"),
+          detail_manage_scheduled: _ENME.getMessage("detail_manage_scheduled"),
+          detail_manage_all: _ENME.getMessage("detail_manage_all"),
+          detail_manage_published: _ENME.getMessage("detail_manage_published"),
+          detail_manage_unpublished: _ENME.getMessage("detail_manage_unpublished"),
+          detail_manage_only_completed: _ENME.getMessage("detail_manage_only_completed"),
+          detail_clean_filters: _ENME.getMessage("detail_clean_filters"),
+          loading_message: _ENME.getMessage("loading_message")
         },
 
-        helpSteps : [
+        helpSteps: [
             {
-                element: '.admon-table-options > .tb-right',
-                intro: _ENME.getMessage('help_tp_button_new')
+                element: ".admon-table-options > .tb-right",
+                intro: _ENME.getMessage( "help_tp_button_new" )
             },
             {
-                element: '.web-tweetpoll-options',
-                intro: _ENME.getMessage('help_tp_aside_bar')
+                element: ".web-tweetpoll-options",
+                intro: _ENME.getMessage( "help_tp_aside_bar" )
             },
             {
-                element: '.web-folder-wrapper',
-                intro: _ENME.getMessage('help_tp_folder_view')
+                element: ".web-folder-wrapper",
+                intro: _ENME.getMessage( "help_tp_folder_view" )
             },
             {
-                element: '.web-twettpoll-list-menu',
-                intro: _ENME.getMessage('help_tp_advanced_search_view')
+                element: ".web-twettpoll-list-menu",
+                intro: _ENME.getMessage( "help_tp_advanced_search_view" )
             },
             {
-                element : '.tp-items-wrapper',
-                intro: _ENME.getMessage('help_tp_detail_view')
+                element: ".tp-items-wrapper",
+                intro: _ENME.getMessage( "help_tp_detail_view" )
             }
         ],
 
-
         /*
-        * post create.
+        * Post create.
         */
-        postCreate : function() {
+        postCreate: function() {
           this._loading = new MessageSearch();
-          domConstruct.place(this._loading.domNode, this._custom_loading);
+          domConstruct.place( this._loading.domNode, this._custom_loading );
           var _hash = this._restoreHash();
-          // load item by first time.
-          if (this.listItems === null) {
-              var defTweetpolls = this.loadTweetPolls(this.getFilterData({typeSearch : (_hash === null ? this.defaultSearch: _hash) }));
-	          var dl = new DeferredList([defTweetpolls], true, true);
-	          dl.then(dojo.hitch(this, function() {
-		          // load folders
-		          if (this.folder_support && this._folder) {
+
+          // Load item by first time.
+          if ( this.listItems === null ) {
+              var defTweetpolls = this.loadTweetPolls( this.getFilterData({ typeSearch: ( _hash === null ? this.defaultSearch : _hash ) }) );
+	          var dl = new DeferredList( [ defTweetpolls ], true, true );
+	          dl.then( dojo.hitch( this, function() {
+
+		          // Load folders
+		          if ( this.folder_support && this._folder ) {
 			          var folder = new FoldersActions({
 				          folderContext: "tweetpoll",
-				          loadFolderItems : true
+				          loadFolderItems: true
 			          });
-			          this._folder.appendChild(folder.domNode);
+			          this._folder.appendChild( folder.domNode );
 		          }
-	          }));
+	          }) );
           }
+
 	      //FIXME: updated with this._updateMenu
-			if (!_hash) {
-			    var node = query('.optionItem[type="' + this.defaultSearch + '"]');
-			    node.forEach(function(node, index, arr) {
-			        domClass.add(node, "optionItemSelected");
+			if ( !_hash ) {
+			    var node = query( '.optionItem[type="' + this.defaultSearch + '"]' );
+			    node.forEach( function( node, index, arr ) {
+			        domClass.add( node, "optionItemSelected");
 			    });
 			} else {
-			    query('.optionItem[type="' + _hash + '"]').forEach(function(node, index, arr) {
-			        domClass.add(node, "optionItemSelected");
+			    query( '.optionItem[type="' + _hash + '"]' ).forEach( function( node, index, arr ) {
+			        domClass.add( node, "optionItemSelected");
 			    });
 			}
-	        // channel to invoke search service
-	        topic.subscribe("/encuestame/make/search", lang.hitch(this, this.loadTweetPolls));
-		    topic.subscribe("/encuestame/list/items/print", lang.hitch(this, function(data){
-			    this.printItems(data, "ALL");
-		    }));
+
+	        // Channel to invoke search service
+	        topic.subscribe("/encuestame/make/search", lang.hitch( this, this.loadTweetPolls ) );
+		    topic.subscribe("/encuestame/list/items/print", lang.hitch( this, function( data ) {
+			    this.printItems( data, "ALL");
+		    }) );
+
 	        //
-	        topic.subscribe("/encuestame/tweetpoll/loading/status", lang.hitch(this, function(status) {
-					if (status) {
-						this._loading.show(this.i18nMessage.loading_message, _ENME.MESSAGES_TYPE.WARNING);
+	        topic.subscribe("/encuestame/tweetpoll/loading/status", lang.hitch( this, function( status ) {
+					if ( status ) {
+						this._loading.show( this.i18nMessage.loading_message, _ENME.MESSAGES_TYPE.WARNING );
 					} else {
 
 					}
-	        }));
+	        }) );
 
-          topic.subscribe(this._publish_update_channel, lang.hitch(this, this._checkOptionItem));
+          topic.subscribe( this._publish_update_channel, lang.hitch( this, this._checkOptionItem ) );
         },
 
         /*
-        * init folder support.
+        * Init folder support.
         */
-        _initFolderSupport : function() {},
+        _initFolderSupport: function() {},
 
        /*
         *
         */
-        _checkOptionItem : function(id) {
-	        this.updateMenu(id);
+        _checkOptionItem: function( id ) {
+	        this.updateMenu( id );
         },
 
         /*
-        * reset the pagination.
+        * Reset the pagination.
         */
-        resetPagination : function() {
+        resetPagination: function() {
           this.start = 0;
         },
 
         /*
-        * update the url hash.
+        * Update the url hash.
         */
-        _changeHash : function(id) {
-	      var _hash = ioQuery.queryToObject(hash());
+        _changeHash: function( id ) {
+	      var _hash = ioQuery.queryToObject( hash() );
 	      var params = {
-		      f : id
+		      f: id
 	      };
-	      hash(ioQuery.objectToQuery(params));
-          if (typeof id === 'string') {
-            _ENME.storeItem(this._tp_storage_key, {key : id.toString()});
+	      hash( ioQuery.objectToQuery( params ) );
+          if ( typeof id === "string" ) {
+            _ENME.storeItem( this._tp_storage_key, { key: id.toString() });
           }
         },
 
@@ -278,154 +282,156 @@ function(
 	     * Add a selected
 	     * @param id
 	     */
-	    updateMenu : function(id) {
-		    query('.optionItem').removeClass("optionItemSelected");
-		    var item = query('.optionItem[type="' + id +'"]');
-		    if (item.length > 0) {
-			    var i = item[0];
-			    domClass.add(i, 'optionItemSelected');
+	    updateMenu: function( id ) {
+		    query( ".optionItem" ).removeClass("optionItemSelected");
+		    var item = query( '.optionItem[type="' + id + '"]' );
+		    if ( item.length > 0 ) {
+			    var i = item[ 0 ];
+			    domClass.add( i, "optionItemSelected" );
 		    }
 	    },
 
         /**
         *
         */
-        _restoreHash : function () {
-        var _r = _ENME.restoreItem(this._tp_storage_key);
-        return _r === null ? null : json.fromJson(_r).key;
+        _restoreHash: function() {
+        var _r = _ENME.restoreItem( this._tp_storage_key );
+        return _r === null ? null : json.fromJson( _r ).key;
         },
 
         /*
-        * next search.
+        * Next search.
         */
-        _nextSearch : function(event) {
+        _nextSearch: function( event ) {
           event.preventDefault();
           this.start = this.start + this.max;
-          this.loadTweetPolls({typeSearch : this.currentSearch});
+          this.loadTweetPolls({ typeSearch: this.currentSearch });
         },
 
         /**
          *
          */
-        applyExtraFilters: function(params) {
-            if (params.typeSearch === this._type_filter.SCHEDULED) {
+        applyExtraFilters: function( params ) {
+            if ( params.typeSearch === this._type_filter.SCHEDULED ) {
+
                 //TODO: must disable the "published" checkbox into the advanced filter
-                params._published = false; //must be false, none of the tweetpoll could be published and scheduled at the same time
+                params._published = false; //Must be false, none of the tweetpoll could be published and scheduled at the same time
             }
             return params;
         },
 
         /*
-        * search by all.
+        * Search by all.
         */
-        _searchByAll : function(event) {
+        _searchByAll: function( event ) {
           event.preventDefault();
           this.currentSearch = "ALL";
-          this._changeHash(this.currentSearch);
+          this._changeHash( this.currentSearch );
           this.resetPagination();
-          this.loadTweetPolls(this.getFilterData({typeSearch : this._type_filter.ALL})).then(function(){
-	          topic.publish('/encuestame/folder/distribute/update');
+          this.loadTweetPolls( this.getFilterData({ typeSearch: this._type_filter.ALL }) ).then( function() {
+	          topic.publish( "/encuestame/folder/distribute/update" );
           });
-	      topic.publish(this._publish_update_channel, this.currentSearch);
+	      topic.publish( this._publish_update_channel, this.currentSearch );
         },
 
         /*
-        * search by account.
+        * Search by account.
         */
-        _searchByAccount : function(event) {
+        _searchByAccount: function( event ) {
           event.preventDefault();
           this.currentSearch = this._type_filter.BYOWNER;
-          this._changeHash(this.currentSearch);
+          this._changeHash( this.currentSearch );
           this.resetPagination();
-          this.loadTweetPolls(this.getFilterData({typeSearch : this._type_filter.BYOWNER})).then(function(){
-	          topic.publish('/encuestame/folder/distribute/update');
+          this.loadTweetPolls( this.getFilterData({ typeSearch: this._type_filter.BYOWNER }) ).then( function() {
+	          topic.publish( "/encuestame/folder/distribute/update" );
           });
-          topic.publish(this._publish_update_channel, this.currentSearch);
+          topic.publish( this._publish_update_channel, this.currentSearch );
         },
 
         /*
-        * search by favourites.
+        * Search by favourites.
         */
-        _searchByFavourites : function(event) {
+        _searchByFavourites: function( event ) {
           event.preventDefault();
           this.currentSearch = this._type_filter.FAVOURITES;
-          this._changeHash(this.currentSearch);
+          this._changeHash( this.currentSearch );
           this.resetPagination();
-          this.loadTweetPolls(this.getFilterData({typeSearch : this._type_filter.FAVOURITES})).then(function(){
-	          topic.publish('/encuestame/folder/distribute/update');
+          this.loadTweetPolls( this.getFilterData({ typeSearch: this._type_filter.FAVOURITES }) ).then( function() {
+	          topic.publish( "/encuestame/folder/distribute/update" );
           });
-          topic.publish(this._publish_update_channel, this.currentSearch);
+          topic.publish( this._publish_update_channel, this.currentSearch );
         },
 
         /*
-        * search by secheduled.
+        * Search by secheduled.
         */
-        _searchByScheduled : function(event) {
+        _searchByScheduled: function( event ) {
           event.preventDefault();
           this.currentSearch = this._type_filter.SCHEDULED;
-          this._changeHash(this.currentSearch);
+          this._changeHash( this.currentSearch );
           this.resetPagination();
-          this.loadTweetPolls(this.getFilterData({typeSearch : this._type_filter.SCHEDULED})).then(function(){
-	          topic.publish('/encuestame/folder/distribute/update');
+          this.loadTweetPolls( this.getFilterData({ typeSearch: this._type_filter.SCHEDULED }) ).then( function() {
+	          topic.publish( "/encuestame/folder/distribute/update" );
           });
-	      topic.publish(this._publish_update_channel, this.currentSearch);
+	      topic.publish( this._publish_update_channel, this.currentSearch );
         },
 
         /*
-        * search by last day.
+        * Search by last day.
         */
-        _searchByLastDay : function(event) {
+        _searchByLastDay: function( event ) {
           event.preventDefault();
           this.currentSearch = this._type_filter.LASTDAY;
-          this._changeHash(this.currentSearch);
+          this._changeHash( this.currentSearch );
           this.resetPagination();
-          this.loadTweetPolls(this.getFilterData({
-	          typeSearch : this._type_filter.LASTDAY
-          })).then(function() {
-	          topic.publish('/encuestame/folder/distribute/update');
+          this.loadTweetPolls( this.getFilterData({
+	          typeSearch: this._type_filter.LASTDAY
+          }) ).then( function() {
+	          topic.publish( "/encuestame/folder/distribute/update" );
           });
-          topic.publish(this._publish_update_channel, this.currentSearch);
+          topic.publish( this._publish_update_channel, this.currentSearch );
         },
 
         /*
-        * search by last week.
+        * Search by last week.
         */
-        _searchByLastWeek : function(event) {
+        _searchByLastWeek: function( event ) {
           event.preventDefault();
           this.currentSearch = this._type_filter.LASTWEEK;
-          this._changeHash(this.currentSearch);
+          this._changeHash( this.currentSearch );
           this.resetPagination();
-          this.loadTweetPolls(this.getFilterData({typeSearch : this._type_filter.LASTWEEK})).then(function() {
-	          topic.publish('/encuestame/folder/distribute/update');
+          this.loadTweetPolls( this.getFilterData({ typeSearch: this._type_filter.LASTWEEK }) ).then( function() {
+	          topic.publish( "/encuestame/folder/distribute/update" );
           });
-          topic.publish(this._publish_update_channel, this.currentSearch);
+          topic.publish( this._publish_update_channel, this.currentSearch );
         },
 
 	    /**
 	     * Print items
 	     * @param data
 	     */
-	    printItems : function(data, typeSearch) {
+	    printItems: function( data, typeSearch ) {
 		    var i = false;
-		    console.log("type_search", typeSearch);
-		    domConstruct.empty(this._items);
+		    console.log("type_search", typeSearch );
+		    domConstruct.empty( this._items );
 		    var itemArray = data;
-		    if (itemArray.length > 0) {
-			    array.forEach(itemArray, lang.hitch(this, function(data, index) {
-				    var widget = this.createTweetPollItem(data, i, typeSearch);
-				    this._items.appendChild(widget.domNode);
-				    // expand the first item
-				    if (!i) {
+		    if ( itemArray.length > 0 ) {
+			    array.forEach( itemArray, lang.hitch( this, function( data, index ) {
+				    var widget = this.createTweetPollItem( data, i, typeSearch );
+				    this._items.appendChild( widget.domNode );
+
+				    // Expand the first item
+				    if ( !i ) {
 					    i = true;
 					    widget._changeBackGroundSelected();
 					    widget.startup();
 				    }
-			    }));
+			    }) );
 		    } else {
 			    var node = domConstruct.create("div");
-			    domClass.add(node, "web-items-no-results");
+			    domClass.add( node, "web-items-no-results");
 			    node.innerHTML = _ENME.getMessage("commons_no_results");
-			    domConstruct.place(node, this._items);
+			    domConstruct.place( node, this._items );
 		    }
 		    this._loadingService = false;
 	    },
@@ -433,51 +439,53 @@ function(
         /**
         * Load Tweet Polls.
         */
-        loadTweetPolls : function(params) {
-          var load = lang.hitch(this, function(data) {
-	          if ('success' in data) {
-		          this.printItems(data.success.tweetPolls, params.typeSearch);
+        loadTweetPolls: function( params ) {
+          var load = lang.hitch( this, function( data ) {
+	          if ( "success" in data ) {
+		          this.printItems( data.success.tweetPolls, params.typeSearch );
 	          }
           });
 
-          //check if typeSearch is missing
-          if (!("typeSearch" in params)) {
+          //Check if typeSearch is missing
+          if ( !("typeSearch" in params ) ) {
               var _hash = this._restoreHash();
               params.typeSearch = _hash === null ? this.defaultSearch : _hash;
           }
-          // mixin params with required params
-          _lang.mixin(params,
+
+          // Mixin params with required params
+          _lang.mixin( params,
               {
-              max : this.max,
-              start : this.start
+              max: this.max,
+              start: this.start
               }
           );
-          // error handlers
+
+          // Error handlers
           var parent = this;
-          var error = function(error) {
-              _ENME.log("TweetPollList error : ", error);
+          var error = function( error ) {
+              _ENME.log("TweetPollList error : ", error );
               parent._loading.hide();
-              parent.errorMessage(error);
+              parent.errorMessage( error );
               this._loadingService = false;
           };
 
           //
-          this._loading.show(this.i18nMessage.loading_message, _ENME.MESSAGES_TYPE.WARNING);
-          if (!this._loadingService) {
+          this._loading.show( this.i18nMessage.loading_message, _ENME.MESSAGES_TYPE.WARNING );
+          if ( !this._loadingService ) {
               this._loadingService = true;
-              return this.getURLService().get(this.url, params, load, error, lang.hitch(this, function () {
+              return this.getURLService().get( this.url, params, load, error, lang.hitch( this, function() {
                   this._loading.hide();
                   this._loadingService = false;
-              }), true);
+              }), true );
           }
         },
 
         /*
         * Create a TweetPoll Item
         */
-        createTweetPollItem : function(data, i, typeSearch) {
-          return  new TweetPollListItem({
-              data : data,
+        createTweetPollItem: function( data, i, typeSearch ) {
+          return new TweetPollListItem({
+              data: data,
               type_filter: typeSearch
           });
         }

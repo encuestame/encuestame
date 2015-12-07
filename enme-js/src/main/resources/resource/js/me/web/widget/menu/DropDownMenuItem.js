@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -13,42 +13,42 @@ define([
                 _WidgetsInTemplateMixin,
                 main_widget,
                 _ENME,
-                 template) {
+                 template ) {
 
             "use strict";
 
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
           /*
-           * template string.
+           * Template string.
            */
-          templateString : template,
+          templateString: template,
 
          /*
           *
           */
-          label : "",
+          label: "",
 
           /*
            *
            */
-          url : "#",
+          url: "#",
 
           /*
-           * is called after the properties have been initialized.
+           * Is called after the properties have been initialized.
            */
-          postMixInProperties : function() {
-              console.info("label", this.url);
-               var urlConcat = _ENME.config('contextPath');
-               urlConcat = urlConcat.concat(this.url);
+          postMixInProperties: function() {
+              console.info("label", this.url );
+               var urlConcat = _ENME.config( "contextPath" );
+               urlConcat = urlConcat.concat( this.url );
                this.url = urlConcat;
-               console.info("label", urlConcat);
+               console.info("label", urlConcat );
           },
 
           /*
            *
            */
-          postCreate : function() {}
+          postCreate: function() {}
 
     });
 });

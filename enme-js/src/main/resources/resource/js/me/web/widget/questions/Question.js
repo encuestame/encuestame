@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -15,72 +15,75 @@ define([
                 _WidgetsInTemplateMixin,
                 main_widget,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
             /*
-             * template string.
+             * Template string.
              */
-            templateString : template,
+            templateString: template,
 
             //
-            maxSize : "140",
+            maxSize: "140",
 
-            maxLength : "140",
+            maxLength: "140",
 
-            defaultValue : "",
+            defaultValue: "",
 
-            selectOnClick : true,
+            selectOnClick: true,
 
-            classStyle : "questionTextBox inputClass",
+            classStyle: "questionTextBox inputClass",
 
-            questionWidget : null,
+            questionWidget: null,
 
-            enableEvents : true,
+            enableEvents: true,
 
             /*
-             * i18n message for this widget.
+             * I18n message for this widget.
              */
-            i18nMessage : {
-              widget_question_type : _ENME.getMessage("widget_question_type")
+            i18nMessage: {
+              widget_question_type: _ENME.getMessage("widget_question_type")
             },
 
-            postCreate : function(){
-                this.questionWidget = registry.byId(this._question);
-                //this.questionWidget = this.questionWidget.get('value', this.defaultValue);
-                if (this.enableEvents) {
-                    dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, this.onKeyUp));
-                    this.questionWidget.onChange = dojo.hitch(this, this.onChange);
+            postCreate: function() {
+                this.questionWidget = registry.byId( this._question );
+
+                //This.questionWidget = this.questionWidget.get('value', this.defaultValue);
+                if ( this.enableEvents ) {
+                    dojo.connect( this.questionWidget, "onKeyUp", dojo.hitch( this, this.onKeyUp ) );
+                    this.questionWidget.onChange = dojo.hitch( this, this.onChange );
                 }
             },
 
-            onKeyUp : function(event) {
-                //override.
+            onKeyUp: function( event ) {
+
+                //Override.
             },
 
-            onChange : function(event) {
-                //override.
-            },
+            onChange: function( event ) {
 
-            /*
-             *
-             */
-            getQuestion : function(){
-                return this.questionWidget.get('value');
+                //Override.
             },
 
             /*
              *
              */
-            block : function(){
+            getQuestion: function() {
+                return this.questionWidget.get( "value" );
+            },
+
+            /*
+             *
+             */
+            block: function() {
                 this.questionWidget.block = true;
             },
 
-            unblock : function(){
+            unblock: function() {
                 this.questionWidget.block = true;
             },
 
-            countCharacteres : function(){
+            countCharacteres: function() {
 
             }
 

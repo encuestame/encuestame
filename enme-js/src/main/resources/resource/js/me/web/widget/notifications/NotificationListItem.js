@@ -22,9 +22,9 @@
  *  @class NotificationListItem
  */
 
-define([
+define( [
          "dojo",
-         'dojo/_base/json',
+         "dojo/_base/json",
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -43,49 +43,47 @@ define([
                 main_widget,
                 NotificationListItem,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
         /**
-         * template string.
+         * Template string.
          * @property templateString
          */
-        templateString : template,
+        templateString: template,
 
         /**
          *
          * @property
          */
-        item : null,
+        item: null,
 
         /**
          *
          * @property
          */
-        category : null,
+        category: null,
 
-
-        formatDate : "",
-
+        formatDate: "",
 
         /**
          *
          * @method buildURLDescription
          */
-        buildURLDescription : function(type, description, url) {
+        buildURLDescription: function( type, description, url ) {
             var multi = dojo.doc.createElement("div");
             var a = dojo.doc.createElement("a");
             a.target = "_blank";
-            if (type == "TWEETPOLL_PUBLISHED") {
-                multi.innerHTML = description+ " ";
-                a.href = _ENME.config('contextPath') + url;
+            if ( type == "TWEETPOLL_PUBLISHED") {
+                multi.innerHTML = description + " ";
+                a.href = _ENME.config( "contextPath" ) + url;
                 a.innerHTML = "see detail";
-            } else if (type == "SOCIAL_MESSAGE_PUBLISHED") {
+            } else if ( type == "SOCIAL_MESSAGE_PUBLISHED") {
                 multi.innerHTML = "";
                 a.href = url;
                 a.innerHTML = description;
             }
-            multi.appendChild(a);
+            multi.appendChild( a );
             return multi;
         },
 
@@ -93,54 +91,56 @@ define([
          *
          * @method
          */
-        postMixInProperties : function () {
-            //console.log("juan", this.item);
+        postMixInProperties: function() {
+
+            //Console.log("juan", this.item);
              var _time = this.item.date + this.item.hour;
-            this.formatDate = _ENME.fromNow(_time, "YYYY-MM-DD");
+            this.formatDate = _ENME.fromNow( _time, "YYYY-MM-DD");
         },
 
         /**
          *
          * @method
          */
-        postCreate : function() {
-            if (this.item.url !== null) {
-                this._description.appendChild(this.buildURLDescription(
+        postCreate: function() {
+            if ( this.item.url !== null ) {
+                this._description.appendChild( this.buildURLDescription(
                         this.item.type,
                         this.item.additionalDescription,
-                        this.item.url));
+                        this.item.url ) );
             } else {
                 this._description.innerHTML = this.item.additionalDescription;
             }
         },
 
         /**
-         * remove notification.
+         * Remove notification.
          * @method _removeNotification
          */
-        _remove : function(e) {
+        _remove: function( e ) {
+
             //TODO: display dialog.
             e.stopPropagation();
             this._removeNotification();
         },
 
         /**
-         * remove notification.
+         * Remove notification.
          * @method _removeNotification
          */
-        _removeNotification : function() {
+        _removeNotification: function() {
             var parent = this,
-            load = dojo.hitch(this, function(data) {
-                 dojo.destroy(this.domNode);
-                 dojo.publish('/notifications/service/update');
+            load = dojo.hitch( this, function( data ) {
+                 dojo.destroy( this.domNode );
+                 dojo.publish( "/notifications/service/update" );
              }),
-             error = function(error) {
-                 console.debug("error", error);
+             error = function( error ) {
+                 console.debug("error", error );
              };
              var params = {
-                    id : this.item.id
+                    id: this.item.id
                 };
-             this.getURLService().del("encuestame.service.list.removeNotification", params, load, error , dojo.hitch(this, function() { }));
+             this.getURLService().del("encuestame.service.list.removeNotification", params, load, error, dojo.hitch( this, function() { }) );
         }
 
     });

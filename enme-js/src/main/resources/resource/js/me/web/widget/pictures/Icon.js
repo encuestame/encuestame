@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -15,35 +15,35 @@ define([
                 main_widget,
                 _ENME,
                 domAttr,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
             /*
-             * template string.
+             * Template string.
              */
-            templateString : template,
-
-            /*
-             *
-             */
-            img_name : "enme-move.png",
+            templateString: template,
 
             /*
              *
              */
-            title : "icon",
+            img_name: "enme-move.png",
 
             /*
              *
              */
-            height : "16",
+            title: "icon",
 
             /*
              *
              */
-            width : "16",
+            height: "16",
 
-            src : "",
+            /*
+             *
+             */
+            width: "16",
+
+            src: "",
 
             /*
             *

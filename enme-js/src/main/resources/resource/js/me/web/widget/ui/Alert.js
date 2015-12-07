@@ -21,35 +21,34 @@
  *  @namespace Widget
  *  @class Message
  */
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
      "dijit/_WidgetsInTemplateMixin",
      "me/core/enme",
-     "dojo/text!me/web/widget/ui/templates/alert.html"],
+     "dojo/text!me/web/widget/ui/templates/alert.html" ],
     function(
     declare,
     _WidgetBase,
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
 
      /**
-      * template string.
+      * Template string.
       * @property
       */
-     templateString : template,
+     templateString: template,
 
      /**
       *
       * @property message
       */
-     message : "message test",
-
+     message: "message test",
 
      /**
       *
@@ -61,18 +60,18 @@ define([
        * Post create
        * @method postCreate
        */
-     postCreate: function (){
-         if (this.message) {
-          var div = dojo.create('div');
+     postCreate: function() {
+         if ( this.message ) {
+          var div = dojo.create( "div" );
           div.innerHTML = this.message;
-            this._message.appendChild(div);
+            this._message.appendChild( div );
          }
-         if (this.type_message === "info") {
-            dojo.addClass(this.domNode, "alert-info");
-         } else if (this.type_message === "error") {
-            dojo.addClass(this.domNode, "alert-error");
-         } else if (this.type_message === "success") {
-            dojo.addClass(this.domNode, "alert-success");
+         if ( this.type_message === "info") {
+            dojo.addClass( this.domNode, "alert-info");
+         } else if ( this.type_message === "error") {
+            dojo.addClass( this.domNode, "alert-error");
+         } else if ( this.type_message === "success") {
+            dojo.addClass( this.domNode, "alert-success");
          }
       }
   });

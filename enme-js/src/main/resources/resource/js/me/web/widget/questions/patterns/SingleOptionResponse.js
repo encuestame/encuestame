@@ -1,11 +1,11 @@
-//dojo.require("encuestame.org.core.commons.questions.patterns.AbstractPattern");
+//Dojo.require("encuestame.org.core.commons.questions.patterns.AbstractPattern");
 //dojo.require("encuestame.org.core.commons.questions.patterns.AbstractSoundResponse");
 //dojo.require("encuestame.org.core.commons.questions.patterns.AbstractVideoResponse");
 //dojo.require("encuestame.org.core.commons.questions.patterns.AbstractImageResponse");
 //dojo.require("encuestame.org.core.commons.questions.patterns.AbstractAddNewAnswer");
 //dojo.require("encuestame.org.core.commons.questions.patterns.AbstractMultipleSelection");
 
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -32,8 +32,8 @@ define([
             AbstractAddNewAnswer,
             AbstractMultipleSelection,
             _ENME,
-             template) {
-        return declare([ _WidgetBase,
+             template ) {
+        return declare( [ _WidgetBase,
          _TemplatedMixin,
          main_widget,
          AbstractPattern,
@@ -42,20 +42,20 @@ define([
          AbstractImageResponse,
          AbstractAddNewAnswer,
          AbstractMultipleSelection,
-         _WidgetsInTemplateMixin], {
+         _WidgetsInTemplateMixin ], {
 
-          // template string.
-          templateString : template,
+          // Template string.
+          templateString: template,
 
          /**
           *  Name of the option node.
           */
-         name : "",
+         name: "",
 
          /**
           *
           */
-         vote : "",
+         vote: "",
 
          type_input: "radio",
 
@@ -64,16 +64,16 @@ define([
          */
          postMixInProperties: function() {
             this.type_input = this.multiple ? "checkbox" : "radio";
-            if (this.multiple) {
-               this.name = 'multiplesVotes';
+            if ( this.multiple ) {
+               this.name = "multiplesVotes";
             }
          },
 
-         postCreate : function() {
-             //initialize the parents widgets.
-             this.inherited(arguments);
-         }
+         postCreate: function() {
 
+             //Initialize the parents widgets.
+             this.inherited( arguments );
+         }
 
     });
 });

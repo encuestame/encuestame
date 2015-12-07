@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class GadgetDirectory
  */
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -36,26 +36,26 @@ define([
                 _WidgetsInTemplateMixin,
                 main_widget,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-            templateString : template,
+          // Template string.
+            templateString: template,
 
             /*
-            * dasboard widget.
+            * Dasboard widget.
             */
-           dashboardWidget : null,
+           dashboardWidget: null,
 
            /*
-            * post create.
+            * Post create.
             */
-           postCreate : function(){
+           postCreate: function() {
                this._loadDirectory();
            },
 
            /*
-            * load the gadget directory.
+            * Load the gadget directory.
             * gadgets: [
                {
                    name: "stream"
@@ -79,67 +79,71 @@ define([
                }
    ]
             */
-           _loadDirectory : function(){
-               var load = dojo.hitch(this, function(data){
-                   if(data.success){
+           _loadDirectory: function() {
+               var load = dojo.hitch( this, function( data ) {
+                   if ( data.success ) {
                        var gadgets = data.success.gadgets;
                         dojo.forEach(
                                 gadgets,
-                                dojo.hitch(this, function(data, index) {
-                                    var node = this._createItemDirectory(data);
-                                    this._dir.appendChild(node);
-                        }));
+                                dojo.hitch( this, function( data, index ) {
+                                    var node = this._createItemDirectory( data );
+                                    this._dir.appendChild( node );
+                        }) );
                    }
                });
-               var error = function(error) {
-                   console.debug("error", error);
+               var error = function( error ) {
+                   console.debug("error", error );
                };
-               this.getURLService().get('encuestame.service.gadget.directory', {}, load, error , dojo.hitch(this, function() {
+               this.getURLService().get( "encuestame.service.gadget.directory", {}, load, error, dojo.hitch( this, function() {
 
-               }));
+               }) );
            },
 
            /**
             * Close the gadget dialog.
             * @method
             */
-           _close : function() {
+           _close: function() {
               this.dialog.hide();
            },
 
            /*
-            * create directory item.
+            * Create directory item.
             * @param gadget
             * @returns
             */
-           _createItemDirectory : function(gadget) {
-               var id_generic = "gadget_item_"+gadget.id;
+           _createItemDirectory: function( gadget ) {
+               var id_generic = "gadget_item_" + gadget.id;
                var item = dojo.create("div");
-               item.setAttribute("ga", gadget.id);
-               item.setAttribute("id", id_generic);
-               dojo.addClass(item, "web-directory-item");
-               dojo.addClass(item, "row");
-               // title
-               var title = dojo.create("div", { innerHTML: "<div>" + gadget.name + "</div>" }, item);
-               var img = dojo.create("img", { src: _ENME.getImage(gadget.image) }, title);
-               dojo.addClass(title, "web-directory-item-title");
-               dojo.addClass(title, "span2");
-               // description
+               item.setAttribute("ga", gadget.id );
+               item.setAttribute("id", id_generic );
+               dojo.addClass( item, "web-directory-item");
+               dojo.addClass( item, "row");
+
+               // Title
+               var title = dojo.create("div", { innerHTML: "<div>" + gadget.name + "</div>" }, item );
+               var img = dojo.create("img", { src: _ENME.getImage( gadget.image ) }, title );
+               dojo.addClass( title, "web-directory-item-title");
+               dojo.addClass( title, "span2");
+
+               // Description
                var description = dojo.create("div", {
-	               innerHTML: "<p>" + _ENME.getMessage(gadget.description) + "</p>"
-               }, item);
-               dojo.addClass(description, "web-directory-item-description");
-               dojo.addClass(description, "span5");
-               // actions
-               var actions = dojo.create("div", null, item);
-               dojo.addClass(actions, "web-directory-item-actions");
-               dojo.addClass(actions, "span1");
+	               innerHTML: "<p>" + _ENME.getMessage( gadget.description ) + "</p>"
+               }, item );
+               dojo.addClass( description, "web-directory-item-description");
+               dojo.addClass( description, "span5");
+
+               // Actions
+               var actions = dojo.create("div", null, item );
+               dojo.addClass( actions, "web-directory-item-actions");
+               dojo.addClass( actions, "span1");
+
                //FIXME: 2 img objects?
-               var img2 = dojo.create("img", { src: _ENME.getImage('icons/enme-add.png') }, actions);
+               var img2 = dojo.create("img", { src: _ENME.getImage( "icons/enme-add.png" ) }, actions );
                img2.id = id_generic + "_img";
-               dojo.connect(img2, "onclick", dojo.hitch(this, function() {
-                   dojo.publish("/encuestame/dashboard/gadget/add", [this.dashboardWidget._dasboardId, gadget.id]);
-               }));
+               dojo.connect( img2, "onclick", dojo.hitch( this, function() {
+                   dojo.publish("/encuestame/dashboard/gadget/add", [ this.dashboardWidget._dasboardId, gadget.id ] );
+               }) );
                return item;
            }
 

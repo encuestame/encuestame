@@ -21,19 +21,18 @@
  *  @namespace Widget
  *  @class Hashtag
  */
-define([
+define( [
      "dojo/_base/declare",
      "me/core/main_widgets/EnmeMainLayoutWidget",
      "me/web/widget/rated/RatedOperations",
-     "me/core/enme"],
+     "me/core/enme" ],
     function(
     declare,
     main_widget,
     ratedOperations,
-    _ENME) {
+    _ENME ) {
 
-  return declare([ratedOperations, main_widget], {
-
+  return declare( [ ratedOperations, main_widget ], {
 
   });
 });

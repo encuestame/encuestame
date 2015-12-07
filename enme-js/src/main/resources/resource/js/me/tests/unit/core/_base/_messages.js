@@ -14,60 +14,60 @@
  *  limitations under the License.
  */
 
-define([
-	'intern!object',
-	'intern/chai!assert',
-	'intern/chai!expect',
-	'../../Helper',
-	'me/core/_base/_messages'
-], function (
+define( [
+	"intern!object",
+	"intern/chai!assert",
+	"intern/chai!expect",
+	"../../Helper",
+	"me/core/_base/_messages"
+], function(
 	registerSuite,
 	assert,
 	expect,
 	Helper,
-	_messages) {
+	_messages ) {
 
 	registerSuite({
-		name: 'Base Messages Test',
+		name: "Base Messages Test",
 
-		setup: function () {
+		setup: function() {
 			Helper.init();
 		},
 
-		'success Message Test' : function() {
-			_messages.success('test message', 'test description');
-			var a = Helper.query('.ui-ios-overlay');
-			expect(1).to.equal(a.length);
-			var b = Helper.query('img')[0];
-			assert.match(b.src, /check/);
-			Helper.removeElement(a[0]);
+		"success Message Test": function() {
+			_messages.success( "test message", "test description" );
+			var a = Helper.query( ".ui-ios-overlay" );
+			expect( 1 ).to.equal( a.length );
+			var b = Helper.query( "img" )[ 0 ];
+			assert.match( b.src, /check/ );
+			Helper.removeElement( a[ 0 ] );
 		},
 
-		'warning Message Test' : function() {
-			_messages.warning('test message', 'test description');
-			var a = Helper.query('.ui-ios-overlay');
-			expect(1).to.equal(a.length);
-			var b = Helper.query('img')[0];
-			assert.match(b.src, /cross/);
-			Helper.removeElement(a[0]);
+		"warning Message Test": function() {
+			_messages.warning( "test message", "test description" );
+			var a = Helper.query( ".ui-ios-overlay" );
+			expect( 1 ).to.equal( a.length );
+			var b = Helper.query( "img" )[ 0 ];
+			assert.match( b.src, /cross/ );
+			Helper.removeElement( a[ 0 ] );
 		},
 
-		'error Message Test' : function() {
-			_messages.error('test message', 'test description');
-			var a = Helper.query('.ui-ios-overlay');
-			expect(1).to.equal(a.length);
-			var b = Helper.query('img')[0];
-			assert.match(b.src, /cross/);
-			Helper.removeElement(a[0]);
+		"error Message Test": function() {
+			_messages.error( "test message", "test description" );
+			var a = Helper.query( ".ui-ios-overlay" );
+			expect( 1 ).to.equal( a.length );
+			var b = Helper.query( "img" )[ 0 ];
+			assert.match( b.src, /cross/ );
+			Helper.removeElement( a[ 0 ] );
 		},
 
-		'fatal Message Test' : function() {
-			_messages.fatal('test message', 'test description');
-			var a = Helper.query('.ui-ios-overlay');
-			expect(1).to.equal(a.length);
-			var b = Helper.query('img')[0];
-			assert.match(b.src, /cross/);
-			Helper.removeElement(a[0]);
+		"fatal Message Test": function() {
+			_messages.fatal( "test message", "test description" );
+			var a = Helper.query( ".ui-ios-overlay" );
+			expect( 1 ).to.equal( a.length );
+			var b = Helper.query( "img" )[ 0 ];
+			assert.match( b.src, /cross/ );
+			Helper.removeElement( a[ 0 ] );
 		}
 
 	});

@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -21,26 +21,26 @@ define([
                 PublishSupport,
                 ContextSupport,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, ContextSupport, PublishSupport, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, ContextSupport, PublishSupport, _WidgetsInTemplateMixin ], {
 
-          // template string.
-            templateString : template,
+          // Template string.
+            templateString: template,
 
             /*
-            * option value.
+            * Option value.
             */
-           option_value : "value",
+           option_value: "value",
 
            /*
-            * label.
+            * Label.
             */
-           label : "value",
+           label: "value",
 
            /*
             *
             */
-           option : {checked : false, value : ""},
+           option: { checked: false, value: "" },
 
            /*
             *
@@ -50,10 +50,10 @@ define([
            /*
             *
             */
-           postCreate : function() {
-               this.checkWidget = registry.byId("check_" + this.id);
-               this.option.value = this.checkWidget.get('value');
-               this.checkWidget.onChange = dojo.hitch(this, function(event){
+           postCreate: function() {
+               this.checkWidget = registry.byId("check_" + this.id );
+               this.option.value = this.checkWidget.get( "value" );
+               this.checkWidget.onChange = dojo.hitch( this, function( event ) {
                    this.option.checked = event;
                });
            },
@@ -61,7 +61,7 @@ define([
            /*
            *
            */
-          getValue : function() {
+          getValue: function() {
              return this.option;
           }
     });

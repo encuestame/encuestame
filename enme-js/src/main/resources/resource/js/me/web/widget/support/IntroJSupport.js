@@ -16,14 +16,14 @@
  *
  */
 
-define([
+define( [
         "dojo",
         "dojo/_base/declare",
         "dojo/keys",
         "dojo/Deferred",
         "dojo/dom",
         "dojo/on",
-        "me/core/enme"],
+        "me/core/enme" ],
     function(
         dojo,
         declare,
@@ -31,55 +31,56 @@ define([
         Deferred,
         dom,
         on,
-        _ENME) {
+        _ENME ) {
 
-    return declare(null, {
+    return declare( null, {
 
         /**
          *
          */
-        helpSteps : [],
+        helpSteps: [],
 
         /**
          * Private array to store connect event handlers.
          * @property _events
          */
-        _events  : [],
+        _events: [],
 
         /**
          * Constructor.
          */
-        constructor : function() {},
+        constructor: function() {},
 
         /**
          *
          */
-         initHelpLinks: function(onFinish) {
+         initHelpLinks: function( onFinish ) {
+
             //TODO: user Promises here
             //var dfd = new Deferred();
-            var _init = dojo.hitch(this, function(){
-                if (window.introJs && _ENME.config("helpLinks")) {
+            var _init = dojo.hitch( this, function() {
+                if ( window.introJs && _ENME.config("helpLinks") ) {
                     var intro = introJs();
                     intro.setOptions({
                         steps: this.helpSteps
                     });
                     intro.start();
-                    intro.oncomplete(function(){
-                        if (onFinish) {
+                    intro.oncomplete( function() {
+                        if ( onFinish ) {
                             onFinish();
                         }
                     });
-                    intro.onexit(function(){
-                        if (onFinish) {
+                    intro.onexit( function() {
+                        if ( onFinish ) {
                             onFinish();
                         }
                     });
                 }
             });
-            on(document, "keyup", function(e) {
+            on( document, "keyup", function( e ) {
                 e.preventDefault();
-                if ( e.keyCode == 72 && e.ctrlKey) {
-                    _ENME.set('helpLinks', true);
+                if ( e.keyCode == 72 && e.ctrlKey ) {
+                    _ENME.set( "helpLinks", true );
                     _init();
                 }
             });
@@ -89,15 +90,16 @@ define([
         /**
          * Update the current status of the page
          */
-         updateHelpPageStatus : function(path, status) {
-            this.getURLService().put('encuestame.service.help.status', {
+         updateHelpPageStatus: function( path, status ) {
+            this.getURLService().put( "encuestame.service.help.status", {
                 path: path,
                 status: status
             }, function() {
-                // nothing if the ser
-            }, function(){} , dojo.hitch(this, function() {
 
-            }));
+                // Nothing if the ser
+            }, function() {}, dojo.hitch( this, function() {
+
+            }) );
          }
         });
     });

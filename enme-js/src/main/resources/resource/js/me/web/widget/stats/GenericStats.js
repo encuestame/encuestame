@@ -21,7 +21,7 @@
  *  @namespace
  *  @class
  */
-define([
+define( [
     "dojo/_base/declare",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
@@ -37,24 +37,24 @@ define([
     main_widget,
     hashTagInfo,
     _ENME,
-    template) {
-  return declare([ _WidgetBase,
+    template ) {
+  return declare( [ _WidgetBase,
       _TemplatedMixin,
       main_widget,
-      _WidgetsInTemplateMixin], {
+      _WidgetsInTemplateMixin ], {
 
-    // template string.
-    templateString : template,
-
-    /**
-     * service json string.
-     */
-    _service : 'encuestame.service.list.generic.stats',
+    // Template string.
+    templateString: template,
 
     /**
-     * typeGeneric of stats.
+     * Service json string.
      */
-    typeGeneric : "",
+    _service: "encuestame.service.list.generic.stats",
+
+    /**
+     * TypeGeneric of stats.
+     */
+    typeGeneric: "",
 
     /**
      *
@@ -65,48 +65,49 @@ define([
     /**
      * Item id.
      */
-    generic : "",
+    generic: "",
 
     /*
      *
      */
-    postCreate : function() {
+    postCreate: function() {
       this._callGenericStats();
     },
 
     /**
      *
      */
-    _callGenericStats : function() {
+    _callGenericStats: function() {
       var parent = this,
       params = {
-        id : this.generic,
-        filter : this.typeGeneric
+        id: this.generic,
+        filter: this.typeGeneric
       },
-      load = function(data) {
-        if ("success" in data) {
-          parent._buildStats(data.success.generic);
+      load = function( data ) {
+        if ("success" in data ) {
+          parent._buildStats( data.success.generic );
         }
       };
-      this.getURLService().get(this._service, params,  load, null, null);
+      this.getURLService().get( this._service, params,  load, null, null );
     },
 
     /**
      *  Build the stats table.
      *  @param {Object} Array of stats.
      */
-    _buildStats : function(stats) {
-      // summary: list of stats
+    _buildStats: function( stats ) {
+
+      // Summary: list of stats
           // average: 0
           // created_at: "2 months ago"
           // created_by: null
           // hits: 47
           // like_dislike_rate: 0
       this._voteCounter.innerHTML = stats.hits || 0;
-      this._vote.innerHTML = (stats.average || 0)  + " average";
+      this._vote.innerHTML = ( stats.average || 0 )  + " average";
       this._badge.innerHTML = stats.hits || 0  + " rate";
 
-//      if (stats.like_dislike_rate >= 0) {
+//      If (stats.like_dislike_rate >= 0) {
 //        dojo.addClass(this._badge, 'badge-success');
 //      } else {
 //        dojo.addClass(this._badge, 'badge-important');
@@ -118,12 +119,12 @@ define([
      * @param {String} header
      * @param {String} value
      */
-    _createRow : function(header, value) {
+    _createRow: function( header, value ) {
       var tr = dojo.create("tr");
-      var label = dojo.create("td", null, tr);
+      var label = dojo.create("td", null, tr );
       label.innerHTML = header;
       label.innerHTML = value;
-      this._rows.appendChild(tr);
+      this._rows.appendChild( tr );
     }
 
   });

@@ -21,7 +21,7 @@
  *  @namespace Widgets
  *  @class PublishSocialStatus
  */
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -40,53 +40,54 @@ define([
                 TweetPollPublishItemStatus,
                 _ENME,
                 registry,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-            templateString : template,
+          // Template string.
+            templateString: template,
 
           /**
            * The list of social accounts.
            */
-          socialPublish : [],
+          socialPublish: [],
 
           /**
            *
            * @property
            */
-          socialAccounts : [],
+          socialAccounts: [],
 
           /**
-           * i18N Message.
+           * I18N Message.
            */
-          i18nMessage : {
-            button_finish : _ENME.getMessage("button_finish", "Close")
+          i18nMessage: {
+            button_finish: _ENME.getMessage("button_finish", "Close")
           },
 
           /**
            * TweetPoll widget.
            */
-          tweetPollWidget : null,
+          tweetPollWidget: null,
 
           /**
            *
            */
-          _inProcess : false,
+          _inProcess: false,
 
           /**
            * Post create.
            */
-          postCreate : function() {
-              if (this.socialPublish) {
-                  dojo.forEach(this.socialPublish,
-                          dojo.hitch(this,function(tweet) {
-                              var row = this._buildTweetProcessView(tweet);
-                              if (row) {
-                                  this._container.appendChild(row);
+          postCreate: function() {
+              if ( this.socialPublish ) {
+                  dojo.forEach( this.socialPublish,
+                          dojo.hitch( this, function( tweet ) {
+                              var row = this._buildTweetProcessView( tweet );
+                              if ( row ) {
+                                  this._container.appendChild( row );
                               }
-                 }));
-                 //dojo.removeClass(this._closeWrapper, "hidden");
+                 }) );
+
+                 //Dojo.removeClass(this._closeWrapper, "hidden");
               } else {
                   this.errorMesage("data tweet process is empty");
               }
@@ -95,63 +96,64 @@ define([
           /**
            * Display proccessing message.
            */
-          _showProcessingMessage : function() {
-            dojo.empty(this._message);
+          _showProcessingMessage: function() {
+            dojo.empty( this._message );
               var message = dojo.doc.createElement("div");
-              dojo.addClass(this._message, "defaultDisplayBlock");
-              dojo.removeClass(this._message, "defaultDisplayHide");
+              dojo.addClass( this._message, "defaultDisplayBlock");
+              dojo.removeClass( this._message, "defaultDisplayHide");
               message.innerHTML = _ENME.getMessage("pubication_inprocess_status");
-              this._message.appendChild(message);
+              this._message.appendChild( message );
           },
 
           /**
            * Hidde the processing message.
            */
-          _hideProcessingMessage : function() {
-            dojo.empty(this._message);
-              dojo.removeClass(this._message, "defaultDisplayBlock");
-              dojo.addClass(this._message, "defaultDisplayHide");
-              dojo.empty(this._message);
+          _hideProcessingMessage: function() {
+            dojo.empty( this._message );
+              dojo.removeClass( this._message, "defaultDisplayBlock");
+              dojo.addClass( this._message, "defaultDisplayHide");
+              dojo.empty( this._message );
           },
 
           /**
            * Process date published.
            * @param socialPublish
            */
-          process: function(socialPublish) {
+          process: function( socialPublish ) {
 
           },
 
           /**
-           * search by id the complete info for selected social account.
+           * Search by id the complete info for selected social account.
            */
-          _getSocialAccountWidget : function(id) {
-              //this._socialAccounts
+          _getSocialAccountWidget: function( id ) {
+
+              //This._socialAccounts
               var selected = null;
-              dojo.forEach(this.socialAccounts,
-                      dojo.hitch(this,function(account) {
-                          if (account.id == id) {
+              dojo.forEach( this.socialAccounts,
+                      dojo.hitch( this, function( account ) {
+                          if ( account.id == id ) {
                               selected = account;
                           }
-               }));
+               }) );
               return selected;
           },
 
           /**
            * Build tweet process view.
            */
-          _buildTweetProcessView : function(data) {
-                return this._createStatusTweet(data);
+          _buildTweetProcessView: function( data ) {
+                return this._createStatusTweet( data );
           },
 
           /**
            * Create status tweet.
            */
-          _createStatusTweet : function(data){
+          _createStatusTweet: function( data ) {
               var widget = new TweetPollPublishItemStatus(
                       {
-                          data : data,
-                          socialAccount : this._getSocialAccountWidget(data.social_account_id)
+                          data: data,
+                          socialAccount: this._getSocialAccountWidget( data.social_account_id )
                       });
               return widget.domNode;
           }

@@ -7,6 +7,7 @@
  * configuration into index.html (as a dojoConfig object) if it makes your life easier.
  */
 require({
+
   // The base path for all packages and modules. If you don't provide this, baseUrl defaults to the directory
   // that contains dojo.js. Since all packages are in the root, we just leave it blank. (If you change this, you
   // will also need to update `app.profile.js`).
@@ -19,17 +20,19 @@ require({
   // it will make your life easier.
 
   packages: [
+
     // If you are registering a package that has an identical name and location, you can just pass a string
     // instead, and it will configure it using that string for both the "name" and "location" properties. Handy!
-    'dojo',
-    'dijit',
-    'dojox',
+    "dojo",
+    "dijit",
+    "dojox",
     {
-      name: 'me',
-      location: 'me',
+      name: "me",
+      location: "me",
       main: "main",
       map: {}
     }
   ]
+
 // Require `me`. This loads the main application module, `me/main`, since we registered the `me` package above.
-}, [ 'me' ]);
+}, [ "me" ] );

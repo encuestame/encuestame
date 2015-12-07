@@ -22,20 +22,20 @@
  *  @class FileName
  */
 
-define([
-    'me/core/_base/_log',
+define( [
+    "me/core/_base/_log",
     "dojo/number",
     "dojo/date/locale",
     "me/third-party/moment",
     "dojo/_base/array",
     "me/core/_base/_config"
-    ],function(
+    ], function(
         log,
         number,
         locale,
         moment,
         _array,
-        _config) {
+        _config ) {
     return {
 
         /**
@@ -46,21 +46,21 @@ define([
             return window.location.protocol + "//" + window.location.host;
         },
 
-
         /**
          * Convert a format date to relative time.
          * @param date date on string format {String}
          * @param format format of date {String}
          */
-        fromNow : function(date, format) {
+        fromNow: function( date, format ) {
             try {
-                if (moment !== "undefined") {
-                    //format || "YYYY-MM-DD"
-                    return moment(date).fromNow();
+                if ( moment !== "undefined") {
+
+                    //Format || "YYYY-MM-DD"
+                    return moment( date ).fromNow();
                 } else {
                     return date;
                 }
-            } catch (error) {
+            } catch ( error ) {
                 return date;
             }
         },
@@ -68,8 +68,8 @@ define([
         /**
          * Check if a string is empty or not.
          */
-        isEmpty : function(str) {
-            return (!str || 0 === str.length);
+        isEmpty: function( str ) {
+            return ( !str || 0 === str.length );
         },
 
         /**
@@ -77,11 +77,11 @@ define([
          * @param username the user name
          * @method
          */
-        usernameLink :function(username) {
-            var url = _config.get('contextPath');
-            if (username) {
+        usernameLink:function( username ) {
+            var url = _config.get( "contextPath" );
+            if ( username ) {
                 url = url.concat("/profile/");
-                url = url.concat(username);
+                url = url.concat( username );
                 return url;
             } else {
                 url = url.concat("/404");
@@ -94,36 +94,39 @@ define([
          * @param value
          * @returns {boolean}
          */
-        validateCharacterDigits : function(value) {
+        validateCharacterDigits: function( value ) {
             var nameRegex = /^[a-zA-Z0-9]+$/;
-            return value.match(nameRegex) != null;
+            return value.match( nameRegex ) != null;
         },
 
         /**
          * Get a image path.
          * @method getImage
          */
-        getImage: function(image) {
-            var image_path = _config.get('contextPath') + "/resources/images/";
+        getImage: function( image ) {
+            var image_path = _config.get( "contextPath" ) + "/resources/images/";
             return image_path + image;
         },
 
-        getURLParametersAsObject : function () {
+        getURLParametersAsObject: function() {
             var query_string = {};
-            var query = window.location.search.substring(1);
+            var query = window.location.search.substring( 1 );
             var vars = query.split("&");
-            for (var i=0;i<vars.length;i++) {
-                var pair = vars[i].split("=");
+            for ( var i = 0; i < vars.length; i++ ) {
+                var pair = vars[ i ].split("=");
+
                 // If first entry with this name
-                if (typeof query_string[pair[0]] === "undefined") {
-                    query_string[pair[0]] = pair[1];
+                if ( typeof query_string[ pair[ 0 ]] === "undefined") {
+                    query_string[ pair[ 0 ]] = pair[ 1 ];
+
                     // If second entry with this name
-                } else if (typeof query_string[pair[0]] === "string") {
-                    var arr = [ query_string[pair[0]], pair[1] ];
-                    query_string[pair[0]] = arr;
+                } else if ( typeof query_string[ pair[ 0 ]] === "string") {
+                    var arr = [ query_string[ pair[ 0 ]], pair[ 1 ] ];
+                    query_string[ pair[ 0 ]] = arr;
+
                     // If third or later entry with this name
                 } else {
-                    query_string[pair[0]].push(pair[1]);
+                    query_string[ pair[ 0 ]].push( pair[ 1 ] );
                 }
             }
             return query_string;
@@ -133,12 +136,12 @@ define([
          *
          * @method
          */
-        getBoolean : function(value) {
-            if (value !== null) {
-                if (typeof value === "boolean") {
+        getBoolean: function( value ) {
+            if ( value !== null ) {
+                if ( typeof value === "boolean") {
                     return value;
                 } else {
-                    return (value === "true" ? true : false);
+                    return ( value === "true" ? true : false );
                 }
             }
             return false;
@@ -149,24 +152,23 @@ define([
          * @param provider
          * @returns {String}
          */
-        shortPicture : function(provider) {
-            var url = _config.get('contextPath') +
+        shortPicture: function( provider ) {
+            var url = _config.get( "contextPath" ) +
                 "/resources/images/social/" + provider.toLowerCase() +
                 "/enme_icon_" + provider.toLowerCase() + ".png";
             return url;
         },
 
-
         /**
          * Convert huge number to relative quantities
          * @method a number to evaluate
          */
-        relativeQuantity : function (quantity) {
-            if (typeof quantity === 'number') {
-                if (quantity > 9999) {
+        relativeQuantity: function( quantity ) {
+            if ( typeof quantity === "number" ) {
+                if ( quantity > 9999 ) {
                     var q = "" + quantity;
                     return ">1K";
-                } else if (quantity < 9999) {
+                } else if ( quantity < 9999 ) {
                     return quantity;
                 }
             }
@@ -178,8 +180,8 @@ define([
          * @param fmt
          * @returns
          */
-        getFormatTime : function(date, fmt) {
-            return locale.format(date, {
+        getFormatTime: function( date, fmt ) {
+            return locale.format( date, {
                 selector: "date",
                 datePattern: fmt
             });
@@ -188,17 +190,17 @@ define([
         /**
          * Finds the index of an element in the array.
          */
-        indexOf : function(array, item, fromIndex) {
+        indexOf: function( array, item, fromIndex ) {
             var length = array.length;
-            if (fromIndex == null) {
+            if ( fromIndex == null ) {
                 fromIndex = 0;
             } else {
-                if (fromIndex < 0) {
-                    fromIndex = Math.max(0, length + fromIndex);
+                if ( fromIndex < 0 ) {
+                    fromIndex = Math.max( 0, length + fromIndex );
                 }
             }
-            for ( var i = fromIndex; i < length; i++) {
-                if (array[i] === item) {
+            for ( var i = fromIndex; i < length; i++ ) {
+                if ( array[ i ] === item ) {
                     return i;
                 }
             }
@@ -208,19 +210,20 @@ define([
         /**
          * Looks for an element inside the array.
          */
-        contains : function(array, item) {
-            return this.indexOf(array, item) > -1;
+        contains: function( array, item ) {
+            return this.indexOf( array, item ) > -1;
         },
 
         /**
          * Check if the url is valid.
          * @returns {Boolean}
          */
-        validURL : function (str) {
+        validURL: function( str ) {
             var expression = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-            //remove posible parameters
-            var regex = new RegExp(expression);
-            if (str.match(regex) ) {
+
+            //Remove posible parameters
+            var regex = new RegExp( expression );
+            if ( str.match( regex ) ) {
                 return true;
             } else {
                 return false;
@@ -232,11 +235,11 @@ define([
          * @param size define the size of fake image.
          * @param original {String} original url path
          */
-        fakeImage : function (size, original) {
-            var domain = _config.get('domain'),
+        fakeImage: function( size, original ) {
+            var domain = _config.get( "domain" ),
                 url = "";
-            if (!this.validURL(original || '')) {
-                switch(size) {
+            if ( !this.validURL( original || "" ) ) {
+                switch ( size ) {
                     case "24":
                         url = domain  + "/resources/images/social/fake_24_24.png";
                         break;
@@ -263,16 +266,16 @@ define([
          * @param value
          * @returns
          */
-        numberFormat : function (value) {
-            return number.format(value, {places: 0});
+        numberFormat: function( value ) {
+            return number.format( value, { places: 0 });
         },
 
         /**
          *
          * @method
          */
-        isEmtpy : function(str) {
-            return (!str || 0 === str.length);
+        isEmtpy: function( str ) {
+            return ( !str || 0 === str.length );
         },
 
         /**
@@ -280,8 +283,9 @@ define([
          * @param hashtagName
          * @returns
          */
-        hashtagContext : function(hashtagName) {
-            if (hashtagName) {
+        hashtagContext: function( hashtagName ) {
+            if ( hashtagName ) {
+
                 // http://jsperf.com/concat-test-jc
                 var url = _config.get("contextPath");
                 url = url + "/tag/";
@@ -296,11 +300,12 @@ define([
          *
          * @method
          */
-        pollDetailContext : function(id, slug) {
-            if (id != null && slug != null) {
+        pollDetailContext: function( id, slug ) {
+            if ( id != null && slug != null ) {
+
                 // http://jsperf.com/concat-test-jc
                 var url = _config.get("contextPath");
-                url +="/poll/";
+                url += "/poll/";
                 url += id;
                 url += "/";
                 url += slug;
@@ -310,13 +315,14 @@ define([
             }
         },
 
-        shortAmmount : function(quantity){
-            if (typeof(quantity) === "number") {
-                quantity = ( quantity < 0 ? 0  : quantity);
+        shortAmmount: function( quantity ) {
+            if ( typeof( quantity ) === "number") {
+                quantity = ( quantity < 0 ? 0  : quantity );
                 var text = quantity.toString();
+
                 // 5634 --> 5634k
-                if (quantity > 1000) {
-                    var quantityReduced = Math.round(quantity / 100);
+                if ( quantity > 1000 ) {
+                    var quantityReduced = Math.round( quantity / 100 );
                     text = quantityReduced.toString();
                     text = text + "K";
                 }
@@ -330,19 +336,19 @@ define([
          *
          * @method
          */
-        orderByDate : function(arrayItems, property, order) {
-            var cmp = function(x, y) {
-                return x > y? 1 : x < y ? -1 : 0;
+        orderByDate: function( arrayItems, property, order ) {
+            var cmp = function( x, y ) {
+                return x > y ? 1 : x < y ? -1 : 0;
             };
-            if (order === 'asc') {
-                return arrayItems.sort( function(row1, row2) {
-                    var k1 = row1[order], k2 = row2[order];
-                    return (k1 > k2) ? 1 : ( (k2 > k1) ? -1 : 0 );
+            if ( order === "asc" ) {
+                return arrayItems.sort( function( row1, row2 ) {
+                    var k1 = row1[ order ], k2 = row2[ order ];
+                    return ( k1 > k2 ) ? 1 : ( ( k2 > k1 ) ? -1 : 0 );
                 });
-            } else if (order === 'desc') {
-                return arrayItems.sort( function(row1, row2) {
-                    var k1 = row1[order], k2 = row2[order];
-                    return (k1 > k2) ? 1 : ( (k2 > k1) ? -1 : 0 );
+            } else if ( order === "desc" ) {
+                return arrayItems.sort( function( row1, row2 ) {
+                    var k1 = row1[ order ], k2 = row2[ order ];
+                    return ( k1 > k2 ) ? 1 : ( ( k2 > k1 ) ? -1 : 0 );
                 });
             } else {
                 return arrayItems;
@@ -363,37 +369,37 @@ define([
          * this.data.sort(_ENME.dynamicOrder("day", "month", "year"));
          * @returns {dynamicSortMultiple}
          */
-        dynamicOrder : function() {
+        dynamicOrder: function() {
                 var  dynamicSortMultiple = function() {
-                    var dynamicSort = function(property) {
+                    var dynamicSort = function( property ) {
                         var sortOrder = 1;
-                        if(property[0] === "-") {
+                        if ( property[ 0 ] === "-") {
                             sortOrder = -1;
-                            property = property.substr(1);
+                            property = property.substr( 1 );
                         }
-                        return function (a,b) {
-                            var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+                        return function( a, b ) {
+                            var result = ( a[ property ] < b[ property ] ) ? -1 : ( a[ property ] > b[ property ] ) ? 1 : 0;
                             return result * sortOrder;
-                        }
-                    }
+                        };
+                    };
                     /*
-                     * save the arguments object as it will be overwritten
+                     * Save the arguments object as it will be overwritten
                      * note that arguments object is an array-like object
                      * consisting of the names of the properties to sort by
                      */
                     var props = arguments;
-                    return function (obj1, obj2) {
+                    return function( obj1, obj2 ) {
                         var i = 0, result = 0, numberOfProperties = props.length;
-                        /* try getting a different result from 0 (equal)
+                        /* Try getting a different result from 0 (equal)
                          * as long as we have extra properties to compare
                          */
-                        while(result === 0 && i < numberOfProperties) {
-                            result = dynamicSort(props[i])(obj1, obj2);
+                        while ( result === 0 && i < numberOfProperties ) {
+                            result = dynamicSort( props[ i ] )( obj1, obj2 );
                             i++;
                         }
                         return result;
-                    }
-            }
+                    };
+            };
             return dynamicSortMultiple;
         }
     };

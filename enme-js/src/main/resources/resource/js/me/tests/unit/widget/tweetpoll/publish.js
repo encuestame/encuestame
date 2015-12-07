@@ -14,7 +14,7 @@
 // *  limitations under the License.
 // */
 //
-//define([
+//Define([
 //	'intern!object',
 //	'intern/chai!assert',
 //	'dojo/dom-construct',
@@ -67,9 +67,9 @@
 //
 //	'use strict';
 //
-//	var tp, tp2;
+//	Var tp, tp2;
 //
-//	registerSuite({
+//	RegisterSuite({
 //		name: 'TweetPoll Publish Widgets',
 //		setup: function () {
 //			Helper.init();
@@ -78,7 +78,7 @@
 //			Helper.addCss(5, "../../tests/resources/resources/css/dev/tweetpoll.css");
 //		},
 //
-//		teardown: function () {
+//		Teardown: function () {
 //			Helper.removeElement(tp);
 //			Helper.removeElement(tp2);
 //			//Helper.removeCss(1);

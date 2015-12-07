@@ -22,42 +22,43 @@
  *  @class FileName
  */
 
-
-define([
-	'dojo/has',
+define( [
+	"dojo/has",
 	"dojo/dom-construct"
 	],
-	function(has, domConstruct) {
+	function( has, domConstruct ) {
 
-	if (has("host-browser")) {
+	if ( has("host-browser") ) {
 		return {
-			geolocation: function () {
-				return 'geolocation' in navigator;
+			geolocation: function() {
+				return "geolocation" in navigator;
 			},
-			websocket: function () {
-				return ('WebSocket' in window && window.WebSocket.CLOSING === 2)
+			websocket: function() {
+				return ( "WebSocket" in window && window.WebSocket.CLOSING === 2 );
 			},
 			draganddrop: function() {
 				var div = domConstruct.create("div");
-				return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
+				return ( "draggable" in div ) || ( "ondragstart" in div && "ondrop" in div );
 			},
-			input : {
-				placeholder : function(input) {
+			input: {
+				placeholder: function( input ) {
+
 					//TODO: future
 				}
 			},
 			sessionstorage: function() {
 				try {
-					sessionStorage.setItem("a", '{}');
+					sessionStorage.setItem("a", "{}" );
 					sessionStorage.removeItem("a");
 					return true;
-				} catch(e) {
+				} catch ( e ) {
 					return false;
 				}
 			}
-		}
+		};
 	} else {
-		// nothing to do is not a browser environment
+
+		// Nothing to do is not a browser environment
 		return {
 			geolocation: false,
 			websocket: false,

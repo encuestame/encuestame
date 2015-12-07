@@ -1,6 +1,6 @@
 //TODO: deprecated, remove
 
-define([
+define( [
          "dojo/_base/declare",
          "me/web/widget/dialog/Dialog",
          "me/core/main_widgets/EnmeMainLayoutWidget",
@@ -11,25 +11,26 @@ define([
                 Dialog,
                 main_widget,
                 _ENME,
-                 template) {
-            return declare([Dialog], {
+                 template ) {
+            return declare( [ Dialog ], {
 
-          // template string.
+          // Template string.
           //templateString : template,
 
-          draggable : false,
+          draggable: false,
 
-          content : null,
+          content: null,
 
           style: "width: 500px",
 
           /*
-           * post create.
+           * Post create.
            */
-          postCreate : function(){
-              this.containerNode.appendChild(this.content);
-              //this.titleNode.innerHTML = "";
-              this.inherited(arguments);
+          postCreate: function() {
+              this.containerNode.appendChild( this.content );
+
+              //This.titleNode.innerHTML = "";
+              this.inherited( arguments );
           }
 
     });

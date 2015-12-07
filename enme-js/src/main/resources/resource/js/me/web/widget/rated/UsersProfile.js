@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
@@ -15,17 +15,17 @@ define([
     main_widget,
     accountPicture,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-     // template string.
-    templateString : template,
+     // Template string.
+    templateString: template,
 
     /*
      *
      */
-    data : null
+    data: null
 
   });
 });

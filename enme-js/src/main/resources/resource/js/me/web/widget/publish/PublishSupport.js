@@ -21,13 +21,13 @@
  *  @namespace Widget
  *  @class PublishSupport
  */
-define([
+define( [
          "dojo/_base/declare",
          "dojo/Deferred",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
-         'dijit/form/Button',
+         "dijit/form/Button",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/utils/ContextSupport",
          "me/web/widget/publish/PublishPanelItem",
@@ -50,66 +50,67 @@ define([
                 PublishSocialSupport,
                 PublishEmbebedSupport,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, ContextSupport, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, ContextSupport, _WidgetsInTemplateMixin ], {
 
          /*
-          * template string.
+          * Template string.
           */
-         templateString : template,
-
-         /*
-          *
-          */
-         text_message : "Your item has been created successfully",
+         templateString: template,
 
          /*
           *
           */
-         cssClass : "succesfully",
+         text_message: "Your item has been created successfully",
+
+         /*
+          *
+          */
+         cssClass: "succesfully",
 
          /**
           * Define if close button must be appear or not
           */
-         done_button : false,
+         done_button: false,
 
          /*
           *
           */
-         item : { id: null, name : null , url : null },
+         item: { id: null, name: null, url: null },
 
          /*
           *
           */
-         dialogContext : null,
+         dialogContext: null,
 
          /**
           *
           * @property
           */
-         _buttons : [],
+         _buttons: [],
 
          /*
           *
           */
          postMixInProperties: function() {
-             this.text_message = "Your "+ this.context + " <b>" + this.item.name + "</b> has been created successfully.";
+             this.text_message = "Your " + this.context + " <b>" + this.item.name + "</b> has been created successfully.";
          },
 
          /*
           *
           */
-         postCreate : function() {
-             this.initializeSocial(false);
-             //this.initializeEmail(false);
+         postCreate: function() {
+             this.initializeSocial( false );
+
+             //This.initializeEmail(false);
              //this.initializeEmbebed(true);
-             if (this.done_button) {
-               dojo.connect(this._close, "onClick", dojo.hitch(this, function() {
-                   document.location.href = _ENME.config('contextPath') + "/user/" + this.context + "/list";
-               }));
+             if ( this.done_button ) {
+               dojo.connect( this._close, "onClick", dojo.hitch( this, function() {
+                   document.location.href = _ENME.config( "contextPath" ) + "/user/" + this.context + "/list";
+               }) );
              } else {
-                dojo.destroy(this._close.domNode);
-                dojo.destroy(this._footer);                
+                dojo.destroy( this._close.domNode );
+                dojo.destroy( this._footer );
              }
              dojo.subscribe("/encuestame/support/publish/buttons/unselect", this, "unselect");
          },
@@ -119,17 +120,17 @@ define([
           * @property
           */
          removeTitle: function() {
-            dojo.destroy(this._title);
+            dojo.destroy( this._title );
          },
 
          /**
           *
           * @method
           */
-         unselect : function () {
-            dojo.forEach(this._buttons, dojo.hitch(this,function(item) {
-                dojo.removeClass(item, 'li-pb-selected');
-            }));
+         unselect: function() {
+            dojo.forEach( this._buttons, dojo.hitch( this, function( item ) {
+                dojo.removeClass( item, "li-pb-selected" );
+            }) );
          },
 
          /*
@@ -138,23 +139,24 @@ define([
           * @para title the button title
           * @param selected define if is selected by default
           */
-         _createButton : function(widget, title, selected) {
+         _createButton: function( widget, title, selected ) {
+
              //  <li><a href="#">Social Networks</a>
              var li = dojo.create("li");
-              dojo.connect(li, "onclick", dojo.hitch(this, function(){
-                  dojo.publish('/encuestame/support/panel/unselect');
-                  dojo.publish("/encuestame/support/panel/remote/select", [widget]);
-                  dojo.publish('/encuestame/support/publish/buttons/unselect');
-                  dojo.addClass(li, 'li-pb-selected');
-              }));
+              dojo.connect( li, "onclick", dojo.hitch( this, function() {
+                  dojo.publish( "/encuestame/support/panel/unselect" );
+                  dojo.publish("/encuestame/support/panel/remote/select", [ widget ] );
+                  dojo.publish( "/encuestame/support/publish/buttons/unselect" );
+                  dojo.addClass( li, "li-pb-selected" );
+              }) );
              var a = dojo.create("a");
              a.innerHTML = title;
-             li.appendChild(a);
-             if (!selected) {
-                dojo.addClass(li, 'li-pb-selected');
+             li.appendChild( a );
+             if ( !selected ) {
+                dojo.addClass( li, "li-pb-selected" );
              }
-             this._buttons.push(li);
-             this._ul.appendChild(li);
+             this._buttons.push( li );
+             this._ul.appendChild( li );
          },
 
          /*
@@ -163,16 +165,16 @@ define([
           * @param defaultDisplayHide define if visible by default
           * @param title title of the button
           */
-         _createWipePanel : function(widget, defaultDisplayHide, title) {
+         _createWipePanel: function( widget, defaultDisplayHide, title ) {
             var panel = new PublishPanelItem(
                     {
-                     contentWidget : widget,
-                     context : this.context,
-                     title : title,
-                     defaultDisplayHide : defaultDisplayHide
+                     contentWidget: widget,
+                     context: this.context,
+                     title: title,
+                     defaultDisplayHide: defaultDisplayHide
                     });
-            this._createButton(panel, title, defaultDisplayHide);
-            this._detail.appendChild(panel.domNode);
+            this._createButton( panel, title, defaultDisplayHide );
+            this._detail.appendChild( panel.domNode );
 
          },
 
@@ -180,14 +182,14 @@ define([
           * Initialize the email support.
           * @param defaultDisplayHide
           */
-         initializeEmail : function(defaultDisplayHide) {
+         initializeEmail: function( defaultDisplayHide ) {
              var email = new PublishEmailSupport(
                      {
-                         context : this.context,
-                         itemId : this.item.id
+                         context: this.context,
+                         itemId: this.item.id
                      }
                      );
-             this._createWipePanel(email, defaultDisplayHide, "Email");
+             this._createWipePanel( email, defaultDisplayHide, "Email");
          },
 
          /**
@@ -195,26 +197,26 @@ define([
           * @param defaultDisplayHide
           * @methodinitializeSocial
           */
-         initializeSocial : function(defaultDisplayHide) {
+         initializeSocial: function( defaultDisplayHide ) {
              var social = new PublishSocialSupport({
-                 context : this.context,
-                 itemId : this.item.id
+                 context: this.context,
+                 itemId: this.item.id
              });
-             this._createWipePanel(social, defaultDisplayHide, "Social Networks");
+             this._createWipePanel( social, defaultDisplayHide, "Social Networks");
          },
 
          /*
           * Initialize the embebed support.
           * @param defaultDisplayHide
           */
-         initializeEmbebed : function(defaultDisplayHide) {
+         initializeEmbebed: function( defaultDisplayHide ) {
              var embebed = new PublishEmbebedSupport(
                  {
-                     context : this.context,
-                     itemId : this.item.id,
-                     name : this.item.name
+                     context: this.context,
+                     itemId: this.item.id,
+                     name: this.item.name
                  });
-             this._createWipePanel(embebed, defaultDisplayHide, "Javascript");
+             this._createWipePanel( embebed, defaultDisplayHide, "Javascript");
          }
 
     });

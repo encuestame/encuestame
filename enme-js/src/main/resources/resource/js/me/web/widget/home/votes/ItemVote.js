@@ -1,4 +1,4 @@
-define([
+define( [
         "dojo/_base/declare",
         "dijit/_WidgetBase",
         "dijit/_TemplatedMixin",
@@ -6,11 +6,11 @@ define([
         "me/core/main_widgets/EnmeMainLayoutWidget",
         "me/core/enme",
         "dojo/text!me/web/widget/home/votes/templates/item.html" ],
-    function (declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, main_widget, _ENME, template) {
+    function( declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, main_widget, _ENME, template ) {
 
-        return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+        return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-            // template string.
+            // Template string.
             templateString: template,
 
             /**
@@ -27,7 +27,6 @@ define([
              * Button vote message.
              */
             voteEventMessage: "Vote",
-
 
             /**
              * Message if vote is valid.
@@ -62,7 +61,7 @@ define([
             /**
              * Avoid repated votes
              */
-            _block : false,
+            _block: false,
 
             /**
              * Vote is allowed or not
@@ -70,41 +69,43 @@ define([
             voteUp: true,
 
             /**
-             * i18n Message.
+             * I18n Message.
              */
-            i18nMessage : {
+            i18nMessage: {
                 vote_error: _ENME.getMessage("button_vote_error_message"),
-                button_vote : _ENME.getMessage("button_vote"),
+                button_vote: _ENME.getMessage("button_vote"),
                 button_voted: _ENME.getMessage("button_voted")
             },
 
             /**
              * Post create.
              */
-            postCreate: function () {
-                // update the votes
-                var isLogged = _ENME.config('logged');
-                this._updateVotes(this.votes);
-                if (isLogged) {
-                    // button event
-                    dojo.connect(this._button, "onclick", dojo.hitch(this, function () {
-                        if (this.itemId !== null) {
-                            if(!this._block) {
+            postCreate: function() {
+
+                // Update the votes
+                var isLogged = _ENME.config( "logged" );
+                this._updateVotes( this.votes );
+                if ( isLogged ) {
+
+                    // Button event
+                    dojo.connect( this._button, "onclick", dojo.hitch( this, function() {
+                        if ( this.itemId !== null ) {
+                            if ( !this._block ) {
                                 this._sendVote({
                                     id: this.itemId,
                                     type: this.itemType
                                 });
                             }
                         }
-                    }));
+                    }) );
                 } else {
-                    dojo.connect(this._button, "onclick", dojo.hitch(this, function () {
-                          if(alertify){
-                              alertify.log(this.i18nMessage.vote_error);
+                    dojo.connect( this._button, "onclick", dojo.hitch( this, function() {
+                          if ( alertify ) {
+                              alertify.log( this.i18nMessage.vote_error );
                           }
-                    }));
+                    }) );
                 }
-                if (!this.voteUp) {
+                if ( !this.voteUp ) {
                     this._displayVoteButtonOut();
                 } else {
                     this._displayVoteButtonIn();
@@ -116,8 +117,8 @@ define([
              * @param votes
              * @private
              */
-            _updateVotes: function (votes) {
-                this._voteCounter.innerHTML = _ENME.shortAmmount(votes);
+            _updateVotes: function( votes ) {
+                this._voteCounter.innerHTML = _ENME.shortAmmount( votes );
                 this.votes = votes;
             },
 
@@ -125,20 +126,19 @@ define([
              * Triggered on mouse over the vote box.
              * @param event
              */
-            _displayVoteButtonIn: function (event) {
-                dojo.addClass(this._button, "button-vote-enabled");
-                dojo.removeClass(this._button, "button-vote-blocked");
+            _displayVoteButtonIn: function( event ) {
+                dojo.addClass( this._button, "button-vote-enabled");
+                dojo.removeClass( this._button, "button-vote-blocked");
                 this._voteText.innerHTML = this.i18nMessage.button_vote;
             },
-
 
             /**
              * Triggered on mouse out the vote.
              * @param event
              */
-            _displayVoteButtonOut: function () {
-                dojo.addClass(this._button, "button-vote-blocked");
-                dojo.removeClass(this._button, "button-vote-enabled");
+            _displayVoteButtonOut: function() {
+                dojo.addClass( this._button, "button-vote-blocked");
+                dojo.removeClass( this._button, "button-vote-enabled");
                 this._voteText.innerHTML = this.i18nMessage.button_voted;
             },
 
@@ -146,31 +146,31 @@ define([
              * Call the service to vote.
              * @params {Object} params
              */
-            _sendVote: function (params) {
+            _sendVote: function( params ) {
                 this._block = true;
                 var param = this;
                 var loading = {
-                    init: function () {},
-                    end: function () {}
+                    init: function() {},
+                    end: function() {}
                 };
                 /*
-                 * triggered after 2 seconds the user vote.
+                 * Triggered after 2 seconds the user vote.
                  * Restore to original position the vote button;
                  */
-                var afterVote = function () {};
+                var afterVote = function() {};
 
                 /*
-                 * function triggered on succesfull response.
+                 * Function triggered on succesfull response.
                  * @param {Object} data the successfull json service response
                  */
-                var load = dojo.hitch(this, function (data) {
-                    if ("success" in data) {
+                var load = dojo.hitch( this, function( data ) {
+                    if ("success" in data ) {
                         var action = data.success.status;
-                        if (action === 'ACTIVE') {
-                            this._updateVotes(this.votes + 1);
+                        if ( action === "ACTIVE" ) {
+                            this._updateVotes( this.votes + 1 );
                             this._displayVoteButtonOut();
-                        } else if (action === 'INACTIVE') {
-                            this._updateVotes(this.votes - 1);
+                        } else if ( action === "INACTIVE" ) {
+                            this._updateVotes( this.votes - 1 );
                             this._displayVoteButtonIn();
                         }
                     }
@@ -178,17 +178,17 @@ define([
                 });
 
                 /**
-                 * function triggered on failed response
+                 * Function triggered on failed response
                  * @param {Object} data the failed json service response
                  */
-                var error = dojo.hitch(this, function (data) {
+                var error = dojo.hitch( this, function( data ) {
                     this._block = false;
                 });
 
-                //make a POST call to server.
-                this.getURLService().put(['encuestame.service.list.votes.home', [this.itemType]], params, load, error, dojo.hitch(this, function () {
+                //Make a POST call to server.
+                this.getURLService().put( [ "encuestame.service.list.votes.home", [ this.itemType ]], params, load, error, dojo.hitch( this, function() {
 
-                }));
+                }) );
             }
         });
     });

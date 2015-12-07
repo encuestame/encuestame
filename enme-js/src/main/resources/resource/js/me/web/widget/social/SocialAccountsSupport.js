@@ -1,95 +1,97 @@
-define([
+define( [
      "dojo/_base/declare",
      "me/core/main_widgets/EnmeMainLayoutWidget",
-     "me/core/enme"],
+     "me/core/enme" ],
     function(
     declare,
     _MAIN,
-    _ENME) {
+    _ENME ) {
 
-  return declare([_MAIN], {
-
-   /*
-    *
-    */
-   arrayWidgetAccounts : [],
+  return declare( [ _MAIN ], {
 
    /*
     *
     */
-   arrayAccounts : [],
+   arrayWidgetAccounts: [],
 
    /*
     *
     */
-   constructor : function() {
+   arrayAccounts: [],
+
+   /*
+    *
+    */
+   constructor: function() {
        this.arrayWidgetAccounts = [];
    },
 
    /*
     *
     */
-   cleanSocialAccounts : function(){},
+   cleanSocialAccounts: function() {},
 
    /*
-    * load all social accounts verified.
+    * Load all social accounts verified.
     */
-   _loadSocialConfirmedAccounts : function() {
-       var load = dojo.hitch(this, function(data) {
+   _loadSocialConfirmedAccounts: function() {
+       var load = dojo.hitch( this, function( data ) {
            this.arrayAccounts = data.success.items;
            this.cleanSocialAccounts();
            this.showListAccounts();
        });
-       var error = function(error) {
-           console.debug("error", error);
+       var error = function( error ) {
+           console.debug("error", error );
        };
-       return this.getURLService().get('encuestame.service.list.allSocialAccount',
+       return this.getURLService().get( "encuestame.service.list.allSocialAccount",
            {},
            load,
            error,
-           dojo.hitch(this, function() {
-               //nothing
-           }));
+           dojo.hitch( this, function() {
+
+               //Nothing
+           }) );
    },
 
-
    /*
-    * return array of id for each social account selected.
+    * Return array of id for each social account selected.
     */
-   getSocialAccounts : function() {
+   getSocialAccounts: function() {
        var accountsId = [];
        dojo.forEach(
                this.arrayWidgetAccounts,
-               dojo.hitch(this, function(widget, index) {
-                   if (widget.selected) {
-                       accountsId.push(widget.account.id);
+               dojo.hitch( this, function( widget, index ) {
+                   if ( widget.selected ) {
+                       accountsId.push( widget.account.id );
                    }
-           }));
-       //console.debug("getSocialAccounts", accountsId);
+           }) );
+
+       //Console.debug("getSocialAccounts", accountsId);
        return accountsId;
    },
 
    /*
-    * return complete data for selected accounts.
+    * Return complete data for selected accounts.
     */
-   getSocialCompleteAccounts : function(){
+   getSocialCompleteAccounts: function() {
        var accounts = [];
        dojo.forEach(
                this.arrayWidgetAccounts,
-               dojo.hitch(this, function(widget, index) {
-                   if (widget.selected) {
-                       accounts.push(widget.account);
+               dojo.hitch( this, function( widget, index ) {
+                   if ( widget.selected ) {
+                       accounts.push( widget.account );
                    }
-           }));
-       //console.debug("getSocialAccounts", accounts);
+           }) );
+
+       //Console.debug("getSocialAccounts", accounts);
        return accounts;
    },
 
    /*
-    * is valid check.
+    * Is valid check.
     */
-   isValid : function() {
-       if (this._countSelected() >= this._required) {
+   isValid: function() {
+       if ( this._countSelected() >= this._required ) {
            return true;
        } else {
            this._isValidMessage = _ENME.getMessage("e_022");
@@ -98,42 +100,43 @@ define([
    },
 
    /*
-    * return a validator message.
+    * Return a validator message.
     */
-   isValidMessage : function() {
+   isValidMessage: function() {
        return this._isValidMessage;
    },
 
    /*
     *
     */
-   _countSelected : function(){
+   _countSelected: function() {
        var counter = 0;
        dojo.forEach(
                this.arrayWidgetAccounts,
-               dojo.hitch(this, function(widget, index) {
-               if (widget.selected) {
+               dojo.hitch( this, function( widget, index ) {
+               if ( widget.selected ) {
                    counter++;
                }
-           }));
-       //console.debug("_reloadCounter", counter);
+           }) );
+
+       //Console.debug("_reloadCounter", counter);
        return counter;
    },
 
    /*
-    * to override.
+    * To override.
     */
-   createPickSocialAccount : function(data){},
+   createPickSocialAccount: function( data ) {},
 
    /*
-    * show up list accounts.
+    * Show up list accounts.
     */
-   showListAccounts : function(){
+   showListAccounts: function() {
        dojo.forEach(
                this.arrayAccounts,
-               dojo.hitch(this, function(data, index) {
-                     this.createPickSocialAccount(data);
-           }));
+               dojo.hitch( this, function( data, index ) {
+                     this.createPickSocialAccount( data );
+           }) );
    }
 
   });

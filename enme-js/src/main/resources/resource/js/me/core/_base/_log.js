@@ -22,15 +22,16 @@
  *  @class FileName
  */
 
-define(function() {
+define( function() {
 	return {
 		/**
 		 *
 		 */
-		log : function(obj) {
-			if (typeof console != "undefined" && console.info) {
+		log: function( obj ) {
+			if ( typeof console != "undefined" && console.info ) {
+
 			//TODO: Add verbose condition.
-				console.info(obj);
+				console.info( obj );
 			}
 		}
 	};

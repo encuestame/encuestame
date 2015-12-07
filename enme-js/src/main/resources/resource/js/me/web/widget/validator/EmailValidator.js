@@ -21,7 +21,7 @@
  *  @namespace Widgets
  *  @class EmailValidator
  */
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -38,59 +38,55 @@ define([
                 main_widget,
                 abstractValidatorWidget,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, abstractValidatorWidget, _WidgetsInTemplateMixin], {
-
-
-        /**
-         * template string.
-         * @property
-         */
-        templateString : template,
-
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, abstractValidatorWidget, _WidgetsInTemplateMixin ], {
 
         /**
-         * placeholder
+         * Template string.
          * @property
          */
-        placeholder : "Write your email",
+        templateString: template,
 
+        /**
+         * Placeholder
+         * @property
+         */
+        placeholder: "Write your email",
 
         /**
          *
          * @method
          */
-        postCreate : function() {
-            this.inherited(arguments);
+        postCreate: function() {
+            this.inherited( arguments );
         },
 
-
         /**
          *
          * @method
          */
-        _validate : function(event) {
+        _validate: function( event ) {
                this.inputTextValue = this._input.value;
                this._loadService(
                    this.getServiceUrl(), {
-                   context : this.enviroment,
-                   email : this._input.value
-               }, this.error);
+                   context: this.enviroment,
+                   email: this._input.value
+               }, this.error );
         },
 
         /**
          *
          * @method
          */
-        getValue : function () {
-            return  this._input.value;
+        getValue: function() {
+            return this._input.value;
         },
 
         /**
          *
          * @method
          */
-        clear : function () {
+        clear: function() {
               this.cleanMessage();
               this._input.value = "";
         },
@@ -99,15 +95,16 @@ define([
          *
          * @method
          */
-        getServiceUrl : function() {
-            return 'encuestame.service.publicService.validate.email';
+        getServiceUrl: function() {
+            return "encuestame.service.publicService.validate.email";
         },
 
        /**
         *
         */
-        error : function(error) {
-           //console.error("error", error);
+        error: function( error ) {
+
+           //Console.error("error", error);
         }
 
     });

@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class UserGroup
  */
-define([
+define( [
          "dojo/_base/declare",
          "dojo/dom-construct",
          "dijit/_WidgetBase",
@@ -42,65 +42,65 @@ define([
                 main_widget,
                 UserGroup,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
             /**
-             * template string.
+             * Template string.
              * @property templateString
              */
-            templateString : template,
+            templateString: template,
 
             /**
              *
              * @property _stateMenu
              */
-            _stateMenu : false,
+            _stateMenu: false,
 
             /**
              *
              * @property _groups
              */
-            _groups : [],
+            _groups: [],
 
             /**
              *
              * @property parentWidget
              */
-            parentWidget : null,
+            parentWidget: null,
 
             /**
              *
              * @property _groupId
              */
-            _groupId : null,
+            _groupId: null,
 
             /**
              *
              * @property dataUser
              */
-            dataUser : {},
+            dataUser: {},
 
             /**
              *
              * @property _groupSelectedName
              */
-            _groupSelectedName : "",
+            _groupSelectedName: "",
 
             /**
              *
              * @property _timer
              */
-            _timer : null,
+            _timer: null,
 
             /**
              *
              * @method
              */
-            postCreate : function() {
-                if (this.dataUser.groupId) {
+            postCreate: function() {
+                if ( this.dataUser.groupId ) {
                     this._groupId = this.dataUser.groupId;
-                    if (this.dataUser.groupBean !== null) {
+                    if ( this.dataUser.groupBean !== null ) {
                         this._groupName.innerHTML = this.dataUser.groupBean.groupName;
                     }
                 }
@@ -111,7 +111,7 @@ define([
              *
              * @method
              */
-            _setLabelSelected : function(label) {
+            _setLabelSelected: function( label ) {
                 this._groupName.innerHTML = label;
             },
 
@@ -119,137 +119,138 @@ define([
             * Call Groups.
             * @method
             */
-            _callGroups : function() {
+            _callGroups: function() {
                 var parent = this;
-                var load = dojo.hitch(this, function(response) {
+                var load = dojo.hitch( this, function( response ) {
                     this._groups = response.success.groups;
                     this.buildGroups();
                 });
-                var error = function(error) {
-                    parent.errorMessage(error);
+                var error = function( error ) {
+                    parent.errorMessage( error );
                 };
-                this.getURLService().get('encuestame.service.list.loadGroups', {}, load, error , dojo.hitch(this, function() {
+                this.getURLService().get( "encuestame.service.list.loadGroups", {}, load, error, dojo.hitch( this, function() {
 
-                }));
+                }) );
             },
 
            /**
             * Build the list of groups
             * @method
             */
-            buildGroups : function() {
-                dojo.empty(this._items);
-                dojo.forEach(this._groups,
-                dojo.hitch(this, function(data, index) {
-                      this._buildItemMenu(data);
-                 }));
-                this._items.appendChild(this._buildCreateGroup().domNode);
+            buildGroups: function() {
+                dojo.empty( this._items );
+                dojo.forEach( this._groups,
+                dojo.hitch( this, function( data, index ) {
+                      this._buildItemMenu( data );
+                 }) );
+                this._items.appendChild( this._buildCreateGroup().domNode );
             },
 
             /**
              * Build Menu Item.
              * @method
              */
-            _buildItemMenu : function(data) {
-                 var div = dojo.doc.createElement('div');
-                 dojo.addClass(div, "item");
-                 if (this._groupId == data.id) {
-                    dojo.addClass(div, "selected");
+            _buildItemMenu: function( data ) {
+                 var div = dojo.doc.createElement( "div" );
+                 dojo.addClass( div, "item");
+                 if ( this._groupId == data.id ) {
+                    dojo.addClass( div, "selected");
                  }
-                 //console.debug(data);
+
+                 //Console.debug(data);
                  div.innerHTML = data.groupName;
-                 dojo.connect(div, "onclick", this, dojo.hitch(this, function(event){
-                         this._selectItem(data, div);
+                 dojo.connect( div, "onclick", this, dojo.hitch( this, function( event ) {
+                         this._selectItem( data, div );
                          this.dataUser.groupId = data.id;
                          this._groupId = data.id;
-                         this._setLabelSelected(data.groupName);
-                 }));
-                 this._items.appendChild(div);
+                         this._setLabelSelected( data.groupName );
+                 }) );
+                 this._items.appendChild( div );
             },
 
             /**
              *
              * @method
              */
-            _buildCreateGroup : function() {
+            _buildCreateGroup: function() {
                 var myTextBox = new TextBox({
                     name: "newGroupTextBox",
                     value: "",
                     style: "max-width: 150px;padding: 0px;",
-                    maxLength : 49,
+                    maxLength: 49,
                     placeHolder: "enter new group"
 
                 }, "newGroupTextBox");
-                dojo.connect(myTextBox, "onKeyDown", this, dojo.hitch(this, function(event){
-                    // dojo.stopEvent(event);
-                     if (dojo.keys.ENTER == event.keyCode) {
-                         this._createGroup(myTextBox.attr("value"));
+                dojo.connect( myTextBox, "onKeyDown", this, dojo.hitch( this, function( event ) {
+
+                    // Dojo.stopEvent(event);
+                     if ( dojo.keys.ENTER == event.keyCode ) {
+                         this._createGroup( myTextBox.attr("value") );
                      }
-                }));
+                }) );
                 return myTextBox;
             },
-
 
             /**
              * Create Group.
              * @method
              */
-            _createGroup : function(data) {
-                var load = dojo.hitch(this, function(response) {
+            _createGroup: function( data ) {
+                var load = dojo.hitch( this, function( response ) {
                     this._callGroups();
                 });
-                var error = function(error) {
-                    console.debug("error", error);
+                var error = function( error ) {
+                    console.debug("error", error );
                 };
-                this.getURLService().get('encuestame.service.list.groupCreate', {
-                    groupName : data
-                }, load, error , dojo.hitch(this, function() {
+                this.getURLService().get( "encuestame.service.list.groupCreate", {
+                    groupName: data
+                }, load, error, dojo.hitch( this, function() {
 
-                }));
+                }) );
             },
 
             /**
              *
              * @method _markAsSelected
              */
-            _markAsSelected : function(node){
-                dojo.addClass(node, "selected");
+            _markAsSelected: function( node ) {
+                dojo.addClass( node, "selected");
              },
 
             /**
              *
              * @method _selectItem
              */
-            _selectItem : function(data, node) {
+            _selectItem: function( data, node ) {
                 var parent = this;
-                var load = dojo.hitch(this, function(response){
-                    this._markAsSelected(node);
-                    dojo.addClass(this._items, "defaultDisplayHide");
-                    dojo.removeClass(this._items, "defaultDisplayBlock");
-                    dojo.removeClass(this._groupWrapper, "openMenu");
+                var load = dojo.hitch( this, function( response ) {
+                    this._markAsSelected( node );
+                    dojo.addClass( this._items, "defaultDisplayHide");
+                    dojo.removeClass( this._items, "defaultDisplayBlock");
+                    dojo.removeClass( this._groupWrapper, "openMenu");
                     this._stateMenu = false;
                 });
-                var error = function(error) {
-                     parent.errorMessage(error);
+                var error = function( error ) {
+                     parent.errorMessage( error );
                 };
                 var params = {
                     id: data.id,
                     userId: this.parentWidget.data.id
                  };
-                 this.getURLService().get('encuestame.service.list.assingGroups', params, load, error , dojo.hitch(this, function() {
+                 this.getURLService().get( "encuestame.service.list.assingGroups", params, load, error, dojo.hitch( this, function() {
 
-                }));
+                }) );
             },
 
             /**
              *
              * @method _close
              */
-            _close : function(widget) {
-                 if(widget != this){
-                     dojo.addClass(this._items, "defaultDisplayHide");
-                     dojo.removeClass(this._items, "defaultDisplayBlock");
-                     dojo.removeClass(this._groupWrapper, "openMenu");
+            _close: function( widget ) {
+                 if ( widget != this ) {
+                     dojo.addClass( this._items, "defaultDisplayHide");
+                     dojo.removeClass( this._items, "defaultDisplayBlock");
+                     dojo.removeClass( this._groupWrapper, "openMenu");
                      this._stateMenu = false;
                  }
              },
@@ -258,16 +259,17 @@ define([
               *
               * @method _changeMenu
               */
-             _changeMenu : function() {
-                 if(this._stateMenu){
-                     dojo.addClass(this._items, "defaultDisplayHide");
-                     dojo.removeClass(this._items, "defaultDisplayBlock");
-                     //dojo.removeClass(this._groupWrapper, "openMenu");
+             _changeMenu: function() {
+                 if ( this._stateMenu ) {
+                     dojo.addClass( this._items, "defaultDisplayHide");
+                     dojo.removeClass( this._items, "defaultDisplayBlock");
+
+                     //Dojo.removeClass(this._groupWrapper, "openMenu");
                  } else {
                      this._callGroups();
-                     dojo.addClass(this._groupWrapper, "openMenu");
-                     dojo.addClass(this._items, "defaultDisplayBlock");
-                     dojo.removeClass(this._items, "defaultDisplayHide");
+                     dojo.addClass( this._groupWrapper, "openMenu");
+                     dojo.addClass( this._items, "defaultDisplayBlock");
+                     dojo.removeClass( this._items, "defaultDisplayHide");
                  }
              },
 
@@ -275,36 +277,33 @@ define([
              *
              * @method _onOpenMenu
              */
-            _onOpenMenu : function(event) {
-                dojo.stopEvent(event);
-                dojo.publish("/encuestame/admon/user/hide", [this]);
+            _onOpenMenu: function( event ) {
+                dojo.stopEvent( event );
+                dojo.publish("/encuestame/admon/user/hide", [ this ] );
                 this._changeMenu();
                 this._stateMenu = !this._stateMenu;
             },
-
 
             /**
              *
              * @method _onMouseOver
              */
-            _onMouseOver: function(event) {
-                dojo.stopEvent(event);
-                this._timer = setTimeout(dojo.hitch(this, function() {
-                    dojo.addClass(this._groupWrapper, "showMenu");
-                }), 200);
+            _onMouseOver: function( event ) {
+                dojo.stopEvent( event );
+                this._timer = setTimeout( dojo.hitch( this, function() {
+                    dojo.addClass( this._groupWrapper, "showMenu");
+                }), 200 );
             },
-
 
             /**
              *
              * @method _onMouseOut
              */
-            _onMouseOut : function(event) {
-                 dojo.stopEvent(event);
-                 clearTimeout(this._timer);
-                 dojo.removeClass(this._groupWrapper, "showMenu");
+            _onMouseOut: function( event ) {
+                 dojo.stopEvent( event );
+                 clearTimeout( this._timer );
+                 dojo.removeClass( this._groupWrapper, "showMenu");
             }
-
 
     });
 });

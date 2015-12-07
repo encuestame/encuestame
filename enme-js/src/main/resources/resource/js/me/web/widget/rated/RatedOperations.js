@@ -1,80 +1,80 @@
-define([
+define( [
      "dojo/_base/declare",
-     "me/core/enme"],
+     "me/core/enme" ],
     function(
     declare,
-    _ENME) {
+    _ENME ) {
 
-  return declare(null, {
+  return declare( null, {
 
   /*
    *
    */
-   service : null,
+   service: null,
 
    /*
     *
     */
-   _items : [],
+   _items: [],
 
    /*
     *
     */
-   _key : null,
+   _key: null,
 
    /**
     * A items print counter.
     * @property items
     */
-   items : 0,
+   items: 0,
 
    /**
     * Clean the main node before load the service.
     * @property
     */
-   clean_after_reload : true,
+   clean_after_reload: true,
 
    /*
-    * print items.
+    * Print items.
     */
-   _print : function(items) {
-      if ( typeof(items) == 'object' ) {
+   _print: function( items ) {
+      if ( typeof( items ) == "object" ) {
           this.items += items.length;
-          dojo.forEach(items, dojo.hitch(this,function(item) {
-            this._item_store.appendChild(this._createItem(item));
-          }));
+          dojo.forEach( items, dojo.hitch( this, function( item ) {
+            this._item_store.appendChild( this._createItem( item ) );
+          }) );
       }
    },
 
    /*
-    * method should override.
+    * Method should override.
     */
-   _createItem : function(item) {},
+   _createItem: function( item ) {},
 
    /*
     *
     */
-   getParams : function(){},
+   getParams: function() {},
 
    /*
     *
     */
-   _loadItems : function(){
-         var load = dojo.hitch(this, function(data) {
-             if (this._key !== null) {
-                 this._items = data.success[this._key];
-                 if (this.clean_after_reload) {
-                   dojo.empty(this._item_store);
+   _loadItems: function() {
+         var load = dojo.hitch( this, function( data ) {
+             if ( this._key !== null ) {
+                 this._items = data.success[ this._key ];
+                 if ( this.clean_after_reload ) {
+                   dojo.empty( this._item_store );
                   }
-                 this._print(this._items);
+                 this._print( this._items );
              }
          });
-         var error = function(error) {
-             this.errorMesage(error);
+         var error = function( error ) {
+             this.errorMesage( error );
          };
-         this.getURLService().get(this.service, this.getParams(), load, error , dojo.hitch(this, function() {
+         this.getURLService().get( this.service, this.getParams(), load, error, dojo.hitch( this, function() {
 
-         }));
+         }) );
      }
 
   });

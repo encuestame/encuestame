@@ -1,40 +1,40 @@
-define([
+define( [
      "dojo/_base/declare",
-     "me/core/enme"],
+     "me/core/enme" ],
     function(
     declare,
-    _ENME) {
+    _ENME ) {
 
-  return declare(null, {
+  return declare( null, {
 
-     itemId : "",
+     itemId: "",
 
-     label : "",
+     label: "",
 
-     // define if the selecion is multiple or not, basicaly switch bt option or checkbox
-     multiple : false,
+     // Define if the selecion is multiple or not, basicaly switch bt option or checkbox
+     multiple: false,
 
       /**
     * PostCreate life cycle.
     */
-     postCreate : function() {},
+     postCreate: function() {},
 
     /**
      * Create a simple button.
      */
-    _createSimpleButton : function(name, node, value, id, required) {
+    _createSimpleButton: function( name, node, value, id, required ) {
         required = required === null ? false : required;
         var option = dojo.create("input", {
-            type : "radio",
-            name : name,
-            value : id
+            type: "radio",
+            name: name,
+            value: id
             });
-        if (required) {
+        if ( required ) {
             option.setAttribute("required", "");
         }
-        dojo.place(option, node);
-        var label = dojo.create("label", {innerHTML : value});
-        dojo.place(label, node);
+        dojo.place( option, node );
+        var label = dojo.create("label", { innerHTML: value });
+        dojo.place( label, node );
     }
 
   });

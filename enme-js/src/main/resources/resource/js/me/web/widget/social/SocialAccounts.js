@@ -1,4 +1,4 @@
-define([
+define( [
  "dojo/_base/declare",
  "dijit/_WidgetBase",
  "dijit/_TemplatedMixin",
@@ -19,84 +19,87 @@ function(
     SocialButton,
     SocialAccountDetail,
     _ENME,
-     template) {
-return declare([ _WidgetBase, _TemplatedMixin, main_widget, SettingsMenuSwitch, _WidgetsInTemplateMixin], {
+     template ) {
+return declare( [ _WidgetBase, _TemplatedMixin, main_widget, SettingsMenuSwitch, _WidgetsInTemplateMixin ], {
 
         /*
-         * template string.
+         * Template string.
          */
-        templateString : template,
+        templateString: template,
 
          /**
          *
          */
-        domain : _ENME.config('contextPath'),
+        domain: _ENME.config( "contextPath" ),
 
         /**
          *
          */
-        helpSteps : [
+        helpSteps: [
             {
-                element: '.listSettings',
-                intro: _ENME.getMessage('help_center_search')
+                element: ".listSettings",
+                intro: _ENME.getMessage( "help_center_search" )
             },
             {
-                element: '.settingsListDetail',
-                intro: _ENME.getMessage('help_menu_search')
+                element: ".settingsListDetail",
+                intro: _ENME.getMessage( "help_menu_search" )
             },
             {
-                element: '.toolBox .dijitButton',
-                intro: _ENME.getMessage('help_menu_search')
+                element: ".toolBox .dijitButton",
+                intro: _ENME.getMessage( "help_menu_search" )
             }
         ],
 
         /**
          *
          */
-        postCreate : function() {
-            //details
+        postCreate: function() {
+
+            //Details
             this._createDetail("twitterDetail", "Twitter");
             this._createDetail("facebookDetail", "Facebook");
             this._createDetail("linkedinDetail", "LinkedIn");
             this._createDetail("tumblrDetail", "Tumblr");
             this._createDetail("plurkDetail", "Plurk");
-            //this._createDetail("googleplusDetail", "GooglePlus");
+
+            //This._createDetail("googleplusDetail", "GooglePlus");
             //this._createDetail("yahooDetail", "Yahoo"); DISABLED
             //buttons
-            this._cretateButton("twitter", "Twitter", true);
+            this._cretateButton("twitter", "Twitter", true );
             this._cretateButton("facebook", "Facebook");
             this._cretateButton("linkedin", "LinkedIn");
             this._cretateButton("tumblr", "Tumblr");
             this._cretateButton("plurk", "Plurk");
-            //this._cretateButton("googleplus", "Google +");
+
+            //This._cretateButton("googleplus", "Google +");
             //this._cretateButton("yahoo", "Yahoo"); DISABLED
             //help links
-            this.initHelpLinks(dojo.hitch(this, function(){
-                this.updateHelpPageStatus(_ENME.config('currentPath'), true);
-            }));
+            this.initHelpLinks( dojo.hitch( this, function() {
+                this.updateHelpPageStatus( _ENME.config( "currentPath" ), true );
+            }) );
         },
 
         /*
          *
          */
-        _createDetail : function(id, provider) {
+        _createDetail: function( id, provider ) {
             var widget = new SocialAccountDetail({
-                id : id,
-                socialProvider : provider
+                id: id,
+                socialProvider: provider
             });
-            dojo.addClass(widget.domNode, "defaultDisplayHide");
-            this._detail.appendChild(widget.domNode);
+            dojo.addClass( widget.domNode, "defaultDisplayHide");
+            this._detail.appendChild( widget.domNode );
         },
 
         /*
          *
          */
-        _cretateButton : function(id, provider) {
+        _cretateButton: function( id, provider ) {
             var widget = new SocialButton({
-                id : id,
-                label : provider
+                id: id,
+                label: provider
             });
-            this._buttons.appendChild(widget.domNode);
+            this._buttons.appendChild( widget.domNode );
         }
 
    });

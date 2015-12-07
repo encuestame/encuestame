@@ -21,7 +21,7 @@
  *  @namespace Widgets
  *  @class SignUp
  */
-define([
+define( [
          "dojo/on",
          "dojo/_base/declare",
          "dojo/request/iframe",
@@ -46,8 +46,8 @@ define([
                 Dialog,
                 TextBox,
                 Button,
-                template) {
-            return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+                template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
 
       /**
        * Template string.
@@ -64,22 +64,22 @@ define([
         /**
          *
          */
-       callbackSuccessLogin : function(){},
+       callbackSuccessLogin: function() {},
 
        /**
         *
         * @method postCreate
         */
-       postCreate : function() {
+       postCreate: function() {
           var parent = this;
           var buttonYes = new Button({
                label: "Login",
                "class": "success",
-               onClick:function(e) {
-                   parent.sendLogin(e);
+               onClick:function( e ) {
+                   parent.sendLogin( e );
                }
            });
-           this._button.appendChild(buttonYes.domNode);
+           this._button.appendChild( buttonYes.domNode );
            this._dialog.show();
        },
 
@@ -87,29 +87,28 @@ define([
         *
         * @method login
         */
-       sendLogin: function(e) {
+       sendLogin: function( e ) {
 	     e.preventDefault();
          var params = {
-            j_username : this._username.get('value'),
-            j_password: this._password.get('value')
+            j_username: this._username.get( "value" ),
+            j_password: this._password.get( "value" )
          };
-         var load = dojo.hitch(this, function(data) {
-              if (!data.loggedIn) {
-                dojo.removeClass(this._alert, "hidden");
+         var load = dojo.hitch( this, function( data ) {
+              if ( !data.loggedIn ) {
+                dojo.removeClass( this._alert, "hidden");
               } else {
                 this._dialog.hide();
                 this.callbackSuccessLogin();
               }
           });
-          var error = function(error) {
-              console.debug("error", error);
+          var error = function( error ) {
+              console.debug("error", error );
           };
-          _ENME.xhr.post('encuestame.user.login', params, load, error, dojo.hitch(this, function() {
+          _ENME.xhr.post( "encuestame.user.login", params, load, error, dojo.hitch( this, function() {
 
-          }), true);
+          }), true );
           return false;
        }
-
 
     });
 });

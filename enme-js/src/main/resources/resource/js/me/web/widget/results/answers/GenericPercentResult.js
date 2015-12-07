@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
@@ -15,45 +15,44 @@ define([
     main_widget,
     resultSupport,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, resultSupport, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, resultSupport, _WidgetsInTemplateMixin ], {
 
    /**
-    * template string.
+    * Template string.
     */
-   templateString : template,
+   templateString: template,
 
     /**
     * Represent the unique item id of the result.
     */
-   itemId : null,
+   itemId: null,
 
    /**
     * Represent the label of the result / answer.
     */
-   labelResponse : "",
+   labelResponse: "",
 
    /**
     * Represent the color of the result.
     */
-   color : "",
+   color: "",
 
    /**
     * The current total of votes.
     */
-   votes : "",
+   votes: "",
 
    /**
     * The question id.
     */
-   questionId : null,
+   questionId: null,
 
    /**
     * The percent result.
     */
-   percent : "0%"
-
+   percent: "0%"
 
   });
 });

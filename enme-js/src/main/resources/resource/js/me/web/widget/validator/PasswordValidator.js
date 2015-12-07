@@ -21,7 +21,7 @@
  *  @namespace Widgets
  *  @class PasswordValidator
  */
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -38,108 +38,109 @@ define([
                 main_widget,
                 abstractValidatorWidget,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, abstractValidatorWidget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, abstractValidatorWidget, _WidgetsInTemplateMixin ], {
 
-        // template string.
-        templateString : template,
-
-        /**
-         *
-         */
-        noEvents : true,
+        // Template string.
+        templateString: template,
 
         /**
          *
          */
-        placeholder : "Write your password",
+        noEvents: true,
 
         /**
          *
          */
-        exclude : 'encuestame.constants.passwordExcludes',
+        placeholder: "Write your password",
 
         /**
          *
          */
-        toolTip : false,
+        exclude: "encuestame.constants.passwordExcludes",
 
         /**
          *
          */
-        postCreate : function() {
-            this.inherited(arguments);
-            dojo.connect(this._input, "onkeyup", dojo.hitch(this, function(e) {
-              if (dojo.keys.TAB != e.keyCode) {
-                dojo.stopEvent(e);
+        toolTip: false,
+
+        /**
+         *
+         */
+        postCreate: function() {
+            this.inherited( arguments );
+            dojo.connect( this._input, "onkeyup", dojo.hitch( this, function( e ) {
+              if ( dojo.keys.TAB != e.keyCode ) {
+                dojo.stopEvent( e );
                 this.inputTextValue = this._input.value.toLowerCase();
-                this._validate(this.inputTextValue);
+                this._validate( this.inputTextValue );
               }
-            }));
+            }) );
         },
 
         /**
          *
          */
-        _validateBlackListPassword : function(password){
+        _validateBlackListPassword: function( password ) {
             var valid = false;
-            dojo.forEach(ENME.passwordExcludes,
-                    dojo.hitch(this,function(item) {
-                        //console.debug(item);
-            }));
+            dojo.forEach( ENME.passwordExcludes,
+                    dojo.hitch( this, function( item ) {
+
+                        //Console.debug(item);
+            }) );
             return valid;
         },
 
         /**
          *
          */
-        validatePassword : function() {
-            this._validate(this.inputTextValue, true);
+        validatePassword: function() {
+            this._validate( this.inputTextValue, true );
         },
 
         /**
          * Evaluate the password strong
          * @method
          */
-        evaluateStrong : function(passwd) {
+        evaluateStrong: function( passwd ) {
             var intScore = 0,
             strVerdict = "weak",
             strLog = "";
-            if (passwd.length < 5) {
-                intScore = (intScore + 3);
-            } else if (passwd.length > 4 && passwd.length < 8) {
-                intScore = (intScore + 6);
-            } else if (passwd.length > 7 && passwd.length < 16) {
-                intScore = (intScore + 12);
-            } else if (passwd.length > 15) {
-                intScore = (intScore + 18);
+            if ( passwd.length < 5 ) {
+                intScore = ( intScore + 3 );
+            } else if ( passwd.length > 4 && passwd.length < 8 ) {
+                intScore = ( intScore + 6 );
+            } else if ( passwd.length > 7 && passwd.length < 16 ) {
+                intScore = ( intScore + 12 );
+            } else if ( passwd.length > 15 ) {
+                intScore = ( intScore + 18 );
             }
-            if (passwd.match(/[a-z]/)) {
-                intScore = (intScore + 1);
+            if ( passwd.match( /[a-z]/ ) ) {
+                intScore = ( intScore + 1 );
             }
-            if (passwd.match(/[A-Z]/)) {
-                intScore = (intScore + 5);
+            if ( passwd.match( /[A-Z]/ ) ) {
+                intScore = ( intScore + 5 );
             }
-            if (passwd.match(/\d+/)) {
-                intScore = (intScore + 5);
+            if ( passwd.match( /\d+/ ) ) {
+                intScore = ( intScore + 5 );
             }
-            if (passwd.match(/(.*[0-9].*[0-9].*[0-9])/)) {
-                intScore = (intScore + 5);
+            if ( passwd.match( /(.*[0-9].*[0-9].*[0-9])/ ) ) {
+                intScore = ( intScore + 5 );
             }
-            if (passwd.match(/.[!,@,#,$,%,^,&,*,?,_,~]/)) {
-                intScore = (intScore + 5);
+            if ( passwd.match( /.[!,@,#,$,%,^,&,*,?,_,~]/ ) ) {
+                intScore = ( intScore + 5 );
             }
-            if (passwd.match(/(.*[!,@,#,$,%,^,&,*,?,_,~].*[!,@,#,$,%,^,&,*,?,_,~])/)) {
-                intScore = (intScore + 5);
+            if ( passwd.match( /(.*[!,@,#,$,%,^,&,*,?,_,~].*[!,@,#,$,%,^,&,*,?,_,~])/ ) ) {
+                intScore = ( intScore + 5 );
             }
-            if (passwd.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
-                intScore = (intScore + 2);
+            if ( passwd.match( /([a-z].*[A-Z])|([A-Z].*[a-z])/ ) ) {
+                intScore = ( intScore + 2 );
             }
-            if (passwd.match(/([a-zA-Z])/) && passwd.match(/([0-9])/)) {
-                intScore = (intScore + 2);
+            if ( passwd.match( /([a-zA-Z])/ ) && passwd.match( /([0-9])/ ) ) {
+                intScore = ( intScore + 2 );
             }
-            if (passwd.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/)) {
-                intScore = (intScore + 2);
+            if ( passwd.match( /([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/ ) ) {
+                intScore = ( intScore + 2 );
             }
             return intScore;
         },
@@ -147,40 +148,41 @@ define([
        /**
         *
         */
-       _validate : function(password, validateBlank) {
+       _validate: function( password, validateBlank ) {
                var banned = false;
                validateBlank = validateBlank || false;
-               // check banned password.
-              if (!banned) {
+
+               // Check banned password.
+              if ( !banned ) {
                   var data = {};
-                  var intScore = this.evaluateStrong(password);
-                  if (validateBlank && password === '') {
+                  var intScore = this.evaluateStrong( password );
+                  if ( validateBlank && password === "" ) {
                     data.msg = _ENME.getMessage("m_015");
                       this.isValid = false;
-                      this._showErrorMessage(data);
-                  } else if (ENME.passwordExcludes.length > 0 && ENME.passwordExcludes.indexOf(password.toLowerCase()) !== -1) {
+                      this._showErrorMessage( data );
+                  } else if ( ENME.passwordExcludes.length > 0 && ENME.passwordExcludes.indexOf( password.toLowerCase() ) !== -1 ) {
                      data.msg = _ENME.getMessage("m_012");
                      this.isValid = false;
-                     this._showErrorMessage(data);
-                  } else if (intScore < 16 && intScore > 1) {
+                     this._showErrorMessage( data );
+                  } else if ( intScore < 16 && intScore > 1 ) {
                       data.msg = _ENME.getMessage("m_012");
                       this.isValid = false;
-                      this._showErrorMessage(data);
-                  } else if (intScore > 15 && intScore < 25) {
+                      this._showErrorMessage( data );
+                  } else if ( intScore > 15 && intScore < 25 ) {
                       data.msg =  _ENME.getMessage("e_013");
-                      this._showErrorMessage(data);
+                      this._showErrorMessage( data );
                       this.isValid = false;
-                  } else if (intScore > 24 && intScore < 35) {
+                  } else if ( intScore > 24 && intScore < 35 ) {
                       data.msg = _ENME.getMessage("m_011");
-                      this._showSuccessMessage(data);
+                      this._showSuccessMessage( data );
                       this.isValid = true;
-                  } else if (intScore > 34 && intScore < 45) {
+                  } else if ( intScore > 34 && intScore < 45 ) {
                       data.msg = _ENME.getMessage("m_010");
-                      this._showSuccessMessage(data);
+                      this._showSuccessMessage( data );
                       this.isValid = true;
                   } else {
                       data.msg = _ENME.getMessage("m_009");
-                      this._showSuccessMessage(data);
+                      this._showSuccessMessage( data );
                       this.isValid = true;
                   }
               } else {
@@ -188,32 +190,31 @@ define([
               }
        },
 
-
        /**
         *
         */
-       _showSuccessMessage : function(data){
-           var node = dojo.byId("_message_"+this.id);
-           if (node) {
-               dojo.empty(node);
+       _showSuccessMessage: function( data ) {
+           var node = dojo.byId("_message_" + this.id );
+           if ( node ) {
+               dojo.empty( node );
                var p = dojo.doc.createElement("p");
-               dojo.addClass(p, "success-message");
+               dojo.addClass( p, "success-message");
                p.innerHTML = data.msg;
-               node.appendChild(p);
+               node.appendChild( p );
            }
        },
 
          /**
           *
           */
-         _showErrorMessage : function(data){
-             var node = dojo.byId("_message_"+this.id);
-             if (node) {
-                 dojo.empty(node);
+         _showErrorMessage: function( data ) {
+             var node = dojo.byId("_message_" + this.id );
+             if ( node ) {
+                 dojo.empty( node );
                  var p = dojo.doc.createElement("p");
-                 dojo.addClass(p, "error-message");
+                 dojo.addClass( p, "error-message");
                  p.innerHTML = data.msg;
-                 node.appendChild(p);
+                 node.appendChild( p );
              }
          }
 

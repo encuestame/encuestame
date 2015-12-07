@@ -1,4 +1,4 @@
-define([ "dojo/_base/declare",
+define( [ "dojo/_base/declare",
          "dojo/query",
          "dojo/cookie",
          "dojo/on",
@@ -24,11 +24,11 @@ define([ "dojo/_base/declare",
     _WidgetsInTemplateMixin,
     Standby,
     main_widget,
-    _ENME, template) {
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget,
+    _ENME, template ) {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget,
       _WidgetsInTemplateMixin ], {
 
-    // template string.
+    // Template string.
     templateString: template,
 
     //
@@ -38,37 +38,39 @@ define([ "dojo/_base/declare",
      *
      * @method
      */
-    postCreate : function() {
+    postCreate: function() {
        var isHidden = cookie("enme-active-bar") || false,
        domNode = this.domNode,
        p = this;
-       if (!this.validate && !isHidden) {
-          // get all internal messages
-          dojo.removeClass(domNode, 'hidden');
-          var messages = query(".up-message", this.srcNodeRef),
+       if ( !this.validate && !isHidden ) {
+
+          // Get all internal messages
+          dojo.removeClass( domNode, "hidden" );
+          var messages = query(".up-message", this.srcNodeRef ),
           total = messages.length;
           domNode = this._content;
-          if (total > 0) {
-               messages.forEach(dojo.hitch(this, function(node, index) {
-                  query('a', index).forEach(function(node) {
-                      on(node, "click", function(e) {
-                          event.stop(e);
-                          var url = domAttr.get(node, 'data-href');
+          if ( total > 0 ) {
+               messages.forEach( dojo.hitch( this, function( node, index ) {
+                  query( "a", index ).forEach( function( node ) {
+                      on( node, "click", function( e ) {
+                          event.stop( e );
+                          var url = domAttr.get( node, "data-href" );
                           p.setCookie();
                           window.location.href = url;
                         });
                   });
-                  domNode.appendChild(index);
-               }, this));
-               // close the bar
-               on(this._close, "click", function(e) {
-                    event.stop(e);
+                  domNode.appendChild( index );
+               }, this ) );
+
+               // Close the bar
+               on( this._close, "click", function( e ) {
+                    event.stop( e );
                     p.setCookie();
-                    dojo.destroy(domNode);
+                    dojo.destroy( domNode );
                });
           }
        } else {
-          dojo.destroy(this.domNode);
+          dojo.destroy( this.domNode );
        }
     },
 
@@ -76,7 +78,7 @@ define([ "dojo/_base/declare",
      * Set the cookie.
      * @method
      */
-    setCookie : function() {
+    setCookie: function() {
       cookie("enme-active-bar", true, { expires:3650 });
     }
   });

@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class Comment
  */
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
@@ -38,33 +38,33 @@ define([
     main_widget,
     ToggleText,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
       /**
-       * template string.
+       * Template string.
        * @property
        */
-      templateString : template,
+      templateString: template,
 
      /**
       *
       * @property
       */
-     type : "",
+     type: "",
 
      /**
       *
       * @property
       */
-     item_id : null,
+     item_id: null,
 
      /**
       *
       * @property
       */
-     data : null,
+     data: null,
 
      /**
       * Define if the comment is moderated
@@ -72,15 +72,15 @@ define([
       */
      is_moderated: false,
 
-
     /**
      *
      * @method postMixInProperties
      */
     postMixInProperties: function() {
         /*
-          * in the future the content could be formated by HTML.
+          * In the future the content could be formated by HTML.
           */
+
          // //if (this._comment_content) {
          //   var p = dojo.create("p");
          //   p.innerHTML = this.data.comment;
@@ -91,41 +91,44 @@ define([
        /**
         *
         */
-       postCreate : function() {
-         if (this.data) {
+       postCreate: function() {
+         if ( this.data ) {
            try {
              this._fillComment();
-           } catch (err) {
-              console.error("error on fill comment", err);
+           } catch ( err ) {
+              console.error("error on fill comment", err );
            } finally {
-            //something could be happend.
+
+            //Something could be happend.
            }
           }
-          if (this.is_moderated) {
-             dojo.addClass(this.domNode, "moderated");
+          if ( this.is_moderated ) {
+             dojo.addClass( this.domNode, "moderated");
           }
        },
 
            /*
         *
         */
-       _fillComment : function() {
-         //set user link
-         if (this._commented_by) {
+       _fillComment: function() {
+
+         //Set user link
+         if ( this._commented_by ) {
            var a = dojo.create("a");
-           var commentedBy = (this.data.commented_by === null ? this.data.commented_username : this.data.commented_by);
+           var commentedBy = ( this.data.commented_by === null ? this.data.commented_username : this.data.commented_by );
            a.innerHTML = commentedBy;
-           a.href = _ENME.usernameLink(this.data.commented_username);
-           //a.target = "_blank";
-           this._commented_by.appendChild(a);
+           a.href = _ENME.usernameLink( this.data.commented_username );
+
+           //A.target = "_blank";
+           this._commented_by.appendChild( a );
          }
 
-         //set date
-         if (this._comment_content_date) {
+         //Set date
+         if ( this._comment_content_date ) {
            var date = dojo.create("a");
-           date.innerHTML = _ENME.fromNow(this.data.created_at, "YYYY-MM-DD");
+           date.innerHTML = _ENME.fromNow( this.data.created_at, "YYYY-MM-DD");
            date.href = "#"; //TODO: future improvements
-           this._comment_content_date.appendChild(date);
+           this._comment_content_date.appendChild( date );
          }
        }
 

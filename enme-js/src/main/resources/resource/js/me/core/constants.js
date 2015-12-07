@@ -5,7 +5,7 @@
  * @author juanATencuestame.org
  * @since 2012-06-10 23:46:29
  */
-define(null,
+define( null,
     function() {
 
      "use strict";

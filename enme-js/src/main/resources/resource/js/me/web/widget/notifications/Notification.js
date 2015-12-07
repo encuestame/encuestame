@@ -21,11 +21,12 @@
  *  @namespace Widget
  *  @class Notification
  */
-//dojo.require('dojox.timing');
 
-define([
+//Dojo.require('dojox.timing');
+
+define( [
          "dojo",
-         'dojo/_base/json',
+         "dojo/_base/json",
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -44,19 +45,20 @@ define([
                 main_widget,
                 NotificationItem,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-          templateString : template,
+          // Template string.
+          templateString: template,
 
           /*
-          * delay to retrieve new notification.
+          * Delay to retrieve new notification.
           */
-         //delay: _ENME.config('activity').delay,
+
+         //Delay: _ENME.config('activity').delay,
 
          /*
-          * limit of notifications.
+          * Limit of notifications.
           */
          limit: 10,
 
@@ -64,19 +66,19 @@ define([
          *
          * @property
          */
-         i18nMessage : {
-           not_view_all : _ENME.getMessage("not_view_all")
+         i18nMessage: {
+           not_view_all: _ENME.getMessage("not_view_all")
          },
 
          /*
           *
           */
-         notifications : null,
+         notifications: null,
 
          /*
           *
           */
-         totalNot : 0,
+         totalNot: 0,
 
          /*
           *
@@ -86,35 +88,38 @@ define([
          /*
           *
           */
-         _updateNotifications : true,
+         _updateNotifications: true,
 
          /*
           *
           */
-         openNot : false,
+         openNot: false,
 
          /*
           *
           */
-         _originalTitle : null,
+         _originalTitle: null,
 
          /**
           *
           * @property
           */
-          storage_key : "enme-not",
+          storage_key: "enme-not",
 
          /*
           *
           */
          postCreate: function() {
-            // after refresh, clean all possible storage key.
-            _ENME.removeItem(this.storage_key);
+
+            // After refresh, clean all possible storage key.
+            _ENME.removeItem( this.storage_key );
+
             //  // get the current activity
             this.activity = _ENME.getActivity();
 
             dojo.subscribe("/notifications/service/messages", this, "_updateStatus");
             dojo.subscribe("/notifications/service/update", this, function() {
+
                 //_timer();
             });
             this._originalTitle = document.title;
@@ -127,14 +132,14 @@ define([
           * @method
           */
          callTotals: function() {
-             if (this.activity) {
+             if ( this.activity ) {
                this.activity.subscribe({
-                  type : 'subscribe',
-                  suffix : false,
-                  callback : function(data) {
-                    dojo.publish('/notifications/service/messages', data);
+                  type: "subscribe",
+                  suffix: false,
+                  callback: function( data ) {
+                    dojo.publish( "/notifications/service/messages", data );
                   },
-                  channel : '/app/notifications'
+                  channel: "/app/notifications"
               });
            }
          },
@@ -142,9 +147,9 @@ define([
          /*
           * Load Timer.
           */
-         loadTimer : function() {
+         loadTimer: function() {
              var father = this;
-             this.timer = new dojox.timing.Timer(this.delay);
+             this.timer = new dojox.timing.Timer( this.delay );
              this.timer.onTick = function() {
                  father.loadStatus();
              };
@@ -154,30 +159,33 @@ define([
          },
 
          /*
-          * open dialog notification.
+          * Open dialog notification.
           */
-         open: function(event) {
-             dojo.stopEvent(event);
-             if (!this.openNot) {
-                 dojo.addClass(this._panel, "openLivePanel");
-                 dojo.addClass(this._parent_wrapper, 'not-menu-not-selected');
-                 //if(this._updateNotifications){
+         open: function( event ) {
+             dojo.stopEvent( event );
+             if ( !this.openNot ) {
+                 dojo.addClass( this._panel, "openLivePanel");
+                 dojo.addClass( this._parent_wrapper, "not-menu-not-selected" );
+
+                 //If(this._updateNotifications){
                      this.loadNotifications();
+
                  //}
              } else {
-                 dojo.removeClass(this._panel, "openLivePanel");
-                 dojo.removeClass(this._parent_wrapper, 'not-menu-not-selected');
+                 dojo.removeClass( this._panel, "openLivePanel");
+                 dojo.removeClass( this._parent_wrapper, "not-menu-not-selected" );
              }
              this.openNot = !this.openNot;
          },
 
          /*
-          * view all.
+          * View all.
           */
-         _viewAll : function(event){
-              dojo.stopEvent(event);
-              //dijit.byId("allNot").show();
-              document.location.href = _ENME.config('contextPath') + "/user/notifications";
+         _viewAll: function( event ) {
+              dojo.stopEvent( event );
+
+              //Dijit.byId("allNot").show();
+              document.location.href = _ENME.config( "contextPath" ) + "/user/notifications";
          },
 
          /*
@@ -185,119 +193,127 @@ define([
           * @param totalNew
           * @param lastNew
           */
-         _updateStatus : function(notStatus) {
-             var _storage =  (json.fromJson(_ENME.restoreItem(this.storage_key)) || ({ n : null , t : null }));
-             if (notStatus.totalNewNot < _storage.n || notStatus.totalNewNot == _storage.n) {
-                 //highlight new notifications.
+         _updateStatus: function( notStatus ) {
+             var _storage =  ( json.fromJson( _ENME.restoreItem( this.storage_key ) ) || ({ n: null, t: null }) );
+             if ( notStatus.totalNewNot < _storage.n || notStatus.totalNewNot == _storage.n ) {
+
+                 //Highlight new notifications.
                  this._updateNotifications = true;
                  this._displayNewHighlight();
-                 //update title to show number of new notifications
-                 var newTitle = this._originalTitle + " ("+  notStatus.totalNewNot + ")";
-                 //console.debug("newTitle", newTitle);
+
+                 //Update title to show number of new notifications
+                 var newTitle = this._originalTitle + " (" +  notStatus.totalNewNot + ")";
+
+                 //Console.debug("newTitle", newTitle);
                  document.title = newTitle;
              } else {
                  this._hideNewHighlight();
                  this._updateNotifications = false;
              }
-             // update cookie
-             _ENME.storeItem(this.storage_key, {
-                t : notStatus.totalNot,
-                n : notStatus.totalNewNot
+
+             // Update cookie
+             _ENME.storeItem( this.storage_key, {
+                t: notStatus.totalNot,
+                n: notStatus.totalNewNot
              });
-             //encuestame.session.activity.updateNot(total, notStatus.totalNewNot);
+
+             //Encuestame.session.activity.updateNot(total, notStatus.totalNewNot);
              notStatus.totalNot = notStatus.totalNewNot;
-             this._count.innerHTML = _ENME.relativeQuantity(notStatus.totalNot);
+             this._count.innerHTML = _ENME.relativeQuantity( notStatus.totalNot );
          },
 
          /*
           *
           */
-         _displayNewHighlight : function(){
-             dojo.addClass(this._count, "new");
+         _displayNewHighlight: function() {
+             dojo.addClass( this._count, "new");
          },
 
-         _hideNewHighlight : function(){
-             dojo.removeClass(this._count, "new");
+         _hideNewHighlight: function() {
+             dojo.removeClass( this._count, "new");
          },
 
          /*
-          * load notifications
+          * Load notifications
           */
-         loadStatus : function() {
-             // encuestame.activity.cometd.startBatch();
+         loadStatus: function() {
+
+             // Encuestame.activity.cometd.startBatch();
              // encuestame.activity.cometd.publish('/service/notification/status', {});
              // encuestame.activity.cometd.endBatch();
          },
 
          /**
-          * load notifications.
+          * Load notifications.
           * @method
           */
-         loadNotifications : function() {
+         loadNotifications: function() {
              var parent = this,
-             load = dojo.hitch(this, function(data) {
-                 //parent.activity.cometd.publish('/service/notification/status', { r : 0 });
+             load = dojo.hitch( this, function( data ) {
+
+                 //Parent.activity.cometd.publish('/service/notification/status', { r : 0 });
                  this.callTotals();
                  this.notifications = data.success.notifications;
                  this.buildNotifications();
                  this._updateNotifications = false;
              }),
-             error =  dojo.hitch(this, function(error) {
+             error =  dojo.hitch( this, function( error ) {
                  this.timer.stop();
              });
-             dojo.empty(this._not);
-             this.getURLService().get("encuestame.service.list.getNotifications", { limit: this.limit}, load, error , dojo.hitch(this, function() {
-             }));
+             dojo.empty( this._not );
+             this.getURLService().get("encuestame.service.list.getNotifications", { limit: this.limit }, load, error, dojo.hitch( this, function() {
+             }) );
          },
 
          /*
-          * build notifications node.
+          * Build notifications node.
           */
-         buildNotifications : function() {
-              dojo.empty(this._not);
-              dojo.forEach(this.notifications,
-                      dojo.hitch(this, function(item, index) {
-                      this.createNotification(item);
-               }));
+         buildNotifications: function() {
+              dojo.empty( this._not );
+              dojo.forEach( this.notifications,
+                      dojo.hitch( this, function( item, index ) {
+                      this.createNotification( item );
+               }) );
          },
 
          /*
-          * clean nodes.
+          * Clean nodes.
           */
-         cleanNodeName : function(){
-              var name = dojo.byId(this.nodeName);
-              if (name !== null) {
-                 name.innerHTML = '';
+         cleanNodeName: function() {
+              var name = dojo.byId( this.nodeName );
+              if ( name !== null ) {
+                 name.innerHTML = "";
               }
          },
 
          /*
           * Create Network Error.
           */
-         createNetworkError : function(error, additional) {
+         createNetworkError: function( error, additional ) {
              var item = {
-                 type : "",
-                 description : error,
+                 type: "",
+                 description: error,
                  additionalDescription: additional,
-                 icon : "netWorkErrorImage"
+                 icon: "netWorkErrorImage"
              };
-             this.createNotification(item);
+             this.createNotification( item );
          },
 
-         cleanNot : function() {
-             dojo.empty(this._not);
+         cleanNot: function() {
+             dojo.empty( this._not );
          },
 
          /*
           * Create Notification.
           */
-         createNotification : function(item){
+         createNotification: function( item ) {
              var not = new NotificationItem({
-              item : item,
+              item: item,
               parentWidget: this
              });
-             //console.log("ITEM", item);
-             this._not.appendChild(not.domNode);
+
+             //Console.log("ITEM", item);
+             this._not.appendChild( not.domNode );
          }
 
     });

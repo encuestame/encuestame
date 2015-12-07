@@ -22,12 +22,12 @@
  *  @class FileName
  */
 
-define([
+define( [
 		"dojo/_base/lang"
-	],function(lang) {
+	], function( lang ) {
 
 	var _config = {
-		contextPath : '../../json'
+		contextPath: "../../json"
 
 	};
 
@@ -37,9 +37,9 @@ define([
 		 *
 		 * @param config
 		 */
-		merge : function(config) {
-			if (config) {
-				_config = lang.mixin(_config, config);
+		merge: function( config ) {
+			if ( config ) {
+				_config = lang.mixin( _config, config );
 			}
 		},
 
@@ -48,9 +48,9 @@ define([
 		 * @param property
 		 * @param value
 		 */
-		set : function(property, value) {
-			if (property && value) {
-				_config[property] = value;
+		set: function( property, value ) {
+			if ( property && value ) {
+				_config[ property ] = value;
 			}
 		},
 
@@ -58,8 +58,8 @@ define([
 		 * Get a config value.
 		 * @param value
 		 */
-		get : function (value) {
-			return _config[value];
+		get: function( value ) {
+			return _config[ value ];
 		}
-	}
+	};
 });

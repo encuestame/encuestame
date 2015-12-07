@@ -1,4 +1,4 @@
-define(["dojo/_base/declare",
+define( [ "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -14,73 +14,74 @@ define(["dojo/_base/declare",
                 main_widget,
                 hashTagInfo,
                 _ENME,
-                 template) {
+                 template ) {
 
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-            templateString : template,
+          // Template string.
+            templateString: template,
 
             /**
             * Default publish channel.
             */
-           channel : "/encuestame/hashtag/time/range/refresh/graph",
+           channel: "/encuestame/hashtag/time/range/refresh/graph",
 
            /**
             *
             */
-           defaultDateRange : _ENME.YEAR,
+           defaultDateRange: _ENME.YEAR,
 
            /**
-            * position default.
+            * Position default.
             */
-           _open : false,
+           _open: false,
 
            /**
-            * post create.
+            * Post create.
             */
-           postCreate : function() {
-             this.inherited(arguments);
-             if (this.range_actions) {
-                this.buildMenu(this.range_actions);
+           postCreate: function() {
+             this.inherited( arguments );
+             if ( this.range_actions ) {
+                this.buildMenu( this.range_actions );
              }
-             dojo.connect(this._menu, "onclick", dojo.hitch(this, function(event) {
+             dojo.connect( this._menu, "onclick", dojo.hitch( this, function( event ) {
                 this._expandMenu();
-             }));
+             }) );
            },
 
            /**
             * Build the menu.
             * @param arrayList {Object}
             */
-           buildMenu : function (arrayList) {
-             var innerText = dojo.hitch(this, function(value) {
-                dojo.empty(this._menu);
+           buildMenu: function( arrayList ) {
+             var innerText = dojo.hitch( this, function( value ) {
+                dojo.empty( this._menu );
                 var caret = _ENME.createCaret();
                 this._menu.innerHTML = value;
-                this._menu.appendChild(caret);
+                this._menu.appendChild( caret );
              }),
-             // var innerText = dojo.hitch(this, function(value) {
 
-             //   this._menu.innerHTML  = value;
+             // Var innerText = dojo.hitch(this, function(value) {
+
+             //   This._menu.innerHTML  = value;
              // });
-             setItem = dojo.hitch(this, function (item) {
-               innerText(item.period);
-               this._expandMenu(item);
+             setItem = dojo.hitch( this, function( item ) {
+               innerText( item.period );
+               this._expandMenu( item );
              });
-             dojo.forEach(arrayList, dojo.hitch(this,function(menuItem) {
-                  var item = dojo.create('li');
-                  dojo.addClass(item, "dropdown-item");
+             dojo.forEach( arrayList, dojo.hitch( this, function( menuItem ) {
+                  var item = dojo.create( "li" );
+                  dojo.addClass( item, "dropdown-item");
                   item.innerHTML = menuItem.period;
-                  if (this.defaultDateRange && this.defaultDateRange === menuItem.value) {
-                    innerText(menuItem.period);
+                  if ( this.defaultDateRange && this.defaultDateRange === menuItem.value ) {
+                    innerText( menuItem.period );
                   }
-                  dojo.connect(item, "onclick", dojo.hitch(this, function(event) {
-                    menuItem.action(this.channel);
-                    setItem(menuItem);
-                   }));
-                  this.append(item, this._items);
-              }));
+                  dojo.connect( item, "onclick", dojo.hitch( this, function( event ) {
+                    menuItem.action( this.channel );
+                    setItem( menuItem );
+                   }) );
+                  this.append( item, this._items );
+              }) );
            },
 
            /**
@@ -88,21 +89,19 @@ define(["dojo/_base/declare",
             * @param item
             */
 
-
            /**
             * Expand the menu when the user click in the button.
             */
-           _expandMenu : function () {
-             if (this._open) {
-               dojo.removeClass(this._menu, "menu-expand");
-               dojo.addClass(this._items, "hidden");
+           _expandMenu: function() {
+             if ( this._open ) {
+               dojo.removeClass( this._menu, "menu-expand");
+               dojo.addClass( this._items, "hidden");
              } else {
-               dojo.addClass(this._menu, "menu-expand");
-               dojo.removeClass(this._items, "hidden");
+               dojo.addClass( this._menu, "menu-expand");
+               dojo.removeClass( this._items, "hidden");
              }
              this._open = !this._open;
            }
-
 
             });
         });

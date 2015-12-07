@@ -16,7 +16,7 @@
  *
  */
 
-define([
+define( [
      "dojo/_base/declare",
      "me/web/widget/stream/FrontEndItem",
      "me/core/enme",
@@ -25,18 +25,18 @@ define([
     declare,
     FrontEndItem,
     _ENME,
-    template) {
+    template ) {
 
-  return declare([FrontEndItem], {
+  return declare( [ FrontEndItem ], {
 
-        // template string.
-        templateString : template,
+        // Template string.
+        templateString: template,
 
         /**
          * Post create.
          */
-        postCreate : function() {
-            this.inherited(arguments);
+        postCreate: function() {
+            this.inherited( arguments );
         }
   });
 });

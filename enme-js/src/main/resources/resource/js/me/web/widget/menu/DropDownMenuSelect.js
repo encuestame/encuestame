@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -15,39 +15,40 @@ define([
                 main_widget,
                 hashTagInfo,
                 _ENME,
-                 template) {
+                 template ) {
 
             "use strict";
 
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-          // template string.
-           templateString : template,
+          // Template string.
+           templateString: template,
 
             /*
-            * default text.
+            * Default text.
             */
-           defaultText : "Select the Action...",
+           defaultText: "Select the Action...",
 
            /*
-            * post create.
+            * Post create.
             */
-           postCreate : function() {
+           postCreate: function() {
              this._createItems();
            },
 
            /**
             * Append item.
             */
-           _appendItem : function (menuItem) {
-              this._addItem(menuItem.domNode);
+           _appendItem: function( menuItem ) {
+              this._addItem( menuItem.domNode );
            },
 
            /**
             * Create default Items.
             */
-           _createItems : function() {
-               // new poll
+           _createItems: function() {
+
+               // New poll
   //             var newPoll = new encuestame.org.core.shared.utils.DropDownMenuItem({
   //                         label : "New Poll",
   //                         url : "/user/poll/new"
@@ -56,10 +57,10 @@ define([
            },
 
            /*
-            * add item on drop down menu.
+            * Add item on drop down menu.
             */
-           _addItem : function(node) {
-               dojo.place(node, this._items);
+           _addItem: function( node ) {
+               dojo.place( node, this._items );
            }
 
     });

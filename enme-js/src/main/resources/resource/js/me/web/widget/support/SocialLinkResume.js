@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class SocialLinkResume
  */
-define([
+define( [
          "dojo/_base/declare",
          "dojo/on",
          "dijit/_WidgetBase",
@@ -36,6 +36,7 @@ define([
          "dijit/DropDownMenu",
          "dijit/MenuItem",
          "dijit/Dialog",
+
          // "dojo/text!me/web/widget/support/templates/commentsModeration.html",
          // "dojo/text!me/web/widget/support/templates/commentResponse.html",
          "dojo/text!me/web/widget/support/templates/socialLinkResume.html" ],
@@ -54,16 +55,17 @@ define([
                 DropDownMenu,
                 MenuItem,
                 Dialog,
-//                template,
-//                templateResponse,
-                template) {
 
-          return declare([Comments, main_widget], {
+//                Template,
+//                templateResponse,
+                template ) {
+
+          return declare( [ Comments, main_widget ], {
 
           /**
            * The template reference.
            */
-          templateString : template,
+          templateString: template,
 
           /**
            * Define the type of comments source
@@ -78,29 +80,29 @@ define([
           item_id: null,
 
          /**
-          * i18n message for this widget.
+          * I18n message for this widget.
           */
-         i18nMessage : {
-           social_picker_filter_selected : _ENME.getMessage("social_picker_filter_selected"),
-           commons_filter : _ENME.getMessage("commons_filter")
+         i18nMessage: {
+           social_picker_filter_selected: _ENME.getMessage("social_picker_filter_selected"),
+           commons_filter: _ENME.getMessage("commons_filter")
          },
 
          /**
           *
           * @method successHandler
           */
-         successHandler: function(data) {
+         successHandler: function( data ) {
             var comments = data.success.comments;
-            if (comments.length > 0) {
-                dojo.forEach(comments, dojo.hitch(this, function(data, index) {
+            if ( comments.length > 0 ) {
+                dojo.forEach( comments, dojo.hitch( this, function( data, index ) {
                     var widget = new CommentModerationItem(
                       {
                         data: data,
                         type: this.type,
                         item_id: this.item_id
                       });
-                  this._comments.appendChild(widget.domNode);
-                }));
+                  this._comments.appendChild( widget.domNode );
+                }) );
             } else {
                 this._printNoCommentsText();
             }
@@ -109,8 +111,9 @@ define([
          /**
           *
           */
-         postCreate : function() {
-            //this.inherited(arguments);
+         postCreate: function() {
+
+            //This.inherited(arguments);
          }
     });
 });

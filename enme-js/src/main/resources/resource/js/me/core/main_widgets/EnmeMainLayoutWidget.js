@@ -23,14 +23,14 @@
  *  @requires WidgetServices
  */
 
-define([ "dojo/parser",
+define( [ "dojo/parser",
          "dojo/_base/declare",
      "me/core/URLServices",
      "me/web/widget/dialog/Confirm",
      "me/web/widget/ui/Alert",
      "me/web/widget/support/IntroJSupport",
      "me/core/main_widgets/WidgetServices",
-     "me/core/enme"], function(
+     "me/core/enme" ], function(
     parser,
     declare,
     _URL,
@@ -38,76 +38,75 @@ define([ "dojo/parser",
     Alert,
     IntroJSupport,
     _WIDGET,
-    _ENME) {
+    _ENME ) {
 
-  return declare([_WIDGET, IntroJSupport], {
+  return declare( [ _WIDGET, IntroJSupport ], {
 
       /**
        *
        * @property defaultNoResults
        */
-       defaultNoResults : "Nothing find with ",
-
+       defaultNoResults: "Nothing find with ",
 
       /**
        *
        * @property
        */
-      typeChart : ['Bars', 'Pie', 'Lines'],
+      typeChart: [ "Bars", "Pie", "Lines" ],
 
        /**
         * Return if the device is mobile or not
         */
-       isMobile : _ENME.config('isMobile'),
+       isMobile: _ENME.config( "isMobile" ),
 
       /**
-       * i18n Message.
+       * I18n Message.
        */
-      i18nMessage : {
-          commons_confirm : _ENME.getMessage("commons_confirm"),
-          commons_yes : _ENME.getMessage("commons_yes"),
-          commons_no : _ENME.getMessage("commons_no")
+      i18nMessage: {
+          commons_confirm: _ENME.getMessage("commons_confirm"),
+          commons_yes: _ENME.getMessage("commons_yes"),
+          commons_no: _ENME.getMessage("commons_no")
        },
 
 	  /*
 	   * Tist of filters, this content should coincide with api enum.
 	   */
-	  _type_filter : {
-		  BYOWNER : 'BYOWNER',
-		  LASTDAY : 'LASTDAY',
-		  LASTWEEK : 'LASTWEEK',
-		  FAVOURITES : 'FAVOURITES',
-		  SCHEDULED : 'SCHEDULED',
-		  ALL : 'ALL'
+	  _type_filter: {
+		  BYOWNER: "BYOWNER",
+		  LASTDAY: "LASTDAY",
+		  LASTWEEK: "LASTWEEK",
+		  FAVOURITES: "FAVOURITES",
+		  SCHEDULED: "SCHEDULED",
+		  ALL: "ALL"
 	  },
 
        /**
-        * default context path.
+        * Default context path.
         * @property contextDefaultPath
         */
-       contextDefaultPath : _ENME.config('contextPath'),
+       contextDefaultPath: _ENME.config( "contextPath" ),
 
        /**
         * Contains all 18n messages available in the context
         * @property
         */
-       i18n : {},
+       i18n: {},
 
       /**
-       * add item on drop down menu.
+       * Add item on drop down menu.
        * @property append
        */
-       append : function(node, place) {
-          dojo.place(node, place);
+       append: function( node, place ) {
+          dojo.place( node, place );
        },
 
        /**
-        * 
-        * @property 
+        *
+        * @property
         */
-       addOfflineExecution : function(executions) {
-          if(_ENME.getOffline()) {
-            _ENME.getOffline().bindExecutions(executions);
+       addOfflineExecution: function( executions ) {
+          if ( _ENME.getOffline() ) {
+            _ENME.getOffline().bindExecutions( executions );
           }
        },
 
@@ -115,7 +114,7 @@ define([ "dojo/parser",
         *
         * @method
         */
-       getErrorMessage: function(error) {
+       getErrorMessage: function( error ) {
           return error.response.data.error.message;
        },
 
@@ -123,7 +122,7 @@ define([ "dojo/parser",
         * Create an alert message.
         * @method createAlert
         */
-       createAlert: function(message, type) {
+       createAlert: function( message, type ) {
           var widget = new Alert({
               message: message,
               type_message: type
@@ -136,17 +135,17 @@ define([ "dojo/parser",
        * @param title
        * @param content
        */
-       createConfirmDialog: function(title, content, yesHandler) {
+       createConfirmDialog: function( title, content, yesHandler ) {
             var myDialog = new Confirm({
                 title: title,
                 content_widget: content,
                 style: "width: 650px",
-                label : {
-                    yes : this.i18nMessage.commons_yes || "Yes",
-                    no : this.i18nMessage.commons_no || "No"
+                label: {
+                    yes: this.i18nMessage.commons_yes || "Yes",
+                    no: this.i18nMessage.commons_no || "No"
                 }
               });
-              myDialog.functionYes = dojo.hitch(this, function(){
+              myDialog.functionYes = dojo.hitch( this, function() {
                 yesHandler();
                 myDialog.hide();
               });
@@ -158,22 +157,23 @@ define([ "dojo/parser",
 	   * @param username
 	   * @returns {*}
 	   */
-	  validateUsername : function(username) {
-		  return _ENME.validateCharacterDigits(username);
+	  validateUsername: function( username ) {
+		  return _ENME.validateCharacterDigits( username );
 	  },
 
        /**
         * Constructor
         * @method constructor
         */
-       constructor : function () {
+       constructor: function() {
            this.i18n = _ENME.getAllMessages();
        },
 
       /**
        * Validate
         */
-//       surveyValidation : {
+
+//       SurveyValidation : {
 //
 //       },
 
@@ -181,19 +181,20 @@ define([ "dojo/parser",
         * Range Actions
         * @property range_actions
         */
-       range_actions : [ {
-         period : "All",
-         value  : "all",
-         action : dojo.hitch(this, function(channel) {
-           dojo.publish(channel, [ "all" ]);
+       range_actions: [ {
+         period: "All",
+         value: "all",
+         action: dojo.hitch( this, function( channel ) {
+           dojo.publish( channel, [ "all" ] );
          })
        }, {
-         period : "Last Year",
-         value  :  "365",
-         action : dojo.hitch(this, function(channel) {
-           dojo.publish(channel, [ "365" ]);
+         period: "Last Year",
+         value:  "365",
+         action: dojo.hitch( this, function( channel ) {
+           dojo.publish( channel, [ "365" ] );
          })
        }
+
 //       {
 //         period : "Last Month",
 //         value  : "30",

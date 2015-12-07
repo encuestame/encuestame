@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dojo/Deferred",
          "dijit/_WidgetBase",
@@ -17,15 +17,15 @@ define([
                 main_widget,
                 ContextSupport,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, ContextSupport, _WidgetsInTemplateMixin], {
+                 template ) {
+            return declare( [ _WidgetBase, _TemplatedMixin, main_widget, ContextSupport, _WidgetsInTemplateMixin ], {
 
          /*
-          * template string.
+          * Template string.
           */
-         templateString : template,
+         templateString: template,
 
          //
-         itemId : null
+         itemId: null
     });
 });

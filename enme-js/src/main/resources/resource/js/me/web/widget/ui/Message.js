@@ -21,14 +21,14 @@
  *  @namespace Widget
  *  @class Message
  */
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
      "dijit/_WidgetsInTemplateMixin",
      "me/core/main_widgets/EnmeMainLayoutWidget",
      "me/core/enme",
-     "dojo/text!me/web/widget/ui/templates/message.html"],
+     "dojo/text!me/web/widget/ui/templates/message.html" ],
     function(
     declare,
     _WidgetBase,
@@ -36,29 +36,29 @@ define([
     _WidgetsInTemplateMixin,
     main_widget,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
      /**
-      * template string.
+      * Template string.
       * @property
       */
-     templateString : template,
+     templateString: template,
 
      /**
       *
       * @property
       */
-     message : "message test",
+     message: "message test",
 
       /**
        * Post create
        * @method postCreate
        */
-      postCreate : function () {
-         if (this.description) {
-             dojo.addClass(this._description, "hidden");
+      postCreate: function() {
+         if ( this.description ) {
+             dojo.addClass( this._description, "hidden");
          }
       }
   });

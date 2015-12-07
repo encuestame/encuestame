@@ -14,37 +14,38 @@
  *  limitations under the License.
  */
 
-define([
-	'intern!object',
-	'intern/chai!assert',
-	'intern/chai!expect',
-	'../../Helper',
-	'me/core/_base/_xhr'
-], function (
+define( [
+	"intern!object",
+	"intern/chai!assert",
+	"intern/chai!expect",
+	"../../Helper",
+	"me/core/_base/_xhr"
+], function(
 	registerSuite,
 	assert,
 	expect,
 	Helper,
-	_xhr) {
+	_xhr ) {
 
 	registerSuite({
-		name: 'Base _xhr Test',
+		name: "Base _xhr Test",
 
-		setup: function () {
+		setup: function() {
 			Helper.init();
 		},
 
-		'service GET Test' : function() {
-			var url = _xhr.service('encuestame.service.list.userList');
-			expect(url).to.equal("/js/me/tests/resources/api/admon/users.json");
-			var url1 = _xhr.service('encuestame.service.list.userList');
-			expect(url1).to.equal("/js/me/tests/resources/api/admon/users.json", {});
+		"service GET Test": function() {
+			var url = _xhr.service( "encuestame.service.list.userList" );
+			expect( url ).to.equal("/js/me/tests/resources/api/admon/users.json");
+			var url1 = _xhr.service( "encuestame.service.list.userList" );
+			expect( url1 ).to.equal("/js/me/tests/resources/api/admon/users.json", {});
 		},
 
 		//FIXME: These test it doesn't works well with Selenium
 
-		'_xhr GET Test' : function() {
-//			var dfd = this.async(5000);
+		"_xhr GET Test": function() {
+
+//			Var dfd = this.async(5000);
 //			dfd.progress(function(){
 //				console.log("defferedddd", arguments);
 //			});
@@ -56,8 +57,9 @@ define([
 //			}, 1500));
 		},
 
-		'_xhr POST Test' : function() {
-//			var dfd = this.async(5000);
+		"_xhr POST Test": function() {
+
+//			Var dfd = this.async(5000);
 //			dfd.progress(function(){
 //				console.log("defferedddd", arguments);
 //			});
@@ -70,8 +72,9 @@ define([
 //			}, 1500));
 		},
 
-		'_xhr PUT Test' : function() {
-//			var dfd = this.async(5000);
+		"_xhr PUT Test": function() {
+
+//			Var dfd = this.async(5000);
 //			dfd.progress(function(){
 //				console.log("defferedddd", arguments);
 //			});
@@ -84,8 +87,9 @@ define([
 //			}, 1500));
 		},
 
-		'_xhr DEL Test' : function() {
-//			var dfd = this.async(5000);
+		"_xhr DEL Test": function() {
+
+//			Var dfd = this.async(5000);
 //			dfd.progress(function(){
 //				console.log("defferedddd", arguments);
 //			});
@@ -97,7 +101,6 @@ define([
 //				dfd.reject("ooops");
 //			}, 1500));
 		}
-
 
 	});
 });

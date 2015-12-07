@@ -21,27 +21,27 @@
  *  @namespace Widget
  *  @class WidgetServices
  */
-define([ "dojo/_base/declare",
+define( [ "dojo/_base/declare",
      "me/web/widget/dialog/ModalBox",
      "dijit/registry",
-     "me/core/enme"], function(
+     "me/core/enme" ], function(
     declare,
     ModalBox,
     registry,
-    _ENME) {
+    _ENME ) {
 
-  return declare(null, {
+  return declare( null, {
 
       /**
        * Context path from global variable
        */
-      __contextPath : window.config ? (config.contextPath || '/') : '/',
+      __contextPath: window.config ? ( config.contextPath || "/" ) : "/",
 
       /**
        * Return the url service
        * @method getURLService
        */
-      getURLService : function() {
+      getURLService: function() {
         return _ENME.xhr;
       },
 
@@ -50,11 +50,12 @@ define([ "dojo/_base/declare",
        * @method _createModalBox
        * @private
        */
-      _createModalBox : function(type, handler) {
+      _createModalBox: function( type, handler ) {
+
         //FUTURE: replace by Dojo Dialog
         var modal = dojo.byId("modal-box");
-        if (modal !== null) {
-           var modalBox = new ModalBox(dojo.byId("modal-box"), type, dojo.hitch(handler));
+        if ( modal !== null ) {
+           var modalBox = new ModalBox( dojo.byId("modal-box"), type, dojo.hitch( handler ) );
            return modalBox;
         } else {
            return null;
@@ -65,7 +66,7 @@ define([ "dojo/_base/declare",
        * Unload customized support.
        * @method unLoadSupport
        */
-      unLoadSupport : function (message) {
+      unLoadSupport: function( message ) {
           window.onbeforeunload = function() {
                   return message;
           };
@@ -75,19 +76,18 @@ define([ "dojo/_base/declare",
        * Cancel unload support.
        * @method cancelUnLoadSupport
        */
-      cancelUnLoadSupport : function () {
+      cancelUnLoadSupport: function() {
           window.onbeforeunload = function() {};
       },
-
 
       /**
        * Display the loading process.
        * @method loading_show
        */
-      loading_show : function (message) {
+      loading_show: function( message ) {
         var loading = registry.byId("loading");
-        if ( loading !== null) {
-          loading.show(message);
+        if ( loading !== null ) {
+          loading.show( message );
         }
       },
 
@@ -95,9 +95,9 @@ define([ "dojo/_base/declare",
        * Hide the loading process.
        * @method loading_hide
        */
-      loading_hide : function () {
+      loading_hide: function() {
         var loading = registry.byId("loading");
-        if ( loading !== null) {
+        if ( loading !== null ) {
           loading.hide();
         }
       },
@@ -108,15 +108,15 @@ define([ "dojo/_base/declare",
        * @param message the message
        * @param type error, warning, info, success
        */
-      publishMessage : function (message, type, desc) {
-        if (type === 'success') {
-          this.successMesage(message, desc);
-        } else if (type === 'error') {
-          this.errorMessage(message, desc);
-        } else if (type === 'warn') {
-          this.warningMesage(message, desc);
-        } else if (type === 'fatal') {
-          this.fatalMesage(message, desc);
+      publishMessage: function( message, type, desc ) {
+        if ( type === "success" ) {
+          this.successMesage( message, desc );
+        } else if ( type === "error" ) {
+          this.errorMessage( message, desc );
+        } else if ( type === "warn" ) {
+          this.warningMesage( message, desc );
+        } else if ( type === "fatal" ) {
+          this.fatalMesage( message, desc );
         }
       },
 
@@ -124,44 +124,44 @@ define([ "dojo/_base/declare",
        * Display a success message.
        * @method successMesage
        */
-      successMesage : function(message, description) {
-        _ENME.success(message, description);
+      successMesage: function( message, description ) {
+        _ENME.success( message, description );
       },
 
       /**
        * Display a warning message.
        * @method successMesage
        */
-      warningMesage : function(message, description) {
-        _ENME.warning(message, description);
+      warningMesage: function( message, description ) {
+        _ENME.warning( message, description );
       },
 
       /**
        * Display a warning message.
        * @method errorMessage
        */
-      errorMessage : function(message, description) {
-        _ENME.error(message, description);
+      errorMessage: function( message, description ) {
+        _ENME.error( message, description );
       },
 
      /**
       * Display a fatal message.
        * @method fatalMesage
       */
-     fatalMesage : function(message) {
-       _ENME.fatal(message, description);
+     fatalMesage: function( message ) {
+       _ENME.fatal( message, description );
      },
 
       /**
        * Display a default loader.
        * @method loadingDefaultMessage
        */
-      loadingDefaultMessage : function() {
+      loadingDefaultMessage: function() {
        var loading = {
-             init : function(){
+             init: function() {
                  console.debug("init");
              },
-             end : function(){
+             end: function() {
                      console.debug("end");
              }
        };
@@ -176,10 +176,10 @@ define([ "dojo/_base/declare",
        * @method getDefaultResponse
        * @param data
        */
-      getDefaultResponse : function(data) {
-        if ("success" in data) {
-          var r = parseInt(data.success.r);
-          if (r === 0) {
+      getDefaultResponse: function( data ) {
+        if ("success" in data ) {
+          var r = parseInt( data.success.r );
+          if ( r === 0 ) {
             return true;
           } else {
             return false;
@@ -193,20 +193,20 @@ define([ "dojo/_base/declare",
        * Display a error message
        * @method errorMessage
        */
-      errorMesage : function(error) {
-	        var error_message = (error == null ? _ENME.getMessage("e_023") : error);
-	        this.errorMessage(error_message, '');
+      errorMesage: function( error ) {
+	        var error_message = ( error == null ? _ENME.getMessage("e_023") : error );
+	        this.errorMessage( error_message, "" );
       },
 
       /*
        *
        */
-			infoMesage : function(info) {
-				var modal = this._createModalBox("alert", null);
-				if (modal != null) {
-					 modal.show(info);
+			infoMesage: function( info ) {
+				var modal = this._createModalBox("alert", null );
+				if ( modal != null ) {
+					 modal.show( info );
 				}
-	      console.warn('error message deprecated')
+	      console.warn( "error message deprecated" );
       },
 
       /**
@@ -214,8 +214,8 @@ define([ "dojo/_base/declare",
        * @param e Event
        * @method stopEvent
        */
-       stopEvent : function (e) {
-					if (e) {
+       stopEvent: function( e ) {
+					if ( e ) {
 					  e.preventDefault();
 					}
        }

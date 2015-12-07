@@ -21,14 +21,14 @@
  *  @namespace Widget
  *  @class Gadget
  */
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
      "dijit/_WidgetsInTemplateMixin",
      "me/core/main_widgets/EnmeMainLayoutWidget",
      "me/core/enme",
-     "dojo/text!me/web/widget/dashboard/template/emtpy-gadget.html"],
+     "dojo/text!me/web/widget/dashboard/template/emtpy-gadget.html" ],
     function(
     declare,
     _WidgetBase,
@@ -36,14 +36,14 @@ define([
     _WidgetsInTemplateMixin,
     main_widget,
     _ENME,
-     template) {
-        return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+     template ) {
+        return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
     /**
-     * template string.
+     * Template string.
      * @property templateString
      */
-    templateString : template,
+    templateString: template,
 
     /**
      *
@@ -52,8 +52,8 @@ define([
     postCreate: function() {
         try {
             this.initGadget();
-        } catch(error) {
-            this.errorLoadGadget(error);
+        } catch ( error ) {
+            this.errorLoadGadget( error );
         }
     },
 

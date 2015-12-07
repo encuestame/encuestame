@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
@@ -13,42 +13,43 @@ define([
     _WidgetsInTemplateMixin,
     main_widget,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase,
+  return declare( [ _WidgetBase,
                    _TemplatedMixin,
                    main_widget,
-                   _WidgetsInTemplateMixin], {
+                   _WidgetsInTemplateMixin ], {
 
      /**
-      * template string.
+      * Template string.
       */
-     templateString : template,
+     templateString: template,
 
-    // answer id.
-    aId : null,
+    // Answer id.
+    aId: null,
 
-    // label
-    label : "",
+    // Label
+    label: "",
 
-    // is completed?
-    completed : false,
+    // Is completed?
+    completed: false,
 
-    //url
-    url : "",
+    //Url
+    url: "",
 
-    // tweetpoll owner
+    // Tweetpoll owner
     owner: "",
 
-    // default color
-    color : "#000",
+    // Default color
+    color: "#000",
 
     /**
-     * post create.
+     * Post create.
      */
-    postCreate : function() {
-        dojo.subscribe("/encuestame/tweetpoll/detail/answer/reload", this, this._reloadAnswerInfo);
-           // dojo.connect(this._url, "onclick", dojo.hitch(this, function(event){
+    postCreate: function() {
+        dojo.subscribe("/encuestame/tweetpoll/detail/answer/reload", this, this._reloadAnswerInfo );
+
+           // Dojo.connect(this._url, "onclick", dojo.hitch(this, function(event){
            //     dojo.stopEvent(event);
            //     //location.target = "_blank";
            //     window.location.href = this.url;
@@ -56,22 +57,22 @@ define([
     },
 
     /**
-     * reload answer info.
+     * Reload answer info.
      */
-    _reloadAnswerInfo : function(id, data /*[votes, percent]*/) {
-        if (this.aId == id) {
-            this._reloadValues(data[0], data[1]);
+    _reloadAnswerInfo: function( id, data /*[votes, percent]*/) {
+        if ( this.aId == id ) {
+            this._reloadValues( data[ 0 ], data[ 1 ] );
         }
     },
 
     /*
-     * reload percent and votes values.
+     * Reload percent and votes values.
      */
-    _reloadValues : function(votes, percent){
-        if (this._votes) {
+    _reloadValues: function( votes, percent ) {
+        if ( this._votes ) {
             this._votes.innerHTML = votes;
         }
-        if (this._percent) {
+        if ( this._percent ) {
             this._percent.innerHTML = percent;
         }
     }

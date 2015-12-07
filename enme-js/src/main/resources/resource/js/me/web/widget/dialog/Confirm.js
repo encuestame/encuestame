@@ -1,4 +1,4 @@
-define([
+define( [
          "dojo/_base/declare",
          "dijit/Dialog",
          "dijit/form/Button",
@@ -11,20 +11,20 @@ define([
                 Button,
                 main_widget,
                 _ENME,
-                template) {
-            return declare([dialog], {
+                template ) {
+            return declare( [ dialog ], {
 
-       // template string.
-       templateString : template,
+       // Template string.
+       templateString: template,
 
        /**
         *
         * @property
         */
-       draggable : false,
+       draggable: false,
 
        /**
-        * dialog title
+        * Dialog title
         * @property
         */
        title: "",
@@ -33,34 +33,34 @@ define([
         *
         * @property
         */
-       label : {
-          question : "Do you want confirm your action?",
-          yes : "Yes",
-          no : "No"
+       label: {
+          question: "Do you want confirm your action?",
+          yes: "Yes",
+          no: "No"
        },
 
        /*
-        * post create.
+        * Post create.
         */
-       postCreate : function() {
-          if (this.content_widget) {
-             this.containerNode.appendChild(this.content_widget);
+       postCreate: function() {
+          if ( this.content_widget ) {
+             this.containerNode.appendChild( this.content_widget );
           }
-          this._buttons.appendChild(this._createContent());
-          this.inherited(arguments);
+          this._buttons.appendChild( this._createContent() );
+          this.inherited( arguments );
        },
 
        /**
         *
         * @method
         */
-       functionYes : function(){},
+       functionYes: function() {},
 
        /**
         *
         * @method
         */
-       functionNo : function() {
+       functionNo: function() {
            this.hide();
        },
 
@@ -68,25 +68,25 @@ define([
         * Confirm dom node content.
         * @returns
         */
-       _createContent : function() {
-           var div =  dojo.doc.createElement('span');
-           dojo.addClass(div, "web-confirm-wrapper");
+       _createContent: function() {
+           var div =  dojo.doc.createElement( "span" );
+           dojo.addClass( div, "web-confirm-wrapper");
            var buttonYes = new Button({
                label: this.label.yes,
                "class": "success",
-               onClick: dojo.hitch(this, function() {
+               onClick: dojo.hitch( this, function() {
                    this.functionYes();
                })
            });
-           div.appendChild(buttonYes.domNode);
+           div.appendChild( buttonYes.domNode );
            var buttonNo = new Button({
                label: this.label.no,
                "class":"danger",
-               onClick: dojo.hitch(this, function() {
+               onClick: dojo.hitch( this, function() {
                    this.functionNo();
                })
            });
-           div.appendChild(buttonNo.domNode);
+           div.appendChild( buttonNo.domNode );
            return div;
        }
 

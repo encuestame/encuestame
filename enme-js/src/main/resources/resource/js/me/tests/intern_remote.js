@@ -13,23 +13,23 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-define(['./intern_common'], function(common) {
-	common.environments= [
-		{ browserName: 'internet explorer', version: '11', platform: 'WIN8', fixSessionCapabilities: false },
-		{ browserName: 'firefox', version: '29', platform: [ 'ANY' ], timeout:'300', idleTimeout:'300', fixSessionCapabilities: false },
-		{ browserName: 'firefox', version: '37', platform: [ 'ANY' ], timeout:'300', idleTimeout:'300', fixSessionCapabilities: false },
-		{ browserName: 'chrome', version: '35', platform: [ 'ANY'], timeout:'300', idleTimeout:'300', fixSessionCapabilities: false },
-		{ browserName: 'chrome', timeout:'300', idleTimeout:'300', fixSessionCapabilities: false }
+define( [ "./intern_common" ], function( common ) {
+	common.environments = [
+		{ browserName: "internet explorer", version: "11", platform: "WIN8", fixSessionCapabilities: false },
+		{ browserName: "firefox", version: "29", platform: [ "ANY" ], timeout:"300", idleTimeout:"300", fixSessionCapabilities: false },
+		{ browserName: "firefox", version: "37", platform: [ "ANY" ], timeout:"300", idleTimeout:"300", fixSessionCapabilities: false },
+		{ browserName: "chrome", version: "35", platform: [ "ANY" ], timeout:"300", idleTimeout:"300", fixSessionCapabilities: false },
+		{ browserName: "chrome", timeout:"300", idleTimeout:"300", fixSessionCapabilities: false }
 	];
 	common.capabilities = {
-		'browserstack.debug'           : true,
-		'project'                      : 'encuestame intern test',
-		'idleTimeout'                  : '300',
-		'idle-timeout'                 : '300'
+		"browserstack.debug": true,
+		"project": "encuestame intern test",
+		"idleTimeout": "300",
+		"idle-timeout": "300"
 	};
-	common.tunnel = 'BrowserStackTunnel';
+	common.tunnel = "BrowserStackTunnel";
 	common.useLoader = {
-		'host-browser': '../../js/dojo/dojo.js'
+		"host-browser": "../../js/dojo/dojo.js"
 	};
 	return common;
 });

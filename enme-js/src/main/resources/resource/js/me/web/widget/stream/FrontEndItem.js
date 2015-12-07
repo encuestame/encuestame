@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/_base/declare",
      "dojo/_base/array",
      "dijit/_WidgetBase",
@@ -21,56 +21,57 @@ define([
     AccountPicture,
     HashTagInfo,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-      // template string.
-        templateString : template,
-        contextPath : _ENME.config('contextPath'),
-        slugName : "",
-        questionName : "",
-        id : 0,
-        item : {},
-        votesMessage : "votes",
-        viewMessage : "views",
-        enableImage : true,
-        totalCommentMessage : "home.item.comments",
+      // Template string.
+        templateString: template,
+        contextPath: _ENME.config( "contextPath" ),
+        slugName: "",
+        questionName: "",
+        id: 0,
+        item: {},
+        votesMessage: "votes",
+        viewMessage: "views",
+        enableImage: true,
+        totalCommentMessage: "home.item.comments",
         addedMessage: "added",
-        submiteddByMessage : "submited by",
-        owner : "dasd",
-        votes : 0,
-        views : 0,
-        relativeTime: '',
-        url : "#",
+        submiteddByMessage: "submited by",
+        owner: "dasd",
+        votes: 0,
+        views: 0,
+        relativeTime: "",
+        url: "#",
 
         /*
          * Post create.
          */
-        postCreate : function() {
+        postCreate: function() {
             var parent = this;
-            if (this._picture && this.enableImage) {
+            if ( this._picture && this.enableImage ) {
                 var widget = new AccountPicture({
-                        username : this.owner
+                        username: this.owner
                 });
-                this._picture.appendChild(widget.domNode);
+                this._picture.appendChild( widget.domNode );
             }
-            if (this._tags && !this.isMobile) {
-                // url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
+            if ( this._tags && !this.isMobile ) {
+
+                // Url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
                 //hashTagName="${h.hashTagName}">
-                if ("hashtags" in this.item) {
-                     array.forEach(this.item.hashtags, function(entry, i){
+                if ("hashtags" in this.item ) {
+                     array.forEach( this.item.hashtags, function( entry, i ) {
                         var widget = new HashTagInfo({
-                            url : _ENME.hashtagContext(entry.hashTagName),
-                            hashTagName : entry.hashTagName
+                            url: _ENME.hashtagContext( entry.hashTagName ),
+                            hashTagName: entry.hashTagName
                         });
-                        parent._tags.appendChild(widget.domNode);
+                        parent._tags.appendChild( widget.domNode );
                      });
                 }
             }
         },
 
-        _geTtotalVotes : function(){
+        _geTtotalVotes: function() {
 
         }
 

@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/_base/declare",
      "me/web/widget/questions/patterns/AbstractPattern",
      "me/web/widget/questions/patterns/AbstractSoundResponse",
@@ -6,7 +6,7 @@ define([
      "me/web/widget/questions/patterns/AbstractImageResponse",
      "me/web/widget/questions/patterns/AbstractAddNewAnswer",
      "me/web/widget/questions/patterns/AbstractMultipleSelection",
-     "me/core/enme"],
+     "me/core/enme" ],
     function(
     declare,
     AbstractPattern,
@@ -15,39 +15,39 @@ define([
     AbstractImageResponse,
     AbstractAddNewAnswer,
     AbstractMultipleSelection,
-    _ENME) {
+    _ENME ) {
 
-  return declare([AbstractPattern,
+  return declare( [ AbstractPattern,
                   AbstractSoundResponse,
                   AbstractVideoResponse,
                   AbstractImageResponse,
                   AbstractAddNewAnswer,
-                  AbstractMultipleSelection], {
+                  AbstractMultipleSelection ], {
 
         /**
          * Enable add new response.
          */
-        addNewResponse : false,
+        addNewResponse: false,
 
         /**
          *
          */
-        name : "name",
+        name: "name",
 
         /**
          *
          */
-        value : "",
+        value: "",
 
         /**
          *
          */
-        itemId : "",
+        itemId: "",
 
         /**
          * Define the default of type of answers.
          */
-        type : "DEFAULT"
+        type: "DEFAULT"
 
         // /**
         //  * Post Create.

@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
@@ -19,104 +19,104 @@ define([
     More,
     linksPublishedItem,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([_WidgetBase, _TemplatedMixin, main_widget, cacheLinkedList ,_WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, cacheLinkedList, _WidgetsInTemplateMixin ], {
 
-  // template string.
-  templateString : template,
+  // Template string.
+  templateString: template,
 
    /**
     * Type.
     */
-   type : "TWEETPOLL",
+   type: "TWEETPOLL",
 
    /**
     * Item Id.
     */
-   itemId : "",
+   itemId: "",
 
    /**
     *
     */
-   more : false,
+   more: false,
 
    /**
     *
     */
-   property : "links",
+   property: "links",
 
    /**
     *
     */
-   hasthag : "",
+   hasthag: "",
 
     /**
     *
     * @property
     */
-   items : 0,
+   items: 0,
 
    /**
     * Override the default max
     * @property
     */
-   overrideMax : null,
-
+   overrideMax: null,
 
    /**
     * Poll Navigate default parameters.
     */
-   _params : { type :  null, id : null, max : 10, start : 0},
-
+   _params: { type:  null, id: null, max: 10, start: 0 },
 
    /*
-    * post create.
+    * Post create.
     */
-   postCreate : function() {
-        // override the max on start
-        if ( this.overrideMax !== null && typeof this.overrideMax === 'number') {
+   postCreate: function() {
+
+        // Override the max on start
+        if ( this.overrideMax !== null && typeof this.overrideMax === "number" ) {
               this._params.max = this.overrideMax;
         }
         var parent = this;
-        var pagination = {_start : this._params.start, _maxResults : this._params.max };
+        var pagination = { _start: this._params.start, _maxResults: this._params.max };
         this.more = new More({
-                   parentWidget : this,
+                   parentWidget: this,
                    pagination: pagination,
-                   more_max : this._params.max
+                   more_max: this._params.max
         });
-        this.more.loadItems = dojo.hitch(this, function () {
-            parent.loadItems(this.getUrl());
+        this.more.loadItems = dojo.hitch( this, function() {
+            parent.loadItems( this.getUrl() );
         });
-        // if more
-        if (this._more) {
-           this._more.appendChild(this.more.domNode);
+
+        // If more
+        if ( this._more ) {
+           this._more.appendChild( this.more.domNode );
         }
-        if (this.type === null || this.itemId === null) {
+        if ( this.type === null || this.itemId === null ) {
            _EMNE.log("type is null");
         } else {
            this._params.id = this.itemId;
-           if (this.type === _ENME.TYPE_SURVEYS[0]) { // tweeptoll
-             this._params.type = _ENME.TYPE_SURVEYS[0];
-           } else if(this.type === _ENME.TYPE_SURVEYS[1]) { // poll
-             this._params.type = _ENME.TYPE_SURVEYS[1];
-           } else if(this.type === _ENME.TYPE_SURVEYS[2]) { // survey
-             this._params.type = _ENME.TYPE_SURVEYS[2];
-           } else if(this.type === _ENME.TYPE_SURVEYS[3]) { // hashtag
-             this._params.type = _ENME.TYPE_SURVEYS[3];
+           if ( this.type === _ENME.TYPE_SURVEYS[ 0 ] ) { // Tweeptoll
+             this._params.type = _ENME.TYPE_SURVEYS[ 0 ];
+           } else if ( this.type === _ENME.TYPE_SURVEYS[ 1 ] ) { // Poll
+             this._params.type = _ENME.TYPE_SURVEYS[ 1 ];
+           } else if ( this.type === _ENME.TYPE_SURVEYS[ 2 ] ) { // Survey
+             this._params.type = _ENME.TYPE_SURVEYS[ 2 ];
+           } else if ( this.type === _ENME.TYPE_SURVEYS[ 3 ] ) { // Hashtag
+             this._params.type = _ENME.TYPE_SURVEYS[ 3 ];
            } else {
              this._params.type = "";
            }
         }
-        dojo.hitch(this, this.loadItems());
+        dojo.hitch( this, this.loadItems() );
    },
 
   /**
     *
     * @method
     */
-   hideMore : function() {
-      if (this.more) {
+   hideMore: function() {
+      if ( this.more ) {
          this.more.hide();
        }
    },
@@ -125,8 +125,8 @@ define([
     *
     * @method
     */
-   showMore : function() {
-      if (this.more) {
+   showMore: function() {
+      if ( this.more ) {
          this.more.show();
        }
    },
@@ -135,7 +135,7 @@ define([
     *
     * @method
     */
-   getItems : function(){
+   getItems: function() {
       return this.items;
    },
 
@@ -143,7 +143,7 @@ define([
     *
     * @method
     */
-   setItems : function(i) {
+   setItems: function( i ) {
       this.items += i;
       this._params.start = this.items;
    },
@@ -151,18 +151,18 @@ define([
    /**
     * Function to clean _items node.
     */
-   _empty : function() {
-       dojo.empty(this._items);
+   _empty: function() {
+       dojo.empty( this._items );
    },
 
-   handlerError : function() {
-     _EMNE.log("error", error);
+   handlerError: function() {
+     _EMNE.log("error", error );
    },
 
    /**
-    * customize service params.
+    * Customize service params.
     */
-   getParams : function() {
+   getParams: function() {
        return this._params;
    },
 
@@ -170,53 +170,51 @@ define([
     * The url json service.
     * @returns
     */
-   getUrl : function() {
-       return 'encuestame.service.social.links.loadByType';
+   getUrl: function() {
+       return "encuestame.service.social.links.loadByType";
    },
 
    /**
     * Create a new PollNavigateItem.
     */
-   processItem : function(/** poll data**/  data, /** position **/ index) {
-      this._createLink(data);
+   processItem: function( /** poll data**/  data, /** position **/ index ) {
+      this._createLink( data );
    },
-
 
    /**
     * Display a empty message.
     */
-   displayEmptyMessage : function () {
+   displayEmptyMessage: function() {
        var _node = this._items,
        _message = dojo.doc.createElement("div");
-       dojo.addClass(_message, 'non-items');
+       dojo.addClass( _message, "non-items" );
        _message.innerHTML = "No links refered with this hashtag";
-       dojo.place(_message, _node);
+       dojo.place( _message, _node );
    },
 
    /**
     *
     */
-   _showNoLinksMessage : function() {
+   _showNoLinksMessage: function() {
        var message = dojo.doc.createElement("div");
        message.innerHTML = "No Links Refered.";
-       this._items.appendChild(message);
+       this._items.appendChild( message );
    },
 
    /**
     * Create link.
     * @param data link data.
     */
-   _createLink : function(data){
+   _createLink: function( data ) {
        var widget = new linksPublishedItem(
            {
-             social : data.provider_social,
-             link : data.link_url,
-             text : data.publishd_text,
-             date : data.published_date
+             social: data.provider_social,
+             link: data.link_url,
+             text: data.publishd_text,
+             date: data.published_date
            });
-       this._items.appendChild(widget.domNode);
+       this._items.appendChild( widget.domNode );
    }
-
 
   });
 });

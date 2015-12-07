@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
@@ -19,35 +19,36 @@ define([
     toggleText,
     accountPicture,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-       // template string.
-       templateString : template,
+       // Template string.
+       templateString: template,
 
-       data : null,
+       data: null,
 
-       limit_comment : 100,
+       limit_comment: 100,
 
        /**
-        * executed before render template.
+        * Executed before render template.
         */
        postMixInProperties: function() {
-           if (this.data !== null ) {
-        this.data.likeVote = _ENME.shortAmmount(this.data.likeVote);
-        this.data.dislike_vote = _ENME.shortAmmount(this.data.dislike_vote);
-        //format : 2012-05-27
-        this.data.created_at = _ENME.fromNow(this.data.created_at, "YYYY-MM-DD");
+           if ( this.data !== null ) {
+        this.data.likeVote = _ENME.shortAmmount( this.data.likeVote );
+        this.data.dislike_vote = _ENME.shortAmmount( this.data.dislike_vote );
+
+        //Format : 2012-05-27
+        this.data.created_at = _ENME.fromNow( this.data.created_at, "YYYY-MM-DD");
            }
        },
 
        /**
         * Post create life cycle.
         */
-       postCreate : function () {
-         this._positive.appendChild(this._createLinkRate(true, false, this.data.likeVote));
-         this._negative.appendChild(this._createLinkRate(false, true, this.data.dislike_vote));
+       postCreate: function() {
+         this._positive.appendChild( this._createLinkRate( true, false, this.data.likeVote ) );
+         this._negative.appendChild( this._createLinkRate( false, true, this.data.dislike_vote ) );
        },
 
        /**
@@ -55,11 +56,11 @@ define([
         * @param value
         * @returns
         */
-       _createLinkRate : function(positive, negative, value) {
+       _createLinkRate: function( positive, negative, value ) {
          var widget = new rate({
-           positive : positive,
-           value : value,
-           negative : negative
+           positive: positive,
+           value: value,
+           negative: negative
          });
          return widget.domNode;
        }

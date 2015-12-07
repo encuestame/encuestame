@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class TweetPollPublishItemAbstractStatus
  */
-define([
+define( [
     "dojo/_base/declare",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
@@ -36,33 +36,33 @@ define([
         _WidgetsInTemplateMixin,
         Button,
         main_widget,
-        _ENME) {
-        return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+        _ENME ) {
+        return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
            /**
             * Metadaat
             * @property
             */
-            metadata : null,
+            metadata: null,
 
            /**
             * Parent status widget.
             * @property
             */
-            parentStatusWidget : null,
+            parentStatusWidget: null,
 
             /**
-             * i18N Message.
+             * I18N Message.
              * @property
              */
-            i18nMessage : {},
+            i18nMessage: {},
 
             /**
              * Post create dojo life cycle.
              * @method postCreate
              */
-            postCreate : function () {
-                this.inherited(arguments);
+            postCreate: function() {
+                this.inherited( arguments );
             }
         });
     });

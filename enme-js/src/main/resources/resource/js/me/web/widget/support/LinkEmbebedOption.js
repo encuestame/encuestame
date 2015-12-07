@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-define([
+define( [
         "dojo/_base/declare",
         "dojo/on",
         "me/web/widget/options/EmbebedOptions",
@@ -35,42 +35,42 @@ define([
         _WidgetsInTemplateMixin,
         main_widget,
         _ENME,
-        template) {
-        return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+        template ) {
+        return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
             /*
-             * template string.
+             * Template string.
              */
-            templateString : template,
+            templateString: template,
 
             /**
              *  Embebed data
              */
-            data : {
-                id : null,
+            data: {
+                id: null,
                 type: null
             },
 
             /*
-             * i18n message for this widget.
+             * I18n message for this widget.
              */
-            i18nMessage : {
-                open_embebed : _ENME.getMessage("common_open_embebed")
+            i18nMessage: {
+                open_embebed: _ENME.getMessage("common_open_embebed")
             },
 
             /**
              *
              */
-            postCreate : function() {
-                on(this._embebed, "click", dojo.hitch(this, function(e) {
-                    this.stopEvent(e);
+            postCreate: function() {
+                on( this._embebed, "click", dojo.hitch( this, function( e ) {
+                    this.stopEvent( e );
                     this._embebed_options.initialize();
                     this._embebed_options_dialog.show();
-                }));
+                }) );
                 this._embebed_options.dialogWidget = this._embebed_options_dialog;
             },
 
-            _closeEmbebedDialog: function(e) {
+            _closeEmbebedDialog: function( e ) {
                 this._embebed_options_dialog.hide();
             }
 

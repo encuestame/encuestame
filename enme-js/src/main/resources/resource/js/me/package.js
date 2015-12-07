@@ -5,14 +5,16 @@
  */
 
 var profile = {
+
   // Resource tags are functions that provide hints to the build system about the way files should be processed.
   // Each of these functions is called once for every file in the package directory. The first argument passed to
   // the function is the filename of the file, and the second argument is the computed AMD module ID of the file.
   resourceTags: {
+
     // Files that contain test code and should be excluded when the `copyTests` build flag exists and is `false`.
     // It is strongly recommended that the `mini` build flag be used instead of `copyTests`. Therefore, no files
     // are marked with the `test` tag here.
-    test: function (filename, mid) {
+    test: function( filename, mid ) {
       return false;
     },
 
@@ -20,23 +22,23 @@ var profile = {
     // All files in the `app/resources` directory that are not CSS files are marked as copy-only, since these files
     // are typically binaries (images, etc.) and may be corrupted by the build system if it attempts to process
     // them and naively assumes they are scripts.
-    copyOnly: function (filename, mid) {
-      return (/^me\/resources\//.test(filename) && !/\.css$/.test(filename));
+    copyOnly: function( filename, mid ) {
+      return ( /^me\/resources\//.test( filename ) && !/\.css$/.test( filename ) );
     },
 
     // Files that are AMD modules.
     // All JavaScript in this package should be AMD modules if you are starting a new project. If you are copying
     // any legacy scripts from an existing project, those legacy scripts should not be given the `amd` tag.
-    amd: function (filename, mid) {
-      return !this.copyOnly(filename, mid) && /\.js$/.test(filename);
+    amd: function( filename, mid ) {
+      return !this.copyOnly( filename, mid ) && /\.js$/.test( filename );
     },
 
     // Files that should not be copied when the `mini` build flag is set to true.
     // In this case, we are excluding this package configuration file which is not necessary in a built copy of
     // the application.
-    miniExclude: function (filename, mid) {
+    miniExclude: function( filename, mid ) {
       return mid in {
-        'me/package': 1
+        "me/package": 1
       };
     }
   }

@@ -1,4 +1,4 @@
-define([
+define( [
      "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
@@ -13,37 +13,37 @@ define([
     _WidgetsInTemplateMixin,
     main_widget,
     _ENME,
-     template) {
+     template ) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare( [ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin ], {
 
-     // template string.
-     templateString : template,
+     // Template string.
+     templateString: template,
       /*
-      * default limit.
+      * Default limit.
       */
-     limit : 50,
+     limit: 50,
 
      /*
-      * default text.
+      * Default text.
       */
-     text : "",
+     text: "",
 
      /*
       * Text after being shortened.
       */
-     _shortText : "",
+     _shortText: "",
 
      /*
       *
       */
-     _expanded : false,
+     _expanded: false,
 
      /*
-      * define the text to display.
+      * Define the text to display.
       */
-     _toggleText : function(){
-         if (!this._expanded) {
+     _toggleText: function() {
+         if ( !this._expanded ) {
               this._text.innerHTML = this.text;
          } else {
               this._text.innerHTML = this._shortText;
@@ -52,20 +52,21 @@ define([
      },
 
      /*
-      * post create life cycle.
+      * Post create life cycle.
       */
-     postCreate : function() {
-         //check if text exceeded the limit defined
-         dojo.addClass(this._text, "p");
-         if (this.text.length > this.limit ) {
-             this._shortText = this.text.substring(0, this.limit);
+     postCreate: function() {
+
+         //Check if text exceeded the limit defined
+         dojo.addClass( this._text, "p");
+         if ( this.text.length > this.limit ) {
+             this._shortText = this.text.substring( 0, this.limit );
              this._shortText = this._shortText.concat(" ");
              this._shortText = this._shortText.concat("...");
              this._text.innerHTML = this._shortText;
-             dojo.addClass(this._text, "togglePointer");
-              dojo.connect(this._text, "onclick", dojo.hitch(this, function(event) {
+             dojo.addClass( this._text, "togglePointer");
+              dojo.connect( this._text, "onclick", dojo.hitch( this, function( event ) {
                   this._toggleText();
-              }));
+              }) );
          } else {
              this._text.innerHTML = this.text;
          }

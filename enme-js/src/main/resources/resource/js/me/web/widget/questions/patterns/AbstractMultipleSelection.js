@@ -1,38 +1,38 @@
-define([
+define( [
      "dojo/_base/declare",
-     "me/core/enme"],
+     "me/core/enme" ],
     function(
     declare,
-    _ENME) {
+    _ENME ) {
 
-  return declare(null, {
+  return declare( null, {
 
          /**
        * Enable multiples selection.
        */
-       multiple : false,
+       multiple: false,
 
        /**
         *
         */
-       constructor: function(){},
+       constructor: function() {},
 
        /**
         *
         */
-       initializeMultipleSupport : function(label) {
+       initializeMultipleSupport: function( label ) {
 
        },
 
        /**
         *
         */
-       _selectedWidgets : [],
+       _selectedWidgets: [],
 
        /**
         *
         */
-       getSelectedtedWidgets : function() {
+       getSelectedtedWidgets: function() {
 
        }
   });
