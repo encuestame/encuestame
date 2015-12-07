@@ -1,0 +1,12 @@
+{
+  "preset": "jquery",
+  "requireSpacesInsideParentheses": {
+    "all": false,
+    "except": [ "{", "}", "\"" ]
+  },
+  "requireSpacesInsideBrackets": {
+      "allExcept": [ "[", "]", "{", "}"  ]
+  },
+  "requireCamelCaseOrUpperCaseIdentifiers": false,
+  "validateQuoteMarks": { "mark": "\"", "escape": true, "ignoreJSX": true }
+}
