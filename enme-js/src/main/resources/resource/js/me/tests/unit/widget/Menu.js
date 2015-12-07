@@ -66,7 +66,7 @@ define( [
         "SearchSuggestItemsbyType Widget": function() {
             var myTextBox = new TextBox({
                 name: "firstname",
-                value: "" /* no or empty value! */,
+                value: "",
                 placeHolder: "type in your name"
             }, "firstname");
             var searchSuggestbyType = new SearchSuggestItemsByType({

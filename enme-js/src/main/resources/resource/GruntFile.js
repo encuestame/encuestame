@@ -1,71 +1,70 @@
 /*global module */
 
-var server = require('./src/widget/tests/server/app');
+//Var server = require('./src/widget/tests/server/app');
 
-module.exports = function (grunt) {
+module.exports = function( grunt ) {
 
 // Project configuration.
 grunt.initConfig({
 
-  pkg: grunt.file.readJSON('package.json'),
+  pkg: grunt.file.readJSON( "package.json" ),
 
-  dirs : {
-    src: 'js/me/',
-    tests: 'js/me/tests/',
-    widget_dist: 'js/widget',
-    widget_build: 'src/widget/build',
-    widget_src : 'src/widget/modules',
-    widget_test: 'src/widget/tests',
-    less_src : 'css/less',
-    css_src : 'css/pages',
-    commons_src: 'src/commons',
-    commons: 'js/commons'
+  dirs: {
+    src: "js/me/",
+    tests: "js/me/tests/",
+    widget_dist: "js/widget",
+    widget_build: "src/widget/build",
+    widget_src: "src/widget/modules",
+    mobile_src: "js/mobile",
+    widget_test: "src/widget/tests",
+    less_src: "css/less",
+    css_src: "css/pages",
+    commons_src: "src/commons",
+    commons: "js/commons"
   },
 
-  banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+  banner: "/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - " +
   '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-  '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-  '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-  ' Licensed <%= _.pluck(pkg.licenses.type, "type").join(", ") %> */\n',
+  "<%= pkg.homepage ? '* ' + pkg.homepage + '\\n' : '' %>" +
+  "* Copyright (c) <%= grunt.template.today('yyyy') %> <%= pkg.author.name %>;" +
+  " Licensed <%= _.pluck(pkg.licenses.type, 'type').join(', ') %> */\n",
 
   clean: {
-    dist: ['<%= dirs.widget_build %>','<%= dirs.dist %>']
+    dist: [ "<%= dirs.widget_build %>", "<%= dirs.dist %>" ]
   },
 
   concat: {
     basic_and_extras: {
       files: {
-        '<%= dirs.commons %>/commons.js': ['<%= dirs.commons_src %>/Chart.js','<%= dirs.commons_src %>/offline.js','<%= dirs.commons_src %>/intro.js','<%= dirs.commons_src %>/alertify/lib/alertify.js'],
-        '<%= dirs.commons %>/commons-mobile.js': ['<%= dirs.commons_src %>/Chart.js','<%= dirs.commons_src %>/offline.js', '<%= dirs.commons_src %>/alertify/lib/alertify.js'],
-        '<%= dirs.commons %>/maps.js': ['<%= dirs.commons_src %>/leaflet-0.7.1/leaflet-src.js'],
-        '<%= dirs.commons %>/init.js': ['<%= dirs.commons_src %>/modernizr.js', 'req/json_services.js']
+        "<%= dirs.commons %>/commons.js": [ "<%= dirs.commons_src %>/Chart.js", "<%= dirs.commons_src %>/offline.js", "<%= dirs.commons_src %>/intro.js", "<%= dirs.commons_src %>/alertify/lib/alertify.js" ],
+        "<%= dirs.commons %>/commons-mobile.js": [ "<%= dirs.commons_src %>/Chart.js", "<%= dirs.commons_src %>/offline.js", "<%= dirs.commons_src %>/alertify/lib/alertify.js" ],
+        "<%= dirs.commons %>/maps.js": [ "<%= dirs.commons_src %>/leaflet-0.7.1/leaflet-src.js" ],
+        "<%= dirs.commons %>/init.js": [ "<%= dirs.commons_src %>/modernizr.js", "req/json_services.js" ]
       }
-    }
-  },
-
-  browserify: {
-    client: {
-      src: ['<%= dirs.widget_src %>/**/*.js'],
-      dest: '<%= dirs.widget_build %>/widget.js'
     }
   },
 
   uglify: {
     options: {
      mangle: true,
-     banner: '<%= banner.full %>'
+     banner: "<%= banner.full %>"
     },
     widget: {
       files: {
-        '<%= dirs.widget_dist %>/widget.js': ['<%= dirs.widget_build %>/*.js']
+        "<%= dirs.widget_dist %>/widget.js": [ "<%= dirs.widget_build %>/*.js" ]
+      }
+    },
+    mobile: {
+      files: {
+        "<%= dirs.mobile_src %>/init.es6.react.min.js": [ "<%= dirs.mobile_src %>/init.es6.react.js" ]
       }
     },
     commons: {
       files: {
-        '<%= dirs.commons %>/commons.min.js': ['<%= dirs.commons %>/commons.js'],
-        '<%= dirs.commons %>/commons-mobile.min.js': ['<%= dirs.commons %>/commons-mobile.js'],
-        '<%= dirs.commons %>/maps.min.js': ['<%= dirs.commons %>/maps.js'],
-        '<%= dirs.commons %>/init.min.js': ['<%= dirs.commons %>/init.js']
+        "<%= dirs.commons %>/commons.min.js": [ "<%= dirs.commons %>/commons.js" ],
+        "<%= dirs.commons %>/commons-mobile.min.js": [ "<%= dirs.commons %>/commons-mobile.js" ],
+        "<%= dirs.commons %>/maps.min.js": [ "<%= dirs.commons %>/maps.js" ],
+        "<%= dirs.commons %>/init.min.js": [ "<%= dirs.commons %>/init.js" ]
       }
     }
   },
@@ -75,7 +74,8 @@ grunt.initConfig({
       options: {
         compress: false,
         yuicompress: false,
-        //sourceMap : true,
+
+        //SourceMap : true,
         optimization: 1
       },
       files: {
@@ -106,12 +106,14 @@ grunt.initConfig({
         "<%= dirs.css_src %>/mobile_home.css": "<%= dirs.less_src %>/mobile_home.less",
         "<%= dirs.css_src %>/mobile_dashboard.css": "<%= dirs.less_src %>/mobile_dashboard.less",
         "<%= dirs.css_src %>/mobile_admon.css": "<%= dirs.less_src %>/mobile_admon.less",
-        //embebed
+
+        //Embebed
         "<%= dirs.css_src %>/embebed/detail.css": "<%= dirs.less_src %>/embebed/detail.less",
         "<%= dirs.css_src %>/embebed/form.css": "<%= dirs.less_src %>/embebed/form.less",
-        "<%= dirs.css_src %>/embebed/results.css": "<%= dirs.less_src %>/embebed/results.less",
-        //bootstrap 3
-        //"<%= dirs.css_src %>/bootstrap3.css": "<%= dirs.less_src %>/bootstrap3/bootstrap.less"
+        "<%= dirs.css_src %>/embebed/results.css": "<%= dirs.less_src %>/embebed/results.less"
+
+        //Bootstrap 3
+        //'<%= dirs.css_src %>/bootstrap3.css': '<%= dirs.less_src %>/bootstrap3/bootstrap.less'
       }
     },
     production: {
@@ -148,7 +150,8 @@ grunt.initConfig({
         "<%= dirs.css_src %>/mobile_home.min.css": "<%= dirs.less_src %>/mobile_home.less",
         "<%= dirs.css_src %>/mobile_dashboard.min.css": "<%= dirs.less_src %>/mobile_dashboard.less",
         "<%= dirs.css_src %>/mobile_admon.min.css": "<%= dirs.less_src %>/mobile_admon.less",
-        //embebed
+
+        //Embebed
         "<%= dirs.css_src %>/embebed/detail.min.css": "<%= dirs.less_src %>/embebed/detail.less",
         "<%= dirs.css_src %>/embebed/form.min.css": "<%= dirs.less_src %>/embebed/form.less",
         "<%= dirs.css_src %>/embebed/results.min.css": "<%= dirs.less_src %>/embebed/results.less"
@@ -156,52 +159,52 @@ grunt.initConfig({
     }
   },
 
-  //mocha_phantomjs: {
+  //Mocha_phantomjs: {
    // all: ['<%= dirs.widget_test %>/**/*.html']
   //},
 
   intern: {
         local_browser: {
             options: {
-                runType: 'runner',
-                config: '<%= dirs.tests %>/intern_local_browser'
+                runType: "runner",
+                config: "<%= dirs.tests %>/intern_local_browser"
             }
         },
         remote_local: {
             options: {
-                runType: 'runner',
-                config: '<%= dirs.tests %>/intern_remote_local_test'
+                runType: "runner",
+                config: "<%= dirs.tests %>/intern_remote_local_test"
             }
         },
         remote: {
-            options	: {
-                runType: 'runner',
-                config: '<%= dirs.tests %>/intern_remote'
+            options: {
+                runType: "runner",
+                config: "<%= dirs.tests %>/intern_remote"
             }
         },
         remote_saucelabs: {
-            options	: {
-                runType: 'runner',
-                config: '<%= dirs.tests %>/intern_remote_saucelabs'
+            options: {
+                runType: "runner",
+                config: "<%= dirs.tests %>/intern_remote_saucelabs"
             }
         }
     },
 
     jshint: {
         options: {
-            reporter: require('jshint-stylish'),
-            jshintrc: './.jshintrc'
+            reporter: require( "jshint-stylish" ),
+            jshintrc: "./.jshintrc"
         },
         all: [
-          'Gruntfile.js',
-          '<%= dirs.tests %>/**/*.js',
-          '<%= dirs.tests %>/*.js',
-          '!<%= dirs.tests %>/resources/**/*.js'],
+          "Gruntfile.js",
+          "<%= dirs.tests %>/**/*.js",
+          "<%= dirs.tests %>/*.js",
+          "!<%= dirs.tests %>/resources/**/*.js" ],
       js_widget: [
-        '<%= dirs.widget_src %>/util/**/*.js',
-        '<%= dirs.widget_src %>/widgets/**/*.js',
-        '<%= dirs.widget_src %>/widget.js'],
-      'test-unit': ['<%= dirs.widget_test %>/spec/**/*.js']
+        "<%= dirs.widget_src %>/util/**/*.js",
+        "<%= dirs.widget_src %>/widgets/**/*.js",
+        "<%= dirs.widget_src %>/widget.js" ],
+      "test-unit": [ "<%= dirs.widget_test %>/spec/**/*.js" ]
     },
 
   connect: {
@@ -209,17 +212,17 @@ grunt.initConfig({
           options: {
               port: 3000,
               keepalive: true,
-              hostname: 'localhost',
-              base: '.',
-              middleware: function(connect, options) {
+              hostname: "localhost",
+              base: ".",
+              middleware: function( connect, options ) {
                   return [
-                      function(req, res, next) {
-                          res.setHeader('Access-Control-Allow-Origin', '*');
-                          res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-                          res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+                      function( req, res, next ) {
+                          res.setHeader( "Access-Control-Allow-Origin", "*" );
+                          res.setHeader( "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE" );
+                          res.setHeader( "Access-Control-Allow-Headers", "Content-Type" );
                           return next();
                       },
-                      connect.static(require('path').resolve('.'))
+                      connect.static( require( "path" ).resolve( "." ) )
                   ];
               }
           }
@@ -228,43 +231,105 @@ grunt.initConfig({
 
   watch: {
     styles: {
-      files: ['<%= dirs.less_src %>/**/*.less'], // which files to watch
-      tasks: ['less:development'],
+      files: [ "<%= dirs.less_src %>/**/*.less" ], // Which files to watch
+      tasks: [ "less:development" ],
       options: {
         nospawn: true
       }
+    },
+
+    mobile: {
+      files: [ "<%= dirs.mobile_src %>/lib/*.*" ],
+
+      //Tasks: ['browserify:mobile_babel', 'uglify:mobile']
+      tasks: [ "browserify:mobile_babel" ]
+    }
+
+  },
+
+  jscs: {
+    src: [ "Gruntfile.js",
+          "profiles/*.js",
+          "webpack.config.js",
+          "js/me/core/**/*.js",
+          "js/me/web/**/*.js",
+          "js/me/mobile/**/*.js",
+          "js/me/support/**/*.js" ],
+    options: {
+        config: ".jscsrc",
+        esnext: true, // If you use ES6 http://jscs.info/overview.html#esnext
+        verbose: true, // If you need output with rule names http://jscs.info/overview.html#verbose
+        fix: true, // Autofix code style violations when possible.
+        requireCurlyBraces: [ "if" ]
+    }
+  },
+
+  browserify: {
+    widget: {
+      src: [ "<%= dirs.widget_src %>/**/*.js" ],
+      dest: "<%= dirs.widget_build %>/widget.js"
+    },
+    mobile_babel: {
+      options: {
+        transform: [
+          [ "babelify", {
+            loose: "all"
+          }]
+        ]
+      },
+      src: [ "<%= dirs.mobile_src %>/lib/*.jsx" ],
+      dest: "<%= dirs.mobile_src %>/build/init.es6.react.brow.js"
+    },
+
+    react: {
+      src: [ "<%= dirs.mobile_src %>/lib/*.jsx" ],
+      dest: "<%= dirs.mobile_src %>/build/init.es6.react.js",
+      options: {
+        debug: true,
+        extensions: [ ".jsx" ],
+        transform: [
+          [ "reactify", {
+            "es6": true
+          } ]
+        ]
+      }
     }
   }
+
 });
 
-  // plugins
-  grunt.loadNpmTasks('intern');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-browserify');
-  //grunt.loadNpmTasks('grunt-mocha-phantomjs');
-  grunt.loadNpmTasks('grunt-contrib-less');
+  // Plugins
+  grunt.loadNpmTasks( "intern" );
+  grunt.loadNpmTasks( "grunt-contrib-concat" );
+  grunt.loadNpmTasks( "grunt-contrib-connect" );
+  grunt.loadNpmTasks( "grunt-contrib-jshint" );
+  grunt.loadNpmTasks( "grunt-contrib-clean" );
+  grunt.loadNpmTasks( "grunt-contrib-watch" );
+  grunt.loadNpmTasks( "grunt-contrib-uglify" );
+  grunt.loadNpmTasks( "grunt-browserify" );
 
+  //Grunt.loadNpmTasks('grunt-mocha-phantomjs');
+  grunt.loadNpmTasks( "grunt-contrib-less" );
+  grunt.loadNpmTasks("grunt-jscs");
 
+  // Task to execute test in saucelabs remotely
+  grunt.registerTask( "test-saucelabs", [ "jshint-all", "intern:remote_saucelabs" ] );
+  grunt.registerTask( "widget", [ "jshint:js_widget", "browserify:widget", "uglify:widget" ] );
+  grunt.registerTask( "es6-mobile", [ "watch:mobile" ] );
 
-  // task to execute test in saucelabs remotely
-  grunt.registerTask('test-saucelabs', [ 'jshint-all', 'intern:remote_saucelabs' ]);
-  grunt.registerTask('widget', ['jshint:js_widget', 'browserify', 'uglify:widget' ]);
-  // task to execute test in browserstack.com remotely
-  grunt.registerTask('jshint-all', [ 'jshint:all' ]);
-  grunt.registerTask('test', [ 'jshint-all', 'intern:remote' ]);
-  grunt.registerTask('commons', [ 'concat', 'uglify:commons' ]);
-  grunt.registerTask('css', ['less:development', 'less:production' ]);
-  // this task require a local selenium server running
-  grunt.registerTask('test-local', ['jshint-all', 'intern:local_browser']);
-  // this task is defined for remote quick testing
-  grunt.registerTask('test-remote', ['intern:remote_local' ]);
-  grunt.registerTask('dev', [ 'jshint-all', 'connect:server' ]);
-  grunt.registerTask('default', ['jshint-all', 'css', 'commons', 'widget']);
-  grunt.registerTask('production', ['jshint-all', 'css', 'commons', 'widget']);
+  // Task to execute test in browserstack.com remotely
+  grunt.registerTask( "jshint-all", [ "jscs", "jshint:all" ] );
+  grunt.registerTask( "test", [ "jshint-all", "intern:remote" ] );
+  grunt.registerTask( "commons", [ "concat", "uglify:commons" ] );
+  grunt.registerTask( "css", [ "less:development", "less:production" ] );
+
+  // This task require a local selenium server running
+  grunt.registerTask( "test-local", [ "jshint-all", "intern:local_browser" ] );
+
+  // This task is defined for remote quick testing
+  grunt.registerTask( "test-remote", [ "intern:remote_local" ] );
+  grunt.registerTask( "dev", [ "jshint-all", "connect:server" ] );
+  grunt.registerTask( "default", [ "jshint-all", "css", "commons", "widget" ] );
+  grunt.registerTask( "production", [ "jshint-all", "css", "commons", "widget" ] );
 
 };

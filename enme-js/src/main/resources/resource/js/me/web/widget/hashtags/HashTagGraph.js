@@ -84,10 +84,30 @@ define( [
                   var usage_by_votes = hashTagButtonStats.usage_by_votes;
                   if ( this._stat ) {
                     dojo.empty( this._stat );
-                    this._stat.appendChild( this._createAButton({ title: usage_by_item.label, value: usage_by_item.value, sub_label: usage_by_item.sub_label, filter: usage_by_item.filter }, true, period ) );
-                    this._stat.appendChild( this._createAButton({ title: total_usage_by_social_network.label, value: total_usage_by_social_network.value, sub_label: total_usage_by_social_network.sub_label,  filter: total_usage_by_social_network.filter }, false, period ) );
-                    this._stat.appendChild( this._createAButton({ title: total_hits.label, value: total_hits.value, sub_label: total_hits.sub_label, filter: total_hits.filter }, false, period ) );
-                    this._stat.appendChild( this._createAButton({ title: usage_by_votes.label, value: usage_by_votes.value, sub_label: usage_by_votes.sub_label, filter: usage_by_votes.filter }, false, period ) );
+                    this._stat.appendChild( this._createAButton({
+                      title: usage_by_item.label,
+                      value: usage_by_item.value,
+                      sub_label: usage_by_item.sub_label,
+                      filter: usage_by_item.filter
+                    }, true, period ) );
+                    this._stat.appendChild( this._createAButton({
+                      title: total_usage_by_social_network.label,
+                      value: total_usage_by_social_network.value,
+                      sub_label: total_usage_by_social_network.sub_label,
+                      filter: total_usage_by_social_network.filter
+                     }, false, period ) );
+                    this._stat.appendChild( this._createAButton({
+                      title: total_hits.label,
+                      value: total_hits.value,
+                      sub_label: total_hits.sub_label,
+                      filter: total_hits.filter
+                    }, false, period ) );
+                    this._stat.appendChild( this._createAButton({
+                      title: usage_by_votes.label,
+                      value: usage_by_votes.value,
+                      sub_label: usage_by_votes.sub_label,
+                      filter: usage_by_votes.filter
+                    }, false, period ) );
                   }
                 }
               });

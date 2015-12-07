@@ -1,5 +1,7 @@
 {
   "preset": "jquery",
+  "maximumLineLength": 220,
+  "disallowMixedSpacesAndTabs": false,
   "requireSpacesInsideParentheses": {
     "all": false,
     "except": [ "{", "}", "\"" ]
