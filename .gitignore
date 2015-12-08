@@ -18,6 +18,7 @@ overlays
 release.properties
 *.settings/*
 enme-war/enme-tomcat-app/.settings
+/enme-js/src/main/resources/resource/js/mobile/build
 enme-war/enme-views/.settings
 enme-js/me/html-report/
 enme-js/src/main/resources/css/

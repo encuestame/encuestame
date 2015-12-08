@@ -4,6 +4,9 @@
 
 module.exports = function( grunt ) {
 
+  var webpack = require("webpack");
+	var webpackConfig = require("./webpack.config.js");
+
 // Project configuration.
 grunt.initConfig({
 
@@ -237,14 +240,34 @@ grunt.initConfig({
         nospawn: true
       }
     },
-
     mobile: {
-      files: [ "<%= dirs.mobile_src %>/lib/*.*" ],
+				files: [ "js/mobile/init.js" ],
+				tasks: [ "webpack:build-dev" ],
+				options: {
+					spawn: false
+				}
+			}
+  },
 
-      //Tasks: ['browserify:mobile_babel', 'uglify:mobile']
-      tasks: [ "browserify:mobile_babel" ]
-    }
+  webpack: {
+     options: webpackConfig,
+     build: {
+				plugins: webpackConfig.plugins.concat(
+					new webpack.DefinePlugin({
+						"process.env": {
 
+							// This has effect on the react lib size
+							"NODE_ENV": JSON.stringify("production")
+						}
+					}),
+					new webpack.optimize.DedupePlugin(),
+					new webpack.optimize.UglifyJsPlugin()
+				)
+			},
+			"build-dev": {
+				devtool: "sourcemap",
+				debug: true
+			}
   },
 
   jscs: {
@@ -268,31 +291,6 @@ grunt.initConfig({
     widget: {
       src: [ "<%= dirs.widget_src %>/**/*.js" ],
       dest: "<%= dirs.widget_build %>/widget.js"
-    },
-    mobile_babel: {
-      options: {
-        transform: [
-          [ "babelify", {
-            loose: "all"
-          }]
-        ]
-      },
-      src: [ "<%= dirs.mobile_src %>/lib/*.jsx" ],
-      dest: "<%= dirs.mobile_src %>/build/init.es6.react.brow.js"
-    },
-
-    react: {
-      src: [ "<%= dirs.mobile_src %>/lib/*.jsx" ],
-      dest: "<%= dirs.mobile_src %>/build/init.es6.react.js",
-      options: {
-        debug: true,
-        extensions: [ ".jsx" ],
-        transform: [
-          [ "reactify", {
-            "es6": true
-          } ]
-        ]
-      }
     }
   }
 
@@ -307,6 +305,7 @@ grunt.initConfig({
   grunt.loadNpmTasks( "grunt-contrib-watch" );
   grunt.loadNpmTasks( "grunt-contrib-uglify" );
   grunt.loadNpmTasks( "grunt-browserify" );
+  grunt.loadNpmTasks("grunt-webpack");
 
   //Grunt.loadNpmTasks('grunt-mocha-phantomjs');
   grunt.loadNpmTasks( "grunt-contrib-less" );
