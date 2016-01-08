@@ -15,7 +15,7 @@ package org.encuestame.business.cron;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.utils.json.NotificationResume;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;

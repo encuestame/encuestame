@@ -21,7 +21,6 @@ import org.apache.commons.collections.ListUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.business.search.UtilConvertToSearchItems;
 import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.imp.SearchServiceOperations;

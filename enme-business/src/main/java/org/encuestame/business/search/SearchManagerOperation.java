@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.lucene.document.Document;
-import org.apache.lucene.queryParser.ParseException;
 
 /**
  * Search Manager Operation.
@@ -25,6 +24,5 @@ import org.apache.lucene.queryParser.ParseException;
  */
 public interface SearchManagerOperation {
 
-    List<Document> search(final String queryText, final int max, final String field) throws IOException,
-    ParseException;
+    List<Document> search(final String queryText, final int max, final String field) throws IOException;
 }

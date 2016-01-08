@@ -20,7 +20,6 @@ package org.encuestame.test.business.csv.cron;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.lucene.index.IndexWriter;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.cron.CalculateHashTagSize;
 import org.encuestame.core.cron.CalculateRelevance;
 import org.encuestame.core.cron.IndexRebuilder;
@@ -28,6 +27,7 @@ import org.encuestame.core.cron.ReIndexJob;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -50,7 +50,7 @@ import java.util.List;
 /**
  * Created by jpicado on 21/12/14.
  */
-@Category(DefaultTest.class)
+//@Category(DefaultTest.class)
 public class TestCron extends AbstractSpringSecurityContext {
 
     @Autowired

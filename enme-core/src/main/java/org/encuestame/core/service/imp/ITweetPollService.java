@@ -60,7 +60,6 @@ public interface ITweetPollService extends IMasterSurveyService{
      * Create Tweet Poll.
      * @param tweetPollBean
      * @param question
-     * @param answers
      * @param user
      * @return
      * @throws EnMeExpcetion
@@ -134,7 +133,6 @@ public interface ITweetPollService extends IMasterSurveyService{
     /**
     * Get {@link TweetPoll} by id and slug name.
     * @param tweetPollId
-    * @param username
     * @param slug
     * @return
     * @throws EnMeNoResultsFoundException
@@ -151,7 +149,6 @@ public interface ITweetPollService extends IMasterSurveyService{
     /**
      * Generate TweetPoll Text.
      * @param tweetPoll tweetPoll
-     * @param url url
      * @return tweet text
      * @throws EnMeExpcetion exception
      */
@@ -161,8 +158,6 @@ public interface ITweetPollService extends IMasterSurveyService{
      * Search {@link TweetPoll} by Keyword.
      * @param username
      * @param keyword
-     * @param maxResults
-     * @param start
      * @param httpServletRequest
      * @param tpollSearch
      * @return
@@ -198,14 +193,6 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param ip ip
      */
     void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip, final Date voteDate);
-
-    /**
-     * Validate TweetPoll IP.
-     * @param ipVote  ipVote
-     * @param tweetPoll tweetPoll
-     * @return {@link TweetPollResult}
-     */
-    TweetPollResult validateTweetPollIP(final String ipVote, final TweetPoll tweetPoll);
 
     /**
      * Get Results By {@link TweetPoll}.
@@ -347,8 +334,6 @@ public interface ITweetPollService extends IMasterSurveyService{
     /**
      * Search Scheduled TweetsPoll.
      * @param username
-     * @param maxResults
-     * @param start
      * @param httpServletRequest
      * @param tpollSearch
      * @return
@@ -361,8 +346,6 @@ public interface ITweetPollService extends IMasterSurveyService{
     /**
      * Search Favourites TweetPolls.
      * @param username
-     * @param maxResults
-     * @param start
      * @param httpServletRequest
      * @param tpollSearch
      * @return
@@ -375,8 +358,6 @@ public interface ITweetPollService extends IMasterSurveyService{
     /**
      * Search Tweet Polls Last Week.
      * @param username
-     * @param maxResults
-     * @param start
      * @param httpServletRequest
      * @param tpollSearch
      * @return
@@ -389,8 +370,6 @@ public interface ITweetPollService extends IMasterSurveyService{
     /**
      * Search Tweet Polls Today.
      * @param username
-     * @param maxResults
-     * @param start
      * @param httpServletRequest
      * @param tpollSearch
      * @return

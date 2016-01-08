@@ -27,7 +27,6 @@ import junit.framework.Assert;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.TweetPollService;
-//import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
@@ -424,9 +423,10 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 
         tweetPollService.tweetPollVote(pollSwitch, ipVote, Calendar.getInstance().getTime());
         // tweetPollService.tweetPollVote(pollSwitch2, ipVote);
-        final TweetPollResult result = tweetPollService.validateTweetPollIP(
-                ipVote, myTweetPoll);
-        assertEquals("Should be equals", ipVote, result.getIpVote());
+        //NOTE: method removed
+//        final TweetPollResult result = tweetPollService.validateTweetPollIP(
+//                ipVote, myTweetPoll);
+//        assertEquals("Should be equals", ipVote, result.getIpVote());
     }
 
     /**

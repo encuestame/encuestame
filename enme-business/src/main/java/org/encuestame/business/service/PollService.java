@@ -25,9 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.HashTag;
@@ -606,7 +606,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
     /**
      * Search Polls by Question keyword.
      * @param keywordQuestion
-     * @param username
      * @param maxResults
      * @param start
      * @return
@@ -690,7 +689,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
     /**
      * Get Polls by Folder.
      * @param folder
-     * @param username
      * @return
      * @throws EnMeNoResultsFoundException
      */
@@ -720,8 +718,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
     /**
      * Create url poll Access.
      * @param poll
-     * @param domain
-     * @param currentUser
      * @return
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
@@ -774,7 +770,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
 
     /**
      * Retrieve Folder Poll.
-     * @param username
      * @return
      * @throws EnMeNoResultsFoundException exception
      */
@@ -865,7 +860,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
     /**
      * Add poll to Folder.
      * @param folderId
-     * @param username
      * @param pollId
      * @throws EnMeNoResultsFoundException
      */
@@ -888,7 +882,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
     /**
      * Get Poll folder.
      * @param folderId
-     * @param userId
      * @return
      */
     public PollFolder getPollFolderByFolderIdandUser(final Long folderId, final UserAccount userAccount){
@@ -897,10 +890,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
 
     /**
      * Get polls by creation date.
-     * @param userId
      * @param date
      * @param maxResults
-     * @param star
      * @return
      * @throws EnMeNoResultsFoundException
      */

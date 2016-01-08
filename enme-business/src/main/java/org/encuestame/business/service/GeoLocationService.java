@@ -16,10 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.GeoLocationSupport;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;

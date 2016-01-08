@@ -26,10 +26,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.HashTag;
@@ -1024,7 +1024,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
     /**
      * Get Tweet Poll Folder by User and FolderId.
-     * @param id folder id.
+     * @param folderId folder id.
      * @throws EnMeNoResultsFoundException if username not exist.
      */
     private TweetPollFolder getTweetPollFolderByFolderId(final Long folderId) throws EnMeNoResultsFoundException{
@@ -1103,7 +1103,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     /**
      *
      * @param tweetPollId
-     * @param answerId
+     * @param answer
      * @return
      */
     public TweetPollResultsBean getVotesByTweetPollAnswerId(
@@ -1246,7 +1246,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
      /**
      * Remove TweetPoll Folder.
-     * @param TweetPoll folderId
+     * @param folderId
      * @throws EnMeNoResultsFoundException
      */
     public void deleteTweetPollFolder(final Long folderId) throws EnMeNoResultsFoundException{

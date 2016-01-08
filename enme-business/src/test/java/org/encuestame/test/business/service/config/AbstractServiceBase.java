@@ -12,7 +12,7 @@
  */
 package org.encuestame.test.business.service.config;
 
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.junit.After;
 import org.junit.Before;

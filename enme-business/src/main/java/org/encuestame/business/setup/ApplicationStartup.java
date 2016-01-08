@@ -15,9 +15,9 @@ package org.encuestame.business.setup;
 import javax.annotation.PostConstruct;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.core.service.startup.DirectorySetupOperations;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.exception.EnMeStartupException;
 import org.encuestame.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;

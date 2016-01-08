@@ -24,13 +24,14 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.IScheduled;
@@ -442,7 +443,7 @@ public class AbstractSurveyService extends AbstractChartService {
 
     /**
      * Build Url Answer.
-     * @param anwer answer
+     * @param answer answer
      * @throws IOException exception
      * @throws HttpException exception
      */
@@ -645,16 +646,6 @@ public class AbstractSurveyService extends AbstractChartService {
             unitQuestionBean.add(ConvertDomainBean.convertQuestionsToBean(question));
         }
         return unitQuestionBean;
-    }
-
-    /**
-     * Validate TweetPoll IP.
-     * @param ipVote  ipVote
-     * @param tweetPoll tweetPoll
-     * @return {@link TweetPollResult}
-     */
-    public TweetPollResult validateTweetPollIP(final String ipVote, final TweetPoll tweetPoll){
-        return getTweetPollDao().validateVoteIP(ipVote, tweetPoll);
     }
 
     /**

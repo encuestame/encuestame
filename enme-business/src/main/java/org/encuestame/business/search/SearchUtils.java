@@ -28,6 +28,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version; 
@@ -51,7 +52,7 @@ public class SearchUtils {
     protected static final String FILENAME = "filename";
 
     /** Lucene Version. **/
-    public static final Version LUCENE_VERSION = Version.LUCENE_30;
+    public static final Version LUCENE_VERSION = Version.LUCENE_5_3_0;
 
     /**
     * Log
@@ -215,9 +216,9 @@ public class SearchUtils {
     /**
     * Create Text Document.
     * @param file Text File.
-    * @param Long attachmentId.
     * @return {@link Document}
     * @throws Exception
+     * @deprecated
     */
     public static Document createTextDocument(final File file) throws Exception {
     	//FIXME: 'FileReader' is never closed
@@ -244,9 +245,8 @@ public class SearchUtils {
             indexWriter.close();
         }
         //log.debug("Index Directory is locked?  ----------> " + indexWriter.isLocked(directory));
-        indexWriter = new IndexWriter(directory, new StandardAnalyzer(
-                SearchUtils.LUCENE_VERSION), true,
-                IndexWriter.MaxFieldLength.UNLIMITED);
+        IndexWriterConfig config = new IndexWriterConfig(new StandardAnalyzer());
+        indexWriter = new IndexWriter(directory, config);
         Assert.notNull(indexWriter);
         return indexWriter;
     }

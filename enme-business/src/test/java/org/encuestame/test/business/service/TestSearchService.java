@@ -17,7 +17,6 @@ import java.util.*;
 
 import junit.framework.Assert;
 
-import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.persistence.domain.HashTag;
@@ -30,7 +29,6 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.web.UnitProjectBean;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -170,10 +168,9 @@ public class TestSearchService extends AbstractSpringSecurityContext {
      * Quick search by {@link HashTag}
      * @throws EnMeNoResultsFoundException
      * @throws IOException
-     * @throws ParseException
      */
     @Test
-    public void testHashtagQuickService() throws EnMeNoResultsFoundException, IOException, ParseException{
+    public void testHashtagQuickService() throws EnMeNoResultsFoundException, IOException{
     	this.testQuickService();
         // with one results
 		final Map<String, List<GlobalSearchItem>> d1 = this.searchServiceOperations
@@ -206,12 +203,11 @@ public class TestSearchService extends AbstractSpringSecurityContext {
      *
      * @throws EnMeNoResultsFoundException
      * @throws IOException
-     * @throws ParseException
      */
      @Test
      @Ignore
     //FUTURE: question search is actually disabled
-    public void testQuestionsQuickSearch() throws EnMeNoResultsFoundException, IOException, ParseException{
+    public void testQuestionsQuickSearch() throws EnMeNoResultsFoundException, IOException{
 		this.testQuickService();
 		final Map<String, List<GlobalSearchItem>> d2 = this.searchServiceOperations
 				.quickSearch("future",
@@ -225,11 +221,10 @@ public class TestSearchService extends AbstractSpringSecurityContext {
      *
      * @throws EnMeNoResultsFoundException
      * @throws IOException
-     * @throws ParseException
      */
 	@Test
 	public void testCommentsQuickSearch() throws EnMeNoResultsFoundException,
-			IOException, ParseException {
+			IOException {
 		this.testQuickService();
 		final Map<String, List<GlobalSearchItem>> c1 = this.searchServiceOperations.quickSearch("favorite", "Spanish", 0, 10, 10, resultsAllowed);
 		final List<GlobalSearchItem> comments = c1.get("comments");
@@ -248,11 +243,10 @@ public class TestSearchService extends AbstractSpringSecurityContext {
      * Quick search by {@link Poll}
      * @throws EnMeNoResultsFoundException
      * @throws IOException
-     * @throws ParseException
      */
 	@Test
 	public void testPollQuickService() throws EnMeNoResultsFoundException,
-			IOException, ParseException {
+			IOException {
 		this.testQuickService();
 		final Map<String, List<GlobalSearchItem>> p1 = this.searchServiceOperations
 				.quickSearch("actor", "Spanish", 0, 10, 10, resultsAllowed);
@@ -265,11 +259,10 @@ public class TestSearchService extends AbstractSpringSecurityContext {
      * Quick search by {@link TweetPoll}
      * @throws EnMeNoResultsFoundException
      * @throws IOException
-     * @throws ParseException
      */
 	@Test
 	public void testTweetPollQuickService() throws EnMeNoResultsFoundException,
-			IOException, ParseException {
+			IOException {
 		this.testQuickService();
 		final Map<String, List<GlobalSearchItem>> t1 = this.searchServiceOperations
 				.quickSearch("Musical", "Spanish", 0, 10, 10, resultsAllowed);
@@ -285,7 +278,7 @@ public class TestSearchService extends AbstractSpringSecurityContext {
 
     @Test
     public void testNonResults() throws EnMeNoResultsFoundException,
-            IOException, ParseException {
+            IOException {
         List<TypeSearchResult> resultsAllowed = new ArrayList<TypeSearchResult>();
         final Map<String, List<GlobalSearchItem>> t1 = this.searchServiceOperations.quickSearch("Musical", "Spanish", 0, 10, 10, resultsAllowed);
         final List<GlobalSearchItem> tweetPolls = t1.get("Tweetpolls");
