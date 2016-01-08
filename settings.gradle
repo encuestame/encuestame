@@ -1,3 +1,20 @@
 rootProject.name = 'encuestame'
-include 'enme-utils'
+include ':config'
+include ':utils'
+include ':persistence:model'
+include ':persistence:dao'
+include ':persistence'
+include ':core'
+include ':oauth'
+include ':social'
+include ':business'
 
+project(':config').projectDir = "$rootDir/enme-config" as File
+project(':utils').projectDir = "$rootDir/enme-utils" as File
+project(':persistence:model').projectDir = "$rootDir/enme-persistence/enme-model" as File
+project(':persistence:dao').projectDir = "$rootDir/enme-persistence/enme-dao" as File
+project(':persistence').projectDir = "$rootDir/enme-persistence" as File
+project(':core').projectDir = "$rootDir/enme-core" as File
+project(':oauth').projectDir = "$rootDir/enme-oauth" as File
+project(':social').projectDir = "$rootDir/enme-social" as File
+project(':business').projectDir = "$rootDir/enme-business" as File

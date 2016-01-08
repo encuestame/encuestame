@@ -8,6 +8,8 @@ bin/
 *.suo
 *.user
 Log/
+.gradle
+build
 log/
 *.db
 *.log*
