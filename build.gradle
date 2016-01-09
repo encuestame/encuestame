@@ -1,14 +1,14 @@
 allprojects  {
   apply plugin: 'maven'
-
+  apply plugin: 'idea'
+  apply plugin: 'eclipse'
   group = 'org.encuestame'
-version = '1.5.4-SNAPSHOT'
 }
 
 subprojects {
   apply plugin: 'java'
-  sourceCompatibility = 1.5
-  targetCompatibility = 1.5
+  sourceCompatibility = 1.7
+  targetCompatibility = 1.7
 
   
   repositories {

@@ -42,35 +42,17 @@
         </resources>
     </build>
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.encuestame</groupId>-->
-            <!--<artifactId>enme-dao</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.encuestame</groupId>-->
-            <!--<artifactId>enme-model</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>dao</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.encuestame</groupId>-->
-            <!--<artifactId>encuestame-utils</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency> &lt;!&ndash; reuse src/test/java code from encuestame-core! &ndash;&gt;-->
-            <!--<groupId>org.encuestame</groupId>-->
-            <!--<artifactId>encuestame-utils</artifactId>-->
-            <!--<scope>test</scope>-->
-            <!--<classifier>tests</classifier>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>core</artifactId>
         </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+        <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>core</artifactId>
             <scope>test</scope>
@@ -80,7 +62,7 @@
             <groupId>org.encuestame</groupId>
             <artifactId>social</artifactId>
         </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+        <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>social</artifactId>
             <scope>test</scope>
