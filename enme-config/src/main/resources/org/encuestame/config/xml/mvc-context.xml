@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans
-  xmlns="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
   xmlns:mvc="http://www.springframework.org/schema/mvc"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:context="http://www.springframework.org/schema/context"
-  xmlns:device="http://www.springframework.org/schema/mobile/device"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/mvc
                         http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
                         http://www.springframework.org/schema/context
-                        http://www.springframework.org/schema/context/spring-context-3.0.xsd
-                        http://www.springframework.org/schema/mobile/device
-                        http://www.springframework.org/schema/mobile/device/spring-mobile-device-1.0.xsd">
+                        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <!-- Scans for application @Components to deploy -->
     <context:component-scan base-package="org.encuestame.mvc" />
@@ -165,18 +161,16 @@
                     </property>
                 </bean>
                 <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
-                <!-- <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" /> -->
-                <!-- Converter for images -->
                 <bean class="org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter"/>
                 <ref bean="jsonHttpMessageConverter"/>
             </list>
         </property>
   </bean>
 
-    <bean id="JacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper" />
+    <bean id="JacksonObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
 
     <bean id="jsonHttpMessageConverter"
-        class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" >
+        class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" >
         <property name="supportedMediaTypes" value="application/json"/>
         <property name="objectMapper">
                 <ref bean="JacksonObjectMapper" />
@@ -260,23 +254,7 @@
            <property name="cookieMaxAge" value="30" />
     </bean>
 
-
-
-  <!--
-    - This bean resolves specific types of exceptions to corresponding
-    logical - view names for error views. The default behaviour of
-    DispatcherServlet - is to propagate all exceptions to the servlet
-    container: this will happen - here with all other types of exceptions.
-    http://forum.springsource.org/showthread.php?t=36960-->
-  <!-- <bean class="org.encuestame.core.exception.EnMeMappingExceptionResolver"/> -->
-
-  <!-- thumbnail generator engine
-         thanks to raulraja.
-     -->
     <bean id="thumbnailGeneratorEngine" class="org.encuestame.business.images.ThumbnailGeneratorEngineImpl">
-
-
-
         <!-- the file extension for the thumbnail files -->
         <property name="generatedExtension">
             <value>.jpg</value>
@@ -315,6 +293,6 @@
     <!--
          This view it's necessary to render the AccessDeniedException @ExceptionHandler
      -->
-    <bean name="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>
+    <bean name="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
 
 </beans>

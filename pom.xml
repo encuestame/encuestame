@@ -38,7 +38,7 @@
         <spring.security.version>4.0.2.RELEASE</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-oauth.version>2.0.2.RELEASE </spring-oauth.version>
-        <spring.mobile.version>1.1.3.RELEASE</spring.mobile.version>
+        <spring.mobile.version>1.1.4.RELEASE</spring.mobile.version>
         <spring.ldap>2.0.2.RELEASE</spring.ldap>
         <spring.orm>${spring.version}</spring.orm>
         <spring.support>2.0.8</spring.support>
@@ -47,13 +47,11 @@
         <org.slf4j-version>1.7.12</org.slf4j-version>
         <google.guava>15.0</google.guava>
         <scribe>1.0.9</scribe>
-        <webutilities.version>0.0.6</webutilities.version>
         <wurfl>1.2</wurfl>
         <log4j>1.2.14</log4j>
         <jstl>1.2</jstl>
         <jsp-api>2.2</jsp-api>
-        <jdom>2.0.6</jdom>
-        <!--><jdom2>2.0.6</jdom2><-->
+        <jdom2>2.0.6</jdom2>
         <jasypt>1.8</jasypt>
         <joda.time>1.6.2</joda.time>
         <!-- Hibernate Version -->
@@ -65,16 +63,8 @@
         <jackson.version>2.3.3</jackson.version>
         <!-- Lucene Version -->
         <lucene.version>5.3.0</lucene.version>
-        <!-- Apache POI Version -->
-        <apache.poi.version>3.5-FINAL</apache.poi.version>
-        <!-- Apache POI Scratchpad Version -->
-        <apache.poi.scratchpad.version>3.5-FINAL</apache.poi.scratchpad.version>
-        <!-- Apache POI Scratchpad Version -->
-        <apache.poi.ooxml.version>3.5-FINAL</apache.poi.ooxml.version>
         <!-- Twitter4J Version -->
         <twitter4j.version>4.0.2</twitter4j.version>
-        <!-- Apache PDF Box -->
-        <apache.pdf.box>1.4.0</apache.pdf.box>
         <apache.tiles>3.0.5</apache.tiles>
         <servlet-api>3.0.1</servlet-api>
         <servlet-api-artifact>javax.servlet-api</servlet-api-artifact>
@@ -127,14 +117,14 @@
         <antlr>3.0</antlr>
         <cglib-nodep>2.2</cglib-nodep>
         <aspectjrt>1.6.0</aspectjrt>
-        <jaxen>1.1.1</jaxen>
+        <!--<jaxen>1.1.1</jaxen>-->
         <opencsv.version>2.3</opencsv.version>
         <javax.inject>1</javax.inject>
         <javax.persistence>1.0.2</javax.persistence>
         <javax.el.api>3.0.1-b04</javax.el.api>
         <infinispan.version>8.0.1.Final</infinispan.version>
         <front.end.plugin>0.0.23</front.end.plugin>
-        <uadetector.version>2013.02</uadetector.version>
+        <uadetector.version>2014.10</uadetector.version>
         <!-- Dojo http://www.mahieu.org/?p=3 -->
         <dojo.version>1.10.4</dojo.version>
         <dojo.build.profile>standard</dojo.build.profile>
@@ -952,25 +942,25 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency>
-                <groupId>jaxen</groupId>
-                <artifactId>jaxen</artifactId>
-                <version>${jaxen}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>xom</artifactId>
-                        <groupId>xom</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>jdom2</artifactId>
-                        <groupId>org.jdom</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>xml-apis</artifactId>
-                        <groupId>xml-apis</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>jaxen</groupId>-->
+                <!--<artifactId>jaxen</artifactId>-->
+                <!--<version>${jaxen}</version>-->
+                <!--<exclusions>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>xom</artifactId>-->
+                        <!--<groupId>xom</groupId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>jdom2</artifactId>-->
+                        <!--<groupId>org.jdom</groupId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>xml-apis</artifactId>-->
+                        <!--<groupId>xml-apis</groupId>-->
+                    <!--</exclusion>-->
+                <!--</exclusions>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -1115,13 +1105,8 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-ldap</artifactId>
                 <version>${spring.security.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-openid</artifactId>
-                <version>${spring.security.version}</version>
-                <scope>compile</scope>
-            </dependency>
+            </dependency>           
+
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-taglibs</artifactId>
@@ -1213,7 +1198,7 @@
             <dependency>
                 <groupId>org.jdom</groupId>
                 <artifactId>jdom2</artifactId>
-                <version>${jdom}</version>
+                <version>${jdom2}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
@@ -1447,28 +1432,6 @@
                 <artifactId>tiles-servlet</artifactId>
                 <version>${apache.tiles}</version>
             </dependency>
-            <!-- Apache Poi -->
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi-scratchpad</artifactId>
-                <version>${apache.poi.scratchpad.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi</artifactId>
-                <version>${apache.poi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi-ooxml</artifactId>
-                <version>${apache.poi.ooxml.version}</version>
-            </dependency>
-            <!-- PDF Box -->
-            <dependency>
-                <groupId>org.apache.pdfbox</groupId>
-                <artifactId>pdfbox</artifactId>
-                <version>${apache.pdf.box}</version>
-            </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-servlets</artifactId>
@@ -1514,18 +1477,6 @@
                 <groupId>net.sf.uadetector</groupId>
                 <artifactId>uadetector-resources</artifactId>
             <version>${uadetector.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.googlecode.webutilities</groupId>
-                <artifactId>webutilities</artifactId>
-                <version>${webutilities.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>javax.servlet</artifactId>
-                        <groupId>jsp-api</groupId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <dependency>

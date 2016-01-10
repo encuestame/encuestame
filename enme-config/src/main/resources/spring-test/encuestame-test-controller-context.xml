@@ -54,7 +54,7 @@
             NOTE: it is important to specify the order property, so this
             adapter will be attempted before the HandlerAdapter that
             Spring MVC automatically configures. This is because a
-            MappingJacksonHttpMessageConverter is registered
+            MappingJackson2HttpMessageConverter is registered
             automatically with the default adapter that will attempt to
             handle any Java object including BufferedImage.
         -->

@@ -31,7 +31,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 //TODO: MIGRATION. The following sentence has been commented
-//import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 /**
  * Upload File Controller.
