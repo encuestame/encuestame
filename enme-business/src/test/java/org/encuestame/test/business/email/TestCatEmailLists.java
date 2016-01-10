@@ -22,7 +22,7 @@ import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.test.business.config.AbstractServiceBase;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;

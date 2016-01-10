@@ -73,7 +73,6 @@ public class DatabaseInstall implements InstallDatabaseOperations {
     /**
      * {@link InstallerOperations}.
      */
-    @Resource(name = "installerDao")
     private InstallerOperations installerOperations;
 
     /**

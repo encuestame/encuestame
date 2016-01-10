@@ -10,12 +10,13 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.test.business.service.config;
+package org.encuestame.test.business.config;
 
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
-import org.encuestame.test.config.AbstractBaseUnitBeans;
+import org.encuestame.test.persistence.config.*;
 import org.junit.After;
 import org.junit.Before;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.io.File;
@@ -25,15 +26,9 @@ import java.io.File;
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 23, 2010 10:42:59 AM
  */
-@ContextConfiguration(locations = {
-        "classpath:spring-test/encuestame-test-email-context.xml",
-        "classpath:spring-test/encuestame-test-security-context.xml",
-        "classpath:spring-test/encuestame-test-service-context.xml",
-        //"classpath:spring-test/encuestame-test-integration.xml",
-        //"classpath:spring-test/encuestame-test-search-context.xml",
-        "classpath:spring-test/encuestame-param-test-context.xml"
-         })
-public abstract class AbstractServiceBase extends AbstractBaseUnitBeans{
+@ContextConfiguration(classes = {BusinessConfig.class, DBConfig.class})
+@ActiveProfiles(profiles = "dev")
+public abstract class AbstractServiceBase extends org.encuestame.test.persistence.config.AbstractBaseUnitBeans {
 
 
     public File targetDir() {

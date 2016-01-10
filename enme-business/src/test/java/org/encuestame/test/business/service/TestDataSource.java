@@ -12,7 +12,7 @@
  */
 package org.encuestame.test.business.service;
 
-import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.test.business.config.AbstractServiceBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;

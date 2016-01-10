@@ -13,7 +13,7 @@
 
 package org.encuestame.test.persistence.dao;
 
-import org.encuestame.test.config.AbstractBase;
+import org.encuestame.test.persistence.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.persistence.dao.imp.ClientDao;
 import org.junit.Before;

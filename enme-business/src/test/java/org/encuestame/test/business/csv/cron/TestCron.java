@@ -19,7 +19,6 @@
 package org.encuestame.test.business.csv.cron;
 
 import org.apache.commons.collections.ListUtils;
-import org.apache.lucene.index.IndexWriter;
 import org.encuestame.core.cron.CalculateHashTagSize;
 import org.encuestame.core.cron.CalculateRelevance;
 import org.encuestame.core.cron.IndexRebuilder;
@@ -32,8 +31,7 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.test.business.security.AbstractSpringSecurityContext;
-import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.test.business.config.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.joda.time.DateTime;

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.encuestame.business.setup.install.demo.CSVParser;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.test.business.config.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Assert;
 import org.junit.Test;

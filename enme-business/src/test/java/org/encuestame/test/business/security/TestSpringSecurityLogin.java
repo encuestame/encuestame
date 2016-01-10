@@ -14,6 +14,7 @@ package org.encuestame.test.business.security;
 
 import static org.junit.Assert.assertEquals;
 
+import org.encuestame.test.business.config.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;

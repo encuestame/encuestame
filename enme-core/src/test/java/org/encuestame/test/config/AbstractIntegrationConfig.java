@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.test.config;
+package org.encuestame.test.config;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -3,6 +3,7 @@ package org.encuestame.business.setup.install;
 
 import java.io.IOException;
 
+import org.encuestame.persistence.dao.jdbc.InstallerOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeDatabase;
 
@@ -67,5 +68,11 @@ public interface InstallDatabaseOperations {
      * @throws IOException
      */
     void dropAll() throws IOException;
+
+    /**
+     *
+     * @param installerOperations
+     */
+    void setInstallerOperations(InstallerOperations installerOperations);
 
 }

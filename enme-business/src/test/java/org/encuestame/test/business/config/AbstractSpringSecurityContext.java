@@ -10,14 +10,13 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.test.business.security;
+package org.encuestame.test.business.config;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.enums.EnMePermission;
 import org.junit.Before;
 import org.springframework.security.authentication.TestingAuthenticationToken;

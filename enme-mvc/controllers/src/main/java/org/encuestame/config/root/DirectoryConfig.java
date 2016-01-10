@@ -92,7 +92,10 @@ public class DirectoryConfig {
        return new ApplicationStartup();
    }
 
-   //@Lazy
+    /**
+     *
+      * @return
+     */
    public @Bean(name="messageSourceFactoryBean") MessageSourceFactoryBean messageSourceFactoryBean(){
        return new MessageSourceFactoryBean(this.messageSource);
    }
