@@ -20,36 +20,19 @@ package org.encuestame.utils.enums;
 public enum CommentsSocialOptions {
 
     /** **/
-    LIKE_VOTE,
+    LIKE_VOTE("LIKE"),
 
     /** **/
-    DISLIKE_VOTE,
+    DISLIKE_VOTE("DISLIKE");
 
-    CommentsSocialOptions(){
-    };
-
-    /**
-     * To string.
-     */
-    public String toString() {
-        String option = "";
-        if (this == LIKE_VOTE) { option = "LIKE"; }
-        else if (this == DISLIKE_VOTE) { option = "DISLIKE"; }
-    return option;
-    }
+    /** **/
+    private String enumAsString;
 
     /**
-     * Get comments social options.
-     * @param option
-     * @return
+     * Constructor
+     * @param optionAsString
      */
-    public static CommentsSocialOptions getCommentsSocialOptions(final String option) {
-        if (null == option) { return null; }
-         else if (option.equalsIgnoreCase("LIKE")) { return  LIKE_VOTE; }
-         else if (option.equalsIgnoreCase("DISLIKE")) { return  DISLIKE_VOTE; }
-         else {
-             return null;
-         }
+    CommentsSocialOptions(String optionAsString){
+        this.enumAsString = optionAsString;
     }
-
 }

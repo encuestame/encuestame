@@ -19,34 +19,27 @@ package org.encuestame.utils.enums;
  * TODO: similar to {@link RelativeTimeEnum}
  */
 public enum DateClasificatedEnum {
-    TODAY,
-    THIS_WEEK,
-    THIS_MONTH,
-    LAST_MONTH,
-    FEW_MONTHS_AGO,
-    LAST_YEAR,
-    LONG_TIME_AGO,
+    TODAY(1),
+    THIS_WEEK(7),
+    THIS_MONTH(30),
+    LAST_MONTH(180),
+    FEW_MONTHS_AGO(360),
+    LAST_YEAR(366),
+    LONG_TIME_AGO(720);
 
+    /** **/
+    private Integer dateAsInteger;
+
+
+    public Integer toNumber(){
+        return this.dateAsInteger;
+    }
     /**
      *
+     * @param dateAsString
      */
-    DateClasificatedEnum() {
+    DateClasificatedEnum(final Integer dateAsString) {
+        this.dateAsInteger = dateAsString;
 
-    };
-
-    /**
-     * Relative time to number.
-     * @return
-     */
-    public Integer toNumber() {
-        Integer period = null;
-        if (this == TODAY) { period = 1; }
-        else if (this == THIS_WEEK) { period = 7; }
-        else if (this == THIS_MONTH) { period = 30; }
-        else if (this == LAST_MONTH) { period = 180; }
-        else if (this == FEW_MONTHS_AGO) { period = 360; }
-        else if (this == LAST_YEAR) { period = 366; }
-        else if (this == LONG_TIME_AGO) { period = 720; }
-        return period;
     }
 }

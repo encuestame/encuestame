@@ -20,44 +20,27 @@ package org.encuestame.utils.enums;
 public enum LayoutEnum {
 
     /** Two Blocks. **/
-    BB_BLOCK,
+    BB_BLOCK("BB"),
 
     /** One Block. **/
-    B_BLOCK,
+    B_BLOCK("B"),
 
     /** One Column and One Block. **/
-    AB_COLUMN_BLOCK,
+    AB_COLUMN_BLOCK("AB"),
 
     /** One Block and One column. **/
-    BA_BLOCK_COLUMN,
-
-    LayoutEnum(){
-
-    };
-
-    /**
-     * To String.
-     */
-    public String toString() {
-        String layout = "";
-        if (this == BB_BLOCK) { layout = "BB"; }
-        else if (this == B_BLOCK) { layout = "B"; }
-        else if (this == AB_COLUMN_BLOCK) { layout = "AB"; }
-        else if (this == BA_BLOCK_COLUMN) { layout = "BA"; }
-        return layout;
-    }
+    BA_BLOCK_COLUMN("BA");
 
     /**
      *
-     * @param layout
-     * @return
      */
-    public static LayoutEnum getDashboardLayout(final String layout) {
-        if (null == layout) { return null; }
-        else if (layout.equalsIgnoreCase("BB")) { return BB_BLOCK; }
-        else if (layout.equalsIgnoreCase("B")) { return B_BLOCK; }
-        else if (layout.equalsIgnoreCase("AB")) { return AB_COLUMN_BLOCK; }
-        else if (layout.equalsIgnoreCase("BA")) { return BA_BLOCK_COLUMN; }
-        else return null;
+    private String layoutAsString;
+
+    /**
+     *
+     * @param layoutAsString
+     */
+    LayoutEnum(String layoutAsString){
+        this.layoutAsString = layoutAsString;
     }
 }

@@ -20,31 +20,37 @@ package org.encuestame.utils.enums;
 public enum HashTagRate {
 	
 	/** **/
-	LBL_USAGE,
+	LBL_USAGE(""),
 	
 	/** **/
-	LBL_SOCIAL_NETWORK,
+	LBL_SOCIAL_NETWORK(""),
 	
 	/** **/
-	LBL_HITS,
+	LBL_HITS(""),
 	
 	/** **/
-	LBL_VOTES,
+	LBL_VOTES(""),
 	
 	/** **/
-	SUB_LBL_TIMES,
+	SUB_LBL_TIMES(""),
 	
 	/** **/
-	SUB_LBL_TWEETS,
+	SUB_LBL_TWEETS(""),
 	
 	/** **/
-	SUB_LBL_VOTES,
+	SUB_LBL_VOTES(""),
 	
 	/** **/
-	JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER,
+	JANUARY("1"), FEBRUARY("2"), MARCH("3"), APRIL("4"), MAY("5"), JUNE("6"), JULY("7"), AUGUST("8"), SEPTEMBER("9"), OCTOBER("10"), NOVEMBER("11"), DECEMBER("12"),
 	
 	/** **/
-	MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
+	MONDAY("1"), TUESDAY("2"), WEDNESDAY("3"), THURSDAY("4"), FRIDAY("5"), SATURDAY("6"), SUNDAY("7");
+
+	private String optionAsString;
+
+	private HashTagRate(final String optionAsString){
+		this.optionAsString = optionAsString;
+	}
 	
 	/**
 	 * Return the month of the year.

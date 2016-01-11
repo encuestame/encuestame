@@ -12,88 +12,53 @@
  */
 package org.encuestame.utils.enums;
 
+import org.encuestame.utils.DateUtil;
+
 /**
  * Comments Options Enumeration
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since August 22, 2011
  */
-public enum CommentOptions {
+public enum CommentOptions{
 
     /** 
      * Define the status of the comment as restricted. 
      **/
-    RESTRICT,
+    RESTRICT("RESTRICT"),
 
     /** 
      * Approve Comments 
      **/
-    APPROVE,
+    APPROVE("APPROVE"),
 
     /**
      *  Define the comment status as moderated.
      **/
-    MODERATE,
+    MODERATE("MODERATE"),
     	
     /**
      * Define the asset as published
      */
-    PUBLISHED,
+    PUBLISHED("PUBLISHED"),
 
     /**
      * Define the asset as a SPAM
      */
-    SPAM,
+    SPAM("SPAM"),
 
     /**
      * Allow all
      */
-    ALL,
+    ALL("ALL");
 
-    showComments(){};
 
-    /**
-     * To String.
-     */
-    public String toString() {
-        String comment = "";
-        if (this == RESTRICT) { comment = "RESTRICT"; }
-        else if (this == APPROVE) { comment = "APPROVE"; }
-        else if (this == MODERATE) { comment = "MODERATE"; }
-        else if (this == PUBLISHED) { comment = "PUBLISHED"; }
-        else if (this == SPAM) { comment = "SPAM"; }
-        else if (this == ALL) { comment = "ALL"; }
-        return comment;
-    }
+    private String enumAsString;
 
     /**
-     * Get comment option enum.
-     * @param option
-     * @return
+     *
+     * @param optionAsString
      */
-    public static CommentOptions getCommentOption(final String option) {
-        if (null == option) { return null; }
-        else if (option.equalsIgnoreCase("RESTRICT")) { return RESTRICT; }
-        else if (option.equalsIgnoreCase("APPROVE")) { return APPROVE; }
-        else if (option.equalsIgnoreCase("MODERATE")) { return MODERATE; }
-        else if (option.equalsIgnoreCase("PUBLISHED")) { return PUBLISHED; }
-        else if (option.equalsIgnoreCase("SPAM")) { return SPAM; }
-        else if (option.equalsIgnoreCase("ALL")) { return ALL; }
-        else return null;
-    }
-    
-    /**
-     * Get comment option enum.
-     * @param option
-     * @return
-     */
-    public static CommentOptions getCommentStatus(final String option) {
-        if (null == option) { return null; }
-        else if (option.equalsIgnoreCase("RESTRICT")) { return RESTRICT; }
-        else if (option.equalsIgnoreCase("APPROVE")) { return APPROVE; }
-        else if (option.equalsIgnoreCase("MODERATE")) { return MODERATE; }
-        else if (option.equalsIgnoreCase("PUBLISHED")) { return PUBLISHED; }
-        else if (option.equalsIgnoreCase("SPAM")) { return SPAM; }
-        else if (option.equalsIgnoreCase("ALL")) { return ALL; }
-        else return null;
-    }    
+     CommentOptions(String optionAsString){
+         this.enumAsString = optionAsString;
+     }
 }

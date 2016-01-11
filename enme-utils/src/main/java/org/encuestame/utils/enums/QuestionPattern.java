@@ -22,23 +22,28 @@ public enum QuestionPattern {
     /**
      * A simple link to vote.
      */
-    LINKS,
+    LINKS("LINKS"),
 
     /**
      * The user could select single or multiple based on previous configuration.
      */
-    CUSTOMIZABLE_SELECTION,
+    CUSTOMIZABLE_SELECTION("CUSTOMIZABLE_SELECTION"),
 
     /**
      * Single response selection.
      */
-    SINGLE_SELECTION,
+    SINGLE_SELECTION("SINGLE_SELECTION"),
     /**
      * Multiples response selection.
      */
-    MULTIPLE_SELECTION;
+    MULTIPLE_SELECTION("MULTIPLE_SELECTION");
 
-    QuestionPattern() {};
+    private String optionAsString;
+
+    QuestionPattern(final String optionAsString) {
+        this.optionAsString = optionAsString;
+
+    };
 
     /**
      * To String.

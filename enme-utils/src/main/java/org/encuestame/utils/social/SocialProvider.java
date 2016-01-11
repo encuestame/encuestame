@@ -21,108 +21,91 @@ public enum SocialProvider {
     /**
      * Twitter provider.
      */
-    TWITTER,
+    TWITTER("TWITTER"),
     /**
      * Facebook provider.
      */
-    FACEBOOK,
+    FACEBOOK("FACEBOOK"),
     
     /**
      * Identica provider.
      */
     @Deprecated
-    IDENTICA,
+    IDENTICA("IDENTICA"),
     
     /**
      * The new name of identi.ca
      */
-    PUMPIO,
+    PUMPIO("PUMPIO"),
 
     /**
      * Linked In provider.
      */
-    LINKEDIN,
+    LINKEDIN("LINKEDIN"),
     /**
      * Google Buzz provider.
      */
     @Deprecated
-    GOOGLE_BUZZ,
+    GOOGLE_BUZZ("GOOGLE_BUZZ"),
 
     /** Google +. **/
-    GOOGLE_PLUS,
+    GOOGLE_PLUS("GOOGLE_PLUS"),
     /**
      * Yahoo provider.
      */
-    YAHOO,
+    YAHOO("YAHOO"),
     /**
      * My Space.
      */
     @Deprecated
-    MYSPACE,
+    MYSPACE("MYSPACE"),
     //TODO: In the future we can add more API's Tumblr, Plurk, Jaiku.
 
-    YOUTUBE,
+    YOUTUBE("YOUTUBE"),
     /**
      * Use full
      */
-    PICASA,
+    PICASA("PICASA"),
 
     /**
      * Google orkut social.
      */
-    ORKUT,
+    ORKUT("ORKUT"),
 
     /**
      * To access to google contact support.
      */
-    GOOGLE_CONTACTS,
+    GOOGLE_CONTACTS("GOOGLE_CONTACTS"),
 
     /**
      * Blog support to publish on blogger accounts.
      */
-    BLOGGER,
+    BLOGGER("BLOGGER"),
     
     /**
      * 
      */
-    PLURK,
+    PLURK("PLURK"),
     
     /**
      * 
      */
-    TUMBLR,
+    TUMBLR("TUMBLR"),
     
     /**
      * All social providers.
      */
-    ALL,
+    ALL("ALL");
+
+    private String socialProviderAsString;
 
     /**
      * Constructor.
      */
-    SocialProvider(){
-        //Constructor.
-    };
-
-    /**
-     * To String.
-     */
-    public String toString() {
-        String provider = "";
-        if (this == TWITTER) { provider = "TWITTER"; }
-        else if (this == FACEBOOK) { provider = "FACEBOOK"; }
-        else if (this == PLURK) { provider = "PLURK"; }
-        else if (this == TUMBLR) { provider = "TUMBLR"; }
-        else if (this == IDENTICA) { provider = "IDENTICA"; }
-        else if (this == LINKEDIN) { provider = "LINKEDIN"; }
-        else if (this == PUMPIO) { provider = "PUMPIO"; }
-        else if (this == GOOGLE_BUZZ) { provider = "GOOGLEBUZZ"; }
-        else if (this == GOOGLE_PLUS) { provider = "GOOGLEPLUS"; }
-        else if (this == YAHOO) { provider = "YAHOO"; }
-        else if (this == MYSPACE) { provider = "MYSPACE"; }
-        else if (this == ALL) { provider = "ALL"; }
-        return provider;
+    SocialProvider(String optionAsString){
+        this.socialProviderAsString = optionAsString;
     }
+
 
     /**
      * Some cases its necessary return the same provider name because the OAuth2 handler is the same.
@@ -146,27 +129,6 @@ public enum SocialProvider {
         return provider.toLowerCase();
     }
 
-    /**
-     * Get Provider by String.
-     * @param socialProvider period
-     * @return provider enum
-     */
-    public static SocialProvider getProvider(final String socialProvider) {
-        if (null == socialProvider) { return null; }
-        else if (socialProvider.equalsIgnoreCase("TWITTER")) { return TWITTER; }
-        else if (socialProvider.equalsIgnoreCase("TUMBLR")) { return TUMBLR; }
-        else if (socialProvider.equalsIgnoreCase("PLURK")) { return PLURK; }
-        else if (socialProvider.equalsIgnoreCase("ALL")) { return ALL; }
-        else if (socialProvider.equalsIgnoreCase("FACEBOOK")) { return FACEBOOK; }
-        else if (socialProvider.equalsIgnoreCase("IDENTICA")) { return IDENTICA; }
-        else if (socialProvider.equalsIgnoreCase("PUMPIO")) { return PUMPIO; }
-        else if (socialProvider.equalsIgnoreCase("LINKEDIN")) { return LINKEDIN; }
-        else if (socialProvider.equalsIgnoreCase("GOOGLEPLUS")) { return GOOGLE_PLUS; }
-        else if (socialProvider.equalsIgnoreCase("GOOGLE_BUZZ")) { return GOOGLE_BUZZ; }
-        else if (socialProvider.equalsIgnoreCase("YAHOO")) { return YAHOO; }
-        else if (socialProvider.equalsIgnoreCase("MYSPACE")) { return MYSPACE; }
-        else return null;
-    }
 
     /**
      * Provide OAuth protocol.

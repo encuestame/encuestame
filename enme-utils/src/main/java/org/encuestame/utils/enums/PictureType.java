@@ -18,14 +18,17 @@ package org.encuestame.utils.enums;
  * @since Jul 3, 2011
  */
 public enum PictureType {
-    ICON,
-    THUMBNAIL,
-    DEFAULT,
-    PROFILE,
-    PREVIEW,
-    WEB;
+    ICON("ICON"),
+    THUMBNAIL("THUMBNAIL"),
+    DEFAULT("DEFAULT"),
+    PROFILE("PROFILE"),
+    PREVIEW("PREVIEW"),
+    WEB("WEB");
 
-    private PictureType() {
+    private String optionAsString;
+
+    private PictureType(final String optionAsString) {
+        this.optionAsString = optionAsString;
     }
 
     /**
