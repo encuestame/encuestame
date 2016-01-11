@@ -32,21 +32,23 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testCommentsOptionEnum(){
-        final CommentOptions optApprove = CommentOptions.getCommentOption("APPROVE");
-        assertEquals("Should be equals", "APPROVE", optApprove.toString());
-        final CommentOptions optRestrict = CommentOptions.getCommentOption("RESTRICT");
-        assertEquals("Should be equals", "RESTRICT", optRestrict.toString());
-        final CommentOptions optModerate = CommentOptions.getCommentOption("MODERATE");
-        assertEquals("Should be equals", "MODERATE", optModerate.toString());
+        final CommentOptions optApprove = ValidationUtils.getEnumFromString(CommentOptions.class, "APPROVE");
+        assertEquals("Should be equals", CommentOptions.APPROVE, optApprove);
 
-        final CommentOptions optPublished = CommentOptions.getCommentOption("PUBLISHED");
-        assertEquals("Should be equals", "PUBLISHED", optPublished.toString());
+        final CommentOptions optRestrict = ValidationUtils.getEnumFromString(CommentOptions.class, "RESTRICT");
+        assertEquals("Should be equals", CommentOptions.RESTRICT, optRestrict);
 
-        final CommentOptions optSpam = CommentOptions.getCommentOption("SPAM");
-        assertEquals("Should be equals", "SPAM", optSpam.toString());
+        final CommentOptions optModerate = ValidationUtils.getEnumFromString(CommentOptions.class, "MODERATE");
+        assertEquals("Should be equals", CommentOptions.MODERATE, optModerate);
 
-        final CommentOptions optAll = CommentOptions.getCommentOption("ALL");
-        assertEquals("Should be equals", "ALL", optAll.toString());
+        final CommentOptions optPublished = ValidationUtils.getEnumFromString(CommentOptions.class, "PUBLISHED");
+        assertEquals("Should be equals", CommentOptions.PUBLISHED, optPublished);
+
+        final CommentOptions optSpam = ValidationUtils.getEnumFromString(CommentOptions.class, "SPAM");
+        assertEquals("Should be equals", CommentOptions.SPAM, optSpam);
+
+        final CommentOptions optAll = ValidationUtils.getEnumFromString(CommentOptions.class, "ALL");
+        assertEquals("Should be equals", CommentOptions.ALL, optAll);
     }
 
     /**
@@ -54,10 +56,10 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testCommentsSocialOptions(){
-        final CommentsSocialOptions likeVoteOpt = CommentsSocialOptions.getCommentsSocialOptions("LIKE");
-        assertEquals("Should be equals", "LIKE", likeVoteOpt.toString());
-        final CommentsSocialOptions disLikeVoteOpt = CommentsSocialOptions.getCommentsSocialOptions("DISLIKE");
-        assertEquals("Should be equals", "DISLIKE", disLikeVoteOpt.toString());
+        final CommentsSocialOptions likeVoteOpt = ValidationUtils.getEnumFromString(CommentsSocialOptions.class, "LIKE_VOTE");
+        assertEquals("Should be equals", CommentsSocialOptions.LIKE_VOTE, likeVoteOpt);
+        final CommentsSocialOptions disLikeVoteOpt = ValidationUtils.getEnumFromString(CommentsSocialOptions.class, "DISLIKE_VOTE");
+        assertEquals("Should be equals", CommentsSocialOptions.DISLIKE_VOTE, disLikeVoteOpt);
     }
 
     /**
@@ -65,32 +67,33 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testEnMePermission(){
-         final EnMePermission userPermission = EnMePermission.getPermissionString("ENCUESTAME_USER");
-         assertEquals("Should be equals", "ENCUESTAME_USER", userPermission.toString());
+         final EnMePermission userPermission = ValidationUtils.getEnumFromString(EnMePermission.class, "ENCUESTAME_USER");
 
-         final EnMePermission adminPermission = EnMePermission.getPermissionString("ENCUESTAME_ADMIN");
-         assertEquals("Should be equals", "ENCUESTAME_ADMIN", adminPermission.toString());
+         assertEquals("Should be equals", EnMePermission.ENCUESTAME_USER, userPermission);
 
-         final EnMePermission ownerPermission = EnMePermission.getPermissionString("ENCUESTAME_OWNER");
-         assertEquals("Should be equals", "ENCUESTAME_OWNER", ownerPermission.toString());
+         final EnMePermission adminPermission = ValidationUtils.getEnumFromString(EnMePermission.class, "ENCUESTAME_ADMIN");
+         assertEquals("Should be equals", EnMePermission.ENCUESTAME_ADMIN, adminPermission);
 
-         final EnMePermission publisherPermission = EnMePermission.getPermissionString("ENCUESTAME_PUBLISHER");
-         assertEquals("Should be equals", "ENCUESTAME_PUBLISHER", publisherPermission.toString());
+         final EnMePermission ownerPermission = ValidationUtils.getEnumFromString(EnMePermission.class, "ENCUESTAME_OWNER");
+         assertEquals("Should be equals", EnMePermission.ENCUESTAME_OWNER, ownerPermission);
 
-         final EnMePermission editorPermission = EnMePermission.getPermissionString("ENCUESTAME_EDITOR");
-         assertEquals("Should be equals", "ENCUESTAME_EDITOR", editorPermission.toString());
+         final EnMePermission publisherPermission = ValidationUtils.getEnumFromString(EnMePermission.class, "ENCUESTAME_PUBLISHER");
+         assertEquals("Should be equals", EnMePermission.ENCUESTAME_PUBLISHER, publisherPermission);
 
-         final EnMePermission anonymousPermission = EnMePermission.getPermissionString("ENCUESTAME_ANONYMOUS");
-         assertEquals("Should be equals", "ENCUESTAME_ANONYMOUS", anonymousPermission.toString());
+         final EnMePermission editorPermission = ValidationUtils.getEnumFromString(EnMePermission.class, "ENCUESTAME_EDITOR");
+         assertEquals("Should be equals", EnMePermission.ENCUESTAME_EDITOR, editorPermission);
 
-         final EnMePermission apiPermission = EnMePermission.getPermissionString("ENCUESTAME_API");
-         assertEquals("Should be equals", "ENCUESTAME_API", apiPermission.toString());
+         final EnMePermission anonymousPermission = ValidationUtils.getEnumFromString(EnMePermission.class, "ENCUESTAME_ANONYMOUS");
+         assertEquals("Should be equals", EnMePermission.ENCUESTAME_ANONYMOUS, anonymousPermission);
 
-         final EnMePermission readPermission = EnMePermission.getPermissionString("ENCUESTAME_READ");
-         assertEquals("Should be equals", "ENCUESTAME_READ", readPermission.toString());
+         final EnMePermission apiPermission =ValidationUtils.getEnumFromString(EnMePermission.class, "ENCUESTAME_API");
+         assertEquals("Should be equals", EnMePermission.ENCUESTAME_API, apiPermission);
 
-         final EnMePermission writePermission = EnMePermission.getPermissionString("ENCUESTAME_WRITE");
-         assertEquals("Should be equals", "ENCUESTAME_WRITE", writePermission.toString());
+         final EnMePermission readPermission = ValidationUtils.getEnumFromString(EnMePermission.class, "ENCUESTAME_READ");
+         assertEquals("Should be equals", EnMePermission.ENCUESTAME_READ, readPermission);
+
+         final EnMePermission writePermission = ValidationUtils.getEnumFromString(EnMePermission.class, "ENCUESTAME_WRITE");
+         assertEquals("Should be equals", EnMePermission.ENCUESTAME_WRITE, writePermission);
     }
 
     /**
@@ -98,14 +101,14 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testGadgetTypeOptions(){
-        final GadgetType activityStreamOpt = GadgetType.getGadgetType("STREAM");
-        assertEquals("Should be equals", "stream", activityStreamOpt.toString());
+        final GadgetType activityStreamOpt = ValidationUtils.getEnumFromString(GadgetType.class, "ACTIVITY_STREAM");
+        assertEquals("Should be equals", GadgetType.ACTIVITY_STREAM, activityStreamOpt);
 
-        final GadgetType commentsOpt = GadgetType.getGadgetType("COMMENTS");
-        assertEquals("Should be equals", "comments", commentsOpt.toString());
+        final GadgetType commentsOpt = ValidationUtils.getEnumFromString(GadgetType.class, "COMMENTS");
+        assertEquals("Should be equals", GadgetType.COMMENTS, commentsOpt);
 
-        final GadgetType tweetPollVotesOpt = GadgetType.getGadgetType("TWEETPOLLSVOTES");
-        assertEquals("Should be equals", "tweetpollsvotes", tweetPollVotesOpt.toString());
+        final GadgetType tweetPollVotesOpt = ValidationUtils.getEnumFromString(GadgetType.class, "TWEETPOLLS_VOTES");
+        assertEquals("Should be equals", GadgetType.TWEETPOLLS_VOTES, tweetPollVotesOpt);
     }
 
     /**
@@ -113,17 +116,17 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testLayoutEnumOptions(){
-         final LayoutEnum bbColumns = LayoutEnum.getDashboardLayout("BB");
-         assertEquals("Should be equals", "BB", bbColumns.toString());
+        final LayoutEnum bbColumns = ValidationUtils.getEnumFromString(LayoutEnum.class, "BB_BLOCK");
+        assertEquals("Should be equals" , LayoutEnum.BB_BLOCK, bbColumns);
 
-         final LayoutEnum bColumns = LayoutEnum.getDashboardLayout("B");
-         assertEquals("Should be equals", "B", bColumns.toString());
+        final LayoutEnum bColumns = ValidationUtils.getEnumFromString(LayoutEnum.class, "B_BLOCK");
+        assertEquals("Should be equals", LayoutEnum.B_BLOCK, bColumns);
 
-         final LayoutEnum abColumns = LayoutEnum.getDashboardLayout("AB");
-         assertEquals("Should be equals", "AB", abColumns.toString());
+        final LayoutEnum abColumns =  ValidationUtils.getEnumFromString(LayoutEnum.class, "AB_COLUMN_BLOCK");
+        assertEquals("Should be equals", LayoutEnum.AB_COLUMN_BLOCK, abColumns);
 
-         final LayoutEnum baColumns = LayoutEnum.getDashboardLayout("BA");
-         assertEquals("Should be equals", "BA", baColumns.toString());
+        final LayoutEnum baColumns = ValidationUtils.getEnumFromString(LayoutEnum.class, "BA_BLOCK_COLUMN");
+        assertEquals("Should be equals", LayoutEnum.BA_BLOCK_COLUMN, baColumns);
     }
 
     /**
@@ -131,38 +134,38 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testTypeSearchResultOptions(){
-         final TypeSearchResult tweetPollOption = TypeSearchResult.getTypeSearchResult("TWEETPOLL");
-         assertEquals("Should be equals", "TWEETPOLL", tweetPollOption.toString());
+         final TypeSearchResult tweetPollOption =  ValidationUtils.getEnumFromString(TypeSearchResult.class, "TWEETPOLL");
+         assertEquals("Should be equals", TypeSearchResult.TWEETPOLL, tweetPollOption);
 
-         final TypeSearchResult profilePollOption = TypeSearchResult.getTypeSearchResult("PROFILE");
-         assertEquals("Should be equals", "PROFILE", profilePollOption.toString());
+         final TypeSearchResult profilePollOption = ValidationUtils.getEnumFromString(TypeSearchResult.class, "PROFILE");
+         assertEquals("Should be equals", TypeSearchResult.PROFILE, profilePollOption);
 
-         final TypeSearchResult pollOption = TypeSearchResult.getTypeSearchResult("POLL");
-         assertEquals("Should be equals", "POLL", pollOption.toString());
+         final TypeSearchResult pollOption = ValidationUtils.getEnumFromString(TypeSearchResult.class, "POLL");
+         assertEquals("Should be equals", TypeSearchResult.POLL, pollOption);
 
-         final TypeSearchResult surveyOption = TypeSearchResult.getTypeSearchResult("SURVEY");
-         assertEquals("Should be equals", "SURVEY", surveyOption.toString()); 
+         final TypeSearchResult surveyOption = ValidationUtils.getEnumFromString(TypeSearchResult.class, "SURVEY");
+         assertEquals("Should be equals", TypeSearchResult.SURVEY, surveyOption);
 
-         final TypeSearchResult questionOption = TypeSearchResult.getTypeSearchResult("QUESTION");
-         assertEquals("Should be equals", "QUESTION", questionOption.toString());
+         final TypeSearchResult questionOption = ValidationUtils.getEnumFromString(TypeSearchResult.class, "QUESTION");
+         assertEquals("Should be equals", TypeSearchResult.QUESTION, questionOption);
 
-         final TypeSearchResult hashTagOption = TypeSearchResult.getTypeSearchResult("HASHTAG");
-         assertEquals("Should be equals", "HASHTAG", hashTagOption.toString());
+         final TypeSearchResult hashTagOption = ValidationUtils.getEnumFromString(TypeSearchResult.class, "HASHTAG");
+         assertEquals("Should be equals", TypeSearchResult.HASHTAG, hashTagOption);
 
-        final TypeSearchResult hashTagRatedOption = TypeSearchResult.getTypeSearchResult("HASHTAGRATED");
-        assertEquals("Should be equals", "HASHTAGRATED", hashTagRatedOption.toString());
+        final TypeSearchResult hashTagRatedOption = ValidationUtils.getEnumFromString(TypeSearchResult.class, "HASHTAGRATED");
+        assertEquals("Should be equals", TypeSearchResult.HASHTAGRATED, hashTagRatedOption);
 
-        final TypeSearchResult socialNetworkOption = TypeSearchResult.getTypeSearchResult("SOCIALNETWORK");
-        assertEquals("Should be equals", "SOCIALNETWORK", socialNetworkOption.toString());
+        final TypeSearchResult socialNetworkOption = ValidationUtils.getEnumFromString(TypeSearchResult.class, "SOCIALNETWORK");
+        assertEquals("Should be equals", TypeSearchResult.SOCIALNETWORK, socialNetworkOption);
 
-        final TypeSearchResult hitsOption = TypeSearchResult.getTypeSearchResult("HITS");
-        assertEquals("Should be equals", "HITS", hitsOption.toString());
+        final TypeSearchResult hitsOption = ValidationUtils.getEnumFromString(TypeSearchResult.class, "HITS");
+        assertEquals("Should be equals", TypeSearchResult.HITS, hitsOption);
 
-        final TypeSearchResult votesOption = TypeSearchResult.getTypeSearchResult("VOTES");
-        assertEquals("Should be equals", "VOTES", votesOption.toString());
+        final TypeSearchResult votesOption = ValidationUtils.getEnumFromString(TypeSearchResult.class, "VOTES");
+        assertEquals("Should be equals", TypeSearchResult.VOTES, votesOption);
 
-        final TypeSearchResult allOption = TypeSearchResult.getTypeSearchResult("ALL");
-        assertEquals("Should be equals", "ALL", allOption.toString());
+        final TypeSearchResult allOption = ValidationUtils.getEnumFromString(TypeSearchResult.class, "ALL");
+        assertEquals("Should be equals", TypeSearchResult.ALL, allOption);
     }
 
     /**
@@ -170,41 +173,41 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testTypeSearchOptions(){
-        final TypeSearch keywordOpt = TypeSearch.getSearchString("KEYWORD");
-        assertEquals("Should be equals", "KEYWORD", keywordOpt.toString());
+        final TypeSearch keywordOpt = ValidationUtils.getEnumFromString(TypeSearch.class, "KEYWORD");
+        assertEquals("Should be equals", TypeSearch.KEYWORD, keywordOpt);
 
-        final TypeSearch lastDayOpt = TypeSearch.getSearchString("LASTDAY");
-        assertEquals("Should be equals", "LASTDAY", lastDayOpt.toString());
+        final TypeSearch lastDayOpt = ValidationUtils.getEnumFromString(TypeSearch.class, "LASTDAY");
+        assertEquals("Should be equals", TypeSearch.LASTDAY, lastDayOpt);
 
-        final TypeSearch lastWeekOpt = TypeSearch.getSearchString("LASTWEEK");
-        assertEquals("Should be equals", "LASTWEEK", lastWeekOpt.toString());
+        final TypeSearch lastWeekOpt = ValidationUtils.getEnumFromString(TypeSearch.class, "LASTWEEK");
+        assertEquals("Should be equals", TypeSearch.LASTWEEK, lastWeekOpt);
 
-        final TypeSearch thisMonthOpt = TypeSearch.getSearchString("THISMONTH");
-        assertEquals("Should be equals", "THISMONTH", thisMonthOpt.toString());
+        final TypeSearch thisMonthOpt = ValidationUtils.getEnumFromString(TypeSearch.class, "THISMONTH");
+        assertEquals("Should be equals", TypeSearch.THISMONTH, thisMonthOpt);
 
-        final TypeSearch last30DaysOpt = TypeSearch.getSearchString("LAST30DAYS");
-        assertEquals("Should be equals", "LAST30DAYS", last30DaysOpt.toString());
+        final TypeSearch last30DaysOpt = ValidationUtils.getEnumFromString(TypeSearch.class, "LAST30DAYS");
+        assertEquals("Should be equals", TypeSearch.LAST30DAYS, last30DaysOpt);
 
-        final TypeSearch last365DaysOpt = TypeSearch.getSearchString("LAST365DAYS");
-        assertEquals("Should be equals", "LAST365DAYS", last365DaysOpt.toString());
+        final TypeSearch last365DaysOpt = ValidationUtils.getEnumFromString(TypeSearch.class, "LAST365DAYS");
+        assertEquals("Should be equals", TypeSearch.LAST365DAYS, last365DaysOpt);
 
-        final TypeSearch favoritesOpt = TypeSearch.getSearchString("FAVOURITES");
-        assertEquals("Should be equals", "FAVOURITES", favoritesOpt.toString());
+        final TypeSearch favoritesOpt = ValidationUtils.getEnumFromString(TypeSearch.class, "FAVOURITES");
+        assertEquals("Should be equals", TypeSearch.FAVOURITES, favoritesOpt);
 
-        final TypeSearch scheduledOpt = TypeSearch.getSearchString("SCHEDULED");
-        assertEquals("Should be equals", "SCHEDULED", scheduledOpt.toString());
+        final TypeSearch scheduledOpt = ValidationUtils.getEnumFromString(TypeSearch.class, "SCHEDULED");
+        assertEquals("Should be equals", TypeSearch.SCHEDULED, scheduledOpt);
 
-        final TypeSearch allOpt = TypeSearch.getSearchString("ALL");
-        assertEquals("Should be equals", "ALL", allOpt.toString());
+        final TypeSearch allOpt = ValidationUtils.getEnumFromString(TypeSearch.class, "ALL");
+        assertEquals("Should be equals", TypeSearch.ALL, allOpt);
 
-        final TypeSearch byOwnerOpt = TypeSearch.getSearchString("BYOWNER");
-        assertEquals("Should be equals", "BYOWNER", byOwnerOpt.toString());
+        final TypeSearch byOwnerOpt = ValidationUtils.getEnumFromString(TypeSearch.class, "BYOWNER");
+        assertEquals("Should be equals", TypeSearch.BYOWNER, byOwnerOpt);
 
-        final TypeSearch folderOpt = TypeSearch.getSearchString("FOLDER");
-        assertEquals("Should be equals", "FOLDER", folderOpt.toString());
+        final TypeSearch folderOpt = ValidationUtils.getEnumFromString(TypeSearch.class, "FOLDER");
+        assertEquals("Should be equals", TypeSearch.FOLDER, folderOpt);
 
-        final TypeSearch dateOpt = TypeSearch.getSearchString("date");
-        assertEquals("Should be equals", "DATE", dateOpt.toString());
+        final TypeSearch dateOpt = ValidationUtils.getEnumFromString(TypeSearch.class, "DATE");
+        assertEquals("Should be equals", TypeSearch.DATE, dateOpt);
 
     }
 
@@ -214,37 +217,37 @@ public class TestUtilsEnums extends TestCase{
     @Test
     public void testSearchPeriods(){
         final SearchPeriods twentyFourHoursOpt = SearchPeriods.getPeriodString("24");
-        assertEquals("Should be equals", "24", twentyFourHoursOpt.toString());
+        assertEquals("Should be equals", SearchPeriods.TWENTYFOURHOURS, twentyFourHoursOpt);
 
         final SearchPeriods sevenDaysOpt = SearchPeriods.getPeriodString("7");
-        assertEquals("Should be equals", "7", sevenDaysOpt.toString());
+        assertEquals("Should be equals", SearchPeriods.SEVENDAYS, sevenDaysOpt);
 
         final SearchPeriods thirtyDaysOpt = SearchPeriods.getPeriodString("30");
-        assertEquals("Should be equals", "30", thirtyDaysOpt.toString());
+        assertEquals("Should be equals", SearchPeriods.THIRTYDAYS, thirtyDaysOpt);
 
         final SearchPeriods allTimeOpt = SearchPeriods.getPeriodString("all");
-        assertEquals("Should be equals", "all", allTimeOpt.toString());
+        assertEquals("Should be equals", SearchPeriods.ALLTIME, allTimeOpt);
 
         final SearchPeriods oneYearTimeOpt = SearchPeriods.getPeriodString("365");
-        assertEquals("Should be equals", "365", oneYearTimeOpt.toString());
+        assertEquals("Should be equals", SearchPeriods.ONEYEAR, oneYearTimeOpt);
 
-        final SearchPeriods yearsTimeOpt = SearchPeriods.getPeriodString("1095");
-        assertEquals("Should be equals", "all", yearsTimeOpt.toString());
+       /*  final SearchPeriods yearsTimeOpt = SearchPeriods.getPeriodString("1095");
+        assertEquals("Should be equals", "all", yearsTimeOpt);
 
-        final SearchPeriods todayOpt = SearchPeriods.TWENTYFOURHOURS;
-        assertEquals("Should be equals", "24", todayOpt.toNumber().toString());
+       final SearchPeriods todayOpt = SearchPeriods.TWENTYFOURHOURS;
+        assertEquals("Should be equals", "24", todayOpt.toNumber());
 
         final SearchPeriods weekOpt = SearchPeriods.SEVENDAYS;
-        assertEquals("Should be equals", "7", weekOpt.toNumber().toString());
+        assertEquals("Should be equals", "7", weekOpt.toNumber());
 
         final SearchPeriods monthOpt = SearchPeriods.THIRTYDAYS;
-        assertEquals("Should be equals", "30", monthOpt.toNumber().toString());
+        assertEquals("Should be equals", "30", monthOpt.toNumber());
 
         final SearchPeriods allOpt = SearchPeriods.ALLTIME;
-        assertEquals("Should be equals", "1095", allOpt.toNumber().toString());
+        assertEquals("Should be equals", "1095", allOpt.toNumber());
 
         final SearchPeriods oneYearOpt = SearchPeriods.ONEYEAR;
-        assertEquals("Should be equals", "365", oneYearOpt.toNumber().toString());
+        assertEquals("Should be equals", "365", oneYearOpt.toNumber());*/
     }
 
     /**
@@ -252,29 +255,29 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testProfile(){
-        final Profile emailOpt = Profile.findProfile("EMAIL");
-        assertEquals("Should be equals", "email", emailOpt.toString());
+        final Profile emailOpt = ValidationUtils.getEnumFromString(Profile.class, "EMAIL");
+        assertEquals("Should be equals", Profile.EMAIL, emailOpt);
 
-        final Profile usernameOpt = Profile.findProfile("USERNAME");
-        assertEquals("Should be equals", "username", usernameOpt.toString());
+        final Profile usernameOpt = ValidationUtils.getEnumFromString(Profile.class, "USERNAME");
+        assertEquals("Should be equals", Profile.USERNAME, usernameOpt);
 
-        final Profile languageOpt = Profile.findProfile("LANGUAGE");
-        assertEquals("Should be equals", "language", languageOpt.toString());
+        final Profile languageOpt = ValidationUtils.getEnumFromString(Profile.class, "LANGUAGE");
+        assertEquals("Should be equals", Profile.LANGUAGE, languageOpt);
 
-        final Profile pictureOpt = Profile.findProfile("PICTURE");
-        assertEquals("Should be equals", "picture", pictureOpt.toString());
+        final Profile pictureOpt = ValidationUtils.getEnumFromString(Profile.class, "PICTURE");
+        assertEquals("Should be equals", Profile.PICTURE, pictureOpt);
 
-        final Profile privateOpt = Profile.findProfile("PRIVATE");
-        assertEquals("Should be equals", "private", privateOpt.toString());
+        final Profile privateOpt = ValidationUtils.getEnumFromString(Profile.class, "PRIVATE");
+        assertEquals("Should be equals", Profile.PRIVATE, privateOpt);
 
-        final Profile realNameOpt = Profile.findProfile("REAL_NAME");
-        assertEquals("Should be equals", "completeName", realNameOpt.toString());
+        final Profile realNameOpt = ValidationUtils.getEnumFromString(Profile.class, "REAL_NAME");
+        assertEquals("Should be equals", Profile.REAL_NAME, realNameOpt);
 
-        final Profile welcomeeOpt = Profile.findProfile("WELCOME");
-        assertEquals("Should be equals", "welcome", welcomeeOpt.toString());
+        final Profile welcomeeOpt = ValidationUtils.getEnumFromString(Profile.class, "WELCOME");
+        assertEquals("Should be equals", Profile.WELCOME, welcomeeOpt);
 
-        final Profile infoOpt = Profile.findProfile("PAGE_INFO");
-        assertEquals("Should be equals", "page_info", infoOpt.toString());
+        final Profile infoOpt = ValidationUtils.getEnumFromString(Profile.class, "PAGE_INFO");
+        assertEquals("Should be equals", Profile.PAGE_INFO, infoOpt);
     }
 
     /**
@@ -282,26 +285,26 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testSocialProvider(){
-        final SocialProvider twitterProvider = SocialProvider.getProvider("TWITTER");
-        assertEquals("Should be equals", "TWITTER", twitterProvider.toString());
+        final SocialProvider twitterProvider = ValidationUtils.getEnumFromString(SocialProvider.class, "TWITTER");
+        assertEquals("Should be equals", SocialProvider.TWITTER, twitterProvider);
 
-        final SocialProvider facebookProvider = SocialProvider.getProvider("FACEBOOK");
-        assertEquals("Should be equals", "FACEBOOK", facebookProvider.toString());
+        final SocialProvider facebookProvider = ValidationUtils.getEnumFromString(SocialProvider.class, "FACEBOOK");
+        assertEquals("Should be equals", SocialProvider.FACEBOOK, facebookProvider);
 
-        final SocialProvider identicaProvider = SocialProvider.getProvider("IDENTICA");
-        assertEquals("Should be equals", "IDENTICA", identicaProvider.toString());
+        final SocialProvider identicaProvider = ValidationUtils.getEnumFromString(SocialProvider.class, "IDENTICA");
+        assertEquals("Should be equals", SocialProvider.IDENTICA, identicaProvider);
 
-        final SocialProvider linkedinProvider = SocialProvider.getProvider("LINKEDIN");
-        assertEquals("Should be equals", "LINKEDIN", linkedinProvider.toString());
+        final SocialProvider linkedinProvider = ValidationUtils.getEnumFromString(SocialProvider.class, "LINKEDIN");
+        assertEquals("Should be equals", SocialProvider.LINKEDIN, linkedinProvider);
 
-        final SocialProvider mySpaceProvider = SocialProvider.getProvider("YAHOO");
-        assertEquals("Should be equals", "YAHOO", mySpaceProvider.toString());
+        final SocialProvider mySpaceProvider = ValidationUtils.getEnumFromString(SocialProvider.class, "YAHOO");
+        assertEquals("Should be equals", SocialProvider.YAHOO, mySpaceProvider);
 
-        final SocialProvider googleBuzzProvider = SocialProvider.getProvider("GOOGLE_BUZZ");
-        assertEquals("Should be equals", "GOOGLEBUZZ", googleBuzzProvider.toString());
+        final SocialProvider googleBuzzProvider = ValidationUtils.getEnumFromString(SocialProvider.class, "GOOGLE_BUZZ");
+        assertEquals("Should be equals", SocialProvider.GOOGLE_BUZZ, googleBuzzProvider);
 
-        final SocialProvider yahooProvider = SocialProvider.getProvider("MYSPACE");
-        assertEquals("Should be equals", "MYSPACE", yahooProvider.toString());
+        final SocialProvider yahooProvider = ValidationUtils.getEnumFromString(SocialProvider.class, "MYSPACE");
+        assertEquals("Should be equals", SocialProvider.MYSPACE, yahooProvider  );
     }
 
     /**
@@ -309,10 +312,10 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testHitCategory(){
-        final HitCategory catVote = HitCategory.getCategory("VOTE");
-        assertEquals("Hit Category Should be equals", "VOTE", catVote.toString());
-        final HitCategory catVisit = HitCategory.getCategory("VISIT");
-        assertEquals("Hit Category Should be equals", "VISIT", catVisit.toString());
+        final HitCategory catVote =ValidationUtils.getEnumFromString(HitCategory.class, "VOTE");
+        assertEquals("Hit Category Should be equals", HitCategory.VOTE, catVote);
+        final HitCategory catVisit = ValidationUtils.getEnumFromString(HitCategory.class, "VISIT");
+        assertEquals("Hit Category Should be equals", HitCategory.VISIT, catVisit);
     }
 
     /**
@@ -320,44 +323,44 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testRelativeTime(){
-        final RelativeTimeEnum rightnow = RelativeTimeEnum.RIGTH_NOW;
-        assertEquals("Relative time should be equals", "1" , rightnow.toNumber().toString());
+        final RelativeTimeEnum rightnow = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "RIGTH_NOW");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.RIGTH_NOW , rightnow);
 
-        final RelativeTimeEnum oneSecond = RelativeTimeEnum.ONE_SECOND_AGO;
-        assertEquals("Relative time should be equals", "15" , oneSecond.toNumber().toString());
+        final RelativeTimeEnum oneSecond = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "ONE_SECOND_AGO");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.ONE_SECOND_AGO , oneSecond);
 
-        final RelativeTimeEnum aSecondsAgo = RelativeTimeEnum.SECONDS_AGO;
-        assertEquals("Relative time should be equals", "70" , aSecondsAgo.toNumber().toString());
+        final RelativeTimeEnum aSecondsAgo = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "SECONDS_AGO");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.SECONDS_AGO , aSecondsAgo);
 
-        final RelativeTimeEnum aMinuteAgo = RelativeTimeEnum.A_MINUTE_AGO;
-        assertEquals("Relative time should be equals", "1" , aMinuteAgo.toNumber().toString());
+        final RelativeTimeEnum aMinuteAgo = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "A_MINUTE_AGO");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.A_MINUTE_AGO , aMinuteAgo);
 
-        final RelativeTimeEnum minutesAgo = RelativeTimeEnum.MINUTES_AGO;
-        assertEquals("Relative time should be equals", "80" , minutesAgo.toNumber().toString());
+        final RelativeTimeEnum minutesAgo = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "MINUTES_AGO");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.MINUTES_AGO , minutesAgo);
 
-        final RelativeTimeEnum anHourAgo = RelativeTimeEnum.AN_HOUR_AGO;
-        assertEquals("Relative time should be equals", "1" , anHourAgo.toNumber().toString());
+        final RelativeTimeEnum anHourAgo = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "AN_HOUR_AGO");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.AN_HOUR_AGO , anHourAgo);
 
-        final RelativeTimeEnum hoursAgo = RelativeTimeEnum.HOURS_AGO;
-        assertEquals("Relative time should be equals", "18" , hoursAgo.toNumber().toString());
+        final RelativeTimeEnum hoursAgo = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "HOURS_AGO");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.HOURS_AGO , hoursAgo);
 
-        final RelativeTimeEnum yesterday = RelativeTimeEnum.YESTERDAY;
-        assertEquals("Relative time should be equals", "1" , yesterday.toNumber().toString());
+        final RelativeTimeEnum yesterday = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "YESTERDAY");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.YESTERDAY , yesterday);
 
-        final RelativeTimeEnum daysAgo = RelativeTimeEnum.DAYS_AGO;
-        assertEquals("Relative time should be equals", "4" , daysAgo.toNumber().toString());
+        final RelativeTimeEnum daysAgo = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "DAYS_AGO");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.DAYS_AGO , daysAgo);
 
-        final RelativeTimeEnum aMonthAgo = RelativeTimeEnum.ONE_MONTH_AGO;
-        assertEquals("Relative time should be equals", "8" , aMonthAgo.toNumber().toString());
+        final RelativeTimeEnum aMonthAgo = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "ONE_MONTH_AGO");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.ONE_MONTH_AGO , aMonthAgo);
 
-        final RelativeTimeEnum monthsAgo = RelativeTimeEnum.MONTHS_AGO;
-        assertEquals("Relative time should be equals", "11" , monthsAgo.toNumber().toString());
+        final RelativeTimeEnum monthsAgo = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "MONTHS_AGO");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.MONTHS_AGO , monthsAgo);
 
-        final RelativeTimeEnum oneYearAgo = RelativeTimeEnum.ONE_YEAR_AGO;
-        assertEquals("Relative time should be equals", "1" , oneYearAgo.toNumber().toString());
+        final RelativeTimeEnum oneYearAgo = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "ONE_YEAR_AGO");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.ONE_YEAR_AGO , oneYearAgo);
 
-        final RelativeTimeEnum yearsAgo = RelativeTimeEnum.YEARS_AGO;
-        assertEquals("Relative time should be equals", "6" , yearsAgo.toNumber().toString());
+        final RelativeTimeEnum yearsAgo = ValidationUtils.getEnumFromString(RelativeTimeEnum.class, "YEARS_AGO");
+        assertEquals("Relative time should be equals", RelativeTimeEnum.YEARS_AGO , yearsAgo);
 
     }
 
@@ -367,25 +370,25 @@ public class TestUtilsEnums extends TestCase{
     @Test
     public void testTypeDatabase(){
         final TypeDatabase oracleDBase = TypeDatabase.getTypeDatabaseByString("oracle");
-        assertEquals("Database type should be equals", "ORACLE" , oracleDBase.toString());
+        assertEquals("Database type should be equals", TypeDatabase.ORACLE , oracleDBase);
 
         final TypeDatabase hsqlDBase = TypeDatabase.getTypeDatabaseByString("hsqldb");
-        assertEquals("Database type should be equals", "HSQLDB" , hsqlDBase.toString());
+        assertEquals("Database type should be equals", TypeDatabase.HSQLDB , hsqlDBase);
 
         final TypeDatabase mysqlDBase = TypeDatabase.getTypeDatabaseByString("mysql");
-        assertEquals("Database type should be equals", "MYSQL" , mysqlDBase.toString());
+        assertEquals("Database type should be equals", TypeDatabase.MYSQL , mysqlDBase);
 
         final TypeDatabase postgresDBase = TypeDatabase.getTypeDatabaseByString("postgres");
-        assertEquals("Database type should be equals", "POSTGRES" , postgresDBase.toString());
+        assertEquals("Database type should be equals", TypeDatabase.POSTGRES , postgresDBase);
 
         final TypeDatabase mssqlDBase = TypeDatabase.getTypeDatabaseByString("mssql");
-        assertEquals("Database type should be equals", "MSSQL", mssqlDBase.toString());
+        assertEquals("Database type should be equals", TypeDatabase.MSSQL, mssqlDBase);
 
         final TypeDatabase derbyDBase = TypeDatabase.getTypeDatabaseByString("derby");
-        assertEquals("Database type should be equals", "DERBY", derbyDBase.toString());
+        assertEquals("Database type should be equals", TypeDatabase.DERBY, derbyDBase);
 
         final TypeDatabase db2DBase = TypeDatabase.getTypeDatabaseByString("db2");
-        assertEquals("Database type should be equals", "DB2" , db2DBase.toString());
+        assertEquals("Database type should be equals", TypeDatabase.DB2 , db2DBase);
     }
 
     /**
@@ -394,26 +397,26 @@ public class TestUtilsEnums extends TestCase{
     @Test
     public void testDateClasificated(){
 
-        final DateClasificatedEnum dcToday = DateClasificatedEnum.TODAY;
-        assertEquals("DateClasificatedEnum should be equals", "1" , dcToday.toNumber().toString());
+        final DateClasificatedEnum dcToday = ValidationUtils.getEnumFromString(DateClasificatedEnum.class, "TODAY");
+        assertEquals("DateClasificatedEnum should be equals", DateClasificatedEnum.TODAY , dcToday);
 
-        final DateClasificatedEnum dcWeek = DateClasificatedEnum.THIS_WEEK;
-        assertEquals("DateClasificatedEnum should be equals", "7", dcWeek.toNumber().toString());
+        final DateClasificatedEnum dcWeek = ValidationUtils.getEnumFromString(DateClasificatedEnum.class, "THIS_WEEK");
+        assertEquals("DateClasificatedEnum should be equals", DateClasificatedEnum.THIS_WEEK, dcWeek);
 
-        final DateClasificatedEnum dcMonth = DateClasificatedEnum.THIS_MONTH;
-        assertEquals("DateClasificatedEnum should be equals", "30" , dcMonth.toNumber().toString());
+        final DateClasificatedEnum dcMonth = ValidationUtils.getEnumFromString(DateClasificatedEnum.class, "THIS_MONTH");
+        assertEquals("DateClasificatedEnum should be equals", DateClasificatedEnum.THIS_MONTH , dcMonth);
 
-        final DateClasificatedEnum dcLastMonth = DateClasificatedEnum.LAST_MONTH;
-        assertEquals("DateClasificatedEnum  should be equals", "180" , dcLastMonth.toNumber().toString());
+        final DateClasificatedEnum dcLastMonth = ValidationUtils.getEnumFromString(DateClasificatedEnum.class, "LAST_MONTH");
+        assertEquals("DateClasificatedEnum  should be equals", DateClasificatedEnum.LAST_MONTH , dcLastMonth);
 
-        final DateClasificatedEnum dcMonthsAgo = DateClasificatedEnum.FEW_MONTHS_AGO;
-        assertEquals("DateClasificatedEnum should be equals", "360" , dcMonthsAgo.toNumber().toString());
+        final DateClasificatedEnum dcMonthsAgo = ValidationUtils.getEnumFromString(DateClasificatedEnum.class, "FEW_MONTHS_AGO");
+        assertEquals("DateClasificatedEnum should be equals", DateClasificatedEnum.FEW_MONTHS_AGO , dcMonthsAgo);
 
-        final DateClasificatedEnum dcLastYear = DateClasificatedEnum.LAST_YEAR;
-        assertEquals(" DateClasificatedEnum should be equals", "366" , dcLastYear.toNumber().toString());
+        final DateClasificatedEnum dcLastYear = ValidationUtils.getEnumFromString(DateClasificatedEnum.class, "LAST_YEAR");
+        assertEquals(" DateClasificatedEnum should be equals", DateClasificatedEnum.LAST_YEAR , dcLastYear);
 
-        final DateClasificatedEnum dcLongTimeAgo = DateClasificatedEnum.LONG_TIME_AGO;
-        assertEquals("DateClasificatedEnum should be equals", "720" , dcLongTimeAgo.toNumber().toString());
+        final DateClasificatedEnum dcLongTimeAgo = ValidationUtils.getEnumFromString(DateClasificatedEnum.class, "LONG_TIME_AGO");
+        assertEquals("DateClasificatedEnum should be equals", DateClasificatedEnum.LONG_TIME_AGO , dcLongTimeAgo);
     }
 
     /**
@@ -422,10 +425,10 @@ public class TestUtilsEnums extends TestCase{
     @Test
     public void testRequestSourceType(){
         final RequestSourceType embedded = RequestSourceType.getSource("embedded");
-        assertEquals("Request type should be equals", "embedded" , embedded.toString());
+        assertEquals("Request type should be equals", RequestSourceType.EMBEDDED  , embedded);
 
         final RequestSourceType normal = RequestSourceType.getSource("normal");
-        assertEquals("Request type should be equals", "normal", normal.toString());
+        assertEquals("Request type should be equals", RequestSourceType.NORMAL, normal);
     }
 
     /**
@@ -434,64 +437,64 @@ public class TestUtilsEnums extends TestCase{
     @Test
     public void testHashtagRate(){
         final HashTagRate label1 = HashTagRate.getHashTagMonthLabel("1");
-        assertEquals("Month Label should be equals", "JANUARY" , label1.toString());
+        assertEquals("Month Label should be equals", HashTagRate.JANUARY  , label1);
 
         final HashTagRate label2 = HashTagRate.getHashTagMonthLabel("2");
-        assertEquals("Month Label should be equals", "FEBRUARY" , label2.toString());
+        assertEquals("Month Label should be equals", HashTagRate.FEBRUARY , label2);
 
         final HashTagRate label3 = HashTagRate.getHashTagMonthLabel("3");
-        assertEquals("Month Label should be equals", "MARCH" , label3.toString());
+        assertEquals("Month Label should be equals", HashTagRate.MARCH, label3);
 
         final HashTagRate label4 = HashTagRate.getHashTagMonthLabel("4");
-        assertEquals("Month Label should be equals", "APRIL" , label4.toString());
+        assertEquals("Month Label should be equals", HashTagRate.APRIL , label4);
 
         final HashTagRate label5 = HashTagRate.getHashTagMonthLabel("5");
-        assertEquals("Month Label should be equals", "MAY" , label5.toString());
+        assertEquals("Month Label should be equals", HashTagRate.MAY , label5);
 
         final HashTagRate label6 = HashTagRate.getHashTagMonthLabel("6");
-        assertEquals("Month Label should be equals", "JUNE" , label6.toString());
+        assertEquals("Month Label should be equals", HashTagRate.JUNE , label6);
 
         final HashTagRate label7 = HashTagRate.getHashTagMonthLabel("7");
-        assertEquals("Month Label should be equals", "JULY" , label7.toString());
+        assertEquals("Month Label should be equals", HashTagRate.JULY , label7);
 
         final HashTagRate label8 = HashTagRate.getHashTagMonthLabel("8");
-        assertEquals("Month Label should be equals", "AUGUST" , label8.toString());
+        assertEquals("Month Label should be equals", HashTagRate.AUGUST , label8);
 
         final HashTagRate label9 = HashTagRate.getHashTagMonthLabel("9");
-        assertEquals("Month Label should be equals", "SEPTEMBER" , label9.toString());
+        assertEquals("Month Label should be equals", HashTagRate.SEPTEMBER , label9);
 
         final HashTagRate label10 = HashTagRate.getHashTagMonthLabel("10");
-        assertEquals("Month Label should be equals", "OCTOBER" , label10.toString());
+        assertEquals("Month Label should be equals", HashTagRate.OCTOBER , label10);
 
         final HashTagRate label11 = HashTagRate.getHashTagMonthLabel("11");
-        assertEquals("Month Label should be equals", "NOVEMBER" , label11.toString());
+        assertEquals("Month Label should be equals", HashTagRate.NOVEMBER , label11);
 
         final HashTagRate label12 = HashTagRate.getHashTagMonthLabel("12");
-        assertEquals("Month Label should be equals", "DECEMBER" , label12.toString());
+        assertEquals("Month Label should be equals", HashTagRate.DECEMBER , label12);
 
 
         final HashTagRate lblWeek1 = HashTagRate.getHashTagWeekDayLabel("1");
-        assertEquals("Week Label should be equals", "MONDAY" , lblWeek1.toString());
+        assertEquals("Week Label should be equals", HashTagRate.MONDAY , lblWeek1);
 
 
         final HashTagRate lblWeek2 = HashTagRate.getHashTagWeekDayLabel("2");
-        assertEquals("Week Label should be equals", "TUESDAY" , lblWeek2.toString());
+        assertEquals("Week Label should be equals", HashTagRate.TUESDAY , lblWeek2);
 
 
         final HashTagRate lblWeek3 = HashTagRate.getHashTagWeekDayLabel("3");
-        assertEquals("Week Label should be equals", "WEDNESDAY" , lblWeek3.toString());
+        assertEquals("Week Label should be equals", HashTagRate.WEDNESDAY , lblWeek3);
 
         final HashTagRate lblWeek4 = HashTagRate.getHashTagWeekDayLabel("4");
-        assertEquals("Week Label should be equals", "THURSDAY", lblWeek4.toString());
+        assertEquals("Week Label should be equals", HashTagRate.THURSDAY, lblWeek4);
 
         final HashTagRate lblWeek5 = HashTagRate.getHashTagWeekDayLabel("5");
-        assertEquals("Week Label should be equals", "FRIDAY" , lblWeek5.toString());
+        assertEquals("Week Label should be equals", HashTagRate.FRIDAY, lblWeek5);
 
         final HashTagRate lblWeek6 = HashTagRate.getHashTagWeekDayLabel("6");
-        assertEquals("Week Label should be equals", "SATURDAY" , lblWeek6.toString());
+        assertEquals("Week Label should be equals", HashTagRate.SATURDAY, lblWeek6);
 
         final HashTagRate lblWeek7 = HashTagRate.getHashTagWeekDayLabel("7");
-        assertEquals("Week Label should be equals", "SUNDAY" , lblWeek7.toString());
+        assertEquals("Week Label should be equals", HashTagRate.SUNDAY, lblWeek7);
     }
 
     /**
@@ -499,13 +502,13 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testShowResultsOptions(){
-        final ShowResultsOptions percentOpt = ShowResultsOptions.getShowResults("PERCENT");
-        assertEquals("Should be equals", "PERCENT" , percentOpt.toString());
+        final ShowResultsOptions percentOpt = ValidationUtils.getEnumFromString(ShowResultsOptions.class, "PERCENT");
+        assertEquals("Should be equals", ShowResultsOptions.PERCENT , percentOpt);
 
-        final ShowResultsOptions restrictedOpt = ShowResultsOptions.getShowResults("RESTRICTED");
-        assertEquals("Should be equals", "RESTRICTED" , restrictedOpt.toString());
+        final ShowResultsOptions restrictedOpt = ValidationUtils.getEnumFromString(ShowResultsOptions.class, "RESTRICTED");
+        assertEquals("Should be equals", ShowResultsOptions.RESTRICTED , restrictedOpt);
 
-        final ShowResultsOptions allOpt = ShowResultsOptions.getShowResults("ALL");
-        assertEquals("Should be equals", "ALL" , allOpt.toString());
+        final ShowResultsOptions allOpt = ValidationUtils.getEnumFromString(ShowResultsOptions.class, "ALL");
+        assertEquals("Should be equals", ShowResultsOptions.ALL , allOpt);
     }
 }
