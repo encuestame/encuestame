@@ -693,7 +693,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public Gadget createGadget(final String name, final Dashboard board){
         final Gadget gadget = new Gadget();
         gadget.setGadgetName(name);
-        gadget.setGadgetType(GadgetType.getGadgetType("stream"));
+        gadget.setGadgetType(GadgetType.ACTIVITY_STREAM);
         gadget.setGadgetColumn(2);
         gadget.setGadgetColor("default");
         gadget.setGadgetPosition(0);

@@ -52,6 +52,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.interfaces.IFolder;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -2064,7 +2065,7 @@ public class ConvertDomainBean {
         final List<SocialProvider> socialNetworksProviders = new ArrayList<SocialProvider>();
         SocialProvider socialNetworkProv;
         for (String provider : socialProviders) {
-            socialNetworkProv = SocialProvider.getProvider(provider);
+            socialNetworkProv = ValidationUtils.getEnumFromString(SocialProvider.class, provider);
             if (socialNetworkProv != null) {
                 socialNetworksProviders.add(socialNetworkProv);
             }
@@ -2082,7 +2083,7 @@ public class ConvertDomainBean {
         final List<CommentOptions> comments = new ArrayList<CommentOptions>();
         CommentOptions commentRestriction;
         for (String restrictOption : options) {
-            commentRestriction = CommentOptions.getCommentOption(restrictOption);
+            commentRestriction = ValidationUtils.getEnumFromString(CommentOptions.class, restrictOption);
             if(commentRestriction !=null){
                 comments.add(commentRestriction);
             }

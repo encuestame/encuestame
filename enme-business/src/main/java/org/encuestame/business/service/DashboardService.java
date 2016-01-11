@@ -31,6 +31,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeGadgetNotFoundException;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.PictureUtils;
+import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.GadgetType;
 import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.web.DashboardBean;
@@ -173,7 +174,7 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
             board.setFavorite(Boolean.TRUE);
             board.setBoardSequence(dashboardBean.getSequence());
             board.setFavoriteCounter(dashboardBean.getFavoriteCounter());
-            board.setPageLayout(LayoutEnum.getDashboardLayout(dashboardBean.getLayout()));
+            board.setPageLayout(ValidationUtils.getEnumFromString(LayoutEnum.class, dashboardBean.getLayout()));
             board.setUserBoard(getUserAccount(getUserPrincipalUsername()));
             getDashboardDao().saveOrUpdate(board);
         return board;
@@ -257,8 +258,8 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
         final Gadget gadget = new Gadget();
         gadget.setGadgetColumn(1);
         gadget.setGadgetName(gProperties.getProperty("name"));
-        log.debug("widget "+gProperties.getProperty("name"));
-        GadgetType d = GadgetType.getGadgetType(gProperties.getProperty("name"));
+        log.debug("widget " + gProperties.getProperty("name"));
+        GadgetType d =ValidationUtils.getEnumFromString(GadgetType.class, gProperties.getProperty("name"));
         log.debug("gadget type: " + d);
         gadget.setGadgetType(d);
         gadget.setGadgetColor(PictureUtils.getRandomHexColor());
@@ -426,7 +427,7 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
         }
        board.setPageBoardName(boardBean.getDashboardName());
        board.setBoardSequence(boardBean.getSequence());
-       board.setPageLayout(LayoutEnum.getDashboardLayout(boardBean.getLayout()) == null ? LayoutEnum.BB_BLOCK : LayoutEnum.getDashboardLayout(boardBean.getLayout()));
+       board.setPageLayout(ValidationUtils.getEnumFromString(LayoutEnum.class, boardBean.getLayout()) == null ? LayoutEnum.BB_BLOCK : ValidationUtils.getEnumFromString(LayoutEnum.class, boardBean.getLayout()));
        board.setDescription(boardBean.getDashboardDesc());
        if (boardBean.getSelected()){
            this.markAsSelectedDasboard(board.getBoardId());
