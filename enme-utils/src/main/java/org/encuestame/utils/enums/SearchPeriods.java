@@ -23,48 +23,38 @@ public enum SearchPeriods {
     /**
      * Represent last 24 hours.
      */
-    TWENTYFOURHOURS,
+    TWENTYFOURHOURS("24"),
     /**
      * Represent 7 last days
      */
-    SEVENDAYS,
+    SEVENDAYS("7"),
     /**
      * Represent Last 30 Days.
      */
-    THIRTYDAYS,
+    THIRTYDAYS("30"),
     /**
      * Represent All Time.
      */
-    ALLTIME,
+    ALLTIME("all"),
 
     /**
      * Represent last 12 months.
      */
-    ONEYEAR,
+    ONEYEAR("365");
+
+
+    private String optionAsString;
 
     /**
      * Constructor.
      */
-    SearchPeriods() {
-        //Empty constructor.
-    };
+    SearchPeriods(String optionAsString){
+        this.optionAsString = optionAsString;
+    }
 
-    /**
-     * To String.
-     */
+    @Override
     public String toString() {
-        String period = "null";
-        //If last 24 hours
-        if (this == TWENTYFOURHOURS) { period = "24"; }
-        //If last 7 days
-        else if (this == SEVENDAYS) { period = "7"; }
-        //If last 30 days
-        else if (this == THIRTYDAYS) { period = "30"; }
-        //If select all time.
-        else if (this == ALLTIME) { period = "all"; }
-        //If select all time.
-        else if (this == ONEYEAR) { period = "365"; }
-        return period;
+        return this.optionAsString;
     }
 
     /**

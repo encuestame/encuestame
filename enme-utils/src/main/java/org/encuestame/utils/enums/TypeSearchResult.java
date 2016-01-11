@@ -18,32 +18,30 @@ package org.encuestame.utils.enums;
  * @since Mar 23, 2011
  */
 public enum TypeSearchResult {
-    TWEETPOLL, PROFILE, POLL, SURVEY, QUESTION, HASHTAG, HASHTAGRATED, SOCIALNETWORK, HITS, VOTES, ALL, COMMENT, TWEETPOLLRESULT, POLLRESULT,
+    TWEETPOLL("TWEETPOLL"),
+    PROFILE("PROFILE"),
+    POLL("POLL"),
+    SURVEY("SURVEY"),
+    QUESTION("QUESTION"),
+    HASHTAG("HASHTAG"),
+    HASHTAGRATED("HASHTAGRATED"),
+    SOCIALNETWORK("SOCIALNETWORK"),
+    HITS("HITS"),
+    VOTES("VOTES"),
+    ALL("ALL"),
+    COMMENT("COMMENT"),
+    TWEETPOLLRESULT("TWEETPOLLRESULT"),
+    POLLRESULT("POLLRESULT");
 
-    TypeSearchResult(){
-
-    };
+    /** **/
+    private String typeSearchAsString;
 
     /**
-     * To String.
+     * Constructor
+     * @param optionAsString
      */
-    public String toString() {
-        String type = "";
-        if (this == TWEETPOLL) { type = "TWEETPOLL"; }
-        else if (this == PROFILE) { type = "PROFILE"; }
-        else if (this == COMMENT) { type = "COMMENT"; }
-        else if (this == POLL) { type = "POLL"; }
-        else if (this == SURVEY) { type = "SURVEY"; } 
-        else if (this == QUESTION) { type = "QUESTION"; }
-        else if (this == HASHTAG) { type = "HASHTAG"; }
-        else if (this == HASHTAGRATED) { type = "HASHTAGRATED"; }
-        else if (this == SOCIALNETWORK) { type = "SOCIALNETWORK"; }
-        else if (this == HITS) { type = "HITS"; }
-        else if (this == VOTES) { type = "VOTES"; }
-        else if (this == TWEETPOLLRESULT) { type = "TWEETPOLLRESULT"; }
-        else if (this == POLLRESULT) { type = "POLLRESULT"; }
-        else if (this == ALL) { type = "ALL"; }
-        return type;
+    TypeSearchResult(String optionAsString){
+        this.typeSearchAsString = optionAsString;
     }
 
     /**
@@ -103,27 +101,4 @@ public enum TypeSearchResult {
         else return null;
     }
 
-    /**
-     *
-     * @param layout
-     * @return
-     */
-    public static TypeSearchResult getTypeSearchResult(final String type) {
-        if (null == type) { return null; }
-        else if (type.equalsIgnoreCase("TWEETPOLL")) { return TWEETPOLL; }
-        else if (type.equalsIgnoreCase("PROFILE")) { return PROFILE; }
-        else if (type.equalsIgnoreCase("POLL")) { return POLL; }
-        else if (type.equalsIgnoreCase("SURVEY")) { return SURVEY; } 
-        else if (type.equalsIgnoreCase("QUESTION")) { return QUESTION; }
-        else if (type.equalsIgnoreCase("HASHTAG")) { return HASHTAG; }
-        else if (type.equalsIgnoreCase("COMMENT")) { return COMMENT; }
-        else if (type.equalsIgnoreCase("HASHTAGRATED")) { return HASHTAGRATED; }
-        else if (type.equalsIgnoreCase("SOCIALNETWORK")) { return SOCIALNETWORK; }
-        else if (type.equalsIgnoreCase("HITS")) { return HITS; }
-        else if (type.equalsIgnoreCase("VOTES")) { return VOTES; }
-        else if (type.equalsIgnoreCase("TWEETPOLLRESULT")) { return TWEETPOLLRESULT; }
-        else if (type.equalsIgnoreCase("POLLRESULT")) { return POLLRESULT; }
-        else if (type.equalsIgnoreCase("ALL")) { return ALL; }
-        else return null;
-    }
 }
