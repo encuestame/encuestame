@@ -15,10 +15,9 @@ package org.encuestame.test.business.service;
 import java.util.UUID;
 
 import org.encuestame.core.service.imp.MailServiceOperations;
-import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.test.business.config.AbstractServiceBase;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.security.SignUpBean;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;

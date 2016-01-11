@@ -13,7 +13,7 @@
 package org.encuestame.test.persistence.domain;
 
 import org.encuestame.persistence.domain.GeoPointType;
-import org.encuestame.test.config.AbstractBase;
+import org.encuestame.test.persistence.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;

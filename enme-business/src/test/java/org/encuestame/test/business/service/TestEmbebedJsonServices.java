@@ -1,6 +1,6 @@
-package org.encuestame.test.business.service.jsonp;
+package org.encuestame.test.business.service;
 
-import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.test.business.config.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;

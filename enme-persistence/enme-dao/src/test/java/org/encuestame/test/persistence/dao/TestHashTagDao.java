@@ -20,7 +20,7 @@ import java.util.List;
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
-import org.encuestame.test.config.AbstractBase;
+import org.encuestame.test.persistence.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.joda.time.DateTime;
 import org.junit.Assert;

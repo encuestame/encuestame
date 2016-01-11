@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.StreamOperations;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.domain.notifications.Notification;
@@ -52,12 +53,6 @@ public class StreamService extends AbstractBaseService implements StreamOperatio
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
-
-    /**
-     * Define a limit of result to retrieve by category
-     */
-    @Value("${not.list.max.by.category}")
-    private Integer maxByCategory;
 
     /**
      * default start
@@ -124,7 +119,7 @@ public class StreamService extends AbstractBaseService implements StreamOperatio
          final List<Notification> list = getNotificationDao()
                  .loadNotificationByDate(
                          account,
-                         this.maxByCategory,
+                         EnMePlaceHolderConfigurer.getIntegerProperty("not.list.max.by.category"),
                          EnMeUtils.DEFAULT_START,
                          daysFromStart,
                          daysFromEnd, false);

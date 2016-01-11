@@ -16,17 +16,19 @@
  *
  */
 
-package org.encuestame.config;
+package org.encuestame.test.persistence.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 //import org.jasypt.hibernate.encryptor.HibernatePBEStringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Service;
@@ -41,13 +43,14 @@ import java.util.Properties;
  * Created by jpicado on 19/09/15.
  */
 @Configuration
-//@ContextConfiguration(locations = {
-//        "classpath:spring-test/encuestame-test-hibernate-context.xml"
-//})
 @PropertySources({
-        @PropertySource("classpath:properties-test/encuestame-test-config.properties")
+  @PropertySource("classpath:properties-test/encuestame-test-config.properties")
 })
 @ComponentScan({ "org.encuestame.persistence" })
+/**
+ * Database Test Config.
+ * Spring database configuration using latest Hibernate configuration.
+ */
 public class DBConfig {
 
     @Autowired
@@ -91,7 +94,7 @@ public class DBConfig {
     }
 
     @Bean
-    @Autowired
+    @Qualifier(value = "jdbcDataSource")
     public JdbcTemplate jdbcTemplate(BasicDataSource dataSource) {
         final JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);
@@ -111,6 +114,17 @@ public class DBConfig {
         txManager.setSessionFactory(sessionFactory);
 
         return txManager;
+    }
+
+    /**
+     *
+     * @param sessionFactory
+     * @return
+     */
+    @Bean
+    @Autowired
+    public HibernateTemplate hibernateTemplate(SessionFactory sessionFactory) {
+        return new HibernateTemplate(sessionFactory);
     }
 
 //    @Bean

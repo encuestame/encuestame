@@ -10,11 +10,10 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.test.config;
+package org.encuestame.test.persistence.config;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.config.DBConfig;
 import org.junit.runner.RunWith;
 import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.ActiveProfiles;

@@ -18,7 +18,6 @@
 
 package org.encuestame.test.business.service;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.setup.StartupProcess;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.core.admin.AdministratorProfile;
@@ -26,10 +25,8 @@ import org.encuestame.core.service.SetupOperations;
 import org.encuestame.core.service.startup.DirectorySetupOperations;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.XMLConfigurationFileSupport;
-import org.encuestame.persistence.dao.jdbc.InstallerDao;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
-import org.encuestame.test.business.security.AbstractSpringSecurityContext;
-import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.test.business.config.AbstractServiceBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.TypeDatabase;
 import org.encuestame.utils.web.UserAccountBean;
@@ -42,9 +39,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.Resource;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.List;
 
 /**
@@ -59,8 +53,8 @@ public class TestSetupService extends AbstractServiceBase {
     @Resource(name = "jdbcTemplate")
     public JdbcTemplate jdbcTemplate;
 
-    @Resource(name = "installDaoTest")
-    private InstallerOperations installerOperations;
+//    @Autowired
+//    private InstallerOperations installerOperations;
 
     @Resource(name = "databaseInstallTest")
     private InstallDatabaseOperations installDatabaseOperations;

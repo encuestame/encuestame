@@ -70,7 +70,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      /**
       * Default lucene version.
       */
-     private Version version = Version.LUCENE_4_10_4;
+     private Version version = Version.LUCENE_5_3_0;
 
      /**
       * Default value to similarity searchs.

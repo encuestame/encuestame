@@ -15,7 +15,7 @@ package org.encuestame.test.persistence.domain;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
-import org.encuestame.test.config.AbstractBase;
+import org.encuestame.test.persistence.config.AbstractBase;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
