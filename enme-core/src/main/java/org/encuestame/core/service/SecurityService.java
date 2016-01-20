@@ -30,11 +30,9 @@ import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.web.SecurityUtils;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
-import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
-import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.security.*;
 import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -43,7 +41,6 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.FollowOperations;
-import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Profile;
 import org.encuestame.utils.json.SocialAccountBean;
@@ -75,12 +72,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
-
-    /**
-     *
-     */
-    private IDashboardService dashboardService;
+    private Logger log = Logger.getLogger(this.getClass()); 
 
 
     /** Default User Permission **/
@@ -523,7 +515,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         if(user == null){
             throw new EnMeNoResultsFoundException("user not found");
         } else {
-            log.debug("Update Permission "+permission.toString());
+            log.debug("Update Permission " + permission.toString());
             if(action.equals("add")){
                 user.getSecUserPermissions().add(this.getPermissionByName(permission));
                 log.debug("Added Permission "+permission.toString());
@@ -661,10 +653,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             this.assingPermission(userAccount, permissions);
             log.debug("administration user ----> Adding Security label");
 
-            // create a dashboard by default
-            final Dashboard dashboard = createDefaultDashboard(userAccount);
-            getDashboardService().addGadgetOnDashboard(dashboard.getBoardId(), "stream", userAccount);
-
             //Disabled auto-autenticate, the administrative user should sign in manually
             //SecurityUtils.authenticate(userAccount);
 
@@ -751,32 +739,10 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 getMessageProperties("notification.wellcome.account"),
                 null, false, userAccount);
 
-        // create a dashboard by default
-        final Dashboard dashboard = createDefaultDashboard(userAccount);
-        getDashboardService().addGadgetOnDashboard(dashboard.getBoardId(), "stream", userAccount);
         //FIXME: disabled, user must sign in from web.
         // The reason is sometimes there are issues with the auto-login
         // SecurityUtils.authenticate(userAccount);
         return userAccount;
-    }
-
-    /**
-     * It creates a default dashboard
-     * @param userAccount
-     */
-    private Dashboard createDefaultDashboard(final UserAccount userAccount) {
-         //FUTURE: this code must be in higher level {reuse code}
-        final Dashboard board = new Dashboard();
-        board.setPageBoardName(EnMePlaceHolderConfigurer.getProperty("dashboard.default.name") == null ? "" : EnMePlaceHolderConfigurer.getProperty("dashboard.default.name"));
-        board.setDescription(EnMePlaceHolderConfigurer.getProperty("dashboard.default.descr") == null ? "" : EnMePlaceHolderConfigurer.getProperty("dashboard.default.descr")) ;
-        board.setUserBoard(userAccount);
-        board.setPageLayout(LayoutEnum.AB_COLUMN_BLOCK);
-        board.setFavorite(true);
-        board.setSelectedByDefault(true);
-        board.setBoardSequence(1);
-        board.setFavoriteCounter(1);
-        getDashboardDao().saveOrUpdate(board);
-        return board;
     }
 
     /**
@@ -1327,14 +1293,5 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 //System.out.println("created help page " + path);
             }
         }
-    }
-
-    public IDashboardService getDashboardService() {
-        return dashboardService;
-    }
-
-    @Autowired
-    public void setDashboardService(IDashboardService dashboardService) {
-        this.dashboardService = dashboardService;
-    }
+    } 
 }

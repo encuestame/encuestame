@@ -18,7 +18,6 @@
 package org.encuestame.mvc.test.view;
 
 import org.encuestame.core.service.imp.ITweetPollService;
-import org.encuestame.mvc.page.DashBoardController;
 import org.encuestame.mvc.page.TweetPollController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
@@ -48,9 +47,6 @@ import java.util.List;
 
 import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
 
-/**
- * Dashboard Controller TestCase.
- */
 @Category(DefaultTest.class)
 public class TweetPollControllerTestCase extends AbstractMvcUnitBeans{
 
@@ -75,38 +71,6 @@ public class TweetPollControllerTestCase extends AbstractMvcUnitBeans{
      public void initMVc() {
         this.user = createUserAccount("jota", createAccount());
      }
-
-    /**
-     *
-     * @throws Exception
-     */
-    @Test
-    public void testDashBoardController() throws Exception {
-        this.quickLogin();
-        logPrint(SecurityContextHolder.getContext().getAuthentication());
-        request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll/list");
-        final ModelAndView mav = handlerAdapter.handle(request, response, tweetPollController);
-        assertViewName(mav, "tweetpoll");
-        logPrint(mav.isEmpty());
-        logPrint(mav.getModelMap().size());
-        logPrint(mav.getModelMap().toString());
-        Assert.assertNotNull(mav.getModelMap().get("i18n"));
-        HashMap<String, String> i18n = (HashMap<String, String>) mav.getModelMap().get("i18n");
-        Assert.assertNotNull(i18n.get("tweetpoo_detail_answers_title_link"));
-    }
-
-    /**
-     *
-     * @throws Exception
-     */
-    @Test
-    public void testDashBoardControllerRedirectScenario() throws Exception {
-        this.quickLogin();
-        logPrint(SecurityContextHolder.getContext().getAuthentication());
-        request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll");
-        final ModelAndView mav = handlerAdapter.handle(request, response, tweetPollController);
-        assertViewName(mav, "redirect:/user/tweetpoll/list");
-    }
 
     /**
      *
@@ -154,7 +118,6 @@ public class TweetPollControllerTestCase extends AbstractMvcUnitBeans{
         Assert.assertNotNull(i18n.get("tp_options_allow_repeated_votes"));
         Assert.assertNotNull(i18n.get("tp_options_limit_votes"));
         Assert.assertNotNull(i18n.get("tp_options_resume_live_results"));
-        Assert.assertNotNull(i18n.get("tp_options_follow_dashboard"));
         Assert.assertNotNull(i18n.get("button_add"));
         Assert.assertNotNull(i18n.get("button_remove"));
         Assert.assertNotNull(i18n.get("button_close"));

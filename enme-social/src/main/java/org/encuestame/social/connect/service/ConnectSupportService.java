@@ -68,6 +68,7 @@ public class ConnectSupportService  extends AbstractBaseService implements Conne
             //getAccountDao().saveOrUpdate(connection.getSocialAccount());
             getAccountDao().saveOrUpdate(socialAccount);
             SecurityUtils.socialAuthentication(socialAccount); //TODO: only with OWNER UserAccount.
+            //TODO: Dashboard Removed references
             return PathUtil.DASHBOARD_REDIRECT;
         } else {
             //if user has been never connected, we check if the user exist with the social account email.

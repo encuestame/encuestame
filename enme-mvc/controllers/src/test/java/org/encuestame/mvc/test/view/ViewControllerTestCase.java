@@ -14,23 +14,14 @@ package org.encuestame.mvc.test.view;
 
 import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
 
-import java.util.Date;
-
-import junit.framework.Assert;
-
-import org.encuestame.mvc.page.AdmonController;
-import org.encuestame.mvc.page.DashBoardController;
 import org.encuestame.mvc.page.HomeController;
-import org.encuestame.mvc.page.PollController;
 import org.encuestame.mvc.page.SignInController;
 import org.encuestame.mvc.page.SignUpController;
 import org.encuestame.mvc.page.SurveyController;
-import org.encuestame.mvc.page.TweetPollController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.categories.test.DefaultTest;
@@ -50,10 +41,6 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Category(DefaultTest.class)
 public class ViewControllerTestCase extends AbstractMvcUnitBeans{
-
-
-        @Autowired
-        private DashBoardController dashBoardController;
 
         @Autowired
         private SignUpController signupController;
@@ -86,19 +73,6 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
             final ModelAndView mav = handlerAdapter.handle(request, response,
                 controller);
             assertViewName(mav, "redirect:/home");
-        }
-
-        /**
-         * Dashboard view.
-         * @throws Exception
-         */
-        @Test
-        @Ignore
-        public void testDashBoardController() throws Exception {
-            DashBoardController controller = this.dashBoardController;
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/dashboard");
-            final ModelAndView mav = handlerAdapter.handle(request, response, controller);
-            assertViewName(mav, "dashboard");
         }
 
         /**

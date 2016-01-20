@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
-import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -327,7 +326,6 @@ public abstract class AbstractBaseUtils extends TestCase{
          tpBean.setResultNotification(Boolean.TRUE);
          tpBean.setResults(null);
          tpBean.setResumeLiveResults(Boolean.TRUE);
-         tpBean.setResumeTweetPollDashBoard(null);
          tpBean.setSchedule(Boolean.TRUE);
          tpBean.setScheduleDate(myDate);
          tpBean.setTotalVotes(503L);
@@ -335,31 +333,6 @@ public abstract class AbstractBaseUtils extends TestCase{
          tpBean.setUpdateDate(null);
          tpBean.setUserId(null);
          return tpBean;
-     }
-
-     /**
-      * Create dashboard bean.
-      * @param desc
-      * @param name
-      * @param favorite
-      * @param counter
-      * @param layout
-      * @param selected
-      * @param sequence
-      * @return
-      */
-    public DashboardBean createDashboardBean(final String desc,
-            final String name, final Boolean favorite, final Integer counter,
-            final String layout, final Boolean selected, final Integer sequence) {
-        final DashboardBean myDashboard = new DashboardBean();
-        myDashboard.setDashboardDesc(desc);
-        myDashboard.setDashboardName(name);
-        myDashboard.setFavorite(favorite);
-        myDashboard.setFavoriteCounter(counter);
-        myDashboard.setLayout(layout);
-        myDashboard.setSelected(selected);
-        myDashboard.setSequence(sequence);
-        return myDashboard;
      }
 
     /**

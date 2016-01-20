@@ -512,7 +512,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     /**
      * Create new question with answers.
      * @param questionName
-     * @param answers
+     * @param
      * @param user
      * @return
      * @throws EnMeExpcetion
@@ -601,7 +601,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tweetPoll.setResultNotification(tweetPollBean.getResultNotification());
         tweetPoll.setResumeLiveResults(tweetPollBean.getResumeLiveResults());
         tweetPoll.setScheduleDate(tweetPollBean.getScheduleDate());
-        tweetPoll.setResumeTweetPollDashBoard(tweetPollBean.getResumeTweetPollDashBoard());
         tweetPoll.setUpdatedDate(Calendar.getInstance().getTime());
         getTweetPollDao().saveOrUpdate(tweetPoll);
         log.debug("removing answers for tweetpoll id: "+tweetPoll.getTweetPollId());

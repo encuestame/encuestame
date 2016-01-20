@@ -128,25 +128,6 @@ CREATE TABLE IF NOT EXISTS `comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
--- Table structure for table `dashboard`
---
-
-CREATE TABLE IF NOT EXISTS `dashboard` (
-  `dashboardId` bigint(20) NOT NULL AUTO_INCREMENT,
-  `sequence` int(11) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `favorite` bit(1) DEFAULT NULL,
-  `favorite_counter` int(11) DEFAULT NULL,
-  `dashboardName` varchar(255) NOT NULL,
-  `dashboad_layout` int(11) DEFAULT NULL,
-  `dashboard_selected` bit(1) DEFAULT NULL,
-  `userBoard_uid` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`dashboardId`),
-  UNIQUE KEY `dashboardId` (`dashboardId`),
-  KEY `FKC18AEA949229BCA5` (`userBoard_uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
 -- Table structure for table `email`
 --
 
@@ -206,10 +187,8 @@ CREATE TABLE IF NOT EXISTS `gadget` (
   `gadgetPosition` int(11) DEFAULT NULL,
   `gadgetType` int(11) NOT NULL,
   `status` bit(1) DEFAULT NULL,
-  `dashboard_dashboardId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`gadgetId`),
-  UNIQUE KEY `gadgetId` (`gadgetId`),
-  KEY `FKB549144CB975B5F9` (`dashboard_dashboardId`)
+  UNIQUE KEY `gadgetId` (`gadgetId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
@@ -941,7 +920,6 @@ CREATE TABLE IF NOT EXISTS `tweetPoll` (
   `relevance` bigint(20) DEFAULT NULL,
   `result_notification` bit(1) DEFAULT NULL,
   `resume_live_results` bit(1) DEFAULT NULL,
-  `resume_tweetpoll_dashboard` bit(1) DEFAULT NULL,
   `schedule_date_tweet` datetime DEFAULT NULL,
   `schedule` bit(1) DEFAULT NULL,
   `last_date_updated` datetime DEFAULT NULL,

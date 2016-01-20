@@ -77,18 +77,6 @@ CREATE TABLE comments (
   uid bigint NOT NULL
 );
 
-CREATE TABLE dashboard (
-  dashboardid bigint NOT NULL,
-  sequence integer,
-  description character varying(255),
-  favorite boolean,
-  favorite_counter integer,
-  dashboardname character varying(255) NOT NULL,
-  dashboad_layout integer,
-  dashboard_selected boolean,
-  userboard_uid bigint
-);
-
 CREATE TABLE email (
   email_id bigint NOT NULL,
   created_at timestamp without time zone,
@@ -121,8 +109,7 @@ CREATE TABLE gadget (
   gadgetname character varying(255) NOT NULL,
   gadgetposition integer,
   gadgettype integer NOT NULL,
-  status boolean,
-  dashboard_dashboardid bigint
+  status boolean
 );
 
 
@@ -624,7 +611,6 @@ CREATE TABLE tweetpoll (
   relevance bigint,
   result_notification boolean,
   resume_live_results boolean,
-  resume_tweetpoll_dashboard boolean,
   schedule_date_tweet timestamp without time zone,
   schedule boolean,
   comment_option integer,

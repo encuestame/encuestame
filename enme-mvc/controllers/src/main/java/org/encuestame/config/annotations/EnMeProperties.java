@@ -41,7 +41,6 @@ public class EnMeProperties {
     @Bean(name = "helpsLinks")
     public List<String> helpsPaths() {
         final List<String> paths = new ArrayList<String>();
-        paths.add("/user/dashboard");
         paths.add("/admon/members");
         paths.add("/user/tweetpoll/list");
         paths.add("/user/tweetpoll/new");

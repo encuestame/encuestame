@@ -305,7 +305,6 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
      * @apiParam {String} [scheduledDate] Scheduled date for Tweetpoll publication.
      * @apiParam {Boolean} [captcha] Validate the vote with captcha
      * @apiParam {Boolean} [limitVotes] Limit maximum number of votes
-     * @apiParam {Boolean} [followDashBoard] - XXXX
      * @apiParam {Boolean} [repeatedVotes] Allow repeated votes.
      * @apiParam {Number} [maxLimitVotes] Limit the maximum number of votes in total Tweetpoll.
      * @apiParam {Number} [maxRepeatedVotes] Maximum number of votes allowed per IP.
@@ -325,7 +324,6 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
             @RequestParam(value = "scheduledDate", required = false) final String scheduledDate,
             @RequestParam(value = "captcha", required = false) final Boolean captcha,
             @RequestParam(value = "limitVotes", required = false) final Boolean limitVotes,
-            @RequestParam(value = "followDashBoard", required = false) final Boolean onDashboard,
             @RequestParam(value = "repeatedVotes", required = false) final Boolean repeatedVotes,
             @RequestParam(value = "maxLimitVotes", required = false) final Integer votesToLimit ,
             @RequestParam(value = "maxRepeatedVotes", required = false) final Integer repeatedVotesNum,
@@ -351,14 +349,12 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
                   jsonResponse.put("tweetPoll", tpB);
              } else if (tweetPollId != null && question != null) {
                  options.setCaptcha(captcha);
-                 options.setFollowDashBoard(onDashboard);
                  options.setLimitVotes(limitVotes);
                  options.setLiveResults(liveResults);
                  options.setScheduled(isScheduled);
                  options.setScheduledDate(filterValue(scheduledDate));
                  options.setScheduledTime(scheduldedTime);
                  options.setMaxLimitVotes(votesToLimit);
-                 options.setFollowDashBoard(onDashboard);
                  options.setRepeatedVotes(repeatedVotes);
                  options.setMaxRepeatedVotes(repeatedVotesNum);
                  options.setResumeLiveResults(resumeLiveResults);
@@ -411,8 +407,7 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
         tweetPollBean.setResultNotification(Boolean.TRUE);
         //resume live results.
         tweetPollBean.setResumeLiveResults(options.getResumeLiveResults());
-        //follow on dashboard.
-        tweetPollBean.setResumeTweetPollDashBoard(options.getFollowDashBoard());
+
         //captcha.
         tweetPollBean.setCaptcha(options.getCaptcha());
         //live results
@@ -693,7 +688,6 @@ class Options {
     private Boolean resumeLiveResults = false;
     private Boolean scheduled  = false;
     private Boolean limitVotes  = false;
-    private Boolean followDashBoard  = true;
     private Boolean captcha  = false;
     private Boolean liveResults  = true;
 
@@ -733,13 +727,6 @@ class Options {
      */
     public Boolean getLimitVotes() {
         return limitVotes;
-    }
-
-    /**
-     * @return the followDashBoard
-     */
-    public Boolean getFollowDashBoard() {
-        return followDashBoard;
     }
 
     /**
@@ -813,13 +800,6 @@ class Options {
     }
 
     /**
-     * @param followDashBoard the followDashBoard to set
-     */
-    public void setFollowDashBoard(Boolean followDashBoard) {
-        this.followDashBoard = followDashBoard;
-    }
-
-    /**
      * @param captcha the captcha to set
      */
     public void setCaptcha(Boolean captcha) {
@@ -869,8 +849,7 @@ class Options {
         return "Options [repeatedVotes=" + repeatedVotes
                 + ", resumeLiveResults=" + resumeLiveResults
                 + ", scheduled=" + scheduled + ", limitVotes=" + limitVotes
-                + ", followDashBoard=" + followDashBoard + ", captcha="
-                + captcha + ", liveResults=" + liveResults
+                + ", captcha=" + captcha + ", liveResults=" + liveResults
                 + ", maxRepeatedVotes=" + maxRepeatedVotes
                 + ", maxLimitVotes=" + maxLimitVotes + ", scheduledDate="
                 + scheduledDate + ", scheduledTime=" + scheduledTime + "]";

@@ -77,11 +77,6 @@ public class TweetPoll extends AbstractGeoPoint{
     /** Scheduled TweetPoll. **/
     private Boolean scheduleTweetPoll;
 
-    /**
-     * Enable display resume on dashboard.
-     */
-    private Boolean resumeTweetPollDashBoard;
-
     /** Scheduled Date. **/
     private Date scheduleDate;
 
@@ -516,21 +511,6 @@ public class TweetPoll extends AbstractGeoPoint{
     }
 
     /**
-     * @return the resumeTweetPollDashBoard
-     */
-    @Column(name = "resume_tweetpoll_dashboard")
-    public Boolean getResumeTweetPollDashBoard() {
-        return resumeTweetPollDashBoard;
-    }
-
-    /**
-     * @param resumeTweetPollDashBoard the resumeTweetPollDashBoard to set
-     */
-    public void setResumeTweetPollDashBoard(Boolean resumeTweetPollDashBoard) {
-        this.resumeTweetPollDashBoard = resumeTweetPollDashBoard;
-    }
-
-    /**
      * @return the limitVotesEnabled
      */
     @Column(name = "limits_votes_enabled")
@@ -679,7 +659,6 @@ public class TweetPoll extends AbstractGeoPoint{
                 + resultNotification + ", allowLiveResults=" + allowLiveResults
                 + ", publishTweetPoll=" + publishTweetPoll
                 + ", scheduleTweetPoll=" + scheduleTweetPoll
-                + ", resumeTweetPollDashBoard=" + resumeTweetPollDashBoard
                 + ", scheduleDate=" + scheduleDate + ", createDate="
                 + createDate + ", updatedDate=" + updatedDate + ", completed="
                 + completed + ", captcha=" + captcha + ", limitVotesEnabled="

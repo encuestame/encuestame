@@ -5,7 +5,6 @@ drop table application_connection if exists
 drop table attachment if exists
 drop table client if exists
 drop table comments if exists
-drop table dashboard if exists
 drop table email if exists
 drop table emailList if exists
 drop table emailSubscribe if exists

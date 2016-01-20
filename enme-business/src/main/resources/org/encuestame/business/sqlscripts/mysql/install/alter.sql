@@ -43,12 +43,6 @@ ALTER TABLE `comments`
   ADD CONSTRAINT `FKDC17DDF4F44558E9` FOREIGN KEY (`uid`) REFERENCES `userAccount` (`uid`);
 
 --
--- Constraints for table `dashboard`
---
-ALTER TABLE `dashboard`
-  ADD CONSTRAINT `FKC18AEA949229BCA5` FOREIGN KEY (`userBoard_uid`) REFERENCES `userAccount` (`uid`);
-
---
 -- Constraints for table `email`
 --
 ALTER TABLE `email`
@@ -67,13 +61,6 @@ ALTER TABLE `emailSubscribe`
   ADD CONSTRAINT `FK4B85010EE824035` FOREIGN KEY (`email_id`) REFERENCES `email` (`email_id`),
   ADD CONSTRAINT `FK4B85010EED78E617` FOREIGN KEY (`id_list`) REFERENCES `emailList` (`id_list`);
 
---
--- Constraints for table `gadget`
---
-ALTER TABLE `gadget`
-  ADD CONSTRAINT `FKB549144CB975B5F9` FOREIGN KEY (`dashboard_dashboardId`) REFERENCES `dashboard` (`dashboardId`);
-
---
 -- Constraints for table `gadget_properties`
 --
 ALTER TABLE `gadget_properties`
