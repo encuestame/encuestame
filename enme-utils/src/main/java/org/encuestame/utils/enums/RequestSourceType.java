@@ -4,19 +4,22 @@ public enum RequestSourceType {
 	 /**
      * Represent last 24 hours.
      */
-	EMBEDDED,
+	EMBEDDED("EMBEDDED"),
     /**
      * Represent 7 last days
      */
-    NORMAL,
-    
+    NORMAL("NORMAL");
+
+    private String optionAsString;
+
 
     /**
      * Constructor.
      */
-    RequestSourceType() {
+    RequestSourceType(final String optionAsString) {
+        this.optionAsString = optionAsString;
         //Empty constructor.
-    };
+    }
 
     /**
      * To String.
@@ -39,7 +42,7 @@ public enum RequestSourceType {
      * @return
      */
     public static RequestSourceType getSource(final String period) {
-        if (null == period) { return RequestSourceType; }
+        if (null == period) { return EMBEDDED; }
         else if (period.equalsIgnoreCase("embedded")) { return EMBEDDED; }
         else if (period.equalsIgnoreCase("normal")) { return NORMAL; }
         else return NORMAL;

@@ -1,13 +1,15 @@
 package org.encuestame.utils.enums;
 
 public enum EmbeddedType {
-    SCRIPT,
-    IFRAME,
-    WORDPRESS;
+    SCRIPT("SCRIPT"),
+    IFRAME("IFRAME"),
+    WORDPRESS("WORDPRESS");
 
-    EmbeddedType(){
+    private String optionAsString;
 
-    };
+    EmbeddedType(final String optionAsString){
+        this.optionAsString = optionAsString;
+    }
 
     /**
      * To String.

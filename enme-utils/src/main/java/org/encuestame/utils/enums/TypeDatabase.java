@@ -8,12 +8,16 @@ package org.encuestame.utils.enums;
  * @since Mar 21, 2011
  */
 public enum TypeDatabase {
-        ORACLE, MYSQL, POSTGRES, MSSQL, DERBY, HSQLDB, DB2,
+        ORACLE("ORACLE"), MYSQL("MYSQL"), POSTGRES("POSTGRES"), MSSQL("MSSQL"), DERBY("DERBY"), HSQLDB("HSQLDB"), DB2("DB2");
+
+    private String optionAsString;
 
     /**
      * Constructor.
      */
-    TypeDatabase(){};
+    TypeDatabase(final String optionAsString){
+        this.optionAsString = optionAsString;
+    }
 
     /**
      * Return the database selected.

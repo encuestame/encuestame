@@ -381,8 +381,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
             }
             else{
             final String hashPoll = MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500));
-            final CommentOptions commentOpt = CommentOptions.getCommentOption(createPollBean.getShowComments());
-            final ShowResultsOptions showResultsOptions = ShowResultsOptions.getShowResults(createPollBean.getResults());
+            final CommentOptions commentOpt = ValidationUtils.getEnumFromString(CommentOptions.class, createPollBean.getShowComments());
+            final ShowResultsOptions showResultsOptions =  ValidationUtils.getEnumFromString(ShowResultsOptions.class, createPollBean.getResults());
             pollDomain.setEditorOwner(user);
             pollDomain.setCreateDate(Calendar.getInstance().getTime());
             pollDomain.setPollHash(hashPoll);
@@ -483,9 +483,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
         Assert.notNull(questionDomain);
 
         poll.setPollCompleted(pollBean.getCompletedPoll());
-        poll.setShowResults(ShowResultsOptions.getShowResults(pollBean.getShowResults()));
-
-        poll.setShowComments(CommentOptions.getCommentOption(pollBean
+        poll.setShowResults(ValidationUtils.getEnumFromString(ShowResultsOptions.class, pollBean.getShowResults()));
+        poll.setShowComments(ValidationUtils.getEnumFromString(CommentOptions.class, pollBean
                 .getShowComments()));
         poll.setPublish(pollBean.getPublishPoll());
         poll.setNotifications(pollBean.getCloseNotification());
@@ -1128,7 +1127,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             throws EnMeNoResultsFoundException, EnmeFailOperation {
         final Poll poll = getPollById(pollId, username);
         if (poll != null) {
-            poll.setShowResults(ShowResultsOptions.getShowResults("ALL"));
+            poll.setShowResults(ValidationUtils.getEnumFromString(ShowResultsOptions.class, "ALL"));
             getPollDao().saveOrUpdate(poll);
         } else {
             throw new EnmeFailOperation("Fail Change Status Operation");

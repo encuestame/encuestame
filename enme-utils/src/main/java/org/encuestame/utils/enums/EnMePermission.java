@@ -18,34 +18,28 @@ package org.encuestame.utils.enums;
  * @since Oct 3, 2010 4:14:05 PM
  */
 public enum EnMePermission {
-    ENCUESTAME_USER,
-    ENCUESTAME_ADMIN,
-    ENCUESTAME_OWNER,
-    ENCUESTAME_PUBLISHER,
-    ENCUESTAME_EDITOR,
-    ENCUESTAME_ANONYMOUS,
-    ENCUESTAME_API,
-    ENCUESTAME_READ,
-    ENCUESTAME_WRITE,
+    ENCUESTAME_USER("ENCUESTAME_USER"),
+    ENCUESTAME_ADMIN("ENCUESTAME_ADMIN"),
+    ENCUESTAME_OWNER("ENCUESTAME_OWNER"),
+    ENCUESTAME_PUBLISHER("ENCUESTAME_PUBLISHER"),
+    ENCUESTAME_EDITOR("ENCUESTAME_EDITOR"),
+    ENCUESTAME_ANONYMOUS("ENCUESTAME_ANONYMOUS"),
+    ENCUESTAME_API("ENCUESTAME_API"),
+    ENCUESTAME_READ("ENCUESTAME_READ"),
+    ENCUESTAME_WRITE("ENCUESTAME_WRITE");
 
-    EnMePermission(){};
+   // EnMePermission(){};
+
+    private String permissionAsString;
 
     /**
-     * To String.
+     *
+     * @param permissionAsString
      */
-    public String toString() {
-        String permission = "ENCUESTAME_USER";
-        if (this == ENCUESTAME_USER) { permission = "ENCUESTAME_USER"; }
-        else if (this == ENCUESTAME_ADMIN) { permission = "ENCUESTAME_ADMIN"; }
-        else if (this == ENCUESTAME_OWNER) { permission = "ENCUESTAME_OWNER"; }
-        else if (this == ENCUESTAME_PUBLISHER) { permission = "ENCUESTAME_PUBLISHER"; }
-        else if (this == ENCUESTAME_EDITOR) { permission = "ENCUESTAME_EDITOR"; }
-        else if (this == ENCUESTAME_ANONYMOUS) { permission = "ENCUESTAME_ANONYMOUS"; }
-        else if (this == ENCUESTAME_API) { permission = "ENCUESTAME_API"; }
-        else if (this == ENCUESTAME_READ) { permission = "ENCUESTAME_READ"; }
-        else if (this == ENCUESTAME_WRITE) { permission = "ENCUESTAME_WRITE"; }
-        return permission;
+    EnMePermission(String permissionAsString){
+        this.permissionAsString = permissionAsString;
     }
+
 
     /**
      * Get Permission by String.

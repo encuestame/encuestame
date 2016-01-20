@@ -18,53 +18,23 @@ package org.encuestame.utils.enums;
  * @since Feb 5, 2011 11:18:56 AM
  */
 public enum Profile{
-    EMAIL,
-    USERNAME,
-    LANGUAGE,
-    PICTURE,
-    PRIVATE,
-    WELCOME,
-    PAGE_INFO,
-    REAL_NAME;
+    EMAIL("EMAIL"),
+    USERNAME("USERNAME"),
+    LANGUAGE("LANGUAGE"),
+    PICTURE("PICTURE"),
+    PRIVATE("PRIVATE"),
+    WELCOME("WELCOME"),
+    PAGE_INFO("PAGE_INFO"),
+    REAL_NAME("REAL_NAME");
 
-    Profile(){
-    }
-
-    /**
-     * Find Profile.
-     * @param value
-     * @return
-     */
-    public static Profile findProfile(final String value) {
-        Profile result = null;
-        if (null != value) {
-           if ("EMAIL".equalsIgnoreCase(value)) { result = EMAIL; }
-           if ("USERNAME".equalsIgnoreCase(value)) { result = USERNAME; }
-           if ("PICTURE".equalsIgnoreCase(value)) { result = PICTURE; }
-           if ("LANGUAGE".equalsIgnoreCase(value)) { result = LANGUAGE; }
-           if ("WELCOME".equalsIgnoreCase(value)) { result = WELCOME; }
-           if ("PAGE_INFO".equalsIgnoreCase(value)) { result = PAGE_INFO; }
-           if ("PRIVATE".equalsIgnoreCase(value)) { result = PRIVATE; }
-           if ("REAL_NAME".equalsIgnoreCase(value)) { result = REAL_NAME; }
-        }
-        return result;
-    }
-
-
+    /** **/
+    private String profileAsString;
 
     /**
-     * To String.
+     * Constructor
+     * @param optionAsString
      */
-    public String toString() {
-        String type = "";
-        if (this == EMAIL) { type = "email"; }
-        else if (this == USERNAME) { type = "username"; }
-        else if (this == REAL_NAME) { type = "completeName"; }
-        else if (this == PICTURE) { type = "picture"; }
-        else if (this == LANGUAGE) { type = "language"; }
-        else if (this == WELCOME) { type = "welcome"; }
-        else if (this == PAGE_INFO) { type = "page_info"; }
-        else if (this == PRIVATE) { type = "private"; }
-        return type;
+    Profile(String optionAsString){
+        this.profileAsString = optionAsString;
     }
 }

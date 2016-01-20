@@ -41,7 +41,6 @@ import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.encuestame.utils.web.CommentBean;
-import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.encuestame.utils.web.GadgetPropertiesBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -88,13 +87,11 @@ public class TestUnitBeans extends AbstractBaseUtils {
     /** {@link QuestionAnswerBean}. **/
     private QuestionAnswerBean questionAnswer;
 
-    /** {@link DashboardBean}.**/
-    private DashboardBean myDashboardBean;
+
 
     @Before
     public void initService(){
-       this.myDashboardBean = createDashboardBean("Store all surveys created",
-                "Survey Dash", Boolean.TRUE, 8, "AAA", Boolean.TRUE, 2);
+
     }
 
     /**
@@ -614,31 +611,6 @@ public class TestUnitBeans extends AbstractBaseUtils {
     }
 
     /**
-     * Test {@link DashboardBean}
-     */
-    @Test
-    public void testDashboardBean(){
-        final DashboardBean boardBean = new DashboardBean();
-        boardBean.setDashboardId(1L);
-        boardBean.setDashboardName("My Dashboard");
-        boardBean.setDashboardDesc("My First Dashboard");
-        boardBean.setFavorite(Boolean.TRUE);
-        boardBean.setLayout("AAA");
-        boardBean.setSequence(1);
-        boardBean.setFavoriteCounter(5);
-        boardBean.setSelected(Boolean.TRUE);
-        assertNotNull(boardBean);
-        assertNotNull(boardBean.getDashboardId());
-        assertNotNull(boardBean.getDashboardName());
-        assertNotNull(boardBean.getDashboardDesc());
-        assertNotNull(boardBean.getFavorite());
-        assertNotNull(boardBean.getLayout());
-        assertNotNull(boardBean.getSequence());
-        assertNotNull(boardBean.getFavoriteCounter());
-        assertNotNull(boardBean.getSelected());
-    }
-
-    /**
      * Test {@link ProfileUserAccount}.
      */
     @Test
@@ -843,11 +815,9 @@ public class TestUnitBeans extends AbstractBaseUtils {
         myGadgetBean.setGadgetName("Activity gadget");
         myGadgetBean.setGadgetColumn(2);
         myGadgetBean.setGadgetColor("#FFFF");
-        myGadgetBean.getDashboard().add(this.myDashboardBean);
         assertNotNull(myGadgetBean);
         assertNotNull(myGadgetBean.getGadgetColor());
         assertNotNull(myGadgetBean.getGadgetName());
-        assertNotNull(myGadgetBean.getDashboard());
         assertNotNull(myGadgetBean.getGadgetColumn());
         assertNotNull(myGadgetBean.getGadgetId());
         assertNotNull(myGadgetBean.getGadgetPosition());

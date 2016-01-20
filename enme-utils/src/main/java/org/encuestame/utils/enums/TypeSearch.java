@@ -19,61 +19,22 @@ package org.encuestame.utils.enums;
  * @version $Id:$
  */
 public enum TypeSearch {
-    KEYWORD,
-    LASTDAY,
-    LASTWEEK,
-    THISMONTH,
-    LAST30DAYS,
-    LAST365DAYS,
-    FAVOURITES,
-    SCHEDULED,
-    ALL,
-    BYOWNER,
-    FOLDER,
-    DATE,
-    TypeSearch(){
-        //Constructor.
-    };
+    KEYWORD("KEYWORD"),
+    LASTDAY("LASTDAY"),
+    LASTWEEK("LASTWEEK"),
+    THISMONTH("THISMONTH"),
+    LAST30DAYS("LAST30DAYS"),
+    LAST365DAYS("LAST365DAYS"),
+    FAVOURITES("FAVOURITES"),
+    SCHEDULED("FAVOURITES"),
+    ALL("ALL"),
+    BYOWNER("BYOWNER"),
+    FOLDER("FOLDER"),
+    DATE("DATE");
 
-    /**
-     * To String.
-     */
-    public String toString() {
-        String permission = "LASTDAY";
-        if (this == LASTDAY) { permission = "LASTDAY"; }
-        else if (this == KEYWORD) { permission = "KEYWORD"; }
-        else if (this == BYOWNER) { permission = "BYOWNER"; }
-        else if (this == FOLDER) { permission = "FOLDER"; }
-        else if (this == LASTWEEK) { permission = "LASTWEEK"; }
-        else if (this == FAVOURITES) { permission = "FAVOURITES"; }
-        else if (this == SCHEDULED) { permission = "SCHEDULED"; }
-        else if (this == THISMONTH) { permission = "THISMONTH"; }
-        else if (this == LAST365DAYS) { permission = "LAST365DAYS"; }
-        else if (this == LAST30DAYS) { permission = "LAST30DAYS"; }
-        else if (this == DATE) { permission = "DATE"; }
-        else if (this == ALL) { permission = "ALL"; }
-        return permission;
-    }
+    private String typeSearchAsString;
 
-    /**
-     * Get Type Search by String.
-     * @param search period
-     * @return
-     */
-    public static TypeSearch getSearchString(final String search) {
-        if (null == search) { return null; }
-        else if (search.equalsIgnoreCase("LASTDAY")) { return LASTDAY; }
-        else if (search.equalsIgnoreCase("KEYWORD")) { return KEYWORD; }
-        else if (search.equalsIgnoreCase("BYOWNER")) { return BYOWNER; }
-        else if (search.equalsIgnoreCase("LASTWEEK")) { return LASTWEEK; }
-        else if (search.equalsIgnoreCase("FOLDER")) { return FOLDER; }
-        else if (search.equalsIgnoreCase("FAVOURITES")) { return FAVOURITES; }
-        else if (search.equalsIgnoreCase("SCHEDULED")) { return SCHEDULED; }
-        else if (search.equalsIgnoreCase("THISMONTH")) { return THISMONTH; }
-        else if (search.equalsIgnoreCase("LAST365DAYS")) { return LAST365DAYS; }
-        else if (search.equalsIgnoreCase("LAST30DAYS")) { return LAST30DAYS; }
-        else if (search.equalsIgnoreCase("DATE")) { return DATE; }
-        else if (search.equalsIgnoreCase("ALL")) { return ALL; }
-        else return null;
+    TypeSearch(String optionAsString){
+        this.typeSearchAsString = optionAsString;
     }
 }

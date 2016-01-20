@@ -62,8 +62,6 @@ public class SearchBean extends AbstractUnitSurvey{
 	    private Integer maxRepeatedVotes;
 	    @JsonProperty(value = "limitVotesEnabled")
 	    private Boolean limitVotesEnabled;
-	    @JsonProperty(value = "resumeTweetPollDashBoard")
-	    private Boolean resumeTweetPollDashBoard;
 	    @JsonProperty(value = "moderated_comments")
 	    private Boolean moderatedComments;
 	    @JsonProperty(value = "createdDateAt")
@@ -392,21 +390,6 @@ public class SearchBean extends AbstractUnitSurvey{
 	     */
 	    public void setLimitVotesEnabled(Boolean limitVotesEnabled) {
 	        this.limitVotesEnabled = limitVotesEnabled;
-	    }
-
-	    /**
-	     * @return the resumeTweetPollDashBoard
-	     */
-	    @JsonIgnore
-	    public Boolean getResumeTweetPollDashBoard() {
-	        return resumeTweetPollDashBoard;
-	    }
-
-	    /**
-	     * @param resumeTweetPollDashBoard the resumeTweetPollDashBoard to set
-	     */
-	    public void setResumeTweetPollDashBoard(Boolean resumeTweetPollDashBoard) {
-	        this.resumeTweetPollDashBoard = resumeTweetPollDashBoard;
 	    }
 
 	    /**

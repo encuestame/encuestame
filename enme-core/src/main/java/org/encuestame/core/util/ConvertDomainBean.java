@@ -29,7 +29,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.persistence.domain.*;
-import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.question.Question;
@@ -52,6 +51,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.interfaces.IFolder;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -68,7 +68,6 @@ import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.social.TypeAuth;
 import org.encuestame.utils.web.CommentBean;
-import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.encuestame.utils.web.GadgetPropertiesBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -649,14 +648,14 @@ public class ConvertDomainBean {
             unitTweetPoll.setFolderId(tweetPoll.getTweetPollFolder().getId());
         }
         unitTweetPoll.setAllowRepeatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false
-                        : tweetPoll.getAllowRepatedVotes());
+                : tweetPoll.getAllowRepatedVotes());
         unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll
-                        .getHashTags())));
+                .getHashTags())));
         unitTweetPoll.setTotalVotes(tweetPoll.getNumbervotes() == null ? EnMeUtils.VOTE_MIN
-                        : Long.valueOf(tweetPoll.getNumbervotes()));
+                : Long.valueOf(tweetPoll.getNumbervotes()));
         unitTweetPoll.setCreatedDateAt(tweetPoll.getCreateDate());
         unitTweetPoll.setLimitVotesDate(tweetPoll.getDateLimit() == null ? false
-                        : tweetPoll.getDateLimit());
+                : tweetPoll.getDateLimit());
         unitTweetPoll.setUpdateDate(tweetPoll.getUpdatedDate());
         if (tweetPoll.getDateLimit() != null
                 && tweetPoll.getDateLimited() != null) {
@@ -1188,49 +1187,8 @@ public class ConvertDomainBean {
                     .convertSurveyDomaintoBean(survey));
         }
         return surveyBeanList;
-    }
-
-    /**
-     * Convert Dashboard bean to dashboard domain.
-     *
-     * @param dashboards
-     * @return
-     */
-    public static final List<DashboardBean> convertListDashboardToBean(
-            final List<Dashboard> dashboards) {
-        final List<DashboardBean> dashboardList = new LinkedList<DashboardBean>();
-        for (Dashboard dashboard : dashboards) {
-            dashboardList.add(ConvertDomainBean
-                    .convertDashboardDomaintoBean(dashboard));
-        }
-        return dashboardList;
-    }
-
-    /**
-     * Convert Dashboard domain to dashboard bean.
-     *
-     * @param dashboard
-     * @return
-     */
-    public static final DashboardBean convertDashboardDomaintoBean(
-            final Dashboard dashboard) {
-        final DashboardBean dashboardBean = new DashboardBean();
-        if (dashboard != null) {
-            dashboardBean.setDashboardId(dashboard.getBoardId());
-            dashboardBean.setDashboardName(dashboard.getPageBoardName());
-            dashboardBean.setDashboardDesc(dashboard.getDescription());
-            dashboardBean.setFavorite(dashboard.getFavorite());
-            dashboardBean.setFavoriteCounter(dashboard.getFavoriteCounter());
-            dashboardBean.setLayout((dashboard.getPageLayout() == null ? null
-                    : dashboard.getPageLayout().toString()));
-            dashboardBean.setSequence(dashboard.getBoardSequence());
-            dashboardBean
-                    .setSelected(dashboard.getSelectedByDefault() == null ? false
-                            : dashboard.getSelectedByDefault());
-        }
-        return dashboardBean;
-    }
-
+    } 
+   
     /**
      * Convert Gadget domain to gadget bean.
      *
@@ -2064,7 +2022,7 @@ public class ConvertDomainBean {
         final List<SocialProvider> socialNetworksProviders = new ArrayList<SocialProvider>();
         SocialProvider socialNetworkProv;
         for (String provider : socialProviders) {
-            socialNetworkProv = SocialProvider.getProvider(provider);
+            socialNetworkProv = ValidationUtils.getEnumFromString(SocialProvider.class, provider);
             if (socialNetworkProv != null) {
                 socialNetworksProviders.add(socialNetworkProv);
             }
@@ -2082,7 +2040,7 @@ public class ConvertDomainBean {
         final List<CommentOptions> comments = new ArrayList<CommentOptions>();
         CommentOptions commentRestriction;
         for (String restrictOption : options) {
-            commentRestriction = CommentOptions.getCommentOption(restrictOption);
+            commentRestriction = ValidationUtils.getEnumFromString(CommentOptions.class, restrictOption);
             if(commentRestriction !=null){
                 comments.add(commentRestriction);
             }

@@ -18,47 +18,29 @@ package org.encuestame.utils.enums;
  * @since Dec 14, 2010 20:14:07 PM
  */
 public enum RelativeTimeEnum {
-    RIGTH_NOW, //##
-    ONE_SECOND_AGO,
-    SECONDS_AGO,
-    A_MINUTE_AGO,
-    MINUTES_AGO,
-    AN_HOUR_AGO,
-    HOURS_AGO,
-    YESTERDAY, //##
-    DAYS_AGO, //##
-    ONE_MONTH_AGO,
-    MONTHS_AGO,
-    ONE_YEAR_AGO,
-    YEARS_AGO,
+    RIGTH_NOW(1), //##
+    ONE_SECOND_AGO(15),
+    SECONDS_AGO(70),
+    A_MINUTE_AGO(1),
+    MINUTES_AGO(80),
+    AN_HOUR_AGO(1),
+    HOURS_AGO(18),
+    YESTERDAY(1), //##
+    DAYS_AGO(4), //##
+    ONE_MONTH_AGO(8),
+    MONTHS_AGO(11),
+    ONE_YEAR_AGO(1),
+    YEARS_AGO(6);
+
+    /** **/
+    private Integer relativeTimeAsString;
 
     /**
      *
+     * @param optionAsString
      */
-    RelativeTimeEnum() {
-
-    };
-
-    /**
-     * Relative time to number.
-     * @return
-     */
-    public Integer toNumber() {
-        Integer period = null;
-        if (this == RIGTH_NOW) { period = 1; }
-        else if (this == ONE_SECOND_AGO) { period = 15; }
-        else if (this == SECONDS_AGO) { period = 70; }
-        else if (this == A_MINUTE_AGO) { period = 1; }
-        else if (this == MINUTES_AGO) { period = 80; }
-        else if (this == AN_HOUR_AGO) { period = 1; }
-        else if (this == HOURS_AGO) { period = 18; }
-        else if (this == YESTERDAY) { period = 1; }
-        else if (this == DAYS_AGO) { period = 4; }
-        else if (this == ONE_MONTH_AGO) { period = 8; }
-        else if (this == MONTHS_AGO) { period = 11; }
-        else if (this == ONE_YEAR_AGO) { period = 1; }
-        else if (this == YEARS_AGO) { period = 6; }
-        return period;
+    RelativeTimeEnum(Integer optionAsString){
+        this.relativeTimeAsString = optionAsString;
     }
 }
 

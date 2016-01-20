@@ -22,34 +22,21 @@ public enum HitCategory {
 	/**
 	 * Define a hit as a visit.
 	 */
-	VISIT,
+	VISIT("VISIT"),
 	
 	/**
 	 * Define a hit as a vote.
 	 */
-	VOTE,
-	
-	HitCategory(){};
-	
-	 /**
-     * To String.
-     */
-    public String toString() {
-        String hitCategory = "VISIT";
-        if (this == VISIT) { hitCategory = "VISIT"; }
-        else if (this == VOTE) { hitCategory = "VOTE"; }
-        return hitCategory;
-    }
-    
+	VOTE("VOTE");
+
+    /** **/
+    private String hitCategoryAsString;
+
     /**
-     * Get a category.
-     * @param type {@link HitCategory}
-     * @return
+     *
+     * @param optionAsString
      */
-    public static HitCategory getCategory(final String type) {
-        if (null == type) { return null; }
-        else if (type.equalsIgnoreCase("VISIT")) { return VISIT; }
-        else if (type.equalsIgnoreCase("VOTE")) {  return VOTE;}
-        else return null;
+	HitCategory(String optionAsString){
+        this.hitCategoryAsString = optionAsString;
     }
 }

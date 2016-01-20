@@ -52,8 +52,7 @@ public class Gadget {
     /** Gadget position **/
     private Integer gadgetPosition;
 
-    /** {@link Dashboard} **/
-    private Dashboard dashboard;
+
 
     /** Availability gadget**/
     private Boolean status;
@@ -149,21 +148,6 @@ public class Gadget {
      */
     public void setGadgetPosition(final Integer gadgetPosition) {
         this.gadgetPosition = gadgetPosition;
-    }
-
-    /**
-     * @return the dashboard
-     */
-    @ManyToOne()
-    public Dashboard getDashboard() {
-        return dashboard;
-    }
-
-    /**
-     * @param dashboard the dashboard to set
-     */
-    public void setDashboard(final Dashboard dashboard) {
-        this.dashboard = dashboard;
     }
 
     /**

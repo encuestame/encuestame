@@ -12,12 +12,10 @@ alter table comments add constraint FKDC17DDF4F44558E9 foreign key (uid) referen
 alter table comments add constraint FKDC17DDF4793D9E77 foreign key (sid) references surveys
 alter table comments add constraint FKDC17DDF4CE12CAE8 foreign key (pollId) references poll
 alter table comments add constraint FKDC17DDF4D9AA8E98 foreign key (tweetPollId) references tweetPoll
-alter table dashboard add constraint FKC18AEA949229BCA5 foreign key (userBoard_uid) references userAccount
 alter table email add constraint FK5C24B9CED78E617 foreign key (id_list) references emailList
 alter table emailList add constraint FK7E5F425A2B2A6AB4 foreign key (uid) references account
 alter table emailSubscribe add constraint FK4B85010EED78E617 foreign key (id_list) references emailList
 alter table emailSubscribe add constraint FK4B85010EE824035 foreign key (email_id) references email
-alter table gadget add constraint FKB549144CB975B5F9 foreign key (dashboard_dashboardId) references dashboard
 alter table gadget_properties add constraint FK866B6706369F8B2C foreign key (userAccount_uid) references userAccount
 alter table gadget_properties add constraint FK866B670629091B05 foreign key (gadget_gadgetId) references gadget
 alter table geoPoint add constraint FK6C73C0BFBD91661D foreign key (loc_id_type) references geoPoint_type

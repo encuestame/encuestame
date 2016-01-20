@@ -286,7 +286,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
         // this.secUserSecondary.getUsername());
         assertEquals(
                 getAccountDao().getSocialAccountByAccount(this.userPrimary,
-                        SocialProvider.SocialProvider.TWITTER).size(), 1);
+                        SocialProvider.TWITTER).size(), 1);
     }
 
     /**

@@ -20,42 +20,22 @@ package org.encuestame.utils.enums;
 public enum GadgetType {
 
     /** **/
-    ACTIVITY_STREAM,
+    ACTIVITY_STREAM("STREAM"),
 
     /** Gadget type for surveys**/
-    COMMENTS,
+    COMMENTS("COMMENTS"),
 
     /** Gadget type for tweetPolls**/
-    TWEETPOLLS_VOTES,
+    TWEETPOLLS_VOTES("TWEETPOLLSVOTES");
+
+    /** **/
+    private String optionAsString;
 
     /**
-     * Constructor.
+     *
+     * @param optionAsString
      */
-    GadgetType(){
-
-    };
-
-    /**
-     * Get gadget type by string
-     * @param gadgetType
-     * @return
-     */
-    public static GadgetType getGadgetType(final String gadgetType) {
-        if (null == gadgetType) { return null; }
-        else if (gadgetType.equalsIgnoreCase("STREAM")) { return ACTIVITY_STREAM; }
-        else if (gadgetType.equalsIgnoreCase("COMMENTS")) { return COMMENTS; }
-        else if (gadgetType.equalsIgnoreCase("TWEETPOLLSVOTES")) { return TWEETPOLLS_VOTES; }
-        else return null;
-    }
-
-    /**
-     * To String.
-     */
-    public String toString() {
-        String gadget = "STREAM";
-        if (this == ACTIVITY_STREAM) { gadget = "STREAM".toLowerCase(); }
-        else if (this == COMMENTS) { gadget = "COMMENTS".toLowerCase(); }
-        else if (this == TWEETPOLLS_VOTES) { gadget = "TWEETPOLLSVOTES".toLowerCase(); }
-        return gadget;
+    GadgetType(String optionAsString){
+        this.optionAsString = optionAsString;
     }
 }

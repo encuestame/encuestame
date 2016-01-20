@@ -20,7 +20,6 @@ import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
-import org.encuestame.persistence.dao.IDashboardDao;
 import org.encuestame.persistence.dao.IEmail;
 import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IGeoPoint;
@@ -107,11 +106,7 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
    /** {@link IEmail} **/
     @Autowired
     private IEmail emailListsDao;
-
-    /** {@link IDashboardDao} **/
-    @Autowired
-    private IDashboardDao dashboardDao;
-
+ 
     @Autowired
     private CommentsOperations commentsOperations;
 
@@ -407,20 +402,6 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
      */
     public final void setFrontEndDao(final IFrontEndDao frontEndDao) {
         this.frontEndDao = frontEndDao;
-    }
-
-    /**
-     * @return the dashboardDao
-     */
-    public IDashboardDao getDashboardDao() {
-        return dashboardDao;
-    }
-
-    /**
-     * @param dashboardDao the dashboardDao to set
-     */
-    public void setDashboardDao(final IDashboardDao dashboardDao) {
-        this.dashboardDao = dashboardDao;
     }
 
     /**

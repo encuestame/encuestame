@@ -28,7 +28,6 @@ import org.apache.commons.lang.math.RandomUtils;
 import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
-import org.encuestame.persistence.dao.IDashboardDao;
 import org.encuestame.persistence.dao.IEmail;
 import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IGeoPoint;
@@ -43,8 +42,7 @@ import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.dao.ITweetPoll;
-import org.encuestame.persistence.dao.imp.ClientDao;
-import org.encuestame.persistence.dao.imp.DashboardDao;
+import org.encuestame.persistence.dao.imp.ClientDao; 
 import org.encuestame.persistence.dao.imp.EmailDao;
 import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.dao.imp.HashTagDao;
@@ -65,7 +63,6 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.persistence.domain.Hit; 
 import org.encuestame.persistence.domain.Schedule;
-import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.notifications.Notification;
@@ -195,11 +192,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /** {@link FrontEndDao} **/
     @Autowired
-    private IFrontEndDao frontEndDao;
-
-    /** {@link DashboardDao} **/
-    @Autowired
-    private IDashboardDao dashboardDao;
+    private IFrontEndDao frontEndDao; 
 
     /** {@link ScheduleDao **/
     @Autowired
@@ -671,17 +664,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         properties.setGadgetPropValue(value);
         properties.setUserAccount(user);
         properties.setGadget(gadget);
-        getDashboardDao().saveOrUpdate(properties);
+        //getDashboardDao().saveOrUpdate(properties);
+        //TODO: Removed Dashboard references
         return properties;
-    }
-
-    /**
-     * Create gadget default.
-     * @return
-     */
-    public Gadget createGadgetDefault(final Dashboard board){
-        return this.createGadget("default", board);
-    }
+    } 
 
     /**
      * Create gadget.
@@ -689,46 +675,16 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param type
      * @return
      */
-    public Gadget createGadget(final String name, final Dashboard board){
+    public Gadget createGadget(final String name){
         final Gadget gadget = new Gadget();
         gadget.setGadgetName(name);
-        gadget.setGadgetType(GadgetType.getGadgetType("stream"));
+        gadget.setGadgetType(GadgetType.ACTIVITY_STREAM);
         gadget.setGadgetColumn(2);
         gadget.setGadgetColor("default");
         gadget.setGadgetPosition(0);
-        gadget.setDashboard(board);
-        getDashboardDao().saveOrUpdate(gadget);
+        //TODO: Removed Dashboard references
         return gadget;
-    }
-
-    /**
-     * Create dashboard.
-     * @param boardName
-     * @param favorite
-     * @param userAcc
-     * @return
-     */
-    public Dashboard createDashboard(final String boardName, final Boolean favorite, final UserAccount userAcc){
-        final Dashboard board = new Dashboard();
-        board.setPageBoardName(boardName);
-          board.setDescription("");
-          board.setFavorite(favorite);
-          board.setFavoriteCounter(1);
-          board.setPageLayout(LayoutEnum.BA_BLOCK_COLUMN);
-          board.setBoardSequence(1);
-          board.setUserBoard(userAcc);
-          getDashboardDao().saveOrUpdate(board);
-        return board;
-    }
-
-    /**
-     * Create dashboard default.
-     * @param userAcc
-     * @return
-     */
-    public Dashboard createDashboardDefault(final UserAccount userAcc){
-        return this.createDashboard("Board default", Boolean.TRUE, userAcc);
-    }
+    }  
 
     /**
      * Create Secondary User.
@@ -2207,21 +2163,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         visit.setHitDate(hitDate);
         return visit;
     }
-
-    /**
-    * @return the dashboardDao
-    */
-    public IDashboardDao getDashboardDao() {
-        return dashboardDao;
-    }
-
-    /**
-    * @param dashboardDao the dashboardDao to set
-    */
-    public void setDashboardDao(final IDashboardDao dashboardDao) {
-        this.dashboardDao = dashboardDao;
-    }
-
+ 
     /**
      * @return the commentsOperationsDao
      */

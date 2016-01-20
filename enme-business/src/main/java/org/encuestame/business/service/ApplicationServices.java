@@ -18,7 +18,6 @@ import org.encuestame.core.service.imp.GeoLocationSupport;
 import org.encuestame.core.service.imp.IApplicationServices;
 import org.encuestame.core.service.imp.IChartService;
 import org.encuestame.core.service.imp.ICommentService;
-import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPictureService;
 import org.encuestame.core.service.imp.IPollService; 
@@ -48,22 +47,20 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     private ISurveyService surveyService;
     /** {@link PollService}. **/
     private IPollService pollService;
-    /** {@link TweetPollService}. **/
+     /** {@link TweetPollService}. **/
     private ITweetPollService tweetPollService;
     /** {@link GeoLocationService}. **/
     private GeoLocationSupport locationService;
     
     /** {@link ChartService}. **/
     private IChartService chartService;
-    /** {@link FrontEndCoreService}. **/
+    /**   **/
     private IFrontEndService frontEndService;
     /** {@link PictureService}. **/
     private IPictureService pictureService;
     /** {@link SearchServiceOperations}. **/
 
     private SearchServiceOperations searchService;
-
-    private IDashboardService dashboardService;
 
     private StreamOperations streamOperations;
 
@@ -206,21 +203,6 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     @Autowired
     public void setSearchService(SearchServiceOperations searchService) {
         this.searchService = searchService;
-    }
-
-    /**
-     * @return the dashboardService
-     */
-    public IDashboardService getDashboardService() {
-        return dashboardService;
-    }
-
-    /**
-     * @param dashboardService the dashboardService to set
-     */
-    @Autowired
-    public void setDashboardService(final IDashboardService dashboardService) {
-        this.dashboardService = dashboardService;
     }
 
     /**

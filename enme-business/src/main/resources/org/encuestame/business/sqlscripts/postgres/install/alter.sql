@@ -60,16 +60,6 @@ ALTER TABLE ONLY client
 ALTER TABLE ONLY comments
     ADD CONSTRAINT comments_pkey PRIMARY KEY (commentid);
 
-
---
--- TOC entry 2386 (class 2606 OID 16440)
--- Name: dashboard_pkey; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
---
-
-ALTER TABLE ONLY dashboard
-    ADD CONSTRAINT dashboard_pkey PRIMARY KEY (dashboardid);
-
-
 --
 -- TOC entry 2388 (class 2606 OID 16450)
 -- Name: email_email_key; Type: CONSTRAINT; Schema: public; Owner: jpicado; Tablespace:
@@ -1385,16 +1375,6 @@ ALTER TABLE ONLY survey_group_format
 ALTER TABLE ONLY survey_group_format
     ADD CONSTRAINT fkb4df867cb1a6912c FOREIGN KEY (id_sid_format) REFERENCES survey_format(id_sid_format);
 
-
---
--- TOC entry 2544 (class 2606 OID 16906)
--- Name: fkb549144cb975b5f9; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
---
-
-ALTER TABLE ONLY gadget
-    ADD CONSTRAINT fkb549144cb975b5f9 FOREIGN KEY (dashboard_dashboardid) REFERENCES dashboard(dashboardid);
-
-
 --
 -- TOC entry 2556 (class 2606 OID 16966)
 -- Name: fkb63dd9d45ece45a2; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
@@ -1447,15 +1427,6 @@ ALTER TABLE ONLY survey_pagination
 
 ALTER TABLE ONLY survey_pagination
     ADD CONSTRAINT fkbec9a99f793d9e77 FOREIGN KEY (sid) REFERENCES surveys(sid);
-
-
---
--- TOC entry 2539 (class 2606 OID 16881)
--- Name: fkc18aea949229bca5; Type: FK CONSTRAINT; Schema: public; Owner: jpicado
---
-
-ALTER TABLE ONLY dashboard
-    ADD CONSTRAINT fkc18aea949229bca5 FOREIGN KEY (userboard_uid) REFERENCES useraccount(uid);
 
 
 --

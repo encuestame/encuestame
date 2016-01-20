@@ -290,8 +290,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans{
            setParameter("scheduled", "false");
            setParameter("liveResults", "false");
            setParameter("captcha", "false");
-           setParameter("limitVotes", "false");
-           setParameter("followDashBoard", "false");
+           setParameter("limitVotes", "false"); 
            setParameter("repeatedVotes", "false");
            setParameter("maxLimitVotes", "100");
            setParameter("maxRepeatedVotes", "10");

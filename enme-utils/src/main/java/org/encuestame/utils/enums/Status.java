@@ -20,15 +20,22 @@ package org.encuestame.utils.enums;
  */
 public enum Status {
     /** Active. **/
-    ACTIVE,
+    ACTIVE("ACTIVE"),
     /** Inactive. **/
-    INACTIVE,
+    INACTIVE("INACTIVE"),
    /** success status */
-    SUCCESS,
+    SUCCESS("SUCCESS"),
     /** failed status **/
-    FAILED,
+    FAILED("FAILED"),
     /** processing status **/
-    PROCESSING
+    PROCESSING("PROCESSING");
+
+    private String optionAsString;
+
+    Status(final String optionAsString){
+
+
+    }
 
     //TODO: to string methods
 }

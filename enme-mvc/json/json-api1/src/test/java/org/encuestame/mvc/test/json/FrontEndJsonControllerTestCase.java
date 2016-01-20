@@ -19,7 +19,6 @@ import javax.servlet.ServletException;
 
 import org.encuestame.mvc.controller.json.v1.HashTagsJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonV1MvcUnitBeans;
-import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -44,30 +43,8 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans{
 
     @Before
     public void startFrontEnd(){
-        createDashboard("dashboard 1", true, getSpringSecurityLoggedUserAccount());
-        createDashboard("dashboard 2", true, getSpringSecurityLoggedUserAccount());
-        createDashboard("dashboard 3", true, getSpringSecurityLoggedUserAccount());
-    }
 
-    /**
-     * @throws IOException
-     * @throws ServletException
-     *
-     */
-    @Test
-    public void testGetMyDashBoards() throws ServletException, IOException {
-        initService("/api/common/dashboard", MethodJson.GET);
-        final JSONObject response = callJsonService();
-        final JSONObject success = getSucess(response);
-        final JSONArray items = (JSONArray) success.get("items");
-        final String label = (String) success.get("label");
-        final String identifier = (String) success.get("identifier");
-        Assert.assertNotNull(items);
-        Assert.assertEquals(label , "dashboard_name");
-        Assert.assertEquals(identifier , "id");
-        Assert.assertEquals(items.size(), 3);
     }
-
 
     /**
      * Get list directory.
@@ -85,8 +62,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans{
         final String gadgetId = (String) gadget.get("id");
         //add gadgets to dashboard
         initService("/api/common/" + gadgetId + "/gadget.json", MethodJson.POST);
-        final Dashboard db = createDashboard("dashboard 1", true, getSpringSecurityLoggedUserAccount());
-        setParameter("boardId", db.getBoardId().toString());
+
         final JSONObject response2 = callJsonService();
         final JSONObject success2 = getSucess(response2);
         //System.out.println(success2);
@@ -95,24 +71,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans{
         Assert.assertEquals("1", gadgetJson.get("gadget_column").toString());
     }
 
-    /**
-     *
-     * @throws ServletException
-     * @throws IOException
-     */
-    @Test
-    public void testcreateDashBoard() throws ServletException, IOException {
-        initService("/api/common/dashboard", MethodJson.POST);
-        setParameter("name", "dasboard 1");
-        setParameter("desc", "description of my dashboard");
-        setParameter("favourite", "true");
-        setParameter("layout", "AA");
-        final JSONObject response = callJsonService();
-        final JSONObject success = getSucess(response);
-        final JSONObject items = (JSONObject) success.get("dashboard");
-        Assert.assertNotNull(items);
-        Assert.assertEquals(items.get("dashboard_name"), "dasboard 1");
-    }
+
 
     /**
      * Test Get frontend items.

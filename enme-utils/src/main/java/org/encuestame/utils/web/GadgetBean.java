@@ -51,9 +51,6 @@ public class GadgetBean implements Serializable {
     @JsonProperty(value = "gadget_position")
     private Integer gadgetPosition;
 
-    /** {@link DashboardBean} **/
-    private Set<DashboardBean> dashboard = new HashSet<DashboardBean>();
-
     /** Availability gadget**/
     @JsonProperty(value = "gadget_status")
     private Boolean status;
@@ -131,21 +128,6 @@ public class GadgetBean implements Serializable {
      */
     public void setGadgetPosition(final Integer gadgetPosition) {
         this.gadgetPosition = gadgetPosition;
-    }
-
-    /**
-     * @return the dashboard
-     */
-    @JsonIgnore
-    public Set<DashboardBean> getDashboard() {
-        return dashboard;
-    }
-
-    /**
-     * @param dashboard the dashboard to set
-     */
-    public void setDashboard(final Set<DashboardBean> dashboard) {
-        this.dashboard = dashboard;
     }
 
     /**

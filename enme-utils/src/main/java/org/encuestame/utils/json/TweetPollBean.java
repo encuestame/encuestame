@@ -74,8 +74,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     private Integer maxRepeatedVotes;
     @JsonProperty(value = "limitVotesEnabled")
     private Boolean limitVotesEnabled  = false;
-    @JsonProperty(value = "resumeTweetPollDashBoard")
-    private Boolean resumeTweetPollDashBoard  = false;
     @JsonProperty(value = "createdDateAt")
     private Date createdDateAt;
     @JsonProperty(value = "limitVotesDate")
@@ -429,21 +427,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     }
 
     /**
-     * @return the resumeTweetPollDashBoard
-     */
-    @JsonIgnore
-    public Boolean getResumeTweetPollDashBoard() {
-        return resumeTweetPollDashBoard;
-    }
-
-    /**
-     * @param resumeTweetPollDashBoard the resumeTweetPollDashBoard to set
-     */
-    public void setResumeTweetPollDashBoard(Boolean resumeTweetPollDashBoard) {
-        this.resumeTweetPollDashBoard = resumeTweetPollDashBoard;
-    }
-
-    /**
     * @return the ownerUsername
     */
     @JsonIgnore
@@ -567,7 +550,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
                 + allowRepeatedVotes + ", totalVotes=" + totalVotes + ", hits="
                 + hits + ", maxRepeatedVotes=" + maxRepeatedVotes
                 + ", limitVotesEnabled=" + limitVotesEnabled
-                + ", resumeTweetPollDashBoard=" + resumeTweetPollDashBoard
                 + ", createdDateAt=" + createdDateAt + ", limitVotesDate="
                 + limitVotesDate + ", dateToLimit=" + dateToLimit
                 + ", updateDate=" + updateDate + ", captcha=" + captcha

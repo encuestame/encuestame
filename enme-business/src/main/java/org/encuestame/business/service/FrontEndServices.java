@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.Status;
@@ -396,7 +397,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             final SearchPeriods searchPeriods) {
         final List<TweetPoll> tweetPolls = getTweetPollDao()
                 .getTweetpollByHashTagName(tagName, initResults, limit,
-                        TypeSearchResult.getTypeSearchResult(filter), searchPeriods);
+                        ValidationUtils.getEnumFromString(TypeSearchResult.class, filter), searchPeriods);
         log.debug("TweetPoll by HashTagId total size ---> " + tweetPolls.size());
         final List<TweetPollBean> tweetPollBean = ConvertDomainBean
                 .convertListToTweetPollBean(tweetPolls);

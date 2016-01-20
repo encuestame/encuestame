@@ -41,12 +41,6 @@ DROP TABLE IF EXISTS client;
 
 DROP TABLE IF EXISTS comments;
 
---
--- Table structure for table 'dashboard'
---
-
-DROP TABLE IF EXISTS dashboard;
-
 -- --------------------------------------------------------
 
 --
