@@ -20,7 +20,6 @@ package org.encuestame.test.persistence.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
-//import org.jasypt.hibernate.encryptor.HibernatePBEStringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.*;
@@ -31,12 +30,10 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.stereotype.Service;
-import org.springframework.test.context.ContextConfiguration;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Properties;
+
 
 
 /**
@@ -60,20 +57,7 @@ public class DBConfig {
      *
      * @return
      */
-    @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(restDataSource());
-        sessionFactory.setPackagesToScan(new String[] { "org.encuestame.persistence.domain" });
-        sessionFactory.setHibernateProperties(hibernateProperties());
-        return sessionFactory;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Bean
+    @Bean(name = "dataSource")
     public DataSource restDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getRequiredProperty("datasource.classname"));
@@ -82,6 +66,20 @@ public class DBConfig {
         dataSource.setPassword(env.getRequiredProperty("datasource.pass"));
         return dataSource;
     }
+
+    /**
+     *
+     * @return
+     */
+    @Bean(name="sessionFactory")
+    public LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(restDataSource());
+        sessionFactory.setPackagesToScan(new String[]{"org.encuestame.persistence.domain"});
+        sessionFactory.setHibernateProperties(hibernateProperties());
+        return sessionFactory;
+    }
+
 
     @Bean(name = "jdbcDataSource")
     public BasicDataSource jdbcDataSource() {
@@ -124,7 +122,9 @@ public class DBConfig {
     @Bean
     @Autowired
     public HibernateTemplate hibernateTemplate(SessionFactory sessionFactory) {
-        return new HibernateTemplate(sessionFactory);
+        final HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
+        hibernateTemplate.setCacheQueries(Boolean.TRUE);
+        return hibernateTemplate;
     }
 
 //    @Bean
