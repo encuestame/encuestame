@@ -44,10 +44,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.utils.DateUtil;
-import org.encuestame.utils.MD5Utils;
-import org.encuestame.utils.RestFullUtil;
-import org.encuestame.utils.ValidationUtils;
+import org.encuestame.utils.*;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.QuestionPattern;
@@ -381,8 +378,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
             }
             else{
             final String hashPoll = MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500));
-            final CommentOptions commentOpt = ValidationUtils.getEnumFromString(CommentOptions.class, createPollBean.getShowComments());
-            final ShowResultsOptions showResultsOptions =  ValidationUtils.getEnumFromString(ShowResultsOptions.class, createPollBean.getResults());
+            final CommentOptions commentOpt = EnumerationUtils.getEnumFromString(CommentOptions.class, createPollBean.getShowComments());
+            final ShowResultsOptions showResultsOptions =  EnumerationUtils.getEnumFromString(ShowResultsOptions.class, createPollBean.getResults());
             pollDomain.setEditorOwner(user);
             pollDomain.setCreateDate(Calendar.getInstance().getTime());
             pollDomain.setPollHash(hashPoll);
@@ -483,8 +480,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
         Assert.notNull(questionDomain);
 
         poll.setPollCompleted(pollBean.getCompletedPoll());
-        poll.setShowResults(ValidationUtils.getEnumFromString(ShowResultsOptions.class, pollBean.getShowResults()));
-        poll.setShowComments(ValidationUtils.getEnumFromString(CommentOptions.class, pollBean
+        poll.setShowResults(EnumerationUtils.getEnumFromString(ShowResultsOptions.class, pollBean.getShowResults()));
+        poll.setShowComments(EnumerationUtils.getEnumFromString(CommentOptions.class, pollBean
                 .getShowComments()));
         poll.setPublish(pollBean.getPublishPoll());
         poll.setNotifications(pollBean.getCloseNotification());
@@ -1127,7 +1124,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             throws EnMeNoResultsFoundException, EnmeFailOperation {
         final Poll poll = getPollById(pollId, username);
         if (poll != null) {
-            poll.setShowResults(ValidationUtils.getEnumFromString(ShowResultsOptions.class, "ALL"));
+            poll.setShowResults(EnumerationUtils.getEnumFromString(ShowResultsOptions.class, "ALL"));
             getPollDao().saveOrUpdate(poll);
         } else {
             throw new EnmeFailOperation("Fail Change Status Operation");
