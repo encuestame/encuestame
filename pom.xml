@@ -29,7 +29,7 @@
         <java-version>1.7</java-version>
         <!-- encuestame version -->
         <encuestame.version>1.5.4-SNAPSHOT</encuestame.version>
-        <spring.version>4.2.1.RELEASE</spring.version>
+        <spring.version>4.2.4.RELEASE</spring.version>
         <env>development</env>
         <!-- js compress options -->
         <compress.minimize>true</compress.minimize>
@@ -48,16 +48,16 @@
         <google.guava>15.0</google.guava>
         <scribe>1.0.9</scribe>
         <wurfl>1.2</wurfl>
-        <log4j>1.2.14</log4j>
+        <log4j>1.2.17</log4j>
         <jstl>1.2</jstl>
         <jsp-api>2.2</jsp-api>
         <jdom2>2.0.6</jdom2>
         <jasypt>1.8</jasypt>
         <joda.time>1.6.2</joda.time>
         <!-- Hibernate Version -->
-        <hibernate.version>5.0.1.Final</hibernate.version>
+        <hibernate.version>5.0.3.Final</hibernate.version>
         <hibernate.commons.annotations.version>4.0.5.Final</hibernate.commons.annotations.version>
-        <hibernate.search.version>5.5.0.Final</hibernate.search.version>
+        <hibernate.search.version>5.5.1.Final</hibernate.search.version>
         <hibernate.validator>5.2.1.Final</hibernate.validator>
         <!-- JSON -->
         <jackson.version>2.3.3</jackson.version>
@@ -98,8 +98,8 @@
         <commons-dbcp>1.4</commons-dbcp>
         <commons-logging>1.1.1</commons-logging>
         <commons-digester>1.8</commons-digester>
-        <commons-beanutils>1.7.0</commons-beanutils>
-        <commons-httpclient>3.1</commons-httpclient>
+        <commons-beanutils>1.9.2</commons-beanutils>
+        <commons-httpclient>4.0</commons-httpclient>
         <configuration.version>1.6</configuration.version>
         <c3p0>0.9.0</c3p0>
         <jsr250-api>1.0</jsr250-api>
@@ -902,21 +902,6 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>org.hibernate.common</groupId>
-                <artifactId>hibernate-commons-annotations</artifactId>
-                <version>${hibernate.commons.annotations.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>cglib</artifactId>
-                        <groupId>cglib</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>asm-attrs</artifactId>
-                        <groupId>asm</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate.validator}</version>
@@ -942,25 +927,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>jaxen</groupId>-->
-                <!--<artifactId>jaxen</artifactId>-->
-                <!--<version>${jaxen}</version>-->
-                <!--<exclusions>-->
-                    <!--<exclusion>-->
-                        <!--<artifactId>xom</artifactId>-->
-                        <!--<groupId>xom</groupId>-->
-                    <!--</exclusion>-->
-                    <!--<exclusion>-->
-                        <!--<artifactId>jdom2</artifactId>-->
-                        <!--<groupId>org.jdom</groupId>-->
-                    <!--</exclusion>-->
-                    <!--<exclusion>-->
-                        <!--<artifactId>xml-apis</artifactId>-->
-                        <!--<groupId>xml-apis</groupId>-->
-                    <!--</exclusion>-->
-                <!--</exclusions>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -1011,13 +977,6 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring.version}</version>
-                <exclusions>
-                    <!-- Exclude Commons Logging in favor of SLF4j -->
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -1186,8 +1145,8 @@
                 <version>${spring.orm}</version>
             </dependency>
             <dependency>
-                <groupId>commons-httpclient</groupId>
-                <artifactId>commons-httpclient</artifactId>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
                 <version>${commons-httpclient}</version>
             </dependency>
             <dependency>
@@ -1204,6 +1163,7 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
+                <!--<scope>test</scope>-->
             </dependency>
             <dependency>
                 <groupId>org.twitter4j</groupId>
@@ -1251,11 +1211,11 @@
                 <artifactId>commons-digester</artifactId>
                 <version>${commons-digester}</version>
             </dependency>
-            <dependency>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-                <version>${commons-logging}</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>commons-logging</groupId>-->
+                <!--<artifactId>commons-logging</artifactId>-->
+                <!--<version>${commons-logging}</version>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
@@ -1371,16 +1331,6 @@
             <!-- Lucene -->
             <dependency>
                 <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-core</artifactId>
-                <version>${lucene.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-analyzers-common</artifactId>
-                <version>${lucene.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-highlighter</artifactId>
                 <version>${lucene.version}</version>
             </dependency>
@@ -1394,33 +1344,11 @@
                 <artifactId>lucene-queryparser</artifactId>
                 <version>${lucene.version}</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>org.apache.lucene</groupId>-->
-                <!--<artifactId>lucene-fast-vector-highlighter</artifactId>-->
-                <!--<version>${lucene.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-                <!--<groupId>org.apache.lucene</groupId>-->
-                <!--<artifactId>lucene-spellchecker</artifactId>-->
-                <!--<version>${lucene.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-                <!--<groupId>org.apache.lucene</groupId>-->
-                <!--<artifactId>lucene-snowball</artifactId>-->
-                <!--<version>${lucene.version}</version>-->
-            <!--</dependency>-->
             <!-- Apache Tiles -->
             <dependency>
                 <groupId>org.apache.tiles</groupId>
                 <artifactId>tiles-jsp</artifactId>
                 <version>${apache.tiles}</version>
-                <exclusions>
-                    <!-- Exclude Commons Logging in favor of SLF4j -->
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging-api</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.tiles</groupId>
