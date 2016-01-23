@@ -10,10 +10,6 @@
     <packaging>jar</packaging>
     <name>Encuestame JSON API V1</name>
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.encuestame</groupId>-->
-            <!--<artifactId>controllers</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>controllers</artifactId>
@@ -163,6 +159,10 @@
         <dependency>
             <groupId>com.rometools</groupId>
             <artifactId>rome-fetcher</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
