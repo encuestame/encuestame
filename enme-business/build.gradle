@@ -9,25 +9,21 @@ dependencies {
     compile group: 'commons-lang', name: 'commons-lang', version:'2.4'
     compile group: 'c3p0', name: 'c3p0', version:'0.9.0'
     compile group: 'javax.annotation', name: 'jsr250-api', version:'1.0'
-    compile(group: 'org.hibernate', name: 'hibernate-core', version:'5.0.1.Final') {
+    compile(group: 'org.hibernate', name: 'hibernate-core', version:'5.0.3.Final') {
 exclude(module: 'xml-apis')
-    }
-    compile(group: 'org.hibernate.common', name: 'hibernate-commons-annotations', version:'4.0.5.Final') {
-exclude(module: 'cglib')
-exclude(module: 'asm-attrs')
     }
     compile(group: 'org.hibernate', name: 'hibernate-validator', version:'5.2.1.Final') {
 exclude(module: 'jaxb-impl')
 exclude(module: 'jaxb-api')
     }
-    compile(group: 'org.hibernate', name: 'hibernate-search-orm', version:'5.5.0.Final') {
+    compile(group: 'org.hibernate', name: 'hibernate-search-orm', version:'5.5.1.Final') {
 exclude(module: 'slf4j-api')
     }
-    compile group: 'log4j', name: 'log4j', version:'1.2.14'
+    compile group: 'log4j', name: 'log4j', version:'1.2.17'
     compile group: 'org.eclipse.persistence', name: 'javax.persistence', version:'2.1.0'
     compile group: 'javax.mail', name: 'mail', version:'1.4'
     compile group: 'taglibs', name: 'standard', version:'1.1.2'
-    compile group: 'commons-httpclient', name: 'commons-httpclient', version:'3.1'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.0'
     compile group: 'org.jasypt', name: 'jasypt', version:'1.8'
     compile group: 'org.jdom', name: 'jdom2', version:'2.0.6'
     compile group: 'junit', name: 'junit', version:'4.12'
@@ -39,9 +35,8 @@ exclude(module: 'slf4j-api')
 exclude(module: 'slf4j-api')
     }
     compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.12'
-    compile group: 'commons-beanutils', name: 'commons-beanutils', version:'1.7.0'
+    compile group: 'commons-beanutils', name: 'commons-beanutils', version:'1.9.2'
     compile group: 'commons-digester', name: 'commons-digester', version:'1.8'
-    compile group: 'commons-logging', name: 'commons-logging', version:'1.1.1'
     compile group: 'cglib', name: 'cglib-nodep', version:'2.2'
     compile group: 'org.antlr', name: 'antlr', version:'3.0'
     compile group: 'org.apache.velocity', name: 'velocity', version:'1.6.2'
@@ -49,33 +44,31 @@ exclude(module: 'slf4j-api')
     compile group: 'com.rometools', name: 'rome-fetcher', version:'1.5.1'
     compile group: 'org.opensymphony.quartz', name: 'quartz', version:'1.6.1'
     compile group: 'joda-time', name: 'joda-time', version:'1.6.2'
-    compile(group: 'org.springframework', name: 'spring-context', version:'4.2.1.RELEASE') {
-exclude(module: 'commons-logging')
-    }
-    compile group: 'org.springframework', name: 'spring-jdbc', version:'4.2.1.RELEASE'
-    compile group: 'org.springframework', name: 'spring-webmvc', version:'4.2.1.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version:'4.2.4.RELEASE'
+    compile group: 'org.springframework', name: 'spring-jdbc', version:'4.2.4.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version:'4.2.4.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-core', version:'4.0.2.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-ldap', version:'4.0.2.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-taglibs', version:'4.0.2.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-config', version:'4.0.2.RELEASE'
     compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth', version:'2.0.2.RELEASE'
-    compile group: 'org.springframework', name: 'spring-tx', version:'4.2.1.RELEASE'
-    compile group: 'org.springframework', name: 'spring-aop', version:'4.2.1.RELEASE'
-    compile group: 'org.springframework', name: 'spring-test', version:'4.2.1.RELEASE'
+    compile group: 'org.springframework', name: 'spring-tx', version:'4.2.4.RELEASE'
+    compile group: 'org.springframework', name: 'spring-aop', version:'4.2.4.RELEASE'
+    compile group: 'org.springframework', name: 'spring-test', version:'4.2.4.RELEASE'
     compile group: 'org.springframework.ldap', name: 'spring-ldap-core', version:'2.0.2.RELEASE'
     compile(group: 'org.springframework.webflow', name: 'spring-js', version:'2.4.0.RELEASE') {
 exclude(module: 'org.springframework.beans')
     }
-    compile group: 'org.springframework', name: 'spring-expression', version:'4.2.1.RELEASE'
-    compile group: 'org.springframework', name: 'spring-web', version:'4.2.1.RELEASE'
-    compile group: 'org.springframework', name: 'spring-orm', version:'4.2.1.RELEASE'
-    compile group: 'org.springframework', name: 'spring-aspects', version:'4.2.1.RELEASE'
+    compile group: 'org.springframework', name: 'spring-expression', version:'4.2.4.RELEASE'
+    compile group: 'org.springframework', name: 'spring-web', version:'4.2.4.RELEASE'
+    compile group: 'org.springframework', name: 'spring-orm', version:'4.2.4.RELEASE'
+    compile group: 'org.springframework', name: 'spring-aspects', version:'4.2.4.RELEASE'
     compile group: 'com.google.guava', name: 'guava', version:'15.0'
     compile group: 'org.scribe', name: 'scribe', version:'1.0.9'
     compile group: 'org.springframework.mobile', name: 'spring-mobile-device', version:'1.1.4.RELEASE'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.3.3'
     compile group: 'net.sf.opencsv', name: 'opencsv', version:'2.3'
-    compile group: 'org.springframework', name: 'spring-messaging', version:'4.2.1.RELEASE'
+    compile group: 'org.springframework', name: 'spring-messaging', version:'4.2.4.RELEASE'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.3.3'
   testCompile project(':persistence:dao')
   testCompile project(':core')
