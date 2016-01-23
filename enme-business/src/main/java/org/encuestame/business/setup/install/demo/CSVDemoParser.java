@@ -265,7 +265,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
         List<SignUpBean> users = getUsers();
         log.debug("Creating users....");
         for (SignUpBean signUpBean : users) {
-            getSecurity().singupUser(signUpBean, true);
+            getSecurity().signupUser(signUpBean, true);
         }
         log.debug("Getting Hashtags....");
         final List<HashTagBean> hashtags = getHashtags();

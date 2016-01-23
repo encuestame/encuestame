@@ -84,7 +84,6 @@ public interface SecurityOperations extends ServiceOperations {
     /**
      * Change state social account.
      * @param accountId
-     * @param username
      * @param action
      * @throws EnMeNoResultsFoundException
      * @throws IllegalSocialActionException
@@ -123,8 +122,8 @@ public interface SecurityOperations extends ServiceOperations {
 
     /**
      * Assing Group to User.
-     * @param user user
-     * @param group group
+     * @param groupId group id
+     * @param userId user id
      * @throws EnMeNoResultsFoundException
      */
     void assingGroupFromUser(
@@ -147,7 +146,7 @@ public interface SecurityOperations extends ServiceOperations {
 
     /**
      * Delete Group Domain.
-     * @param Long group
+     * @param groupId group id
      */
     void deleteGroup(final Long groupId);
 
@@ -278,7 +277,7 @@ public interface SecurityOperations extends ServiceOperations {
      * @return {@link UserAccountBean}.
      * @throws EnMeNoResultsFoundException
      */
-    UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail) throws EnMeNoResultsFoundException;
+    UserAccount signupUser(final SignUpBean singUpBean, boolean disableEmail) throws EnMeNoResultsFoundException;
 
     /**
      * Search {@link UserAccount} by email.

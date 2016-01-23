@@ -677,9 +677,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @return {@link UserAccountBean}.
      * @throws EnMeNoResultsFoundException
      */
-    public UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail) throws EnMeNoResultsFoundException {
+    public UserAccount signupUser(final SignUpBean singUpBean, boolean disableEmail) throws EnMeNoResultsFoundException {
         //FIXME: Validate the email inside this service.
-        log.debug("singupUser "+singUpBean.toString());
+        log.debug("signupUser "+singUpBean.toString());
         //create account/
         final Account account = this.createDefaultAccount();
         //create directory account.
@@ -705,7 +705,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         getAccountDao().saveOrUpdate(userAccount);
         //create global account directory
         if (log.isDebugEnabled()) {
-            log.debug("singupUser created user account");
+            log.debug("signupUser created user account");
         }
         //default permissions.
         final Set<Permission> permissions = new HashSet<Permission>();

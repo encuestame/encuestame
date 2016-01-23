@@ -830,14 +830,14 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     }
 
     /**
-     * Test singupUser.
+     * Test signupUser.
      * @throws EnMeNoResultsFoundException 
      */
     @Test
     @Category(DefaultTest.class)
     public void testsingupUser() throws EnMeNoResultsFoundException {
         final SignUpBean bean = createSignUpBean("newUser", "newUser@gmail.com", "12345");
-        this.securityService.singupUser(bean, false);
+        this.securityService.signupUser(bean, false);
     }
 
     /**
