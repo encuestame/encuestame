@@ -69,7 +69,6 @@ import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.TweetPollScheduledBean;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.PollDetailBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollDetailBean;
 import org.encuestame.utils.web.TweetPollResultsBean;

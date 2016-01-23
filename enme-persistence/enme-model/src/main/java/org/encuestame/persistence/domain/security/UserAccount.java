@@ -47,9 +47,10 @@ import org.hibernate.search.annotations.Store;
  * @since 08/12/2009 19:01:26
  */
 
-@Table(name = "userAccount", indexes= {@Index(columnList = "email_account", name = "emailIndex"), @Index(columnList= "username", name="usernameIndex")})
+
 @Entity
-@Indexed(index="UserAccount")
+@Table(indexes={@Index(name ="emailIndex",columnList="email_account")})
+//@Indexed(index="UserAccount")
 // indexes = { @Index("name")})
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserAccount extends AbstractGeoPoint implements Serializable{
@@ -335,7 +336,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
      */
     public void setSecUserPermissions(Set<Permission> secUserPermissions) {
         this.secUserPermissions = secUserPermissions;
-    } 
+    }
 
     /**
      * @return the lastTimeLogged

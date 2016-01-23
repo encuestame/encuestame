@@ -38,6 +38,7 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
+import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.enums.*;
@@ -425,10 +426,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
      @Test(expected = EnMeExpcetion.class)
      public void testfilterPollByItemsByTypeException() throws EnMeExpcetion{
          List<PollBean> keyItems5 =  this.pollService.filterPollByItemsByType(
-                 TypeSearch.getSearchString("dsda"),
-                 "",
-                 200,
-                 0);
+                 EnumerationUtils.getEnumFromString(TypeSearch.class, "dsda"),
+                         "",
+                         200,
+                         0);
      }
 
      @Test
