@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
-import org.encuestame.core.files.PathUtil;
+import org.encuestame.utils.PathUtil;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.exception.EnMeStartupException;
 import org.encuestame.persistence.exception.EnmeFailOperation;

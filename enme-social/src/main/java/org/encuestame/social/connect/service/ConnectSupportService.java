@@ -14,7 +14,7 @@ package org.encuestame.social.connect.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.files.PathUtil;
+import org.encuestame.utils.PathUtil;
 import org.encuestame.core.security.web.SecurityUtils;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.SecurityOperations;
