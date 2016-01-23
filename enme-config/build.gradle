@@ -1,5 +1,8 @@
 
 description = 'Encuestame Configuration'
+dependencies {
+    compile group: 'junit', name: 'junit', version:'4.12'
+}
 
 task packageTests(type: Jar) {
   from sourceSets.test.output

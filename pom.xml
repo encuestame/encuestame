@@ -120,7 +120,7 @@
         <!--<jaxen>1.1.1</jaxen>-->
         <opencsv.version>2.3</opencsv.version>
         <javax.inject>1</javax.inject>
-        <javax.persistence>1.0.2</javax.persistence>
+        <javax.persistence>2.1.0</javax.persistence>
         <javax.el.api>3.0.1-b04</javax.el.api>
         <infinispan.version>8.0.1.Final</infinispan.version>
         <front.end.plugin>0.0.23</front.end.plugin>
@@ -973,8 +973,8 @@
                 <version>${log4j}</version>
             </dependency>
             <dependency>
-                <groupId>javax.persistence</groupId>
-                <artifactId>persistence-api</artifactId>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>javax.persistence</artifactId>
                 <version>${javax.persistence}</version>
             </dependency>
             <dependency>

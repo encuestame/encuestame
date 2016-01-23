@@ -17,29 +17,14 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.AbstractGeoPoint;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
-//import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
+
+import javax.persistence.*;
 
 /**
  * Security User Secondary.
@@ -47,11 +32,11 @@ import org.hibernate.search.annotations.Store;
  * @since 08/12/2009 19:01:26
  */
 
-@Table(name = "userAccount", indexes= {@Index(columnList = "email_account", name = "emailIndex"), @Index(columnList= "username", name="usernameIndex")})
+@Table(name = "userAccount")
 @Entity
 @Indexed(index="UserAccount")
-// indexes = { @Index("name")})
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Index(columnList = "email_account", name = "emailIndex"),
+//@Index(columnList= "username", name="usernameIndex")
 public class UserAccount extends AbstractGeoPoint implements Serializable{
 
     /**
@@ -266,7 +251,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     }
 
     /**
-     * @param secUser the secUser to set
+     * @param account the account to set
      */
     public void setAccount(Account account) {
         this.account = account;
@@ -378,7 +363,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     }
 
     /**
-     * @param secGroup the secGroup to set
+     * @param group the secGroup to set
      */
     public void setGroup(final Group group) {
         this.group = group;
@@ -396,7 +381,7 @@ public class UserAccount extends AbstractGeoPoint implements Serializable{
     }
 
     /**
-     * @param seguidores the seguidores to set
+     * @param followers the followers to set
      */
     public void setFollowers(Set<UserAccount> followers) {
         this.followers = followers;

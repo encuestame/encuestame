@@ -14,6 +14,7 @@ package org.encuestame.test.persistence.config;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.ActiveProfiles;
@@ -25,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
  * Abstract Junit Configuration File.
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 1, 2010 11:28:12 AM
- * @version $Id:$
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Scope("singleton")
@@ -42,5 +42,10 @@ public class AbstractConfigurationBase{
      */
     public AbstractConfigurationBase() {
          super();
+    }
+
+    @Test
+    public void test() {
+        //gradle hack
     }
 }
