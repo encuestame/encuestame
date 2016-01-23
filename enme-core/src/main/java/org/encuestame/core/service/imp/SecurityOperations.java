@@ -76,7 +76,7 @@ public interface SecurityOperations extends ServiceOperations {
      * Load list of users.
      * @return list of users with groups and permission
      * @throws Exception Exception
-     * @throws EnMeExpcetion excepcion
+     * @throws Exception exception
      */
     List<UserAccountBean> loadListUsers(final String currentUsername, final Integer maxResults,
             final Integer start) throws Exception;
@@ -113,6 +113,7 @@ public interface SecurityOperations extends ServiceOperations {
 
     /**
      * Get User Complete Info.
+     * @param userId
      * @param currentUsername
      * @return
      * @throws EnMeNoResultsFoundException
@@ -261,7 +262,9 @@ public interface SecurityOperations extends ServiceOperations {
      * Find {@link UserAccount} by email.
      * @param email
      * @return
+     * @deprecated will be removed soon
      */
+    @Deprecated
     UserAccount findUserAccountByEmail(final String email);
 
     /**
@@ -304,7 +307,7 @@ public interface SecurityOperations extends ServiceOperations {
 
     /**
      * Find {@link UserAccount} by UserName
-     * @param username user name
+     * @param email email
      * @return {@link UserAccount}
      */
     UserAccountBean findUserByEmail(final String email);
@@ -321,7 +324,7 @@ public interface SecurityOperations extends ServiceOperations {
      * Assign Permission,
      * @param userId user id
      * @param permission {@link EnMePermission}.
-     * @param loggedUse user logged.
+     * @param loggedUser user logged.
      * @throws EnMeExpcetion exception.
      */
     void updatePermission(
@@ -349,7 +352,7 @@ public interface SecurityOperations extends ServiceOperations {
 
     /**
      * Get User by Group.
-     * @param secGroupId
+     * @param groupId
      * @param username
      * @return
      */
@@ -374,7 +377,6 @@ public interface SecurityOperations extends ServiceOperations {
      * Update property for user account.
      * @param property
      * @param value
-     * @param username
      * @throws EnMeNoResultsFoundException
      */
     void updateAccountProfile(
@@ -428,7 +430,7 @@ public interface SecurityOperations extends ServiceOperations {
     /**
      * Check if exist {@link SocialAccount} with unique social profile social id.
      * @param socialProvider
-     * @param socialAccountId
+     * @param socialProfileId
      * @return
      */
     SocialAccount getCurrentSocialAccount(final SocialProvider socialProvider, final String socialProfileId);
@@ -437,7 +439,7 @@ public interface SecurityOperations extends ServiceOperations {
     /**
      * Check if exist {@link SocialAccount} with unique social profile social id.
      * @param socialProvider
-     * @param socialAccountId
+     * @param socialProfileId
      * @param socialUserName
      * @return
      */
@@ -445,12 +447,11 @@ public interface SecurityOperations extends ServiceOperations {
 
     /**
      * Update OAuth Token/Secret Social Account.
-     * @param socialAccountId
      * @param token
      * @param tokenSecret
-     * @param username
-     * @param account
+     * @param socialUserProfile
      * @param socialProvider
+     * @param userAccount
      * @return
      * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion

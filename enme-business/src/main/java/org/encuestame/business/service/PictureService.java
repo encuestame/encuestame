@@ -62,8 +62,8 @@ public class PictureService extends AbstractBaseService implements IPictureServi
 
     /**
      * Return a gravatar picture url.
-     * @param email
-     * @param size
+     * @param email user email
+     * @param size picture size
      * @return
      * @throws EnMeGenericException
      */
@@ -134,7 +134,6 @@ public class PictureService extends AbstractBaseService implements IPictureServi
 
     /**
      * Get Profile Picture.
-     * @param id
      * @param username
      * @param pictureType
      * @return
