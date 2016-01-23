@@ -35,6 +35,7 @@ import javax.persistence.*;
 @Table(name = "userAccount")
 @Entity
 @Indexed(index="UserAccount")
+//FIXME: restore indexes
 //@Index(columnList = "email_account", name = "emailIndex"),
 //@Index(columnList= "username", name="usernameIndex")
 public class UserAccount extends AbstractGeoPoint implements Serializable{

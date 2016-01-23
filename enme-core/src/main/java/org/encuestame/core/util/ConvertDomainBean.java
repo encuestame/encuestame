@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import junit.framework.Assert;
 
+import org.apache.commons.lang.enums.EnumUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.util.WidgetUtil;
@@ -51,6 +52,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.interfaces.IFolder;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.Status;
@@ -2022,7 +2024,7 @@ public class ConvertDomainBean {
         final List<SocialProvider> socialNetworksProviders = new ArrayList<SocialProvider>();
         SocialProvider socialNetworkProv;
         for (String provider : socialProviders) {
-            socialNetworkProv = ValidationUtils.getEnumFromString(SocialProvider.class, provider);
+            socialNetworkProv = EnumerationUtils.getEnumFromString(SocialProvider.class, provider);
             if (socialNetworkProv != null) {
                 socialNetworksProviders.add(socialNetworkProv);
             }
@@ -2040,7 +2042,7 @@ public class ConvertDomainBean {
         final List<CommentOptions> comments = new ArrayList<CommentOptions>();
         CommentOptions commentRestriction;
         for (String restrictOption : options) {
-            commentRestriction = ValidationUtils.getEnumFromString(CommentOptions.class, restrictOption);
+            commentRestriction = EnumerationUtils.getEnumFromString(CommentOptions.class, restrictOption);
             if(commentRestriction !=null){
                 comments.add(commentRestriction);
             }
