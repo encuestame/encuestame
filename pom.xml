@@ -48,6 +48,7 @@
         <scribe>1.0.9</scribe>
         <wurfl>1.2</wurfl>
         <jstl>1.2</jstl>
+        <log4j>1.2.17</log4j>
         <jsp-api>2.2</jsp-api>
         <jdom2>2.0.6</jdom2>
         <jasypt>1.8</jasypt>
@@ -846,6 +847,11 @@
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
                 <version>${commons-logging}</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j}</version>
             </dependency>
             <!-- Spring Framework Dependencies -->
 

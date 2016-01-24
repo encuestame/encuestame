@@ -121,7 +121,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * Init.
      */
     @Before
-    public void serviceInit(){
+    public void serviceInit() {
         this.user = createUser("testEncuesta", "testEncuesta123");
         this.userAccount = createUserAccount("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
@@ -439,7 +439,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
         final List<Long> sa = new ArrayList<Long>();
         sa.add(social1.getId());
         searchBean.setSocialAccounts(sa);
-        List<SearchBean> list = this.pollService.searchPollsToday(getUsernameLogged(), request, searchBean);
+        List<SearchBean> list = this.pollService.searchPollsToday(getUsernameLogged(), searchBean);
         assertEquals(list.size(), 0);
      }
 
@@ -456,7 +456,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
          final List<Long> sa = new ArrayList<Long>();
          sa.add(social1.getId());
          searchBean.setSocialAccounts(sa);
-         List<SearchBean> list = this.pollService.searchPollScheduled(getUsernameLogged(), request, searchBean);
+         List<SearchBean> list = this.pollService.searchPollScheduled(getUsernameLogged(), searchBean);
          assertEquals(list.size(), 0);
      }
 
@@ -467,7 +467,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      //@Test
      public void testfilterSearchPollsByType2() throws EnMeExpcetion{
          final PollSearchBean pollSearchBean = new PollSearchBean();
-         List<SearchBean> items =  this.pollService.filterSearchPollsByType(pollSearchBean, request);
+         List<SearchBean> items =  this.pollService.filterSearchPollsByType(pollSearchBean);
      }
 
      /**
@@ -878,15 +878,14 @@ public class TestPollService extends AbstractSpringSecurityContext{
 		final PollSearchBean search1 = createPollSearchBean(true, false, false,
 				false, "W", null, 10, 0, TypeSearch.BYOWNER, true, false);
 
-		List<SearchBean> pollsbyUser1 = this.pollService.filterSearchPollsByType(
-				search1, this.request);
+		List<SearchBean> pollsbyUser1 = this.pollService.filterSearchPollsByType(search1);
 		assertEquals(pollsbyUser1.size(), 4);
 
 		final PollSearchBean search2 = createPollSearchBean(true, false, false,
 				false, "B", null, 10, 0, TypeSearch.BYOWNER, false, true);
 
 		List<SearchBean> pollsbyUser2 = this.pollService.filterSearchPollsByType(
-				search2, this.request);
+				search2);
 		assertEquals(pollsbyUser2.size(), 2);
 
     }
@@ -902,7 +901,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
     	final PollSearchBean search1 = createPollSearchBean(true, false, false,
 				false, "F", null, 10, 0, TypeSearch.LASTDAY, true, false);
     	List<SearchBean> allPolls1 = this.pollService.filterSearchPollsByType(
-    			search1, this.request);
+    			search1);
     	assertEquals(allPolls1.size(), 1);
     }
 
@@ -912,12 +911,12 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * @throws EnMeExpcetion
      */
     @Test
-    public void testFilterSearchPollsbyLastWeek() throws EnMeNoResultsFoundException, EnMeExpcetion{
+    public void testFilterSearchPollsbyLastWeek() throws EnMeExpcetion{
     	createPollsToFilterSearch();
     	final PollSearchBean search1 = createPollSearchBean(true, false, false,
 				false, "in", null, 10, 0, TypeSearch.LASTWEEK, false, false);
     	List<SearchBean> allPolls1 = this.pollService.filterSearchPollsByType(
-    			search1, this.request);
+    			search1);
     	assertEquals(allPolls1.size(), 4);
     }
 
@@ -933,7 +932,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
 		final PollSearchBean search1 = createPollSearchBean(true, false, true,
 				false, "B", null, 10, 0, TypeSearch.FAVOURITES, false, false);
 		List<SearchBean> allPolls1 = this.pollService.filterSearchPollsByType(
-				search1, this.request);
+				search1);
 		assertEquals(allPolls1.size(), 1);
 	}
 
@@ -943,12 +942,12 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * @throws EnMeExpcetion
      */
     @Test
-    public void testFilterSearchPollsbyAll() throws EnMeNoResultsFoundException, EnMeExpcetion{
+    public void testFilterSearchPollsbyAll() throws EnMeExpcetion{
     	createPollsToFilterSearch();
     	final PollSearchBean search1 = createPollSearchBean(true, false, false,
 				false, "Do", null, 10, 0, TypeSearch.ALL, false, true);
     	List<SearchBean> allPolls1 = this.pollService.filterSearchPollsByType(
-    			search1, this.request);
+    			search1);
 
     	assertEquals(allPolls1.size(), 1);
     }
