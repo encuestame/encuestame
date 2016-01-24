@@ -112,7 +112,7 @@
         <rome>1.5.1</rome>
         <rome-fetcher>1.5.1</rome-fetcher>
         <velocity>1.6.2</velocity>
-        <antlr>3.0</antlr>
+        <antlr>2.7.7</antlr>
         <cglib-nodep>2.2</cglib-nodep>
         <!--<aspectjrt>1.6.0</aspectjrt>-->
         <!--<jaxen>1.1.1</jaxen>-->
@@ -1087,7 +1087,7 @@
                 <version>${cglib-nodep}</version>
             </dependency>
             <dependency>
-                <groupId>org.antlr</groupId>
+                <groupId>antlr</groupId>
                 <artifactId>antlr</artifactId>
                 <version>${antlr}</version>
             </dependency>
