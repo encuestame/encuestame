@@ -15,6 +15,6 @@
 
 
     <beans:import resource="encuestame-quartz-context.xml"/>
-    <beans:import resource="encuestame-task-search.xml"/>
+    <!--<beans:import resource="encuestame-task-search.xml"/>-->
 
 </beans:beans>

@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <!-- Enables annotation-driven asynchronous tasks e.g. @Async -->
-    <annotation-driven mode="aspectj" executor="taskExecutor" />
+    <!--<annotation-driven mode="aspectj" executor="taskExecutor" />-->
 
     <!-- Worker thread pool -->
     <executor id="taskExecutor" />
