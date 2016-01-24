@@ -5,6 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<%@page import="org.encuestame.core.security.util.WidgetUtil"%>
+<%@page import="org.encuestame.core.util.WidgetUtil"%>
 <%@page import="org.encuestame.utils.DateUtil"%>
 <%@page import="org.encuestame.core.util.EnMePlaceHolderConfigurer"%>

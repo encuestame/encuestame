@@ -1,6 +1,6 @@
 package org.encuestame.core.test.util;
 
-import org.encuestame.core.security.util.WidgetUtil;
+import org.encuestame.core.util.WidgetUtil;
 import org.encuestame.utils.AbstractBaseUtils;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Assert;

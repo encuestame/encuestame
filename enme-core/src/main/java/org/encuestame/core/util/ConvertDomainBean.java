@@ -25,10 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import junit.framework.Assert;
 
-import org.apache.commons.lang.enums.EnumUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.persistence.domain.*;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
@@ -53,7 +51,6 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.interfaces.IFolder;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.EnumerationUtils;
-import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;

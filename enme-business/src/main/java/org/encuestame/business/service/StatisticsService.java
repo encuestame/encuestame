@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.IStatisticsService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;

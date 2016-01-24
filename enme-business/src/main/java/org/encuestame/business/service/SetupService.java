@@ -23,8 +23,7 @@ import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.business.setup.install.demo.CSVParser;
 import org.encuestame.core.admin.AdministratorProfile;
 import org.encuestame.core.filter.RequestSessionMap;
-import org.encuestame.core.security.util.WidgetUtil;
-import org.encuestame.core.service.AbstractBaseService;
+import org.encuestame.core.util.WidgetUtil;
 import org.encuestame.core.service.SetupOperations;
 import org.encuestame.core.service.MailServiceOperations;
 import org.encuestame.core.service.SecurityOperations;
@@ -75,7 +74,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     private SecurityOperations securityOperations;
 
     /**
-     *  {@link org.encuestame.core.service.startup.MailService}.
+     *  {@link MailService}.
      */
     @Resource(name= "mailService")
     private MailServiceOperations mailService;

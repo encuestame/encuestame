@@ -18,6 +18,16 @@
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-business</artifactId>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.encuestame</groupId>-->
+            <!--<artifactId>encuestame-business</artifactId>-->
+            <!--<scope>test</scope>-->
+            <!--<classifier>tests</classifier>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.encuestame</groupId>
             <artifactId>core</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>

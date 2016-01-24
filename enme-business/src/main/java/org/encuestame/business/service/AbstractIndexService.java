@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.search.SearchManagerOperation;
-import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;

@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.core.service.SecurityService;
+import org.encuestame.business.service.SecurityService;
 import org.encuestame.core.service.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.security.Account;

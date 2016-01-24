@@ -14,10 +14,10 @@ package org.encuestame.social.api.templates;
 
 import java.util.List;
 
-import org.encuestame.social.AbstractSocialAPISupport;
-import org.encuestame.social.api.operation.LinkedInAPIOperations;
-import org.encuestame.social.api.operation.LinkedInConnections;
-import org.encuestame.social.api.profile.LinkedInProfile;
+import org.encuestame.social.api.AbstractSocialAPISupport;
+import org.encuestame.core.social.operation.LinkedInAPIOperations;
+import org.encuestame.social.api.LinkedInConnections;
+import org.encuestame.core.social.profile.LinkedInProfile;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
 

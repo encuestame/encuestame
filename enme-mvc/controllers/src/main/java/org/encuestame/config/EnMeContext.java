@@ -58,7 +58,7 @@ public class EnMeContext extends ContextLoaderListener implements ServletContext
     public void contextInitialized(final ServletContextEvent sce) {
         EnMeContext.servletContext = sce.getServletContext();
         super.contextInitialized(sce);
-        boolean existHomeDirectory = org.encuestame.core.service.startup.DirectorySetupOperations.isHomeDirectoryValid();
+        boolean existHomeDirectory = org.encuestame.core.startup.DirectorySetupOperations.isHomeDirectoryValid();
         if (!existHomeDirectory) {
             log.fatal("**********************************************");
             log.fatal("*    		 ENCUESTAME HOME IS MISSING");

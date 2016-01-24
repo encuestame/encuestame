@@ -18,14 +18,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.service.imp.MailServiceOperations;
-import org.encuestame.core.service.startup.MailService;
+import org.encuestame.core.startup.MailService;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.dao.INotification;

@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.StreamOperations;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;

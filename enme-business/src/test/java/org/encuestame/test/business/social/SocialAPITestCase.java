@@ -13,7 +13,6 @@
 package org.encuestame.test.business.social;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -25,7 +24,7 @@ import org.encuestame.social.api.templates.FacebookAPITemplate;
 import org.encuestame.social.api.templates.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.templates.IdenticaAPITemplate;
 import org.encuestame.social.api.templates.LinkedInAPITemplate;
-import org.encuestame.social.api.profile.LinkedInProfile;
+import org.encuestame.core.social.profile.LinkedInProfile;
 import org.encuestame.utils.categories.test.InternetTest; 
 import org.junit.Ignore;
 import org.junit.experimental.categories.Category;

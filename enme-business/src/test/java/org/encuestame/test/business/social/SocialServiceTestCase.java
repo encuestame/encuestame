@@ -12,7 +12,7 @@
  */
 package org.encuestame.test.business.social;
 
-import org.encuestame.core.service.AbstractBaseService;
+import org.encuestame.business.service.AbstractBaseService;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.junit.Ignore;
 import org.junit.Test;

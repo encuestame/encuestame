@@ -21,9 +21,9 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.oauth2.support.ProtectedResourceClientFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.social.AbstractSocialAPISupport;
-import org.encuestame.social.api.operation.BuzzAPIOperations;
-import org.encuestame.social.api.profile.BuzzProfile;
+import org.encuestame.social.api.AbstractSocialAPISupport;
+import org.encuestame.core.social.operation.BuzzAPIOperations;
+import org.encuestame.core.social.profile.BuzzProfile;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
 

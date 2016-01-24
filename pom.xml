@@ -194,8 +194,8 @@
         <module>enme-persistence</module>
         <module>enme-core</module>
         <module>enme-oauth</module>
-        <module>enme-social</module>
         <module>enme-business</module>
+        <module>enme-social</module>
         <!---->
         <!--<module>enme-mvc</module>-->
         <!--<module>enme-war</module>-->

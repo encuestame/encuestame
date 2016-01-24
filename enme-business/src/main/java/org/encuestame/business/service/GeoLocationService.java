@@ -17,8 +17,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.GeoLocationSupport;
+import org.encuestame.core.service.IGeoLocationSupport;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
@@ -51,7 +50,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class GeoLocationService extends AbstractBaseService implements GeoLocationSupport{
+public class GeoLocationService extends AbstractBaseService implements IGeoLocationSupport {
 
     /** Log. **/
     private Log log = LogFactory.getLog(this.getClass());

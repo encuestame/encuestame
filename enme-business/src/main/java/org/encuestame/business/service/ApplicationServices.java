@@ -12,9 +12,7 @@
  */
 package org.encuestame.business.service;
 
-import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.SecurityService;
-import org.encuestame.core.service.GeoLocationSupport;
+import org.encuestame.core.service.IGeoLocationSupport;
 import org.encuestame.core.service.IApplicationServices;
 import org.encuestame.core.service.IChartService;
 import org.encuestame.core.service.ICommentService;
@@ -50,7 +48,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
      /** {@link TweetPollService}. **/
     private ITweetPollService tweetPollService;
     /** {@link GeoLocationService}. **/
-    private GeoLocationSupport locationService;
+    private IGeoLocationSupport locationService;
     
     /** {@link ChartService}. **/
     private IChartService chartService;
@@ -133,7 +131,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /**
      * @return the locationService
      */
-    public GeoLocationSupport getLocationService() {
+    public IGeoLocationSupport getLocationService() {
         return locationService;
     }
 
@@ -141,7 +139,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
      * @param locationService the locationService to set
      */
     @Autowired
-    public void setLocationService(final GeoLocationSupport locationService) {
+    public void setLocationService(final IGeoLocationSupport locationService) {
         this.locationService = locationService;
     }
   

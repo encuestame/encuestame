@@ -17,7 +17,7 @@ import java.util.Calendar;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.web.SecurityUtils;
-import org.encuestame.core.security.util.HTMLInputFilter;
+import org.encuestame.core.util.HTMLInputFilter;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.domain.security.UserAccount;

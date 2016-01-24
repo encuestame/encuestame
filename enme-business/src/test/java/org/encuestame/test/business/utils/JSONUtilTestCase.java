@@ -23,7 +23,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.encuestame.social.api.profile.BuzzProfile;
+import org.encuestame.core.social.profile.BuzzProfile;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;

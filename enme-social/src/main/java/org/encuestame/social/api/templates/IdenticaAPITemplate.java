@@ -16,9 +16,9 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.social.AbstractSocialAPISupport;
-import org.encuestame.social.api.operation.IdenticaAPIOperations;
-import org.encuestame.social.api.profile.IdentiCaProfile;
+import org.encuestame.social.api.AbstractSocialAPISupport;
+import org.encuestame.core.social.operation.IdenticaAPIOperations;
+import org.encuestame.core.social.profile.IdentiCaProfile;
 import org.encuestame.social.api.IdenticaStatusDetails;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;

@@ -13,7 +13,7 @@ import org.encuestame.core.cron.CalculateRelevance;
 import org.encuestame.core.cron.IndexRebuilder;
 import org.encuestame.core.cron.ReIndexJob;
 import org.encuestame.core.service.IMessageSource;
-import org.encuestame.core.service.MessageSourceFactoryBean;
+import org.encuestame.business.service.MessageSourceFactoryBean;
 import org.encuestame.persistence.dao.jdbc.InstallerDao;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.business.service.GeoLocationService;
-import org.encuestame.core.service.GeoLocationSupport;
+import org.encuestame.core.service.IGeoLocationSupport;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.domain.GeoPoint;
@@ -63,7 +63,7 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
      * Location Service.
      */
     @Autowired
-    private GeoLocationSupport locationService;
+    private IGeoLocationSupport locationService;
 
     /**
      * Cat Location Dao.
@@ -317,14 +317,14 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
     /**
      * @return the locationService
      */
-    public GeoLocationSupport getLocationService() {
+    public IGeoLocationSupport getLocationService() {
         return locationService;
     }
 
     /**
      * @param locationService the locationService to set
      */
-    public void setLocationService(GeoLocationSupport locationService) {
+    public void setLocationService(IGeoLocationSupport locationService) {
         this.locationService = locationService;
     }
 

@@ -3,8 +3,8 @@ package org.encuestame.social.api.templates;
 import java.util.Calendar;
 import java.util.Map;
 
-import org.encuestame.social.AbstractSocialAPISupport;
-import org.encuestame.social.api.operation.PlurkAPIOperations;
+import org.encuestame.social.api.AbstractSocialAPISupport;
+import org.encuestame.core.social.operation.PlurkAPIOperations;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.springframework.http.ResponseEntity;

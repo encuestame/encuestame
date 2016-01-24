@@ -15,7 +15,7 @@ package org.encuestame.mvc.controller.social;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.oauth1.support.OAuth1RequestFlow;
 import org.encuestame.oauth2.support.OAuth2RequestFlow;
-import org.encuestame.social.connect.service.ConnectOperations;
+import org.encuestame.social.api.connect.service.ConnectOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
