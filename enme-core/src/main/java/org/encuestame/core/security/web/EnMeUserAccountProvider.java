@@ -12,7 +12,8 @@
  */
 package org.encuestame.core.security.web;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.token.EnMeSecurityToken;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -32,7 +33,7 @@ public class EnMeUserAccountProvider implements AuthenticationProvider {
     /*
      * Log.
      */
-    private Logger log = Logger.getLogger(EnMeUserAccountProvider.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
     @Override
     public Authentication authenticate(Authentication authentication)

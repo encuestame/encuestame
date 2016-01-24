@@ -22,7 +22,7 @@ import java.util.Properties;
 @ImportResource({
 	"classpath:/org/encuestame/config/xml/encrypt-context.xml",
 	"classpath:/org/encuestame/config/xml/data-context.xml"})
-//@ComponentScan({ "org.encuestame.persistence.dao" })
+@ComponentScan({ "org.encuestame.persistence.dao" })
 public class EnMeData {
 
 

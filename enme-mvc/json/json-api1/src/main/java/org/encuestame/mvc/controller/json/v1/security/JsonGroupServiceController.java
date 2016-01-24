@@ -19,7 +19,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -48,21 +47,22 @@ public class JsonGroupServiceController extends AbstractJsonControllerV1 {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(JsonGroupServiceController.class);
 
-    /**
-     * Create or Update Group.
-     *
-     * @param groupName
-     * @param groupDesc
-     * @param stateId
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
-     */
+            /**
+             * Create or Update Group.
+             *
+             * @param groupName
+             * @param groupDesc
+             * @param stateId
+             * @param request
+             * @param response
+             * @return
+             * @throws JsonGenerationException
+             * @throws JsonMappingException
+             * @throws IOException
+             */
+
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/groups/{type}Group.json", method = RequestMethod.GET)
     public @ResponseBody

@@ -21,7 +21,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
@@ -54,11 +53,11 @@ public class JsonUsersController extends AbstractJsonControllerV1{
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(JsonUsersController.class);
 
-    /**
-     * Unconfirmed Accounts Limit Test
-     **/
+            /**
+             * Unconfirmed Accounts Limit Test
+             **/
     @Value("${application.user.unconfirmed.limit}") private Integer unconfirmedAccountsLimit;
 
     /**

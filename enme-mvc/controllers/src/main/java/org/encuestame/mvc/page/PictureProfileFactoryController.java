@@ -17,7 +17,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -41,15 +40,16 @@ public class PictureProfileFactoryController extends AbstractViewController {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(PictureProfileFactoryController.class);
 
 
-    /**
-     *
-     * @param username
-     * @param pictureType
-     * @return
-     */
+            /**
+             *
+             * @param username
+             * @param pictureType
+             * @return
+             */
+
     private byte[] getPicture(String username, final PictureType pictureType){
         byte[] bytes = {};
         username = filterValue(username);

@@ -30,7 +30,6 @@ import junit.framework.Assert;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.Logger;
 import org.encuestame.business.service.AbstractSurveyService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
@@ -89,12 +88,12 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      /**
       *
       */
-     private Logger log = Logger.getLogger(this.getClass());
+     private static Log log = LogFactory.getLog(AbstractBaseOperations.class);
 
-     /**
-      * Simple date format.
-      */
-     public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
+             /**
+              * Simple date format.
+              */
+    public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
 
      /**
       * Simple time format.

@@ -25,7 +25,8 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Generate thumbnails for images.
@@ -34,7 +35,7 @@ import org.apache.log4j.Logger;
  */
 public class ImageThumbnailGeneratorImpl implements ThumbnailGenerator {
 
-    private static final Logger log = Logger.getLogger(ImageThumbnailGeneratorImpl.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      *

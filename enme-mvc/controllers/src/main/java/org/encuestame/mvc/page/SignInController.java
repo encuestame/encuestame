@@ -15,7 +15,6 @@ package org.encuestame.mvc.page;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
@@ -48,11 +47,11 @@ public class SignInController extends AbstractSocialController{
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(SignInController.class);
 
-    /**
-     * Post register redirect.
-     */
+            /**
+             * Post register redirect.
+             */
     private final String POST_REGISTER_REDIRECT = "/user/signin/register/";
 
 

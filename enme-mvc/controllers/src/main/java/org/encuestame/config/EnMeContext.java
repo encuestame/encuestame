@@ -16,7 +16,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.log4j.Logger;
 import org.encuestame.business.setup.StartupProcess;
 
 import org.springframework.web.context.ContextLoaderListener;
@@ -39,7 +38,7 @@ public class EnMeContext extends ContextLoaderListener implements ServletContext
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(EnMeContext.class);
 
     /**
      * Constructor, inizialize parent context.

@@ -19,7 +19,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.ListUtils;
-import org.apache.log4j.Logger;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -47,12 +46,12 @@ public class SyndicationController extends AbstractFeedController {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(SyndicationController.class);
 
 
-    /**
-     *
-     */
+            /**
+             *
+             */
     @Value("${rss.display.items}") private Integer rssDisplayItems;
 
 

@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.ListUtils;
-import org.apache.log4j.Logger;
 import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainToJson;
@@ -65,11 +64,11 @@ public class PollJsonController extends AbstractJsonControllerV1{
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(PollJsonController.class);
 
-    /**
-     *
-     */
+            /**
+             *
+             */
     private final Integer POLL_PUBLISH_STRING_LIMIT = 100;
 
 

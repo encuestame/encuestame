@@ -20,7 +20,8 @@ import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.utils.captcha.http.HttpLoader;
 import org.encuestame.utils.captcha.http.SimpleHttpLoader;
 
@@ -30,7 +31,7 @@ public class ReCaptchaImpl implements ReCaptcha {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static final Log log = LogFactory.getLog(ReCaptchaImpl.class);
 
     public static final String PROPERTY_THEME = "theme";
     public static final String ENCODE = "UTF-8";

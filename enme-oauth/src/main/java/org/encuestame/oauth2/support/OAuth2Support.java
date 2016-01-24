@@ -17,7 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.oauth.AbstractOAuthSupport;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.springframework.http.MediaType;
@@ -48,15 +49,16 @@ public class OAuth2Support extends AbstractOAuthSupport implements OAuth2RestOpe
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(OAuth2Support.class);
 
-    /**
-     * OAuth2 Constructor.
-     * @param clientId
-     * @param clientSecret
-     * @param authorizeUrl
-     * @param accessTokenUrl
-     */
+            /**
+             * OAuth2 Constructor.
+             * @param clientId
+             * @param clientSecret
+             * @param authorizeUrl
+             * @param accessTokenUrl
+             */
+
     public OAuth2Support(String clientId, String clientSecret, String authorizeUrl, String accessTokenUrl) {
         super(Arrays.<HttpMessageConverter<?>> asList(new FormHttpMessageConverter() {
              public boolean canRead(Class<?> clazz, MediaType mediaType) {

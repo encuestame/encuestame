@@ -12,7 +12,6 @@
  */
 package org.encuestame.mvc.controller.social;
 
-import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.oauth1.support.OAuth1RequestFlow;
 import org.encuestame.oauth2.support.OAuth2Parameters;
@@ -47,7 +46,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(AbstractAccountConnect.class);
 
     protected String apiKey;
     protected String consumerSecret;

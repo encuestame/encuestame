@@ -34,10 +34,6 @@
          <type>jar</type>
          <scope>compile</scope>
      </dependency>
-     <dependency>
-       <groupId>log4j</groupId>
-       <artifactId>log4j</artifactId>
-     </dependency>
     <dependency>
         <groupId>postgresql</groupId>
       <artifactId>postgresql</artifactId>
@@ -228,23 +224,23 @@
               </artifactItems>
             </configuration>
           </execution>
-          <execution>
-            <id>copy-log4j-jar</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>log4j</groupId>
-                  <artifactId>log4j</artifactId>
-                  <version>${log4j}</version>
-                  <outputDirectory>${izpack.staging}/resources</outputDirectory>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
+          <!--<execution>-->
+            <!--<id>copy-log4j-jar</id>-->
+            <!--<phase>prepare-package</phase>-->
+            <!--<goals>-->
+              <!--<goal>copy</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+              <!--<artifactItems>-->
+                <!--<artifactItem>-->
+                  <!--<groupId>log4j</groupId>-->
+                  <!--<artifactId>log4j</artifactId>-->
+                  <!--<version>${log4j}</version>-->
+                  <!--<outputDirectory>${izpack.staging}/resources</outputDirectory>-->
+                <!--</artifactItem>-->
+              <!--</artifactItems>-->
+            <!--</configuration>-->
+          <!--</execution>-->
           <execution>
             <id>copy-commons-logging-jar</id>
             <phase>prepare-package</phase>

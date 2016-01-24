@@ -10,37 +10,14 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.service.imp;
-
-import java.io.IOException;
-
-import org.apache.lucene.index.CorruptIndexException;
-import org.apache.lucene.index.IndexWriter;
+package org.encuestame.core.service;
 
 /**
- * Class description.
- * @author Morales, Diana Paola paolaATencuestame.org
- * @since Apr 7, 2011
+ * Description Class.
+ * @author Picado, Juan juanATencuestame.org
+ * @since Sep 14, 2010 12:56:48 PM
+ * @version Id:
  */
-public interface IIndexWriter {
+public interface IChartService {
 
-    /**
-    * Open index writer.
-    * @throws IOException
-    */
-    void openIndexWriter() throws IOException;
-
-    /**
-     * Close index writer.
-     * @throws CorruptIndexException
-     * @throws IOException
-     */
-    void closeIndexWriter() throws CorruptIndexException, IOException;
-
-
-    /**
-     *
-     * @return
-     */
-    IndexWriter getIndexWriter() ;
 }

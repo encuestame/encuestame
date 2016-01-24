@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.ListUtils;
-import org.apache.log4j.Logger;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.domain.survey.Survey;
@@ -52,30 +51,31 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 @Controller
 public class FolderJsonServiceController extends AbstractJsonControllerV1{
 
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(FolderJsonServiceController.class);
 
-    /**
-     * @api {post} /api/survey/folder/{actionType} Create Folder
-     * @apiName GetCreateFolder
-     * @apiGroup Folder
-     * @apiDescription Create Folder to store and organize Tweetpolls, Polls or Surveys.. You must be registered and logged.
-     * @apiParam {String="tweetpoll","poll","survey"} actionType Specifies the folder type and the type of items to be stored.
-     * @apiParam {String} name This is the name of the new resource. The folder name.
-     * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll
-     * @apiPermission ENCUESTAME_USER
-     * @apiSuccessExample
-     {
-        "error":{},
-        "success":{
+            /**
+             * @api {post} /api/survey/folder/{actionType} Create Folder
+             * @apiName GetCreateFolder
+             * @apiGroup Folder
+             * @apiDescription Create Folder to store and organize Tweetpolls, Polls or Surveys.. You must be registered and logged.
+             * @apiParam {String="tweetpoll","poll","survey"} actionType Specifies the folder type and the type of items to be stored.
+             * @apiParam {String} name This is the name of the new resource. The folder name.
+             * @apiVersion 1.0.0
+             * @apiSampleRequest http://www.encuestame.org/demo/api/survey/folder/tweetpoll
+             * @apiPermission ENCUESTAME_USER
+             * @apiSuccessExample
+            {
+            "error":{},
+            "success":{
             "folder":{
-                "id": 382,
-                "name": folderTestName,
-                "create_date": 1347281933873
+            "id": 382,
+            "name": folderTestName,
+            "create_date": 1347281933873
             }
-        }
-     }
-    */
+            }
+            }
+             */
+
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}", method = RequestMethod.POST)
     public @ResponseBody ModelMap createFolder(

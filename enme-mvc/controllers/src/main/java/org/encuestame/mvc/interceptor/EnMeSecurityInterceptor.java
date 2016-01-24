@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.WidgetUtil;
@@ -39,7 +38,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
     /**
      * Log.
      */
-    private static Logger log = Logger.getLogger(EnMeSecurityInterceptor.class);
+    private static Log log = LogFactory.getLog(EnMeSecurityInterceptor.class);
 
     /**
      * default cookie name.

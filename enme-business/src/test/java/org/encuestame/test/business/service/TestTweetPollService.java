@@ -27,7 +27,7 @@ import junit.framework.Assert;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.TweetPollService;
-import org.encuestame.core.service.imp.ITweetPollService;
+import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.HashTag;

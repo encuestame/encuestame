@@ -3,7 +3,6 @@ package org.encuestame.mvc.controller.social;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -24,12 +23,13 @@ public class TumblrConnectSocialAccount extends AbstractAccountConnect{
 	  	/**
 	  	 *  Log.
 	     */
-	    private Logger log = Logger.getLogger(this.getClass());
+		private static Log log = LogFactory.getLog(TumblrConnectSocialAccount.class);
 
-	    /**
-	     * Constructor.
-	     */
-	    @Inject
+				/**
+				 * Constructor.
+				 */
+
+	@Inject
 	    public TumblrConnectSocialAccount(
 	            @Value("${tumblr.consumer.key}") String apiKey,
 	            @Value("${tumblr.consumer.secret}") String consumerSecret,

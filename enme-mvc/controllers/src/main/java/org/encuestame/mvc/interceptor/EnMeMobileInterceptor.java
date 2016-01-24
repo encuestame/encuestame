@@ -20,7 +20,6 @@ import net.sf.uadetector.UserAgent;
 import net.sf.uadetector.UserAgentStringParser;
 import net.sf.uadetector.service.UADetectorServiceFactory;
 
-import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceResolver;
@@ -43,11 +42,12 @@ public class EnMeMobileInterceptor extends HandlerInterceptorAdapter {
     /**
      * Log.
      */
-    private static Logger log = Logger.getLogger(EnMeMobileInterceptor.class);
+    private static Log log = LogFactory.getLog(EnMeMobileInterceptor.class);
 
-    /**
-     * Create a device resolving {@link HandlerInterceptor} that defaults to a {@link LiteDeviceResolver} implementation.
-     */
+            /**
+             * Create a device resolving {@link HandlerInterceptor} that defaults to a {@link LiteDeviceResolver} implementation.
+             */
+
     public EnMeMobileInterceptor() {
         this(new LiteDeviceResolver());
         log.debug("Creating EnMeMobileInterceptor");

@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.business.setup.install.demo.CSVParser;
 import org.encuestame.core.admin.AdministratorProfile;
@@ -25,8 +26,8 @@ import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.SetupOperations;
-import org.encuestame.core.service.imp.MailServiceOperations;
-import org.encuestame.core.service.imp.SecurityOperations;
+import org.encuestame.core.service.MailServiceOperations;
+import org.encuestame.core.service.SecurityOperations;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.XMLConfigurationFileSupport;
@@ -38,7 +39,6 @@ import org.encuestame.utils.enums.TypeDatabase;
 import org.encuestame.utils.social.SocialNetworkBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSendException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,7 +54,7 @@ import javax.annotation.Resource;
 public class SetupService extends AbstractBaseService implements SetupOperations {
 
     /** Log. **/
-    private Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Install database operations.

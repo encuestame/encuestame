@@ -21,7 +21,7 @@ import java.util.Locale;
 import junit.framework.Assert;
 
 import org.encuestame.business.service.StreamService;
-import org.encuestame.core.service.imp.StreamOperations;
+import org.encuestame.core.service.StreamOperations;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;

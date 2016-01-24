@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.business.service.CommentService;
-import org.encuestame.core.service.imp.ICommentService;
+import org.encuestame.core.service.ICommentService;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.survey.Poll;

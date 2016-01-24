@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.Logger;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.springframework.stereotype.Controller;
@@ -40,7 +39,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ValidatorServiceJsonController extends AbstractJsonControllerV1 {
 
     /** Log. **/
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(ValidatorServiceJsonController.class);
 
     @RequestMapping(value = "/api/public/validator/email.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap validateEmail(

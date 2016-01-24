@@ -15,7 +15,6 @@ package org.encuestame.mvc.page;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.service.imp.SecurityOperations;
@@ -47,11 +46,11 @@ public class SignUpController extends AbstractViewController {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(SignUpController.class);
 
-    /**
-     *
-     */
+            /**
+             *
+             */
     private final Integer PASSWORD_LENGHT = 8;
 
     /**

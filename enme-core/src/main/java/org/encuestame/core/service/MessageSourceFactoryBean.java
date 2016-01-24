@@ -17,7 +17,6 @@ import java.util.Locale;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ import org.springframework.stereotype.Service;
  * @since 12/05/2009 9:17:43
  */
 @Service
-public class MessageSourceFactoryBean  implements MessageSource{
+public class MessageSourceFactoryBean  implements IMessageSource {
 
     /**
      * Log.
@@ -37,7 +36,7 @@ public class MessageSourceFactoryBean  implements MessageSource{
     /**
      *
      */
-    private MessageSource messageSource;
+    private IMessageSource messageSource;
 
     /**
      *
@@ -48,7 +47,7 @@ public class MessageSourceFactoryBean  implements MessageSource{
      *
      * @param messageSource
      */
-    public MessageSourceFactoryBean(MessageSource messageSource) {
+    public MessageSourceFactoryBean(IMessageSource messageSource) {
         super();
         this.messageSource = messageSource;
     }
@@ -107,7 +106,7 @@ public class MessageSourceFactoryBean  implements MessageSource{
      *
      * @return
      */
-    public MessageSource getMessageSource() {
+    public IMessageSource getMessageSource() {
         return messageSource;
     }
 
@@ -116,7 +115,7 @@ public class MessageSourceFactoryBean  implements MessageSource{
      * @param messageSource
      */
     @Autowired
-    public void setMessageSource(MessageSource messageSource) {
+    public void setMessageSource(IMessageSource messageSource) {
         this.messageSource = messageSource;
     }
 

@@ -14,7 +14,7 @@ package org.encuestame.business.cron;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.service.imp.ICommentService;
+import org.encuestame.core.service.ICommentService;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.springframework.beans.factory.annotation.Autowired;

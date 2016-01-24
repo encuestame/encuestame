@@ -28,7 +28,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -52,7 +53,7 @@ import org.xml.sax.InputSource;
 public class EnMeUtils {
 
     /** Front End Service Log. **/
-    private static Logger log = Logger.getLogger(EnMeUtils.class);
+    private static Log log = LogFactory.getLog(EnMeUtils.class);
 
     private static final int BASE = 2;
 

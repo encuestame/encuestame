@@ -12,7 +12,8 @@
  */
 package org.encuestame.core.rss;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.integration.core.MessageSource;
 import org.springframework.messaging.Message;
@@ -25,7 +26,7 @@ import org.springframework.messaging.Message;
  */
 public class EnMeRssReader implements MessageSource{
 
-    protected Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     public Message<String> receive() {
         log.debug("readRssFeed method is called");

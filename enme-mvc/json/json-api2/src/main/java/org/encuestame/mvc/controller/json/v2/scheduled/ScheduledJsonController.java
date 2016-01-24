@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -35,23 +34,24 @@ public class ScheduledJsonController extends AbstractJsonControllerV1 {
 	 /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
-	
+     private static Log log = LogFactory.getLog(ScheduledJsonController.class);
 
-    /**
-     * Publish tweet on social account.
-     * @param twitterAccountsId
-     * @param question
-     * @param scheduled
-     * @param hashtags
-     * @param answers
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
-     */
+
+             /**
+              * Publish tweet on social account.
+              * @param twitterAccountsId
+              * @param question
+              * @param scheduled
+              * @param hashtags
+              * @param answers
+              * @param request
+              * @param response
+              * @return
+              * @throws JsonGenerationException
+              * @throws JsonMappingException
+              * @throws IOException
+              */
+
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/{type}/schedule/{id}", method = RequestMethod.POST)
     public ModelMap scheduleTweetpoll(

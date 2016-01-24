@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.Logger;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.core.service.startup.MailService;
@@ -59,9 +58,9 @@ public abstract class AbstractJsonControllerV1 extends AbstractBaseOperations{
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(AbstractJsonControllerV1.class);
 
-    /** Model. **/
+            /** Model. **/
     private ModelMap jsonMap = new ModelMap();
 
     /** {@link NotificationDao}. **/

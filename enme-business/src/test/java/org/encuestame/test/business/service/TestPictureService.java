@@ -18,7 +18,7 @@
 
 package org.encuestame.test.business.service;
 
-import org.encuestame.core.service.imp.IPictureService;
+import org.encuestame.core.service.IPictureService;
 import org.encuestame.core.service.startup.DirectorySetupOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;

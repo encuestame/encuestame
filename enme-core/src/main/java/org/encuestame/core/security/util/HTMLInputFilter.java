@@ -7,7 +7,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -46,7 +47,8 @@ public class HTMLInputFilter {
 
 
     /** Log. **/
-    private Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
+
 
     /**
      * flag determining whether to try to make tags when presented with

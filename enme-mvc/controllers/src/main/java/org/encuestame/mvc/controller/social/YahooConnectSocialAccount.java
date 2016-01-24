@@ -15,7 +15,6 @@ package org.encuestame.mvc.controller.social;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.social.SocialProvider;
@@ -37,17 +36,18 @@ public class YahooConnectSocialAccount extends AbstractAccountConnect {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(YahooConnectSocialAccount.class);
 
-    /**
-    *
-    * @param apiKey
-    * @param consumerSecret
-    * @param authorizeUrl
-    * @param requestTokenUrl
-    * @param accessToken
-    */
-   @Inject
+            /**
+             *
+             * @param apiKey
+             * @param consumerSecret
+             * @param authorizeUrl
+             * @param requestTokenUrl
+             * @param accessToken
+             */
+
+    @Inject
    public YahooConnectSocialAccount(
            @Value("${yahoo.consumer.key}") String apiKey,
            @Value("${yahoo.consumer.secret}") String consumerSecret,

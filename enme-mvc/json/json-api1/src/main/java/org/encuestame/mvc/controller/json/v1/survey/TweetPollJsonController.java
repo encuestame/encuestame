@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.ListUtils;
-import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -72,28 +71,29 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(TweetPollJsonController.class);
 
-    /**
-     * @api {get} /api/survey/tweetpoll/search.json Get TweetPolls
-     * @apiName GetTweetpolls
-     * @apiGroup Tweetpoll
-     * @apiDescription Returns a collection of relevant TweetPolls matching a specified query.
-     * @apiParam {String} typeSearch - XXXX
-     * @apiParam {String} [keyword] Keyword to search related Tweetpolls.
-     * @apiParam {Number} max Defines the maximum number of search results.
-     * @apiParam {Number} start Defines the starting number of the page of results.
-     * @apiParam {String[]} [social_networks] Filter tweetpolls by social networks accounts.
-     * @apiParam {Number[] } [social_account_networks] Filter tweetpolls by social networks accounts.
-     * @apiParam {Boolean} [_published] Filter by published tweetpolls.
-     * @apiParam {Boolean} [_complete] Filter by completed tweetpolls.
-     * @apiParam {Boolean} [_favourite] Filter by favourite.
-     * @apiParam {Boolean} [_scheduled] Filter by tweetpolls scheduled
-     * @apiParam {String} [period] Date range to search results.
-     * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/search.json
-     * @apiPermission ENCUESTAME_USER
-     */
+            /**
+             * @api {get} /api/survey/tweetpoll/search.json Get TweetPolls
+             * @apiName GetTweetpolls
+             * @apiGroup Tweetpoll
+             * @apiDescription Returns a collection of relevant TweetPolls matching a specified query.
+             * @apiParam {String} typeSearch - XXXX
+             * @apiParam {String} [keyword] Keyword to search related Tweetpolls.
+             * @apiParam {Number} max Defines the maximum number of search results.
+             * @apiParam {Number} start Defines the starting number of the page of results.
+             * @apiParam {String[]} [social_networks] Filter tweetpolls by social networks accounts.
+             * @apiParam {Number[] } [social_account_networks] Filter tweetpolls by social networks accounts.
+             * @apiParam {Boolean} [_published] Filter by published tweetpolls.
+             * @apiParam {Boolean} [_complete] Filter by completed tweetpolls.
+             * @apiParam {Boolean} [_favourite] Filter by favourite.
+             * @apiParam {Boolean} [_scheduled] Filter by tweetpolls scheduled
+             * @apiParam {String} [period] Date range to search results.
+             * @apiVersion 1.0.0
+             * @apiSampleRequest http://www.encuestame.org/demo/api/survey/tweetpoll/search.json
+             * @apiPermission ENCUESTAME_USER
+             */
+
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/search.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getListTweetPoll(

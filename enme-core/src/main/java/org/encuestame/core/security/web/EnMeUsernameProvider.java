@@ -12,7 +12,8 @@
  */
 package org.encuestame.core.security.web;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.web.details.EnMeUserAccount;
 import org.encuestame.core.security.service.EnMeUserServiceImp;
 import org.jasypt.spring.security3.PasswordEncoder;
@@ -38,7 +39,7 @@ import org.springframework.util.Assert;
  */
 public class EnMeUsernameProvider extends AbstractUserDetailsAuthenticationProvider {
 
-    private Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     private SaltSource saltSource;
 

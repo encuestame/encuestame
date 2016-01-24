@@ -26,7 +26,7 @@ import java.util.Locale;
 import junit.framework.Assert;
 
 import org.encuestame.business.service.AbstractSurveyService;
-import org.encuestame.core.service.imp.ISurveyService;
+import org.encuestame.core.service.ISurveyService;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;

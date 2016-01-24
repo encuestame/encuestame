@@ -11,10 +11,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 //import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.imp.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.service.*;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.RecentItemsComparator;
@@ -58,7 +58,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class FrontEndServices  extends AbstractBaseService implements IFrontEndService {
 
      /** Front End Service Log. **/
-    private Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     /** Max Results. **/
     private final Integer MAX_RESULTS = 15;

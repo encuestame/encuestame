@@ -15,7 +15,6 @@ package org.encuestame.mvc.controller.social;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -40,11 +39,12 @@ public class IdenticaConnectSocialAccount extends AbstractAccountConnect {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(IdenticaConnectSocialAccount.class);
 
-    /**
-     * Constructor.
-     */
+            /**
+             * Constructor.
+             */
+
     @Inject
     public IdenticaConnectSocialAccount(
             @Value("${identica.consumer.key}") String apiKey,

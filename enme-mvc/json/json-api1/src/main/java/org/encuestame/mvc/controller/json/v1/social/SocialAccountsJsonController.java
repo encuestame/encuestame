@@ -20,7 +20,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
@@ -48,19 +47,20 @@ public class SocialAccountsJsonController extends AbstractJsonControllerV1 {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(SocialAccountsJsonController.class);
 
-    /**
-     * @api {get} /api/social/actions/account/{type}.json Social Accounts actions
-     * @apiName GetSocialAccounts
-     * @apiGroup SocialAccounts
-     * @apiDescription Change state / remove / disable / enable of social account.
-     * @apiParam {String} type - XXXX
-     * @apiParam {Number} socialAccountId - XXXX
-     * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/social/actions/account/{type}.json
-     * @apiPermission ENCUESTAME_USER
-     */
+            /**
+             * @api {get} /api/social/actions/account/{type}.json Social Accounts actions
+             * @apiName GetSocialAccounts
+             * @apiGroup SocialAccounts
+             * @apiDescription Change state / remove / disable / enable of social account.
+             * @apiParam {String} type - XXXX
+             * @apiParam {Number} socialAccountId - XXXX
+             * @apiVersion 1.0.0
+             * @apiSampleRequest http://www.encuestame.org/demo/api/social/actions/account/{type}.json
+             * @apiPermission ENCUESTAME_USER
+             */
+
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/social/actions/account/{type}.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap actionTwitterAccount(

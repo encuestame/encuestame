@@ -19,7 +19,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
@@ -48,43 +47,44 @@ public class JsonPermissionController  extends AbstractJsonControllerV1 {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(JsonPermissionController.class);
 
 
-    /**
-     * @api {get} /api/admon/list-permissions.json Get Permissions
-     * @apiName GetPermissions
-     * @apiGroup Permissions
-     * @apiDescription List of permissions available to assign to the user.
-     * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/admon/list-permissions.json
-     * @apiPermission ENCUESTAME_OWNER
-     * @apiSuccessExample
-     * {
-		  "error": {
+            /**
+             * @api {get} /api/admon/list-permissions.json Get Permissions
+             * @apiName GetPermissions
+             * @apiGroup Permissions
+             * @apiDescription List of permissions available to assign to the user.
+             * @apiVersion 1.0.0
+             * @apiSampleRequest http://www.encuestame.org/demo/api/admon/list-permissions.json
+             * @apiPermission ENCUESTAME_OWNER
+             * @apiSuccessExample
+             * {
+            "error": {
 
-		  },
-		  "success": {
-		    "permissions": [
-		      {
-		        "id": 1,
-		        "permission": "ENCUESTAME_ADMIN",
-		        "description": "ENCUESTAME_ADMIN"
-		      },
-		      {
-		        "id": 2,
-		        "permission": "ENCUESTAME_OWNER",
-		        "description": "ENCUESTAME_OWNER"
-		      },
-		      {
-		        "id": 3,
-		        "permission": "ENCUESTAME_ADMIN",
-		        "description": "ENCUESTAME_ADMIN"
-		      }
-		    ]
-		  }
-		}
-     */
+            },
+            "success": {
+            "permissions": [
+            {
+            "id": 1,
+            "permission": "ENCUESTAME_ADMIN",
+            "description": "ENCUESTAME_ADMIN"
+            },
+            {
+            "id": 2,
+            "permission": "ENCUESTAME_OWNER",
+            "description": "ENCUESTAME_OWNER"
+            },
+            {
+            "id": 3,
+            "permission": "ENCUESTAME_ADMIN",
+            "description": "ENCUESTAME_ADMIN"
+            }
+            ]
+            }
+            }
+             */
+
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/list-permissions.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getPermissions(

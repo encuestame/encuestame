@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.util.EnMeUtils;
@@ -51,13 +50,14 @@ public abstract class AbstractViewController extends AbstractBaseOperations{
      /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+     private static Log log = LogFactory.getLog(AbstractViewController.class);
 
-    /**
-     * Customized error for {@link NoSuchRequestHandlingMethodException}.
-     * @param ex {@link NoSuchRequestHandlingMethodException}.
-     * @return {@link ResponseEntity}
-     */
+             /**
+              * Customized error for {@link NoSuchRequestHandlingMethodException}.
+              * @param ex {@link NoSuchRequestHandlingMethodException}.
+              * @return {@link ResponseEntity}
+              */
+
     @ExceptionHandler(NoSuchRequestHandlingMethodException.class)
     public ResponseEntity<String> handleNoSuchRequestHandlingMethodException(NoSuchRequestHandlingMethodException ex)   {
     	ex.printStackTrace();

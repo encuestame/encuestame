@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.ListUtils;
-import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.encuestame.core.service.imp.IFrontEndService;
@@ -52,11 +51,11 @@ public class HashTagsJsonController extends AbstractJsonControllerV1{
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(HashTagsJsonController.class);
 
-    /**
-     * Limit of results by default.
-     */
+            /**
+             * Limit of results by default.
+             */
     @Value("${hashtags.suggests.items}") private Integer hashtagsSuggestLimit;
 
     /**

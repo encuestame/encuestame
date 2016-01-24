@@ -18,7 +18,9 @@ import java.io.StringWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,7 +33,7 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
  */
 public class EnMeMappingExceptionResolver extends SimpleMappingExceptionResolver{
 
-    private Logger logger = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     /*
      * (non-Javadoc)

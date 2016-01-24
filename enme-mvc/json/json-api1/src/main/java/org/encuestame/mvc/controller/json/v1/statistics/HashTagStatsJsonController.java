@@ -21,7 +21,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.SearchPeriods;
@@ -50,9 +49,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 public class HashTagStatsJsonController extends AbstractJsonControllerV1 {
 
     /** Log. **/
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(HashTagStatsJsonController.class);
 
-    /** **/
+            /** **/
     private Integer INIT_RESULTS = 0;
 
 

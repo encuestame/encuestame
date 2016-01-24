@@ -20,7 +20,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
@@ -49,19 +48,20 @@ public class JsonDataChart extends AbstractJsonControllerV1 {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(JsonDataChart.class);
 
-    /**
-     * JSON service to retrieve vote of a {@link Poll}.
-     * @param username username
-     * @param id poll id.
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
-     */
+            /**
+             * JSON service to retrieve vote of a {@link Poll}.
+             * @param username username
+             * @param id poll id.
+             * @param request
+             * @param response
+             * @return
+             * @throws JsonGenerationException
+             * @throws JsonMappingException
+             * @throws IOException
+             */
+
     @RequestMapping(value = "/api/{username}/poll/votes.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getPollVotes(
             @PathVariable String username,

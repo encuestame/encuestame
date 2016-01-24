@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.imp.MailServiceOperations;
+import org.encuestame.core.service.MailServiceOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;

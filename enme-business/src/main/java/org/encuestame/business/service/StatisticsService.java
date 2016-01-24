@@ -18,9 +18,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.imp.IStatisticsService;
+import org.encuestame.core.service.IStatisticsService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
@@ -53,7 +54,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class StatisticsService extends AbstractBaseService implements IStatisticsService {
 
      /** Statistics Service Log. **/
-    private Logger log = Logger.getLogger(this.getClass());
+     private Log log = LogFactory.getLog(this.getClass());
 
     /*
      * (non-Javadoc)

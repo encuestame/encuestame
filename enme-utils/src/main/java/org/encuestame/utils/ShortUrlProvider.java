@@ -12,7 +12,9 @@
  */
 package org.encuestame.utils;
 
-import org.apache.log4j.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Short url provider.
@@ -32,7 +34,7 @@ public enum ShortUrlProvider {
     /**
      * Log.
      */
-    private static Logger log = Logger.getLogger(ShortUrlProvider.class);
+    private static final Log log = LogFactory.getLog(ShortUrlProvider.class);
 
     /**
      * Get short url provider by string.

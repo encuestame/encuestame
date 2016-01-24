@@ -14,7 +14,8 @@ package org.encuestame.oauth;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -31,11 +32,11 @@ public abstract class AbstractOAuthSupport {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(AbstractOAuthSupport.class);
 
-    /**
-     * {@link RestTemplate}.
-     */
+            /**
+             * {@link RestTemplate}.
+             */
     private final RestTemplate restTemplate;
 
     /**

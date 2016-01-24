@@ -12,12 +12,12 @@ import org.encuestame.core.cron.CalculateHashTagSize;
 import org.encuestame.core.cron.CalculateRelevance;
 import org.encuestame.core.cron.IndexRebuilder;
 import org.encuestame.core.cron.ReIndexJob;
+import org.encuestame.core.service.IMessageSource;
 import org.encuestame.core.service.MessageSourceFactoryBean;
 import org.encuestame.persistence.dao.jdbc.InstallerDao;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
@@ -48,7 +48,7 @@ public class BusinessConfig {
    *
    */
   @Autowired
-  private MessageSource messageSource;
+  private IMessageSource messageSource;
 
   /**
    * The Java Mail sender.
@@ -101,7 +101,7 @@ public class BusinessConfig {
    *
    * @return
    */
-  public @Bean(name="messageSourceFactoryBean") MessageSourceFactoryBean messageSourceFactoryBean(){
+  public @Bean(name="messageSourceFactoryBean") IMessageSource messageSourceFactoryBean(){
     return new MessageSourceFactoryBean(this.messageSource);
   }
 

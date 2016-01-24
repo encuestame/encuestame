@@ -30,10 +30,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
-import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.core.service.startup.DirectorySetupOperations;
 import org.encuestame.core.service.startup.MailService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.HttpUtils;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EmailSubscribe;
@@ -69,7 +69,6 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -88,7 +87,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     /**
      * {@link MessageSourceFactoryBean}.
      */
-    private MessageSourceFactoryBean messageSourceFactoryBean;
+    private IMessageSource messageSourceFactoryBean;
 
     /**
      *  {@link MailService}.
@@ -276,7 +275,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param tpbean
      * @param request
      */
-    public TweetPollBean  convertTweetPollRelativeTime(final TweetPollBean tpbean, final HttpServletRequest request){
+    public TweetPollBean  convertTweetPollRelativeTime(final TweetPollBean tpbean, final HttpServletRequest request) {
         final HashMap<Integer, RelativeTimeEnum> relativeTime =  DateUtil.getRelativeTime(tpbean.getCreatedDateAt());
         @SuppressWarnings("rawtypes")
         final Iterator it = relativeTime.entrySet().iterator();
@@ -429,7 +428,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * Getter.
      * @return {@link MessageSourceFactoryBean}
      */
-    public MessageSourceFactoryBean getMessageSourceFactoryBean() {
+    public IMessageSource getMessageSourceFactoryBean() {
         return messageSourceFactoryBean;
     }
 
@@ -439,7 +438,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param messageSource {@link MessageSourceFactoryBean}
      */
     @Autowired
-    public void setMessageSourceFactoryBean(final MessageSourceFactoryBean messageSourceFactoryBean) {
+    public void setMessageSourceFactoryBean(final IMessageSource messageSourceFactoryBean) {
         this.messageSourceFactoryBean = messageSourceFactoryBean;
     }
 
@@ -468,27 +467,20 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     }
 
     /**
-     * Return the locale inside the {@link HttpServletRequest}.
-     * @param request
-     * @return
-     */
-    private Locale getLocale(final HttpServletRequest request){
-        return RequestContextUtils.getLocale(request);
-    }
-
-    /**
      * Return the i18 message by {@link Locale}.
      * @param message
      * @param request
      * @param args
      * @return
      */
-    public String getMessage(final String message,
-            final HttpServletRequest request, Object[] args) {
+    public String getMessage(
+            final String message,
+            final HttpServletRequest request,
+            Object[] args) {
         String stringValue = "";
         try {
             stringValue = getMessageSourceFactoryBean().getMessage(
-                    message, args, getLocale(request));
+                    message, args, HttpUtils.getLocale(request));
         } catch (Exception e) {
             log.error(e);  //TODO: ENCUESTAME-223 - OPEN
         }

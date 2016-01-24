@@ -14,7 +14,6 @@ package org.encuestame.mvc.page;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -48,13 +47,14 @@ public class ForgetPasswordController extends AbstractSecurityController {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(ForgetPasswordController.class);
 
-    /**
-     *
-     * @param model
-     * @return
-     */
+            /**
+             *
+             * @param model
+             * @return
+             */
+
     @RequestMapping(value = "/user/forgot", method = RequestMethod.GET)
     public String addHandler(ModelMap model) {
         log.info("/forgot");

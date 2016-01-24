@@ -19,7 +19,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.ListUtils;
-import org.apache.log4j.Logger;
 import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.FeedUtils;
@@ -57,14 +56,15 @@ public abstract class AbstractFeedController extends AbstractBaseOperations{
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(AbstractFeedController.class);
 
-    /**
-     * Get TweetPolls.
-     * @param username
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
+            /**
+             * Get TweetPolls.
+             * @param username
+             * @return
+             * @throws EnMeNoResultsFoundException
+             */
+
     public List<TweetPollBean> getTweetPolls(final String username, final HttpServletRequest httpServletRequest) throws EnMeNoResultsFoundException{
         return getTweetPollService().getTweetsPollsByUserName(username, httpServletRequest, new TweetPollSearchBean());
     }

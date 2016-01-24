@@ -4,7 +4,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-import org.apache.log4j.Logger;
 import org.encuestame.config.annotations.ServicesAppConfig;
 import org.encuestame.config.annotations.EnMeProperties;
 import org.encuestame.config.annotations.web.EnMeWebMvcConfiguration;
@@ -25,7 +24,7 @@ public class EnMeInitializer implements WebApplicationInitializer {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(EnMeInitializer.class);
 
     /*
      * (non-Javadoc)

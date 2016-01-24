@@ -26,8 +26,9 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
@@ -44,7 +45,8 @@ import org.springframework.util.Assert;
 public class SocialUtils {
 
     /** Log. **/
-    private static Logger log = Logger.getLogger(SocialUtils.class);
+    private static Log log = LogFactory.getLog(SocialUtils.class);
+
 
     /**
      * TinyUrl rest url.

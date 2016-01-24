@@ -15,7 +15,8 @@ package org.encuestame.core.service.startup;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.utils.PathUtil;
 import org.encuestame.core.util.EnMeUtils;
@@ -32,7 +33,7 @@ import org.springframework.core.io.Resource;
 public class DirectorySetupOperations {
 
     /** Log. **/
-    private static Logger log = Logger.getLogger(DirectorySetupOperations.class);
+    private static Log log = LogFactory.getLog(DirectorySetupOperations.class);
     /** Default picture directory name. **/
     private static final String PICTURES_DEFAULT_FOLDER = "pictures";
     /** Default profiles directory name. **/

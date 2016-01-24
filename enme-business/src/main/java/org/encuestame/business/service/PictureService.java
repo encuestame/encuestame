@@ -21,7 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.utils.PathUtil;
 import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.imp.IPictureService;
+import org.encuestame.core.service.IPictureService;
 import org.encuestame.core.service.startup.DirectorySetupOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.UserAccount.PictureSource;

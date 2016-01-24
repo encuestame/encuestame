@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.encuestame.core.search.GlobalSearchItem;
@@ -45,11 +44,11 @@ public class QuickSearchJsonController extends AbstractJsonControllerV1 {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(QuickSearchJsonController.class);
 
-    /**
-     * Default limit results.
-     */
+            /**
+             * Default limit results.
+             */
     private final Integer LIMIT_RESULTS = 10;
 
 

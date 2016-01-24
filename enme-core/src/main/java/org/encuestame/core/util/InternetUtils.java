@@ -20,8 +20,9 @@ import java.net.UnknownHostException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.UrlValidator;
-import org.apache.log4j.Logger;
 
 /**
  * Internet Utils.
@@ -30,7 +31,7 @@ import org.apache.log4j.Logger;
  */
 public class InternetUtils {
 
-    protected static Logger log = Logger.getLogger(InternetUtils.class);
+    private static Log log = LogFactory.getLog(InternetUtils.class);
 
     private static final Integer TIMEOUT = 5000;
 

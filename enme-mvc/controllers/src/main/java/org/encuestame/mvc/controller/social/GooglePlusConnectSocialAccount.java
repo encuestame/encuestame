@@ -15,7 +15,6 @@ package org.encuestame.mvc.controller.social;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.oauth2.support.OAuth2Parameters;
 import org.encuestame.utils.oauth.AccessGrant;
@@ -38,16 +37,17 @@ public class GooglePlusConnectSocialAccount extends AbstractAccountConnect{
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(GooglePlusConnectSocialAccount.class);
 
-    /**
-     *
-     * @param appId
-     * @param accessTokenUrl
-     * @param authorizeUrl
-     * @param clientSecret
-     * @param clientId
-     */
+            /**
+             *
+             * @param appId
+             * @param accessTokenUrl
+             * @param authorizeUrl
+             * @param clientSecret
+             * @param clientId
+             */
+
     @Inject
     public GooglePlusConnectSocialAccount(
             @Value("${google.api.key}") String keyId,

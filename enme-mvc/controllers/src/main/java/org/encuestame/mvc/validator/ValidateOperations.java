@@ -15,7 +15,6 @@ package org.encuestame.mvc.validator;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.ValidationUtils;
@@ -58,7 +57,7 @@ public class ValidateOperations {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(ValidateOperations.class);
 
     /**
      *

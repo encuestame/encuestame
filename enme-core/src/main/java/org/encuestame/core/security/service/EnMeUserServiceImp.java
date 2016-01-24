@@ -14,7 +14,8 @@ package org.encuestame.core.security.service;
 
 import java.util.Calendar;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.web.SecurityUtils;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.persistence.dao.IAccountDao;
@@ -64,7 +65,7 @@ public class EnMeUserServiceImp implements UserDetailsService {
     /**
      * Log.
      */
-    private static Logger log = Logger.getLogger(EnMeUserServiceImp.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Setter.

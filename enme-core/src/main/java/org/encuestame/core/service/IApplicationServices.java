@@ -10,9 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.service.imp;
-
-import org.encuestame.core.service.ServiceOperations;
+package org.encuestame.core.service;
 
 /**
  * Interface to Application Bean Service.

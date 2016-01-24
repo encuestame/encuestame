@@ -19,9 +19,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.imp.StreamOperations;
+import org.encuestame.core.service.StreamOperations;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.dao.imp.NotificationDao;
@@ -35,7 +36,6 @@ import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +52,7 @@ public class StreamService extends AbstractBaseService implements StreamOperatio
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * default start

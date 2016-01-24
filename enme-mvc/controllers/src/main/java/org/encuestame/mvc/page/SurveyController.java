@@ -13,7 +13,6 @@
 
 package org.encuestame.mvc.page;
 
-import org.apache.log4j.Logger;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,13 +33,14 @@ public class SurveyController  extends AbstractViewController {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(SurveyController.class);
 
-    /**
-     * Survey Controller.
-     * @param model model
-     * @return template
-     */
+            /**
+             * Survey Controller.
+             * @param model model
+             * @return template
+             */
+
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/survey", method = RequestMethod.GET)
     public String surveyController(final ModelMap model) {

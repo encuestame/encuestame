@@ -17,7 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.oauth2.support.ProtectedResourceClientFactory;
 import org.encuestame.social.AbstractSocialAPISupport;
 import org.encuestame.social.api.FacebookLink;
@@ -43,7 +44,7 @@ public class FacebookAPITemplate extends AbstractSocialAPISupport implements Fac
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(FacebookAPITemplate.class);
 
     private static final String OBJECT_URL = "https://graph.facebook.com/{objectId}";
     private static final String PICTURE_PROFILE_URL = "https://graph.facebook.com/{objectId}/picture";

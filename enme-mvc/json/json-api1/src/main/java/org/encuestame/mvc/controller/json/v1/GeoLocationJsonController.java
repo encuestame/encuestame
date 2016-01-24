@@ -21,7 +21,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
@@ -48,28 +47,28 @@ public class GeoLocationJsonController extends AbstractJsonControllerV1 {
      /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+     private static Log log = LogFactory.getLog(GeoLocationJsonController.class);
 
-    /**
-     * @api {get} /api/common/geolocation/search/{typeOfSearch}.json Get Items by Geolocation
-     * @apiVersion 1.0.0
-     * @apiName GetGeoItemsByType
-     * @apiGroup Geolocation
-     * @apiPermission user
-     * @apiDescription A tag cloud of hashtags with the top hashtags in post mentioning ordered by frecuency.
-     * @apiParam {Number} range
-     * @apiParam {Number} maxItem
-     * @apiParam {String} type
-     * @apiParam {Number} longitude
-     * @apiParam {Number} latitude
-     * @apiParam {Number} period
-     * @apiParam {String} tagName
-     * @apiParam {String} typeOfSearch
-     * @apiSampleRequest http://www.encuestame.org/demo/api/common/geolocation/search/tweetpoll.json
-     * @apiSuccessExample
-     * @apiSuccess {Object} success
-     * @apiSuccess {String} error
-     */
+             /**
+              * @api {get} /api/common/geolocation/search/{typeOfSearch}.json Get Items by Geolocation
+              * @apiVersion 1.0.0
+              * @apiName GetGeoItemsByType
+              * @apiGroup Geolocation
+              * @apiPermission user
+              * @apiDescription A tag cloud of hashtags with the top hashtags in post mentioning ordered by frecuency.
+              * @apiParam {Number} range
+              * @apiParam {Number} maxItem
+              * @apiParam {String} type
+              * @apiParam {Number} longitude
+              * @apiParam {Number} latitude
+              * @apiParam {Number} period
+              * @apiParam {String} tagName
+              * @apiParam {String} typeOfSearch
+              * @apiSampleRequest http://www.encuestame.org/demo/api/common/geolocation/search/tweetpoll.json
+              * @apiSuccessExample
+              * @apiSuccess {Object} success
+              * @apiSuccess {String} error
+              */
 
     @RequestMapping(value = "/api/common/geolocation/search/{typeOfSearch}.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getItemsbyGeoLocationRange(

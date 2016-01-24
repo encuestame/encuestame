@@ -19,12 +19,8 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.social.api.templates.FacebookAPITemplate;
 import org.encuestame.social.api.templates.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.templates.IdenticaAPITemplate;
@@ -47,19 +43,19 @@ public class SocialAPITestCase extends TestCase {
 
     final String clientSecret = "oIJZgke5nPDSEEeNOy0lBrxv";
 
-    Logger logger = Logger.getLogger(SocialAPITestCase.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
     public void setUp() {
-        ConsoleAppender ca = new ConsoleAppender();
-        ca.setWriter(new OutputStreamWriter(System.out));
-        ca.setLayout(new PatternLayout("%-5p [%t]: %m%n"));
-        // logger.addAppender(ca);
-        BasicConfigurator.configure(ca);
-        Logger.getRootLogger().setLevel(Level.ALL);
+//        ConsoleAppender ca = new ConsoleAppender();
+//        ca.setWriter(new OutputStreamWriter(System.out));
+//        ca.setLayout(new PatternLayout("%-5p [%t]: %m%n"));
+//        // logger.addAppender(ca);
+//        BasicConfigurator.configure(ca);
+//        Logger.getRootLogger().setLevel(Level.ALL);
     }
 
     public void tearDown() {
-        LogManager.shutdown();
+//        LogManager.shutdown();
     }
 
 

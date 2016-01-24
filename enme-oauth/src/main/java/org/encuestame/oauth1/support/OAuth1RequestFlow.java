@@ -14,7 +14,8 @@ package org.encuestame.oauth1.support;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.OAuthUtils;
 import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
@@ -32,11 +33,11 @@ public class OAuth1RequestFlow {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(OAuth1RequestFlow.class);
 
-    /**
-    *
-    */
+            /**
+             *
+             */
     private OAuth1RestOperations oAuth1RestTemplate;
 
     /**

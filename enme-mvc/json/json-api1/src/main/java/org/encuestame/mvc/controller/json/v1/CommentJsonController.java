@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.ListUtils;
-import org.apache.log4j.Logger;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.domain.Comment;
@@ -54,9 +53,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 public class CommentJsonController extends AbstractJsonControllerV1 {
 
     /** Log. **/
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(CommentJsonController.class);
 
-    /**  Limit of results by default. **/
+            /**  Limit of results by default. **/
     private static final Integer LIMIT_DEFAULT = 10;
 
 

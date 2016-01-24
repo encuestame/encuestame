@@ -18,7 +18,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
@@ -43,17 +42,18 @@ public class JsonLocation extends AbstractJsonControllerV1 {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(JsonLocation.class);
 
-    /**
-     * Get Root Folders.
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
-     */
+            /**
+             * Get Root Folders.
+             * @param request
+             * @param response
+             * @return
+             * @throws JsonGenerationException
+             * @throws JsonMappingException
+             * @throws IOException
+             */
+
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/admon/location/folders.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap get(

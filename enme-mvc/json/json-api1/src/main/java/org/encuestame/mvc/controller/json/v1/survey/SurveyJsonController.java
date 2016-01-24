@@ -22,7 +22,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
@@ -57,21 +56,22 @@ public class SurveyJsonController extends AbstractJsonControllerV1{
      /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+     private static Log log = LogFactory.getLog(SurveyJsonController.class);
 
-    /**
-     * @api {get} /api/survey/search.json Search on Surveys
-     * @apiName GetSearchResults
-     * @apiGroup Survey
-     * @apiDescription Return all comments that will be filtered by type.
-     * @apiParam {Number} typeSearch - XXXX
-     * @apiParam {Number} [keyword - XXXX
-     * @apiParam {Number} [max - XXXX
-     * @apiParam {Number} [start - XXXX
-     * @apiVersion 1.0.0
-     * @apiSampleRequest http://www.encuestame.org/demo/api/survey/search.json
-     * @apiPermission ENCUESTAME_USER
-     */
+             /**
+              * @api {get} /api/survey/search.json Search on Surveys
+              * @apiName GetSearchResults
+              * @apiGroup Survey
+              * @apiDescription Return all comments that will be filtered by type.
+              * @apiParam {Number} typeSearch - XXXX
+              * @apiParam {Number} [keyword - XXXX
+              * @apiParam {Number} [max - XXXX
+              * @apiParam {Number} [start - XXXX
+              * @apiVersion 1.0.0
+              * @apiSampleRequest http://www.encuestame.org/demo/api/survey/search.json
+              * @apiPermission ENCUESTAME_USER
+              */
+
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/search.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getListSurveys(

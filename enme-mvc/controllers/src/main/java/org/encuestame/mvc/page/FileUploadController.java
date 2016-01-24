@@ -15,7 +15,6 @@ package org.encuestame.mvc.page;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.log4j.Logger;
 import org.encuestame.business.images.ThumbnailGeneratorEngine;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.mvc.controller.AbstractViewController;
@@ -44,11 +43,11 @@ public class FileUploadController extends AbstractViewController {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(FileUploadController.class);
 
-    /**
-     * {@link ThumbnailGeneratorEngine}.
-     */
+            /**
+             * {@link ThumbnailGeneratorEngine}.
+             */
     @Autowired
     private ThumbnailGeneratorEngine thumbnailGeneratorEngine;
 

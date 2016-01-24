@@ -24,13 +24,13 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.admin.AdministratorProfile;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.web.SecurityUtils;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
-import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.security.*;
@@ -52,7 +52,6 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UserAccountBean;
 import org.jasypt.util.password.StrongPasswordEncryptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -72,7 +71,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass()); 
+    private Log log = LogFactory.getLog(this.getClass());
 
 
     /** Default User Permission **/

@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.business.service.GeoLocationService;
-import org.encuestame.core.service.imp.GeoLocationSupport;
+import org.encuestame.core.service.GeoLocationSupport;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.domain.GeoPoint;

@@ -12,9 +12,8 @@
  */
 package org.encuestame.business.images;
 
-import org.apache.log4j.Logger;
-import org.encuestame.business.images.ThumbnailGenerator;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
@@ -28,8 +27,7 @@ import java.util.Map;
  */
 public class ThumbnailGeneratorEngineImpl implements ThumbnailGeneratorEngine {
 
-    private static final Logger log = Logger
-            .getLogger(ThumbnailGeneratorEngineImpl.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
     private String generatedExtension;
 

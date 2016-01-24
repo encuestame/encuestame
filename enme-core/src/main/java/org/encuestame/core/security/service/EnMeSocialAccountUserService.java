@@ -12,7 +12,8 @@
  */
 package org.encuestame.core.security.service;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
 import org.encuestame.core.security.web.SecurityUtils;
 import org.encuestame.core.security.web.SocialAccountConnectionException;
@@ -38,7 +39,7 @@ public class EnMeSocialAccountUserService implements SocialUserService {
     /*
      * Log.
      */
-    private Logger log = Logger.getLogger(EnMeSocialAccountUserService.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
     /*
      * (non-Javadoc)

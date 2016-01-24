@@ -15,7 +15,6 @@ package org.encuestame.mvc.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.utils.enums.EnMePermission;
@@ -31,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class SignInInterceptor extends AbstractEnMeInterceptor{
 
-    private static Logger log = Logger.getLogger(SignInInterceptor.class);
+    private static Log log = LogFactory.getLog(SignInInterceptor.class);
 
     /*
      * (non-Javadoc)

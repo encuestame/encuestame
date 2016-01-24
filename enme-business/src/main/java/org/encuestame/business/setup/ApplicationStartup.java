@@ -12,10 +12,10 @@
  */
 package org.encuestame.business.setup;
 
-import javax.annotation.PostConstruct;
 
-import org.apache.log4j.Logger;
-import org.encuestame.core.service.imp.MailServiceOperations;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.service.MailServiceOperations;
 import org.encuestame.core.service.startup.DirectorySetupOperations;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.exception.EnMeStartupException;
@@ -31,7 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ApplicationStartup implements StartupProcess {
 
     /** Log. **/
-    private Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     /** Say is app is started. **/
     private static boolean started = false;

@@ -17,9 +17,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
-import org.encuestame.core.cron.IndexRebuilder;
-import org.encuestame.core.service.imp.ITweetPollService;
+import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.domain.Schedule;

@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -27,17 +26,18 @@ public class HashtagGraphData extends AbstractJsonControllerV1{
 
 
     /** Log. **/
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(HashtagGraphData.class);
 
-      /**
-     *
-     * @param tagName
-     * @param period
-     * @param filter
-     * @param request
-     * @param response
-     * @return
-     */
+            /**
+             *
+             * @param tagName
+             * @param period
+             * @param filter
+             * @param request
+             * @param response
+             * @return
+             */
+
     @RequestMapping(value = "/api/2/common/hashtags/stats/button/{tagName}", method = RequestMethod.POST)
     public @ResponseBody ModelMap getHashtagListGraphData(
             @PathVariable(value = "tagName") String tagName,

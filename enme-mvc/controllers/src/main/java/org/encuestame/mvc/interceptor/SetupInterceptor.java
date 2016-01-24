@@ -15,7 +15,6 @@ package org.encuestame.mvc.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.encuestame.business.setup.StartupProcess;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.files.PathUtil;
@@ -32,9 +31,9 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
     /**
      *
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(SetupInterceptor.class);
 
-    //@Autowired
+            //@Autowired
     public StartupProcess startup;
 
     /*

@@ -18,7 +18,7 @@ import java.util.*;
 import junit.framework.Assert;
 
 import org.encuestame.core.search.GlobalSearchItem;
-import org.encuestame.core.service.imp.SearchServiceOperations;
+import org.encuestame.core.service.SearchServiceOperations;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;

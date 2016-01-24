@@ -12,7 +12,9 @@
  */
 package org.encuestame.utils.web;
 
-import org.apache.log4j.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Menu Bean.
@@ -29,7 +31,7 @@ public class MenuBean {
     private String indexCss;
     private String surveyCss;
     private String statsCss;
-    private static Logger log = Logger.getLogger(MenuBean.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Constructor.

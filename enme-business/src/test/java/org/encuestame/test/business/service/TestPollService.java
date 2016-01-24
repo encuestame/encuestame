@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.encuestame.business.service.PollService;
-import org.encuestame.core.service.imp.IPollService;
+import org.encuestame.core.service.IPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.Email;

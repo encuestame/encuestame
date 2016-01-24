@@ -15,7 +15,6 @@ package org.encuestame.mvc.controller.social;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.social.SocialProvider;
@@ -26,28 +25,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import java.lang.Deprecated;
+
 /**
  * MySpace connect support.
  * MYSPACE cancelled the support for they API
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 23, 2011
+ * @deprecated it will be removed soon
  */
 //@Controller
+@Deprecated
 public class MySpaceConnectSocialAccount extends AbstractAccountConnect {
 
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(MySpaceConnectSocialAccount.class);
 
-    /**
-     *
-     * @param apiKey
-     * @param consumerSecret
-     * @param authorizeUrl
-     * @param requestTokenUrl
-     * @param accessToken
-     */
+            /**
+             *
+             * @param apiKey
+             * @param consumerSecret
+             * @param authorizeUrl
+             * @param requestTokenUrl
+             * @param accessToken
+             */
+
     @Inject
     public MySpaceConnectSocialAccount(
             @Value("${myspace.consumer.key}") String apiKey,

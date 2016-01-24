@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.web.details.EnMeSocialUserAccount;
 import org.encuestame.core.security.web.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.token.EnMeSecurityToken;
@@ -42,7 +43,7 @@ public class SecurityUtils {
     /*
      * Log.
      */
-    private static Logger log = Logger.getLogger(SecurityUtils.class);
+    private static Log log = LogFactory.getLog(SecurityUtils.class);
 
 
     /**

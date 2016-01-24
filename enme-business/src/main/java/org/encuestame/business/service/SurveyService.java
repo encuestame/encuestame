@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.service.imp.ISurveyService;
+import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.util.ConvertDomainBean; 
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;

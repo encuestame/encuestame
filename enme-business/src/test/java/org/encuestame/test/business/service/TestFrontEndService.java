@@ -21,7 +21,7 @@ import java.util.Locale;
 
 import junit.framework.Assert;
 
-import org.encuestame.core.service.imp.IFrontEndService;
+import org.encuestame.core.service.IFrontEndService;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;

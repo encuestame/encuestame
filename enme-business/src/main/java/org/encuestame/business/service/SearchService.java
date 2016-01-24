@@ -23,7 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.search.UtilConvertToSearchItems;
 import org.encuestame.core.search.GlobalSearchItem;
-import org.encuestame.core.service.imp.SearchServiceOperations;
+import org.encuestame.core.service.SearchServiceOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeExpcetion;

@@ -15,9 +15,10 @@ package org.encuestame.business.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.imp.GeoLocationSupport;
+import org.encuestame.core.service.GeoLocationSupport;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
@@ -53,7 +54,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class GeoLocationService extends AbstractBaseService implements GeoLocationSupport{
 
     /** Log. **/
-    private Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
     
 	private int earth_radius = EnMePlaceHolderConfigurer
 			.getIntegerProperty("geo.earth.radius.km");

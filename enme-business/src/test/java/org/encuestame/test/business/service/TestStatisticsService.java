@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.core.service.imp.IStatisticsService;
+import org.encuestame.core.service.IStatisticsService;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;

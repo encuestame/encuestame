@@ -18,7 +18,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.view.feed.AbstractAtomFeedView;
 
 import com.rometools.rome.feed.atom.Entry;
@@ -34,7 +35,7 @@ import com.rometools.rome.feed.atom.Feed;
  */
 public abstract class AbstractBaseAtomFeedView extends AbstractAtomFeedView {
 
-    protected Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     private String atomTitle = "";
 

@@ -19,7 +19,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractViewController;
@@ -55,15 +54,16 @@ public class PollController extends AbstractViewController {
     /**
      * Log.
      */
-    private Logger log = Logger.getLogger(this.getClass());
+    private static Log log = LogFactory.getLog(PollController.class);
 
-    /**
-     * Poll Controller.
-     *
-     * @param model
-     *            model
-     * @return template
-     */
+            /**
+             * Poll Controller.
+             *
+             * @param model
+             *            model
+             * @return template
+             */
+
     @RequestMapping(value = "/poll/{id}/{slug}", method = RequestMethod.GET)
     public String pollController(final ModelMap model, @PathVariable Long id,
             @PathVariable String slug) {

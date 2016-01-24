@@ -17,7 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.utils.PathUtil;
 import org.encuestame.core.security.web.SecurityUtils;
 import org.encuestame.core.service.AbstractBaseService;
-import org.encuestame.core.service.imp.SecurityOperations;
+import org.encuestame.core.service.SecurityOperations;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
