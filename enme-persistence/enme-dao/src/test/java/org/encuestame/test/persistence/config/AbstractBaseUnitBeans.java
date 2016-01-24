@@ -21,7 +21,6 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
-import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
@@ -371,7 +370,6 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @param stateId
       * @param userId
       * @param listAnswers
-      * @param pattern
       * @return
       */ 
      public QuestionBean createUnitQuestion(

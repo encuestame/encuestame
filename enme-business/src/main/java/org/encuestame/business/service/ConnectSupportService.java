@@ -69,7 +69,7 @@ public class ConnectSupportService  extends AbstractBaseService implements Conne
             getAccountDao().saveOrUpdate(socialAccount);
             SecurityUtils.socialAuthentication(socialAccount); //TODO: only with OWNER UserAccount.
             //TODO: Dashboard Removed references
-            return PathUtil.DASHBOARD_REDIRECT;
+            return PathUtil.SIGNED_REDIRECT;
         } else {
             //if user has been never connected, we check if the user exist with the social account email.
             log.info("Connecting: Creating new connection");
@@ -98,7 +98,7 @@ public class ConnectSupportService  extends AbstractBaseService implements Conne
                         social.getProvider(),
                         accountEmail);
                 SecurityUtils.socialAuthentication(accountConnection);
-                redirectPath = PathUtil.DASHBOARD_REDIRECT;
+                redirectPath = PathUtil.SIGNED_REDIRECT;
             }
             return redirectPath;
         }

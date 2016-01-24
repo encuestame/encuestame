@@ -74,7 +74,7 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     /*** {@link NotificationDao}. **/
     @Autowired
     private INotification notificationDao;
-    /** {@link FrontEndService}. **/
+    /** {@link IFrontEndDao}. **/
     @Autowired
     private IFrontEndDao frontEndDao;
     /** Log. */
@@ -144,7 +144,7 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
      */
    public final UserAccount getUserAccount(final Long userId) throws EnMeNoResultsFoundException {
         final UserAccount userAccount = getAccountDao().getUserAccountById(userId);
-        if(userAccount == null){
+        if(userAccount == null) {
             throw new EnMeNoResultsFoundException(" user id not found {"+userId+"}");
         } else {
             //TODO: we can add others validations, like is disabled, banned or the account is expired.

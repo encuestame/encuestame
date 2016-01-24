@@ -18,6 +18,7 @@ import org.encuestame.persistence.dao.jdbc.InstallerDao;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
@@ -48,7 +49,7 @@ public class BusinessConfig {
    *
    */
   @Autowired
-  private IMessageSource messageSource;
+  private MessageSource messageSource;
 
   /**
    * The Java Mail sender.

@@ -24,7 +24,7 @@ import com.rometools.rome.feed.rss.Item;
  
 
 /**
- * Dashboard Rss View.
+ * Base Rss View.
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 2, 2010 9:19:15 AM
  * @version $Id:$

@@ -3,16 +3,4 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-
-    <!--  Gadget Support -->
-    <bean id="gadgetLoader" init-method="load" class="org.encuestame.business.gadgets.GadgetsLoader" scope="singleton">
-       <property name="gadgets">
-          <list>
-            <value>classpath:org/encuestame/business/gadgets/activity-stream.properties</value>
-            <value>classpath:org/encuestame/business/gadgets/comments.properties</value>
-            <value>classpath:org/encuestame/business/gadgets/tweetpoll-votes.properties</value>
-          </list>
-        </property>
-    </bean>
-
 </beans>

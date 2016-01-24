@@ -66,5 +66,5 @@ public class PathUtil {
      */
     public static final String profileUserImage = "/user/picture/profile";
 
-    public static final String DASHBOARD_REDIRECT = "redirect:/user/dashboard";
+    public static final String SIGNED_REDIRECT = "redirect:/user/home";
 }

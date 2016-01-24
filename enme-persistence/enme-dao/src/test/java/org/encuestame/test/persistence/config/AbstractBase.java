@@ -63,8 +63,6 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.persistence.domain.Hit; 
 import org.encuestame.persistence.domain.Schedule;
-import org.encuestame.persistence.domain.dashboard.Gadget;
-import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -94,9 +92,7 @@ import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.EnMePermission;
-import org.encuestame.utils.enums.GadgetType;
 import org.encuestame.utils.enums.HitCategory;
-import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -655,36 +651,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Group group){
         return createSecondaryUserGroup(name, name.replace(" ", "") + "." + RandomStringUtils.randomNumeric(6) + "@users.com", secUser, group);
     }
-
-    public GadgetProperties createGadgetProperties(final String name, final String value,
-            final Gadget gadget,
-            final UserAccount user){
-        final GadgetProperties properties = new GadgetProperties();
-        properties.setGadgetPropName(name);
-        properties.setGadgetPropValue(value);
-        properties.setUserAccount(user);
-        properties.setGadget(gadget);
-        //getDashboardDao().saveOrUpdate(properties);
-        //TODO: Removed Dashboard references
-        return properties;
-    } 
-
-    /**
-     * Create gadget.
-     * @param name
-     * @param type
-     * @return
-     */
-    public Gadget createGadget(final String name){
-        final Gadget gadget = new Gadget();
-        gadget.setGadgetName(name);
-        gadget.setGadgetType(GadgetType.ACTIVITY_STREAM);
-        gadget.setGadgetColumn(2);
-        gadget.setGadgetColor("default");
-        gadget.setGadgetPosition(0);
-        //TODO: Removed Dashboard references
-        return gadget;
-    }  
 
     /**
      * Create Secondary User.

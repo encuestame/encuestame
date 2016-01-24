@@ -96,7 +96,7 @@ public class DirectoryConfig {
      *
       * @return
      */
-   public @Bean(name="messageSourceFactoryBean") MessageSourceFactoryBean messageSourceFactoryBean(){
+   public @Bean(name="messageSourceFactoryBean") IMessageSource messageSourceFactoryBean(){
        return new MessageSourceFactoryBean(this.messageSource);
    }
 

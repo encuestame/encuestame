@@ -88,7 +88,8 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     /**
      * {@link MessageSourceFactoryBean}.
      */
-    private IMessageSource messageSourceFactoryBean;
+    @Autowired
+    private IMessageSource messageSourceBean;
 
     /**
      *  {@link MailService}.
@@ -98,7 +99,9 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     /**
      * Constructor.
      */
-    public AbstractBaseService() {}
+    public AbstractBaseService() {
+        super();
+    }
 
 
     /**
@@ -429,18 +432,8 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * Getter.
      * @return {@link MessageSourceFactoryBean}
      */
-    public IMessageSource getMessageSourceFactoryBean() {
-        return messageSourceFactoryBean;
-    }
-
-
-    /**
-     * Setter.
-     * @param messageSource {@link MessageSourceFactoryBean}
-     */
-    @Autowired
-    public void setMessageSourceFactoryBean(final IMessageSource messageSourceFactoryBean) {
-        this.messageSourceFactoryBean = messageSourceFactoryBean;
+    public IMessageSource getMessageSourceBean() {
+        return messageSourceBean;
     }
 
     /**
@@ -449,7 +442,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return value of properties
      */
     public String getMessageProperties(final String propertieId) {
-        return getMessageSourceFactoryBean() == null ? propertieId : getMessageSourceFactoryBean()
+        return getMessageSourceBean() == null ? propertieId : getMessageSourceBean()
                 .getMessage(propertieId, null, null);
     }
 
@@ -460,9 +453,9 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param object list of items to embebed in the property text
      * @return
      */
-    public String getMessageProperties(final String propertieId, final Locale locale , final Object[] object) {
-        final String message = getMessageSourceFactoryBean() == null ? propertieId : getMessageSourceFactoryBean()
-                .getMessage(propertieId, object, locale);
+    public String getMessageProperties(final String propertyId, final Locale locale , final Object[] object) {
+        final String message = getMessageSourceBean() == null ? propertyId : getMessageSourceBean()
+                .getMessage(propertyId, object, locale);
         log.debug(" ::: Translated Message " + message);
         return message;
     }
@@ -480,7 +473,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
             Object[] args) {
         String stringValue = "";
         try {
-            stringValue = getMessageSourceFactoryBean().getMessage(
+            stringValue = getMessageSourceBean().getMessage(
                     message, args, HttpUtils.getLocale(request));
         } catch (Exception e) {
             log.error(e);  //TODO: ENCUESTAME-223 - OPEN

@@ -112,24 +112,6 @@ public class TestUtilsEnums extends TestCase{
     }
 
     /**
-     * Test layout option enum.
-     */
-    @Test
-    public void testLayoutEnumOptions(){
-        final LayoutEnum bbColumns = EnumerationUtils.getEnumFromString(LayoutEnum.class, "BB_BLOCK");
-        assertEquals("Should be equals", LayoutEnum.BB_BLOCK, bbColumns);
-
-        final LayoutEnum bColumns = EnumerationUtils.getEnumFromString(LayoutEnum.class, "B_BLOCK");
-        assertEquals("Should be equals", LayoutEnum.B_BLOCK, bColumns);
-
-        final LayoutEnum abColumns =  EnumerationUtils.getEnumFromString(LayoutEnum.class, "AB_COLUMN_BLOCK");
-        assertEquals("Should be equals", LayoutEnum.AB_COLUMN_BLOCK, abColumns);
-
-        final LayoutEnum baColumns = EnumerationUtils.getEnumFromString(LayoutEnum.class, "BA_BLOCK_COLUMN");
-        assertEquals("Should be equals", LayoutEnum.BA_BLOCK_COLUMN, baColumns);
-    }
-
-    /**
      * Test type search result options enum.
      */
     @Test

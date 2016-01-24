@@ -53,7 +53,7 @@ import java.util.*;
 import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
 
 /**
- * Dashboard Controller TestCase.
+ * Poll Controller TestCase.
  */
 @Category(DefaultTest.class)
 public class PollControllerTestCase extends AbstractMvcUnitBeans{

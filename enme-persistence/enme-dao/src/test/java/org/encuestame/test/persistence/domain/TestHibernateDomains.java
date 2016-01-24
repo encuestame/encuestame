@@ -33,8 +33,6 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Schedule;
-import org.encuestame.persistence.domain.dashboard.Gadget;
-import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.question.CatQuestionCategory;
 import org.encuestame.persistence.domain.question.Question;
@@ -69,9 +67,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.test.persistence.config.AbstractBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.EnMePermission;
-import org.encuestame.utils.enums.GadgetType;
 import org.encuestame.utils.enums.HitCategory;
-import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -461,46 +457,6 @@ public class TestHibernateDomains extends AbstractBase{
         assertNotNull(tag.getSize());
         assertNotNull(tag.getTweetPoll());
      } 
-
-     /** Gadget domain **/
-     @Test
-     public void testGadget(){
-        final Gadget gadget = new Gadget();
-        final UserAccount user = createUserAccount("diana paola", createAccount());
-        gadget.setGadgetName("Notifications");
-        gadget.setGadgetType(GadgetType.ACTIVITY_STREAM);
-        gadget.setGadgetColor("blue");
-        gadget.setGadgetColumn(1);
-        gadget.setGadgetPosition(1);
-        
-       //TODO: Removed Dashboard references
-       /*
-        assertNotNull(gadget.getGadgetName());
-        assertNotNull(gadget.getGadgetType());
-        assertNotNull(gadget.getGadgetColumn());
-        assertNotNull(gadget.getGadgetPosition());
-        assertNotNull(gadget.getGadgetColor());
-        assertNotNull(gadget.getGadgetId());*/
-     }
-
-     /** Gadget Properties **/
-     @Test
-     public void testGadgetProperties(){
-         final UserAccount user = createUserAccount("diana paola", createAccount());
-        
-         final GadgetProperties gadgetProp = new GadgetProperties();
-         gadgetProp.setGadgetPropName("maxResults");
-         gadgetProp.setGadgetPropValue("10");
-         gadgetProp.setUserAccount(user);
-    
-         //TODO: Removed Dashboard references
-       /*
-         assertNotNull(gadgetProp.getPropertyId());
-         assertNotNull(gadgetProp.getGadgetPropName());
-         assertNotNull(gadgetProp.getGadgetPropValue());
-         assertNotNull(gadgetProp.getUserAccount());
-         //assertNotNull(gadgetProp.getGadget());*/
-     }
 
      /** Test Comments **/
      @Test

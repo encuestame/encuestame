@@ -16,13 +16,13 @@
             <groupId>org.encuestame</groupId>
             <artifactId>core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-business</artifactId>
-        </dependency>
         <!--<dependency>-->
             <!--<groupId>org.encuestame</groupId>-->
-            <!--<artifactId>encuestame-business</artifactId>-->
+            <!--<artifactId>business</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.encuestame</groupId>-->
+            <!--<artifactId>business</artifactId>-->
             <!--<scope>test</scope>-->
             <!--<classifier>tests</classifier>-->
         <!--</dependency>-->
