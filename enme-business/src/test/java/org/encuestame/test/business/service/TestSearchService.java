@@ -15,7 +15,7 @@ package org.encuestame.test.business.service;
 import java.io.IOException;
 import java.util.*;
 
-import junit.framework.Assert;
+
 
 import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.SearchServiceOperations;
@@ -29,6 +29,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -131,8 +132,9 @@ public class TestSearchService extends AbstractSpringSecurityContext {
         final Poll poll = createDefaultPrivatePoll(createDefaultQuestion("Who is your favourite actor"), userAccount, true, false);
         poll.setPasswordRestrictions(true);
         poll.setPassword("1235");
-        poll.setIsHidden(true);
+        poll.setIsHidden(false);
         getPollDao().saveOrUpdate(poll);
+
 
         // TweetPoll - differents users
         final UserAccount user1 = createUserAccount("user1", account);

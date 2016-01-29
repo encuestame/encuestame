@@ -56,12 +56,13 @@ public class TestHashTagDao  extends AbstractBase{
     /**
      * Test Get List HashTags by Keyword.  
      */
-
+	@Test
     public void testGetListHashTagsByKeyword(){
-        this.hashTag = createHashTag("software");
+        createHashTag("software1");
         final String keyword = "software";
-        final List<HashTag> hashTagList = getHashTagDao().getListHashTagsByKeyword(keyword, 5, null);
-        assertEquals("Should be equals", 2, hashTagList.size());
+		flushIndexes();
+        final List<HashTag> hashTagList = getHashTagDao().getListHashTagsByKeyword(keyword, 5, null); 
+		assertEquals("Should be equals", 2, hashTagList.size());
     }
 
     /**
