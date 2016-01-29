@@ -1213,8 +1213,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @see org.encuestame.core.service.imp.IPollService#checkLimitVotesByIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
      */
     public Boolean checkLimitVotesByIP(final String ip, final Poll poll) {
-        List<PollResult> listItems = getPollDao().getListvalidateVoteIP(ip, poll);
-        if ((poll.getAllowRepeatedVotes() != null && poll.getAllowRepeatedVotes()) && (poll.getClosedQuota() != null && poll.getClosedQuota() <= listItems.size())) {
+        final Integer totalIp = getPollDao().validateVoteIP(ip, poll);
+        if ((poll.getAllowRepeatedVotes() != null && poll.getAllowRepeatedVotes()) && (poll.getClosedQuota() != null && poll.getClosedQuota() <= totalIp)) {
             log.info("checkLimitVotesByIP TRUE");
             return true;  // is not allowed to vote, the limit has been reached
         } else {
