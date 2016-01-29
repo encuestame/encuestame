@@ -105,6 +105,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 
 /**
  * Base Class to Test Cases.
@@ -119,6 +120,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private HibernateTemplate hibernateTemplate;
 
      /** SurveyFormat  Dao.**/
     @Autowired
@@ -2585,5 +2589,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         hpage.setPagePath(path);
         hpage.setUserAccount(user);
         getAccountDao().saveOrUpdate(hpage);
+    }
+
+    public HibernateTemplate getHibernateTemplate() {
+        return hibernateTemplate;
     }
 }
