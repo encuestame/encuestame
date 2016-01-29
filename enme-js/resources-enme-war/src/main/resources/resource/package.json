@@ -28,7 +28,7 @@
   "homepage": "https://github.com/encuestame/encuestame",
   "devDependencies": {
     "assert": "^1.1.2",
-    "bower": "^1.4.1",
+    "bower": "^1.7.1",
     "browserify": "^6.0.2",
     "chai": "^1.9.2",
     "del": "^0.1.3",
