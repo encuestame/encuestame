@@ -58,7 +58,7 @@ public class TestQuestionDao extends AbstractBase{
         createFakesQuestions(this.user);
         //masive insert.
         for (int i = 0; i < 200; i++) {
-            createQuestion("Word Cup 2010, Spain is a good champion?",  this.user);
+           createQuestion("Word Cup 2010, Spain is a good champion?",  this.user);
         }
         final Date createDate = DateUtil.parseDate("2011-01-01", DateUtil.DEFAULT_FORMAT_DATE);
         createQuestion("Question with date and hits", this.user, createDate, 200L);
@@ -98,7 +98,7 @@ public class TestQuestionDao extends AbstractBase{
     /**
      * Test Retrieve Indexed QuestionsByName.
      */
-    //@Test
+    @Test
     public void testRetrieveIndexedQuestionsByName(){
         //flush indexes
         flushIndexes();
