@@ -20,6 +20,7 @@ import org.apache.lucene.queryparser.classic.ParseException;
 import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.enums.Language;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.QuestionBean; 
 
@@ -47,8 +48,11 @@ public interface SearchServiceOperations extends ServiceOperations {
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    Map<String, List<GlobalSearchItem>> quickSearch(final String keyword,
-			final String language, final Integer start, final Integer limit,
+    Map<String, List<GlobalSearchItem>> quickSearch(
+            final String keyword,
+			final Language language,
+            final Integer start,
+            final Integer limit,
 			final Integer limitByItem,
 			final List<TypeSearchResult> resultsAllowed)
             throws EnMeNoResultsFoundException, IOException ;

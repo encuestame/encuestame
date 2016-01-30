@@ -29,6 +29,7 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.enums.Language;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.QuestionBean;
@@ -45,8 +46,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class SearchService extends AbstractIndexService implements
-        SearchServiceOperations {
+public class SearchService extends AbstractIndexService implements SearchServiceOperations {
 
     /**
      * Log.
@@ -72,7 +72,7 @@ public class SearchService extends AbstractIndexService implements
      */
     public Map<String, List<GlobalSearchItem>> quickSearch(
             final String keyword,
-            final String language,
+            final Language language,
             final Integer start,
             final Integer limit,
             	Integer limitByItem,
