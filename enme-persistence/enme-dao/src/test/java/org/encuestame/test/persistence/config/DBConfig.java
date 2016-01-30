@@ -153,7 +153,7 @@ public class DBConfig {
                 setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
                 setProperty("hibernate.globally_quoted_identifiers", "true");
                 setProperty("hibernate.cache.provider_class", "org.hibernate.cache.NoCacheProvider");
-                setProperty("hibernate.search.default.directory_provider", "org.hibernate.search.store.impl.FSDirectoryProvider");
+                setProperty("hibernate.search.default.directory_provider", "org.hibernate.search.store.impl.RAMDirectoryProvider");
                 setProperty("hibernate.search.default.indexBase", "/tmp");
                 setProperty("hibernate.search.lucene_version", "LUCENE_CURRENT");
             }

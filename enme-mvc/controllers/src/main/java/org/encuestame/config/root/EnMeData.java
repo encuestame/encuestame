@@ -64,6 +64,7 @@ public class EnMeData {
                 setProperty("hibernate.show_sql", EnMePlaceHolderConfigurer.getProperty("datasource.showsql"));
                 setProperty("hibernate.hbm2ddl.delimiter", EnMePlaceHolderConfigurer.getProperty("datasource.delimited"));
 //                setProperty("hibernate.search.default.directory_provider", EnMePlaceHolderConfigurer.getProperty("hibernate.search.provider"));
+                setProperty("hibernate.search.default.directory_provider","org.hibernate.search.store.impl.FSDirectoryProvider");
                 setProperty("hibernate.search.default.indexBase", EnMePlaceHolderConfigurer.getProperty("encuestame.home") + "/indexes/domain");
 //                setProperty("hibernate.search.worker.buffer_queue.max", "100");
 //                setProperty("hibernate.search.worker.execution", "async");
