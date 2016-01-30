@@ -95,10 +95,12 @@ public class TestCommentDao extends AbstractBase {
         createComment("I was watching TV", 40L, this.tpoll, null, null, user, 50L, dt.plusHours(3).toDate());
         createComment("I was at the beach", 0L, this.tpoll, null, null, user, 10L, dt.plusHours(1).toDate());
 	    createComment("I was working at home ", 3L, this.tpoll, null, null, user, 9L, dt.plusHours(1).toDate());
-       
+		createComment("Should work, no? ", 3L, this.tpoll, null, null, user, 9L, dt.plusHours(1).toDate());
+		createComment("You should works more, don't you? you should work more dude. ", 3L, this.tpoll, null, null, user, 9L, dt.plusHours(1).toDate());
+		createComment("He should works more, doesn't he? he should works more dude. ", 3L, this.tpoll, null, null, user, 9L, dt.plusHours(1).toDate());
         flushIndexes();
-        final String keyword = "work";  
-        final List<Comment> commentList = getCommentsOperations().getCommentsByKeyword(keyword,10 ,null); 
+        final String keyword = "work";
+		final List<Comment> commentList = getCommentsOperations().getCommentsByKeyword(keyword,10 ,null);
         assertEquals("Should be equals", 2, commentList.size());
     }
 
@@ -383,7 +385,7 @@ public class TestCommentDao extends AbstractBase {
         // Get total tweetpoll comments published.
         final List<Comment> totalCommentsPublished = getCommentsOperations().getCommentsbyTweetPoll(tpoll, 15, 0);
         assertEquals("Should be equals", 7, totalCommentsPublished.size());
-        
+
         //FIXME: Why this method return 1 instead 3 ???
         // Get total rated comments published.
         final List<Comment> getLikeTopRatedComments = getCommentsOperations().getTopRatedComments(CommentsSocialOptions.LIKE_VOTE, 3, 15, 0);

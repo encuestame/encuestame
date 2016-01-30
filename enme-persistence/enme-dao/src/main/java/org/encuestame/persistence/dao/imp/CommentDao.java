@@ -12,13 +12,8 @@
  */
 package org.encuestame.persistence.dao.imp;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.apache.commons.collections.set.ListOrderedSet;
-import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.encuestame.persistence.dao.CommentsOperations;
+import org.encuestame.persistence.dao.search.QueryBuilder;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -38,6 +33,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * {@link Comment} Dao.
@@ -273,77 +270,22 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
                     new HibernateCallback() {
                         @SuppressWarnings("deprecation")
                         public Object doInHibernate(org.hibernate.Session session) {
-                            List<Comment> searchResult = new ArrayList<Comment>();
-                            long start = System.currentTimeMillis();
-                            final Criteria criteria = session
-                                    .createCriteria(Comment.class);
-                            // limit results
-                            if (maxResults != null) {
-                                criteria.setMaxResults(maxResults.intValue());
-                            }
+                            final Criteria criteria = session.createCriteria(Comment.class);
+                            final QueryBuilder<Comment> query = new QueryBuilder(getSessionFactory());
                             if (excludes != null && excludes.length > 0) {
                                 for (int i = 0; i < excludes.length; i++) {
                                     log.debug("excluding hashtag... "+excludes[i]);
                                     criteria.add(Restrictions.ne("commentId", excludes[i]));
                                 }
                             }
-                            searchResult = (List<Comment>) fetchMultiFieldQueryParserFullText(
-                                    keyword, new String[] { "comment"},
-                                    Comment.class, criteria, new SimpleAnalyzer());
-                            final List<Comment> listAllSearch = new LinkedList<Comment>();
-                            listAllSearch.addAll(searchResult);
-                            // Fetch result by phrase
-                            final List<Comment> phraseFullTestResult = (List<Comment>) fetchPhraseFullText(
-                                    keyword, "comment", Comment.class,
-                                    criteria, new SimpleAnalyzer());
-                            log.debug("phraseFullTestResult comment:{"
-                                    + phraseFullTestResult.size());
-                            listAllSearch.addAll(phraseFullTestResult);
-                            // Fetch result by wildcard
-                            final List<Comment> wildcardFullTextResult = (List<Comment>) fetchWildcardFullText(
-                                    keyword, "comment", Comment.class,
-                                    criteria, new SimpleAnalyzer());
-                            log.debug("wildcardFullTextResult comment:{"
-                                    + wildcardFullTextResult.size());
-                            listAllSearch.addAll(wildcardFullTextResult);
-                            // Fetch result by prefix
-                            final List<Comment> prefixQueryFullTextResuslts = (List<Comment>) fetchPrefixQueryFullText(
-                                    keyword, "comment", Comment.class, criteria,
-                                    new SimpleAnalyzer());
-                            log.debug("prefixQueryFullTextResuslts comment:{"
-                                    + prefixQueryFullTextResuslts.size());
-                            listAllSearch.addAll(prefixQueryFullTextResuslts);
-                            // Fetch fuzzy results
-                            final List<Comment> fuzzyQueryFullTextResults = (List<Comment>) fetchFuzzyQueryFullText(
-                                    keyword, "comment", Comment.class, criteria,
-                                    new SimpleAnalyzer(), SIMILARITY_VALUE);
-                            log.debug("fuzzyQueryFullTextResults comment: {"
-                                    + fuzzyQueryFullTextResults.size());
-                            listAllSearch.addAll(fuzzyQueryFullTextResults);
-
-                            log.debug("listAllSearch size:{" + listAllSearch.size());
-
-                            // removing duplcates
-                            final ListOrderedSet totalResultsWithoutDuplicates = ListOrderedSet
-                                    .decorate(new LinkedList());
-                            totalResultsWithoutDuplicates.addAll(listAllSearch);
-
-                            /*
-                             * Limit results if is enabled.
-                             */
-                            List<Comment> totalList = totalResultsWithoutDuplicates
-                                    .asList();
-                            if (maxResults != null) {
-                                log.debug("split to " + maxResults
-                                        + " to list with size " + totalList.size());
-                                totalList = totalList.size() > maxResults ? totalList
-                                        .subList(0, maxResults) : totalList;
-                            }
-                            long end = System.currentTimeMillis();
-                            //log.debug("HashTag{ totalResultsWithoutDuplicates:{"
-                            //        + totalList.size() + " items with search time:"
-                            //        + (end - start) + " milliseconds");
-                            return totalList;
+                            List<Comment> results = query.build(criteria,
+                                    keyword,
+                                    maxResults,
+                                    0,
+                                    new String[] { "comment"},
+                                    "comment",
+                                    Comment.class);
+                            return results;
                         }
                     });
             return searchResult;
