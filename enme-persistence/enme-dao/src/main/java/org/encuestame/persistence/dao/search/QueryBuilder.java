@@ -177,7 +177,7 @@ public class QueryBuilder<T> {
         if (startOn != null) {
             criteria.setFirstResult(startOn.intValue());
         }
-
+        //TODO: ENCUESTAME-695
         listAllSearch.addAll(query(clazz, criteria, fetchMultiFieldQueryParserFullText(keyword, multipleFields, Analyzers.standardAnalyzer())));
         listAllSearch.addAll(query(clazz, criteria, fetchPhraseFullText(keyword, mainField)));
         listAllSearch.addAll(query(clazz, criteria, fetchWildcardFullText(keyword, mainField)));
