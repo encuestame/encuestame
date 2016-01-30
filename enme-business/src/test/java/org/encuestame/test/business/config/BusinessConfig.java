@@ -14,6 +14,7 @@ import org.encuestame.core.cron.IndexRebuilder;
 import org.encuestame.core.cron.ReIndexJob;
 import org.encuestame.core.service.IMessageSource;
 import org.encuestame.business.service.MessageSourceFactoryBean;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.dao.jdbc.InstallerDao;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
 import org.hibernate.boot.model.relational.Database;
@@ -61,15 +62,15 @@ public class BusinessConfig {
   public JavaMailSenderImpl mailSender() {
     JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
     mailSender.setDefaultEncoding("UTF-8");
-    mailSender.setHost(env.getRequiredProperty("mail.host"));
-    mailSender.setPort(Integer.valueOf(env.getRequiredProperty("mail.port")));
-    mailSender.setUsername(env.getRequiredProperty("mail.username"));
-    mailSender.setPassword(env.getRequiredProperty("mail.password"));
+    mailSender.setHost(EnMePlaceHolderConfigurer.getProperty("mail.host"));
+    mailSender.setPort(Integer.valueOf(EnMePlaceHolderConfigurer.getProperty("mail.port")));
+    mailSender.setUsername(EnMePlaceHolderConfigurer.getProperty("mail.username"));
+    mailSender.setPassword(EnMePlaceHolderConfigurer.getProperty("mail.password"));
     //http://www.tutorialspoint.com/javamail_api/javamail_api_smtp_servers.htm
     // List of properties, only these ones to connect with Gmail, it can be modified
     Properties properties = new Properties();
-    if (env.getRequiredProperty("mail.protocol") != null) {
-      properties.put("mail.transport.protocol", env.getRequiredProperty("mail.protocol"));
+    if (EnMePlaceHolderConfigurer.getProperty("mail.protocol") != null) {
+      properties.put("mail.transport.protocol", EnMePlaceHolderConfigurer.getProperty("mail.protocol"));
     }
     //gmail config default
     properties.put("mail.smtps.auth", true);

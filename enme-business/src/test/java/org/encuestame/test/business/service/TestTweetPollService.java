@@ -339,7 +339,6 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
     /**
      * Test Public TweetPoll on multiples social networks.
      */
-    //@Category(InternetTest.class)
     @Category(DefaultTest.class)
     @Test
     public void testPublicMultiplesTweetAccounts() {
