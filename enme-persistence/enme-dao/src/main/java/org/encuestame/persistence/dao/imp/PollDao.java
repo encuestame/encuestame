@@ -21,6 +21,7 @@ import java.util.List;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IPoll;
+import org.encuestame.persistence.dao.search.QueryBuilder;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
@@ -319,13 +320,11 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
             final Integer maxResults,
             final Integer startOn){
             log.debug("keyword "+keyword);
-            log.debug("userId " + userAcc);
-            log.debug("fields " + new String[]{"question"});
+
             @SuppressWarnings("rawtypes")
-            final List<Poll> searchResult = (List<Poll>) getHibernateTemplate().execute(new HibernateCallback() {
+            final List<Poll> searchResult = (List) getHibernateTemplate().execute(
+                    new HibernateCallback() {
                 public Object doInHibernate(org.hibernate.Session session) {
-                    List<Question> searchResult = new ArrayList<Question>();
-                    long start = System.currentTimeMillis();
                     final Criteria criteria = session.createCriteria(Poll.class);
                     //filter by account und .
                     if(userAcc!=null) {
@@ -344,61 +343,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                     }
                     final String defaultField = "question.question";
                         final String[] fields = new String[] { defaultField };
-                        searchResult = (List<Question>) fetchMultiFieldQueryParserFullText(
-                                keyword, fields, Poll.class, criteria,
-                                new SimpleAnalyzer());
-                        final List listAllSearch = new LinkedList();
-                        listAllSearch.addAll(searchResult);
-                        // Fetch result by phrase
-                        final List<Question> phraseFullTestResult = (List<Question>) fetchPhraseFullText(
-                                keyword, defaultField, Poll.class, criteria,
-                                new SimpleAnalyzer());
-                        log.debug("phraseFullTestResult:{"
-                                + phraseFullTestResult.size());
-                        listAllSearch.addAll(phraseFullTestResult);
-                        // Fetch result by wildcard
-                        final List<Poll> wildcardFullTextResult = (List<Poll>) fetchWildcardFullText(
-                                keyword, defaultField, Poll.class, criteria,
-                                new SimpleAnalyzer());
-                        log.debug("wildcardFullTextResult:{"
-                                + wildcardFullTextResult.size());
-                        listAllSearch.addAll(wildcardFullTextResult);
-                        // Fetch result by prefix
-                        final List<Poll> prefixQueryFullTextResuslts = (List<Poll>) fetchPrefixQueryFullText(
-                                keyword, defaultField, Poll.class, criteria,
-                                new SimpleAnalyzer());
-                        log.debug("prefixQueryFullTextResuslts:{"
-                                + prefixQueryFullTextResuslts.size());
-                        listAllSearch.addAll(prefixQueryFullTextResuslts);
-                        // Fetch fuzzy results
-                        final List<Poll> fuzzyQueryFullTextResults = (List<Poll>) fetchFuzzyQueryFullText(
-                                keyword, defaultField, Poll.class, criteria,
-                                new SimpleAnalyzer(), SIMILARITY_VALUE);
-                        log.debug("fuzzyQueryFullTextResults: {"
-                                + fuzzyQueryFullTextResults.size());
-                        listAllSearch.addAll(fuzzyQueryFullTextResults);
-                        log.debug("listAllSearch size:{" + listAllSearch.size());
-//                        // removing duplcates
-                        final ListOrderedSet totalResultsWithoutDuplicates = ListOrderedSet
-                                .decorate(new LinkedList());
-                        totalResultsWithoutDuplicates.addAll(listAllSearch);
-//                        /*
-//                         * Limit results if is enabled.
-//                         */
-                        List<Poll> totalList = totalResultsWithoutDuplicates
-                                .asList();
-                        if (maxResults != null && startOn != null) {
-                            log.debug("split to " + maxResults
-                                    + " starting on " + startOn
-                                    + " to list with size " + totalList.size());
-                            totalList = totalList.size() > maxResults ? totalList
-                                    .subList(startOn, maxResults) : totalList;
-                        }
-                        long end = System.currentTimeMillis();
-                        log.debug("Poll{ totalResultsWithoutDuplicates:{"
-                                + totalList.size() + " items with search time:"
-                                + (end - start) + " milliseconds");
-                        return totalList;
+                        final QueryBuilder<Poll> query = new QueryBuilder<>(getSessionFactory());
+                        List<Poll> results = query.build(criteria, keyword, maxResults, 0, fields, "question", Poll.class);
+                        return results;
                     }
                 });
         return (List<Poll>) searchResult;

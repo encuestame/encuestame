@@ -92,13 +92,12 @@ public interface IQuestionDao extends IBaseDao {
      * @param keyword keyword to search
      * @param userId user id
      * @param fields list of fields.
-     * @param analyzer {@link Analyzer}.
      * @param maxResults  limit of result for each search
      * @param startOn start on page
      * @return list of question
      */
     List<Question> retrieveIndexQuestionsByKeyword(final String keyword,
-            final Long userId, final String[] fields, final Analyzer analyzer,
+            final Long userId, final String[] fields,
             final Integer maxResults, final Integer startOn);
 
     /**

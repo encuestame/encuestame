@@ -20,6 +20,7 @@ import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IQuestionDao;
+import org.encuestame.persistence.dao.search.QueryBuilder;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPreferences;
@@ -96,8 +97,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
             final Integer maxResults,
             final Integer startOn){
         return this.retrieveIndexQuestionsByKeyword(
-                keyword, userId, new String[]{"question"},
-                new SimpleAnalyzer(), maxResults, startOn);
+                keyword, userId, new String[]{"question"}, maxResults, startOn);
     }
 
     /*
@@ -109,18 +109,16 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
             final String keyword,
                  final Long userId,
                  final String[] fields,
-                 final Analyzer analyzer,
                  final Integer maxResults,
                  final Integer startOn){
         log.debug("keyword "+keyword);
         log.debug("userId " + userId);
         log.debug("fields " + fields);
         @SuppressWarnings("rawtypes")
-        final List<Question> searchResult = (List<Question>) getHibernateTemplate().execute(new HibernateCallback() {
+        final List<Question> searchResult = (List<Question>) getHibernateTemplate().execute(
+                new HibernateCallback() {
             public Object doInHibernate(org.hibernate.Session session) {
-                List<Question> searchResult = new ArrayList<Question>();
-                long start = System.currentTimeMillis();
-                final Criteria criteria = session.createCriteria(Question.class);
+            final Criteria criteria = session.createCriteria(Question.class);
                 //filter by account.
                 if (userId != null) {
                     criteria.createAlias("accountQuestion", "accountQuestion");
@@ -138,59 +136,9 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                 if (startOn != null) {
                     criteria.setFirstResult(startOn.intValue());
                 }
-                searchResult =  (List<Question>) fetchMultiFieldQueryParserFullText(keyword,
-                            new String[] { "question"}, Question.class,
-                            criteria, new SimpleAnalyzer());
-                        final List listAllSearch = new LinkedList();
-                        listAllSearch.addAll(searchResult);
-
-                        //Fetch result by phrase
-                        final List<Question> phraseFullTestResult = (List<Question>) fetchPhraseFullText(
-                                keyword, "question", Question.class, criteria,
-                                new SimpleAnalyzer());
-                        log.debug("phraseFullTestResult:{" + phraseFullTestResult.size());
-                        listAllSearch.addAll(phraseFullTestResult);
-                        //Fetch result by wildcard
-                        final List<Question> wildcardFullTextResult = (List<Question>) fetchWildcardFullText(
-                                keyword, "question", Question.class, criteria,
-                                new SimpleAnalyzer());
-                        log.debug("wildcardFullTextResult:{" + wildcardFullTextResult.size());
-                        listAllSearch.addAll(wildcardFullTextResult);
-                        //Fetch result by prefix
-                        final List<Question> prefixQueryFullTextResuslts = (List<Question>) fetchPrefixQueryFullText(
-                                keyword, "question", Question.class, criteria,
-                                new SimpleAnalyzer());
-                        log.debug("prefixQueryFullTextResuslts:{" + prefixQueryFullTextResuslts.size());
-                        listAllSearch.addAll(prefixQueryFullTextResuslts);
-                        //Fetch fuzzy results
-                        final List<Question> fuzzyQueryFullTextResults = (List<Question>) fetchFuzzyQueryFullText(
-                                keyword, "question", Question.class, criteria,
-                                new SimpleAnalyzer(), SIMILARITY_VALUE)
-                                ;
-                        log.debug("fuzzyQueryFullTextResults: {" + fuzzyQueryFullTextResults.size());
-
-                        listAllSearch.addAll(fuzzyQueryFullTextResults);
-
-                        log.debug("listAllSearch size:{" + listAllSearch.size());
-
-                        //removing duplcates
-                        final ListOrderedSet totalResultsWithoutDuplicates = ListOrderedSet.decorate(new LinkedList());
-                        totalResultsWithoutDuplicates.addAll(listAllSearch);
-
-                        /*
-                         * Limit results if is enabled.
-                         */
-                        List<Question> totalList = totalResultsWithoutDuplicates
-                                .asList();
-                        if (maxResults != null && startOn != null) {
-                            log.debug("split to "+maxResults  + " starting on "+startOn + " to list with size "+totalList.size());
-                            totalList = totalList.size() > maxResults ? totalList
-                                    .subList(startOn, maxResults) : totalList;
-                        }
-                        long end = System.currentTimeMillis();
-                        log.debug("Question{ totalResultsWithoutDuplicates:{" + totalList.size()
-                                   + " items with search time:" + (end - start) + " milliseconds");
-                        return totalList;
+                final QueryBuilder<Question> query = new QueryBuilder<>(getSessionFactory());
+                List<Question> results = query.build(criteria, keyword, maxResults, 0,  new String[] { "question"}, "question", Question.class);
+                return results;
             }
         });
         return (List<Question>) searchResult;
