@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IHashTagDao;
+import org.encuestame.persistence.dao.search.QueryBuilder;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking; 
 import org.hibernate.Criteria;
@@ -43,8 +44,7 @@ import org.springframework.stereotype.Repository;
  * @version Id:
  */
 @Repository("hashTagDao")
-public class HashTagDao extends AbstractHibernateDaoSupport implements
-		IHashTagDao {
+public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagDao {
 
 	/**
 	 * The min size of hashtag to be displayed on cloud service.
@@ -129,10 +129,7 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 				new HibernateCallback() {
 					@SuppressWarnings("deprecation")
 					public Object doInHibernate(org.hibernate.Session session) {
-						List<HashTag> searchResult = new ArrayList<HashTag>();
-						long start = System.currentTimeMillis();
-						final Criteria criteria = session
-								.createCriteria(HashTag.class);
+						final Criteria criteria = session.createCriteria(HashTag.class);
 						// limit results
 						if (maxResults != null) {
 							criteria.setMaxResults(maxResults.intValue());
@@ -144,63 +141,15 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 										excludes[i]));
 							}
 						}
-						searchResult = (List<HashTag>) fetchMultiFieldQueryParserFullText(
-								keyword, new String[] { "hashTag" },
-								HashTag.class, criteria, new SimpleAnalyzer());
-						final List<HashTag> listAllSearch = new LinkedList<HashTag>();
-						listAllSearch.addAll(searchResult);
-						// Fetch result by phrase
-						final List<HashTag> phraseFullTestResult = (List<HashTag>) fetchPhraseFullText(
-								keyword, "hashTag", HashTag.class, criteria,
-								new SimpleAnalyzer());
-						log.debug("phraseFullTestResult hashTag:{"
-								+ phraseFullTestResult.size());
-						listAllSearch.addAll(phraseFullTestResult);
-						// Fetch result by wildcard
-						final List<HashTag> wildcardFullTextResult = (List<HashTag>) fetchWildcardFullText(
-								keyword, "hashTag", HashTag.class, criteria,
-								new SimpleAnalyzer());
-						log.debug("wildcardFullTextResult hashTag:{"
-								+ wildcardFullTextResult.size());
-						listAllSearch.addAll(wildcardFullTextResult);
-						// Fetch result by prefix
-						final List<HashTag> prefixQueryFullTextResuslts = (List<HashTag>) fetchPrefixQueryFullText(
-								keyword, "hashTag", HashTag.class, criteria,
-								new SimpleAnalyzer());
-						log.debug("prefixQueryFullTextResuslts hashTag:{"
-								+ prefixQueryFullTextResuslts.size());
-						listAllSearch.addAll(prefixQueryFullTextResuslts);
-						// Fetch fuzzy results
-						final List<HashTag> fuzzyQueryFullTextResults = (List<HashTag>) fetchFuzzyQueryFullText(
-								keyword, "hashTag", HashTag.class, criteria,
-								new SimpleAnalyzer(), SIMILARITY_VALUE);
-						log.debug("fuzzyQueryFullTextResults hashTag: {"
-								+ fuzzyQueryFullTextResults.size());
-						listAllSearch.addAll(fuzzyQueryFullTextResults);
-
-						log.debug("listAllSearch size:{" + listAllSearch.size());
-
-						// removing duplcates
-						final ListOrderedSet totalResultsWithoutDuplicates = ListOrderedSet
-								.decorate(new LinkedList());
-						totalResultsWithoutDuplicates.addAll(listAllSearch);
-
-						/*
-						 * Limit results if is enabled.
-						 */
-						List<HashTag> totalList = totalResultsWithoutDuplicates
-								.asList();
-						if (maxResults != null) {
-							log.debug("split to " + maxResults
-									+ " to list with size " + totalList.size());
-							totalList = totalList.size() > maxResults ? totalList
-									.subList(0, maxResults) : totalList;
-						}
-						long end = System.currentTimeMillis();
-						log.debug("HashTag{ totalResultsWithoutDuplicates:{"
-								+ totalList.size() + " items with search time:"
-								+ (end - start) + " milliseconds");
-						return totalList;
+                        final QueryBuilder<HashTag> query = new QueryBuilder<>(getSessionFactory());
+                        List<HashTag> results = query.build(criteria,
+                                keyword,
+                                maxResults,
+                                0,
+                                new String[] { "hashTag"},
+                                "hashTag",
+                                HashTag.class);
+						return results;
 					}
 				});
 		return searchResult;

@@ -58,7 +58,7 @@ public class TestHashTagDao  extends AbstractBase{
      */
 	@Test
     public void testGetListHashTagsByKeyword(){
-        createHashTag("software1");
+        createHashTag("software is my profession");
         final String keyword = "software";
 		flushIndexes();
         final List<HashTag> hashTagList = getHashTagDao().getListHashTagsByKeyword(keyword, 5, null); 
