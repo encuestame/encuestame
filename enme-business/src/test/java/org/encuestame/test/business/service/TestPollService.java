@@ -54,6 +54,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mock.web.MockHttpServletRequest;
 
  /**
@@ -597,7 +598,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * test removePollFolder.
      * @throws EnMeNoResultsFoundException exception
      */
-    @Test(expected = HibernateException.class)
+    @Test(expected = DataIntegrityViolationException.class)
     public void testremovePollFolderBatchUpdateException() throws EnMeNoResultsFoundException{
         final long id = this.folder.getId();
         this.pollService.removePollFolder(id);

@@ -69,22 +69,23 @@ public class InstallerDao extends JdbcDaoSupport implements InstallerOperations 
         final List<String> requiredTables = new ArrayList<String>();
         requiredTables.add("account");
         //requiredTables.add("app_version");
-        requiredTables.add("permission");
-        requiredTables.add("useraccount");
-        requiredTables.add("tweetpoll");
-        requiredTables.add("poll");
-        requiredTables.add("question");
-        requiredTables.add("application");
-        requiredTables.add("project");
-        requiredTables.add("useraccount_permission");
-        requiredTables.add("hash_tags");
-        requiredTables.add("social_account");
+//        requiredTables.add("permission");
+//        requiredTables.add("useraccount");
+//        requiredTables.add("tweetpoll");
+//        requiredTables.add("poll");
+//        requiredTables.add("question");
+//        requiredTables.add("application");
+//        requiredTables.add("project");
+//        requiredTables.add("useraccount_permission");
+//        requiredTables.add("hash_tags");
+//        requiredTables.add("social_account");
         try {
             log.debug("Url connection: "+getDataSource().getConnection().getMetaData().getURL());
             ResultSet rs = getDataSource().getConnection().getMetaData()
                     .getTables(null, null, "%", null);
             log.debug("checkIfDatabaseIsInstalled "+rs);
             while (rs.next()) {
+                System.out.println(rs.getString("TABLE_NAME"));
                 if (requiredTables.indexOf(rs.getString("TABLE_NAME")
                         .toLowerCase()) != -1) {
                     log.debug("Table found "+rs.getString("TABLE_NAME"));
@@ -92,6 +93,7 @@ public class InstallerDao extends JdbcDaoSupport implements InstallerOperations 
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             log.error("Error on check database tables name");
             success = false;
         }

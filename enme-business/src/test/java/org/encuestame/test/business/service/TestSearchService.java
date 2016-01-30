@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.enums.Language;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Assert;
 import org.junit.Before;
@@ -176,27 +177,26 @@ public class TestSearchService extends AbstractSpringSecurityContext {
     	this.testQuickService();
         // with one results
 		final Map<String, List<GlobalSearchItem>> d1 = this.searchServiceOperations
-				.quickSearch("ni", "English", 0, 10, 10, resultsAllowed);
+				.quickSearch("ni", Language.ENGLISH, 0, 10, 10, resultsAllowed);
         final List<GlobalSearchItem> hashtag = d1.get("tags");
         Assert.assertEquals(hashtag.size(), 1);
 
-        final Map<String, List<GlobalSearchItem>> d3 = this.searchServiceOperations.quickSearch("es", "English", 0, 10, 10, resultsAllowed);
+        final Map<String, List<GlobalSearchItem>> d3 = this.searchServiceOperations.quickSearch("es", Language.ENGLISH, 0, 10, 10, resultsAllowed);
         final List<GlobalSearchItem> hashtag3 = d3.get("tags");
         Assert.assertEquals(hashtag3.size(), 3);
 
-        final Map<String, List<GlobalSearchItem>> d4 = this.searchServiceOperations.quickSearch("este", "English", 0, 10, 10, resultsAllowed);
+        final Map<String, List<GlobalSearchItem>> d4 = this.searchServiceOperations.quickSearch("este", Language.ENGLISH, 0, 10, 10, resultsAllowed);
         final List<GlobalSearchItem> hashtag4 = d4.get("tags");
         Assert.assertEquals(hashtag4.size(), 2);
 
-        final Map<String, List<GlobalSearchItem>> d5 = this.searchServiceOperations.quickSearch("estepona", "English", 0, 10, 10, resultsAllowed);
+        final Map<String, List<GlobalSearchItem>> d5 = this.searchServiceOperations.quickSearch("estepona", Language.ENGLISH, 0, 10, 10, resultsAllowed);
         final List<GlobalSearchItem> hashtag5 = d5.get("tags");
-        //FIXME: should be return 1, but due the current configuration of Hibernate Search returns 2, is not a bad result,
         // is a issue related with the configuration
-        Assert.assertEquals(hashtag5.size(), 2);
+        Assert.assertEquals(hashtag5.size(), 1);
 
         // no results
         final Map<String, List<GlobalSearchItem>> d2 = this.searchServiceOperations
-                .quickSearch("nippp", "English", 0, 10, 10, resultsAllowed);
+                .quickSearch("nippp", Language.ENGLISH, 0, 10, 10, resultsAllowed);
         final List<GlobalSearchItem> hashtag2 = d2.get("tags");
         Assert.assertEquals(hashtag2.size(), 0);
     }
@@ -211,9 +211,7 @@ public class TestSearchService extends AbstractSpringSecurityContext {
     //FUTURE: question search is actually disabled
     public void testQuestionsQuickSearch() throws EnMeNoResultsFoundException, IOException{
 		this.testQuickService();
-		final Map<String, List<GlobalSearchItem>> d2 = this.searchServiceOperations
-				.quickSearch("future",
-							"English", 0, 10, 10, resultsAllowed);
+		final Map<String, List<GlobalSearchItem>> d2 = this.searchServiceOperations.quickSearch("future", Language.ENGLISH, 0, 10, 10, resultsAllowed);
 		final List<GlobalSearchItem> questions = d2.get("questions");
 		Assert.assertEquals(questions.size(), 1);
          //TODO: continue with  poll, profile,
@@ -228,15 +226,15 @@ public class TestSearchService extends AbstractSpringSecurityContext {
 	public void testCommentsQuickSearch() throws EnMeNoResultsFoundException,
 			IOException {
 		this.testQuickService();
-		final Map<String, List<GlobalSearchItem>> c1 = this.searchServiceOperations.quickSearch("favorite", "Spanish", 0, 10, 10, resultsAllowed);
+		final Map<String, List<GlobalSearchItem>> c1 = this.searchServiceOperations.quickSearch("favorite", Language.ENGLISH, 0, 10, 10, resultsAllowed);
 		final List<GlobalSearchItem> comments = c1.get("comments");
 		Assert.assertEquals(comments.size(), 2);
 
-        final Map<String, List<GlobalSearchItem>> c2 = this.searchServiceOperations.quickSearch("x", "English", 0, 10, 10, resultsAllowed);
+        final Map<String, List<GlobalSearchItem>> c2 = this.searchServiceOperations.quickSearch("x", Language.ENGLISH, 0, 10, 10, resultsAllowed);
         final List<GlobalSearchItem> cc2 = c2.get("comments");
         Assert.assertEquals(cc2.size(), 2);
 
-        final Map<String, List<GlobalSearchItem>> c3 = this.searchServiceOperations.quickSearch("y", "English", 0, 10, 10, resultsAllowed);
+        final Map<String, List<GlobalSearchItem>> c3 = this.searchServiceOperations.quickSearch("y", Language.ENGLISH, 0, 10, 10, resultsAllowed);
         final List<GlobalSearchItem> cc3 = c3.get("comments");
         Assert.assertEquals(cc3.size(), 1);
 	}
@@ -251,7 +249,7 @@ public class TestSearchService extends AbstractSpringSecurityContext {
 			IOException {
 		this.testQuickService();
 		final Map<String, List<GlobalSearchItem>> p1 = this.searchServiceOperations
-				.quickSearch("actor", "Spanish", 0, 10, 10, resultsAllowed);
+				.quickSearch("actor", Language.ENGLISH, 0, 10, 10, resultsAllowed);
 		final List<GlobalSearchItem> polls = p1.get("Polls");
 		Assert.assertEquals(polls.size(), 1);
 
@@ -267,13 +265,13 @@ public class TestSearchService extends AbstractSpringSecurityContext {
 			IOException {
 		this.testQuickService();
 		final Map<String, List<GlobalSearchItem>> t1 = this.searchServiceOperations
-				.quickSearch("Musical", "Spanish", 0, 10, 10, resultsAllowed);
+				.quickSearch("Musical", Language.ENGLISH, 0, 10, 10, resultsAllowed);
 		final List<GlobalSearchItem> tweetPolls = t1.get("Tweetpolls");
 		Assert.assertEquals(tweetPolls.size(), 2);
 
         //
         final Map<String, List<GlobalSearchItem>> t2 = this.searchServiceOperations
-                .quickSearch("Which", "Spanish", 0, 10, 10, resultsAllowed);
+                .quickSearch("Which", Language.ENGLISH, 0, 10, 10, resultsAllowed);
         final List<GlobalSearchItem> tweetPolls2 = t2.get("Tweetpolls");
         Assert.assertEquals(tweetPolls2.size(), 1);
     }
@@ -282,7 +280,7 @@ public class TestSearchService extends AbstractSpringSecurityContext {
     public void testNonResults() throws EnMeNoResultsFoundException,
             IOException {
         List<TypeSearchResult> resultsAllowed = new ArrayList<TypeSearchResult>();
-        final Map<String, List<GlobalSearchItem>> t1 = this.searchServiceOperations.quickSearch("Musical", "Spanish", 0, 10, 10, resultsAllowed);
+        final Map<String, List<GlobalSearchItem>> t1 = this.searchServiceOperations.quickSearch("Musical", Language.ENGLISH, 0, 10, 10, resultsAllowed);
         final List<GlobalSearchItem> tweetPolls = t1.get("Tweetpolls");
         Assert.assertEquals(tweetPolls.size(), 0);
     }
