@@ -16,6 +16,7 @@ import org.encuestame.core.service.IMessageSource;
 import org.encuestame.business.service.MessageSourceFactoryBean;
 import org.encuestame.persistence.dao.jdbc.InstallerDao;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
+import org.hibernate.boot.model.relational.Database;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
@@ -111,16 +112,6 @@ public class BusinessConfig {
     ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
     resource.setBasename("messages");
     return resource;
-  }
-
-  /**
-   *
-   * @return
-   */
-  @Scope(value="singleton")
-  public @Bean(name="install")
-  DatabaseInstall install() {
-    return new DatabaseInstall();
   }
 
   /**

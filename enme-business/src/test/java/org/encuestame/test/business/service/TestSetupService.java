@@ -157,7 +157,7 @@ public class TestSetupService extends AbstractServiceBase {
     @Test
     public void testcheckDatabase() throws Exception{
         Boolean status = this.setupOperations.checkDatabase();
-        Assert.assertTrue(status);
+        Assert.assertFalse(status);
     }
 
     @Test
