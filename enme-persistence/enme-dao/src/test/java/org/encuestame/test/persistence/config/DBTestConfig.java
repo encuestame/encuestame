@@ -48,7 +48,7 @@ import java.util.Properties;
  * Database Test Config.
  * Spring database configuration using latest Hibernate configuration.
  */
-public class DBConfig {
+public class DBTestConfig {
 
     @Autowired
     private Environment env;

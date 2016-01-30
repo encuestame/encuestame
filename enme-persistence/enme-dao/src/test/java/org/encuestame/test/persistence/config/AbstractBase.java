@@ -2142,7 +2142,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
-     * @param commentsOperationsDao the commentsOperationsDao to set
+     * @param commentsOperations the commentsOperationsDao to set
      */
     public void setCommentsOperations(final CommentsOperations commentsOperations) {
         this.commentsOperations = commentsOperations;

@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -29,8 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Scope("singleton")
-//@TransactionConfiguration(defaultRollback = true)
-@ContextConfiguration(classes = DBConfig.class)
+@TransactionConfiguration(defaultRollback = true)
+@ContextConfiguration(classes = DBTestConfig.class)
 @Transactional
 @ActiveProfiles(profiles = "dev")
 public class AbstractConfigurationBase{
