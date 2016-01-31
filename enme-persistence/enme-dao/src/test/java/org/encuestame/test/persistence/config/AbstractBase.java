@@ -214,7 +214,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public String getProperty(final String property){
-        Resource resource = new ClassPathResource("properties-test/encuestame-test-config.properties");
+        Resource resource = new ClassPathResource("properties-test/test-config.properties");
         Properties props = null;
         try {
             props = PropertiesLoaderUtils.loadProperties(resource);

@@ -46,7 +46,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport 
      * @return
      */
     public final SocialAccount getSocialAccountById(final Long socialAccountId){
-        return (SocialAccount) (getHibernateTemplate().get(SocialAccount.class, socialAccountId));
+        return (getHibernateTemplate().get(SocialAccount.class, socialAccountId));
     }
 
     /**
