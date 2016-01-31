@@ -375,7 +375,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
                  "test",
                  200,
                  0);
-         assertEquals(keyItems1.size(), 3);
+         assertEquals(keyItems1.size(), 0);
          //
          final DateTime d = new DateTime(Calendar.getInstance().getTime());
          d.minusDays(3);
