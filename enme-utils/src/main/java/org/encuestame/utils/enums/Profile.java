@@ -37,4 +37,13 @@ public enum Profile{
     Profile(String optionAsString){
         this.profileAsString = optionAsString;
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString(){
+        return this.profileAsString;
+    }
 }

@@ -19,4 +19,11 @@ public enum Language {
 		this.optionAsString = optionAsString;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	public String toString(){
+		return this.optionAsString;
+	}
 }

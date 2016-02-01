@@ -39,4 +39,12 @@ public enum HitCategory {
 	HitCategory(String optionAsString){
         this.hitCategoryAsString = optionAsString;
     }
+
+    /**
+     *
+     * @return
+     */
+    public String toString(){
+        return this.hitCategoryAsString;
+    }
 }

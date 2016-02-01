@@ -32,9 +32,25 @@ public enum TypeSearch {
     FOLDER("FOLDER"),
     DATE("DATE");
 
+    /**
+     *
+     */
     private String typeSearchAsString;
 
+    /**
+     *
+     * @param optionAsString
+     */
     TypeSearch(String optionAsString){
         this.typeSearchAsString = optionAsString;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString(){
+        return this.typeSearchAsString;
     }
 }

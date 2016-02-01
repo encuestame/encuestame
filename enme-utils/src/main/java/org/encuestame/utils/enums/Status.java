@@ -30,12 +30,26 @@ public enum Status {
     /** processing status **/
     PROCESSING("PROCESSING");
 
-    private String optionAsString;
+    /**
+     *
+     */
+    private String statusAsString;
 
-    Status(final String optionAsString){
-
-
+    /**
+     *
+     * @param statusAsString
+     */
+    Status(final String statusAsString){
+        this.statusAsString = statusAsString;
     }
 
-    //TODO: to string methods
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString(){
+        return this.statusAsString;
+    }
+
 }

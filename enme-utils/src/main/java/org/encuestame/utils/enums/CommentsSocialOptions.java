@@ -35,4 +35,13 @@ public enum CommentsSocialOptions {
     CommentsSocialOptions(String optionAsString){
         this.enumAsString = optionAsString;
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString(){
+        return this.enumAsString;
+    }
 }

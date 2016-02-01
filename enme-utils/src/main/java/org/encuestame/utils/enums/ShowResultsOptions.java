@@ -28,4 +28,12 @@ public enum ShowResultsOptions {
 		this.optionAsString = optionAsString;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	@Override
+	public String toString(){
+		return this.optionAsString;
+	}
 }

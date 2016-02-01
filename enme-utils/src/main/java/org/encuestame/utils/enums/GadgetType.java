@@ -38,4 +38,12 @@ public enum GadgetType {
     GadgetType(String optionAsString){
         this.optionAsString = optionAsString;
     }
+
+    /**
+     *
+     * @return
+     */
+    public String toString(){
+        return this.optionAsString;
+    }
 }
