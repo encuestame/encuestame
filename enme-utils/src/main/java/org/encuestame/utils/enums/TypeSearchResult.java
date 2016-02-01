@@ -18,25 +18,34 @@ package org.encuestame.utils.enums;
  * @since Mar 23, 2011
  */
 public enum TypeSearchResult {
-    TWEETPOLL("TWEETPOLL"),
-    PROFILE("PROFILE"),
-    POLL("POLL"),
+    TWEETPOLL("TWEETPOLL", "enme-tp-form"),
+    PROFILE("PROFILE","enme-profile "),
+    POLL("POLL", "enme-poll-form"),
     SURVEY("SURVEY"),
     QUESTION("QUESTION"),
-    HASHTAG("HASHTAG"),
+    HASHTAG("HASHTAG", "enme-hashtag"),
     HASHTAGRATED("HASHTAGRATED"),
     SOCIALNETWORK("SOCIALNETWORK"),
     HITS("HITS"),
     VOTES("VOTES"),
     ALL("ALL"),
     COMMENT("COMMENT"),
-    TWEETPOLLRESULT("TWEETPOLLRESULT"),
-    POLLRESULT("POLLRESULT");
-
-    /** **/
-    private String typeSearchAsString;
+    TWEETPOLLRESULT("TWEETPOLLRESULT","enme-tp-vote"),
+    POLLRESULT("POLLRESULT", "enme-poll-vote");
 
     /**
+     *
+     */
+    private String typeSearchAsString;
+
+
+    /**
+     *
+     */
+    private String cssClass;
+
+    /**
+     *
      * Constructor
      * @param optionAsString
      */
@@ -46,59 +55,45 @@ public enum TypeSearchResult {
 
     /**
      *
+     * @param optionAsString
+     * @param cssClass
+     */
+    TypeSearchResult(String optionAsString,  final String cssClass){
+        this.typeSearchAsString = optionAsString;
+        this.cssClass = cssClass;
+
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString(){
+        return this.typeSearchAsString;
+    }
+
+    /**
+     *
      * @return
      */
     public String toWidget() {
-        String type = "";
-        if (this == TWEETPOLL) { type = "tweetpoll"; }
-        else if (this == PROFILE) { type = "profile"; }
-        else if (this == POLL) { type = "poll"; }
-        else if (this == SURVEY) { type = "survey"; }
-        else if (this == HASHTAG) { type = "hashtag"; }
-        else if (this == HASHTAGRATED) { type = "hashtagrated"; }
-        else if (this == SOCIALNETWORK) { type = "socialnetwork"; }
-        else if (this == TWEETPOLLRESULT) { type = "tweetpollresult"; }
-        else if (this == POLLRESULT) { type = "pollresult"; }
-        return type;
+        return this.typeSearchAsString.toLowerCase();
     }
 
     /**
      * Return the url prefix to make url to acces to public url.
-     * @param type
      * @return
      */
-    public static String getUrlPrefix(final TypeSearchResult type) {
-        if (null == type) { return null; }
-        else if (type.equals(TWEETPOLL)) { return "tweetpoll"; }
-        else if (type.equals(PROFILE)) { return "profile"; }
-        else if (type.equals(COMMENT)) { return "comment"; }
-        else if (type.equals(POLL)) { return "poll"; }
-        else if (type.equals(SURVEY)) { return "survey"; }
-        else if (type.equals(HASHTAG)) { return "tag"; }
-        else if (type.equals(HASHTAGRATED)) { return "hashtagrated"; }
-        else if (type.equals(SOCIALNETWORK)) { return "socialnetwork"; }
-        else if (type.equals(HITS)) { return "hits"; }
-        else if (type.equals(VOTES)) { return "votes"; }
-        else if (type.equals(TWEETPOLLRESULT)) { return "tweetpollresult"; }
-        else if (type.equals(POLLRESULT)) { return "pollresult"; }
-        else if (type.equals(ALL)) { return "all"; }
-        else return null;
+    public String  getUrlPrefix() {
+        return this.typeSearchAsString.toLowerCase();
     }
 
     /**
      * The css class to be appended into the embed code.
-      * @param type
      * @return
      */
-    public static String getCSSClass(final TypeSearchResult type ){
-        if (null == type) { return null; }
-        else if (type.equals(POLL)) { return "enme-poll-form"; }
-        else if (type.equals(POLLRESULT)) { return "enme-poll-vote"; }
-        else if (type.equals(TWEETPOLLRESULT)) { return "enme-tp-vote"; }
-        else if (type.equals(TWEETPOLL)) { return "enme-tp-form"; }
-        else if (type.equals(PROFILE)) { return "enme-profile"; }
-        else if (type.equals(HASHTAG)) { return "enme-hashtag"; }
-        else return null;
+    public String getCSSClass(){
+         return this.cssClass;
     }
-
 }

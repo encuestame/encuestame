@@ -19,31 +19,52 @@ package org.encuestame.utils.enums;
  */
 public enum NotificationEnum {
 
-    TWEETPOLL_PUBLISHED,
+    TWEETPOLL_PUBLISHED("TWEETPOLL_PUBLISHED"),
 
-    TWEETPOL_REMOVED,
+    TWEETPOL_REMOVED("TWEETPOL_REMOVED"),
 
-    TWEETPOL_CREATED,
+    TWEETPOL_CREATED("TWEETPOL_CREATED"),
 
-    PROJECT_CREATED,
+    PROJECT_CREATED("PROJECT_CREATED"),
 
-    PROJECT_UPDATED,
+    PROJECT_UPDATED("PROJECT_UPDATED"),
 
-    LOCATION_NEW,
+    LOCATION_NEW("LOCATION_NEW"),
 
-    LOCATION_FOLDER_NEW,
+    LOCATION_FOLDER_NEW("LOCATION_FOLDER_NEW"),
 
-    LOCATION_GMAP_UPDATED,
+    LOCATION_GMAP_UPDATED("LOCATION_GMAP_UPDATED"),
 
-    LOCATION_GMAP_CHANGED_NAME,
+    LOCATION_GMAP_CHANGED_NAME("LOCATION_GMAP_CHANGED_NAME"),
 
-    SOCIAL_MESSAGE_PUBLISHED,
+    SOCIAL_MESSAGE_PUBLISHED("SOCIAL_MESSAGE_PUBLISHED"),
 
-    POLL_PUBLISHED,
+    POLL_PUBLISHED("POLL_PUBLISHED"),
 
-    POLL_REMOVED,
+    POLL_REMOVED("POLL_REMOVED"),
 
-    POLL_CREATED,
+    POLL_CREATED("POLL_CREATED"),
     
-    WELCOME_SIGNUP
+    WELCOME_SIGNUP("WELCOME_SIGNUP");
+
+    /**
+     *
+     */
+    private String notificationAsString;
+
+    /**
+     *
+     * @param notificationAsString
+     */
+    NotificationEnum(final String notificationAsString){
+        this.notificationAsString = notificationAsString;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String toString(){
+        return this.notificationAsString;
+    }
 }

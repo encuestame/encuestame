@@ -30,16 +30,19 @@ public enum DateClasificatedEnum {
     /** **/
     private Integer dateAsInteger;
 
-
-    public Integer toNumber(){
-        return this.dateAsInteger;
-    }
     /**
      *
      * @param dateAsString
      */
     DateClasificatedEnum(final Integer dateAsString) {
         this.dateAsInteger = dateAsString;
+    }
 
+    /**
+     *
+     * @return
+     */
+    public Integer toNumber(){
+        return this.dateAsInteger;
     }
 }

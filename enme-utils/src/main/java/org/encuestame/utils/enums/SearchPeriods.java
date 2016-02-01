@@ -42,19 +42,30 @@ public enum SearchPeriods {
      */
     ONEYEAR("365");
 
+    /**
+     *
+     */
+    private String periodAsString;
 
-    private String optionAsString;
+    /**
+     *
+     */
+    private Integer periodAsNumOfDays;
 
     /**
      * Constructor.
      */
-    SearchPeriods(String optionAsString){
-        this.optionAsString = optionAsString;
+    SearchPeriods(final String optionAsString){
+        this.periodAsString = optionAsString;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
-        return this.optionAsString;
+        return this.periodAsString;
     }
 
     /**
@@ -62,18 +73,13 @@ public enum SearchPeriods {
      * @return
      */
     public Integer toNumber() {
-    	Integer period = null;
-        //If last 24 hours
-        if (this == TWENTYFOURHOURS) { period = 24; }
-        //If last 7 days
-        else if (this == SEVENDAYS) { period = 7; }
-        //If last 30 days
-        else if (this == THIRTYDAYS) { period = 30; }
-        //If select all time.
-        else if (this == ALLTIME) { period = 1095; }
-        //If select all time.
-        else if (this == ONEYEAR) { period = 365; }
-        return period;
+        if(this ==ALLTIME )
+        {
+            return 1095;
+        }
+        else {
+            return Integer.parseInt(this.periodAsString);
+        }
     }
 
     /**
@@ -81,33 +87,13 @@ public enum SearchPeriods {
      * @return
      */
     public Integer toDays() {
-    	Integer period = null;
-        //If last 24 hours
-        if (this == TWENTYFOURHOURS) { period = 1; }
-        //If last 7 days
-        else if (this == SEVENDAYS) { period = 7; }
-        //If last 30 days
-        else if (this == THIRTYDAYS) { period = 30; }
-        //If select all time.
-        else if (this == ALLTIME) { period = 1095; }  // 3years
-        //If select all time.
-        else if (this == ONEYEAR) { period = 365; }
-        return period;
-    }
-
-    /**
-     * Get Period by String.
-     * @param period period
-     * @return
-     */
-    public static SearchPeriods getPeriodString(final String period) {
-        if (null == period) { return TWENTYFOURHOURS; }
-        else if (period.equalsIgnoreCase("24")) { return TWENTYFOURHOURS; }
-        else if (period.equalsIgnoreCase("7")) { return SEVENDAYS; }
-        else if (period.equalsIgnoreCase("30")) { return THIRTYDAYS; }
-        else if (period.equalsIgnoreCase("all")) { return ALLTIME; }
-        else if (period.equalsIgnoreCase("365")) { return ONEYEAR; }
-        else if (period.equalsIgnoreCase("1095")) { return ALLTIME; }
-        else return TWENTYFOURHOURS;
+        Integer days;
+        if(this == TWENTYFOURHOURS){
+            return days=1;
+        }else if(this == ALLTIME){
+            return days = 1095;
+        } else{
+    	    return this.periodAsNumOfDays;
+        }
     }
 }

@@ -28,8 +28,9 @@ public enum EnMePermission {
     ENCUESTAME_READ("ENCUESTAME_READ"),
     ENCUESTAME_WRITE("ENCUESTAME_WRITE");
 
-   // EnMePermission(){};
-
+    /**
+     *
+     */
     private String permissionAsString;
 
     /**
@@ -40,23 +41,11 @@ public enum EnMePermission {
         this.permissionAsString = permissionAsString;
     }
 
-
     /**
-     * Get Permission by String.
-     * @param permission period
+     *
      * @return
      */
-    public static EnMePermission getPermissionString(final String permission) {
-        if (null == permission) { return ENCUESTAME_USER; }
-        else if (permission.equalsIgnoreCase("ENCUESTAME_ADMIN")) { return ENCUESTAME_ADMIN; }
-        else if (permission.equalsIgnoreCase("ENCUESTAME_OWNER")) { return ENCUESTAME_OWNER; }
-        else if (permission.equalsIgnoreCase("ENCUESTAME_PUBLISHER")) { return ENCUESTAME_PUBLISHER; }
-        else if (permission.equalsIgnoreCase("ENCUESTAME_EDITOR")) { return ENCUESTAME_EDITOR; }
-        else if (permission.equalsIgnoreCase("ENCUESTAME_ANONYMOUS")) { return ENCUESTAME_ANONYMOUS; }
-        else if (permission.equalsIgnoreCase("ENCUESTAME_USER")) { return ENCUESTAME_USER; }
-        else if (permission.equalsIgnoreCase("ENCUESTAME_API")) { return ENCUESTAME_API; }
-        else if (permission.equalsIgnoreCase("ENCUESTAME_READ")) { return ENCUESTAME_READ; }
-        else if (permission.equalsIgnoreCase("ENCUESTAME_WRITE")) { return ENCUESTAME_WRITE; }
-        else return ENCUESTAME_USER;
+    public String toString(){
+        return this.permissionAsString;
     }
 }
