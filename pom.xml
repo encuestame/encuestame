@@ -197,7 +197,7 @@
         <module>enme-social</module>
         <module>enme-business</module>
         <!---->
-        <!--<module>enme-mvc</module>-->
+        <module>enme-mvc</module>
         <!--<module>enme-war</module>-->
         <!-- Disabled 1.6-dev branch -->
         <!--<module>enme-installer</module>-->
@@ -265,6 +265,10 @@
             <name>Internal Snapshot Repository</name>
             <url>http://archive.encuestame.org/repository/snapshots</url>
         </snapshotRepository> -->
+        <!--<repository>-->
+            <!--<id>myMavenRepo.write</id>-->
+            <!--<url>${myMavenRepo.write.url}</url>-->
+        <!--</repository>-->
     </distributionManagement>
 
     <organization>
@@ -335,6 +339,11 @@
             <id>oauth.googlecode.net</id>
             <url>http://oauth.googlecode.com/svn/code/maven/</url>
         </repository>
+        <!-- enme custom maven repo -->
+        <!--<repository>-->
+            <!--<id>myMavenRepo.read</id>-->
+            <!--<url>${myMavenRepo.read.url}</url>-->
+        <!--</repository>-->
     </repositories>
 
     <!-- Plugin Repository -->
