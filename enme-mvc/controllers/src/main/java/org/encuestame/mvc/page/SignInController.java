@@ -12,12 +12,11 @@
  */
 package org.encuestame.mvc.page;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.oauth2.support.OAuth2Parameters;
@@ -36,6 +35,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Sign In controller.
  * @author Picado, Juan juanATencuestame.org
@@ -47,7 +49,7 @@ public class SignInController extends AbstractSocialController{
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(SignInController.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
             /**
              * Post register redirect.

@@ -15,9 +15,11 @@ package org.encuestame.mvc.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.setup.StartupProcess;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.files.PathUtil;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.utils.PathUtil;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 
@@ -31,7 +33,7 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
     /**
      *
      */
-    private static Log log = LogFactory.getLog(SetupInterceptor.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
             //@Autowired
     public StartupProcess startup;

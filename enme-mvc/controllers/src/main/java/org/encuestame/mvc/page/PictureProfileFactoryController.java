@@ -17,6 +17,8 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -40,16 +42,14 @@ public class PictureProfileFactoryController extends AbstractViewController {
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(PictureProfileFactoryController.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
-
-            /**
-             *
-             * @param username
-             * @param pictureType
-             * @return
-             */
-
+    /**
+     *
+     * @param username
+     * @param pictureType
+     * @return
+     */
     private byte[] getPicture(String username, final PictureType pictureType){
         byte[] bytes = {};
         username = filterValue(username);
@@ -116,7 +116,7 @@ public class PictureProfileFactoryController extends AbstractViewController {
 
     /**
      * Returns the byte[] that contains the requested preview image (900x900 constrained)
-     * @param id The identifier of the image
+     * @param username The identifier of the image
      * @return A byte[] that contains the requested image
      * @throws EnMeNoResultsFoundException
      */

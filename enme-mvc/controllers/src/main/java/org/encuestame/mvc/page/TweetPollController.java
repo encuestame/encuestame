@@ -13,17 +13,9 @@
 
 package org.encuestame.mvc.page;
 
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.service.imp.SecurityOperations;
+import org.encuestame.core.service.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.mvc.validator.ValidateOperations;
@@ -41,14 +33,16 @@ import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Tweet Poll Controller support.
@@ -67,7 +61,6 @@ public class TweetPollController extends AbstractViewController {
     /**
      * Tweet Poll Controller.
      * @param model model
-     * @param id id tweet
      * @return view to redirect.
      * @throws UnknownHostException
      */

@@ -13,6 +13,8 @@
 
 package org.encuestame.mvc.page;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,7 +35,7 @@ public class SurveyController  extends AbstractViewController {
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(SurveyController.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
             /**
              * Survey Controller.

@@ -12,15 +12,17 @@
  */
 package org.encuestame.mvc.validator;
 
-import java.util.HashMap;
-import java.util.regex.Pattern;
-
-import org.encuestame.core.service.imp.SecurityOperations;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.service.SecurityOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
+
+import java.util.HashMap;
+import java.util.regex.Pattern;
 
 /**
  * Controller Validation.
@@ -57,7 +59,7 @@ public class ValidateOperations {
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(ValidateOperations.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      *
@@ -171,7 +173,6 @@ public class ValidateOperations {
      * Validate user email.
      * @param email email as string to validate
      * @param userLogged
-     * @param username
      * @return
      */
     public Boolean validateUserEmail(final String email, final UserAccount userLogged) {
@@ -203,7 +204,6 @@ public class ValidateOperations {
      * @param email the email to validate
      * @param user the possible account to validate, if is null the user not exist
      * @param userLogged user try to create new validate the email
-     * @param username
      * @return
      */
     public Boolean validateUserEmail(final String email, final UserAccount user, final UserAccount userLogged) {

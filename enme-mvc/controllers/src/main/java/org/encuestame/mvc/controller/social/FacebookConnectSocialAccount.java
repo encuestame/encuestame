@@ -15,6 +15,8 @@ package org.encuestame.mvc.controller.social;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.util.SocialUtils;
@@ -40,17 +42,16 @@ public class FacebookConnectSocialAccount extends AbstractAccountConnect{
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(FacebookConnectSocialAccount.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
-            /**
-             *
-             * @param appId
-             * @param accessTokenUrl
-             * @param authorizeUrl
-             * @param clientSecret
-             * @param clientId
-             */
-
+    /**
+     *
+     * @param appId
+     * @param accessTokenUrl
+     * @param authorizeUrl
+     * @param clientSecret
+     * @param clientId
+     */
     @Inject
     public FacebookConnectSocialAccount(
             @Value("${facebook.api.id}") String appId,

@@ -13,46 +13,17 @@
 
 package org.encuestame.mvc.controller;
 
-import java.net.UnknownHostException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import junit.framework.Assert;
-
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.service.AbstractSecurityContext;
 import org.encuestame.business.service.AbstractSurveyService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.security.util.HTMLInputFilter;
-import org.encuestame.core.security.util.WidgetUtil;
-import org.encuestame.core.service.AbstractSecurityContext;
-import org.encuestame.core.service.MessageSourceFactoryBean;
-import org.encuestame.core.service.SecurityService;
-import org.encuestame.core.service.imp.GeoLocationSupport;
-import org.encuestame.core.service.imp.ICommentService;
-import org.encuestame.core.service.imp.IFrontEndService;
-import org.encuestame.core.service.imp.IPictureService;
-import org.encuestame.core.service.imp.IPollService; 
-import org.encuestame.core.service.imp.IServiceManager;
-import org.encuestame.core.service.imp.IStatisticsService;
-import org.encuestame.core.service.imp.ISurveyService;
-import org.encuestame.core.service.imp.ITweetPollService;
-import org.encuestame.core.service.imp.SearchServiceOperations;
-import org.encuestame.core.service.imp.SecurityOperations;
-import org.encuestame.core.service.imp.StreamOperations;
-import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.core.service.*;
+import org.encuestame.core.util.*;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -78,6 +49,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
 /**
  * Base Controller.
  * @author Picado, Juan juanATencuestame.org
@@ -88,7 +66,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      /**
       *
       */
-     private static Log log = LogFactory.getLog(AbstractBaseOperations.class);
+     private Log log = LogFactory.getLog(this.getClass());
 
              /**
               * Simple date format.
@@ -141,13 +119,13 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
 
-    private MessageSourceFactoryBean messageSourceFactoryBean;
+    private IMessageSource messageSourceFactoryBean;
 
 
     /**
      * @return the messageSourceFactoryBean
      */
-    public MessageSourceFactoryBean getMessageSourceFactoryBean() {
+    public IMessageSource getMessageSourceFactoryBean() {
         return messageSourceFactoryBean;
     }
 
@@ -155,8 +133,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param messageSourceFactoryBean the messageSourceFactoryBean to set
      */
     @Autowired
-    public void setMessageSourceFactoryBean(
-            MessageSourceFactoryBean messageSourceFactoryBean) {
+    public void setMessageSourceFactoryBean(IMessageSource messageSourceFactoryBean) {
         this.messageSourceFactoryBean = messageSourceFactoryBean;
     }
 
@@ -229,7 +206,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * Create new tweetPoll.
      * @param question
      * @param hashtags
-     * @param answers
      * @param user
      * @return
      * @throws EnMeExpcetion
@@ -337,7 +313,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     * @param relativeTimeEnum
     * @param number
     * @param request
-    * @param objects
     * @return
     */
     @Deprecated
@@ -388,7 +363,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
             final Object[] args) {
         String stringValue = "";
         try {
-            stringValue = this.getMessageSourceFactoryBean().getMessageSource().getMessage(message, args, getLocale(request));
+            stringValue = this.getMessageSourceFactoryBean().getMessage(message, args, getLocale(request));
         } catch (Exception e) {
             log.error(e);
         }
@@ -434,7 +409,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param value value.
      * @return
      */
-    public String filterValue(String value){
+    public String filterValue(String value) {
         final HTMLInputFilter vFilter = new HTMLInputFilter(true);
         return vFilter.filter(value);
     }
@@ -473,7 +448,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
     /**
-     * Get {@link SecurityService}.
+     * Get {@link SecurityOperations}.
      * @return
      */
     public SecurityOperations getSecurityService(){
@@ -492,7 +467,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * Location Service.
      * @return
      */
-    public GeoLocationSupport getLocationService(){
+    public IGeoLocationSupport getLocationService(){
         return getServiceManager().getApplicationServices().getLocationService();
     }
 
@@ -509,7 +484,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
   
     /**
-     * Get {@link FrontEndCoreService}.
+     * Get {@link IFrontEndService}.
      * @return
      */
     public IFrontEndService getFrontService(){

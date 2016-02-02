@@ -7,7 +7,7 @@
         <version>1.5.4-SNAPSHOT</version>
     </parent>
 
-    <artifactId>json</artifactId>
+    <artifactId>rest-api</artifactId>
     <packaging>pom</packaging>
     <name>Encuestame JSON API</name>
 
@@ -28,7 +28,7 @@
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>enme-dao</artifactId>
+                <artifactId>dao</artifactId>
                 <scope>test</scope>
                 <classifier>tests</classifier>
                 <version>${project.version}</version>

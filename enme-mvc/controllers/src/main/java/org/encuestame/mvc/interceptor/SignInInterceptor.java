@@ -12,16 +12,18 @@
  */
 package org.encuestame.mvc.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.encuestame.core.files.PathUtil;
-import org.encuestame.core.security.SecurityUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.security.web.SecurityUtils;
+import org.encuestame.utils.PathUtil;
 import org.encuestame.utils.enums.EnMePermission;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Description.
@@ -30,7 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class SignInInterceptor extends AbstractEnMeInterceptor{
 
-    private static Log log = LogFactory.getLog(SignInInterceptor.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
     /*
      * (non-Javadoc)

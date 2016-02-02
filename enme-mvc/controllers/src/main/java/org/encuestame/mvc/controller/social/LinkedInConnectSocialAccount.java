@@ -15,6 +15,8 @@ package org.encuestame.mvc.controller.social;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -39,17 +41,16 @@ public class LinkedInConnectSocialAccount extends AbstractAccountConnect {
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(LinkedInConnectSocialAccount.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
-            /**
-             *
-             * @param apiKey
-             * @param consumerSecret
-             * @param authorizeUrl
-             * @param requestTokenUrl
-             * @param accessToken
-             */
-
+    /**
+     *
+     * @param apiKey
+     * @param consumerSecret
+     * @param authorizeUrl
+     * @param requestTokenUrl
+     * @param accessToken
+     */
     @Inject
     public LinkedInConnectSocialAccount(
             @Value("${linkedIn.oauth.api.key}") String apiKey,

@@ -1,23 +1,17 @@
 package org.encuestame.config.root;
 
-import java.util.Properties;
-
+import org.encuestame.business.service.MessageSourceFactoryBean;
 import org.encuestame.business.setup.ApplicationStartup;
 import org.encuestame.business.setup.install.DatabaseInstall;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.service.MessageSourceFactoryBean;
+import org.encuestame.core.service.IMessageSource;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+
+import java.util.Properties;
 
 @Configuration
 @ComponentScan(basePackages = "org.encuestame.core.service.startup")

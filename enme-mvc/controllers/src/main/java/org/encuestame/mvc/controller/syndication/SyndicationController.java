@@ -12,13 +12,10 @@
  */
 package org.encuestame.mvc.controller.syndication;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.rometools.rome.feed.rss.Item;
 import org.apache.commons.collections.ListUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -30,7 +27,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.rometools.rome.feed.rss.Item;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
  
 
@@ -46,12 +45,12 @@ public class SyndicationController extends AbstractFeedController {
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(SyndicationController.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
 
-            /**
-             *
-             */
+    /**
+     *
+     */
     @Value("${rss.display.items}") private Integer rssDisplayItems;
 
 
@@ -282,7 +281,6 @@ public class SyndicationController extends AbstractFeedController {
 
     /**
      *
-     * @param username
      * @param model
      * @param request
      * @return
@@ -315,7 +313,6 @@ public class SyndicationController extends AbstractFeedController {
 
    /**
     *
-    * @param username
     * @param model
     * @param request
     * @return
@@ -393,7 +390,6 @@ public class SyndicationController extends AbstractFeedController {
 
     /**
      * Display frontend ATOM Feed.
-     * @param username
      * @param model
      * @param request
      * @return
@@ -414,7 +410,6 @@ public class SyndicationController extends AbstractFeedController {
 
     /**
      * Display frontend RSS Feed.
-     * @param username username
      * @param model model
      * @param request request
      * @return

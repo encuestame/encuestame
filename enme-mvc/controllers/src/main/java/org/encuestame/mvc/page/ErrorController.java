@@ -13,19 +13,15 @@
 
 package org.encuestame.mvc.page;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.mvc.controller.AbstractViewController;
-import org.encuestame.utils.web.frontEnd.WebMessage;
-import org.encuestame.utils.web.frontEnd.WebMessage.WebInfoType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Error Controller

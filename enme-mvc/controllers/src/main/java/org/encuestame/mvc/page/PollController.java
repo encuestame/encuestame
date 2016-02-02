@@ -19,6 +19,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractViewController;
@@ -54,7 +56,7 @@ public class PollController extends AbstractViewController {
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(PollController.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
             /**
              * Poll Controller.
