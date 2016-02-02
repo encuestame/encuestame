@@ -12,10 +12,9 @@
  */
 package org.encuestame.mvc.controller.social;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.oauth2.support.OAuth2Parameters;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.social.SocialProvider;
@@ -25,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Google Buzz Connect Social Account.
@@ -37,17 +39,16 @@ public class GooglePlusConnectSocialAccount extends AbstractAccountConnect{
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(GooglePlusConnectSocialAccount.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
-            /**
-             *
-             * @param appId
-             * @param accessTokenUrl
-             * @param authorizeUrl
-             * @param clientSecret
-             * @param clientId
-             */
-
+    /**
+     *
+     * @param keyId
+     * @param accessTokenUrl
+     * @param authorizeUrl
+     * @param clientSecret
+     * @param clientId
+     */
     @Inject
     public GooglePlusConnectSocialAccount(
             @Value("${google.api.key}") String keyId,

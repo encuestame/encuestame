@@ -1,8 +1,7 @@
 package org.encuestame.mvc.controller.social;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -17,18 +16,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class PlurkConnectSocialAccount extends AbstractAccountConnect{
 
   	/**
   	 *  Log.
      */
-    private static Log log = LogFactory.getLog(PlurkConnectSocialAccount.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
-            /**
-             * Constructor.
-             */
-
+    /**
+     * Constructor.
+     */
     @Inject
     public PlurkConnectSocialAccount(
             @Value("${plurk.consumer.key}") String apiKey,

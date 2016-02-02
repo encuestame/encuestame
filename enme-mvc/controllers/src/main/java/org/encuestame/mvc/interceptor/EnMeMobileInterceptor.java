@@ -12,20 +12,20 @@
  */
 package org.encuestame.mvc.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.sf.uadetector.ReadableUserAgent;
-import net.sf.uadetector.UserAgent;
 import net.sf.uadetector.UserAgentStringParser;
 import net.sf.uadetector.service.UADetectorServiceFactory;
-
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceResolver;
 import org.springframework.mobile.device.LiteDeviceResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Extended Interceptor for mobile device.
@@ -42,7 +42,7 @@ public class EnMeMobileInterceptor extends HandlerInterceptorAdapter {
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(EnMeMobileInterceptor.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
             /**
              * Create a device resolving {@link HandlerInterceptor} that defaults to a {@link LiteDeviceResolver} implementation.

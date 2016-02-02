@@ -12,25 +12,17 @@
  */
 package org.encuestame.mvc.controller.social;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
+import org.encuestame.core.social.operation.*;
+import org.encuestame.core.social.profile.IdentiCaProfile;
+import org.encuestame.core.social.profile.LinkedInProfile;
 import org.encuestame.oauth1.support.OAuth1RequestFlow;
 import org.encuestame.oauth2.support.OAuth2Parameters;
 import org.encuestame.oauth2.support.OAuth2RequestFlow;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.social.api.templates.FacebookAPITemplate;
-import org.encuestame.social.api.templates.IdenticaAPITemplate;
-import org.encuestame.social.api.templates.LinkedInAPITemplate;
-import org.encuestame.social.api.templates.PlurkAPITemplate;
-import org.encuestame.social.api.templates.TumblrAPITemplate;
-import org.encuestame.social.api.templates.TwitterAPITemplate;
-import org.encuestame.core.social.operation.FacebookAPIOperations;
-import org.encuestame.core.social.operation.IdenticaAPIOperations;
-import org.encuestame.core.social.operation.LinkedInAPIOperations;
-import org.encuestame.core.social.operation.PlurkAPIOperations;
-import org.encuestame.core.social.operation.TumblrAPIOperations;
-import org.encuestame.core.social.operation.TwitterAPIOperations;
-import org.encuestame.core.social.profile.IdentiCaProfile;
-import org.encuestame.core.social.profile.LinkedInProfile;
+import org.encuestame.social.api.templates.*;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.social.SocialProvider;
@@ -46,7 +38,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(AbstractAccountConnect.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
     protected String apiKey;
     protected String consumerSecret;
@@ -122,7 +114,6 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
      * Get the social profile data from the Social Network API only for OAuth1
      * @param socialProvider {@link SocialProvider}
      * @param accessToken {@link OAuth1Token}
-     * @param account
      * @throws Exception
      */
     public String checkOAuth1SocialAccount(

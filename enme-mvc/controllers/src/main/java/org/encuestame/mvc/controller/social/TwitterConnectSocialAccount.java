@@ -15,6 +15,8 @@ package org.encuestame.mvc.controller.social;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -40,12 +42,11 @@ public class TwitterConnectSocialAccount extends AbstractAccountConnect {
      /**
      * Log.
      */
-     private static Log log = LogFactory.getLog(TwitterConnectSocialAccount.class);
+     private Log log = LogFactory.getLog(this.getClass());
 
-             /**
-              * Constructor.
-              */
-
+     /**
+      * Constructor.
+      */
     @Inject
     public TwitterConnectSocialAccount(
             @Value("${twitter.oauth.consumerKey}") String apiKey,

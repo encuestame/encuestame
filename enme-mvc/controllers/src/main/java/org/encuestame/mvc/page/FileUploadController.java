@@ -12,14 +12,13 @@
  */
 package org.encuestame.mvc.page;
 
-import java.io.IOException;
-import java.io.InputStream;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.images.ThumbnailGeneratorEngine;
-import org.encuestame.core.files.PathUtil;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -29,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+
+import java.io.IOException;
+import java.io.InputStream;
 //TODO: MIGRATION. The following sentence has been commented
 
 /**
@@ -43,7 +45,7 @@ public class FileUploadController extends AbstractViewController {
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(FileUploadController.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
             /**
              * {@link ThumbnailGeneratorEngine}.

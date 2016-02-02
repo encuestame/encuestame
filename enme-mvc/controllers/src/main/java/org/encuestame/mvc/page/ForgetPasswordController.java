@@ -12,11 +12,11 @@
  */
 package org.encuestame.mvc.page;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.filter.RequestSessionMap;
-import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.PasswordGenerator;
 import org.encuestame.mvc.controller.security.AbstractSecurityController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -25,15 +25,12 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.security.ForgotPasswordBean;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Forgot Password Controller.
@@ -47,7 +44,7 @@ public class ForgetPasswordController extends AbstractSecurityController {
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(ForgetPasswordController.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
             /**
              *
@@ -95,8 +92,7 @@ public class ForgetPasswordController extends AbstractSecurityController {
                 log.debug("email " + email);
                 final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(
                         req.getRemoteAddr(), challenge, response);
-                final ValidateOperations validation = new ValidateOperations(
-                        getSecurityService());
+                final ValidateOperations validation = new ValidateOperations(getSecurityService());
                 boolean _isValidEmailFormat = validation.validateEmail(email);
                 log.info("EMAIL FORMAT NOT VALID --> " + _isValidEmailFormat);
                 if (_isValidEmailFormat) {

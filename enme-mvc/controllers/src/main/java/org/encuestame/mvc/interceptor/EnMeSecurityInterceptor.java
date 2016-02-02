@@ -12,21 +12,23 @@
  */
 package org.encuestame.mvc.interceptor;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.security.SecurityUtils;
-import org.encuestame.core.security.util.WidgetUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.security.web.SecurityUtils;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.core.util.WidgetUtil;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.joda.time.DateTimeZone;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Default Interceptor for all Controllers.
@@ -38,7 +40,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(EnMeSecurityInterceptor.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * default cookie name.

@@ -12,13 +12,11 @@
  */
 package org.encuestame.mvc.controller.syndication;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.rometools.rome.feed.atom.Entry;
+import com.rometools.rome.feed.rss.Item;
 import org.apache.commons.collections.ListUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.FeedUtils;
@@ -33,8 +31,10 @@ import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.search.TweetPollSearchBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.rometools.rome.feed.atom.Entry;
-import com.rometools.rome.feed.rss.Item;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
  
 
@@ -56,7 +56,7 @@ public abstract class AbstractFeedController extends AbstractBaseOperations{
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(AbstractFeedController.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
             /**
              * Get TweetPolls.

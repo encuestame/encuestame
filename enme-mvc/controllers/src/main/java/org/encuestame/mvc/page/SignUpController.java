@@ -12,27 +12,23 @@
  */
 package org.encuestame.mvc.page;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.filter.RequestSessionMap;
-import org.encuestame.core.service.imp.SecurityOperations;
+import org.encuestame.core.service.SecurityOperations;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.mvc.controller.AbstractViewController;
-import org.encuestame.mvc.controller.security.AbstractSecurityController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Sign Up Form.
@@ -46,7 +42,7 @@ public class SignUpController extends AbstractViewController {
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(SignUpController.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
             /**
              *
@@ -85,11 +81,7 @@ public class SignUpController extends AbstractViewController {
     /**
      * Sign up process submit.
      * @param req
-     * @param challenge
      * @param response
-     * @param user
-     * @param result
-     * @param status
      * @return
      */
     @RequestMapping(value = "/user/signup/create", method = RequestMethod.POST)
@@ -113,7 +105,7 @@ public class SignUpController extends AbstractViewController {
         if (validation.validateSignUpForm(usernameForm, emailForm, password)) {
             log.debug(" the signup process successfull");
             try {
-                _service.singupUser(user, false);
+                _service.signupUser(user, false);
             } catch (Exception e) {
                  RequestSessionMap.getCurrent(req).put("signupError", Boolean.TRUE);
                  finalPath = "redirect:/user/signup";
@@ -166,7 +158,6 @@ public class SignUpController extends AbstractViewController {
 
     /**
      *
-     * @param inviteCode
      * @param model
      * @param response
      * @param request

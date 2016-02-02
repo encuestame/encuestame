@@ -15,6 +15,8 @@ package org.encuestame.mvc.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -22,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class Messagei18nInterceptor extends AbstractBaseOperations implements HandlerInterceptor {
 
-	private static Log log = LogFactory.getLog(Messagei18nInterceptor.class);
+	private Log log = LogFactory.getLog(this.getClass());
 	
 	/*
 	 * 	(non-Javadoc)

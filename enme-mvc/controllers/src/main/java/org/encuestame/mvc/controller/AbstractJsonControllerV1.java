@@ -12,19 +12,11 @@
  */
 package org.encuestame.mvc.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.core.security.SecurityUtils;
-import org.encuestame.core.service.imp.MailServiceOperations;
-import org.encuestame.core.startup.MailService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.security.web.SecurityUtils;
+import org.encuestame.core.service.MailServiceOperations;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.dao.INotification;
@@ -46,6 +38,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
+
 /**
  * Abstract Json Controller.
  * @author Picado, Juan juanATencuestame.org
@@ -57,7 +53,7 @@ public abstract class AbstractJsonControllerV1 extends AbstractBaseOperations{
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(AbstractJsonControllerV1.class);
+    private Log log = LogFactory.getLog(this.getClass());
 
             /** Model. **/
     private ModelMap jsonMap = new ModelMap();
@@ -74,7 +70,7 @@ public abstract class AbstractJsonControllerV1 extends AbstractBaseOperations{
 
 
     /**
-     *  {@link MailService}.
+     *  {@link MailServiceOperations}.
      */
     private MailServiceOperations mailService;
 
@@ -137,8 +133,6 @@ public abstract class AbstractJsonControllerV1 extends AbstractBaseOperations{
 
     /**
      * Set Item Response.
-     * @param label
-     * @param item
      */
     protected void setItemResponse(final Map<String, Object> map){
          this.error = new HashMap<String, Object>();

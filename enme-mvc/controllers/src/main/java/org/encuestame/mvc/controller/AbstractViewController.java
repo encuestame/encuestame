@@ -1,14 +1,10 @@
 package org.encuestame.mvc.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.security.SecurityUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.security.web.SecurityUtils;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -27,6 +23,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Collection of utilities for Controller Views, Error Handlers only for Controller.
@@ -50,7 +51,7 @@ public abstract class AbstractViewController extends AbstractBaseOperations{
      /**
      * Log.
      */
-     private static Log log = LogFactory.getLog(AbstractViewController.class);
+     private Log log = LogFactory.getLog(this.getClass());
 
              /**
               * Customized error for {@link NoSuchRequestHandlingMethodException}.
