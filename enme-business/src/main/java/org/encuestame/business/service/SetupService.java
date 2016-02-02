@@ -33,6 +33,7 @@ import org.encuestame.core.util.XMLConfigurationFileSupport;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.enums.TypeDatabase;
 import org.encuestame.utils.social.SocialNetworkBean;
@@ -117,8 +118,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     public String installDatabase() {
         log.debug("installDatabase.....");
         try {
-            this.install.initializeDatabase(TypeDatabase
-                    .getTypeDatabaseByString(this.getTypeDatabase()));
+            this.install.initializeDatabase(EnumerationUtils.getEnumFromString(TypeDatabase.class, this.getTypeDatabase()));
         } catch (Exception e) {
             log.fatal(e);
             RequestSessionMap.setErrorMessage(e.getMessage());

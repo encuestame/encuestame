@@ -18,59 +18,33 @@ package org.encuestame.utils.enums;
  * @since Mar 23, 2011
  */
 public enum TypeSearchResult {
-    TWEETPOLL("TWEETPOLL", "enme-tp-form"),
-    PROFILE("PROFILE","enme-profile "),
-    POLL("POLL", "enme-poll-form"),
-    SURVEY("SURVEY"),
-    QUESTION("QUESTION"),
-    HASHTAG("HASHTAG", "enme-hashtag"),
-    HASHTAGRATED("HASHTAGRATED"),
-    SOCIALNETWORK("SOCIALNETWORK"),
-    HITS("HITS"),
-    VOTES("VOTES"),
-    ALL("ALL"),
-    COMMENT("COMMENT"),
-    TWEETPOLLRESULT("TWEETPOLLRESULT","enme-tp-vote"),
-    POLLRESULT("POLLRESULT", "enme-poll-vote");
+    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG, HASHTAGRATED, SOCIALNETWORK, HITS, VOTES, ALL, COMMENT, TWEETPOLLRESULT, POLLRESULT,
+
+    TypeSearchResult(){
+
+    };
 
     /**
-     *
+     * To String.
      */
-    private String typeSearchAsString;
-
-
-    /**
-     *
-     */
-    private String cssClass;
-
-    /**
-     *
-     * Constructor
-     * @param optionAsString
-     */
-    TypeSearchResult(String optionAsString){
-        this.typeSearchAsString = optionAsString;
-    }
-
-    /**
-     *
-     * @param optionAsString
-     * @param cssClass
-     */
-    TypeSearchResult(String optionAsString,  final String cssClass){
-        this.typeSearchAsString = optionAsString;
-        this.cssClass = cssClass;
-
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public String toString(){
-        return this.typeSearchAsString;
+    public String toString() {
+        String type = "";
+        if (this == TWEETPOLL) { type = "TWEETPOLL"; }
+        else if (this == PROFILE) { type = "PROFILE"; }
+        else if (this == COMMENT) { type = "COMMENT"; }
+        else if (this == POLL) { type = "POLL"; }
+        else if (this == SURVEY) { type = "SURVEY"; }
+        else if (this == ATTACHMENT) { type = "ATTACHMENT"; }
+        else if (this == QUESTION) { type = "QUESTION"; }
+        else if (this == HASHTAG) { type = "HASHTAG"; }
+        else if (this == HASHTAGRATED) { type = "HASHTAGRATED"; }
+        else if (this == SOCIALNETWORK) { type = "SOCIALNETWORK"; }
+        else if (this == HITS) { type = "HITS"; }
+        else if (this == VOTES) { type = "VOTES"; }
+        else if (this == TWEETPOLLRESULT) { type = "TWEETPOLLRESULT"; }
+        else if (this == POLLRESULT) { type = "POLLRESULT"; }
+        else if (this == ALL) { type = "ALL"; }
+        return type;
     }
 
     /**
@@ -78,22 +52,80 @@ public enum TypeSearchResult {
      * @return
      */
     public String toWidget() {
-        return this.typeSearchAsString.toLowerCase();
+        String type = "";
+        if (this == TWEETPOLL) { type = "tweetpoll"; }
+        else if (this == PROFILE) { type = "profile"; }
+        else if (this == POLL) { type = "poll"; }
+        else if (this == SURVEY) { type = "survey"; }
+        else if (this == HASHTAG) { type = "hashtag"; }
+        else if (this == HASHTAGRATED) { type = "hashtagrated"; }
+        else if (this == SOCIALNETWORK) { type = "socialnetwork"; }
+        else if (this == TWEETPOLLRESULT) { type = "tweetpollresult"; }
+        else if (this == POLLRESULT) { type = "pollresult"; }
+        return type;
     }
 
     /**
      * Return the url prefix to make url to acces to public url.
+     * @param type
      * @return
      */
-    public String  getUrlPrefix() {
-        return this.typeSearchAsString.toLowerCase();
+    public static String getUrlPrefix(final TypeSearchResult type) {
+        if (null == type) { return null; }
+        else if (type.equals(TWEETPOLL)) { return "tweetpoll"; }
+        else if (type.equals(PROFILE)) { return "profile"; }
+        else if (type.equals(COMMENT)) { return "comment"; }
+        else if (type.equals(POLL)) { return "poll"; }
+        else if (type.equals(SURVEY)) { return "survey"; }
+        else if (type.equals(HASHTAG)) { return "tag"; }
+        else if (type.equals(HASHTAGRATED)) { return "hashtagrated"; }
+        else if (type.equals(SOCIALNETWORK)) { return "socialnetwork"; }
+        else if (type.equals(HITS)) { return "hits"; }
+        else if (type.equals(VOTES)) { return "votes"; }
+        else if (type.equals(TWEETPOLLRESULT)) { return "tweetpollresult"; }
+        else if (type.equals(POLLRESULT)) { return "pollresult"; }
+        else if (type.equals(ALL)) { return "all"; }
+        else return null;
     }
 
     /**
      * The css class to be appended into the embed code.
+     * @param type
      * @return
      */
-    public String getCSSClass(){
-         return this.cssClass;
+    public static String getCSSClass(final TypeSearchResult type ){
+        if (null == type) { return null; }
+        else if (type.equals(POLL)) { return "enme-poll-form"; }
+        else if (type.equals(POLLRESULT)) { return "enme-poll-vote"; }
+        else if (type.equals(TWEETPOLLRESULT)) { return "enme-tp-vote"; }
+        else if (type.equals(TWEETPOLL)) { return "enme-tp-form"; }
+        else if (type.equals(PROFILE)) { return "enme-profile"; }
+        else if (type.equals(HASHTAG)) { return "enme-hashtag"; }
+        else return null;
+    }
+
+    /**
+     *
+     * @param layout
+     * @return
+     */
+    public static TypeSearchResult getTypeSearchResult(final String type) {
+        if (null == type) { return null; }
+        else if (type.equalsIgnoreCase("TWEETPOLL")) { return TWEETPOLL; }
+        else if (type.equalsIgnoreCase("PROFILE")) { return PROFILE; }
+        else if (type.equalsIgnoreCase("POLL")) { return POLL; }
+        else if (type.equalsIgnoreCase("SURVEY")) { return SURVEY; }
+        else if (type.equalsIgnoreCase("ATTACHMENT")) { return ATTACHMENT; }
+        else if (type.equalsIgnoreCase("QUESTION")) { return QUESTION; }
+        else if (type.equalsIgnoreCase("HASHTAG")) { return HASHTAG; }
+        else if (type.equalsIgnoreCase("COMMENT")) { return COMMENT; }
+        else if (type.equalsIgnoreCase("HASHTAGRATED")) { return HASHTAGRATED; }
+        else if (type.equalsIgnoreCase("SOCIALNETWORK")) { return SOCIALNETWORK; }
+        else if (type.equalsIgnoreCase("HITS")) { return HITS; }
+        else if (type.equalsIgnoreCase("VOTES")) { return VOTES; }
+        else if (type.equalsIgnoreCase("TWEETPOLLRESULT")) { return TWEETPOLLRESULT; }
+        else if (type.equalsIgnoreCase("POLLRESULT")) { return POLLRESULT; }
+        else if (type.equalsIgnoreCase("ALL")) { return ALL; }
+        else return null;
     }
 }

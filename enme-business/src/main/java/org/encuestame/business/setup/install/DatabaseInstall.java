@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.enums.TypeDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -219,7 +220,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
     public void initializeDatabase(final TypeDatabase installDatabase)
             throws EnmeFailOperation, IOException {
         //TODO: remove parameters.
-        setDatabaseType(TypeDatabase.getTypeDatabaseByString(this.getTypeDatabase()));
+        setDatabaseType(EnumerationUtils.getEnumFromString(TypeDatabase.class, this.getTypeDatabase()));
         log.debug("check Database conection..");
         // verify database connection.
         //if (this.installerOperations.checkDatabaseConection() == 1) {
@@ -289,7 +290,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
     @Override
     public void dropAll() throws IOException {
         log.info("Drop all tables");
-        setDatabaseType(TypeDatabase.getTypeDatabaseByString(this.getTypeDatabase()));
+        setDatabaseType(EnumerationUtils.getEnumFromString(TypeDatabase.class, this.getTypeDatabase()));
         this.installScript(this.buildTableScript(this.DROP));
     }
 }

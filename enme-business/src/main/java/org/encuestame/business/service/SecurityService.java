@@ -40,6 +40,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
+import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.FollowOperations;
 import org.encuestame.utils.enums.NotificationEnum;
@@ -347,7 +348,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      */
     public void createPermission(final UnitPermission permissionBean) {
         final Permission permissionDomain = new Permission();
-        permissionDomain.setPermission(EnMePermission.getPermissionString(permissionBean.getPermission()));
+        permissionDomain.setPermission(EnumerationUtils.getEnumFromString(EnMePermission.class, permissionBean.getPermission()));
         permissionDomain.setPermissionDescription(permissionBean.getDescription());
         getPermissionDao().saveOrUpdate(permissionDomain);
     }
@@ -771,7 +772,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @return permission domain
      */
     public Permission loadPermission(final String permission) {
-        return getPermissionDao().loadPermission(EnMePermission.getPermissionString(permission));
+        return getPermissionDao().loadPermission(EnumerationUtils.getEnumFromString(EnMePermission.class, permission));
     }
 
     /**

@@ -87,6 +87,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.RestFullUtil;
@@ -843,7 +844,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public Permission createPermission(final String permissionName){
         final Permission permission = new Permission();
         permission.setPermissionDescription(permissionName);
-        permission.setPermission(EnMePermission.getPermissionString(permissionName));
+        permission.setPermission(EnumerationUtils.getEnumFromString(EnMePermission.class, permissionName));
         getPermissionDaoImp().saveOrUpdate(permission);
         return permission;
     }

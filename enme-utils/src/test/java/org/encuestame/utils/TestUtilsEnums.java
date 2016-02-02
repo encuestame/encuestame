@@ -199,37 +199,37 @@ public class TestUtilsEnums extends TestCase{
     @Test
     public void testSearchPeriods(){
         final SearchPeriods twentyFourHoursOpt = SearchPeriods.getPeriodString("24");
-        assertEquals("Should be equals", SearchPeriods.TWENTYFOURHOURS, twentyFourHoursOpt);
+        assertEquals("Should be equals", "24", twentyFourHoursOpt.toString());
 
         final SearchPeriods sevenDaysOpt = SearchPeriods.getPeriodString("7");
-        assertEquals("Should be equals", SearchPeriods.SEVENDAYS, sevenDaysOpt);
+        assertEquals("Should be equals", "7", sevenDaysOpt.toString());
 
         final SearchPeriods thirtyDaysOpt = SearchPeriods.getPeriodString("30");
-        assertEquals("Should be equals", SearchPeriods.THIRTYDAYS, thirtyDaysOpt);
+        assertEquals("Should be equals", "30", thirtyDaysOpt.toString());
 
         final SearchPeriods allTimeOpt = SearchPeriods.getPeriodString("all");
-        assertEquals("Should be equals", SearchPeriods.ALLTIME, allTimeOpt);
+        assertEquals("Should be equals", "all", allTimeOpt.toString());
 
         final SearchPeriods oneYearTimeOpt = SearchPeriods.getPeriodString("365");
-        assertEquals("Should be equals", SearchPeriods.ONEYEAR, oneYearTimeOpt);
+        assertEquals("Should be equals", "365", oneYearTimeOpt.toString());
 
-       /*  final SearchPeriods yearsTimeOpt = SearchPeriods.getPeriodString("1095");
-        assertEquals("Should be equals", "all", yearsTimeOpt);
+        final SearchPeriods yearsTimeOpt = SearchPeriods.getPeriodString("1095");
+        assertEquals("Should be equals", "all", yearsTimeOpt.toString());
 
-       final SearchPeriods todayOpt = SearchPeriods.TWENTYFOURHOURS;
-        assertEquals("Should be equals", "24", todayOpt.toNumber());
+        final SearchPeriods todayOpt = SearchPeriods.TWENTYFOURHOURS;
+        assertEquals("Should be equals", "24", todayOpt.toNumber().toString());
 
         final SearchPeriods weekOpt = SearchPeriods.SEVENDAYS;
-        assertEquals("Should be equals", "7", weekOpt.toNumber());
+        assertEquals("Should be equals", "7", weekOpt.toNumber().toString());
 
         final SearchPeriods monthOpt = SearchPeriods.THIRTYDAYS;
-        assertEquals("Should be equals", "30", monthOpt.toNumber());
+        assertEquals("Should be equals", "30", monthOpt.toNumber().toString());
 
         final SearchPeriods allOpt = SearchPeriods.ALLTIME;
-        assertEquals("Should be equals", "1095", allOpt.toNumber());
+        assertEquals("Should be equals", "1095", allOpt.toNumber().toString());
 
         final SearchPeriods oneYearOpt = SearchPeriods.ONEYEAR;
-        assertEquals("Should be equals", "365", oneYearOpt.toNumber());*/
+        assertEquals("Should be equals", "365", oneYearOpt.toNumber().toString());
     }
 
     /**
@@ -351,25 +351,25 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testTypeDatabase(){
-        final TypeDatabase oracleDBase = TypeDatabase.getTypeDatabaseByString("oracle");
-        assertEquals("Database type should be equals", TypeDatabase.ORACLE , oracleDBase);
+        final TypeDatabase oracleDBase = EnumerationUtils.getEnumFromString(TypeDatabase.class, "oracle");
+        assertEquals("Database type should be equals", TypeDatabase.ORACLE, oracleDBase);
 
-        final TypeDatabase hsqlDBase = TypeDatabase.getTypeDatabaseByString("hsqldb");
+        final TypeDatabase hsqlDBase = EnumerationUtils.getEnumFromString(TypeDatabase.class, "hsqldb");
         assertEquals("Database type should be equals", TypeDatabase.HSQLDB , hsqlDBase);
 
-        final TypeDatabase mysqlDBase = TypeDatabase.getTypeDatabaseByString("mysql");
-        assertEquals("Database type should be equals", TypeDatabase.MYSQL , mysqlDBase);
+        final TypeDatabase mysqlDBase = EnumerationUtils.getEnumFromString(TypeDatabase.class, "mysql");
+        assertEquals("Database type should be equals", TypeDatabase.MYSQL, mysqlDBase);
 
-        final TypeDatabase postgresDBase = TypeDatabase.getTypeDatabaseByString("postgres");
+        final TypeDatabase postgresDBase = EnumerationUtils.getEnumFromString(TypeDatabase.class, "postgres");
         assertEquals("Database type should be equals", TypeDatabase.POSTGRES , postgresDBase);
 
-        final TypeDatabase mssqlDBase = TypeDatabase.getTypeDatabaseByString("mssql");
+        final TypeDatabase mssqlDBase = EnumerationUtils.getEnumFromString(TypeDatabase.class, "mssql");
         assertEquals("Database type should be equals", TypeDatabase.MSSQL, mssqlDBase);
 
-        final TypeDatabase derbyDBase = TypeDatabase.getTypeDatabaseByString("derby");
+        final TypeDatabase derbyDBase = EnumerationUtils.getEnumFromString(TypeDatabase.class, "derby");
         assertEquals("Database type should be equals", TypeDatabase.DERBY, derbyDBase);
 
-        final TypeDatabase db2DBase = TypeDatabase.getTypeDatabaseByString("db2");
+        final TypeDatabase db2DBase = EnumerationUtils.getEnumFromString(TypeDatabase.class, "db2");
         assertEquals("Database type should be equals", TypeDatabase.DB2 , db2DBase);
     }
 
