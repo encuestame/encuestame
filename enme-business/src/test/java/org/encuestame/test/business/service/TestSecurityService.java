@@ -486,14 +486,14 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     @Category(DefaultTest.class)
     @Test
     public void testCreatePermission() {
-        final Permission secPerm = createPermission("writer");
+        final Permission secPerm = createPermission("ENCUESTAME_WRITE");
         final UnitPermission permissionBean = ConvertDomainBean
                 .convertPermissionToBean(secPerm);
         securityService.createPermission(permissionBean);
         final Permission permissionRetrieve = getPermissionDaoImp()
                 .getPermissionById(secPerm.getIdPermission());
         assertNotNull(permissionRetrieve);
-        assertEquals("should be", "writer",
+        assertEquals("should be", "ENCUESTAME_WRITE",
                 permissionRetrieve.getPermissionDescription());
 
     }

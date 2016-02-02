@@ -65,6 +65,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollRate;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.test.persistence.config.AbstractBase;
+import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.HitCategory;
@@ -220,7 +221,7 @@ public class TestHibernateDomains extends AbstractBase{
     @Test
     public void testSecPermission(){
         final Permission permission = new Permission();
-        permission.setPermission(EnMePermission.getPermissionString("ENCUESTAME_ADMIN"));
+        permission.setPermission(EnumerationUtils.getEnumFromString(EnMePermission.class, "ENCUESTAME_ADMIN"));
         permission.setPermissionDescription("Administrator of alls options");
         permission.getGroups().add(createGroups("administrator"));
         permission.getSecUserSecondaries().add(createUserAccount("juan carlos", createAccount()));
