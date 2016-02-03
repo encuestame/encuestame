@@ -132,7 +132,7 @@
         <!--CometD -->
         <!-- <comet.version>2.5.1</comet.version> -->
         <!-- Plugin Version -->
-        <surefire.version>2.15</surefire.version>
+        <surefire.version>2.19.1</surefire.version>
         <!--
         	Clover 2 Needed install on local host
         	http://confluence.atlassian.com/display/CLOVER/Clover+for+Maven+2+and+3+Developer+Guide
