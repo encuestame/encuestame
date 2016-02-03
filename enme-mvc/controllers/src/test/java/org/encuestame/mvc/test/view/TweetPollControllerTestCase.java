@@ -17,7 +17,7 @@
  */
 package org.encuestame.mvc.test.view;
 
-import org.encuestame.core.service.imp.ITweetPollService;
+import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.mvc.page.TweetPollController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;

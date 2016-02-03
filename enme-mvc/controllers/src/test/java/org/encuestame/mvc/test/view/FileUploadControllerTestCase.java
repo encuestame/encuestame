@@ -18,30 +18,17 @@
 
 package org.encuestame.mvc.test.view;
 
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.mvc.page.FileUploadController;
-import org.encuestame.mvc.page.HomeController;
 import org.encuestame.mvc.test.config.AbstractMultipartMvcUnitBeans;
-import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
-import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.categories.test.DefaultTest;
-import org.encuestame.utils.enums.MethodJson;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
 
 /**
  * Created by jpicado on 04/12/14.

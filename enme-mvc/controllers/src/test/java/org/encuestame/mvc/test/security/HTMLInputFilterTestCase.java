@@ -10,12 +10,11 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.test.security.utils;
+package org.encuestame.mvc.test.security;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-
-import org.encuestame.core.security.util.HTMLInputFilter;
+import org.encuestame.core.util.HTMLInputFilter;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;

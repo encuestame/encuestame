@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,13 +29,12 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 1, 2010 11:28:12 AM
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @Scope("singleton")
 @TransactionConfiguration(defaultRollback = true)
 @ContextConfiguration(classes = DBTestConfig.class)
 @Transactional
 @ActiveProfiles(profiles = "dev")
-public class AbstractConfigurationBase{
+public class AbstractConfigurationBase extends AbstractTransactionalJUnit4SpringContextTests{
 
     public Log log = LogFactory.getLog(this.getClass());
 

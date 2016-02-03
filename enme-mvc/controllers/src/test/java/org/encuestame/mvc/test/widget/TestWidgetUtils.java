@@ -12,13 +12,13 @@
  */
 package org.encuestame.mvc.test.widget;
 
-import java.util.List;
-
-import org.encuestame.core.security.util.WidgetUtil;
+import org.encuestame.core.util.WidgetUtil;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Test Widget Utils.

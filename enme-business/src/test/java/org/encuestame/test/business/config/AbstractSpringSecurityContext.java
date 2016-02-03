@@ -71,7 +71,7 @@ public abstract class AbstractSpringSecurityContext extends AbstractServiceBase 
     }
 
     /**
-     * @param secondary the secondary to set
+     * @param springSecurityLoggedUserAccount the secondary to set
      */
     public void setSpringSecurityLoggedUserAccount(final UserAccount springSecurityLoggedUserAccount) {
         this.springSecurityLoggedUserAccount = springSecurityLoggedUserAccount;

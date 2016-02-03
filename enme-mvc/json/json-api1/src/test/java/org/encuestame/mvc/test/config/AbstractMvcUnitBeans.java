@@ -12,9 +12,7 @@
  */
 package org.encuestame.mvc.test.config;
 
-import javax.servlet.ServletRequestEvent;
-
-import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.test.business.config.AbstractSpringSecurityContext;
 import org.junit.Before;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -23,6 +21,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.HandlerAdapter;
 
+import javax.servlet.ServletRequestEvent;
+
 /**
  * Abstract mvc unit beans.
  * @author Picado, Juan juanATencuestame.org
@@ -30,8 +30,7 @@ import org.springframework.web.servlet.HandlerAdapter;
  */
 @ContextConfiguration(locations = {
         "classpath:spring-test/encuestame-test-controller-context.xml",
-        "classpath:spring-test/encuestame-test-upload-context.xml",
-        "classpath:spring-test/encuestame-param-test-context.xml"})
+        "classpath:spring-test/encuestame-test-upload-context.xml"})
 public abstract class AbstractMvcUnitBeans extends AbstractSpringSecurityContext {
 
     protected MockHttpServletRequest request;

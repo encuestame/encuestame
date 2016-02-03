@@ -17,27 +17,20 @@
  */
 package org.encuestame.mvc.test.view;
 
-import org.encuestame.core.service.imp.IPollService;
-import org.encuestame.core.service.imp.ITweetPollService;
+import org.encuestame.core.service.IPollService;
+import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.mvc.page.PollController;
-import org.encuestame.mvc.page.TweetPollController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
-import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.CreatePollBean;
-import org.encuestame.utils.web.QuestionAnswerBean;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
@@ -48,7 +41,8 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
 
 import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
 

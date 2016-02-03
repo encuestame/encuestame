@@ -17,9 +17,8 @@
  */
 package org.encuestame.mvc.test.config;
 
-import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.test.business.config.AbstractSpringSecurityContext;
 import org.junit.Before;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.mock.web.MockServletContext;
@@ -36,8 +35,7 @@ import javax.servlet.ServletRequestEvent;
  */
 @ContextConfiguration(locations = {
         "classpath:spring-test/encuestame-test-controller-context.xml",
-        "classpath:spring-test/encuestame-test-upload-context.xml",
-        "classpath:spring-test/encuestame-param-test-context.xml"})
+        "classpath:spring-test/encuestame-test-upload-context.xml"})
 public abstract class AbstractMultipartMvcUnitBeans extends AbstractSpringSecurityContext {
 
     protected MockMultipartHttpServletRequest request;
