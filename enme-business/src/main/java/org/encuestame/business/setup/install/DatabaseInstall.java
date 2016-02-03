@@ -2,6 +2,7 @@ package org.encuestame.business.setup.install;
 
 import java.io.IOException;
 
+import javassist.bytecode.stackmap.TypeData;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
@@ -220,7 +221,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
     public void initializeDatabase(final TypeDatabase installDatabase)
             throws EnmeFailOperation, IOException {
         //TODO: remove parameters.
-        setDatabaseType(EnumerationUtils.getEnumFromString(TypeDatabase.class, this.getTypeDatabase()));
+        setDatabaseType(TypeDatabase.getTypeDatabaseByString(this.getTypeDatabase()));
         log.debug("check Database conection..");
         // verify database connection.
         //if (this.installerOperations.checkDatabaseConection() == 1) {
@@ -290,7 +291,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
     @Override
     public void dropAll() throws IOException {
         log.info("Drop all tables");
-        setDatabaseType(EnumerationUtils.getEnumFromString(TypeDatabase.class, this.getTypeDatabase()));
+        setDatabaseType(TypeDatabase.getTypeDatabaseByString(this.getTypeDatabase()));
         this.installScript(this.buildTableScript(this.DROP));
     }
 }

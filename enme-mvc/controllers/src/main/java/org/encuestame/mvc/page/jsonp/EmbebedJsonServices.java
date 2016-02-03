@@ -25,8 +25,6 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
-import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.WidgetUtil;
@@ -37,6 +35,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.enums.EmbeddedType;
 import org.encuestame.utils.enums.PictureType;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -113,7 +112,7 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
             final String domain = WidgetUtil.getRelativeDomain(request);
             final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
             if (typeItem != null) {
-                final EmbeddedType embeddedType = EmbeddedType.getEmbeddedType(embedded);
+                final EmbeddedType embeddedType = EnumerationUtils.getEnumFromString(EmbeddedType.class, embedded);
                 response.setContentType("text/javascript; charset=UTF-8");
                 model.put("domain", domain);
                 model.put("embedded_type", embeddedType.toString().toLowerCase());

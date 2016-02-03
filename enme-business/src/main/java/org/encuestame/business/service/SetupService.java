@@ -118,7 +118,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     public String installDatabase() {
         log.debug("installDatabase.....");
         try {
-            this.install.initializeDatabase(EnumerationUtils.getEnumFromString(TypeDatabase.class, this.getTypeDatabase()));
+            this.install.initializeDatabase(TypeDatabase.getTypeDatabaseByString(this.getTypeDatabase()));
         } catch (Exception e) {
             log.fatal(e);
             RequestSessionMap.setErrorMessage(e.getMessage());

@@ -15,6 +15,7 @@ package org.encuestame.mvc.interceptor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.web.SecurityUtils;
+import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.PathUtil;
 import org.encuestame.utils.enums.EnMePermission;
 import org.springframework.security.core.Authentication;
@@ -76,7 +77,7 @@ public class SignInInterceptor extends AbstractEnMeInterceptor{
                     log.debug("Sign In session is valid");
                     for (GrantedAuthority auth : authentication.getAuthorities()) {
                         log.debug("Sign In Auth:{ "+auth.getAuthority());
-                        if (EnMePermission.getPermissionString(
+                        if (EnumerationUtils.getEnumFromString(EnMePermission.class,
                                 auth.getAuthority()).equals(
                                 EnMePermission.ENCUESTAME_USER)) {
                             log.debug("User is logged, redirec to dashboard");

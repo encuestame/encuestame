@@ -21,6 +21,7 @@ import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
+import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.social.SocialProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -136,7 +137,7 @@ public class FacebookConnectSocialAccount extends AbstractAccountConnect{
         log.error("ERROR error_code" + error_code);
         log.error("ERROR error_msg" + error_msg);
         log.error("ERROR socialProvider" + socialProvider);
-        final SocialProvider soProvider = SocialProvider.getProvider(socialProvider);
+        final SocialProvider soProvider = EnumerationUtils.getEnumFromString(SocialProvider.class, socialProvider);
         return this.redirect+"#provider=" + soProvider.toString().toLowerCase() + "&refresh=true&successful=false";
     }
 }

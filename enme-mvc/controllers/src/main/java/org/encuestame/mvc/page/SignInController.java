@@ -24,6 +24,7 @@ import org.encuestame.oauth2.support.OAuth2RequestFlow;
 import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.social.api.connect.FacebookSignInSocialSupport;
 import org.encuestame.social.api.connect.GoogleBuzzSignInSocialService;
+import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.social.SocialProvider;
 import org.springframework.stereotype.Controller;
@@ -97,7 +98,7 @@ public class SignInController extends AbstractSocialController{
         @RequestParam(required = false) String scope,
         HttpServletRequest httpRequest){
         final StringBuilder url = new StringBuilder();
-        final SocialProvider providerEnum = SocialProvider.getProvider(provider);
+        final SocialProvider providerEnum = EnumerationUtils.getEnumFromString(SocialProvider.class, provider);
         //System.out.println("PROVIDER "+providerEnum);
         if (providerEnum == null) {
             url.append("404");
@@ -137,8 +138,6 @@ public class SignInController extends AbstractSocialController{
     }
 
     /**
-     *
-     * @param code
      * @param provider
      * @param model
      * @param httpRequest
@@ -183,9 +182,9 @@ public class SignInController extends AbstractSocialController{
             String friendsUrl = "redirect:/user/signin/friends";
             final SocialProvider providerBack;
             if ("google".equals(provider) && state != null) {
-                providerBack = SocialProvider.getProvider(state);
+                providerBack = EnumerationUtils.getEnumFromString(SocialProvider.class, state);
             } else {
-                providerBack = SocialProvider.getProvider(provider);
+                providerBack = EnumerationUtils.getEnumFromString(SocialProvider.class, provider);
             }
             if (providerBack == null) {
                 throw new EnMeOAuthSecurityException("provider ["+provider+"] not valid");
@@ -194,7 +193,7 @@ public class SignInController extends AbstractSocialController{
                 friendsUrl = getConnectOperations().connectSignInAccount(
                         new GoogleBuzzSignInSocialService(accessGrant,
                                 getConnectOperations()));
-            } else if (SocialProvider.getProvider(provider).equals(
+            } else if (EnumerationUtils.getEnumFromString(SocialProvider.class, provider).equals(
                     SocialProvider.FACEBOOK)) {
                 friendsUrl = getConnectOperations().connectSignInAccount(
                         new FacebookSignInSocialSupport(accessGrant,
