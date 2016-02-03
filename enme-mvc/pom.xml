@@ -7,12 +7,12 @@
         <version>1.5.4-SNAPSHOT</version>
     </parent>
 
-    <artifactId>enme-mvc</artifactId>
+    <artifactId>mvc</artifactId>
     <packaging>pom</packaging>
     <name>Encuestame MVC POM</name>
     <modules>
         <module>controllers</module>
-        <module>json</module>
+        <!--<module>json</module>-->
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -25,7 +25,7 @@
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-dao</artifactId>
+                <artifactId>dao</artifactId>
                 <scope>test</scope>
                 <classifier>tests</classifier>
                 <version>${project.version}</version>
