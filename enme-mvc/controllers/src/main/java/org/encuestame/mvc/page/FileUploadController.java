@@ -50,7 +50,7 @@ public class FileUploadController extends AbstractViewController {
             /**
              * {@link ThumbnailGeneratorEngine}.
              */
-    @Autowired
+    //@Autowired
     private ThumbnailGeneratorEngine thumbnailGeneratorEngine;
 
     /**

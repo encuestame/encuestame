@@ -1,18 +1,14 @@
 package org.encuestame.config.annotations;
 
-import com.google.common.collect.Lists;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@ImportResource({"classpath:/config/files/param-context.xml"})
 public class EnMeProperties {
 
 //	private static final Resource[] PROD_PROPERTIES = new ClassPathResource[] { new ClassPathResource(

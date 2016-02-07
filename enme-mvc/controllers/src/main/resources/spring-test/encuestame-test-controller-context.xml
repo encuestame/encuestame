@@ -37,7 +37,6 @@
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
-        <property name="singleSession" value="true" />
    </bean>
 
 

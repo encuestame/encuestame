@@ -212,10 +212,10 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.ldap</groupId>
-            <artifactId>spring-ldap-core</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.ldap</groupId>-->
+            <!--<artifactId>spring-ldap-core</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.webflow</groupId>
             <artifactId>spring-js</artifactId>

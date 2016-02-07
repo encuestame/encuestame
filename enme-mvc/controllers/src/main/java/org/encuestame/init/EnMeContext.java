@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.config;
+package org.encuestame.init;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

@@ -28,9 +28,7 @@ import javax.servlet.ServletRequestEvent;
  * @author Picado, Juan juanATencuestame.org
  * @since April 10, 2011
  */
-@ContextConfiguration(locations = {
-        "classpath:spring-test/encuestame-test-controller-context.xml",
-        "classpath:spring-test/encuestame-test-upload-context.xml"})
+@ContextConfiguration(classes = {SecurityTConfig.class, EnMeWebTMvcConfiguration.class})
 public abstract class AbstractMvcUnitBeans extends AbstractSpringSecurityContext {
 
     protected MockHttpServletRequest request;

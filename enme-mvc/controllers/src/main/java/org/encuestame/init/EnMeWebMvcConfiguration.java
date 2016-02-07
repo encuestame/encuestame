@@ -1,4 +1,4 @@
-package org.encuestame.config.annotations.web;
+package org.encuestame.init;
 
 import org.encuestame.business.cron.PublishScheduled;
 import org.encuestame.business.cron.RemoveSpamCommentsJob;
@@ -22,12 +22,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 //@EnableWebMvc
 @Configuration
 @EnableScheduling
-@ComponentScan(basePackages = "org.encuestame")
+//@ComponentScan(basePackages = "org.encuestame")
 @EnableAsync
 @ImportResource({
-    "classpath:/config/files/mvc-context.xml",
-    "classpath:/config/files/web-flow-context.xml"
-    })
+    "classpath:/org/encuestame/config/xml/mvc-context.xml"
+})
 public class EnMeWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
 

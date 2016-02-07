@@ -33,9 +33,9 @@ import javax.servlet.ServletRequestEvent;
  * @author Picado, Juan juanATencuestame.org
  * @since April 10, 2011
  */
-@ContextConfiguration(locations = {
-        "classpath:spring-test/encuestame-test-controller-context.xml",
-        "classpath:spring-test/encuestame-test-upload-context.xml"})
+//@ContextConfiguration(locations = {
+//        "classpath:spring-test/encuestame-test-controller-context.xml",
+//        "classpath:spring-test/encuestame-test-upload-context.xml"})
 public abstract class AbstractMultipartMvcUnitBeans extends AbstractSpringSecurityContext {
 
     protected MockMultipartHttpServletRequest request;

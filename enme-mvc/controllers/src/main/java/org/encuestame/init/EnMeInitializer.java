@@ -1,13 +1,12 @@
-package org.encuestame.config;
+package org.encuestame.init;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.config.annotations.EnMeProperties;
 import org.encuestame.config.annotations.ServicesAppConfig;
-import org.encuestame.config.annotations.web.EnMeWebMvcConfiguration;
-import org.encuestame.config.root.DirectoryConfig;
-import org.encuestame.config.root.EnMeData;
-import org.encuestame.config.root.EnMeEmail;
+import org.encuestame.init.root.DirectoryConfig;
+import org.encuestame.init.root.EnMeData;
+import org.encuestame.init.root.EnMeEmail;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;

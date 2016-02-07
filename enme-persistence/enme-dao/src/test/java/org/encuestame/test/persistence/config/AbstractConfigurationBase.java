@@ -16,6 +16,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,7 +36,11 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(classes = DBTestConfig.class)
 @Transactional
 @ActiveProfiles(profiles = "dev")
-public class AbstractConfigurationBase extends AbstractTransactionalJUnit4SpringContextTests{
+@RunWith(SpringJUnit4ClassRunner.class)
+public class AbstractConfigurationBase{
+
+    @Autowired
+    public ApplicationContext applicationContext;
 
     public Log log = LogFactory.getLog(this.getClass());
 

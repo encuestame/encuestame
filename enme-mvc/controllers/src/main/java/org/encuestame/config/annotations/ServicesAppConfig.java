@@ -11,8 +11,8 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor;
  
 @Configuration
-@ComponentScan(basePackages = "org.encuestame")
-@ImportResource({"classpath:/config/files/service-context.xml"})
+//@ComponentScan(basePackages = "org.encuestame.m")
+@ImportResource({"classpath:/org/encuestame/config/xml/service-context.xml"})
 public class ServicesAppConfig {
 
     /**

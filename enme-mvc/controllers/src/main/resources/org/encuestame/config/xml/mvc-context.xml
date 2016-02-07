@@ -95,7 +95,6 @@
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
-        <property name="singleSession" value="true" />
    </bean>
 
    <bean id="imageThumbnailGenerator" class="org.encuestame.business.images.ImageThumbnailGeneratorImpl" />
@@ -188,7 +187,7 @@
         <property name="definitions">
             <value>/WEB-INF/layouts/tiles.xml,/WEB-INF/views/**/tiles.xml</value>
         </property>
-        <property name="checkRefresh" value="false" />        
+        <property name="checkRefresh" value="false" />
     </bean>
 
   <!-- Maps request paths to @Controller classes;

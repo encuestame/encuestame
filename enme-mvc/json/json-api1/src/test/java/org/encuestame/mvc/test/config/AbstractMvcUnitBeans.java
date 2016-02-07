@@ -51,6 +51,6 @@ public abstract class AbstractMvcUnitBeans extends AbstractSpringSecurityContext
              requestContextListener.requestInitialized(requestEvent);
        request.setRemoteAddr("80.43.23.54");
        response = new MockHttpServletResponse();
-       handlerAdapter = applicationContext.getBean(HandlerAdapter.class);
+//       handlerAdapter = applicationContext.getBean(HandlerAdapter.class);
     }
 }

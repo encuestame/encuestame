@@ -1,4 +1,4 @@
-package org.encuestame.config.root;
+package org.encuestame.init.root;
 
 
 import org.encuestame.core.util.EnMePlaceHolderConfigurer;

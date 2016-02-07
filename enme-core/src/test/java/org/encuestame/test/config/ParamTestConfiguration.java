@@ -17,6 +17,7 @@ public class ParamTestConfiguration {
     public static EnMePlaceHolderConfigurer enMePlaceHolderConfigurer() {
         EnMePlaceHolderConfigurer enMePlaceHolderConfigurer = new EnMePlaceHolderConfigurer();
         final Resource[] list = new Resource[]{
+                new ClassPathResource("/org/encuestame/config/encuestame-config.properties"),
                 new ClassPathResource("properties-test/encuestame-test-config.properties"),
                 new ClassPathResource("properties-test/hibernate.test.properties"),
                 new ClassPathResource("properties-test/lucene.test.index.properties"),
