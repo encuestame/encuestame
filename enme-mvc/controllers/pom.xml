@@ -50,7 +50,33 @@
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
+            <artifactId>dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>social</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
             <artifactId>encuestame-business</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>core</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
@@ -88,26 +114,26 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-webmvc</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.security</groupId>-->
+            <!--<artifactId>spring-security-core</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.security</groupId>-->
+            <!--<artifactId>spring-security-config</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-test</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-web</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.scribe</groupId>
             <artifactId>scribe</artifactId>
@@ -116,10 +142,10 @@
             <groupId>org.springframework.mobile</groupId>
             <artifactId>spring-mobile-device</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.easymock</groupId>
-            <artifactId>easymock</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.easymock</groupId>-->
+            <!--<artifactId>easymock</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>net.sf.uadetector</groupId>
             <artifactId>uadetector-resources</artifactId>

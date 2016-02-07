@@ -146,7 +146,7 @@
         <maven-antrun-plugin>1.6</maven-antrun-plugin>
         <maven-resources-plugin>2.5</maven-resources-plugin>
         <cobertura.maven.plugin>2.5.1</cobertura.maven.plugin>
-        <maven-javadoc-plugin>2.9.1</maven-javadoc-plugin>
+        <maven-javadoc-plugin>2.10.3</maven-javadoc-plugin>
         <maven-pmd-plugin>2.3</maven-pmd-plugin>
         <maven-project-info-reports-plugin>2.2</maven-project-info-reports-plugin>
         <maven-changes-plugin>2.4</maven-changes-plugin>
@@ -433,44 +433,6 @@
                     </configuration>
                 </plugin>
 
-                <!--&lt;!&ndash; Aspect Plugin &ndash;&gt;-->
-                <!--<plugin>-->
-                    <!--<groupId>org.codehaus.mojo</groupId>-->
-                    <!--<artifactId>aspectj-maven-plugin</artifactId>-->
-                    <!--<version>${aspectj-maven-plugin}</version>-->
-                    <!--<dependencies>-->
-                        <!--<dependency>-->
-                            <!--<groupId>org.aspectj</groupId>-->
-                            <!--<artifactId>aspectjrt</artifactId>-->
-                            <!--<version>${org.aspectj-version}</version>-->
-                        <!--</dependency>-->
-                        <!--<dependency>-->
-                            <!--<groupId>org.aspectj</groupId>-->
-                            <!--<artifactId>aspectjtools</artifactId>-->
-                            <!--<version>${org.aspectj-version}</version>-->
-                        <!--</dependency>-->
-                    <!--</dependencies>-->
-                    <!--<executions>-->
-                        <!--<execution>-->
-                            <!--<goals>-->
-                                <!--<goal>compile</goal>-->
-                                <!--<goal>test-compile</goal>-->
-                            <!--</goals>-->
-                        <!--</execution>-->
-                    <!--</executions>-->
-                    <!--<configuration>-->
-                        <!--<outxml>true</outxml>-->
-                        <!--<aspectLibraries>-->
-                            <!--<aspectLibrary>-->
-                                <!--<groupId>org.springframework</groupId>-->
-                                <!--<artifactId>spring-aspects</artifactId>-->
-                            <!--</aspectLibrary>-->
-                        <!--</aspectLibraries>-->
-                        <!--<source>${java-version}</source>-->
-                        <!--<target>${java-version}</target>-->
-                    <!--</configuration>-->
-                <!--</plugin>-->
-
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -508,6 +470,7 @@
                     <version>${maven-javadoc-plugin}</version>
 
                     <configuration>
+                        <additionalparam>-Xdoclint:none</additionalparam>
                         <header>
 
                            &lt;script type="text/javascript"&gt;
@@ -528,8 +491,8 @@
 
                         </header>
           			   <reportOutputDirectory>${project.reporting.outputDirectory}/apidoc</reportOutputDirectory>
-                       <destDir>encuestame</destDir>
-                        <aggregate>true</aggregate>
+                       <destDir>doc</destDir>
+                       <aggregate>true</aggregate>
                     </configuration>
                     <executions>
                         <execution>
