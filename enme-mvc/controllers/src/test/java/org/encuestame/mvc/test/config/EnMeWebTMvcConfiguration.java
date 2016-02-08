@@ -24,7 +24,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 //@ComponentScan(basePackages = "org.encuestame")
 //@EnableAsync
 @ImportResource({
-    "classpath:/spring-test/encuestame-test-controller-context.xml"
+    "classpath:/spring-test/encuestame-test-controller-context.xml",
+     "classpath:spring-test/encuestame-test-upload-context.xml"
 })
 public class EnMeWebTMvcConfiguration {
 

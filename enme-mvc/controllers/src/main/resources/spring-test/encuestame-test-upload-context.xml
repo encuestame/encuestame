@@ -9,42 +9,42 @@
     <!-- thumbnail generator engine
          thanks to raulraja.
      -->
-    <!--<bean id="thumbnailGeneratorEngine" class="org.encuestame.business.images.ThumbnailGeneratorEngineImpl">-->
+    <bean id="thumbnailGeneratorEngine" class="org.encuestame.business.images.ThumbnailGeneratorEngineImpl">
 
-        <!--&lt;!&ndash; the file extension for the thumbnail files &ndash;&gt;-->
-        <!--<property name="generatedExtension">-->
-            <!--<value>.jpg</value>-->
-        <!--</property>-->
+        <!-- the file extension for the thumbnail files -->
+        <property name="generatedExtension">
+            <value>.jpg</value>
+        </property>
 
-        <!--&lt;!&ndash; the different sizes we want to generate, adjusting the aspect ratio based on the biggest dimension &ndash;&gt;-->
-        <!--<property name="supportedSizes">-->
-            <!--<list>-->
-                <!--<value>900</value>-->
-                <!--<value>375</value>-->
-                <!--<value>256</value>-->
-                <!--<value>128</value>-->
-                <!--<value>64</value>-->
-                <!--<value>22</value>-->
-            <!--</list>-->
-        <!--</property>-->
+        <!-- the different sizes we want to generate, adjusting the aspect ratio based on the biggest dimension -->
+        <property name="supportedSizes">
+            <list>
+                <value>900</value>
+                <value>375</value>
+                <value>256</value>
+                <value>128</value>
+                <value>64</value>
+                <value>22</value>
+            </list>
+        </property>
 
-        <!--&lt;!&ndash; mappings from the different content types to the right generator that handles each type &ndash;&gt;-->
-        <!--<property name="thumbnailGenerators">-->
-            <!--<map>-->
-                <!--<entry key="image/jpeg" value-ref="imageThumbnailGenerator" />-->
-                <!--<entry key="image/jpg" value-ref="imageThumbnailGenerator" />-->
-                <!--<entry key="image/pjpeg" value-ref="imageThumbnailGenerator" />-->
-                <!--<entry key="image/gif" value-ref="imageThumbnailGenerator" />-->
-                <!--<entry key="image/png" value-ref="imageThumbnailGenerator" />-->
-                <!--<entry key="image/tiff" value-ref="imageThumbnailGenerator" />-->
-                <!--<entry key="image/bmp" value-ref="imageThumbnailGenerator" />-->
-                <!--&lt;!&ndash;<entry key="application/pdf" value-ref="pdfThumbnailGenerator" />&ndash;&gt;-->
-            <!--</map>-->
-        <!--</property>-->
+        <!-- mappings from the different content types to the right generator that handles each type -->
+        <property name="thumbnailGenerators">
+            <map>
+                <entry key="image/jpeg" value-ref="imageThumbnailGenerator" />
+                <entry key="image/jpg" value-ref="imageThumbnailGenerator" />
+                <entry key="image/pjpeg" value-ref="imageThumbnailGenerator" />
+                <entry key="image/gif" value-ref="imageThumbnailGenerator" />
+                <entry key="image/png" value-ref="imageThumbnailGenerator" />
+                <entry key="image/tiff" value-ref="imageThumbnailGenerator" />
+                <entry key="image/bmp" value-ref="imageThumbnailGenerator" />
+                <!--<entry key="application/pdf" value-ref="pdfThumbnailGenerator" />-->
+            </map>
+        </property>
 
-        <!--&lt;!&ndash; A default thumbnail generator to be used for unregistered mime types &ndash;&gt;-->
-        <!--<property name="defaultThumbnailGenerator" ref="imageThumbnailGenerator"/>-->
-    <!--</bean>-->
+        <!-- A default thumbnail generator to be used for unregistered mime types -->
+        <property name="defaultThumbnailGenerator" ref="imageThumbnailGenerator"/>
+    </bean>
 
     <!-- a thumbnail generator that generates thumbnails from images -->
     <bean id="imageThumbnailGenerator" class="org.encuestame.business.images.ImageThumbnailGeneratorImpl" />
