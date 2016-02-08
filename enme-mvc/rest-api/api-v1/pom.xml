@@ -6,9 +6,9 @@
         <artifactId>rest-api</artifactId>
         <version>1.5.4-SNAPSHOT</version>
     </parent>
-    <artifactId>json-api2</artifactId>
+    <artifactId>api-v1</artifactId>
     <packaging>jar</packaging>
-    <name>Encuestame JSON API v2</name>
+    <name>REST API v1</name>
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>
@@ -31,13 +31,6 @@
             <artifactId>dao</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>rest-api-v1</artifactId>
-            <scope>test</scope>
-            <classifier>tests</classifier>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
@@ -144,12 +137,12 @@
             <artifactId>rome</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.rometools</groupId>
             <artifactId>rome-fetcher</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
@@ -316,6 +309,16 @@
             <scope>test</scope>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>com.jayway.jsonpath</groupId>-->
+            <!--<artifactId>json-path</artifactId>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>com.jayway.jsonpath</groupId>-->
+            <!--<artifactId>json-path-assert</artifactId>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
     </dependencies>
     <build>
         <filters>

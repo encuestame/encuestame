@@ -9,11 +9,11 @@
 
     <artifactId>rest-api</artifactId>
     <packaging>pom</packaging>
-    <name>Encuestame JSON API</name>
+    <name>REST API</name>
 
     <modules>
-        <module>json-api1</module>
-        <module>json-api2</module>
+        <module>api-v1</module>
+        <module>api-v2</module>
     </modules>
 
 

@@ -9,10 +9,10 @@
 
     <artifactId>mvc</artifactId>
     <packaging>pom</packaging>
-    <name>Encuestame MVC POM</name>
+    <name>MVC-REST</name>
     <modules>
         <module>controllers</module>
-        <!--<module>json</module>-->
+        <module>rest-api</module>
     </modules>
     <dependencyManagement>
         <dependencies>
