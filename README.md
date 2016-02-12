@@ -2,13 +2,15 @@
 
 ##Encuestame Open Source Social Survey
 
+*Current version in Development (1.6)*
+
 [![Download encuestame](https://img.shields.io/sourceforge/dw/encuestame.svg)](https://sourceforge.net/projects/encuestame/files/latest/download)
 
 For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
 
 **Take a look our [demo](http://www.encuestame.org/demo)**
 
-## Latest Stable Version (1.5.3)
+## Latest Stable Version (1.5.4)
 
 The **last release versions** is defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME?report=com.atlassian.jirafisheyeplugin:fisheye-projectpanel&mode=changesets#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
@@ -22,7 +24,7 @@ If you want to download a built version of Encuestame, the files are hosted in S
 * [All Contributors](https://github.com/encuestame/encuestame/graphs/contributors)
 
 ## Direct Download
-* [1.5.3](https://sourceforge.net/projects/encuestame/files/latest/download?source=files)
+* [1.5.4](https://sourceforge.net/projects/encuestame/files/latest/download?source=files)
 * [Latest Build](http://encuestame.org/build/browse/ENME-PRO/latestSuccessful/artifact/shared/encuestame.war/encuestame.war)
 
 ## Revisions Download
@@ -66,7 +68,7 @@ Pull requests are, of course, very welcome! A few "todos", if anyone is [interes
 
 # License
 
-Copyright 2015 Encuestame Team
+Copyright 2016 Encuestame Team
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
