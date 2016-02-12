@@ -3,13 +3,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.encuestame</groupId>
-        <artifactId>rest-api</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <artifactId>json</artifactId>
+        <version>1.5.5-SNAPSHOT</version>
     </parent>
-    <artifactId>rest-api-v1</artifactId>
+    <artifactId>json-api1</artifactId>
     <packaging>jar</packaging>
     <name>Encuestame JSON API V1</name>
     <dependencies>
+        <!--<dependency>-->
+            <!--<groupId>org.encuestame</groupId>-->
+            <!--<artifactId>controllers</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>controllers</artifactId>
@@ -18,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>config</artifactId>
+            <artifactId>encuestame-config</artifactId>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
@@ -28,7 +32,7 @@
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>dao</artifactId>
+            <artifactId>enme-dao</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
@@ -58,19 +62,27 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-search-orm</artifactId>
+            <artifactId>hibernate-search</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>javax.persistence</artifactId>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.mail</groupId>
@@ -89,8 +101,8 @@
             <artifactId>jsp-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jasypt</groupId>
@@ -98,7 +110,7 @@
         </dependency>
         <dependency>
             <groupId>org.jdom</groupId>
-            <artifactId>jdom2</artifactId>
+            <artifactId>jdom</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -109,8 +121,28 @@
             <artifactId>twitter4j-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
@@ -121,11 +153,15 @@
             <artifactId>commons-digester</artifactId>
         </dependency>
         <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+        </dependency>
+        <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
         </dependency>
         <dependency>
-            <groupId>antlr</groupId>
+            <groupId>org.antlr</groupId>
             <artifactId>antlr</artifactId>
         </dependency>
         <dependency>
@@ -133,16 +169,16 @@
             <artifactId>velocity</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.rometools</groupId>
+            <groupId>jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>rome</groupId>
             <artifactId>rome</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.rometools</groupId>
+            <groupId>rome</groupId>
             <artifactId>rome-fetcher</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
@@ -173,6 +209,18 @@
             <artifactId>spring-webmvc</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-mail</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
             <version>${spring.security.version}</version>
@@ -180,6 +228,10 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-ldap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-openid</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -205,10 +257,10 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.ldap</groupId>-->
-            <!--<artifactId>spring-ldap-core</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.ldap</groupId>
+            <artifactId>spring-ldap-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.webflow</groupId>
             <artifactId>spring-js</artifactId>

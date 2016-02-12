@@ -18,6 +18,7 @@
     "dojox": "~1.10.4",
     "dijit": "~1.10.4",
     "util": "dojo-util#~1.10.4",
-    "Font-Awesome": "4.3.x"
+    "Font-Awesome": "4.3.x",
+    "requirejs": "2.1.x"
   }
 }

@@ -1,0 +1,190 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+    <groupId>org.encuestame</groupId>
+    <artifactId>encuestame-js</artifactId>
+    <version>1.5.5-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>resources-enme-war</artifactId>
+  <packaging>war</packaging>
+  <name>Encuestame Resources :: JavaScript</name>
+  <profiles>
+    <profile>
+        <id>front</id>
+        <build>
+            <plugins>
+            </plugins>
+        </build>
+    </profile>
+    <profile>
+      <id>production</id>
+      <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>0.0.25</version>
+                <configuration>
+                    <workingDirectory>src/main/resources/resource</workingDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v0.12.2</nodeVersion>
+                            <npmVersion>2.7.6</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>bower install</id>
+                        <goals>
+                            <goal>bower</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install --allow-root</arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>grunt intern-test</id>
+                        <goals>
+                            <goal>grunt</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>${grunt}</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>${maven-antrun-plugin}</version>
+            <executions>
+              <execution>
+                <id>js</id>
+                <phase>compile</phase>
+                <configuration>
+                    <target>
+                        <echo message=" ************* COPY DOJO *************" />
+                        <copy todir="${project.build.directory}/temp/dojo-src/" verbose="false">
+                            <fileset dir="${basedir}/src/main/resources/resource/" includes=" js/dojo/**, js/dojox/**, js/dijit/**, js/util/**,                             js/me/**,                             js/chart/**,                             js/debug/**,                             js/panel/**,                             js/widget/**,                             js/*.txt,                             js/commons/**,                             profiles/**,                             js/run.js" />
+                        </copy>
+                        <copy todir="${project.build.directory}/temp/dojo-src" verbose="false">
+                            <fileset dir="${basedir}/src/main/resources/resource/">
+                                <exclude name="**/js/**/dojo/**" />
+                                <exclude name="**/js/**/dojox/**" />
+                                <exclude name="**/js/**/dijit/**" />
+                                <exclude name="node_modules/**" />
+                                <exclude name="node/**" />
+                                <exclude name="GruntFile.js" />
+                                <exclude name="bower.json" />
+                                <exclude name="package.json" />
+                                <exclude name="**/js/**/util/**" />
+                                <exclude name="css/**" />
+                                <exclude name="src/**" />
+                                <exclude name="req/**" />
+                            </fileset>
+                        </copy>
+                        <delete includeEmptyDirs="true" verbose="false">
+                            <fileset dir="${project.build.directory}/temp/dojo-src/js/me" includes="html-report/**" />
+                            <fileset dir="${project.build.directory}/temp/dojo-src/js/me" includes="tests/**" />
+                        </delete>
+                        <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                        <echo message="$$$$$$ ENCUESTAME DOJO COMPILE PROCESS $$$$$$$$$$$" />
+                        <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                        <echo message="$$$$$$$$$$$$$ DOJO IS THE ROCK !!! $$$$$$$$$$$$$$$" />
+                        <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                        <mkdir dir="${project.build.directory}/dojo-compiled" />
+                        <java fork="true" failonerror="true" dir="${basedir}" classname="org.mozilla.javascript.tools.shell.Main">
+                        <classpath>
+                            <pathelement location="${basedir}/src/rhino/js.jar" />
+                            <pathelement location="${project.build.directory}/temp/dojo-src/js/util/closureCompiler/compiler.jar" />
+                        </classpath>
+                        <jvmarg value="-Xmx512M" />
+                        <arg value="${project.build.directory}/temp/dojo-src/js/dojo/dojo.js" />
+                        <arg value="baseUrl=${project.build.directory}/temp/dojo-src/js/dojo" />
+                        <arg value="load=build" />
+                        <arg value="--require" />
+                        <arg value="${project.build.directory}/temp/dojo-src/js/run.js" />
+                        <arg value="--profile" />
+                        <arg value="${project.build.directory}/temp/dojo-src/profiles/me.profile.js" />
+                        <arg value="--releaseDir" />
+                        <arg value="${project.build.directory}/dojo-compiled" />
+                    </java>
+                    <echo message="ENCUESTAME :: Dojo Build End::" />
+                    <copy todir="${project.build.directory}/dojo-compiled/release" verbose="false">
+                        <fileset dir="${project.build.directory}/temp/dojo-src/" includes=" js/chart/**, js/commons/**, js/debug/**, js/widget/**,                         js/panel/**" />
+                    </copy>
+                    <copy todir="${project.build.directory}/dojo-compiled/release" verbose="false">
+                        <fileset dir="${basedir}/src/main/resources/resource/" includes="css/**" />
+                    </copy>
+                    <delete includeEmptyDirs="true" verbose="false">
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="tests/**/" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/tests/**/" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/demos/**/" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="util/**" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.psd" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.fla" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.svg" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.as" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.swf" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dojo" includes="**/*.txt" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/dijit/themes/" excludes="**/claro/**/" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/package.json" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/package.js" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/*uncompressed.js" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/*.js.map" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/js/" includes="**/*.txt" />
+                        <fileset dir="${project.build.directory}/dojo-compiled/release/css/less" includes="**/*.less" />
+                    </delete>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+              <packagingExcludes>
+                WEB-INF/classes/build.sh,
+                *.jar,
+              </packagingExcludes>
+              <archive>
+                <manifest>
+                  <addClasspath>true</addClasspath>
+                  <classpathPrefix>lib/</classpathPrefix>
+                </manifest>
+              </archive>
+              <webResources>
+                <resource>
+                      <directory>${project.build.directory}/dojo-compiled/release</directory>
+                      <targetPath>resource</targetPath>
+                </resource>
+              </webResources>
+            </configuration>
+            <version>${maven.war.plugin}</version>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
