@@ -47,33 +47,6 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans {
     }
 
     /**
-     * Get list directory.
-     * @throws ServletException
-     * @throws IOException
-     */
-    @Test
-    public void testGetDirectory() throws ServletException, IOException {
-        initService("/api/common/gadgets/directory/list.json", MethodJson.GET);
-        final JSONObject response = callJsonService();
-        final JSONObject success = getSucess(response);
-        final JSONArray items = (JSONArray) success.get("gadgets");
-        Assert.assertNotNull(items);
-        final JSONObject gadget = (JSONObject) items.get(0);
-        final String gadgetId = (String) gadget.get("id");
-        //add gadgets to dashboard
-        initService("/api/common/" + gadgetId + "/gadget.json", MethodJson.POST);
-
-        final JSONObject response2 = callJsonService();
-        final JSONObject success2 = getSucess(response2);
-        //System.out.println(success2);
-        final JSONObject gadgetJson = (JSONObject) success2.get("gadget");
-        Assert.assertEquals("1", gadgetJson.get("gadget_position").toString());
-        Assert.assertEquals("1", gadgetJson.get("gadget_column").toString());
-    }
-
-
-
-    /**
      * Test Get frontend items.
      * @throws IOException
      * @throws ServletException

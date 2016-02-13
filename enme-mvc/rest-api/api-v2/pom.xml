@@ -13,12 +13,12 @@
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>controllers</artifactId>
-            <scope>test</scope>
-            <classifier>tests</classifier>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>config</artifactId>
+            <artifactId>controllers</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
@@ -28,16 +28,20 @@
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
+            <artifactId>core</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
             <artifactId>dao</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.encuestame</groupId>-->
-            <!--<artifactId>api-v1</artifactId>-->
-            <!--<scope>test</scope>-->
-            <!--<classifier>tests</classifier>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>config</artifactId>
+        </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
@@ -143,12 +147,12 @@
             <artifactId>rome</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.rometools</groupId>
             <artifactId>rome-fetcher</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
@@ -212,8 +216,8 @@
             <artifactId>spring-test</artifactId>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>org.springframework.ldap</groupId>-->
-            <!--<artifactId>spring-ldap-core</artifactId>-->
+        <!--<groupId>org.springframework.ldap</groupId>-->
+        <!--<artifactId>spring-ldap-core</artifactId>-->
         <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.webflow</groupId>
@@ -240,14 +244,14 @@
             <artifactId>easymock</artifactId>
         </dependency>
         <!-- Spring WebFlow -->
-             <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-webflow</artifactId>
-            </dependency>
-<!--         <dependency> -->
-<!--             <groupId>org.apache.cactus</groupId> -->
-<!--             <artifactId>cactus.core.framework</artifactId> -->
-<!--         </dependency> -->
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>spring-webflow</artifactId>
+        </dependency>
+        <!--         <dependency> -->
+        <!--             <groupId>org.apache.cactus</groupId> -->
+        <!--             <artifactId>cactus.core.framework</artifactId> -->
+        <!--         </dependency> -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
@@ -302,7 +306,11 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-parameter-names</artifactId>
+            <version>2.7.1</version>
+        </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
@@ -314,7 +322,6 @@
             <artifactId>mockito-all</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
     <build>
         <filters>
@@ -334,15 +341,14 @@
                 </executions>
             </plugin>
         </plugins>
-        <!-- <testResources> <testResource> <directory>${basedir}/encuestame-war/src/main/webapp/WEB-INF/config</directory>
-            </testResource> <testResource> <directory>${basedir}/encuestame-war/src/main/webapp/WEB-INF/classes</directory>
-            </testResource> </testResources> -->
         <resources>
             <resource>
                 <directory>src/main/resources/</directory>
                 <includes>
+                    <include>*.properties</include>
                     <include>spring-test/*.*</include>
-                     <include>org/**/*.*</include>
+                    <include>org/**/*.*</include>
+                    <include>*.xml</include>
                     <include>properties-test/*.*</include>
                 </includes>
                 <filtering>true</filtering>
@@ -350,11 +356,4 @@
         </resources>
     </build>
 
-
-<!--     <repositories> -->
-<!--         <repository> -->
-<!--             <id>local-project-repo</id> -->
-<!--             <url>file:${basedir}/../lib/repository</url> -->
-<!--         </repository> -->
-<!--     </repositories> -->
 </project>

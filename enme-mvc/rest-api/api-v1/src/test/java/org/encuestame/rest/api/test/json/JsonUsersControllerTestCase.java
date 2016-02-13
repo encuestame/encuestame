@@ -16,8 +16,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.mvc.test.config.AbstractJsonV1MvcUnitBeans;
 import org.encuestame.rest.api.v1.security.JsonUsersController;

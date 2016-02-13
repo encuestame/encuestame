@@ -14,7 +14,7 @@ package org.encuestame.mvc.test.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.encuestame.core.util.JSONUtils;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
@@ -86,10 +86,10 @@ public abstract class AbstractJsonV1MvcUnitBeans extends AbstractSpringSecurityC
      * Constructor.
      */
     public AbstractJsonV1MvcUnitBeans() {
-        //jacksonJsonView.setPrefixJson(false);
-        //jacksonJsonView.setDisableCaching(true);
-        //session = new MockHttpSession();
-        //modelAndView.setView(jacksonJsonView);
+        jacksonJsonView.setPrefixJson(false);
+        jacksonJsonView.setDisableCaching(true);
+        session = new MockHttpSession();
+        modelAndView.setView(jacksonJsonView);
     }
 
     /**
