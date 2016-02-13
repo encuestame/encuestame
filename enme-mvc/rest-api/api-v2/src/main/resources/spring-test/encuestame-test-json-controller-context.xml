@@ -29,13 +29,13 @@
     <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.EnMeSecurityInterceptor" />
     <bean id="setupInterceptor" class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
     <bean id="signInInterceptor" class=" org.encuestame.mvc.interceptor.SignInInterceptor" />
-    <bean name="openSessionInViewInterceptor"
-              class="org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
-        <property name="singleSession" value="true" />
-   </bean>
+    <!--<bean name="openSessionInViewInterceptor"-->
+              <!--class="org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor">-->
+        <!--<property name="sessionFactory">-->
+            <!--<ref bean="sessionFactory" />-->
+        <!--</property>-->
+        <!--<property name="singleSession" value="true" />-->
+   <!--</bean>-->
    <bean id="imageThumbnailGenerator" class="org.encuestame.business.images.ImageThumbnailGeneratorImpl" />
    <bean id="tweetPollAtomFeedView" class="org.encuestame.mvc.view.TweetPollAtomFeedView"></bean>
    <bean id="tweetPollRssFeedView" class="org.encuestame.mvc.view.TweetPollRssFeedView"></bean>
@@ -70,34 +70,34 @@
     Enables annotated @Controllers; responsible for invoking an annotated
     POJO @Controller when one is mapped.
   -->
-  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-        <property name="order" value="0"/>
-        <!--
-            NOTE: it is important to specify the order property, so this
-            adapter will be attempted before the HandlerAdapter that
-            Spring MVC automatically configures. This is because a
-            MappingJacksonHttpMessageConverter is registered
-            automatically with the default adapter that will attempt to
-            handle any Java object including BufferedImage.
-        -->
-        <property name="messageConverters">
-            <list>
-                <!-- Default converters -->
-                <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
-                <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
-                <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
-                    <property name="supportedMediaTypes">
-                        <list>
-                            <value>image/jpeg</value>
-                        </list>
-                    </property>
-                </bean>
-                <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
-                <!-- Converter for images -->
-                <bean class="org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter"/>
-            </list>
-        </property>
-  </bean>
+  <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">-->
+        <!--<property name="order" value="0"/>-->
+        <!--&lt;!&ndash;-->
+            <!--NOTE: it is important to specify the order property, so this-->
+            <!--adapter will be attempted before the HandlerAdapter that-->
+            <!--Spring MVC automatically configures. This is because a-->
+            <!--MappingJacksonHttpMessageConverter is registered-->
+            <!--automatically with the default adapter that will attempt to-->
+            <!--handle any Java object including BufferedImage.-->
+        <!--&ndash;&gt;-->
+        <!--<property name="messageConverters">-->
+            <!--<list>-->
+                <!--&lt;!&ndash; Default converters &ndash;&gt;-->
+                <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter"/>-->
+                <!--<bean class="org.springframework.http.converter.FormHttpMessageConverter"/>-->
+                <!--<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">-->
+                    <!--<property name="supportedMediaTypes">-->
+                        <!--<list>-->
+                            <!--<value>image/jpeg</value>-->
+                        <!--</list>-->
+                    <!--</property>-->
+                <!--</bean>-->
+                <!--<bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>-->
+                <!--&lt;!&ndash; Converter for images &ndash;&gt;-->
+                <!--<bean class="org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter"/>-->
+            <!--</list>-->
+        <!--</property>-->
+  <!--</bean>-->
 
   <!-- Maps request paths to @Controller classes;
        e.g. a path of /signup looks for a controller named SignUpController -->

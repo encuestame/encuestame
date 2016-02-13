@@ -2,7 +2,7 @@ package org.encuestame.mvc.test.config.v2;
 
 import javax.annotation.Resource;
 
-import org.encuestame.mvc.test.json.v2.WebAppContext;
+import org.encuestame.rest.api.test.json.v2.WebAppContext;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.junit.Before;
 import org.junit.runner.RunWith;

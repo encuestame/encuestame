@@ -19,18 +19,13 @@
 package org.encuestame.mvc.test.config;
 
 import org.encuestame.mvc.controller.syndication.SyndicationController;
-import org.encuestame.mvc.page.jsonp.EmbebedJsonServices;
 import org.encuestame.utils.enums.MethodJson;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by jpicado on 05/12/14.

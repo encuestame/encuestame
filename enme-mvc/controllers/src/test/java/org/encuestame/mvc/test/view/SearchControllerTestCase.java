@@ -20,7 +20,6 @@ package org.encuestame.mvc.test.view;
 
 import org.encuestame.mvc.page.SearchController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
-import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.junit.Test;
@@ -28,8 +27,6 @@ import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Date;
 
 import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
 

@@ -2,9 +2,7 @@ package org.encuestame.mvc.test.config.v2;
 
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.web.FilterChainProxy;
@@ -17,14 +15,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Arrays;
-
 import javax.annotation.Resource;
 
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
 * Abstract class to test JSON service based on @RequestBody 

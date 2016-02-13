@@ -32,13 +32,12 @@
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>rest-api-v1</artifactId>
-            <scope>test</scope>
-            <classifier>tests</classifier>
-            <version>${project.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.encuestame</groupId>-->
+            <!--<artifactId>api-v1</artifactId>-->
+            <!--<scope>test</scope>-->
+            <!--<classifier>tests</classifier>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>

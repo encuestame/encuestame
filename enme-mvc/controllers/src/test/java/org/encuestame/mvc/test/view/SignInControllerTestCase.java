@@ -20,7 +20,6 @@ package org.encuestame.mvc.test.view;
 
 import org.encuestame.mvc.page.SignInController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
-import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.junit.Assert;

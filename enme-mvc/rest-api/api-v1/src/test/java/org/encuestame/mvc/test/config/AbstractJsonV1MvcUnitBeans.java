@@ -12,57 +12,44 @@
  */
 package org.encuestame.mvc.test.config;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import junit.framework.Assert;
-
 import org.custommonkey.xmlunit.XMLUnit;
 import org.encuestame.core.util.JSONUtils;
-import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.test.business.config.AbstractSpringSecurityContext;
 import org.encuestame.utils.enums.MethodJson;
-import org.jdom.Document;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
+import org.jdom2.Document;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
-import org.springframework.context.annotation.Scope;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockServletConfig;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.ServletException;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Map;
 
 /**
  *
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 26, 2010 8:12:32 PM
- * @version Id:
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
-@Transactional
-@Scope("singleton")
-@ContextConfiguration(locations = {"classpath:spring-test/encuestame-test-json-controller-context.xml",
-    "classpath:spring-test/encuestame-test-rss-context.xml",
-    "classpath:spring-test/encuestame-test-upload-context.xml"})
+@ContextConfiguration(classes = {SecurityTConfig.class, RestAPITestConfiguration.class})
+@WebAppConfiguration
 public abstract class AbstractJsonV1MvcUnitBeans extends AbstractSpringSecurityContext {
 
     /**
@@ -159,7 +146,7 @@ public abstract class AbstractJsonV1MvcUnitBeans extends AbstractSpringSecurityC
      */
     public JSONObject callJsonService() throws ServletException, IOException{
         final String responseAsString = this.callStringService();
-        logPrint("::RESPONSE::"+responseAsString);
+//        System.out.println("::RESPONSE::"+responseAsString);
         Assert.assertNotNull(responseAsString);
         log.debug(responseAsString);
         return (JSONObject) JSONValue.parse(responseAsString);
@@ -192,7 +179,6 @@ public abstract class AbstractJsonV1MvcUnitBeans extends AbstractSpringSecurityC
 
     /**
      *
-     * @param response
      * @return
      * @throws ServletException
      * @throws IOException
@@ -204,7 +190,6 @@ public abstract class AbstractJsonV1MvcUnitBeans extends AbstractSpringSecurityC
 
     /**
      *
-     * @param response
      * @return
      * @throws ServletException
      * @throws IOException

@@ -63,7 +63,7 @@
         <hibernate.validator>5.2.1.Final</hibernate.validator>
 
         <!-- JSON -->
-        <jackson.version>2.3.3</jackson.version>
+        <jackson.version>2.6.0</jackson.version>
         <!-- Lucene Version -->
         <lucene.version>5.3.0</lucene.version>
         <!-- Twitter4J Version -->
@@ -444,6 +444,10 @@
                         <testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
                         <argLine>-Xms512m -Xmx1024m</argLine>
                         <groups>org.encuestame.utils.categories.test.DefaultTest</groups>
+                        <forkMode>never</forkMode>
+                        <!--<systemPropertyVariables>-->
+                            <!--<log4j.configuration>file:${basedir}/etc/log4j-silent.properties</log4j.configuration>-->
+                        <!--</systemPropertyVariables>-->
                     </configuration>
                     <version>${surefire.version}</version>
                     <dependencies>
@@ -1114,6 +1118,11 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-parameter-names</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
             <dependency>

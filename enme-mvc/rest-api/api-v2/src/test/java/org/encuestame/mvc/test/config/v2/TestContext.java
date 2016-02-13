@@ -1,6 +1,5 @@
 package org.encuestame.mvc.test.config.v2;
 
-import org.mockito.Mockito;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -22,7 +22,6 @@ import org.encuestame.mvc.page.ErrorController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;

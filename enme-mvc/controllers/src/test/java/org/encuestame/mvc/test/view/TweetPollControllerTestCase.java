@@ -48,7 +48,7 @@ import java.util.List;
 import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
 
 @Category(DefaultTest.class)
-public class TweetPollControllerTestCase extends AbstractMvcUnitBeans{
+public class TweetPollControllerTestCase extends AbstractMvcUnitBeans {
 
     /**
      * 

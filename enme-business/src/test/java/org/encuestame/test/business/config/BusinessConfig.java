@@ -40,7 +40,6 @@ import java.util.Properties;
 @PropertySources({
   @PropertySource("classpath:properties-test/encuestame-test-config.properties")
 })
-//@ImportResource({"classpath:/org/encuestame/config/xml/service-context.xml"})
 @ComponentScan({ "org.encuestame.business", "org.encuestame.config", "org.encuestame.core", "org.encuestame.security" })
 public class BusinessConfig {
   

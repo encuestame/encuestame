@@ -13,12 +13,12 @@
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>controllers</artifactId>
-            <scope>test</scope>
-            <classifier>tests</classifier>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>config</artifactId>
+            <artifactId>controllers</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
@@ -28,9 +28,19 @@
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
+            <artifactId>core</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
             <artifactId>dao</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>config</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
@@ -296,7 +306,11 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-parameter-names</artifactId>
+            <version>2.7.1</version>
+        </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
@@ -345,8 +359,10 @@
             <resource>
                 <directory>src/main/resources/</directory>
                 <includes>
+                    <include>*.properties</include>
                     <include>spring-test/*.*</include>
-                     <include>org/**/*.*</include>
+                    <include>org/**/*.*</include>
+                    <include>*.xml</include>
                     <include>properties-test/*.*</include>
                 </includes>
                 <filtering>true</filtering>

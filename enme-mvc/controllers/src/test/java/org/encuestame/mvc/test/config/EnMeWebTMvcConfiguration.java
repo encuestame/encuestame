@@ -8,26 +8,26 @@ import org.encuestame.core.cron.CalculateHashTagSize;
 import org.encuestame.core.cron.CalculateRelevance;
 import org.encuestame.core.cron.IndexRebuilder;
 import org.encuestame.core.cron.ReIndexJob;
+import org.encuestame.mvc.JsonViewResolver;
 import org.encuestame.mvc.interceptor.CheckInstallInterceptor;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.ViewResolver;
 
 
 //@EnableWebMvc
 @Configuration
 //@EnableScheduling
-//@ComponentScan(basePackages = "org.encuestame")
+@ComponentScan(basePackages = "org.encuestame.mvc")
 //@EnableAsync
 @ImportResource({
     "classpath:/spring-test/encuestame-test-controller-context.xml",
      "classpath:spring-test/encuestame-test-upload-context.xml"
 })
-public class EnMeWebTMvcConfiguration {
+public class EnMeWebTMvcConfiguration{
 
 
 //	/**
@@ -122,6 +122,43 @@ public class EnMeWebTMvcConfiguration {
     ReIndexJob reIndexJob() throws EnMeExpcetion {
         ReIndexJob indexJob = new ReIndexJob();
         return indexJob;
+    }
+
+//    public void configureContentNegotiation(
+//            ContentNegotiationConfigurer contentNegotiationConfigurer) {
+//        contentNegotiationConfigurer.ignoreAcceptHeader(true)
+//                .defaultContentType(MediaType.TEXT_HTML);
+//    }
+//
+//    @Bean
+//    public ViewResolver contentNegotiationViewResolver(ContentNegotiationManager contentNegotiationManager) {
+//        ContentNegotiatingViewResolver contentNegotiatingViewResolver = new ContentNegotiatingViewResolver();
+//        contentNegotiatingViewResolver.setContentNegotiationManager(contentNegotiationManager);
+//        List<ViewResolver> resolvers = new ArrayList<>();
+////        resolvers.add(jaxb2MarshallingXmlViewResolver());
+//        resolvers.add(jsonViewResolver());
+//        contentNegotiatingViewResolver.setViewResolvers(resolvers);
+//        return contentNegotiatingViewResolver;
+//    }
+
+    /*
+     * Configure View resolver to provide XML output Uses JAXB2 marshaller to
+     * marshall/unmarshall POJO's (with JAXB annotations) to XML
+     */
+//    @Bean
+//    public ViewResolver jaxb2MarshallingXmlViewResolver() {
+//        Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+////        marshaller.setClassesToBeBound(Pizza.class);
+//        return new Jaxb2MarshallingXmlViewResolver(marshaller);
+//    }
+
+    /*
+     * Configure View resolver to provide JSON output using JACKSON library to
+     * convert object in JSON format.
+     */
+    @Bean
+    public ViewResolver jsonViewResolver() {
+        return new JsonViewResolver();
     }
  
 //

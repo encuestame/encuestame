@@ -40,7 +40,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @since Apr 10, 2011
  */
 @Category(DefaultTest.class)
-public class ViewControllerTestCase extends AbstractMvcUnitBeans{
+public class ViewControllerTestCase extends AbstractMvcUnitBeans {
 
         @Autowired
         private SignUpController signupController;
