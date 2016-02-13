@@ -52,8 +52,7 @@ import java.util.Map;
 @Configuration
 @ComponentScan(basePackages = {"org.encuestame.rest"})
 @ImportResource({
-        "classpath:/spring-test/encuestame-test-controller-context.xml",
-        "classpath:spring-test/encuestame-test-upload-context.xml"
+   "classpath:/spring-test/rest-api-v1.xml"
 })
 @EnableTransactionManagement
 public class RestAPITestConfiguration extends WebMvcConfigurerAdapter{

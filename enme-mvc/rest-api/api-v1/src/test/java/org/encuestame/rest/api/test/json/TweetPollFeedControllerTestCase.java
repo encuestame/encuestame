@@ -34,7 +34,7 @@ import java.io.IOException;
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 24, 2010 8:57:54 PM
  */
-//MUST BE MOVED TO CONTROLLER
+//FIXME: MUST BE MOVED TO CONTROLLER
 //@Category(DefaultTest.class)
 public class TweetPollFeedControllerTestCase extends AbstractJsonV1MvcUnitBeans {
 
