@@ -192,7 +192,7 @@ public class TestCommentService extends AbstractSpringSecurityContext {
                         this.START);
         assertEquals("Should be equals", 7, comments.size());
         final List<CommentBean> topList = getCommentsOperationsService()
-                .getTopRatedComments(CommentsSocialOptions.LIKE_VOTE,
+                .getTopRatedComments(CommentsSocialOptions.LIKE,
 						this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 7, topList.size());
     }

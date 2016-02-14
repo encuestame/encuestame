@@ -20,10 +20,10 @@ package org.encuestame.utils.enums;
 public enum CommentsSocialOptions {
 
     /** **/
-    LIKE_VOTE("LIKE"),
+    LIKE("LIKE"),
 
     /** **/
-    DISLIKE_VOTE("DISLIKE");
+    DISLIKE("DISLIKE");
 
     /** **/
     private String enumAsString;

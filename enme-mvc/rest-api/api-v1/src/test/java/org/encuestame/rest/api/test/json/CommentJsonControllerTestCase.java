@@ -177,7 +177,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonV1MvcUnitBeans {
                 myCal.getTime());
 
         initService("/api/common/comment/rate/top.json", MethodJson.GET);
-        setParameter("commentOption", "LIKE_VOTE");
+        setParameter("commentOption", "LIKE");
         setParameter("max", "10");
         setParameter("start", "0");
         final JSONObject response = callJsonService();

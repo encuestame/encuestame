@@ -87,8 +87,7 @@ public class SurveyJsonController extends AbstractJsonControllerV1{
 
         try {
             final List<SurveyBean> list = (List<SurveyBean>) getSurveyService()
-                    .filterSurveyItemsByType(
-                            EnumerationUtils.getEnumFromString(TypeSearch.class, typeSearch), keyword,
+                    .filterSurveyItemsByType(EnumerationUtils.getEnumFromString(TypeSearch.class, typeSearch), keyword,
                             max, start);
             jsonResponse.put("surveys", list);
             setItemResponse(jsonResponse);

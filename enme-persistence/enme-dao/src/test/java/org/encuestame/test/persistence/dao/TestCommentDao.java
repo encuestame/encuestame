@@ -388,10 +388,10 @@ public class TestCommentDao extends AbstractBase {
 
         //FIXME: Why this method return 1 instead 3 ???
         // Get total rated comments published.
-        final List<Comment> getLikeTopRatedComments = getCommentsOperations().getTopRatedComments(CommentsSocialOptions.LIKE_VOTE, 3, 15, 0);
+        final List<Comment> getLikeTopRatedComments = getCommentsOperations().getTopRatedComments(CommentsSocialOptions.LIKE, 3, 15, 0);
         assertEquals("Should be equals", 1, getLikeTopRatedComments.size());
 
-        final List<Comment> getDisLikeTopRatedComments = getCommentsOperations().getTopRatedComments(CommentsSocialOptions.DISLIKE_VOTE, 3, 15, 0);
+        final List<Comment> getDisLikeTopRatedComments = getCommentsOperations().getTopRatedComments(CommentsSocialOptions.DISLIKE, 3, 15, 0);
         assertEquals("Should be equals", 1, getDisLikeTopRatedComments.size());
     }
 

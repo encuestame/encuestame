@@ -15,8 +15,6 @@ package org.encuestame.rest.api.test.json;
 import java.util.Calendar;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.encuestame.mvc.test.config.AbstractJsonV1MvcUnitBeans;
 import org.encuestame.rest.api.v1.notifications.NotificationsJsonController;
 import org.encuestame.persistence.domain.notifications.Notification;
@@ -25,6 +23,7 @@ import org.encuestame.utils.enums.MethodJson;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -161,19 +160,16 @@ public class NotificationJsonServiceTestCase extends AbstractJsonV1MvcUnitBeans 
     }
 
     /**
-    *
+    * Simulate an error, retrieve notification list without be logged.
     * @throws Exception
     */
-   @Test(expected = Exception.class)
+   @Test()
    public void listTestWithOutSecContext() throws Exception {
-       //clear context
        SecurityContextHolder.clearContext();
        initService("/api/notifications/all/list.json", MethodJson.GET);
        setParameter("categorized", "false");
-       final JSONObject response3 = callJsonService();
-       final JSONObject success3 = getSucess(response3);
-       JSONObject listNotification3 = (JSONObject) success3.get("notifications");
-       //System.out.println(listNotification3);
-       Assert.assertNotNull(listNotification3);
+       final JSONObject res = callJsonService();
+       final JSONObject error = getErrors(res);
+       Assert.assertNotNull(error);
    }
 }

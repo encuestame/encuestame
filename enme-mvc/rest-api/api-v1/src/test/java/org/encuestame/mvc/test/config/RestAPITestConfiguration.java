@@ -144,11 +144,14 @@ public class RestAPITestConfiguration extends WebMvcConfigurerAdapter{
         return indexJob;
     }
 
+    /**
+     * Setup a simple strategy: use all the defaults and return XML by default when not sure.
+     */
     @Override
     public void configureContentNegotiation(
-            ContentNegotiationConfigurer contentNegotiationConfigurer) {
-        contentNegotiationConfigurer.ignoreAcceptHeader(true)
-                .defaultContentType(MediaType.TEXT_HTML);
+        ContentNegotiationConfigurer contentNegotiationConfigurer) {
+        contentNegotiationConfigurer.defaultContentType(MediaType.APPLICATION_JSON)
+                .mediaType("text/html", MediaType.TEXT_HTML);
     }
 
     @Override
@@ -172,8 +175,8 @@ public class RestAPITestConfiguration extends WebMvcConfigurerAdapter{
     public void configureMessageConverters( List<HttpMessageConverter<?>> converters ) {
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
                 .indentOutput(true)
-                .dateFormat(new SimpleDateFormat("yyyy-MM-dd"))
-                    .modulesToInstall(new ParameterNamesModule());
+                .dateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+                    //.modulesToInstall(new ParameterNamesModule());
         //json
         final MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(builder.build());
         final List<MediaType> jsonSupportedMediaTypes = new ArrayList<MediaType>();

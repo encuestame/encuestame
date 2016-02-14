@@ -18,8 +18,8 @@ package org.encuestame.utils.enums;
  * @since Jan 23, 2011 9:53:53 AM
  */
 public enum FollowOperations{
-    FOLLOW("follow"),
-    UNFOLLOW("unfollow");
+    FOLLOW("FOLLOW"),
+    UNFOLLOW("UNFOLLOW");
 
     /**
      *

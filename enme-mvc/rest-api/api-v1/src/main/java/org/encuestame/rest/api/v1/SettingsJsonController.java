@@ -104,6 +104,7 @@ public class SettingsJsonController extends AbstractJsonControllerV1{
             final HashMap<String, Object> listError = new HashMap<String, Object>();
             //filter data
             data = filterValue(data);
+            type = type.toUpperCase();
             if (type.equals(Profile.EMAIL.toString())) {
                 //TODO: review pattern email format validator.
                 log.debug("update email");

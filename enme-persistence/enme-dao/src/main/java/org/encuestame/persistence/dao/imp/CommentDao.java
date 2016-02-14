@@ -240,9 +240,9 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
         criteria.add(Restrictions.between("createdAt",
                 getCommentTimeRange(timeRange), getNextDayMidnightDate()));
         if (socialOption != null) {
-            if (socialOption.equals(CommentsSocialOptions.LIKE_VOTE)) {
+            if (socialOption.equals(CommentsSocialOptions.LIKE)) {
                 criteria.addOrder(Order.desc("likeVote"));
-            } else if (socialOption.equals(CommentsSocialOptions.DISLIKE_VOTE)) {
+            } else if (socialOption.equals(CommentsSocialOptions.DISLIKE)) {
                 criteria.addOrder(Order.desc("dislikeVote"));
             } else {
                 criteria.addOrder(Order.desc("likeVote"));

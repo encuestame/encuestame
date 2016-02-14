@@ -231,9 +231,9 @@ public class CommentService extends AbstractBaseService implements ICommentServi
 	public void voteCommentSocialOption(final Long commentId, final CommentsSocialOptions vote) throws EnMeNoResultsFoundException,
                                         HibernateException, EnmeFailOperation{
         final Comment comment = this.getCommentbyId(commentId);
-        if (vote.equals(CommentsSocialOptions.LIKE_VOTE)) {
+        if (vote.equals(CommentsSocialOptions.LIKE)) {
             this.CommentLikeVote(comment);
-        } else if (vote.equals(CommentsSocialOptions.DISLIKE_VOTE)) {
+        } else if (vote.equals(CommentsSocialOptions.DISLIKE)) {
             this.CommentDislikeVote(comment);
         } else {
             throw new EnmeFailOperation("Social option not found");

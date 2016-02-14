@@ -56,10 +56,10 @@ public class TestUtilsEnums extends TestCase{
      */
     @Test
     public void testCommentsSocialOptions(){
-        final CommentsSocialOptions likeVoteOpt = EnumerationUtils.getEnumFromString(CommentsSocialOptions.class, "LIKE_VOTE");
-        assertEquals("Should be equals", CommentsSocialOptions.LIKE_VOTE, likeVoteOpt);
-        final CommentsSocialOptions disLikeVoteOpt = EnumerationUtils.getEnumFromString(CommentsSocialOptions.class, "DISLIKE_VOTE");
-        assertEquals("Should be equals", CommentsSocialOptions.DISLIKE_VOTE, disLikeVoteOpt);
+        final CommentsSocialOptions likeVoteOpt = EnumerationUtils.getEnumFromString(CommentsSocialOptions.class, "LIKE");
+        assertEquals("Should be equals", CommentsSocialOptions.LIKE, likeVoteOpt);
+        final CommentsSocialOptions disLikeVoteOpt = EnumerationUtils.getEnumFromString(CommentsSocialOptions.class, "DISLIKE");
+        assertEquals("Should be equals", CommentsSocialOptions.DISLIKE, disLikeVoteOpt);
     }
 
     /**
