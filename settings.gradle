@@ -7,7 +7,11 @@ include ':persistence'
 include ':core'
 include ':oauth'
 include ':social'
-include ':business'
+include ':encuestame-business'
+include ':mvc:controllers'
+include ':rest-api:api-v1'
+include ':rest-api:api-v2'
+include ':mvc'
 
 project(':config').projectDir = "$rootDir/enme-config" as File
 project(':utils').projectDir = "$rootDir/enme-utils" as File
@@ -17,4 +21,8 @@ project(':persistence').projectDir = "$rootDir/enme-persistence" as File
 project(':core').projectDir = "$rootDir/enme-core" as File
 project(':oauth').projectDir = "$rootDir/enme-oauth" as File
 project(':social').projectDir = "$rootDir/enme-social" as File
-project(':business').projectDir = "$rootDir/enme-business" as File
+project(':encuestame-business').projectDir = "$rootDir/enme-business" as File
+project(':mvc:controllers').projectDir = "$rootDir/enme-mvc/controllers" as File
+project(':rest-api:api-v1').projectDir = "$rootDir/enme-mvc/rest-api/api-v1" as File
+project(':rest-api:api-v2').projectDir = "$rootDir/enme-mvc/rest-api/api-v2" as File
+project(':mvc').projectDir = "$rootDir/enme-mvc" as File

@@ -130,7 +130,7 @@
 
 
   <!--
-    - This bean resolves specific types of exceptions to corresponding
+     - This bean resolves specific types of exceptions to corresponding
     logical - view names for error views. The default behaviour of
     DispatcherServlet - is to propagate all exceptions to the servlet
     container: this will happen - here with all other types of exceptions.

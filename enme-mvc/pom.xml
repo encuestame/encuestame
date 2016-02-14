@@ -6,13 +6,12 @@
         <artifactId>encuestame</artifactId>
         <version>1.5.4-SNAPSHOT</version>
     </parent>
-
     <artifactId>mvc</artifactId>
     <packaging>pom</packaging>
-    <name>Encuestame MVC POM</name>
+    <name>MVC-REST</name>
     <modules>
         <module>controllers</module>
-        <!--<module>json</module>-->
+        <module>rest-api</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -32,6 +31,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-
 </project>

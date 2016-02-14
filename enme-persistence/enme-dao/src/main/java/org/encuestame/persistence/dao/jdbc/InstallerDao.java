@@ -85,7 +85,7 @@ public class InstallerDao extends JdbcDaoSupport implements InstallerOperations 
                     .getTables(null, null, "%", null);
             log.debug("checkIfDatabaseIsInstalled "+rs);
             while (rs.next()) {
-                System.out.println(rs.getString("TABLE_NAME"));
+//                System.out.println(rs.getString("TABLE_NAME"));
                 if (requiredTables.indexOf(rs.getString("TABLE_NAME")
                         .toLowerCase()) != -1) {
                     log.debug("Table found "+rs.getString("TABLE_NAME"));

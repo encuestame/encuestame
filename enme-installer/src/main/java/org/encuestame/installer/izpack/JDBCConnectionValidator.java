@@ -78,7 +78,7 @@ public class JDBCConnectionValidator implements DataValidator {
             registerJDBCDriver(dbType);
             try {
                 String url = "jdbc:"+urlType+"://"+dbHostname+":"+dbPort+"/"+dbName +"?createDatabaseIfNotExist=true";
-                System.out.println("URL --------------->" +url);
+                //System.out.println("URL --------------->" +url);
                 connection = DriverManager
                         .getConnection(url,dbUser, dbPassword);
                 validationStatus = validationStatus.OK;

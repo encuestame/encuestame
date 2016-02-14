@@ -12,7 +12,6 @@
  */
 package org.encuestame.mvc.test.view;
 import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
-import junit.framework.Assert;
 
 import org.encuestame.mvc.page.HashTagController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
@@ -32,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @since July 13, 2011
  */
 @Category(DefaultTest.class)
-public class HashTagControllerTestCase extends AbstractMvcUnitBeans{
+public class HashTagControllerTestCase extends AbstractMvcUnitBeans {
 
     @Autowired
     private HashTagController hashTagController;

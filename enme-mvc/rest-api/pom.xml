@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.encuestame</groupId>
+        <artifactId>enme-mvc</artifactId>
+        <version>1.5.5-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>rest-api</artifactId>
+    <packaging>pom</packaging>
+    <name>REST API</name>
+
+    <modules>
+        <module>api-v1</module>
+        <module>api-v2</module>
+    </modules>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-business</artifactId>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>dao</artifactId>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

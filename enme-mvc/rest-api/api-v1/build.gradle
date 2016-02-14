@@ -1,0 +1,24 @@
+
+description = 'REST API v1'
+dependencies {
+  compile project(':mvc:controllers')
+  compile project(':config')
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version:'1.1'
+    compile group: 'org.json', name: 'json', version:'20090211'
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-parameter-names', version:'2.6.0'
+  testCompile project(':mvc:controllers')
+  testCompile project(':encuestame-business')
+  testCompile project(':core')
+  testCompile project(':persistence:dao')
+    compile(group: 'javax.servlet', name: 'javax.servlet-api', version:'3.0.1') {
+       /* This dependency was originally in the Maven provided scope, but the project was not of type war.
+       This behavior is not yet supported by Gradle, so this dependency has been converted to a compile dependency.
+       Please review and delete this closure when resolved. */
+    }
+}
+
+task packageTests(type: Jar) {
+  from sourceSets.test.output
+  classifier = 'tests'
+}
+artifacts.archives packageTests

@@ -17,11 +17,8 @@
  */
 package org.encuestame.mvc.test.view;
 
-import junit.framework.Assert;
-import org.encuestame.mvc.page.HashTagController;
 import org.encuestame.mvc.page.PictureProfileFactoryController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
-import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
@@ -33,13 +30,11 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
-import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
-
 /**
  * Picture Controller TestCase.
  */
 @Category(DefaultTest.class)
-public class PictureControllerTestCase extends AbstractMvcUnitBeans{
+public class PictureControllerTestCase extends AbstractMvcUnitBeans {
 
     @Autowired
     private PictureProfileFactoryController hashTagController;

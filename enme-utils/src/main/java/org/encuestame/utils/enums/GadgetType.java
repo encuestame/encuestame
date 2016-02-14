@@ -16,7 +16,9 @@ package org.encuestame.utils.enums;
  * Gadget Types.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 29, 2011
+ * @Deprecated on 1.6
  */
+@Deprecated
 public enum GadgetType {
 
     /** **/

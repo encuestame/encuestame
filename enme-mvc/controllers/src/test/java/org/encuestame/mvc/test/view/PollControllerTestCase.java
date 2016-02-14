@@ -50,7 +50,7 @@ import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
  * Poll Controller TestCase.
  */
 @Category(DefaultTest.class)
-public class PollControllerTestCase extends AbstractMvcUnitBeans{
+public class PollControllerTestCase extends AbstractMvcUnitBeans {
 
     /**
      * 
