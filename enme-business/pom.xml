@@ -6,10 +6,10 @@
         <artifactId>encuestame</artifactId>
         <version>1.5.5-SNAPSHOT</version>
     </parent>
-    <artifactId>encuestame-business</artifactId>
+    <artifactId>business</artifactId>
     <version>1.5.5-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Encuestame Business</name>
+    <name>Business Layer</name>
     <build>
         <filters>
             <filter>../env/${env}.properties</filter>

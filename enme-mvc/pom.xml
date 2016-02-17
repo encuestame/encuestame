@@ -17,7 +17,7 @@
         <dependencies>
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-business</artifactId>
+                <artifactId>business</artifactId>
                 <scope>test</scope>
                 <classifier>tests</classifier>
                 <version>${project.version}</version>

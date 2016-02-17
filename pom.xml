@@ -656,12 +656,7 @@
             </dependency>
             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-search</artifactId>
-                <version>${encuestame.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-business</artifactId>
+                <artifactId>business</artifactId>
                 <version>${encuestame.version}</version>
                 <type>jar</type>
                 <scope>compile</scope>
