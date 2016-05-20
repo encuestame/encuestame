@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>enme-mvc</artifactId>
-        <version>1.5.6-SNAPSHOT</version>
+        <version>1.5.6</version>
     </parent>
     <artifactId>controllers</artifactId>
     <packaging>jar</packaging>

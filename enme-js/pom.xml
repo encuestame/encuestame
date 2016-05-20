@@ -4,11 +4,11 @@
   <parent>
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
-    <version>1.5.6-SNAPSHOT</version>
+    <version>1.5.6</version>
   </parent>
 
    <groupId>org.encuestame</groupId>
-  <version>1.5.6-SNAPSHOT</version>
+  <version>1.5.6</version>
   <artifactId>encuestame-js</artifactId>
   <packaging>pom</packaging>
   <name>Encuestame Javascript POM</name>
