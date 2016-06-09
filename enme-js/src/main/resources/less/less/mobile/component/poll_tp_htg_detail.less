@@ -1,0 +1,176 @@
+.mobil {
+
+	.web-tweetpoll-answer-wrapper {
+		.web-tweetpoll-answer-answer {
+			min-height: 135px;
+			.tablet-only {
+		        min-height: 160px;
+		    }
+          .answer {
+
+          }
+		}
+	}
+
+    .web-buttdon-wrapper {
+      text-align: right;
+      padding: 10px;
+    }
+
+	//commons
+
+	.non-items {
+		color: @gray_lite;
+    	background-color: @gray_ultra_light;
+		padding: 15px;
+		text-align: center;
+	}
+
+
+	.comment-login {
+		.picture {
+			width: 90px;
+			> img {
+				width: 50px;
+				height: 50px;
+			}
+		}
+		.span4 {
+			width: 50%;
+			.login {
+				padding: 5px;
+			}
+		}
+	}
+
+
+
+	.web-tweetpoll-answer-answer, .web-poll-answer-wrapper {
+		
+
+		// this part affect only a tweetpoll
+		>header {
+			>div {
+				padding: 8px 0;
+				box-shadow: none;
+				width: 33%;
+				margin: 0px;
+                &:extend( .left );
+				border-top: 1px solid @gray_middle;
+				text-align: center;
+                //&:extend( .mobile-home-subtitle );
+			}
+		}
+
+
+		.answer {
+		    // answer
+            > div {
+              &:extend( .left );
+            }
+			padding: 10px 0;
+            width: 100%;
+			margin: 0px;
+            display: inline-block;
+			.answer-votes {
+                width: 15%;
+                margin-right: 20%;
+		    }
+		    .answer-percent{
+                width: 15%;
+		    }
+			.answer-color {
+               width: 40%;
+               padding-left: 2%;
+				.color-code {
+                  .border-radius(10px);
+                  display: inline-block;
+                  height: 20px;
+                  margin-right: 10px;
+                  &:extend( .opacity-lite );
+                  width: 20px;
+                  &:extend( .col-left );
+					//margin-right: 5px;
+					//margin-left: 10px;
+				}
+				span {
+					float: left;
+				}
+			}			
+
+			> div {
+				margin: 0px;
+				text-align: center;
+			}
+		}
+
+		// for poll
+
+		.web-poll-options-button {
+			//margin: 0 15px;
+			//text-align: right;
+			//width: 90%;
+		}
+
+		> section.web-generic-result {
+			font-size: 12px;
+			padding: 6px 0;
+
+			> div {
+				margin: 0;
+				width: 45%;
+				.word-break(break-word);
+			}
+
+			.votes {
+				margin: 0;
+				text-align: center;				
+				width: 20%;
+			}
+
+			.percent {
+				margin: 0;
+				text-align: center;
+				width: 35%;
+			}
+		}
+	}
+
+	// social links
+
+	.web-social-links {
+		> div {
+		   .item {
+		   	 padding: 0px;
+		   	 .img {
+		   	 	width: 5%;
+		   	 }
+		   	 .link {
+		   	 	width: 60%;
+		   	 	.word-break(break-word);
+		   	 }
+		   	 .social-date {
+		   	 	width: 25%;
+		   	 }
+		   	 > div {
+		   	 	padding: 5px;
+		   		margin: 0px;
+		   		font-style: 12px;
+		   	 }
+		   }
+		}
+	}
+
+	// rate
+			// profile
+
+	.web-rated-profile-item  {
+		.web-rated-profile-picture {
+			img {
+				width: 50px;
+				height: 50px;
+			}
+		} 
+	}
+
+}

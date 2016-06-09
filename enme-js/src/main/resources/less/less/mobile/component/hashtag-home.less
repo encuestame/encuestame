@@ -1,0 +1,45 @@
+.mobil {
+  .web-hashtag-wrapper {
+      .mobile-home-subtitle {
+          position: relative;
+          .enme-dropdown-menu-wrapper {
+              position: absolute;
+              right: 0;
+              top: 4px;
+          }
+      }
+      .web-ht-graph{
+          min-height: 200px;
+      }
+  }
+  .buttons {
+      .web-ht-button-wrapper .selected {
+        background: white !important;
+        color: @black_medium !important;
+        .box-shadow(#888 0 7px 5px -6px inset);
+      }
+      overflow: auto;
+      .web-ht-button-item {
+        float: left;
+        font-size: 12px;
+        width: 25%;
+        max-width: 25%;
+        padding: 20px 0px 0px 0px;
+        text-align: center;
+        min-height: 80px;
+        &:extend( .home-main-colors );
+        &:extend( .pointer );
+        color: @white;
+        .web-graph-sts-btt-tlt {
+          font-size: 13px;
+        }
+        .web-graph-sts-btt-val{
+          font-size: 16px;
+          font-weight: bold;
+        }
+        .web-graph-sts-btt-sub{
+            font-size: 11px;
+        }
+      }
+  }
+}

@@ -1,0 +1,335 @@
+.spaceOptionColumn{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#content-container #enme-content div.errorWrapper {
+  font-size: 120%;
+  font-weight: bold;
+  margin: 110px 135px auto;
+}
+
+#content-container #enme-content div.errorWrapper div.extra {
+    background-color: #EFEFEF;
+    &:extend( .default-rd );
+    margin: 22px;
+    padding: 10px;
+}
+
+#content-container #enme-content div.errorWrapper div.extra .title{
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#content-container #enme-content div.errorWrapper div.extra a{
+    padding: 5px;
+}
+
+.message{
+    font-size: 14px;
+}
+
+.textShadow {
+    text-shadow: 0 1px #FFFFFF;
+}
+
+.mainError {
+    background-color: #F4A1A1;
+    color: #FEFEFE;
+    font-size: 120%;
+    margin-top: 15px;
+    padding: 10px;
+    .box-shadow(rgba(50, 50, 48, 0.7) 3px 3px 7px);
+}
+
+.info-messages-common {
+    padding: 2px;
+}
+
+.success-message{
+    color: @success_color;
+    &:extend( .info-messages-common );
+}
+
+.error-message{
+    color: @error_color;
+    &:extend( .info-messages-common );
+}
+
+.success .rich-messages-label{
+    padding-left: 13px;
+    font-size: 12px;
+}
+
+.roundTable{
+   &:extend( .default-rd );
+   border-collapse: separate;
+}
+
+.defaultButton{
+   margin-left : 8px;
+   border: 1px solid #C1C1C1;
+   min-width: 100px;
+   padding: 4px;
+   cursor: pointer;
+ }
+
+ .defaultInputClass{
+    padding: 5px;
+    border: 1px solid #BCBCBC;
+    color: #808080;
+    font-size: 12px;
+    &:extend( .default-rd );
+}
+
+.defaultSectionTitle {
+  color: #FFFFFF;
+  font-size: 120%;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+.gradient-yellow{
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #D0D67C 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#D0D67C)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* IE10+ */
+    background: linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#D0D67C',GradientType=0 ); /* IE6-9 */
+}
+
+.gradient-green{
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #D0D67C 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#D0D67C)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* IE10+ */
+    background: linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#D0D67C',GradientType=0 ); /* IE6-9 */
+}
+
+.gradient-red{
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #923F3F 0%, #E67862 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#923F3F), color-stop(100%,#E67862)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #923F3F 0%,#E67862 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #923F3F 0%,#E67862 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #923F3F 0%,#E67862 100%); /* IE10+ */
+    background: linear-gradient(top, #923F3F 0%,#E67862 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#923F3F', endColorstr='#E67862',GradientType=0 ); /* IE6-9 */
+}
+
+.gradient-black{
+  background: #110b0b; /* Old browsers */
+    background: -moz-linear-gradient(top, #110b0b 0%, #767676 98%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#110b0b), color-stop(98%,#767676)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #110b0b 0%,#767676 98%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #110b0b 0%,#767676 98%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #110b0b 0%,#767676 98%); /* IE10+ */
+    background: linear-gradient(top, #110b0b 0%,#767676 98%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#110b0b', endColorstr='#767676',GradientType=0 ); /* IE6-9 */
+}
+
+/** content container **/
+
+#content-container #enme-content .publicMarginWrapper{
+    width: 100%;
+    margin-top: 29px;
+}
+
+#content-container #enme-content .defaultMarginWrapper{
+    margin-top: 29px;
+    margin: 0 auto;
+}
+
+.default-top-menu{
+    font-size: 100%;
+    padding: 5px;
+    color: #FFF;
+    width: auto;
+}
+
+.default-sidebar-menu {
+  &:extend( .text-white );
+  font-size: 100%;
+  font-weight: bold;
+  padding: 5px;
+}
+
+.default-sidebar-menu-sub {
+  background-color: @gray_middle;
+  &:extend( .text-white );
+  font-size: 100%;
+  min-height: 21px;
+  padding: 5px 10px;
+
+  span {
+    &:extend( .f-normal );
+  }
+}
+
+.yesNoWrapper{
+    padding: 1px;
+    &:extend( .pointer );
+}
+
+.yesNoWrapper div.label {
+   color: #BC870D;
+}
+
+.empty-common {
+     background-repeat: no-repeat;
+     min-height : 16px;
+     display: inline-block;
+     width: 16px;
+}
+
+.emptyFavourite {
+      background-image: url(data:image/gif;base64,R0lGODlhEAAQAMYAAP////j4+Pv7+/f39/n5+fr6+vb29vLy8vT09PPz8/7+/vz8/N3d3c3Nze/v762trevr6/39/efn5+zs7O3t7bi4uNDQ0PHx8dXV1ejo6MnJyeXl5dzc3KioqN7e3sfHx9LS0r6+vrq6utnZ2fDw8MzMzOrq6sXFxbm5ueTk5OPj4+Li4tHR0bCwsMHBwbW1tdvb28vLy+7u7sPDw/X19crKytjY2Le3t6SkpKurq7S0tOHh4ebm5tbW1qenp56enunp6aysrK6urtra2sLCws/Pz8DAwL29vby8vN/f37Ozs9PT09fX1////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////yH5BAEAAH8ALAAAAAAQABAAAAeagH+Cg38lAYSIhDUADImJFB4Ah46EkQAADZR/NBABlwAbGYgvBZ8ACgqmAA4af0IDC5cREQsRqQALBx9/Bjc8AQUCwsIEARcPK4JGLzTABc8FAw4NKoQEHAMB2toDFRuJDAEDBuQDAyKOFAgJCQfsCBYQiAoyBw4qMTAHBxggiDArLLQoUcBGhxkYHiDK0CHIhEEYdOAIoaliIAA7);
+      &:extend( .empty-common );
+}
+
+.selectedFavourite {
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oMCQUHOdEG60YAAAIrSURBVDjLnZPPS5RhEMc/8/5Sdzd3dVvL2kyj1KRDHcSkQ0FEv+51DA9Cf0CX7JoGQUdPeegQJBJUIHULvES3sPJH6lopaWq4irn77r77vtNhRY3VogaGZ56B+cw8X+aBXUxfxY/oy+pBHYwn+YMZJYUDiWJQMHppaLqKW3j8TwC5toT2J04ikUuEapTyqlZ9Ut38V4AO1G5ls4Ve6hphzRNq60ME5p3dAKJ9+0I4JFA/DJIEOU042sWx5jI8HxxTSY0La+kOAiYQWUYkS0aW5OZCRvTpoVFc5wCJeIRIpYmv4FRAoKCAYSjqge8JlsDycp6llSxO7iN77csWvqSpSR6nLKZ4wcYTAKQIEASxQWzIAaGkTX3M4ftEgXSQN8gbF5n/+o6lb0LOVFwD8hvubZw5AzICrgnrq8LM52dgX5DrMznZFLG34Q2Vh9upjBW7/6YUEKiy8kNwZ4fI7DlPPOPLjWksfXgU6ZyCNFeYmR6mra2OwC+V2/WEybkP3P1yTmSrgSWdU8VoVR08HAoGeAqq2yYQUBt8u2578eYeaFcTZPwoVTVR3ADcAMorlP0xsMuVnIJagBXV+y3hEoD0fIK8JAjHK/BNiJTB+PAqr4fekhr5iSWAreQEFrwzO69ydbiViAWzk/B++AFuoUV6ptpZz51ibOQRc9PCwThY5tmdAWK+IJXqJ5tvlO7RW6g5DyDdYym5N9ZBeq2JxcXnGFZf6de9feK/778AUbfZ0CaDxH4AAAAASUVORK5CYII=);
+      &:extend( .empty-common );
+}
+
+div.updateProfile .pictureWrapper{
+    min-height: 128px;
+    min-width: 95px;
+}
+
+div.updateProfile .pictureProfileNew{
+    padding: 10px;
+    &:extend( .center );
+    width: 400px;
+}
+
+div.updateProfile .profileItem{
+    padding: 5px;
+}
+
+div.updateProfile .profileItem label{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.defaultMarginWrapper .dijitTabContainerTop-container{
+    border: 0 none !important;
+}
+
+div.header {
+    font-size: 1.6em;
+    padding: 4px;
+    margin: 1px;
+    color: #FFF;
+}
+
+div.subHeader {
+    font-size: 1em;
+    padding: 4px;
+    margin: 1px;
+    &:extend( .text-white );
+}
+
+div.web-default-menu {
+  background: none repeat scroll 0 0 #EFEFEF;
+  border: 1px solid #FFFFFF;
+  .box-shadow(#CCCCCC 0 0 2px inset);
+  height: 44px;
+}
+
+div.web-default-menu ul {
+  margin: 0;
+  padding: 0;
+}
+
+div.web-default-menu li {
+  background: none repeat scroll 0 0 transparent;
+  &:extend( .col-left );
+  height: 44px;
+  list-style: none outside none;
+}
+
+div.web-default-menu  li.first {
+  padding: 0px 2px 0px 5px;
+}
+
+/**
+  This class to increase size on dijitTextBox
+  poll - single response widget.
+*/
+.input-d .dijitTextBox {
+    padding: 3px;
+    font-size: 130%;
+    width: 840px;
+}
+
+.togglePointer{
+   &:extend( .pointer );
+}
+
+.emne-box a:link, .emne-box a:visited{
+    color: @black_medium;
+    text-decoration: none;
+}
+
+
+.emne-box, enme-box {
+    overflow: auto;
+      h4, h5, h6 {
+        font-weight: 500;
+        color : darken(@df_background_color, 70%);
+    }
+
+    .non-items {
+      color: darken(@df_background_color, 20%);
+    }
+
+    > h3 {
+      margin-top: 40px;
+      margin-bottom: 10px;
+    }
+}
+
+.emne-box > header .rss {
+  &:extend( .col-right );
+  position: relative;
+  right: 10px;
+  top: 2px;
+}
+
+.emne-box h3.no-results {
+  color: #CCCCCC;
+  font-size: 1.2em;
+  &:extend( .non-margin );
+  padding: 20px;
+}
+
+/** dialog **/
+
+.web-generic-dialog-content {
+  font-size: 12px;
+  font-weight: bold;
+  &:extend( .padding );
+}
+
+.web-generic-dialog-content .button{
+    text-align: right;
+    padding-right: 10px;
+}
+
+#web-background-overlay {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    &:extend( .width-max );
+    height: 100%;
+    z-index: 9999;
+    border: 0;
+    background-color: black!important;
+}

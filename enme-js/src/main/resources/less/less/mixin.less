@@ -1,0 +1,293 @@
+@import "lesshat/lesshat";
+@import "normalize";
+//@import "media_query";
+
+@import "bootstrap/_bootstrap/_variables";
+@import "bootstrap/_bootstrap/_mixins";
+
+//LAYOUT
+@layout_width : 970px;
+@df_font_size : 12px;
+@df_background_color : #F4F4F4;
+@footer_height : 40px;
+
+// Default Variables
+@white : #FFFFFF;
+@default_background_color : @white;
+
+// black scala
+@black : #000000;
+@black_light : #888888;
+@black_hight : #111111;
+@black_medium : #222222;
+@black_semi_medium : #252525;
+
+// gray scala
+@gray_ultra_light : #FAFAFA;
+@gray_middle : #999;
+@gray_lite : #e5e5e5;
+@gray_normal : #616161;
+@gray_dark : #918F8F;
+
+// others colors
+@yellow_light : #F9F9C2;
+@red_light:  #9d261d;
+@green_light : #C9F5C8;
+@red_light : #FEBEB2;
+
+// oragen scala
+@orange : #F0A029;
+@orange_middle : #E7A441;
+@orange_light : #FFB952;
+@orange_gradient_over : #BC870D;
+
+// Info Messages
+@success_color : #55986D;
+@success_border_color : darken(#55986D, 30%);
+
+@error_color : #BA3B3B;
+@error_border_color : darken(#BA3B3B, 30%);
+
+@warn_color : #55986D;
+@warn_border_color : darken(#55986D, 30%);
+
+@button_font_size : 12px;
+@none : none;
+@web_tag_color : #606060;
+@web_tag_high_color : #828282;
+@header_info_main_color : #333333;
+@default_box_shadow_enme : #E0E0E0;
+@header_info_main_color_dark : darken(@header_info_main_color, 5%);
+
+@default_background_color : @white;
+
+// mobile sizes
+@break-small: 320px;
+@break-large: 400px;
+
+.background-default-wrapper() {
+  background-color: @default_background_color;
+}
+
+.non_borders() {
+    .border-radius(0px);
+}
+
+.left() {
+	 float : left;
+}
+
+.nowrap() {
+  white-space: nowrap;
+}
+
+//.text-shadow(...) {
+//  text-shadow :  @arguments;
+//}
+
+.word-break(@a) {
+  -ms-word-break: @a;
+  word-break: @a;
+}
+
+//.border-radius() {
+//
+//}
+
+.text-shadow (@string: 0 1px 3px rgba(0, 0, 0, 0.25)) {
+  text-shadow: @string;
+}
+.box-shadow (@string) {
+  -webkit-box-shadow: @string;
+  -moz-box-shadow:    @string;
+  box-shadow:         @string;
+}
+.drop-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+  -webkit-box-shadow:	@x @y @blur @spread rgba(0, 0, 0, @alpha);
+  -moz-box-shadow:	@x @y @blur @spread rgba(0, 0, 0, @alpha);
+  box-shadow:		@x @y @blur @spread rgba(0, 0, 0, @alpha);
+}
+.inner-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+  -webkit-box-shadow: inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+  -moz-box-shadow:    inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+  box-shadow:         inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+}
+
+.box-sizing (@type: border-box) {
+  -webkit-box-sizing: @type;
+  -moz-box-sizing:    @type;
+  box-sizing:         @type;
+}
+
+.border-radius (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius:    @radius;
+  border-radius:         @radius;
+
+  -moz-background-clip:    padding;
+  -webkit-background-clip: padding-box;
+  background-clip:         padding-box;
+}
+.border-radiuses (@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
+  -webkit-border-top-right-radius:    @topright;
+  -webkit-border-bottom-right-radius: @bottomright;
+  -webkit-border-bottom-left-radius:  @bottomleft;
+  -webkit-border-top-left-radius:     @topleft;
+
+  -moz-border-radius-topright:        @topright;
+  -moz-border-radius-bottomright:     @bottomright;
+  -moz-border-radius-bottomleft:      @bottomleft;
+  -moz-border-radius-topleft:         @topleft;
+
+  border-top-right-radius:            @topright;
+  border-bottom-right-radius:         @bottomright;
+  border-bottom-left-radius:          @bottomleft;
+  border-top-left-radius:             @topleft;
+
+  -moz-background-clip:    padding;
+  -webkit-background-clip: padding-box;
+  background-clip:         padding-box;
+}
+
+.opacity (@opacity: 0.5) {
+  -webkit-opacity: 	@opacity;
+  -moz-opacity: 		@opacity;
+  opacity: 		@opacity;
+}
+
+.gradient (@startColor: #eee, @endColor: white) {
+  background-color: @startColor;
+  background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+  background: -webkit-linear-gradient(top, @startColor, @endColor);
+  background: -moz-linear-gradient(top, @startColor, @endColor);
+  background: -ms-linear-gradient(top, @startColor, @endColor);
+  background: -o-linear-gradient(top, @startColor, @endColor);
+}
+.horizontal-gradient (@startColor: #eee, @endColor: white) {
+  background-color: @startColor;
+  background-image: -webkit-gradient(linear, left top, right top, from(@startColor), to(@endColor));
+  background-image: -webkit-linear-gradient(left, @startColor, @endColor);
+  background-image: -moz-linear-gradient(left, @startColor, @endColor);
+  background-image: -ms-linear-gradient(left, @startColor, @endColor);
+  background-image: -o-linear-gradient(left, @startColor, @endColor);
+}
+
+.animation (@name, @duration: 300ms, @delay: 0, @ease: ease) {
+  -webkit-animation: @name @duration @delay @ease;
+  -moz-animation:    @name @duration @delay @ease;
+  -ms-animation:     @name @duration @delay @ease;
+}
+
+.transition (@transition) {
+  -webkit-transition: @transition;
+  -moz-transition:    @transition;
+  -ms-transition:     @transition;
+  -o-transition:      @transition;
+}
+.transform(@string){
+  -webkit-transform: @string;
+  -moz-transform: 	 @string;
+  -ms-transform: 		 @string;
+  -o-transform: 		 @string;
+}
+.scale (@factor) {
+  -webkit-transform: scale(@factor);
+  -moz-transform: 	 scale(@factor);
+  -ms-transform: 		 scale(@factor);
+  -o-transform: 		 scale(@factor);
+}
+.rotate (@deg) {
+  -webkit-transform: rotate(@deg);
+  -moz-transform: 	 rotate(@deg);
+  -ms-transform: 		 rotate(@deg);
+  -o-transform: 		 rotate(@deg);
+}
+.skew (@deg, @deg2) {
+  -webkit-transform:       skew(@deg, @deg2);
+  -moz-transform: 	 skew(@deg, @deg2);
+  -ms-transform: 		 skew(@deg, @deg2);
+  -o-transform: 		 skew(@deg, @deg2);
+}
+.translate (@x, @y:0) {
+  -webkit-transform:       translate(@x, @y);
+  -moz-transform: 	 translate(@x, @y);
+  -ms-transform: 		 translate(@x, @y);
+  -o-transform: 		 translate(@x, @y);
+}
+.translate3d (@x, @y: 0, @z: 0) {
+  -webkit-transform:       translate3d(@x, @y, @z);
+  -moz-transform: 	 translate3d(@x, @y, @z);
+  -ms-transform: 		 translate3d(@x, @y, @z);
+  -o-transform: 		 translate3d(@x, @y, @z);
+}
+.perspective (@value: 1000) {
+  -webkit-perspective: 	@value;
+  -moz-perspective: 	@value;
+  -ms-perspective: 	@value;
+  perspective: 		@value;
+}
+.transform-origin (@x:center, @y:center) {
+  -webkit-transform-origin: @x @y;
+  -moz-transform-origin:    @x @y;
+  -ms-transform-origin:     @x @y;
+  -o-transform-origin:      @x @y;
+}
+
+.text-back-image {
+   background-color: #E9EAED;
+}
+
+.enme-gradient-custom(@color1, @color2) {
+	 background-color: @color1;
+	 .background-image(linear-gradient(color-stops(@color1  0%, @color2 100%)));
+}
+
+.gray_text_shadow(){
+	.text-shadow(@float_background_pry_color 1px 0 0);
+}
+
+.ctb-gradient-vertical(@startColor: #555, @endColor: #333) {
+  background-color: mix(@startColor, @endColor, 62.5%);
+  background-image: -moz-linear-gradient(top, @startColor, @endColor); // FF 3.6+
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
+  background-image: -webkit-linear-gradient(top, @startColor, @endColor); // Safari 5.1+, Chrome 10+
+  background-image: -o-linear-gradient(top, @startColor, @endColor); // Opera 11.10
+  background-image: linear-gradient(to bottom, @startColor, @endColor); // Standard, IE10
+  background-repeat: repeat-x;
+}
+
+/* Less code that outputs code for box shadows */
+
+.box-shadow(@horizontal: 0, @vertical: 2px, @blur: 3px, @r: 0, @g: 0, @b: 0, @alpha: 0.3) {
+  -moz-box-shadow: @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+  -o-box-shadow: @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+  -webkit-box-shadow: @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+  box-shadow: @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+}
+.inset-box-shadow(@horizontal: 0, @vertical: 2px, @blur: 3px, @r: 0, @g: 0, @b: 0, @alpha: 0.3) {
+  -moz-box-shadow: inset @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+  -o-box-shadow: inset @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+  -webkit-box-shadow: inset @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+  box-shadow: inset @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+}
+.box-shadow-both(@horizontal1: 0, @vertical1: 2px, @blur1: 3px, @r1: 0, @g1: 0, @b1: 0, @alpha1: 0.3, @horizontal2: 0, @vertical2: 2px, @blur2: 3px, @r2: 255, @g2: 255, @b2: 255, @alpha2: 0.3) {
+  -moz-box-shadow: @horizontal1 @vertical1 @blur1 rgba(@r1, @g1, @b1, @alpha1),
+  inset @horizontal2 @vertical2 @blur2 rgba(@r2, @g2, @b2, @alpha2);
+  -o-box-shadow: @horizontal1 @vertical1 @blur1 rgba(@r1, @g1, @b1, @alpha1),
+  inset @horizontal2 @vertical2 @blur2 rgba(@r2, @g2, @b2, @alpha2);
+  -webkit-box-shadow: @horizontal1 @vertical1 @blur1 rgba(@r1, @g1, @b1, @alpha1),
+  inset @horizontal2 @vertical2 @blur2 rgba(@r2, @g2, @b2, @alpha2);
+  box-shadow: @horizontal1 @vertical1 @blur1 rgba(@r1, @g1, @b1, @alpha1),
+  inset @horizontal2 @vertical2 @blur2 rgba(@r2, @g2, @b2, @alpha2);
+}
+.box-shadow-none {
+  -moz-box-shadow: none;
+  -o-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+#outer-shadow { .box-shadow(0, 1px, 10px, 0, 0, 0, 0.2); }
+#inner-shadow { .inset-box-shadow(0, -1px, 0, 255, 255, 255, 0.6); }
+#both-shadows { .box-shadow-both(0, 1px, 10px, 0, 0, 0, 0.2, 0, -1px, 0, 255, 255, 255, 0.6); } /* You'd have to write another function to add more box shadows here */
+#no-shadows { .box-shadow-none; }

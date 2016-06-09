@@ -1,0 +1,81 @@
+/*
+ *
+ *  * Copyright 2015 encuestame
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *       http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *
+ */
+
+.button-vote-enabled {
+  &:extend( .pointer );
+  .button_vote {
+    background-color: #C8C7C7;
+    border: 1px solid #949494 !important;
+    color: @white !important;
+    .count {
+      color: @white !important;
+    }
+  }
+}
+.button-vote-blocked {
+  .button_vote {
+    &:extend( .pointer );
+    background-color: #F7B26F;
+    border: 1px solid #C89551 !important;
+    color: @white !important;
+    .count {
+      color: @white !important;
+    }
+  }
+}
+.enme-rating {
+  &:extend( .left );
+  .button_vote {
+    .user-select(@none);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    transition: all ease-in-out 100ms;
+    .border-radius(4px);
+    //box-shadow: 0 1px 1px 0 rgba(200, 200, 200, 0.2);
+    .box-shadow(rgba(200, 200, 200, 0.2) 0 1px 1px 0);
+    display: inline-block;
+    font-weight: 500;
+    outline: 0;
+    padding: 3px 7px 4px 7px;
+    text-align: center;
+    color: @gray_middle;
+    text-decoration: none;
+    border: 1px solid #D4D4D4;
+    .count {
+      padding: 0;
+      margin: 0;
+      margin-left: 6px;
+      padding-left: 6px;
+      transition: all ease-in-out 100ms;
+      position: relative;
+      transition: all ease-in-out 100ms;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+      .border-radius(3px);
+      color: #999;
+      font-weight: bold;
+      min-width: 10px;
+      padding: 2px 3px;
+      margin: 0 0 0 4px;
+      text-align: center;
+      display: inline-block;
+      float: none;
+    }
+  }
+}

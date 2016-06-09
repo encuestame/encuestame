@@ -1,0 +1,41 @@
+/** profile rated **/
+.web-rated-profile-item {
+
+    clear: both;
+    min-height: 20px;
+    padding: 2px;
+    overflow: auto;
+
+    .web-rated-profile-picture {
+        float: left;
+        margin: 0 5px;
+        min-height: 32px;
+        min-width: 32px;
+
+        img {
+            height: 32px;
+            width: 32px;
+        }
+    }
+
+    .web-rated-profile-item-detail {
+        float: left;
+        width: 125px;
+        color: @black_light;
+        a {
+          text-decoration: none;
+        }
+        p {
+          color: darken(@df_background_color, 30%);
+        }
+        h5 {
+            color: darken(@df_background_color, 60%);
+            margin: 0;
+        }
+        .total-items {
+          color: darken(@df_background_color, 40%);
+          font-weight: bold;
+        }
+    }
+}
+

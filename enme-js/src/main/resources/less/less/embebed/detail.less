@@ -1,0 +1,106 @@
+/*
+ *
+ *  * Copyright 2014 encuestame
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *       http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *
+ */
+
+@import "../mixin";
+@import "../common";
+@import "widget";
+
+
+.profile {
+  .content {
+    margin: 0 auto;
+    width: 90%;
+    blockquote {
+      padding: 15px;
+    }
+    .last_publications {
+      padding: 0 15px;
+      //margin: 0 15px;
+      line-height: 30px;
+      text-align: center;
+    }
+  }
+  .bqstart {
+    &:extend( .left );
+    font-size: 300%;
+    color: #66757F;
+  }
+
+  .bqend {
+    float: right;
+    font-size: 300%;
+    color: #66757F;
+  }
+}
+
+.tweetpoll-form, .poll-form {
+  line-height: 18px;
+  padding: 8px 8px 0;
+  background: #FFF;
+  border-radius: 5px;
+  .content {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    .title, .e-entry-title{
+      font-size: 16px;
+      line-height: 20px;
+      margin: 0 5px 0 0;
+      overflow: hidden;
+      clear: both;
+      word-wrap: break-word;
+      b {
+        margin: 0;
+        font-weight: normal;
+      }
+      .q-enme {
+        &:extend( .h-color );
+      }
+      .answer {
+        color: 000;
+        margin-left: 5px;
+      }
+    }
+  }
+  .footer {
+    font-size: 12px;
+    min-height: 16px;
+    padding-top: 1px;
+    overflow: hidden;
+    border-width: 0;
+    min-height: 25px;
+    -webkit-transition: margin-top .2s ease-out,padding-top .2s ease-out;
+    -moz-transition: margin-top .2s ease-out,padding-top .2s ease-out;
+    -o-transition: margin-top .2s ease-out,padding-top .2s ease-out;
+    transition: margin-top .2s ease-out,padding-top .2s ease-out;
+    border: 1px solid #E8E8E8;
+    border-width: 1px 0 0;
+    margin-top: 5px;
+    .stats {
+      display: inline-block;
+      margin-right: 3px;
+      text-transform: uppercase;
+      font-size: 11px;
+      margin: 4px 0px;
+      argin-right: 5px;
+    }
+  }
+  .enme-e-title, .enme-title {
+
+  }
+}
