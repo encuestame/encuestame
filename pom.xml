@@ -202,7 +202,7 @@
         <module>enme-business</module>
         <!---->
         <module>enme-mvc</module>
-        <!--<module>enme-war</module>-->
+        <module>enme-war</module>
         <!-- Disabled 1.6-dev branch -->
         <!--<module>enme-installer</module>-->
         <!--<module>enme-assembly</module>-->

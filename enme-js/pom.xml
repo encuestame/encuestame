@@ -7,15 +7,12 @@
     <version>1.6.0-SNAPSHOT</version>
   </parent>
 
-   <groupId>org.encuestame</groupId>
+  <groupId>org.encuestame</groupId>
   <version>1.6.0-SNAPSHOT</version>
   <artifactId>js</artifactId>
   <packaging>pom</packaging>
   <name>Encuestame Javascript POM</name>
-
-  <modules>
-    <module>resources-enme-war</module>
-  </modules>
+  
   <build>
     <pluginManagement>
       <plugins>
