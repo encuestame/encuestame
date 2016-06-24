@@ -87,6 +87,11 @@
             <groupId>org.encuestame</groupId>
             <artifactId>config</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>web-config</artifactId>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>

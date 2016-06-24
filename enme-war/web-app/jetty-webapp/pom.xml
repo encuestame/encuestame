@@ -67,9 +67,15 @@
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>config</artifactId>
+            <artifactId>web-config</artifactId>
             <version>${project.version}</version>
             <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>js</artifactId>
+            <type>war</type>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
