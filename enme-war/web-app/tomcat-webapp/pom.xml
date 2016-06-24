@@ -39,7 +39,7 @@
                     <overlays>
                         <overlay>
                             <groupId>org.encuestame</groupId>
-                            <artifactId>config</artifactId>
+                            <artifactId>web-config</artifactId>
                             <excludes>
                                 <exclude>WEB-INF/web.xml</exclude>
                             </excludes>

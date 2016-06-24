@@ -6,7 +6,7 @@
         <artifactId>enme-war</artifactId>
         <version>1.6.0-SNAPSHOT</version>
     </parent>
-    <artifactId>config</artifactId>
+    <artifactId>web-config</artifactId>
     <packaging>war</packaging>
     <name>Encuestame Webapp Configuration</name>
     <build>
