@@ -39,21 +39,21 @@
                     <overlays>
                         <overlay>
                             <groupId>org.encuestame</groupId>
-                            <artifactId>enme-config</artifactId>
+                            <artifactId>config</artifactId>
                             <excludes>
                                 <exclude>WEB-INF/web.xml</exclude>
                             </excludes>
                         </overlay>
                         <overlay>
                             <groupId>org.encuestame</groupId>
-                            <artifactId>enme-views</artifactId>
+                            <artifactId>views</artifactId>
                             <excludes>
                                 <exclude>WEB-INF/web.xml</exclude>
                             </excludes>
                         </overlay>
                         <overlay>
                             <groupId>org.encuestame</groupId>
-                            <artifactId>enme-js</artifactId>
+                            <artifactId>js</artifactId>
                             <excludes>
                                 <exclude>WEB-INF/web.xml</exclude>
                                 <exclude>WEB-INF/lib</exclude>
@@ -85,19 +85,19 @@
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>enme-config</artifactId>
+            <artifactId>config</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>enme-views</artifactId>
+            <artifactId>views</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-business</artifactId>
+            <artifactId>business</artifactId>
         </dependency>
     </dependencies>
 </project>

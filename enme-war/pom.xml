@@ -6,7 +6,7 @@
         <artifactId>encuestame</artifactId>
         <version>1.6.0-SNAPSHOT</version>
     </parent>
-    <artifactId>encuestame-war</artifactId>
+    <artifactId>enme-war</artifactId>
     <packaging>pom</packaging>
     <name>encuestame app builders</name>
 
