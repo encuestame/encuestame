@@ -14,16 +14,15 @@ package org.encuestame.mvc.page;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.oauth2.support.OAuth2Parameters;
 import org.encuestame.oauth2.support.OAuth2RequestFlow;
-import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.social.api.connect.FacebookSignInSocialSupport;
-import org.encuestame.social.api.connect.GoogleBuzzSignInSocialService;
+import org.encuestame.util.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.social.SocialProvider;
@@ -189,11 +188,7 @@ public class SignInController extends AbstractSocialController{
             if (providerBack == null) {
                 throw new EnMeOAuthSecurityException("provider ["+provider+"] not valid");
             }
-            if (providerBack.equals(SocialProvider.GOOGLE_BUZZ)) {
-                friendsUrl = getConnectOperations().connectSignInAccount(
-                        new GoogleBuzzSignInSocialService(accessGrant,
-                                getConnectOperations()));
-            } else if (EnumerationUtils.getEnumFromString(SocialProvider.class, provider).equals(
+            if (EnumerationUtils.getEnumFromString(SocialProvider.class, provider).equals(
                     SocialProvider.FACEBOOK)) {
                 friendsUrl = getConnectOperations().connectSignInAccount(
                         new FacebookSignInSocialSupport(accessGrant,

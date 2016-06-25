@@ -14,9 +14,9 @@ package org.encuestame.mvc.interceptor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.PathUtil;
 import org.encuestame.core.security.web.SecurityUtils;
 import org.encuestame.utils.EnumerationUtils;
-import org.encuestame.utils.PathUtil;
 import org.encuestame.utils.enums.EnMePermission;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

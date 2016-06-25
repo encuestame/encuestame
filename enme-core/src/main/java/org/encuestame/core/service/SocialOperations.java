@@ -12,11 +12,11 @@
  */
 package org.encuestame.core.service;
 
-import java.util.List;
-
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.social.SocialProvider;
+
+import java.util.List;
 
 /**
  * Social Factory.

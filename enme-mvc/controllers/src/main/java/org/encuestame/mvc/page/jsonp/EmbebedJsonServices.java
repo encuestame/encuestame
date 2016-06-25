@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.WidgetUtil;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
@@ -34,7 +34,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.enums.EmbeddedType;
 import org.encuestame.utils.enums.PictureType;
@@ -255,7 +255,7 @@ public class EmbebedJsonServices extends AbstractJsonControllerV1 {
                 final Poll poll = getPollService().getPollById(pollId);
                 // ENCUESTAME-664 temporally disabled
                 if (poll.getIsPasswordProtected() != null && poll.getIsPasswordProtected()) {
-                    throw new EnMeExpcetion("password protected not embeddable");
+                    throw new EnMeException("password protected not embeddable");
                 }
                 final PollDetailBean detailBean = getPollService().getPollDetailInfo(poll.getPollId());
                 model.put("owner_picture", domain + "/picture/profile/" + poll.getEditorOwner().getUsername() + "/thumbnail");

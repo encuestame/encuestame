@@ -14,11 +14,11 @@ package org.encuestame.social.api.connect;
 
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
+import org.encuestame.core.service.ConnectOperations;
 import org.encuestame.core.social.SocialSignInOperations;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.core.service.ConnectOperations;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.social.SocialUserProfile;
@@ -104,18 +104,18 @@ public abstract class AbstractSocialSignInConnect<SocialAPIOperations> implement
      * Return if user account have previous account connection.
      * @param accessToken
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
-    public SocialAccount isConnected(final String profileId) throws EnMeExpcetion {
+    public SocialAccount isConnected(final String profileId) throws EnMeException {
         Assert.notNull(profileId);
         SocialAccount social = null;
         try {
             log.debug("Is connected exist? "+profileId);
             //check if this user is previously connected
             social = this.findAccountByConnection(profileId);
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
             log.fatal("isConected error :"+e);
-            throw new EnMeExpcetion(e);
+            throw new EnMeException(e);
         }
         log.debug("Is connected "+social);
         return social;

@@ -12,16 +12,10 @@
  */
 package org.encuestame.business.service;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.mail.internet.MimeMessage;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.MailServiceOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.mail.InvitationBean;
@@ -38,6 +32,11 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
+import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 /**
  * Class Implements a Mail Service.
  * @author Picado, Juan juanATencuestame.org
@@ -51,7 +50,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
     private Log log = LogFactory.getLog(this.getClass());
 
     /** email to  no-response. **/
-    @Value("${mail.noresponse}") private String noEmailResponse;
+    private String noEmailResponse = EnMePlaceHolderConfigurer.getProperty("mail.noresponse");;
     /** mail sender. **/
 
     private JavaMailSenderImpl mailSender;

@@ -12,13 +12,12 @@
  */
 package org.encuestame.core.test.util;
 
+import junit.framework.TestCase;
 import org.encuestame.core.util.EnMeUtils;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import junit.framework.TestCase;
 
 /**
  * EnMe Utils Test Cases.
@@ -78,8 +77,8 @@ public class EnMeUtilsTestCase extends TestCase {
         assertEquals(d3.length, 3);
     }
 
-    @Test(expected = EnMeExpcetion.class)
-    public void testCleanVersionException() throws EnMeExpcetion{
+    @Test(expected = EnMeException.class)
+    public void testCleanVersionException() throws EnMeException{
         final String v1 = "1.3";
         EnMeUtils.cleanVersion(v1);
     }

@@ -18,7 +18,6 @@ import org.encuestame.core.service.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
@@ -81,7 +80,6 @@ public class HashTagController extends AbstractViewController {
      * @param response
      * @param name
      * @return
-     * @throws EnmeFailOperation
      */
     @RequestMapping(value = "/tag/{name}", method = RequestMethod.GET)
     public String tagController(ModelMap model, HttpServletRequest request,

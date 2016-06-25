@@ -30,10 +30,10 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeTweetPollNotFoundException;
+import org.encuestame.util.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
@@ -62,13 +62,13 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param question
      * @param user
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     TweetPoll createTweetPoll(
             final TweetPollBean tweetPollBean,
             final String question,
             final UserAccount user,
-            final HttpServletRequest httpServletRequest) throws EnMeExpcetion;
+            final HttpServletRequest httpServletRequest) throws EnMeException;
 
     /**
      *
@@ -150,9 +150,9 @@ public interface ITweetPollService extends IMasterSurveyService{
      * Generate TweetPoll Text.
      * @param tweetPoll tweetPoll
      * @return tweet text
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    String generateTweetPollContent(final TweetPoll tweetPoll) throws EnMeExpcetion;
+    String generateTweetPollContent(final TweetPoll tweetPoll) throws EnMeException;
 
     /**
      * Search {@link TweetPoll} by Keyword.
@@ -162,19 +162,19 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tpollSearch
      * @return
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<TweetPollBean> searchTweetsPollsByKeyWord(final String username,
             final String keyword, final HttpServletRequest httpServletRequest,
             final TweetPollSearchBean tpollSearch)
-            throws EnMeNoResultsFoundException, EnMeExpcetion;
+            throws EnMeNoResultsFoundException, EnMeException;
 
     /**
      * Save Tweet Id.
      * @param tweetPollBean {@link TweetPollBean}
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    void saveTweetId(final TweetPollBean tweetPollBean) throws EnMeExpcetion;
+    void saveTweetId(final TweetPollBean tweetPollBean) throws EnMeException;
 
     /**
      * Get Tweet Path.
@@ -271,11 +271,11 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param httpServletRequest
      * @return
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
 //    List<TweetPollBean> filterTweetPollByItemsByType(final TweetPollSearchBean tpollSearch,
 //            final HttpServletRequest httpServletRequest)
-//            throws EnMeNoResultsFoundException, EnMeExpcetion;
+//            throws EnMeNoResultsFoundException, EnMeException;
 
     /**
      * Delete TweetPoll Folder.
@@ -337,11 +337,11 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param httpServletRequest
      * @param tpollSearch
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SearchBean> searchTweetsPollScheduled(final String username,
             final HttpServletRequest httpServletRequest,
-            final TweetPollSearchBean tpollSearch) throws EnMeExpcetion;
+            final TweetPollSearchBean tpollSearch) throws EnMeException;
 
     /**
      * Search Favourites TweetPolls.
@@ -349,11 +349,11 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param httpServletRequest
      * @param tpollSearch
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SearchBean> searchTweetsPollFavourites(final String username,
             final HttpServletRequest httpServletRequest,
-            final TweetPollSearchBean tpollSearch) throws EnMeExpcetion;
+            final TweetPollSearchBean tpollSearch) throws EnMeException;
 
     /**
      * Search Tweet Polls Last Week.
@@ -361,11 +361,11 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param httpServletRequest
      * @param tpollSearch
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SearchBean> searchTweetsPollsLastWeek(final String username,
             final HttpServletRequest httpServletRequest,
-            final TweetPollSearchBean tpollSearch) throws EnMeExpcetion;
+            final TweetPollSearchBean tpollSearch) throws EnMeException;
 
     /**
      * Search Tweet Polls Today.
@@ -373,11 +373,11 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param httpServletRequest
      * @param tpollSearch
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SearchBean> searchTweetsPollsToday(final String username,
             final HttpServletRequest httpServletRequest,
-            final TweetPollSearchBean tpollSearch) throws EnMeExpcetion;
+            final TweetPollSearchBean tpollSearch) throws EnMeException;
 
     /**
      * Set Favourite TweetPoll.
@@ -527,11 +527,11 @@ public interface ITweetPollService extends IMasterSurveyService{
        * @param httpServletRequest
        * @return
        * @throws EnMeNoResultsFoundException
-       * @throws EnMeExpcetion
+       * @throws EnMeException
        */
     List<SearchBean> filterTweetPollByItemsByTypeSearch(final TweetPollSearchBean tpollSearch,
               final HttpServletRequest httpServletRequest)
-              throws EnMeNoResultsFoundException, EnMeExpcetion;
+              throws EnMeNoResultsFoundException, EnMeException;
 
     /**
      * Create a Scheduled {@link TweetPoll} , {@link Poll} or {@link Survey}.
@@ -550,11 +550,11 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param bean
      * @return
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<Schedule> createTweetPollScheduled(
             final TweetPollScheduledBean bean,
-            final TypeSearchResult searchResult) throws EnMeNoResultsFoundException, EnMeExpcetion;
+            final TypeSearchResult searchResult) throws EnMeNoResultsFoundException, EnMeException;
 
     /**
      * Publish scheduled items
@@ -613,12 +613,11 @@ public interface ITweetPollService extends IMasterSurveyService{
 
      /**
       * Retrieve Folders by keyword.
-      * @param user
       * @param keyword
       * @return
      * @throws EnMeNoResultsFoundException
       */
-     List<TweetPollFolder> retrieveFoldersbyKeyword(  final String keyword) throws EnMeNoResultsFoundException;
+     List<TweetPollFolder> retrieveFoldersbyKeyword(final String keyword) throws EnMeNoResultsFoundException;
 
      /**
       * Get {@link TweetPollDetailBean} info.
@@ -632,7 +631,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * Set List Answer and results if is enabled.
      * @param listTweetPolls List of {@link TweetPoll}
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
      List<TweetPollBean> setTweetPollListAnswers(
                 final List<TweetPoll> listTweetPolls,

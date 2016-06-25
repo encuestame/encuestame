@@ -1,6 +1,5 @@
 package org.encuestame.mvc.test.config;
 
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import org.encuestame.business.cron.PublishScheduled;
 import org.encuestame.business.cron.RemoveSpamCommentsJob;
 import org.encuestame.business.cron.RemoveUnconfirmedAccountJob;
@@ -15,7 +14,7 @@ import org.encuestame.core.cron.ReIndexJob;
 import org.encuestame.mvc.JsonViewResolver;
 import org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter;
 import org.encuestame.mvc.interceptor.CheckInstallInterceptor;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -63,61 +62,61 @@ public class RestAPITestConfiguration extends WebMvcConfigurerAdapter{
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "sendNotificationsJob")
-    SendNotificationsJob sendNotificationsJob() throws EnMeExpcetion {
+    SendNotificationsJob sendNotificationsJob() throws EnMeException {
         return new SendNotificationsJob();
     }
 
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "calculateHashTagSize")
-    CalculateHashTagSize calculateHashTagSize() throws EnMeExpcetion {
+    CalculateHashTagSize calculateHashTagSize() throws EnMeException {
         return new CalculateHashTagSize();
     }
 
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "calculateRelevance")
-    CalculateRelevance calculateRelevance() throws EnMeExpcetion {
+    CalculateRelevance calculateRelevance() throws EnMeException {
         return new CalculateRelevance();
     }
 
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "removeAccountJob")
     RemoveUnconfirmedAccountJob removeUnconfirmedAccountJob()
-            throws EnMeExpcetion {
+            throws EnMeException {
         return new RemoveUnconfirmedAccountJob();
     }
 
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "removeSpamCommentJob")
-    RemoveSpamCommentsJob removeSpamCommentsJob() throws EnMeExpcetion {
+    RemoveSpamCommentsJob removeSpamCommentsJob() throws EnMeException {
         return new RemoveSpamCommentsJob();
     }
 
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "publishScheduled")
-    PublishScheduled publishScheduled() throws EnMeExpcetion {
+    PublishScheduled publishScheduled() throws EnMeException {
         return new PublishScheduled();
     }
 
@@ -136,10 +135,10 @@ public class RestAPITestConfiguration extends WebMvcConfigurerAdapter{
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "reindexJob")
-    ReIndexJob reIndexJob() throws EnMeExpcetion {
+    ReIndexJob reIndexJob() throws EnMeException {
         ReIndexJob indexJob = new ReIndexJob();
         return indexJob;
     }

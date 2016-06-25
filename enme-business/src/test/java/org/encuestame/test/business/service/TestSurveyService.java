@@ -12,19 +12,7 @@
  */
 package org.encuestame.test.business.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import junit.framework.Assert;
-
 import org.encuestame.business.service.AbstractSurveyService;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.persistence.domain.question.Question;
@@ -33,9 +21,9 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.TypeSearch;
@@ -50,6 +38,13 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test of {@link AbstractSurveyService}
@@ -115,38 +110,38 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /**
      * Test Load All Questions.
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
     @Test
-    public void testloadAllQuestions() throws EnMeExpcetion{
+    public void testloadAllQuestions() throws EnMeException{
         final List<QuestionBean> alist = surveyService.loadAllQuestions();
         assertEquals("Should be equals", 1, alist.size());
     }
 
     /**
      * Test Create Question.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      **/
     @Test
-    public void testCreateQuestion() throws EnMeExpcetion {
+    public void testCreateQuestion() throws EnMeException {
         this.surveyService.createQuestion(this.questionBean);
         assertNotNull(questionBean);
     }
 
     /**
      *
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test(expected = OutOfMemoryError.class)
     @Ignore
-    public void testCreateQuestionException() throws EnMeExpcetion {
+    public void testCreateQuestionException() throws EnMeException {
         this.surveyService.setRandomQuestionKey(1);
         this.surveyService.createQuestion(this.questionBean);
         assertNotNull(questionBean);
     }
 
     @Test(expected = Exception.class)
-    public void testCreateQuestionException2() throws EnMeExpcetion {
+    public void testCreateQuestionException2() throws EnMeException {
         this.surveyService.setRandomQuestionKey(Integer.valueOf("tres"));
         this.surveyService.createQuestion(this.questionBean);
         assertNotNull(questionBean);
@@ -154,11 +149,11 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /**
     * Test Save Answers.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
     **/
     @Test
     @Ignore
-    public void testSaveAnswers() throws EnMeExpcetion{
+    public void testSaveAnswers() throws EnMeException{
         final QuestionAnswerBean answersBean = createAnswersBean("ASJKE", "Yes", this.question.getQid());
         surveyService.createQuestionAnswer(answersBean, this.question);
         assertNotNull(answersBean.getAnswerId());
@@ -175,10 +170,10 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /**
      * Test Update Answer By Answer Id.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testUpdateAnswersByAnswerId() throws EnMeExpcetion{
+    public void testUpdateAnswersByAnswerId() throws EnMeException{
         final String expectedResponse = "Quizas";
         final QuestionAnswer questionAnswers = createQuestionAnswer("No", this.question, "HASH");
         surveyService.updateAnswerByAnswerId(questionAnswers.getQuestionAnswerId(), expectedResponse);
@@ -204,10 +199,10 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /**
      * Test search surveys by today date.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testSearchSurveysToday() throws EnMeExpcetion {
+    public void testSearchSurveysToday() throws EnMeException {
         final SurveyBean surveyBean = createSurveyBean("My first survey",
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 this.mySurveyDate.getTime());
@@ -220,10 +215,10 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /**
      * Test search surveys from last week.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testSearchSurveysLastWeek() throws EnMeExpcetion {
+    public void testSearchSurveysLastWeek() throws EnMeException {
         mySurveyDate.add(Calendar.DATE, -3);
         final SurveyBean surveyBean = createSurveyBean("My first survey",
                 getSpringSecurityLoggedUserAccount().getUsername(),
@@ -237,10 +232,10 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /**
      * Test search all surveys by owner.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testSearchAllSurveys() throws EnMeExpcetion {
+    public void testSearchAllSurveys() throws EnMeException {
         final Calendar lastMonth = Calendar.getInstance();
         lastMonth.add(Calendar.MONTH, -1);
 
@@ -275,10 +270,10 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /**
      * Test search favorite surveys.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testSearchFavoriteSurveys() throws EnMeExpcetion {
+    public void testSearchFavoriteSurveys() throws EnMeException {
         final SurveyBean surveyBean = createSurveyBean("My first survey",
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 this.mySurveyDate.getTime());
@@ -292,10 +287,10 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /**
      * Test search surveys by Name
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testSearchbySurveyName() throws EnMeExpcetion {
+    public void testSearchbySurveyName() throws EnMeException {
         final String keyWord = "first";
         final SurveyBean surveyBean = createSurveyBean("My first survey",
                 getSpringSecurityLoggedUserAccount().getUsername(),
@@ -327,10 +322,10 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /**
      * Test get surveys by folder.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testGetSurveysByFolder() throws EnMeExpcetion{
+    public void testGetSurveysByFolder() throws EnMeException{
         final FolderBean fbean = surveyService.createSurveyFolder(
                 "My First Folder", this.myUsername);
         Assert.assertNotNull(fbean);
@@ -347,7 +342,7 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     
     @Test
-    public void testCreateSurvey() throws EnMeExpcetion{
+    public void testCreateSurvey() throws EnMeException{
     	// Create survey with section default
     	final SurveyBean surveyBean = createSurveyBean("default survey", getSpringSecurityLoggedUserAccount().toString(), new Date());
     	final Survey newSurvey = surveyService.createSurvey(surveyBean, this.request);   
@@ -376,12 +371,12 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
     
     /**
      * Test Add {@link Question} to {@link SurveySection}. 
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
 	@Test
-	public void testAddQuestionToSurveySection() throws EnMeExpcetion,
+	public void testAddQuestionToSurveySection() throws EnMeException,
 			NoSuchAlgorithmException, UnsupportedEncodingException {
 		final String questionName = "What is your favorite superhero?";
 		final Survey defaultSurvey = createDefaultSurvey(this.user);

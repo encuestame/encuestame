@@ -12,18 +12,18 @@
  */
 package org.encuestame.oauth.security;
 
-import java.util.WeakHashMap;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.IApplicationDao;
 import org.encuestame.persistence.dao.imp.ApplicationDao;
 import org.encuestame.persistence.domain.application.ApplicationConnection;
-import org.encuestame.persistence.exception.EnMeNotValidKeyOAuthSecurityException;
 import org.encuestame.persistence.utils.SecureRandomStringKeyGenerator;
+import org.encuestame.util.exception.EnMeNotValidKeyOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuthSession;
 import org.encuestame.utils.oauth.StandardOAuthSession;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.WeakHashMap;
 /**
  * Implementation to OAuth Session Manager.
  * @author Picado, Juan juanATencuestame.org

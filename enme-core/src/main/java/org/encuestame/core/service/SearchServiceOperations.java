@@ -12,17 +12,15 @@
  */
 package org.encuestame.core.service;
 
+import org.encuestame.core.search.GlobalSearchItem;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.enums.Language;
+import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.QuestionBean;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.lucene.queryparser.classic.ParseException;
-import org.encuestame.core.search.GlobalSearchItem;
-import org.encuestame.core.service.ServiceOperations;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.enums.Language;
-import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.json.QuestionBean; 
 
 /**
  * Search Service Operations.

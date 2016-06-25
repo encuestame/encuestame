@@ -12,11 +12,6 @@
  */
 package org.encuestame.business.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.logging.Log;
@@ -26,8 +21,8 @@ import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.SearchServiceOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.Language;
 import org.encuestame.utils.enums.TypeSearch;
@@ -37,6 +32,11 @@ import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.web.PollBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Search Service.
@@ -205,12 +205,12 @@ public class SearchService extends AbstractIndexService implements SearchService
      * @param start
      * @return
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public List<SearchBean> filterPollByItemsByType(
             final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
-            throws EnMeNoResultsFoundException, EnMeExpcetion {
+            throws EnMeNoResultsFoundException, EnMeException {
         log.trace("filterPollByItemsByType");
         log.trace("--> "+typeSearch);
         log.trace("--> "+keyword);
@@ -244,7 +244,7 @@ public class SearchService extends AbstractIndexService implements SearchService
         } else if (TypeSearch.ALL.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao().retrievePollsByUserId(getUserAccountonSecurityContext(), max, start)));
         } else {
-            throw new EnMeExpcetion("operation not valid");
+            throw new EnMeException("operation not valid");
         }
         log.debug("Poll Search Items : " + list.size());
         return null;

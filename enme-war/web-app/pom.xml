@@ -26,22 +26,7 @@
             <groupId>org.encuestame</groupId>
             <artifactId>api-v1</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>api-v1</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-            <classifier>tests</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>api-v2</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-            <classifier>tests</classifier>
-        </dependency>
-
+        </dependency>       
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>business</artifactId>

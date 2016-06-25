@@ -1,13 +1,11 @@
 package org.encuestame.init.root;
 
 
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.config.annotations.EnMeProperties;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.*;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
@@ -24,16 +22,20 @@ import java.util.Properties;
 	"classpath:/org/encuestame/config/xml/encrypt-context.xml",
 	"classpath:/org/encuestame/config/xml/data-context.xml"})
 @ComponentScan({ "org.encuestame.persistence.dao" })
+@Import(EnMeProperties.class)
 public class EnMeData {
 
+
+    @Autowired
+    private EnMePlaceHolderConfigurer propertyPlaceholderConfigurer;
 
 	@Bean(name = "dataSource")
 	public DriverManagerDataSource dataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
-		ds.setDriverClassName(EnMePlaceHolderConfigurer.getProperty("datasource.classname"));
-		ds.setUsername(EnMePlaceHolderConfigurer.getProperty("datasource.userbd"));
-		ds.setPassword(EnMePlaceHolderConfigurer.getProperty("datasource.pass"));
-		ds.setUrl(EnMePlaceHolderConfigurer.getProperty("datasource.urldb"));
+		ds.setDriverClassName(propertyPlaceholderConfigurer.getProperty("datasource.classname"));
+		ds.setUsername(propertyPlaceholderConfigurer.getProperty("datasource.userbd"));
+		ds.setPassword(propertyPlaceholderConfigurer.getProperty("datasource.pass"));
+		ds.setUrl(propertyPlaceholderConfigurer.getProperty("datasource.urldb"));
 		return ds;
 	}
 

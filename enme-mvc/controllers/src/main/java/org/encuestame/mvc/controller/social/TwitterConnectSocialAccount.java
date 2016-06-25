@@ -12,15 +12,13 @@
  */
 package org.encuestame.mvc.controller.social;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
+import org.encuestame.util.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.social.SocialProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Controller to SignIn with Twitter Account.
@@ -47,14 +48,13 @@ public class TwitterConnectSocialAccount extends AbstractAccountConnect {
      /**
       * Constructor.
       */
-    @Inject
-    public TwitterConnectSocialAccount(
-            @Value("${twitter.oauth.consumerKey}") String apiKey,
-            @Value("${twitter.oauth.consumerSecret}") String consumerSecret,
-            @Value("${twitter.oauth.authorize}") String authorizeUrl,
-            @Value("${twitter.oauth.request.token}") String requestTokenUrl,
-            @Value("${twitter.oauth.access.token}") String accessToken) {
-        super(apiKey, consumerSecret, authorizeUrl, requestTokenUrl, accessToken, SocialProvider.TWITTER);
+    public TwitterConnectSocialAccount() {
+        super(EnMePlaceHolderConfigurer.getProperty("twitter.oauth.consumerKey"),
+                EnMePlaceHolderConfigurer.getProperty("twitter.oauth.consumerSecret"),
+                EnMePlaceHolderConfigurer.getProperty("twitter.oauth.authorize"),
+                EnMePlaceHolderConfigurer.getProperty("twitter.oauth.request.token"),
+                EnMePlaceHolderConfigurer.getProperty("twitter.oauth.access.token"),
+                SocialProvider.TWITTER);
     }
 
     /**

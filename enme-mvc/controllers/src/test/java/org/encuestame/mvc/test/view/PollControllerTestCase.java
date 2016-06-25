@@ -26,7 +26,7 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.encuestame.utils.social.SocialProvider;
@@ -135,9 +135,9 @@ public class PollControllerTestCase extends AbstractMvcUnitBeans {
      *
      * @param question
      * @return
-     * @throws org.encuestame.persistence.exception.EnMeExpcetion
+     * @throws EnMeException
      */
-    private Poll createQuickPoll(String question)  throws EnMeExpcetion {
+    private Poll createQuickPoll(String question)  throws EnMeException {
         final String[] answer = {"a", "b"};
         final String[] hashtag = {"hastag1", "hastag2"};
         final CreatePollBean cb = createPollBean(

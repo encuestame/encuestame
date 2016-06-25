@@ -5,11 +5,13 @@ import org.encuestame.mvc.interceptor.EnMeSecurityInterceptor;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor;
- 
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Configuration
 @ImportResource({"classpath:/org/encuestame/config/xml/service-context.xml"})
 public class ServicesAppConfig {
@@ -46,5 +48,22 @@ public class ServicesAppConfig {
         openSessionInViewInterceptor.setSessionFactory(this.sessionFactory); 
         //TODO: MIGRATION -->  openSessionInViewInterceptor.setSingleSession(true);
         return openSessionInViewInterceptor;
+    }
+
+    /**
+     * List of paths where the help will be available
+     * @return List
+     */
+    @Bean(name = "helpsLinks")
+    public List<String> helpsPaths() {
+        final List<String> paths = new ArrayList<String>();
+        paths.add("/admon/members");
+        paths.add("/user/tweetpoll/list");
+        paths.add("/user/tweetpoll/new");
+        paths.add("/user/poll/list");
+        paths.add("/user/poll/new");
+        paths.add("/settings/configuration");
+        paths.add("/settings/social");
+        return paths;
     }
 }

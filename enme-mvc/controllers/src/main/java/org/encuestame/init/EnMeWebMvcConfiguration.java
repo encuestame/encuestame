@@ -9,9 +9,8 @@ import org.encuestame.core.cron.CalculateRelevance;
 import org.encuestame.core.cron.IndexRebuilder;
 import org.encuestame.core.cron.ReIndexJob;
 import org.encuestame.mvc.interceptor.CheckInstallInterceptor;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -43,61 +42,61 @@ public class EnMeWebMvcConfiguration extends WebMvcConfigurerAdapter {
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "sendNotificationsJob")
-    SendNotificationsJob sendNotificationsJob() throws EnMeExpcetion {
+    SendNotificationsJob sendNotificationsJob() throws EnMeException {
         return new SendNotificationsJob();
     }
 
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "calculateHashTagSize")
-    CalculateHashTagSize calculateHashTagSize() throws EnMeExpcetion {
+    CalculateHashTagSize calculateHashTagSize() throws EnMeException {
         return new CalculateHashTagSize();
     }
 
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "calculateRelevance")
-    CalculateRelevance calculateRelevance() throws EnMeExpcetion {
+    CalculateRelevance calculateRelevance() throws EnMeException {
         return new CalculateRelevance();
     }
 
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "removeAccountJob")
     RemoveUnconfirmedAccountJob removeUnconfirmedAccountJob()
-            throws EnMeExpcetion {
+            throws EnMeException {
         return new RemoveUnconfirmedAccountJob();
     }
 
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "removeSpamCommentJob")
-    RemoveSpamCommentsJob removeSpamCommentsJob() throws EnMeExpcetion {
+    RemoveSpamCommentsJob removeSpamCommentsJob() throws EnMeException {
         return new RemoveSpamCommentsJob();
     }
 
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "publishScheduled")
-    PublishScheduled publishScheduled() throws EnMeExpcetion {
+    PublishScheduled publishScheduled() throws EnMeException {
         return new PublishScheduled();
     }
 
@@ -116,10 +115,10 @@ public class EnMeWebMvcConfiguration extends WebMvcConfigurerAdapter {
     /**
      *
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public @Bean(name = "reindexJob")
-    ReIndexJob reIndexJob() throws EnMeExpcetion {
+    ReIndexJob reIndexJob() throws EnMeException {
         ReIndexJob indexJob = new ReIndexJob();
         return indexJob;
     }

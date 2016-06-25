@@ -192,7 +192,7 @@
     </properties>
 
     <modules>
-        <!--<module>enme-js</module>-->
+        <module>enme-js</module>
         <module>enme-config</module>
         <module>enme-utils</module>
         <module>enme-persistence</module>
@@ -445,9 +445,6 @@
                         <argLine>-Xms512m -Xmx1024m</argLine>
                         <groups>org.encuestame.utils.categories.test.DefaultTest</groups>
                         <forkMode>never</forkMode>
-                        <!--<systemPropertyVariables>-->
-                            <!--<log4j.configuration>file:${basedir}/etc/log4j-silent.properties</log4j.configuration>-->
-                        <!--</systemPropertyVariables>-->
                     </configuration>
                     <version>${surefire.version}</version>
                     <dependencies>
@@ -842,6 +839,11 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>

@@ -12,12 +12,6 @@
  */
 package org.encuestame.core.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.StringReader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -31,12 +25,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 import org.encuestame.utils.net.XFordwardedInetAddressUtil;
 import org.encuestame.utils.web.HashTagBean;
 import org.joda.time.DateTime;
@@ -149,27 +141,6 @@ public class EnMeUtils {
         log.debug("Size tag Value ---------------> " + Math.round(perLog) );
         return Math.round(perLog);
     }
-
-    /**
-     * Copying One File to Another.
-     * @param src
-     * @param dst
-     * @throws IOException
-     */
-    public static void copy(InputStream in, File dst) throws IOException {
-        //log.debug("copy src" + src.getPath());
-        log.debug("copy dst" + dst.getPath());
-        //InputStream in = new FileInputStream(src);
-            OutputStream out = new FileOutputStream(dst);
-            // Transfer bytes from in to out
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
-            in.close();
-            out.close();
-        }
 
     /**
      * Calculate relevance value.
@@ -288,9 +259,9 @@ public class EnMeUtils {
      * Clean the version to possible extra string like, release, rc, m1, m2.
      * @param version
      * @return
-     * @throws EnMeExpcetion 
+     * @throws EnMeException
      */
-    public static  int[] cleanVersion(String version) throws EnMeExpcetion {
+    public static  int[] cleanVersion(String version) throws EnMeException {
         if (version.endsWith("-SNAPSHOT")){
             version = version.replace("-SNAPSHOT", "");
         }
@@ -303,7 +274,7 @@ public class EnMeUtils {
         if (arrayAsIng.length == 3) {
             return arrayAsIng;
         } else {
-            throw new EnMeExpcetion("version not valid  or not compatible");
+            throw new EnMeException("version not valid  or not compatible");
         }
     }
 

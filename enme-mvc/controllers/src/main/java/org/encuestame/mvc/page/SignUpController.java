@@ -14,12 +14,12 @@ package org.encuestame.mvc.page;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.service.SecurityOperations;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.mvc.validator.ValidateOperations;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;

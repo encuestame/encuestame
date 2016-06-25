@@ -57,10 +57,6 @@
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>model</artifactId>
-        </dependency>
-        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
-            <groupId>org.encuestame</groupId>
             <artifactId>dao</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
@@ -220,10 +216,6 @@
 
         <!-- Spring Libs -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-core</artifactId>
         </dependency>
@@ -283,10 +275,6 @@
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.lucene</groupId>

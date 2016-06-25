@@ -12,22 +12,22 @@
  */
 package org.encuestame.business.service;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.security.web.SecurityUtils;
 import org.encuestame.core.security.web.details.EnMeUserAccountDetails;
-import org.encuestame.core.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
+import org.encuestame.core.util.WidgetUtil;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Abstract Security Context.
@@ -167,7 +167,7 @@ public abstract class AbstractSecurityContext {
                     }
                 }
             }
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
             // TODO Auto-generated catch block
             log.error(e);
         }

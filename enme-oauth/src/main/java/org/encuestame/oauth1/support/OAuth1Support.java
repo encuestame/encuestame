@@ -12,16 +12,11 @@
  */
 package org.encuestame.oauth1.support;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.oauth.AbstractOAuthSupport;
-import org.encuestame.persistence.exception.EnMeBadCredentialsException;
-import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
+import org.encuestame.util.exception.EnMeBadCredentialsException;
+import org.encuestame.util.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -35,6 +30,11 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.util.UriTemplate;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Oauth 1 support.

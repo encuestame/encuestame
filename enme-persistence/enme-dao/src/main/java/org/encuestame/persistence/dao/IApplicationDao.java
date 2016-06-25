@@ -15,7 +15,7 @@ package org.encuestame.persistence.dao;
 import org.encuestame.persistence.domain.application.Application;
 import org.encuestame.persistence.domain.application.ApplicationConnection;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 
 /**
  * Description Class.

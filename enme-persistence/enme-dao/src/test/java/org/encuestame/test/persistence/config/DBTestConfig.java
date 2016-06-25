@@ -19,11 +19,15 @@
 package org.encuestame.test.persistence.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.encuestame.config.annotations.EnMeDevProperties;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.*;
-import org.springframework.core.env.Environment;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -35,14 +39,11 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 
-
 /**
  * Created by jpicado on 19/09/15.
  */
 @Configuration
-@PropertySources({
-  @PropertySource("classpath:properties-test/encuestame-test-config.properties")
-})
+@Import(EnMeDevProperties.class)
 @ComponentScan({ "org.encuestame.persistence" })
 /**
  * Database Test Config.
@@ -50,8 +51,6 @@ import java.util.Properties;
  */
 public class DBTestConfig {
 
-    @Autowired
-    private Environment env;
 
     /**
      *
@@ -60,10 +59,10 @@ public class DBTestConfig {
     @Bean(name = "dataSource")
     public DataSource restDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getRequiredProperty("datasource.classname"));
-        dataSource.setUrl(env.getRequiredProperty("datasource.urldb"));
-        dataSource.setUsername(env.getRequiredProperty("datasource.userbd"));
-        dataSource.setPassword(env.getRequiredProperty("datasource.pass"));
+        dataSource.setDriverClassName(EnMePlaceHolderConfigurer.getProperty("datasource.classname"));
+        dataSource.setUrl(EnMePlaceHolderConfigurer.getProperty("datasource.urldb"));
+        dataSource.setUsername(EnMePlaceHolderConfigurer.getProperty("datasource.userbd"));
+        dataSource.setPassword(EnMePlaceHolderConfigurer.getProperty("datasource.pass"));
         return dataSource;
     }
 
@@ -84,10 +83,10 @@ public class DBTestConfig {
     @Bean(name = "jdbcDataSource")
     public BasicDataSource jdbcDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(env.getRequiredProperty("datasource.classname"));
-        dataSource.setUrl(env.getRequiredProperty("datasource.urldb"));
-        dataSource.setUsername(env.getRequiredProperty("datasource.userbd"));
-        dataSource.setPassword(env.getRequiredProperty("datasource.pass"));
+        dataSource.setDriverClassName(EnMePlaceHolderConfigurer.getProperty("datasource.classname"));
+        dataSource.setUrl(EnMePlaceHolderConfigurer.getProperty("datasource.urldb"));
+        dataSource.setUsername(EnMePlaceHolderConfigurer.getProperty("datasource.userbd"));
+        dataSource.setPassword(EnMePlaceHolderConfigurer.getProperty("datasource.pass"));
         return dataSource;
     }
 
@@ -127,15 +126,6 @@ public class DBTestConfig {
         return hibernateTemplate;
     }
 
-//    @Bean
-//    public HibernatePBEStringEncryptor hibernateStringEncryptor(){
-//        final HibernatePBEStringEncryptor encryptor = new HibernatePBEStringEncryptor();
-//        encryptor.setRegisteredName("strongHibernateStringEncryptor");
-//        encryptor.setAlgorithm(env.getRequiredProperty("spring.sec.encrypt.algorithm.key"));
-//        encryptor.setPassword(env.getRequiredProperty("spring.sec.encrypt.password.key"));
-//        return encryptor;
-//    }
-
     /**
      *
      * @return
@@ -149,7 +139,7 @@ public class DBTestConfig {
     Properties hibernateProperties() {
         return new Properties() {
             {
-                setProperty("hibernate.hbm2ddl.auto", env.getRequiredProperty("datasource.hbm2ddl.auto"));
+                setProperty("hibernate.hbm2ddl.auto", EnMePlaceHolderConfigurer.getProperty("datasource.hbm2ddl.auto"));
                 setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
                 setProperty("hibernate.globally_quoted_identifiers", "true");
                 setProperty("hibernate.cache.provider_class", "org.hibernate.cache.NoCacheProvider");

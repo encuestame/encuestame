@@ -12,22 +12,19 @@
  */
 package org.encuestame.test.business.social;
 
-import java.io.IOException;
-import java.util.List;
-
 import junit.framework.TestCase;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.social.profile.LinkedInProfile;
 import org.encuestame.social.api.templates.FacebookAPITemplate;
-import org.encuestame.social.api.templates.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.templates.IdenticaAPITemplate;
 import org.encuestame.social.api.templates.LinkedInAPITemplate;
-import org.encuestame.core.social.profile.LinkedInProfile;
-import org.encuestame.utils.categories.test.InternetTest; 
+import org.encuestame.utils.categories.test.InternetTest;
 import org.junit.Ignore;
 import org.junit.experimental.categories.Category;
+
+import java.util.List;
 
 /**
  * Social API test case.
@@ -93,54 +90,5 @@ public class SocialAPITestCase extends TestCase {
             //System.out.println("&&&&&&&&&&&&&&&&&&&&& "+linkedInProfile.getHeadline());
             //System.out.println("&&&&&&&&&&&&&&&&&&&&& "+linkedInProfile.getPublicProfileUrl());
         }
-    }
-
-    public void buzzAPITest() throws IOException {
-        // Assert.notNull(this.linkedInService);
-        // Assert.isTrue(true);
-        // /System.out.println(this.linkedInService.getAuthorizeLinkedInUrl());
-        // final String consumerKey =
-        // "5hkdPhtfkRwR0uRhIftai57FA0xbpH7m2fsBFfELvVLf6KMqw1X_FdzsgPkFORuS";
-        // final String consumerSecret =
-        // "3Tuj7nXvACdCwffnbh-NkUXQ_Re0t1FPakogEPApw_3DBsfowdQuoggCCTd38a9o";
-        // final String requestTokenUrl =
-        // "https://api.linkedin.com/uas/oauth/requestToken";
-        // final String authorizeUrl =
-        // "https://www.linkedin.com/uas/oauth/authorize?oauth_token={requestToken}";
-        // final String accessTokenUrl =
-        // "https://api.linkedin.com/uas/oauth/accessToken";
-        final String realToken = "1/8hNJx9pdEkj6ziWJhkdPYCJFjoXZgQACKjDcse93x8Q";
-        final String refreshToken = "1/2GI75S23HtwoB1kiPcaRFEqePVh1kYoniubI6obcj_8";
-        GoogleBuzzAPITemplate apiTemplate = new GoogleBuzzAPITemplate(realToken,
-                "AIzaSyCvEMnlGa4q4Suayx1bMYXg-Wkf1jYmmaQ");
-        // try{
-        // System.out.println(apiTemplate.getActivities());
-        // apiTemplate.likeActivity("tag:google.com,2010:buzz-feed:public:posted:110583664879406693886");
-        // } catch (HttpClientErrorException e) {
-        // // System.out.println("errorr 401 "+e);
-        // OAuth2Operations tm = new OAuth2Template(clientId, clientSecret,
-        // "https://accounts.google.com/o/oauth2/auth?client_id={client_id}&redirect_uri={redirect_uri}&scope={scope}&response_type=code",
-        // "https://accounts.google.com/o/oauth2/token");
-        //
-        // System.out.println();
-        // apiTemplate = new BuzzAPITemplate(
-        // tm.refreshToken(refreshToken).getAccessToken(),
-        // "AIzaSyCvEMnlGa4q4Suayx1bMYXg-Wkf1jYmmaQ");
-        // apiTemplate.updateStatus("hola2222222222222");
-        // //apiTemplate.likeActivity("tag:google.com,2010:buzz-feed:public:posted:110583664879406693886");
-        // }
-
-        // OAuth1Template tp = new OAuth1Template(consumerKey, consumerSecret,
-        // requestTokenUrl,
-        // authorizeUrl,
-        // accessTokenUrl);
-        // OAuthToken requestToken =
-        // tp.fetchNewRequestToken("http://localhost:8080/encuestame/user/linkedIn");
-        // System.out.println("********************************  OAuthToken * "+requestToken);
-        // String url = tp.buildAuthorizeUrl(requestToken.getValue(),
-        // "http://localhost:8080/encuestame/user/linkedIn");
-        // System.out.println("********URL "+url);
-        // request.setAttribute(OAUTH_TOKEN_ATTRIBUTE, requestToken,
-        // WebRequest.SCOPE_SESSION);
     }
 }

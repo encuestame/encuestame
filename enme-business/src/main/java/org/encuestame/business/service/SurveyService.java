@@ -12,30 +12,21 @@
  */
 package org.encuestame.business.service;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.ISurveyService;
-import org.encuestame.core.util.ConvertDomainBean; 
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyResult;
-import org.encuestame.persistence.domain.survey.SurveySection; 
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeSurveyNotFoundException;
+import org.encuestame.persistence.domain.survey.SurveySection;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeSurveyNotFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.QuestionPattern;
@@ -48,6 +39,14 @@ import org.encuestame.utils.web.UnitSurveySection;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Survey Service.
@@ -72,11 +71,11 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
     /**
      * Create Question.
      * @param questionBean {@link QuestionBean}.
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      * @deprecated use the parent method.
      */
     @Deprecated
-    public Question createQuestion(final QuestionBean questionBean) throws EnMeExpcetion{
+    public Question createQuestion(final QuestionBean questionBean) throws EnMeException{
             final Question question = new Question();
             try{
                 question.setQuestion(questionBean.getQuestionName());
@@ -97,7 +96,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             }
             catch (Exception e) {
                 log.error("Error Creating Question "+e.getMessage());
-                throw new EnMeExpcetion(e);
+                throw new EnMeException(e);
             }
             return question;
     }
@@ -123,12 +122,12 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * Update Answer Name by Answer Id.
      * @param answerId answer Id
      * @param nameUpdated new name for answer
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    public void updateAnswerByAnswerId(final Long answerId, String nameUpdated) throws EnMeExpcetion{
+    public void updateAnswerByAnswerId(final Long answerId, String nameUpdated) throws EnMeException{
             final QuestionAnswer answer = getQuestionDao().retrieveAnswerById(answerId);
             if(answer==null){
-                throw new EnMeExpcetion("answer not found");
+                throw new EnMeException("answer not found");
             }
             answer.setAnswer(nameUpdated);
             getQuestionDao().saveOrUpdate(answer);
@@ -137,9 +136,9 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
     /**
      * Load all questions.
      * @return List of {@link QuestionBean}
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    public List<QuestionBean> loadAllQuestions() throws EnMeExpcetion {
+    public List<QuestionBean> loadAllQuestions() throws EnMeException {
         final List<QuestionBean> listQuestionBean = new LinkedList<QuestionBean>();
         try {
             final  List<Question> questionsList = getQuestionDao()
@@ -154,9 +153,9 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
                 }
             }
         } catch (HibernateException e) {
-            throw new EnMeExpcetion(e);
+            throw new EnMeException(e);
         } catch (Exception e) {
-            throw new EnMeExpcetion(e);
+            throw new EnMeException(e);
         }
         return  listQuestionBean;
     }
@@ -316,7 +315,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 	public Question addQuestionToSurveySection(final String questionName,
 			final UserAccount user, final SurveySection section,
 			final QuestionPattern questionPattern, final String[] answers)
-			throws EnMeExpcetion, NoSuchAlgorithmException,
+			throws EnMeException, NoSuchAlgorithmException,
 			UnsupportedEncodingException { 
 			Question question = new Question();
 			if ((questionName == null) || (questionName.isEmpty())) {
@@ -498,7 +497,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public List<SurveyBean> filterSurveyItemsByType(final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
-            throws EnMeNoResultsFoundException, EnMeExpcetion {
+            throws EnMeNoResultsFoundException, EnMeException {
         final List<SurveyBean> list = new ArrayList<SurveyBean>();
         if (TypeSearch.KEYWORD.equals(typeSearch)) {
             list.addAll(this.searchSurveysbyKeywordName(getUserPrincipalUsername(), keyword, max, start));
@@ -542,11 +541,11 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public List<SurveyBean> searchSurveysByKeyWord(final String username,
             final String keyword, final Integer maxResults, final Integer start)
-            throws EnMeExpcetion {
+            throws EnMeException {
         log.info("search keyword survey  " + keyword);
         List<Survey> surveys = new ArrayList<Survey>();
         if (keyword == null) {
-            throw new EnMeExpcetion("keyword is missing");
+            throw new EnMeException("keyword is missing");
         } else {
             // TODO: migrate search to Hibernate Search.
             surveys = getSurveyDaoImp().retrieveSurveybyName(keyword,
@@ -562,7 +561,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public List<SurveyBean> searchSurveysbyKeywordName(final String keyWord,
             final String username, final Integer maxResults, final Integer start)
-            throws EnMeExpcetion {
+            throws EnMeException {
         final List<Survey> surveyList = getSurveyDaoImp().retrieveSurveybyName(
                 keyWord, getUserAccount(getUserPrincipalUsername()).getUid(), maxResults, start);
         return this.addSurveyDomainItemToSurveyBeanList(surveyList);
@@ -573,7 +572,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @see org.encuestame.core.service.imp.ISurveyService#searchSurveysToday(java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     public List<SurveyBean> searchSurveysToday(final String username,
-            final Integer maxResults, final Integer start) throws EnMeExpcetion {
+            final Integer maxResults, final Integer start) throws EnMeException {
         final List<Survey> surveyList = getSurveyDaoImp().retrieveSurveyToday(
                 getAccount(username), maxResults, start);
         return this.addSurveyDomainItemToSurveyBeanList(surveyList);
@@ -584,7 +583,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @see org.encuestame.core.service.imp.ISurveyService#searchSurveysLastWeek(java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     public List<SurveyBean> searchSurveysLastWeek(final String username,
-            final Integer maxResults, final Integer start) throws EnMeExpcetion {
+            final Integer maxResults, final Integer start) throws EnMeException {
         final List<Survey> surveyList = getSurveyDaoImp()
                 .retrieveSurveyLastWeek(getAccount(username), maxResults, start);
         return this.addSurveyDomainItemToSurveyBeanList(surveyList);
@@ -595,7 +594,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @see org.encuestame.core.service.imp.ISurveyService#searchSurveysFavourites(java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     public List<SurveyBean> searchSurveysFavourites(final String username,
-            final Integer maxResults, final Integer start) throws EnMeExpcetion {
+            final Integer maxResults, final Integer start) throws EnMeException {
         final List<Survey> surveyList = getSurveyDaoImp()
                 .retrieveFavoritesSurvey(getUserAccount(username), maxResults,
                         start);

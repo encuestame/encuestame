@@ -13,7 +13,7 @@
 package org.encuestame.core.exception;
 
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 
 /**
  * Indicates no connection exists between a {@link UserAccount} and a service provider with the submitted access token.
@@ -21,7 +21,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
  * @since April 04, 2011
  */
 @SuppressWarnings("serial")
-public final class EnMeFailSendSocialTweetException extends EnMeExpcetion {
+public final class EnMeFailSendSocialTweetException extends EnMeException {
 
     /**
      * Constructor.

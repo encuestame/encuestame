@@ -12,12 +12,6 @@
  */
 package org.encuestame.core.service;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -25,9 +19,9 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeSurveyNotFoundException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeSurveyNotFoundException;
 import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
@@ -35,9 +29,13 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UnitSurveySection;
-
 import twitter4j.TwitterException;
 import twitter4j.auth.RequestToken;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * Interface for Survey Service.
@@ -51,16 +49,16 @@ public interface ISurveyService extends IMasterSurveyService {
     /**
      * Load all questions.
      * @return List of {@link QuestionBean}
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    List<QuestionBean> loadAllQuestions() throws EnMeExpcetion;
+    List<QuestionBean> loadAllQuestions() throws EnMeException;
 
     /**
      * Create Question.
      * @param questionBean {@link QuestionBean}.
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-     Question createQuestion(final QuestionBean questionBean) throws EnMeExpcetion;
+     Question createQuestion(final QuestionBean questionBean) throws EnMeException;
 
     /**
      * Retrieve Answer By Question Id.
@@ -73,9 +71,9 @@ public interface ISurveyService extends IMasterSurveyService {
      * Update Answer Name by Answer Id.
      * @param answerId answer Id
      * @param nameUpdated new name for answer
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    void updateAnswerByAnswerId(final Long answerId, String nameUpdated) throws EnMeExpcetion;
+    void updateAnswerByAnswerId(final Long answerId, String nameUpdated) throws EnMeException;
 
     /**
      * Get Twitter Token.
@@ -88,7 +86,7 @@ public interface ISurveyService extends IMasterSurveyService {
 
 
     /**
-     * @param rANDOMQUESTIONKEY the rANDOM_QUESTION_KEY to set
+     * @param ANDOMQUESTIONKEY the rANDOM_QUESTION_KEY to set
      */
     void setRandomQuestionKey(Integer rInteger);
 
@@ -136,11 +134,11 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param searchResult
      * @return
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SurveyBean> filterSurveyItemsByType(final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
-            throws EnMeNoResultsFoundException, EnMeExpcetion;
+            throws EnMeNoResultsFoundException, EnMeException;
 
     /**
      *
@@ -149,11 +147,11 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param maxResults
      * @param start
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SurveyBean> searchSurveysByKeyWord(final String username,
             final String keyword, final Integer maxResults, final Integer start)
-            throws EnMeExpcetion;
+            throws EnMeException;
 
     /**
      *
@@ -161,10 +159,10 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param maxResults
      * @param start
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SurveyBean> searchSurveysToday(final String username,
-            final Integer maxResults, final Integer start) throws EnMeExpcetion;
+            final Integer maxResults, final Integer start) throws EnMeException;
 
     /**
      *
@@ -172,10 +170,10 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param maxResults
      * @param start
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SurveyBean> searchSurveysLastWeek(final String username,
-            final Integer maxResults, final Integer start) throws EnMeExpcetion;
+            final Integer maxResults, final Integer start) throws EnMeException;
 
     /**
      *
@@ -183,10 +181,10 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param maxResults
      * @param start
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SurveyBean> searchSurveysFavourites(final String username,
-            final Integer maxResults, final Integer start) throws EnMeExpcetion;
+            final Integer maxResults, final Integer start) throws EnMeException;
 
     /**
      *
@@ -205,9 +203,9 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param surveyBean
      * @param request
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
-    Survey createSurvey(final SurveyBean surveyBean, final HttpServletRequest request) throws EnMeExpcetion;
+    Survey createSurvey(final SurveyBean surveyBean, final HttpServletRequest request) throws EnMeException;
 
     /**
      * Search surveys by keyword name.
@@ -216,10 +214,10 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param maxResults
      * @param start
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SurveyBean> searchSurveysbyKeywordName(final String keyWord, final String username,
-            final Integer maxResults, final Integer start) throws EnMeExpcetion;
+            final Integer maxResults, final Integer start) throws EnMeException;
 
     /**
      * Search surveys by Account. 
@@ -270,14 +268,14 @@ public interface ISurveyService extends IMasterSurveyService {
 	 * @param section
 	 * @param questionPattern
 	 * @param answers
-	 * @throws EnMeExpcetion
+	 * @throws EnMeException
 	 * @throws NoSuchAlgorithmException
 	 * @throws UnsupportedEncodingException
 	 */
 	Question addQuestionToSurveySection(final String questionName,
 			final UserAccount user, final SurveySection section,
 			final QuestionPattern questionPattern, final String[] answers)
-			throws EnMeExpcetion, NoSuchAlgorithmException,
+			throws EnMeException, NoSuchAlgorithmException,
 			UnsupportedEncodingException;
 
 	/**

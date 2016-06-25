@@ -12,24 +12,24 @@
  */
 package org.encuestame.business.service;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.DirectorySetupOperations;
+import org.encuestame.config.startup.PathUtil;
+import org.encuestame.core.service.IPictureService;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
+import org.encuestame.util.exception.EnMeGenericException;
+import org.encuestame.util.exception.EnmeFailOperation;
+import org.encuestame.utils.PictureUtils;
+import org.encuestame.utils.enums.PictureType;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.encuestame.utils.PathUtil;
-import org.encuestame.core.service.IPictureService;
-import org.encuestame.core.startup.DirectorySetupOperations;
-import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
-import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.utils.PictureUtils;
-import org.encuestame.utils.enums.PictureType;
-import org.encuestame.utils.exception.EnMeGenericException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Picture / Image Service.

@@ -12,15 +12,12 @@
  */
 package org.encuestame.core.util;
 
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.rometools.rome.feed.atom.Entry;
+import com.rometools.rome.feed.atom.Link;
+import com.rometools.rome.feed.atom.Person;
+import com.rometools.rome.feed.rss.*;
 import org.apache.velocity.app.VelocityEngine;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -28,14 +25,9 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-import com.rometools.rome.feed.atom.Entry;
-import com.rometools.rome.feed.atom.Link;
-import com.rometools.rome.feed.atom.Person;
-import com.rometools.rome.feed.rss.Category;
-import com.rometools.rome.feed.rss.Content;
-import com.rometools.rome.feed.rss.Description;
-import com.rometools.rome.feed.rss.Guid;
-import com.rometools.rome.feed.rss.Item;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
  
 /**

@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>config</artifactId>
 	<packaging>jar</packaging>
-	<name> Encuestame Configuration </name>
+	<name> Encuestame Configuration</name>
 	<build>
 		<filters>
 			<filter>../env/${env}.properties</filter>
@@ -52,6 +52,22 @@
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>		
 	</dependencies>
 </project>
 

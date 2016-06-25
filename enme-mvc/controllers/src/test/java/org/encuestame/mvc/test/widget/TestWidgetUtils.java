@@ -14,7 +14,7 @@ package org.encuestame.mvc.test.widget;
 
 import org.encuestame.core.util.WidgetUtil;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -40,10 +40,10 @@ public class TestWidgetUtils extends AbstractMvcUnitBeans {
 
     /**
      * Test get black list ip.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testGetBlackListIp() throws EnMeExpcetion{
+    public void testGetBlackListIp() throws EnMeException{
         final List<String> blackList = WidgetUtil.getBlackListIP("properties-test/test-blacklist.inc");
         //System.out.println("black list size --->"+blackList.size());
     }

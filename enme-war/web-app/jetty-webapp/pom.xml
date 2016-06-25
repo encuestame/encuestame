@@ -36,7 +36,9 @@
                     <webAppConfig>
                         <contextPath>/encuestame</contextPath>
                         <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
-                            <resourcesAsCSV>src/main/webapp,../../enme-views/src/main/webapp,
+                            <resourcesAsCSV>
+                                src/main/webapp,
+                                ../../enme-views/src/main/webapp,
                                 ../../../enme-js/src/main/resources</resourcesAsCSV>
                         </baseResource>
                         <sessionHandler implementation="org.eclipse.jetty.server.session.SessionHandler">

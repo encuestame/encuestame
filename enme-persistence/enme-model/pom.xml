@@ -46,6 +46,10 @@
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
+            <artifactId>config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
             <artifactId>utils</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>

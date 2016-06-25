@@ -12,11 +12,6 @@
  */
 package org.encuestame.test.business.service;
 
-import java.io.IOException;
-import java.util.*;
-
-
-
 import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.SearchServiceOperations;
 import org.encuestame.persistence.domain.HashTag;
@@ -25,8 +20,8 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.Language;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -36,6 +31,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Lucene Search service test case.

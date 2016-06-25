@@ -12,16 +12,14 @@
  */
 package org.encuestame.core.service;
 
-import java.util.List;
+ import org.encuestame.persistence.domain.question.Question;
+ import org.encuestame.persistence.domain.question.QuestionAnswer;
+ import org.encuestame.util.exception.EnMeNoResultsFoundException;
+ import org.encuestame.utils.json.QuestionBean;
+ import org.encuestame.utils.web.HashTagBean;
+ import org.encuestame.utils.web.QuestionAnswerBean;
 
-import org.encuestame.core.service.ServiceOperations;
-import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.QuestionAnswerBean;
+ import java.util.List;
 
  /**
  * Master Survey Service Interface.
@@ -50,7 +48,6 @@ public interface IMasterSurveyService extends ServiceOperations{
     /**
      * Save Question Answer.
      * @param answerBean answer
-     * @throws EnMeExpcetion EnMeExpcetion
      */
     QuestionAnswer createQuestionAnswer(
             final QuestionAnswerBean answerBean,

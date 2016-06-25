@@ -5,19 +5,18 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.VelocityException;
 import org.encuestame.business.cron.RemoveUnconfirmedAccountJob;
+import org.encuestame.business.service.MessageSourceFactoryBean;
 import org.encuestame.business.setup.ApplicationStartup;
 import org.encuestame.business.setup.install.DatabaseInstall;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.cron.CalculateHashTagSize;
 import org.encuestame.core.cron.CalculateRelevance;
 import org.encuestame.core.cron.IndexRebuilder;
 import org.encuestame.core.cron.ReIndexJob;
 import org.encuestame.core.service.IMessageSource;
-import org.encuestame.business.service.MessageSourceFactoryBean;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.dao.jdbc.InstallerDao;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
-import org.hibernate.boot.model.relational.Database;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
@@ -40,11 +39,8 @@ import java.util.Properties;
 @PropertySources({
   @PropertySource("classpath:properties-test/encuestame-test-config.properties")
 })
-@ComponentScan({ "org.encuestame.business", "org.encuestame.config", "org.encuestame.core", "org.encuestame.security" })
+@ComponentScan({ "org.encuestame.business", "org.encuestame.test", "org.encuestame.core", "org.encuestame.security" })
 public class BusinessConfig {
-  
-  @Autowired
-  private Environment env;
 
   /**
    *

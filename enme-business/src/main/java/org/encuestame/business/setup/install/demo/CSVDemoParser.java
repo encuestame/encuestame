@@ -1,29 +1,16 @@
 package org.encuestame.business.setup.install.demo;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import au.com.bytecode.opencsv.CSVReader;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.AbstractSurveyService;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.cron.CalculateHashTagSize;
 import org.encuestame.core.cron.CalculateRelevance;
 import org.encuestame.core.security.web.SecurityUtils;
-import org.encuestame.core.service.ICommentService;
-import org.encuestame.core.service.IFrontEndService;
-import org.encuestame.core.service.IPollService;
-import org.encuestame.core.service.ITweetPollService;
-import org.encuestame.core.service.SecurityOperations;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.core.service.*;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -37,8 +24,8 @@ import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.enums.HitCategory;
@@ -60,7 +47,14 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import au.com.bytecode.opencsv.CSVReader;
+import javax.annotation.Resource;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
@@ -440,8 +434,8 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
                     }
                 }
 
-            } catch (EnMeExpcetion e) {
-                //e.printStackTrace();
+            } catch (EnMeException e) {
+                e.printStackTrace();
                 log.error(e);
             }
         }
@@ -513,7 +507,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
                         }
                     }
                     log.trace(" Polls ID ..."+poll.getCreateDate());
-            } catch (EnMeExpcetion e) {
+            } catch (EnMeException e) {
                 //e.printStackTrace();
                 log.error(e);
             }

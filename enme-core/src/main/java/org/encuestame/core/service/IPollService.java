@@ -12,30 +12,23 @@
  */
 package org.encuestame.core.service;
 
-import java.util.Date;
-import java.util.List;
-
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMePollNotFoundException;
-import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.SearchBean;
-import org.encuestame.utils.web.CreatePollBean;
-import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.PollBean;
-import org.encuestame.utils.web.PollBeanResult;
-import org.encuestame.utils.web.PollDetailBean;
-import org.encuestame.utils.web.UnitLists;
+import org.encuestame.utils.web.*;
 import org.encuestame.utils.web.search.PollSearchBean;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * Poll Service Interface.
@@ -48,9 +41,9 @@ public interface IPollService extends IMasterSurveyService{
     * Create poll.
     * @param createPollBean
     * @return
-    * @throws EnMeExpcetion
+    * @throws EnMeException
     */
-     Poll createPoll(final CreatePollBean createPollBean) throws EnMeExpcetion;
+     Poll createPoll(final CreatePollBean createPollBean) throws EnMeException;
 
    /**
     * List Poll by User Id.
@@ -66,10 +59,10 @@ public interface IPollService extends IMasterSurveyService{
      * @param pollId
      * @param question
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     PollBean updateQuestionPoll(final Long pollId, final Question question)
-    throws EnMeExpcetion;
+    throws EnMeException;
 
     /**
     * Public Poll by List.
@@ -126,10 +119,10 @@ public interface IPollService extends IMasterSurveyService{
     * @param maxResults
     * @param start
     * @return
-    * @throws EnMeExpcetion
+    * @throws EnMeException
     */
     List<PollBean> searchPollByKeyword(final String keywordQuestion, final Integer maxResults,
-        final Integer start) throws EnMeExpcetion;
+        final Integer start) throws EnMeException;
 
     /**
      * Search Polls By Folder Id.
@@ -172,7 +165,7 @@ public interface IPollService extends IMasterSurveyService{
      * @param pollId
      * @param account
      * @return
-     * @throws EnMeTweetPollNotFoundException
+     * @throws EnMeNoResultsFoundException
      */
     Poll getPollById(final Long pollId, final UserAccount account) throws EnMeNoResultsFoundException;
 
@@ -215,13 +208,13 @@ public interface IPollService extends IMasterSurveyService{
      * @param searchResult
      * @return
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      * @deprecated in favor of IPollService.filterSearchPollsByType
      */
     List<PollBean> filterPollByItemsByType(
             final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
-            throws EnMeNoResultsFoundException, EnMeExpcetion;
+            throws EnMeNoResultsFoundException, EnMeException;
 
     /**
      * Change the poll's status.
@@ -395,11 +388,11 @@ public interface IPollService extends IMasterSurveyService{
 
      * @return
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SearchBean> filterSearchPollsByType(
             final PollSearchBean pollSearch)
-            throws EnMeNoResultsFoundException, EnMeExpcetion;
+            throws EnMeNoResultsFoundException, EnMeException;
 
     /**
      *
@@ -419,11 +412,11 @@ public interface IPollService extends IMasterSurveyService{
 
      * @param pollSearchBean
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SearchBean> searchPollsToday(
                 final String username,
-                final PollSearchBean pollSearchBean) throws EnMeExpcetion;
+                final PollSearchBean pollSearchBean) throws EnMeException;
 
     /**
      *
@@ -431,31 +424,31 @@ public interface IPollService extends IMasterSurveyService{
 
      * @param pollSearchBean
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SearchBean> searchPollsLastWeek(final String username,
-            final PollSearchBean pollSearchBean) throws EnMeExpcetion;
+            final PollSearchBean pollSearchBean) throws EnMeException;
 
     /**
      *
      * @param username
      * @param pollSearchBean
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SearchBean> searchPollFavourites(final String username,
-            final PollSearchBean pollSearchBean) throws EnMeExpcetion;
+            final PollSearchBean pollSearchBean) throws EnMeException;
 
     /**
      *
      * @param username
      * @param pollSearchBean
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<SearchBean> searchPollScheduled(
             final String username,
-            final PollSearchBean pollSearchBean) throws EnMeExpcetion;
+            final PollSearchBean pollSearchBean) throws EnMeException;
 
     /**
      * Restrict votes by date.

@@ -12,15 +12,13 @@
  */
 package org.encuestame.mvc.controller.social;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.util.SocialUtils;
-import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
+import org.encuestame.util.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.social.SocialProvider;
@@ -31,6 +29,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Controller to Get OAuth credentias with Facebook Account.
@@ -46,21 +47,15 @@ public class FacebookConnectSocialAccount extends AbstractAccountConnect{
     private Log log = LogFactory.getLog(this.getClass());
 
     /**
-     *
-     * @param appId
-     * @param accessTokenUrl
-     * @param authorizeUrl
-     * @param clientSecret
-     * @param clientId
+     * Constructor.
      */
-    @Inject
-    public FacebookConnectSocialAccount(
-            @Value("${facebook.api.id}") String appId,
-            @Value("${facebook.oauth.accesToken}") String accessTokenUrl,
-            @Value("${facebook.oauth.authorize}") String authorizeUrl,
-            @Value("${facebook.api.secret}") String clientSecret,
-            @Value("${facebook.api.key}") String clientId) {
-       super(clientId, clientSecret,Long.valueOf(appId), accessTokenUrl, authorizeUrl, SocialProvider.FACEBOOK);
+    public FacebookConnectSocialAccount() {
+       super(EnMePlaceHolderConfigurer.getProperty("facebook.api.key"),
+               EnMePlaceHolderConfigurer.getProperty("facebook.api.secret"),
+               Long.valueOf(EnMePlaceHolderConfigurer.getLongProperty("facebook.api.id")),
+               EnMePlaceHolderConfigurer.getProperty("facebook.oauth.accesToken"),
+               EnMePlaceHolderConfigurer.getProperty("facebook.oauth.authorize"),
+               SocialProvider.FACEBOOK);
     }
 
 

@@ -1,7 +1,7 @@
 
 package org.encuestame.business.setup;
 
-import org.encuestame.persistence.exception.EnMeStartupException;
+import org.encuestame.util.exception.EnMeStartupException;
 
 /**
  * Implementation for start up process.

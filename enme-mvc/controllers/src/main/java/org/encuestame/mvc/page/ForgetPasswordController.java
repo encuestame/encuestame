@@ -20,8 +20,8 @@ import org.encuestame.core.util.PasswordGenerator;
 import org.encuestame.mvc.controller.security.AbstractSecurityController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.security.ForgotPasswordBean;
 import org.springframework.stereotype.Controller;
@@ -123,7 +123,7 @@ public class ForgetPasswordController extends AbstractSecurityController {
                                             ConvertDomainBean
                                                     .convertBasicSecondaryUserToUserBean(userValidate),
                                             password);
-                        } catch (EnMeExpcetion e) {
+                        } catch (EnMeException e) {
                             log.error("Error Renewd password " + e.getMessage());
                             return "forgot";
                         }

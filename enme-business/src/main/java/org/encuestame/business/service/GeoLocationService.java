@@ -12,36 +12,36 @@
  */
 package org.encuestame.business.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.IGeoLocationSupport;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
-import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.GeoPointFolderType;
+import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeSearchException;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
-import org.encuestame.utils.web.UnitLocationTypeBean; 
-import org.encuestame.utils.web.geo.ItemGeoLocationBean; 
+import org.encuestame.utils.web.UnitLocationTypeBean;
+import org.encuestame.utils.web.geo.ItemGeoLocationBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Location Service.
@@ -62,10 +62,10 @@ public class GeoLocationService extends AbstractBaseService implements IGeoLocat
      * Create Cat LocationType.
      * @param locatTypeBean {@link UnitLocationTypeBean}
      * @return locatTypeBean type bean
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
     public UnitLocationTypeBean createGeoPointType(
-            final UnitLocationTypeBean locatTypeBean) throws EnMeExpcetion {
+            final UnitLocationTypeBean locatTypeBean) throws EnMeException {
         if (locatTypeBean != null) {
             try {
                 final GeoPointType locationTypeDomain = new GeoPointType();
@@ -78,11 +78,11 @@ public class GeoLocationService extends AbstractBaseService implements IGeoLocat
                 locatTypeBean.setIdLocType(locationTypeDomain
                         .getLocationTypeId());
             } catch (Exception e) {
-                throw new EnMeExpcetion(e);
+                throw new EnMeException(e);
             }
             return locatTypeBean;
         } else {
-            throw new EnMeExpcetion("Cat Location Type is null");
+            throw new EnMeException("Cat Location Type is null");
         }
     }
 
@@ -91,9 +91,9 @@ public class GeoLocationService extends AbstractBaseService implements IGeoLocat
      * @param locationBean locationBean
      * @param username username
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion EnMeExpcetion
+     * @throws EnMeException EnMeException
      */
-    public void updateGeoPoint(final UnitLocationBean locationBean) throws EnMeNoResultsFoundException, EnMeExpcetion{
+    public void updateGeoPoint(final UnitLocationBean locationBean) throws EnMeNoResultsFoundException, EnMeException{
        final GeoPoint geoPoint =  getLocation(locationBean.getId(), getUserPrincipalUsername());
         if (geoPoint!=null){
             geoPoint.setLocationStatus(Status.valueOf(locationBean.getStatus()));
@@ -102,7 +102,7 @@ public class GeoLocationService extends AbstractBaseService implements IGeoLocat
             geoPoint.setLocationLongitude(locationBean.getLng());
             getGeoPointDao().saveOrUpdate(geoPoint);
         }else{
-            throw new EnMeExpcetion("geoPoint not found");
+            throw new EnMeException("geoPoint not found");
         }
    }
 
@@ -110,10 +110,10 @@ public class GeoLocationService extends AbstractBaseService implements IGeoLocat
     /**
      * Update Cat Location Type.
      * @param locationTypeBean locationTypeBean
-     * @throws EnMeExpcetion EnMeExpcetion
+     * @throws EnMeException EnMeException
      * @throws EnMeNoResultsFoundException
      */
-    public void updateGeoPointType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion, EnMeNoResultsFoundException{
+    public void updateGeoPointType(final UnitLocationTypeBean locationTypeBean) throws EnMeException, EnMeNoResultsFoundException{
         final GeoPointType geoPointType = getGeoPointTypeDao().getLocationById(locationTypeBean.getIdLocType());
         if (geoPointType!=null){
             geoPointType.setLocationTypeDescription(locationTypeBean.getLocTypeDesc());
@@ -128,9 +128,9 @@ public class GeoLocationService extends AbstractBaseService implements IGeoLocat
     /**
      * Create Cat Location.
      * @param location {@link LocationBean}
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    public UnitLocationBean createGeoPoint(final UnitLocationBean location) throws EnMeExpcetion{
+    public UnitLocationBean createGeoPoint(final UnitLocationBean location) throws EnMeException{
         if (location != null){
             try{
                 final GeoPoint geoPointDomain = new GeoPoint();
@@ -146,11 +146,11 @@ public class GeoLocationService extends AbstractBaseService implements IGeoLocat
                 location.setId(geoPointDomain.getLocateId());
                 createNotification(NotificationEnum.LOCATION_NEW, location.getName() +" is created.", geoPointDomain.getAccount());
             } catch (Exception e) {
-                throw new EnMeExpcetion(e);
+                throw new EnMeException(e);
             }
             return location;
         } else {
-            throw new EnMeExpcetion("location info not found");
+            throw new EnMeException("location info not found");
         }
     }
 
@@ -252,14 +252,14 @@ public class GeoLocationService extends AbstractBaseService implements IGeoLocat
      * @param Longitude
      * @param locationId
      * @param username
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      * @throws EnMeNoResultsFoundException
      */
-    public void updateLocationMap(final UnitLocationBean locationBean, final Long locationId, final String username) throws EnMeExpcetion, EnMeNoResultsFoundException{
+    public void updateLocationMap(final UnitLocationBean locationBean, final Long locationId, final String username) throws EnMeException, EnMeNoResultsFoundException{
         final GeoPoint location = getLocation(locationId, username);
         log.info("location map location "+location);
         if(location == null){
-            throw new EnMeExpcetion("location not found");
+            throw new EnMeException("location not found");
         }
         else{
             location.setLocationAccuracy(locationBean.getAccuracy());
@@ -300,7 +300,7 @@ public class GeoLocationService extends AbstractBaseService implements IGeoLocat
      * Update Location Name.
      * @param locationBean {@link UnitLocationBean}.
      * @param username username logged
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      * @throws EnMeNoResultsFoundException
      */
     public void updateLocationName(final UnitLocationBean locationBean, final String username) throws EnMeNoResultsFoundException{
@@ -323,7 +323,7 @@ public class GeoLocationService extends AbstractBaseService implements IGeoLocat
      * @param locationBean
      * @param username
      * @param typeUpdate
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      * @throws EnMeNoResultsFoundException
      */
     public void updateLocationFolder(final UnitLocationFolder locationFolderBean,
@@ -349,7 +349,7 @@ public class GeoLocationService extends AbstractBaseService implements IGeoLocat
      * Create Default Location Item.
      * @param locationFolder
      * @param username
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public void createDefaultILocationItem(final UnitLocationFolder locationFolderBean, final String username)
            throws EnMeNoResultsFoundException{
@@ -375,7 +375,7 @@ public class GeoLocationService extends AbstractBaseService implements IGeoLocat
      * Delete Location Folder.
      * @param unitLocationFolder
      * @param username
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public void deleteLocationFolder(final UnitLocationFolder unitLocationFolder, final String username) throws EnMeNoResultsFoundException{
         final GeoPointFolder locationFolder = getLocationFolder(unitLocationFolder.getId(), username);

@@ -12,14 +12,7 @@
  */
 package org.encuestame.test.business.service;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-
 import junit.framework.Assert;
-
 import org.encuestame.business.service.StreamService;
 import org.encuestame.core.service.StreamOperations;
 import org.encuestame.persistence.domain.notifications.Notification;
@@ -27,8 +20,8 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.DateClasificatedEnum;
@@ -39,6 +32,8 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+
+import java.util.*;
 
 
 /**

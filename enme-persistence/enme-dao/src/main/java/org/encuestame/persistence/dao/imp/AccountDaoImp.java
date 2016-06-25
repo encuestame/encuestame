@@ -24,8 +24,7 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.HelpPage;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.hibernate.HibernateException;
@@ -97,7 +96,8 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
      */
     public final Long retrieveTotalUsers(final Account account){
          Long resultsSize = 0L;
-         final List<Long> list =  (List<Long>) getHibernateTemplate().findByNamedParam("select count(*) from UserAccount WHERE account = :account", "account", account);
+         final List<Long> list =  (List<Long>) getHibernateTemplate()
+                 .findByNamedParam("select count(*) from UserAccount WHERE account = :account", "account", account);
          if (list.get(0) instanceof Long){
              log.debug("instace of Long");
              resultsSize = (Long) list.get(0);

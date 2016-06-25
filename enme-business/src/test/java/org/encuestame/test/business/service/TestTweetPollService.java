@@ -12,17 +12,6 @@
  */
 package org.encuestame.test.business.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import junit.framework.Assert;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -41,24 +30,16 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.Survey;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.domain.tweetpoll.*;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.json.LinksSocialBean;
-import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.SearchBean;
-import org.encuestame.utils.json.SocialAccountBean;
-import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.json.*;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -70,6 +51,13 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test for {@link TweetPollService}.
@@ -169,12 +157,12 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
     /**
      * Test Create Tweet Poll.
      *
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      *             exception
      */
     @Test
     @Category(DefaultTest.class)
-    public void testCreateTweetPoll() throws EnMeExpcetion {
+    public void testCreateTweetPoll() throws EnMeException {
         final TweetPollBean tweetPollBean = new TweetPollBean();
         questionBean.setId(question.getQid());
         tweetPollBean.setQuestionBean(questionBean);
@@ -198,10 +186,10 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
     /**
      * Test Save Tweet Id.
      *
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Category(DefaultTest.class)
-    public void testSaveTweetId() throws EnMeExpcetion {
+    public void testSaveTweetId() throws EnMeException {
         Question questionSave = createQuestion("how much or How Many?", "html");
         final Account usersave = createUser("dianmora", "xxxxxxx");
         final UserAccount account = createUserAccount("jota", usersave);
@@ -239,12 +227,12 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
     /**
      * Test Generate Tweet Poll Text.
      *
-     * @throws EnMeExpcetion
-     *             EnMeExpcetion
+     * @throws EnMeException
+     *             EnMeException
      */
     @Test
     @Category(DefaultTest.class)
-    public void testGenerateTweetPollText() throws EnMeExpcetion {
+    public void testGenerateTweetPollText() throws EnMeException {
         final TweetPoll tweetPollPublicate = createTweetPollPublicated(true,
                 true, new Date(), this.userAccount, this.question);
         createQuestionAnswer("Yes", this.question, "EEEE");
@@ -278,7 +266,7 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
     }
 
     /*
-     * @Test public void testSearchTweetsPollsByKeyWord() throws EnMeExpcetion{
+     * @Test public void testSearchTweetsPollsByKeyWord() throws EnMeException{
      * final Question questionSearch =
      * createQuestion("Why the sea is blue?","html"); final String keywordGood =
      * "Why"; final String keywordBad = "red"; createTweetPollPublicated(true,
@@ -396,11 +384,11 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
     /**
      * Test Validate ip before tweetPoll vote.
      *
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
     @Category(DefaultTest.class)
-    public void testValidateIp() throws EnMeExpcetion {
+    public void testValidateIp() throws EnMeException {
         final String ipVote = EnMeUtils.ipGenerator();
         final TweetPollBean myTpBean = createUnitTweetPoll(Boolean.TRUE,
                 "tweetPollUrl", getSpringSecurityLoggedUserAccount().getUid(),
@@ -468,12 +456,12 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
      * Test Filter {@link TweetPoll} by type.
      *
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
     @Category(DefaultTest.class)
     public void testFilterTweetPollByItemsByType()
-            throws EnMeNoResultsFoundException, EnMeExpcetion {
+            throws EnMeNoResultsFoundException, EnMeException {
         final DateTime date1 = new DateTime();
         DateTime dt2 = date1.minusDays(5);
         DateTime dt3 = date1.minusDays(4);
@@ -510,7 +498,7 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
     @Test
     @Category(DefaultTest.class)
     public void testFilterTweetPollByItemsByTypeSearch()
-            throws EnMeNoResultsFoundException, EnMeExpcetion {
+            throws EnMeNoResultsFoundException, EnMeException {
         final DateTime date1 = new DateTime();
         DateTime dt2 = date1.minusDays(5);
         DateTime dt3 = date1.minusDays(4);
@@ -638,12 +626,12 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
     public void testFilterTweetpollByOwner() throws NoSuchAlgorithmException,
             UnsupportedEncodingException, EnMeNoResultsFoundException,
-            EnMeExpcetion {
+            EnMeException {
 
         // Completed - Favourites - Scheduled - Published
         this.createTweetPollItems(this.creationDate.toDate(),
@@ -904,10 +892,10 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 
     /**
      *
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testgenerateTweetPollContent() throws EnMeExpcetion {
+    public void testgenerateTweetPollContent() throws EnMeException {
         final Question question1 = createQuestion("Why the sea is salt? 6",
                 "html");
 
@@ -945,11 +933,11 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 
     /**
      *
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
     @Category(DefaultTest.class)
-    public void testSearchTweetsPollScheduled() throws EnMeExpcetion {
+    public void testSearchTweetsPollScheduled() throws EnMeException {
 
         final Question question1 = createQuestion("Why the sky is blue ?",
                 "html");
@@ -984,7 +972,7 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
     }
 
     @Test
-    public void testSearchTweetsPollFavourites() throws EnMeExpcetion {
+    public void testSearchTweetsPollFavourites() throws EnMeException {
 
         final Question question1 = createQuestion("Why the sea is big? ",
                 "html");
@@ -1006,10 +994,10 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 
     /**
      *
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testsearchTweetsPollsLastWeek() throws EnMeExpcetion {
+    public void testsearchTweetsPollsLastWeek() throws EnMeException {
 
         final Question question1 = createQuestion("Why the sea is salad?",
                 "html");
@@ -1029,10 +1017,10 @@ public class TestTweetPollService extends AbstractSpringSecurityContext {
 
     /**
      *
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testSearchTweetsPollsToday() throws EnMeExpcetion {
+    public void testSearchTweetsPollsToday() throws EnMeException {
         final Question question1 = createQuestion("Why the sea is saltz?",
                 "html");
 

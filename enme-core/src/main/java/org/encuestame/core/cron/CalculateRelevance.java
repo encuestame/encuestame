@@ -14,12 +14,10 @@ package org.encuestame.core.cron;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.IFrontEndService;
 import org.encuestame.core.service.IPollService;
 import org.encuestame.core.service.ITweetPollService;
-import org.encuestame.persistence.exception.EnMePollNotFoundException;
-import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -64,8 +62,6 @@ public class CalculateRelevance {
 
     /**
      * Calculate relevance.
-     * @throws EnMePollNotFoundException
-     * @throws EnMeTweetPollNotFoundException
      */
     @Scheduled(cron = "${cron.calculateRelevance}")
     public void calculate() {

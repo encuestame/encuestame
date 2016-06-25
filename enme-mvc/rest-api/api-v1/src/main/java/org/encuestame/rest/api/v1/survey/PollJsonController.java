@@ -24,8 +24,8 @@ import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.ShortUrlProvider;
@@ -201,7 +201,7 @@ public class PollJsonController extends AbstractJsonControllerV1{
             //log.debug("/api/survey/poll/search.json---------------->  "+ list.size());
             jsonResponse.put("poll", list);
             setItemResponse(jsonResponse);
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
              log.error(e);
              setError(e.getMessage(), response);
         }
@@ -250,7 +250,7 @@ public class PollJsonController extends AbstractJsonControllerV1{
              //log.trace("/api/survey/poll/search.json "+jsonResponse);
              jsonResponse.put("socialPublish", ConvertDomainToJson.convertTweetPollStatusToJson(results));
              setItemResponse(jsonResponse);
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
             log.error(e);
             setError(e.getMessage(), response);
        }

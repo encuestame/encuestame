@@ -12,15 +12,9 @@
  */
 package org.encuestame.core.cron;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -33,6 +27,8 @@ import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+
+import java.util.*;
 
 /**
  * This job calculate every day the size of each hashgtag in the database.
@@ -159,7 +155,7 @@ public class CalculateHashTagSize {
 
     /**
      * Get hashTag counter.
-     * @param hashTagId
+     * @param tagName
      * @param limit
      * @return
      */

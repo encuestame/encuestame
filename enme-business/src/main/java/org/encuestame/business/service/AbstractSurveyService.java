@@ -12,26 +12,15 @@
  */
 package org.encuestame.business.service;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.util.WidgetUtil;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
+import org.encuestame.core.social.operation.*;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.InternetUtils;
+import org.encuestame.core.util.WidgetUtil;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -44,22 +33,9 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.social.api.templates.FacebookAPITemplate;
-import org.encuestame.social.api.templates.GoogleBuzzAPITemplate;
-import org.encuestame.social.api.templates.IdenticaAPITemplate;
-import org.encuestame.social.api.templates.LinkedInAPITemplate;
-import org.encuestame.social.api.templates.PlurkAPITemplate;
-import org.encuestame.social.api.templates.TumblrAPITemplate;
-import org.encuestame.social.api.templates.TwitterAPITemplate;
-import org.encuestame.core.social.operation.BuzzAPIOperations;
-import org.encuestame.core.social.operation.FacebookAPIOperations;
-import org.encuestame.core.social.operation.IdenticaAPIOperations;
-import org.encuestame.core.social.operation.LinkedInAPIOperations;
-import org.encuestame.core.social.operation.PlurkAPIOperations;
-import org.encuestame.core.social.operation.TumblrAPIOperations;
-import org.encuestame.core.social.operation.TwitterAPIOperations;
+import org.encuestame.social.api.templates.*;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.RestFullUtil;
@@ -75,9 +51,14 @@ import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-
 import twitter4j.TwitterException;
 import twitter4j.auth.RequestToken;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 
 /**
  * Survey Service.
@@ -121,12 +102,12 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param questionBean {@link QuestionBean}.
      * @param account {@link UserAccount}
      * @param questionPattern {@link QuestionPattern}
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
     public Question createQuestion(
             final QuestionBean questionBean,
             final UserAccount account,
-            final QuestionPattern questionPattern) throws EnMeExpcetion{
+            final QuestionPattern questionPattern) throws EnMeException{
             final Question question = new Question();
             try{
                 question.setQuestion(questionBean.getQuestionName());
@@ -140,7 +121,7 @@ public class AbstractSurveyService extends AbstractChartService {
 //                }
             } catch (Exception e) {
                 log.error(e);
-                throw new EnMeExpcetion(e);
+                throw new EnMeException(e);
             }
             return question;
     }
@@ -148,7 +129,7 @@ public class AbstractSurveyService extends AbstractChartService {
     /**
      * Save Question Answer.
      * @param answerBean answer
-     * @throws EnMeExpcetion EnMeExpcetion
+     * @throws EnMeException EnMeException
      */
     public QuestionAnswer createQuestionAnswer(
             final QuestionAnswerBean answerBean,
@@ -236,13 +217,13 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param answers
      * @param user
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
     public Question createQuestion(
             final String questionName,
-            final UserAccount user) throws EnMeExpcetion, NoSuchAlgorithmException, UnsupportedEncodingException{
+            final UserAccount user) throws EnMeException, NoSuchAlgorithmException, UnsupportedEncodingException{
         final QuestionBean questionBean = new QuestionBean();
         questionBean.setQuestionName(questionName);
         questionBean.setUserId(user.getUid());
@@ -321,7 +302,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * Create Hash Tag.
      * @param unitHashTag new tag
      * @return {@link HashTag}
-     * @throws EnMeExpcetion exception.
+     * @throws EnMeException exception.
      */
     public HashTag createHashTag(final HashTagBean unitHashTag) {
         final HashTag tag = createHashTag(unitHashTag.getHashTagName());
@@ -373,9 +354,9 @@ public class AbstractSurveyService extends AbstractChartService {
     /**
      * Save Tweet Id.
      * @param tweetPollBean {@link TweetPollBean}
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    public void saveTweetId(final TweetPollBean tweetPollBean) throws EnMeExpcetion{
+    public void saveTweetId(final TweetPollBean tweetPollBean) throws EnMeException{
         final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollBean.getId());
         if(tweetPoll != null){
             //tweetPoll.setTweetId(tweetPollBean.getTweetId());
@@ -383,7 +364,7 @@ public class AbstractSurveyService extends AbstractChartService {
             tweetPoll.setPublishTweetPoll(Boolean.TRUE);
             getTweetPollDao().saveOrUpdate(tweetPoll);
         }else{
-            throw new EnMeExpcetion("tweet poll not found");
+            throw new EnMeException("tweet poll not found");
         }
     }
 
@@ -391,12 +372,12 @@ public class AbstractSurveyService extends AbstractChartService {
      * Update Answer Name by Answer Id.
      * @param answerId answer Id
      * @param nameUpdated new name for answer
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    public void updateAnswerByAnswerId(final Long answerId, String nameUpdated) throws EnMeExpcetion{
+    public void updateAnswerByAnswerId(final Long answerId, String nameUpdated) throws EnMeException{
             final QuestionAnswer answer = getQuestionDao().retrieveAnswerById(answerId);
             if (answer==null) {
-                throw new EnMeExpcetion("answer not found");
+                throw new EnMeException("answer not found");
             }
             answer.setAnswer(nameUpdated);
             getQuestionDao().saveOrUpdate(answer);
@@ -420,9 +401,9 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param tweetPoll tweetPoll
      * @param url url
      * @return tweet text
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    public String generateTweetPollText(final TweetPollBean tweetPoll, final String url) throws EnMeExpcetion{
+    public String generateTweetPollText(final TweetPollBean tweetPoll, final String url) throws EnMeException{
         String tweetQuestionText = "";
         try{
             final TweetPoll tweetPollDomain = getTweetPollDao().getTweetPollById(tweetPoll.getId());
@@ -435,7 +416,7 @@ public class AbstractSurveyService extends AbstractChartService {
             }
         }
         catch (Exception e) {
-            throw new EnMeExpcetion(e);
+            throw new EnMeException(e);
         }
         return tweetQuestionText;
     }
@@ -458,10 +439,10 @@ public class AbstractSurveyService extends AbstractChartService {
      * Public Tweet Poll (OAuth method).
      * @param tweetText tweet text
      * @return status of tweet
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
     public TweetPublishedMetadata publicTweetPoll(final String tweetText, final SocialAccount socialAccount,  final Set<HashTag> hashtags)
-           throws EnMeExpcetion {
+           throws EnMeException {
         TweetPublishedMetadata published = new TweetPublishedMetadata();
         log.debug("publicTweetPoll:{ "+tweetText);
         if (socialAccount.getAccounType().equals(SocialProvider.TWITTER)) {
@@ -567,20 +548,6 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.error(e);
                 //e.printStackTrace();
             }
-        } else if (socialAccount.getAccounType().equals(SocialProvider.GOOGLE_BUZZ)) {
-            BuzzAPIOperations buzzInAPIOperations = new GoogleBuzzAPITemplate(socialAccount);
-            try {
-                log.debug("Publish on LinkedIn............>");
-                published = buzzInAPIOperations.updateStatus(tweetText);
-                published.setTextTweeted(tweetText);
-                published.setDatePublished(Calendar.getInstance().getTime());
-                published.setTweetId(RandomStringUtils.randomAscii(15));
-                log.debug("Publish on LinkedIn...... "+published);
-            } catch (Exception e) {
-                published.setDatePublished(Calendar.getInstance().getTime());
-                log.error(e);
-                //e.printStackTrace();
-            }
         }
         if (published != null) {
             log.debug("publicTweetPoll:s "+published.toString());
@@ -591,9 +558,9 @@ public class AbstractSurveyService extends AbstractChartService {
     /**
      * Load all questions.
      * @return List of {@link QuestionBean}
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    public List<QuestionBean> loadAllQuestions() throws EnMeExpcetion {
+    public List<QuestionBean> loadAllQuestions() throws EnMeException {
         final List<QuestionBean> listQuestionBean = new LinkedList<QuestionBean>();
         try {
             final  List<Question> questionsList = getQuestionDao()
@@ -608,9 +575,9 @@ public class AbstractSurveyService extends AbstractChartService {
                 }
             }
         } catch (HibernateException e) {
-            throw new EnMeExpcetion(e);
+            throw new EnMeException(e);
         } catch (Exception e) {
-            throw new EnMeExpcetion(e);
+            throw new EnMeException(e);
         }
         return  listQuestionBean;
     }
@@ -650,12 +617,12 @@ public class AbstractSurveyService extends AbstractChartService {
     /**
      * Update Question.
      * @param unitQuestionPoll
-     * @throws EnMeExpcetion  Exception
+     * @throws EnMeException  Exception
      */
-     public void updateQuestion(final QuestionBean unitQuestionPoll) throws EnMeExpcetion{
+     public void updateQuestion(final QuestionBean unitQuestionPoll) throws EnMeException{
          final Question question = getQuestionDao().retrieveQuestionById(unitQuestionPoll.getId());
          if (question == null){
-             throw new EnMeExpcetion("question not found");
+             throw new EnMeException("question not found");
          }
          else{
              question.setQuestion(unitQuestionPoll.getQuestionName());

@@ -12,8 +12,7 @@
  */
 package org.encuestame.test.business.config;
 
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
-import org.encuestame.test.config.ParamTestConfiguration;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.test.persistence.config.AbstractBaseUnitBeans;
 import org.encuestame.test.persistence.config.DBTestConfig;
 import org.junit.After;
@@ -28,7 +27,7 @@ import java.io.File;
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 23, 2010 10:42:59 AM
  */
-@ContextConfiguration(classes = {BusinessConfig.class, DBTestConfig.class, ParamTestConfiguration.class})
+@ContextConfiguration(classes = {BusinessConfig.class, DBTestConfig.class})
 @ActiveProfiles(profiles = "dev")
 public abstract class AbstractServiceBase extends AbstractBaseUnitBeans {
 
