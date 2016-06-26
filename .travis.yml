@@ -3,3 +3,5 @@ jdk:
   - oraclejdk8
   - oraclejdk7
 script: mvn clean install -Pproduction
+env:
+- MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=512m"
