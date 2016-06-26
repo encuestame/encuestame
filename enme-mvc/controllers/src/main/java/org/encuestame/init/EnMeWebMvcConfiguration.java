@@ -24,7 +24,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 //@ComponentScan(basePackages = "org.encuestame")
 @EnableAsync
 @ImportResource({
-    "classpath:/org/encuestame/config/xml/mvc-context.xml"
+    "classpath:/org/encuestame/config/xml/mvc-context.xml",
+    "classpath:/org/encuestame/config/xml/web-flow-context.xml"
 })
 public class EnMeWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
