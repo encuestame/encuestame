@@ -1,7 +1,5 @@
 language: java
+before_install: echo "MAVEN_OPTS='-Xmx2048m -XX:MaxPermSize=512m'" > ~/.mavenrc
 jdk:
-  - oraclejdk8
-  - oraclejdk7
+  - oraclejdk8  
 script: mvn clean install -Pproduction
-env:
-- MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=512m"
