@@ -14,8 +14,8 @@ package org.encuestame.business.cron;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.SecurityOperations;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -35,6 +35,8 @@ public class RemoveUnconfirmedAccountJob {
     @Autowired
     private SecurityOperations securityService;
 
+    private String cron = EnMePlaceHolderConfigurer.getProperty("cron.removeUnconfirmedAccount");
+
     /**
      * Log.
      */
@@ -50,7 +52,7 @@ public class RemoveUnconfirmedAccountJob {
     /**
      * Remove unconfirmed accounts.
      */
-    @Scheduled(cron = "${cron.removeUnconfirmedAccount}")
+//      @Scheduled(cron = org.encuestame.business.cron.Scheduled.ScheduledConst.UNCONFIRMED)
     public void removeUnconfirmedAccount(){
         log.info("EnMePlaceHolderConfigurer.getSystemInstalled()" + EnMePlaceHolderConfigurer.getSystemInstalled());
     	if (EnMePlaceHolderConfigurer.getSystemInstalled()) {

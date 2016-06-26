@@ -12,26 +12,19 @@
  */
 package org.encuestame.business.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.ICommentService;
 import org.encuestame.core.service.IPollService;
 import org.encuestame.core.service.ISurveyService;
 import org.encuestame.core.service.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeCommentNotFoundException;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.persistence.exception.EnmeNotAllowedException;
+import org.encuestame.util.exception.*;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
@@ -41,6 +34,9 @@ import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * {@link Comment} service support.
@@ -91,7 +87,7 @@ public class CommentService extends AbstractBaseService implements ICommentServi
             final TypeSearchResult searchResult,
             final Long itemId,
             final Integer max,
-            final Integer start) throws EnMeExpcetion{
+            final Integer start) throws EnMeException{
         final List<Comment> comments = new ArrayList<Comment>();
         if (searchResult.equals(TypeSearchResult.TWEETPOLL)) { 
             final TweetPoll tweetPoll = getTweetPollService().getTweetPollPublishedById(
@@ -104,7 +100,7 @@ public class CommentService extends AbstractBaseService implements ICommentServi
             final Survey survey = null;
             //TODO:
         } else {
-            throw new EnMeExpcetion("invalid type");
+            throw new EnMeException("invalid type");
         }
         return comments;
     }
@@ -142,11 +138,11 @@ public class CommentService extends AbstractBaseService implements ICommentServi
     public List<CommentBean> getCommentsbyKeyword(
             final String keyword,
             final Integer maxResults,
-            final Integer start) throws EnMeExpcetion{
+            final Integer start) throws EnMeException{
         List<CommentBean> commentBean = new ArrayList<CommentBean>();
         List<Comment> comments = new ArrayList<Comment>();
         if (keyword == null){
-            throw new EnMeExpcetion("keyword is missing");
+            throw new EnMeException("keyword is missing");
         }
         else {
             comments = getCommentsOperations().getCommentsByKeyword(keyword, maxResults, null);
@@ -229,7 +225,7 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * @see org.encuestame.core.service.imp.ICommentService#voteCommentSocialOption(java.lang.Long, org.encuestame.persistence.domain.CommentsSocialOptions)
      */
 	public void voteCommentSocialOption(final Long commentId, final CommentsSocialOptions vote) throws EnMeNoResultsFoundException,
-                                        HibernateException, EnmeFailOperation{
+                                        HibernateException, EnmeFailOperation {
         final Comment comment = this.getCommentbyId(commentId);
         if (vote.equals(CommentsSocialOptions.LIKE)) {
             this.CommentLikeVote(comment);

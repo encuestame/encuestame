@@ -12,13 +12,6 @@
  */
 package org.encuestame.core.util;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
@@ -26,16 +19,21 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.lang.StringUtils;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.filter.RequestSessionMap;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.util.exception.EnMeException;
 import org.encuestame.utils.social.SocialProvider;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.util.Assert;
+
+import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URL;
 
 /**
  * Social Util Helpers.
@@ -103,7 +101,6 @@ public class SocialUtils {
     /**
      * Get Google Short Url.
      * @return
-     * @throws EnmeFailOperation
      */
     public static String getGoGl(final String urlPath, String key) {
         log.debug("getGoGl url "+urlPath);
@@ -174,7 +171,7 @@ public class SocialUtils {
             //{"message":"Please log in","errorCode":403}"
             Long errorCode = (Long) o.get("errorCode");
             if (errorCode != null) {
-               throw new EnMeExpcetion("Yourls error: " + errorCode);
+               throw new EnMeException("Yourls error: " + errorCode);
             }
             yourlsShortUrl = (String) o.get("shorturl");
         } catch (HttpException e) {
@@ -237,7 +234,6 @@ public class SocialUtils {
      * @param key bitly key
      * @param login bitly login
      * @return
-     * @throws EnmeFailOperation
      */
     public static String getBitLy(final String urlPath, final String key, final String login){
         final HttpClient httpclient = new HttpClient();

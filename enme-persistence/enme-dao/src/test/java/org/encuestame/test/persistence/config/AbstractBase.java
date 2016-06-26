@@ -86,7 +86,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;

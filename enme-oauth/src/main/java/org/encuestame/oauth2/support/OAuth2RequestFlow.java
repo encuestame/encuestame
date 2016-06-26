@@ -12,14 +12,14 @@
  */
 package org.encuestame.oauth2.support;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.utils.PathUtil;
+import org.encuestame.config.startup.PathUtil;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.social.SocialProvider;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Description.

@@ -13,11 +13,11 @@
 package org.encuestame.rest.api.test.json;
 
 import junit.framework.Assert;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.mvc.test.config.AbstractJsonV1MvcUnitBeans;
-import org.encuestame.rest.api.v1.search.QuickSearchJsonController;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.rest.api.v1.search.QuickSearchJsonController;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;

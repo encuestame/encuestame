@@ -33,8 +33,6 @@
     </mvc:annotation-driven>
 
     <bean id="messagesInterceptor" class="org.encuestame.mvc.interceptor.Messagei18nInterceptor" />
-    <bean id="mobileInterceptor" class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
-    <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.EnMeSecurityInterceptor" />
     <bean id="setupInterceptor" class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
     <bean id="signInInterceptor" class=" org.encuestame.mvc.interceptor.SignInInterceptor" />
     <bean id="checkInstallInterceptor" class=" org.encuestame.mvc.interceptor.CheckInstallInterceptor" />
@@ -287,6 +285,14 @@
 
         <!-- A default thumbnail generator to be used for unregistered mime types -->
         <property name="defaultThumbnailGenerator" ref="imageThumbnailGenerator"/>
+    </bean>
+    
+     <!-- Message Resources -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/messages/messages" />
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="1"/>
     </bean>
 
     <!--

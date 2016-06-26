@@ -23,7 +23,7 @@ import java.util.Random;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
-import org.encuestame.utils.exception.EnMeGenericException;
+import org.encuestame.util.exception.EnMeGenericException;
 
 /**
  * Picture Utils.

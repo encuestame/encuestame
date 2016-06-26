@@ -13,7 +13,7 @@
 package org.encuestame.oauth.security;
 
 import org.encuestame.persistence.domain.application.ApplicationConnection;
-import org.encuestame.persistence.exception.EnMeNotValidKeyOAuthSecurityException;
+import org.encuestame.util.exception.EnMeNotValidKeyOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuthSession;
 /**
  * Implementation to manage OAuth Sessions.

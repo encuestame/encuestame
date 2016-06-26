@@ -12,40 +12,22 @@
  */
 package org.encuestame.business.service;
 
-import java.util.Calendar;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
-import org.encuestame.persistence.dao.CommentsOperations;
-import org.encuestame.persistence.dao.IAccountDao;
-import org.encuestame.persistence.dao.IClientDao;
-import org.encuestame.persistence.dao.IEmail;
-import org.encuestame.persistence.dao.IFrontEndDao;
-import org.encuestame.persistence.dao.IGeoPoint;
-import org.encuestame.persistence.dao.IGeoPointTypeDao;
-import org.encuestame.persistence.dao.IGroupDao;
-import org.encuestame.persistence.dao.IHashTagDao;
-import org.encuestame.persistence.dao.INotification;
-import org.encuestame.persistence.dao.IPermissionDao;
-import org.encuestame.persistence.dao.IPoll;
-import org.encuestame.persistence.dao.IQuestionDao;
-import org.encuestame.persistence.dao.ISurvey;
-import org.encuestame.persistence.dao.ITweetPoll;
-import org.encuestame.persistence.dao.imp.AccountDaoImp;
-import org.encuestame.persistence.dao.imp.ClientDao;
-import org.encuestame.persistence.dao.imp.GeoPointTypeDao;
-import org.encuestame.persistence.dao.imp.HashTagDao;
-import org.encuestame.persistence.dao.imp.NotificationDao;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
+import org.encuestame.persistence.dao.*;
+import org.encuestame.persistence.dao.imp.*;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.ValidationUtils;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Calendar;
 /**
  * Abstract Data Services.
  * @author Picado, Juan juanATencuestame.org

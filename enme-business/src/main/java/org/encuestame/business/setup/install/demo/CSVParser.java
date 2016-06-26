@@ -1,8 +1,8 @@
 package org.encuestame.business.setup.install.demo;
 
-import java.io.IOException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import java.io.IOException;
 
 public interface CSVParser {
 

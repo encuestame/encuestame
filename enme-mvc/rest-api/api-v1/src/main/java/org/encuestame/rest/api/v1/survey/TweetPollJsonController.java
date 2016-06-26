@@ -17,16 +17,20 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.util.*;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
+import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.ConvertDomainToJson;
+import org.encuestame.core.util.InternetUtils;
+import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.ShortUrlProvider;
@@ -132,7 +136,7 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
             log.debug("/api/survey/tweetpoll/search.json---------------->  "+ list.size());
             jsonResponse.put("tweetPolls", list);
             setItemResponse(jsonResponse);
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
              log.error(e);
              setError(e.getMessage(), response);
         }
@@ -165,7 +169,7 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             jsonResponse.put("tweetPoll", tweetPoll);
             setItemResponse(jsonResponse);
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
             log.error(e);
             setError(e.getMessage(), response);
         }
@@ -274,9 +278,9 @@ public class TweetPollJsonController extends AbstractJsonControllerV1 {
                 throw new EnmeFailOperation("operation not valid");
             }
             } else {
-                throw new EnMeExpcetion("tweetpoll is published");
+                throw new EnMeException("tweetpoll is published");
             }
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
             log.error(e);
             setError(e.getMessage(), response);
         }

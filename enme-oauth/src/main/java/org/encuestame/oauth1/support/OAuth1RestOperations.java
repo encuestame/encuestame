@@ -12,7 +12,7 @@
  */
 package org.encuestame.oauth1.support;
 
-import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
+import org.encuestame.util.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 
 /**

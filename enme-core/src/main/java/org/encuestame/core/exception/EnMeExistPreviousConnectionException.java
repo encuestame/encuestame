@@ -12,7 +12,7 @@
  */
 package org.encuestame.core.exception;
 
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 
 /**
  * Previous Provider Connection.
@@ -20,7 +20,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
  * @since Dec 30, 2010 8:29:18 PM
  * @version $Id:$
  */
-public class EnMeExistPreviousConnectionException extends EnMeExpcetion{
+public class EnMeExistPreviousConnectionException extends EnMeException{
 
     /**
      * Constructor.

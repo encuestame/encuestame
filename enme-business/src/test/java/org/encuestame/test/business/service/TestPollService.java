@@ -12,15 +12,6 @@
 */
 package org.encuestame.test.business.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import org.encuestame.business.service.PollService;
 import org.encuestame.core.service.IPollService;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -35,9 +26,9 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.InternetTest;
@@ -47,7 +38,6 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.web.*;
 import org.encuestame.utils.web.search.PollSearchBean;
-import org.hibernate.HibernateException;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
@@ -56,6 +46,11 @@ import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mock.web.MockHttpServletRequest;
+
+import java.util.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
  /**
  * Test for {@link PollService}.
@@ -271,7 +266,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      }
 
      @Test
-     public void testvalidatePollIP() throws EnMeExpcetion {
+     public void testvalidatePollIP() throws EnMeException {
             Poll pQuota =  this.createQuickPoll("test1");
             Integer status1 = this.pollService.validatePollIP("0.0.0.0.1", pQuota);
             assertEquals(status1, new Integer(0));
@@ -289,7 +284,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      }
 
      @Test
-     public void testgetPollDetailInfo() throws EnMeExpcetion {
+     public void testgetPollDetailInfo() throws EnMeException {
          Poll pQuota =  this.createQuickPoll("test1");
          //step1
          final PollDetailBean detail = this.pollService.getPollDetailInfo(pQuota.getPollId());
@@ -322,9 +317,9 @@ public class TestPollService extends AbstractSpringSecurityContext{
       *
       * @param question
       * @return
-      * @throws EnMeExpcetion
+      * @throws EnMeException
       */
-     private Poll createQuickPoll(String question)  throws EnMeExpcetion{
+     private Poll createQuickPoll(String question)  throws EnMeException{
          final String[] answer = {"a", "b"};
          final String[] hashtag = {"hastag1", "hastag2"};
          final CreatePollBean cb = createPollBean(
@@ -347,10 +342,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
      /**
       *
-      * @throws EnMeExpcetion
+      * @throws EnMeException
       */
      @Test
-     public void testfilterPollByItemsByType() throws EnMeExpcetion{
+     public void testfilterPollByItemsByType() throws EnMeException{
          Poll p1 =  this.createQuickPoll("test1");
          Poll p2 = this.createQuickPoll("test2");
          Poll p3 = this.createQuickPoll("test3");
@@ -422,10 +417,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
      /**
       *
-      * @throws EnMeExpcetion
+      * @throws EnMeException
       */
-     @Test(expected = EnMeExpcetion.class)
-     public void testfilterPollByItemsByTypeException() throws EnMeExpcetion{
+     @Test(expected = EnMeException.class)
+     public void testfilterPollByItemsByTypeException() throws EnMeException{
          List<PollBean> keyItems5 =  this.pollService.filterPollByItemsByType(
                  EnumerationUtils.getEnumFromString(TypeSearch.class, "dsda"),
                          "",
@@ -434,7 +429,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      }
 
      @Test
-     public void testsearchPollsToday()  throws EnMeExpcetion {
+     public void testsearchPollsToday()  throws EnMeException {
         final SocialAccount social1 = createDefaultSettedSocialAccount(getSpringSecurityLoggedUserAccount());
         PollSearchBean searchBean = new PollSearchBean();
         final List<Long> sa = new ArrayList<Long>();
@@ -445,7 +440,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      }
 
      @Test
-     public void testsearchPollScheduled() throws EnMeExpcetion {
+     public void testsearchPollScheduled() throws EnMeException {
          Poll p1 = this.createQuickPoll("secheduled1");
          Poll p2 = this.createQuickPoll("secheduled2");
          p1.setScheduled(true);
@@ -463,20 +458,20 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
      /**
       *
-      * @throws EnMeExpcetion
+      * @throws EnMeException
       */
      //@Test
-     public void testfilterSearchPollsByType2() throws EnMeExpcetion{
+     public void testfilterSearchPollsByType2() throws EnMeException{
          final PollSearchBean pollSearchBean = new PollSearchBean();
          List<SearchBean> items =  this.pollService.filterSearchPollsByType(pollSearchBean);
      }
 
      /**
       *
-      * @throws EnMeExpcetion
+      * @throws EnMeException
       */
      @Test
-     public void testretrieveFoldersbyKeyword() throws EnMeExpcetion{
+     public void testretrieveFoldersbyKeyword() throws EnMeException{
          List<PollFolder> folders = this.pollService.retrieveFoldersbyKeyword("test");
          assertEquals(folders.size(), 0);
          this.pollService.createPollFolder("test1");
@@ -492,10 +487,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
      /**
       *
-      * @throws EnMeExpcetion
+      * @throws EnMeException
       */
      @Test
-     public void testrestrictVotesByQuota()  throws EnMeExpcetion {
+     public void testrestrictVotesByQuota()  throws EnMeException {
             Poll pQuota =  this.createQuickPoll("test1 testrestrictVotesByQuota");
             pQuota.setAllowRepeatedVotes(true);
             pQuota.setLimitVotes(4);
@@ -529,10 +524,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
      /**
       *
-      * @throws EnMeExpcetion
+      * @throws EnMeException
       */
      @Test
-     public void testrestrictVotesByDate()  throws EnMeExpcetion {
+     public void testrestrictVotesByDate()  throws EnMeException {
          Poll p1 =  this.createQuickPoll("test1");
          p1.setCloseAfterDate(true);
          DateTime close = new DateTime();
@@ -630,10 +625,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
     /**
      * Test Update Question Poll.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testUpdateQuestionPoll() throws EnMeExpcetion{
+    public void testUpdateQuestionPoll() throws EnMeException{
         final Question newQuestion = createQuestion("Why the tooth are white", "pattern");
         final PollBean pb = pollService.updateQuestionPoll(this.poll.getPollId(), newQuestion);
         assertEquals(newQuestion.getQuestion(), pb.getQuestionBean().getQuestionName());
@@ -669,10 +664,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
     /**
      * Test remove poll
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testRemovePoll() throws EnMeExpcetion {
+    public void testRemovePoll() throws EnMeException {
         //this.answers[3] = "answer Four";
         final String[] answer = {"a", "b"};
         final String[] hashtag = {"hastag1", "hastag2"};
@@ -701,10 +696,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
     /**
      * Test Remove HashTags from Poll.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     //@Test
-    public void testRemoveHashTagsFromPoll() throws EnMeExpcetion {
+    public void testRemoveHashTagsFromPoll() throws EnMeException {
         final QuestionBean question = ConvertDomainBean
                 .convertQuestionsToBean(this.question);
         final PollBean unitPoll = ConvertDomainBean
@@ -870,10 +865,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
     /**
      * Test Advanced search poll by User.
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testFilterSearchPollsbyUser() throws EnMeNoResultsFoundException, EnMeExpcetion{
+    public void testFilterSearchPollsbyUser() throws EnMeNoResultsFoundException, EnMeException{
     	createPollsToFilterSearch();
 
 		final PollSearchBean search1 = createPollSearchBean(true, false, false,
@@ -893,11 +888,11 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
     /**
      * Test Advanced search poll by Lastday filter.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      * @throws EnMeNoResultsFoundException
      */
     //@Test
-    public void testFilterSearchPollsbyLastDay() throws EnMeNoResultsFoundException, EnMeExpcetion{
+    public void testFilterSearchPollsbyLastDay() throws EnMeNoResultsFoundException, EnMeException{
     	createPollsToFilterSearch();
     	final PollSearchBean search1 = createPollSearchBean(true, false, false,
 				false, "F", null, 10, 0, TypeSearch.LASTDAY, true, false);
@@ -909,10 +904,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
     /**
      * Test Advanced search {@link Poll} by Lastweek filter.
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testFilterSearchPollsbyLastWeek() throws EnMeExpcetion{
+    public void testFilterSearchPollsbyLastWeek() throws EnMeException{
     	createPollsToFilterSearch();
     	final PollSearchBean search1 = createPollSearchBean(true, false, false,
 				false, "in", null, 10, 0, TypeSearch.LASTWEEK, false, false);
@@ -924,11 +919,11 @@ public class TestPollService extends AbstractSpringSecurityContext{
     /**
      *
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
 	public void testFilterSearchPollsbyFavourite()
-			throws EnMeNoResultsFoundException, EnMeExpcetion {
+			throws EnMeNoResultsFoundException, EnMeException {
 		createPollsToFilterSearch();
 		final PollSearchBean search1 = createPollSearchBean(true, false, true,
 				false, "B", null, 10, 0, TypeSearch.FAVOURITES, false, false);
@@ -940,10 +935,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
     /**
      *
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testFilterSearchPollsbyAll() throws EnMeExpcetion{
+    public void testFilterSearchPollsbyAll() throws EnMeException{
     	createPollsToFilterSearch();
     	final PollSearchBean search1 = createPollSearchBean(true, false, false,
 				false, "Do", null, 10, 0, TypeSearch.ALL, false, true);

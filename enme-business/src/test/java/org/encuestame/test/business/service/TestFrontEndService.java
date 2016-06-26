@@ -12,15 +12,7 @@
  */
 package org.encuestame.test.business.service;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import junit.framework.Assert;
-
 import org.encuestame.core.service.IFrontEndService;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
@@ -29,9 +21,9 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.Status;
@@ -48,8 +40,15 @@ import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 /**
- * Test for {@link FrontEndCoreService}.
+ * Test for IFrontEndService
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 12, 2011
  */
@@ -130,7 +129,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     }
 
     @Test
-    public void testregisterVote() throws EnMeExpcetion{
+    public void testregisterVote() throws EnMeException{
         final Question question = createQuestion("Who I am 2?", "");
         createQuestionAnswer("yes", question, "12345");
         createQuestionAnswer("no", question, "12346");
@@ -220,10 +219,10 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     /**
      * Test vote and register access rate.
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testRegisterAccessRateVotedLike() throws EnMeNoResultsFoundException, EnMeExpcetion{
+    public void testRegisterAccessRateVotedLike() throws EnMeNoResultsFoundException, EnMeException{
          final Question question = createQuestion("Who are you?", "");
          final TweetPoll tp = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount(), question);
          final String ipAddress = "192.168.1.81";

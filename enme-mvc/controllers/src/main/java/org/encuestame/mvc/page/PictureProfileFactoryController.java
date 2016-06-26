@@ -12,23 +12,20 @@
  */
 package org.encuestame.mvc.page;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.controller.AbstractViewController;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeGenericException;
 import org.encuestame.utils.enums.PictureType;
-import org.encuestame.utils.exception.EnMeGenericException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Render Image.
@@ -68,7 +65,6 @@ public class PictureProfileFactoryController extends AbstractViewController {
     /**
      * Returns the byte[] that contains the requested thumbnail image (128x128 constrained).
      * @return A byte[] that contains the requested image
-     * @throws EnMeNoResultsFoundException
      */
     @RequestMapping( value = "/picture/profile/{username}/thumbnail", method = RequestMethod.GET )
     @ResponseBody
@@ -81,7 +77,6 @@ public class PictureProfileFactoryController extends AbstractViewController {
     /**
      * Returns the byte[] that contains the requested default image.
      * @return A byte[] that contains the requested image
-     * @throws EnMeNoResultsFoundException
      */
     @RequestMapping( value = "/picture/profile/{username}/default", method = RequestMethod.GET )
     @ResponseBody
@@ -105,7 +100,6 @@ public class PictureProfileFactoryController extends AbstractViewController {
     /**
      * Returns the byte[] that contains the requested preview image (375x375 constrained)
      * @return A byte[] that contains the requested image
-     * @throws EnMeNoResultsFoundException
      */
     @RequestMapping( value = "/picture/profile/{username}/preview", method = RequestMethod.GET)
     @ResponseBody
@@ -118,7 +112,6 @@ public class PictureProfileFactoryController extends AbstractViewController {
      * Returns the byte[] that contains the requested preview image (900x900 constrained)
      * @param username The identifier of the image
      * @return A byte[] that contains the requested image
-     * @throws EnMeNoResultsFoundException
      */
     @RequestMapping( value = "/picture/profile/{username}/web", method = RequestMethod.GET)
     @ResponseBody

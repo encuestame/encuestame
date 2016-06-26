@@ -1,18 +1,13 @@
 package org.encuestame.business.setup.install;
 
-import java.io.IOException;
-
-import javassist.bytecode.stackmap.TypeData;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
-import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.utils.EnumerationUtils;
+import org.encuestame.util.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeDatabase;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
  * Database install support.

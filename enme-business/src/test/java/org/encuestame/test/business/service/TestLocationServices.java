@@ -12,12 +12,6 @@
  */
 package org.encuestame.test.business.service;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import org.encuestame.business.service.GeoLocationService;
 import org.encuestame.core.service.IGeoLocationSupport;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -33,10 +27,10 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeSearchException;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -50,6 +44,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test for {@link GeoLocationService}.
@@ -95,10 +95,10 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
 
     /**
      *
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testupdateGeoPoint() throws EnMeExpcetion{
+    public void testupdateGeoPoint() throws EnMeException{
         final GeoPoint locationBean = createGeoPoint("test", "test", 0, getSpringSecurityLoggedUserAccount().getAccount());
         final UnitLocationBean bean = ConvertDomainBean.convertLocationToBean(locationBean);
         bean.setName("test2");
@@ -108,10 +108,10 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
 
     /**
      * test for createGeoPoint.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     //@Test
-    public void testCreateGeoPoint() throws EnMeExpcetion{
+    public void testCreateGeoPoint() throws EnMeException{
         final UnitLocationBean locationBean = createUnitLocationBean("pozuelo");
         this.locationService.createGeoPoint(locationBean);
         Assert.assertNotNull(locationBean.getId());
@@ -119,10 +119,10 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
 
     /**
      * Test createLocationFolder.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     //@Test
-    public void testcreateLocationFolder() throws EnMeExpcetion{
+    public void testcreateLocationFolder() throws EnMeException{
         final UnitLocationFolder folder = createUnitLocationFolder("folder");
         this.locationService.createGeoPointFolder(folder);
         Assert.assertNotNull(folder.getId());

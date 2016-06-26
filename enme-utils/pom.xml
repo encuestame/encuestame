@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.5.5-SNAPSHOT</version>
+        <version>1.6.0-SNAPSHOT</version>
     </parent>
     <artifactId>utils</artifactId>
     <packaging>jar</packaging>
@@ -44,6 +44,10 @@
             <artifactId>junit</artifactId>
         </dependency>
         <dependency>
+			<groupId>org.encuestame</groupId>
+			<artifactId>config</artifactId>
+		</dependency>        
+        <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
         </dependency>
@@ -54,10 +58,6 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

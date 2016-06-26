@@ -3,8 +3,9 @@ package org.encuestame.init.root;
 import org.encuestame.business.service.MessageSourceFactoryBean;
 import org.encuestame.business.setup.ApplicationStartup;
 import org.encuestame.business.setup.install.DatabaseInstall;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.IMessageSource;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.core.service.MailServiceOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
@@ -82,8 +83,9 @@ public class DirectoryConfig {
     *
     * @return
     */
-   public @Bean(name="applicationStartup") ApplicationStartup applicationStartup(){
-       return new ApplicationStartup();
+   @Autowired
+   public @Bean(name="applicationStartup") ApplicationStartup applicationStartup(MailServiceOperations mailServiceOperations){
+       return new ApplicationStartup(mailServiceOperations);
    }
 
     /**

@@ -5,25 +5,25 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.VelocityException;
 import org.encuestame.business.cron.RemoveUnconfirmedAccountJob;
+import org.encuestame.business.service.MailService;
+import org.encuestame.business.service.MessageSourceFactoryBean;
 import org.encuestame.business.setup.ApplicationStartup;
 import org.encuestame.business.setup.install.DatabaseInstall;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.cron.CalculateHashTagSize;
 import org.encuestame.core.cron.CalculateRelevance;
 import org.encuestame.core.cron.IndexRebuilder;
 import org.encuestame.core.cron.ReIndexJob;
 import org.encuestame.core.service.IMessageSource;
-import org.encuestame.business.service.MessageSourceFactoryBean;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.core.service.MailServiceOperations;
 import org.encuestame.persistence.dao.jdbc.InstallerDao;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
-import org.hibernate.boot.model.relational.Database;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -40,11 +40,8 @@ import java.util.Properties;
 @PropertySources({
   @PropertySource("classpath:properties-test/encuestame-test-config.properties")
 })
-@ComponentScan({ "org.encuestame.business", "org.encuestame.config", "org.encuestame.core", "org.encuestame.security" })
+@ComponentScan({ "org.encuestame.business", "org.encuestame.test", "org.encuestame.core", "org.encuestame.security" })
 public class BusinessConfig {
-  
-  @Autowired
-  private Environment env;
 
   /**
    *
@@ -99,15 +96,23 @@ public class BusinessConfig {
     return factory.createVelocityEngine();
   }
 
+  @Bean(name="mailService")
+  @Scope("singleton")
+  @Autowired
+  public MailServiceOperations mailService(JavaMailSenderImpl javaMailSender) {
+    final MailServiceOperations mail = new MailService(javaMailSender);
+    return mail;
+  }
+
   /**
    *
    * @return
    */
-  public @Bean(name="messageSourceFactoryBean") IMessageSource messageSourceFactoryBean(){
+  public @Bean(name="messageSourceFactoryBean") IMessageSource messageSourceFactoryBean() {
     return new MessageSourceFactoryBean(this.messageSource);
   }
 
-  @Bean
+  @Bean()
   public ResourceBundleMessageSource configureResourceBundleMessageSource() {
     ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
     resource.setBasename("messages");
@@ -120,8 +125,9 @@ public class BusinessConfig {
    */
   @Bean(name="applicationStartup")
   @Scope("singleton")
-  public ApplicationStartup applicationStartup(){
-    return new ApplicationStartup();
+  @Autowired
+  public ApplicationStartup applicationStartup(MailServiceOperations mailServiceOperations) {
+    return new ApplicationStartup(mailServiceOperations);
   }
 
 

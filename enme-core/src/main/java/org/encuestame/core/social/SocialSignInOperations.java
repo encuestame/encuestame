@@ -14,8 +14,8 @@ package org.encuestame.core.social;
 
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.social.SocialUserProfile;
@@ -63,14 +63,14 @@ public interface SocialSignInOperations{
 
         /**
          * Returns true if the member account is connected to this provider, false otherwise.
-         * @throws EnMeExpcetion
+         * @throws EnMeException
          */
-        SocialAccount isConnected(String accountId) throws EnMeExpcetion;
+        SocialAccount isConnected(String accountId) throws EnMeException;
 
         /**
          * Authenticate a member Account by a connection established with this service provider.
          * Used to support "Sign in using Facebook"-type scenarios, where the access token identifying a connection is available to client code, typically a cookie managed by JavaScript.
-         * @throws NoSuchAccountConnectionException no such connection has been established between a member and this service provider
+         * @throws EnMeNoResultsFoundException no such connection has been established between a member and this service provider
          */
         SocialAccount findAccountByConnection(String accessToken) throws EnMeNoResultsFoundException;
 

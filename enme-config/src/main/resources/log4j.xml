@@ -14,7 +14,7 @@
         <param name="maxFileSize" value="1000KB" />
         <param name="maxBackupIndex" value="0" />
         <param name="File" value="encuestame.log" />
-        <param name="threshold" value="warn" />
+        <param name="threshold" value="debug" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{ABSOLUTE} %5p %c{1}:%L - %m%n" />
         </layout>
@@ -23,10 +23,6 @@
     <!-- Encuestame -->
 
     <logger name="org.encuestame.mvc">
-        <level value="warn" />
-    </logger>
-
-    <logger name="org.encuestame.comet">
         <level value="warn" />
     </logger>
 
@@ -61,51 +57,51 @@
     <!-- Spring -->
 
     <logger name="org.springframework.core">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.beans">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.context">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.jdbc">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.webflow">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.messaging">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.messaging.simp.stomp">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.web">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.web.socket">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.security">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.integration">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.orm.hibernate5.support">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <!-- APACHE -->
@@ -130,9 +126,9 @@
 
     <!-- Root Logger -->
     <root>
-        <priority value="info" />
+        <priority value="warn" />
         <!--<appender-ref ref="console" />-->
-          <appender-ref ref="file" />
+        <appender-ref ref="file" />
     </root>
 
 </log4j:configuration>

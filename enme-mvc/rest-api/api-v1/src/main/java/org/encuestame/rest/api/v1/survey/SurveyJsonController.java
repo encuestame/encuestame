@@ -23,7 +23,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.TypeSearch;
@@ -91,7 +91,7 @@ public class SurveyJsonController extends AbstractJsonControllerV1{
                             max, start);
             jsonResponse.put("surveys", list);
             setItemResponse(jsonResponse);
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
             log.error(e);
             setError(e.getMessage(), response);
         }
@@ -142,7 +142,7 @@ public class SurveyJsonController extends AbstractJsonControllerV1{
 
             jsonResponse.put("sections", surveySections);
             setItemResponse(jsonResponse);
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
             log.error(e);
             setError(e.getMessage(), response);
         }
@@ -188,7 +188,7 @@ public class SurveyJsonController extends AbstractJsonControllerV1{
                 setItemResponse(jsonResponse);
             }
 
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
             log.error(e);
             setError(e.getMessage(), response);
         }
@@ -237,7 +237,7 @@ public class SurveyJsonController extends AbstractJsonControllerV1{
                 setItemResponse(jsonResponse);
             }
 
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
             log.error(e);
             setError(e.getMessage(), response);
         }

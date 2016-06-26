@@ -13,7 +13,7 @@
 package org.encuestame.core.exception;
 
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 
 /**
  * Indicates no connection exists between a {@link UserAccount} and a service provider with the submitted access token.

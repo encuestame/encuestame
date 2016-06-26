@@ -21,8 +21,8 @@ import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -242,12 +242,12 @@ public abstract class AbstractJsonControllerV1 extends AbstractBaseOperations{
     }
 
     /**
-     * Customized error for {@link EnMeExpcetion}.
-     * @param ex {@link EnMeExpcetion}
+     * Customized error for {@link EnMeException}.
+     * @param ex {@link EnMeException}
      * @return {@link ResponseEntity}
      */
-    @ExceptionHandler(EnMeExpcetion.class)
-    public ResponseEntity<String> handleEnMeExpcetion(EnMeExpcetion ex)   {
+    @ExceptionHandler(EnMeException.class)
+    public ResponseEntity<String> handleEnMeException(EnMeException ex)   {
         return this.errorManage(ex);
     }
 

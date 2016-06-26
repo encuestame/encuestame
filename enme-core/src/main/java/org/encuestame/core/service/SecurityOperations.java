@@ -12,20 +12,12 @@
  */
 package org.encuestame.core.service;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.encuestame.core.admin.AdministratorProfile;
-import org.encuestame.core.service.ServiceOperations;
-import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.Group;
-import org.encuestame.persistence.domain.security.Permission;
-import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.persistence.exception.IllegalSocialActionException;
+import org.encuestame.persistence.domain.security.*;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnmeFailOperation;
+import org.encuestame.util.exception.IllegalSocialActionException;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.security.SignUpBean;
@@ -36,6 +28,9 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.mail.MailSendException;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Interface for Security Service.
@@ -155,7 +150,7 @@ public interface SecurityOperations extends ServiceOperations {
      * Delete user.
      * @param userBean user to delete
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
      void deleteUser(final UserAccountBean userBean) throws EnMeNoResultsFoundException;
     /**
@@ -163,18 +158,18 @@ public interface SecurityOperations extends ServiceOperations {
      * @param userBean {@link UserAccountBean}
      * @param newPassword new password
      * @return new password
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    String renewPassword(final UserAccountBean userBean, final String newPassword) throws EnMeExpcetion;
+    String renewPassword(final UserAccountBean userBean, final String newPassword) throws EnMeException;
     /**
      * Update a Group.
      * @param groupBean {@link UnitGroupBean}
      */
-    UnitGroupBean updateGroup(UnitGroupBean groupBean) throws EnMeExpcetion;
+    UnitGroupBean updateGroup(UnitGroupBean groupBean) throws EnMeException;
     /**
      * Update user.
      * @param userBean user bean.
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
     void updateUser(final UserAccountBean userBean);
     /**
@@ -192,41 +187,41 @@ public interface SecurityOperations extends ServiceOperations {
      * Create a user, generate password for user and send email to confirmate
      * the account.
      * @param userBean user bean
-     * @throws EnMeExpcetion
-     * @throws EnMeExpcetion personalize exception
+     * @throws EnMeException
+     * @throws EnMeException personalize exception
      */
-    void createUser(final UserAccountBean userBean,  final String username) throws EnMeExpcetion;
+    void createUser(final UserAccountBean userBean,  final String username) throws EnMeException;
 
     /**
      * Assign permission to user.
      * @param userBean {@link UserAccountBean}
      * @param permissionBean {@link UnitPermission}
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
     void assignPermission(
             final UserAccountBean userBean,
             final UnitPermission permissionBean)
-            throws EnMeExpcetion;
+            throws EnMeException;
 
     /**
      * Remove {@link Group} from User.
      * @param userBean {@link UserAccountBean}
      * @param groupBean {@link UnitGroupBean}
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     void removeGroupFromUser(
             final UserAccountBean userBean,
             final UnitGroupBean groupBean)
-            throws EnMeExpcetion;
+            throws EnMeException;
 
     /**
      * Load Permission domain and covert to permission bean.
      * @param permission permission
      * @return permission bean
-     * @throws EnMeExpcetion excepcion
+     * @throws EnMeException excepcion
      */
     UnitPermission loadBeanPermission(final EnMePermission  permission)
-    throws EnMeExpcetion;
+    throws EnMeException;
 
     /**
      * Load domain permission.
@@ -325,14 +320,14 @@ public interface SecurityOperations extends ServiceOperations {
      * @param userId user id
      * @param permission {@link EnMePermission}.
      * @param loggedUser user logged.
-     * @throws EnMeExpcetion exception.
+     * @throws EnMeException exception.
      */
     void updatePermission(
             final Long userId,
             final String loggedUser,
             final EnMePermission permission,
             final String action)
-            throws EnMeExpcetion;
+            throws EnMeException;
 
     /**
      * Get Group by Id and User Id.
@@ -454,7 +449,7 @@ public interface SecurityOperations extends ServiceOperations {
      * @param userAccount
      * @return
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     SocialAccount addNewSocialAccount(
             final String token,

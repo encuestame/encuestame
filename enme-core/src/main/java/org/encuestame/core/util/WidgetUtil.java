@@ -12,25 +12,25 @@
  */
 package org.encuestame.core.util;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.PathUtil;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.utils.MD5Utils;
+import org.encuestame.utils.PictureUtils;
+import org.encuestame.utils.ShortUrlProvider;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.encuestame.utils.PathUtil;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.MD5Utils;
-import org.encuestame.utils.PictureUtils;
-import org.encuestame.utils.ShortUrlProvider;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Dojo Widget Utils.
@@ -272,7 +272,7 @@ public class WidgetUtil {
      * @param path
      * @return
      */
-    public static final String getAnalytics(final String path){
+    public static final String getAnalytics(final String path) {
         final String analyticCode = EnMePlaceHolderConfigurer.getProperty("google.analytic.code");
         final String scriptFilePath = path;
         final StringBuffer stb = new StringBuffer("");
@@ -280,7 +280,7 @@ public class WidgetUtil {
         String analyticBlock;
         try {
             if (analyticCode.isEmpty()) {
-                throw new EnMeExpcetion("analytics code is emtpy");
+                throw new EnMeException("analytics code is emtpy");
             }
             reader = new BufferedReader(
                      new InputStreamReader(new ClassPathResource(scriptFilePath).getInputStream()));
@@ -294,7 +294,7 @@ public class WidgetUtil {
             analyticBlock = StringUtils.replace(analyticBlock, "$analyticCode", analyticCode);
         } catch (IOException e) {
             analyticBlock = "";
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
             analyticBlock = "";
         }
         return analyticBlock;
@@ -306,7 +306,7 @@ public class WidgetUtil {
      * @param path
      * @return
      */
-    public static final String getPasswordBlackList(final String path){
+    public static final String getPasswordBlackList(final String path) {
         final String scriptFilePath = path;
         final StringBuffer stb = new StringBuffer("[");
         BufferedReader reader;
@@ -337,7 +337,7 @@ public class WidgetUtil {
      * Get black list ip.
      * @return
      */
-    public static final List<String> getBlackListIP(final String path) throws EnMeExpcetion{
+    public static final List<String> getBlackListIP(final String path) throws EnMeException{
         final String blackListPath =  path;
         BufferedReader reader;
         final List<String> blackList = new ArrayList<String>();

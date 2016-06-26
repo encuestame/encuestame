@@ -12,16 +12,6 @@
  */
 package org.encuestame.test.business.service;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.service.IStatisticsService;
 import org.encuestame.core.util.EnMeUtils;
@@ -37,9 +27,9 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeSearchException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
@@ -54,6 +44,12 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test Statistics Service.

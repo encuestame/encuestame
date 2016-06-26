@@ -12,16 +12,10 @@
  */
 package org.encuestame.business.service;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.mail.internet.MimeMessage;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.MailServiceOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.mail.InvitationBean;
@@ -29,14 +23,17 @@ import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
+
+import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Class Implements a Mail Service.
@@ -45,13 +42,12 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  */
 
 @SuppressWarnings("unchecked")
-@Service(value = "mailService")
 public class MailService extends AbstractBaseService implements MailServiceOperations {
 
     private Log log = LogFactory.getLog(this.getClass());
 
     /** email to  no-response. **/
-    @Value("${mail.noresponse}") private String noEmailResponse;
+    private String noEmailResponse = EnMePlaceHolderConfigurer.getProperty("mail.noresponse");;
     /** mail sender. **/
 
     private JavaMailSenderImpl mailSender;
@@ -61,6 +57,10 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
     /** VelocityEngine. **/
     @Autowired
     private VelocityEngine velocityEngine;
+
+    public MailService(JavaMailSenderImpl mailSender) {
+        this.mailSender = mailSender;
+    }
 
     /**
      *
@@ -84,7 +84,6 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
      * setter mail sender.
      * @param mailSender mail sender
      */
-    @Autowired
     public void setMailSender(JavaMailSenderImpl mailSender) {
         this.mailSender = mailSender;
     }

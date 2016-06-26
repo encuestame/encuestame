@@ -12,14 +12,14 @@
  */
 package org.encuestame.core.service;
 
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.util.exception.EnMeGenericException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnmeFailOperation;
+import org.encuestame.utils.enums.PictureType;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.utils.enums.PictureType;
-import org.encuestame.utils.exception.EnMeGenericException;
 
 /**
  * Picture Service.
@@ -31,7 +31,6 @@ public interface IPictureService {
 
     /**
      * Get Profile Picture.
-     * @param id
      * @param username
      * @param pictureType
      * @return

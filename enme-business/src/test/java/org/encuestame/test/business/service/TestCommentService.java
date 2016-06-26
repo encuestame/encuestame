@@ -13,14 +13,6 @@
 package org.encuestame.test.business.service;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import org.encuestame.business.service.CommentService;
 import org.encuestame.core.service.ICommentService;
 import org.encuestame.persistence.domain.Comment;
@@ -28,10 +20,10 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnmeNotAllowedException;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnmeNotAllowedException;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
@@ -44,6 +36,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test for {@link CommentService}.
@@ -127,10 +127,10 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 
     /**
      * Test get comments by keyword.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     @Test
-    public void testGetCommentsbyKeyword() throws EnMeExpcetion{
+    public void testGetCommentsbyKeyword() throws EnMeException{
         assertNotNull(this.comment);
         final String keyword1 = "tweetPoll";
         final String keyword2 = "My";
@@ -461,7 +461,7 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 	 * Test Retrieve Comments
 	 */
 	@Test
-	public void testRetrieveAllTweetPollComments() throws EnMeExpcetion {
+	public void testRetrieveAllTweetPollComments() throws EnMeException {
 		final List<Comment> comments = getCommentsOperationsService().getComments(TypeSearchResult.TWEETPOLL, this.tweetPoll.getTweetPollId(), 10, 0);
  	}
 }

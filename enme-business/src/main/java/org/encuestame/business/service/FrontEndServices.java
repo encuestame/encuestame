@@ -3,31 +3,25 @@
  */
 package org.encuestame.business.service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-//import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.*;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.RecentItemsComparator;
-import org.encuestame.persistence.domain.*;
+import org.encuestame.persistence.domain.AccessRate;
+import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagRanking;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeSearchException;
 import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.SearchPeriods;
@@ -46,6 +40,11 @@ import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
+
+//import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 
 /**
  * Front End Service.
@@ -468,7 +467,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     public Status registerVote(
             final Long itemId,
             final TypeSearchResult searchResult,
-            final String ipAddress) throws EnMeExpcetion {
+            final String ipAddress) throws EnMeException {
         UserAccount user = getUserAccount(getUserPrincipalUsername());
         Status status = Status.ACTIVE;
         final Long INCREASE_VOTES = 1L;
@@ -505,12 +504,12 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
                     }
                 } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
                     //TODO: Vote a Survey.
-                    throw new EnMeExpcetion("is not possible to vote surveys yet");
+                    throw new EnMeException("is not possible to vote surveys yet");
                 }
                 //register the vote.
                 // NOTE: no anonymous votes anymore
                 if (EnMeUtils.ANONYMOUS_USER.equals(userVote)) {
-                    throw new EnMeExpcetion("you must be logged to vote");
+                    throw new EnMeException("you must be logged to vote");
                 }
             } catch (EnMeNoResultsFoundException e) {
                 log.error(e);
@@ -678,7 +677,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      */
     public AccessRate registerAccessRate(final TypeSearchResult type,
             final Long itemId, final String ipAddress, final Boolean rate)
-            throws EnMeExpcetion {
+            throws EnMeException {
         AccessRate recordAccessRate = new AccessRate();
         if (ipAddress != null) {
             if (type.equals(TypeSearchResult.TWEETPOLL)) {
@@ -717,16 +716,16 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param tpoll
      * @param ipAddress
      * @param option
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     private AccessRate checkExistTweetPollPreviousRecord(final TweetPoll tpoll,
-            final String ipAddress, final Boolean option) throws EnMeExpcetion {
+            final String ipAddress, final Boolean option) throws EnMeException {
         // Search record by tweetPpll in access Rate domain.
         List<AccessRate> rateList = this.getAccessRateItem(ipAddress,
                 tpoll.getTweetPollId(), TypeSearchResult.TWEETPOLL);
         final AccessRate accessRate;
         if (rateList.size() > 1) {
-            throw new EnMeExpcetion(
+            throw new EnMeException(
                     "Access rate list found coudn't be greater than one ");
         } else if (rateList.size() == 1) {
             // Get first element from access rate list
@@ -760,16 +759,16 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param ipAddress
      * @param option
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     private AccessRate checkExistPollPreviousRecord(final Poll poll,
-            final String ipAddress, final Boolean option) throws EnMeExpcetion {
+            final String ipAddress, final Boolean option) throws EnMeException {
         // Search record by poll in access Rate domain.
         List<AccessRate> rateList = this.getAccessRateItem(ipAddress,
                 poll.getPollId(), TypeSearchResult.POLL);
         final AccessRate accessRate;
         if (rateList.size() > 1) {
-            throw new EnMeExpcetion(
+            throw new EnMeException(
                     "Access rate list found coudn't be greater than one ");
         } else if (rateList.size() == 1) {
             // Get first element from access rate list
@@ -803,16 +802,16 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param ipAddress
      * @param option
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     private AccessRate checkExistSurveyPreviousRecord(final Survey survey,
-            final String ipAddress, final Boolean option) throws EnMeExpcetion {
+            final String ipAddress, final Boolean option) throws EnMeException {
         // Search record by survey in access Rate domain.
         List<AccessRate> rateList = this.getAccessRateItem(ipAddress,
                 survey.getSid(), TypeSearchResult.SURVEY);
         final AccessRate accessRate;
         if (rateList.size() > 1) {
-            throw new EnMeExpcetion(
+            throw new EnMeException(
                     "Access rate list found coudn't be greater than one ");
         } else if (rateList.size() == 1) {
             // Get first element from access rate list
@@ -933,7 +932,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      */
     private List<AccessRate> getAccessRateItem(final String ipAddress,
             final Long itemId, final TypeSearchResult searchby)
-            throws EnMeExpcetion {
+            throws EnMeException {
         final List<AccessRate> itemAccessList = getFrontEndDao()
                 .getAccessRatebyItem(ipAddress, itemId, searchby);
         return itemAccessList;

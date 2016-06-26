@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.JstlView;
 import java.util.Properties;
 
 
-@Configuration
+//@Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {
         "org.encuestame"

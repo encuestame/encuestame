@@ -3,11 +3,11 @@ package org.encuestame.mvc.controller;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.web.SecurityUtils;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 import org.encuestame.utils.web.frontEnd.WebMessage;
 import org.encuestame.utils.web.frontEnd.WebMessage.WebInfoType;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,12 +40,12 @@ public abstract class AbstractViewController extends AbstractBaseOperations{
     /**
     *
     */
-   @Value("${encuestame.error.level}") protected Integer errorLevel;
+   protected Integer errorLevel = EnMePlaceHolderConfigurer.getIntegerProperty("encuestame.error.level");
 
    /**
     *
     */
-   @Value("${encuestame.error.display_bugtracking}") protected Boolean bugTracking;
+   protected Boolean bugTracking = EnMePlaceHolderConfigurer.getBooleanProperty("encuestame.error.display_bugtracking");
 
 
      /**
@@ -124,7 +124,7 @@ public abstract class AbstractViewController extends AbstractBaseOperations{
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ModelAndView handleException(EnMeExpcetion ex, HttpServletRequest request) {
+    ModelAndView handleException(EnMeException ex, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("tilesResolver");
         mav.setViewName("error");

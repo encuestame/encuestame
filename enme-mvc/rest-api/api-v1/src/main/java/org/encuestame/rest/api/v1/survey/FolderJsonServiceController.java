@@ -12,22 +12,15 @@
  */
 package org.encuestame.rest.api.v1.survey;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.domain.survey.Survey;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.SearchBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -35,14 +28,15 @@ import org.encuestame.utils.web.SurveyBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Folder Json Service Controller.
@@ -393,7 +387,7 @@ public class FolderJsonServiceController extends AbstractJsonControllerV1{
                 jsonResponse.put("surveysByFolder", ListUtils.EMPTY_LIST);
                 jsonResponse.put("TweetPollsByFolder", ListUtils.EMPTY_LIST);
                 jsonResponse.put("PollsByFolder", ListUtils.EMPTY_LIST);
-                throw new EnMeExpcetion("type not valid");
+                throw new EnMeException("type not valid");
             }
             setItemResponse(jsonResponse);
         } catch (Exception e) {

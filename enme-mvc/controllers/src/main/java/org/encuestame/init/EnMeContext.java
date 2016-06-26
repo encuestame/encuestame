@@ -12,17 +12,17 @@
  */
 package org.encuestame.init;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.setup.StartupProcess;
-
+import org.encuestame.config.startup.DirectorySetupOperations;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 /**
  * Initialize encuestame context.
@@ -60,7 +60,7 @@ public class EnMeContext extends ContextLoaderListener implements ServletContext
     public void contextInitialized(final ServletContextEvent sce) {
         EnMeContext.servletContext = sce.getServletContext();
         super.contextInitialized(sce);
-        boolean existHomeDirectory = org.encuestame.core.startup.DirectorySetupOperations.isHomeDirectoryValid();
+        boolean existHomeDirectory = DirectorySetupOperations.isHomeDirectoryValid();
         if (!existHomeDirectory) {
             log.fatal("**********************************************");
             log.fatal("*    		 ENCUESTAME HOME IS MISSING");
@@ -70,7 +70,7 @@ public class EnMeContext extends ContextLoaderListener implements ServletContext
             throw new IllegalStateException("home not valid, please set a home property in the configuration file");
         } else {
             WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-            servletContext.setInitParameter("spring.profiles.active", "live");
+            //servletContext.setInitParameter("spring.profiles.active", "live");
             final StartupProcess startup = (StartupProcess) ctx.getBean("applicationStartup");
             try {
                startup.startProcess();

@@ -12,14 +12,15 @@
  */
 package org.encuestame.core.exception;
 
-import org.encuestame.persistence.exception.EnMeExpcetion;
+
+import org.encuestame.util.exception.EnMeException;
 
 /**
  * No Social Account Connection Exception.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 25, 2010 2:19:06 AM
  */
-public class NoSocialAccountConnectionException extends EnMeExpcetion{
+public class NoSocialAccountConnectionException extends EnMeException{
 
     private String accessToken;
 

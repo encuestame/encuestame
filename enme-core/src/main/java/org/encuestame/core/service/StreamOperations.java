@@ -12,14 +12,13 @@
  */
 package org.encuestame.core.service;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.DateClasificatedEnum;
 import org.encuestame.utils.web.notification.UtilNotification;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Implementation for stream operations.

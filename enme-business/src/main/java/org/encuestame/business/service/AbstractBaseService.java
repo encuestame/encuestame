@@ -12,27 +12,12 @@
  */
 package org.encuestame.business.service;
 
-import java.io.File;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.DirectorySetupOperations;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.IMessageSource;
 import org.encuestame.core.service.MailServiceOperations;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
-import org.encuestame.core.startup.DirectorySetupOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.HttpUtils;
 import org.encuestame.persistence.domain.Email;
@@ -45,20 +30,11 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMePollNotFoundException;
-import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.util.exception.*;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.ValidationUtils;
-import org.encuestame.utils.enums.CommentOptions;
-import org.encuestame.utils.enums.HashTagRate;
-import org.encuestame.utils.enums.NotificationEnum;
-import org.encuestame.utils.enums.RelativeTimeEnum;
-import org.encuestame.utils.enums.SearchPeriods;
-import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.enums.*;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.UnitEmails;
@@ -70,10 +46,15 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.auth.AccessToken;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * Service.
@@ -485,9 +466,9 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * Create Email List.
      * @param unitLists
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
-    public UnitLists createEmailLists(final UnitLists unitLists) throws EnMeExpcetion{
+    public UnitLists createEmailLists(final UnitLists unitLists) throws EnMeException{
         if (unitLists!=null){
             try {
                 final EmailList listsDomain = new EmailList();
@@ -497,13 +478,13 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                 getEmailListsDao().saveOrUpdate(listsDomain);
                 unitLists.setId(listsDomain.getIdList());
               } catch (HibernateException e) {
-                  throw new EnMeExpcetion(e);
+                  throw new EnMeException(e);
               } catch (Exception e) {
-                  throw new EnMeExpcetion(e);
+                  throw new EnMeException(e);
               }
               return unitLists;
           } else {
-              throw new EnMeExpcetion("email list is not valid");
+              throw new EnMeException("email list is not valid");
           }
       }
 
@@ -511,9 +492,9 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * Create Emails.
      * @param unitEmails
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
-    public UnitEmails createEmail(final UnitEmails unitEmails) throws EnMeExpcetion{
+    public UnitEmails createEmail(final UnitEmails unitEmails) throws EnMeException{
         if(unitEmails!= null){
             try {//
                 final EmailList emailList = new EmailList();
@@ -536,11 +517,11 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                 //TODO:Enviamos correo al usuario para que confirme su subscripcion.
             }
             catch (Exception e) {
-                throw new EnMeExpcetion(e);
+                throw new EnMeException(e);
             }
             return unitEmails;
         } else {
-            throw new EnMeExpcetion("Email is null");
+            throw new EnMeException("Email is null");
         }
     }
 
@@ -607,9 +588,9 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param subscriptionCode
      * @param subscriptionOption
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
-    public Boolean subscribeEmails(final String subscriptionCode, final String subscriptionOption) throws EnMeExpcetion{
+    public Boolean subscribeEmails(final String subscriptionCode, final String subscriptionOption) throws EnMeException{
         Boolean success = false;
         EmailSubscribe subscribe = getEmailListsDao().getSubscribeAccount(subscriptionCode);
         if (subscribe!=null){
@@ -625,13 +606,13 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                    success = Boolean.TRUE;
                 }
             catch (Exception e) {
-                 throw new EnMeExpcetion(e);
+                 throw new EnMeException(e);
             }
             return success;
         }
 
         else {
-            throw new EnMeExpcetion("Email Not Found in Subscribe List");
+            throw new EnMeException("Email Not Found in Subscribe List");
         }
      }
 
@@ -663,7 +644,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * Load list of users.
      * @return list of users with groups and permission
      * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion excepcion
+     * @throws EnMeException excepcion
      */
     public List<UserAccountBean> loadListUsers(
            final String currentUsername,

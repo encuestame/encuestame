@@ -15,10 +15,10 @@ package org.encuestame.mvc.page;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.controller.AbstractViewController;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,17 +49,17 @@ public class HomeController extends AbstractViewController {
     /**
      * Default max of home beans to display.
      */
-    @Value("${front.home.items}") private Integer homeMaxItems;
+    private Integer homeMaxItems = EnMePlaceHolderConfigurer.getIntegerProperty("front.home.items");
 
     /**
      * Default max of hashtag to display.
      */
-    @Value("${front.hashtags.items}") private Integer homeHashtagMaxItems;
+    private Integer homeHashtagMaxItems = EnMePlaceHolderConfigurer.getIntegerProperty("front.hashtags.items");
 
     /**
      *
      */
-    @Value("${front.profile.items}") private Integer profileDefaultItems;
+    private Integer profileDefaultItems = EnMePlaceHolderConfigurer.getIntegerProperty("front.profile.items");
 
     /**
      * Default date range.

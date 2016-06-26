@@ -17,8 +17,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.web.UserAccountBean;
@@ -186,7 +186,7 @@ public class JsonPermissionController  extends AbstractJsonControllerV1 {
                         EnumerationUtils.getEnumFromString(EnMePermission.class, permission), action);
                 jsonResponse.put("p", "ok");
                 setItemResponse(jsonResponse);
-            } catch (EnMeExpcetion e) {
+            } catch (EnMeException e) {
                 setError(e.getMessage(), response);
                 log.error(e);
             }

@@ -1,0 +1,7 @@
+machine:
+  java:
+    version: openjdk7
+
+dependencies:
+  override:
+    - mvn clean install -Pproduction

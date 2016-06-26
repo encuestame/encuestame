@@ -18,7 +18,7 @@
 
 package org.encuestame.mvc.test.view;
 
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.mvc.page.FileUploadController;
 import org.encuestame.mvc.test.config.AbstractMultipartMvcUnitBeans;
 import org.encuestame.utils.categories.test.DefaultTest;

@@ -12,34 +12,22 @@
  */
 package org.encuestame.business.service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.UUID;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.admin.AdministratorProfile;
-import org.encuestame.core.service.SecurityOperations;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.web.SecurityUtils;
-import org.encuestame.core.util.EnMePasswordUtils;
-import org.encuestame.core.util.PasswordGenerator;
+import org.encuestame.core.service.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMePasswordUtils;
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.core.util.PasswordGenerator;
 import org.encuestame.persistence.domain.security.*;
 import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.persistence.exception.IllegalSocialActionException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnmeFailOperation;
+import org.encuestame.util.exception.IllegalSocialActionException;
 import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.FollowOperations;
@@ -57,9 +45,9 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * Security Service Implementation.
@@ -196,9 +184,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * Renew password.
      * @param userBean {@link UserAccountBean}
      * @param newPassword new password
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
-    public String renewPassword(final UserAccountBean userBean, String newPassword) throws EnMeExpcetion {
+    public String renewPassword(final UserAccountBean userBean, String newPassword) throws EnMeException {
         // search user
         final UserAccount userDomain = getUserAccount(userBean.getUsername());
         // validate user and password
@@ -224,7 +212,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         }
         else {
             //if we have a problem with user, we retrieve null value
-           throw new EnMeExpcetion("error on renew password");
+           throw new EnMeException("error on renew password");
         }
         return newPassword;
     }
@@ -232,9 +220,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     /**
      * Update a Group.
      * @param groupBean {@link UnitGroupBean}
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    public UnitGroupBean updateGroup(UnitGroupBean groupBean) throws EnMeExpcetion {
+    public UnitGroupBean updateGroup(UnitGroupBean groupBean) throws EnMeException {
         log.info("group to search "+groupBean.getId());
         final Group group = getGroupDao().find(Long.valueOf(groupBean.getId()));
         log.info("group found "+group);
@@ -250,7 +238,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             log.info("group new description "+group.getGroupDescriptionInfo());
             groupBean = ConvertDomainBean.convertGroupDomainToBean(group);
         } else {
-            throw new EnMeExpcetion("group not found");
+            throw new EnMeException("group not found");
         }
         return groupBean;
     }
@@ -259,7 +247,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * Get Group by Primary User and Group Id.
      * @param Long groupId.
      * @param String username.
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
     public Group getGroupbyIdandUser(final Long groupId, final String username) throws EnMeNoResultsFoundException {
         return getGroupDao().getGroupByIdandUser(groupId, getUserAccountId(username));
@@ -268,7 +256,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     /**
      * Update user.
      * @param userBean user bean.
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
     public void updateUser(final UserAccountBean userBean){
         log.info("service update user method");
@@ -357,10 +345,10 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * Create a user account, generate password for user and send email to confirmate
      * the account.
      * @param userBean {@link UserAccountBean}
-     * @throws EnMeExpcetion personalize exception
+     * @throws EnMeException personalize exception
      * @return if password is not notified  is returned
      */
-    public void createUser(final UserAccountBean userBean, final String username) throws EnMeExpcetion {
+    public void createUser(final UserAccountBean userBean, final String username) throws EnMeException {
         final UserAccount userAccount = new UserAccount();
         final Account account = getUserAccount(username).getAccount();
         //validate email and password
@@ -369,7 +357,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             userAccount.setUsername(userBean.getUsername());
             userAccount.setAccount(account);
         } else {
-            throw new EnMeExpcetion("needed email and username to create user");
+            throw new EnMeException("needed email and username to create user");
         }
         String password = null;
         if (userBean.getPassword() != null) {
@@ -423,7 +411,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 getAccountDao().saveOrUpdate(retrievedUser);
             } catch (Exception e) {
                 log.debug(e);
-                throw new EnMeExpcetion(e.getMessage());
+                throw new EnMeException(e.getMessage());
             }
     }
 
@@ -467,13 +455,13 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * Assign permission to user.
      * @param userBean {@link UserAccountBean}
      * @param permissionBean {@link UnitPermission}
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
 
     public void assignPermission(
             final UserAccountBean userBean,
             final UnitPermission permissionBean)
-            throws EnMeExpcetion
+            throws EnMeException
    {
         UserAccount userDomain = null;
         Permission permissionDomain = null;
@@ -495,7 +483,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
            getAccountDao().saveOrUpdate(userDomain);
            log.info("saved permission "+userDomain.getSecUserPermissions().size());
         } else {
-            throw new EnMeExpcetion("error adding permission");
+            throw new EnMeException("error adding permission");
         }
     }
 
@@ -503,15 +491,15 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * Assign Permission,
      * @param userId user id
      * @param permission {@link EnMePermission}.
-     * @param loggedUse user logged.
-     * @throws EnMeExpcetion exception.
+     * @param action
+     * @throws EnMeException exception.
      */
     public void updatePermission(
             final Long userId,
             final String loggedUser,
             final EnMePermission permission,
             final String action)
-            throws EnMeExpcetion{
+            throws EnMeException{
         final UserAccount user = getValidateUser(userId, loggedUser);
         if(user == null){
             throw new EnMeNoResultsFoundException("user not found");
@@ -530,8 +518,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
 
     /**
      * Assign group to user.
-     * @param userBean userBean
-     * @param groupBean groupBean
+     * @param groupId userBean
+     * @param userId groupBean
      * @throws EnMeNoResultsFoundException
      */
     public void assingGroupFromUser(
@@ -571,12 +559,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * Remove {@link Group} from User.
      * @param userBean {@link UserAccountBean}
      * @param groupBean {@link UnitGroupBean}
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public void removeGroupFromUser(
             final UserAccountBean userBean,
             final UnitGroupBean groupBean)
-            throws EnMeExpcetion {
+            throws EnMeException {
             //TODO: need be implemented
     }
 

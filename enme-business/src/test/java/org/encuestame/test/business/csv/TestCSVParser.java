@@ -1,16 +1,16 @@
 package org.encuestame.test.business.csv;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import org.encuestame.business.setup.install.demo.CSVParser;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.config.AbstractSpringSecurityContext;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @Category(DefaultTest.class)
 public class TestCSVParser extends AbstractSpringSecurityContext{

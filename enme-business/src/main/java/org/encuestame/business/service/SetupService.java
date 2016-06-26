@@ -12,28 +12,22 @@
  */
 package org.encuestame.business.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.business.setup.install.demo.CSVParser;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.XMLConfigurationFileSupport;
 import org.encuestame.core.admin.AdministratorProfile;
 import org.encuestame.core.filter.RequestSessionMap;
-import org.encuestame.core.util.WidgetUtil;
-import org.encuestame.core.service.SetupOperations;
 import org.encuestame.core.service.MailServiceOperations;
 import org.encuestame.core.service.SecurityOperations;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.core.service.SetupOperations;
 import org.encuestame.core.util.EnMeUtils;
-import org.encuestame.core.util.XMLConfigurationFileSupport;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.core.util.WidgetUtil;
+import org.encuestame.util.exception.EnMeException;
 import org.encuestame.utils.DateUtil;
-import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.enums.TypeDatabase;
 import org.encuestame.utils.social.SocialNetworkBean;
@@ -43,6 +37,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Define all setup operations.
@@ -110,7 +107,6 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     }
 
     /**
-     * @throws EnmeFailOperation
      * @throws IOException
      *
      */
@@ -179,9 +175,9 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     /**
      * Check status version.
      * @return the status.
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
-    public String checkStatus() throws EnMeExpcetion {
+    public String checkStatus() throws EnMeException {
         //TODO: replace by ENUMs
         String status = "install";
         final String currentVersion = EnMePlaceHolderConfigurer.getProperty("app.version");

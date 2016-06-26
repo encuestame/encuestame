@@ -18,10 +18,10 @@ import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.persistence.exception.EnmeNotAllowedException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnmeFailOperation;
+import org.encuestame.util.exception.EnmeNotAllowedException;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.SearchPeriods;
@@ -43,13 +43,13 @@ public interface ICommentService {
      * @param max
      * @param start
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<Comment> getComments(
             final TypeSearchResult searchResult,
             final Long itemId,
             final Integer max,
-            final Integer start) throws EnMeExpcetion;
+            final Integer start) throws EnMeException;
 
     /**
      * Get comment by id.
@@ -76,12 +76,12 @@ public interface ICommentService {
      * @param maxResults
      * @param start
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     List<CommentBean> getCommentsbyKeyword(
                 final String keyword,
                 final Integer maxResults,
-                final Integer start) throws EnMeExpcetion;
+                final Integer start) throws EnMeException;
 
     /**
      * Create comment.

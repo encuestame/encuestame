@@ -13,12 +13,6 @@
 
 package org.encuestame.mvc.page;
 
-import java.net.UnknownHostException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.filter.RequestSessionMap;
@@ -26,15 +20,13 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.PollResult;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMePollNotFoundException;
-import org.encuestame.persistence.exception.EnmeNotAllowedException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMePollNotFoundException;
+import org.encuestame.util.exception.EnmeNotAllowedException;
 import org.encuestame.utils.enums.RequestSourceType;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.UnitAbstractSurvey.MultipleResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +35,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.net.UnknownHostException;
+import java.util.List;
 
 /**
  * Poll controller.
@@ -334,7 +331,7 @@ public class PollController extends AbstractViewController {
                         log.debug("responseId -- JUAN " + responseId);
                         try {
                             poll = getPollService().getPollByAnswerId(itemId, responseId, null);
-                        } catch (EnMeExpcetion e) {
+                        } catch (EnMeException e) {
                             //TEMP: temporal solution to manage correctly the bad response
                             pathVote = "poll/" + isEmbedded + "bad";
                             Poll poll_full = getPollService().getPollById(itemId);
@@ -470,7 +467,7 @@ public class PollController extends AbstractViewController {
     @RequestMapping(value = "/user/poll/list", method = RequestMethod.GET)
     public String pollListController(final ModelMap model,
             HttpServletRequest request,
-            HttpServletResponse response) throws EnMeExpcetion {
+            HttpServletResponse response) throws EnMeException {
         setCss(model, "poll");
         addItemsManangeMessages(model, request, response);
         addi18nProperty(model, "commons_no_results", request, response);

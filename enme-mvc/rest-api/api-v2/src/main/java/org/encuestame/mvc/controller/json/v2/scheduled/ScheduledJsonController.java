@@ -9,7 +9,7 @@ import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.util.exception.EnMeException;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.TweetPollScheduledBean;
 import org.encuestame.utils.web.ScheduledTweetPoll;
@@ -62,7 +62,7 @@ public class ScheduledJsonController extends AbstractJsonControllerV1 {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             jsonResponse.put("schedulded_item", ConvertDomainBean.convertScheduletoBean(schedule));
             setItemResponse(jsonResponse);
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
             log.error(e);
             setError(e.getMessage(), response);
         }
@@ -94,7 +94,7 @@ public class ScheduledJsonController extends AbstractJsonControllerV1 {
         	final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             jsonResponse.put("schedulded_items", ConvertDomainBean.convertListScheduletoBean(schedules));
             setItemResponse(jsonResponse);
-        } catch (EnMeExpcetion e) {
+        } catch (EnMeException e) {
             log.error(e);
             setError(e.getMessage(), response);
         }

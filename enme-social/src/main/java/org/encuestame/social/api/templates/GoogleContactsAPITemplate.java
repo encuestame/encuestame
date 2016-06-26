@@ -12,18 +12,18 @@
  */
 package org.encuestame.social.api.templates;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
+import org.encuestame.core.social.operation.GoogleContactsAPIOperations;
 import org.encuestame.oauth2.support.ProtectedResourceClientFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.social.api.AbstractSocialAPISupport;
-import org.encuestame.core.social.operation.GoogleContactsAPIOperations;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Google Contacts API template.

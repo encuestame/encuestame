@@ -20,11 +20,11 @@ package org.encuestame.test.business.service;
 
 import org.encuestame.business.setup.StartupProcess;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
+import org.encuestame.config.startup.DirectorySetupOperations;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.XMLConfigurationFileSupport;
 import org.encuestame.core.admin.AdministratorProfile;
 import org.encuestame.core.service.SetupOperations;
-import org.encuestame.core.startup.DirectorySetupOperations;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
-import org.encuestame.core.util.XMLConfigurationFileSupport;
 import org.encuestame.test.business.config.AbstractServiceBase;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.TypeDatabase;

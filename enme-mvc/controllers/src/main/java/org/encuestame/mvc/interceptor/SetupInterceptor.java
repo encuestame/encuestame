@@ -12,16 +12,16 @@
  */
 package org.encuestame.mvc.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.setup.StartupProcess;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
-import org.encuestame.utils.PathUtil;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.PathUtil;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Setup interceptor.

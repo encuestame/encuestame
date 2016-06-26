@@ -19,6 +19,7 @@
 package org.encuestame.test.business.csv.cron;
 
 import org.apache.commons.collections.ListUtils;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.cron.CalculateHashTagSize;
 import org.encuestame.core.cron.CalculateRelevance;
 import org.encuestame.core.cron.IndexRebuilder;
@@ -26,7 +27,6 @@ import org.encuestame.core.cron.ReIndexJob;
 import org.encuestame.core.service.IFrontEndService;
 import org.encuestame.core.service.IPollService;
 import org.encuestame.core.service.ITweetPollService;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;

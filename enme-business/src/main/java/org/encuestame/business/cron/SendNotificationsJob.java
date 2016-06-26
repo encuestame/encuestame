@@ -12,14 +12,12 @@
  */
 package org.encuestame.business.cron;
 
-import org.apache.commons.lang.math.RandomUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
-import org.encuestame.utils.json.NotificationResume;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.scheduling.annotation.Scheduled;
+ import org.apache.commons.lang.math.RandomUtils;
+ import org.apache.commons.logging.Log;
+ import org.apache.commons.logging.LogFactory;
+ import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
+ import org.encuestame.utils.json.NotificationResume;
+ import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * Publish notifications to users subscribed
@@ -29,6 +27,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 public class SendNotificationsJob {
 
 	private static final Log logger = LogFactory.getLog(SendNotificationsJob.class);
+
+	private String cron = EnMePlaceHolderConfigurer.getProperty("cron.sendNotifications");
 
 	//@Autowired
     //private SimpMessageSendingOperations messagingTemplate;
@@ -43,7 +43,7 @@ public class SendNotificationsJob {
 	/**
 	 *
 	 */
-	@Scheduled(cron = "${cron.sendNotifications}")
+//	@Scheduled(cron = org.encuestame.business.cron.Scheduled.ScheduledConst.NOTIFICATION)
 	public void sendNotifications() {
 		if (EnMePlaceHolderConfigurer.getSystemInstalled()) {
             logger.info("Sending storage notifications...");

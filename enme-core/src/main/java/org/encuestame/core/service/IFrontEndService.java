@@ -23,9 +23,9 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeSearchException;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.Status;
@@ -131,7 +131,7 @@ public interface IFrontEndService extends ServiceOperations {
 
     /**
      * Get TweetPolls by hashTag id.
-     * @param hashTagId
+     * @param tagName
      * @param limit
      * @param request
      * @return
@@ -201,11 +201,11 @@ public interface IFrontEndService extends ServiceOperations {
      * @param ipAddress
      * @param rate
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     AccessRate registerAccessRate(final TypeSearchResult type,
             final Long itemId, final String ipAddress, final Boolean rate)
-            throws EnMeExpcetion;
+            throws EnMeException;
 
     /**
      * Search items by survey.
@@ -225,8 +225,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @param tweetPollList
      * @param pollList
      * @param surveyList
-     * @param datebefore
-     * @param todayDate
+     * @param periods
      */
     void processItemstoCalculateRelevance(
             final List<TweetPoll> tweetPollList,
@@ -322,7 +321,7 @@ public interface IFrontEndService extends ServiceOperations {
     Status registerVote(
             final Long itemId,
             final TypeSearchResult searchResult,
-            final String ipAddress) throws EnMeExpcetion;
+            final String ipAddress) throws EnMeException;
 
     /**
      * Retrieve total items published by User

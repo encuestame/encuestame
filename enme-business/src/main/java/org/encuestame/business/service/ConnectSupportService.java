@@ -14,15 +14,15 @@ package org.encuestame.business.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.service.ConnectOperations;
-import org.encuestame.utils.PathUtil;
+import org.encuestame.config.startup.PathUtil;
 import org.encuestame.core.security.web.SecurityUtils;
+import org.encuestame.core.service.ConnectOperations;
 import org.encuestame.core.service.SecurityOperations;
+import org.encuestame.core.social.SocialSignInOperations;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.core.social.SocialSignInOperations;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.social.SocialProvider;
@@ -56,7 +56,7 @@ public class ConnectSupportService  extends AbstractBaseService implements Conne
      * Start the process to sign in with social account.
      * @param social sign in social support.
      */
-    public String connectSignInAccount(final SocialSignInOperations social) throws EnMeExpcetion {
+    public String connectSignInAccount(final SocialSignInOperations social) throws EnMeException {
         // first, we check if this social account already exist as previous connection.
         log.info("Sign In with Social Account");
         //if user account is previously connected

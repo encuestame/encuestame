@@ -12,22 +12,22 @@
  */
 package org.encuestame.core.service;
 
-import java.util.List;
-
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeSearchException;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
-import org.encuestame.utils.web.UnitLocationTypeBean; 
+import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.geo.ItemGeoLocationBean;
+
+import java.util.List;
 
 /**
  * Description Class.
@@ -49,31 +49,31 @@ public interface IGeoLocationSupport {
      * Create Cat LocationType.
      * @param locatTypeBean {@link UnitLocationTypeBean}
      * @return locatTypeBean
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
     UnitLocationTypeBean createGeoPointType(
-            final UnitLocationTypeBean locatTypeBean) throws EnMeExpcetion;
+            final UnitLocationTypeBean locatTypeBean) throws EnMeException;
 
     /**
      * @param locationBean locationBean
-     * @throws EnMeExpcetion EnMeExpcetion
+     * @throws EnMeException EnMeException
      * @throws EnMeNoResultsFoundException
      */
-    void updateGeoPoint(final UnitLocationBean locationBean) throws EnMeExpcetion, EnMeNoResultsFoundException;
+    void updateGeoPoint(final UnitLocationBean locationBean) throws EnMeException, EnMeNoResultsFoundException;
 
     /**
      * @param locationTypeBean locationTypeBean
-     * @throws EnMeExpcetion EnMeExpcetion
+     * @throws EnMeException EnMeException
      * @throws EnMeNoResultsFoundException
      */
-    void updateGeoPointType(final UnitLocationTypeBean locationTypeBean) throws EnMeExpcetion, EnMeNoResultsFoundException;
+    void updateGeoPointType(final UnitLocationTypeBean locationTypeBean) throws EnMeException, EnMeNoResultsFoundException;
 
     /**
      * create Cat Location.
      * @param location {@link LocationBean}
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    UnitLocationBean createGeoPoint(final UnitLocationBean location) throws EnMeExpcetion;
+    UnitLocationBean createGeoPoint(final UnitLocationBean location) throws EnMeException;
 
     /**
      * Assign Location to Location Folder.
@@ -128,17 +128,17 @@ public interface IGeoLocationSupport {
      * @param Longitude
      * @param locationId
      * @param username
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      * @throws EnMeNoResultsFoundException
      */
      void updateLocationMap(final UnitLocationBean locationBean, final Long locationId, final String username)
-           throws EnMeExpcetion, EnMeNoResultsFoundException;
+           throws EnMeException, EnMeNoResultsFoundException;
 
      /**
       * Update Location Name.
       * @param locationBean {@link UnitLocationBean}.
       * @param username username logged
-      * @throws EnMeExpcetion exception
+      * @throws EnMeException exception
      * @throws EnMeNoResultsFoundException
       */
       void updateLocationName(final UnitLocationBean locationBean, final String username) throws EnMeNoResultsFoundException;
@@ -148,7 +148,7 @@ public interface IGeoLocationSupport {
        * @param locationBean
        * @param username
        * @param typeUpdate
-       * @throws EnMeExpcetion
+       * @throws EnMeException
      * @throws EnMeNoResultsFoundException
        */
       void updateLocationFolder(final UnitLocationFolder locationFolderBean,
@@ -159,7 +159,7 @@ public interface IGeoLocationSupport {
        * Create Default Location Item.
        * @param locationFolder
        * @param username
-       * @throws EnMeExpcetion
+       * @throws EnMeException
      * @throws EnMeNoResultsFoundException
        */
       void createDefaultILocationItem(final UnitLocationFolder locationFolderBean, final String username)
@@ -169,7 +169,7 @@ public interface IGeoLocationSupport {
        * Delete Location Folder.
        * @param unitLocationFolder
        * @param username
-       * @throws EnMeExpcetion
+       * @throws EnMeException
      * @throws EnMeNoResultsFoundException
        */
       void deleteLocationFolder(final UnitLocationFolder unitLocationFolder, final String username) throws EnMeNoResultsFoundException;

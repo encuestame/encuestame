@@ -2,10 +2,11 @@ package org.encuestame.mvc.controller.social;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
+import org.encuestame.util.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.social.SocialProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,14 +31,13 @@ public class PlurkConnectSocialAccount extends AbstractAccountConnect{
     /**
      * Constructor.
      */
-    @Inject
-    public PlurkConnectSocialAccount(
-            @Value("${plurk.consumer.key}") String apiKey,
-            @Value("${plurk.consumer.secret}") String consumerSecret,
-            @Value("${plurk.authorizeUrl}") String authorizeUrl,
-            @Value("${plurk.requestToken}") String requestTokenUrl,
-            @Value("${plurk.accessToken}") String accessToken) {
-        super(apiKey, consumerSecret, authorizeUrl, requestTokenUrl, accessToken, SocialProvider.PLURK);
+    public PlurkConnectSocialAccount() {
+        super(EnMePlaceHolderConfigurer.getProperty("plurk.consumer.key"),
+                EnMePlaceHolderConfigurer.getProperty("plurk.consumer.secret"),
+                EnMePlaceHolderConfigurer.getProperty("plurk.authorizeUrl"),
+                EnMePlaceHolderConfigurer.getProperty("plurk.requestToken"),
+                EnMePlaceHolderConfigurer.getProperty("plurk.accessToken"),
+                SocialProvider.PLURK);
     }
 
     /**

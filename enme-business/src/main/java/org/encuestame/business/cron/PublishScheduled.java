@@ -12,23 +12,23 @@
  */
 package org.encuestame.business.cron;
 
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.ITweetPollService;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.dao.IScheduled;
 import org.encuestame.persistence.domain.Schedule;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * This job calculate every day the size of each hashgtag in the database.
@@ -48,11 +48,13 @@ public class PublishScheduled {
 	@Autowired
 	private ITweetPollService tpollService;
 
+	private String cron = EnMePlaceHolderConfigurer.getProperty("cron.publishAllScheduled");
+
 	/**
 	 * publish {@link TweetPoll} {@link Poll} or {@link Survey} scheduled to be
 	 * published later.
 	 */
-	@Scheduled(cron = "${cron.publishAllScheduled}")
+//	@Scheduled(cron = org.encuestame.business.cron.Scheduled.ScheduledConst.PUBLISH)
 	public void publish() {
 		if (EnMePlaceHolderConfigurer.getSystemInstalled()) {
             log.info("publishing scheduled items ...");

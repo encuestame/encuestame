@@ -54,7 +54,7 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 @Table(name = "tweetPoll")
 //@Cacheable
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TweetPoll extends AbstractGeoPoint{
+public class TweetPoll extends AbstractGeoPoint {
 
     private Long tweetPollId;
 

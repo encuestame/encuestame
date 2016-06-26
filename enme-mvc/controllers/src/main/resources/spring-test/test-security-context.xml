@@ -144,8 +144,8 @@
         <property name="publicKey" value="6LdyFwUAAAAAAP6p1IeqUM7uMKUYyPazw-haEAUU" />
         -->
         <!-- localhost -->
-        <beans:property name="privateKey" value="${captcha.private.key}" />
-        <beans:property name="publicKey" value="${catpcha.public.key}" />
+        <beans:property name="privateKey" value="32131321312" />
+        <beans:property name="publicKey" value="31232132132" />
         <beans:property name="includeNoscript" value="false" />
         <!-- po ssl -->
         <beans:property name="recaptchaServer" value="http://api-secure.recaptcha.net" />

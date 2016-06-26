@@ -1,0 +1,66 @@
+{
+  "name": "encuestame-js",
+  "version": "1.6.0",
+  "main": "main",
+  "description": "Encuestame Web Application, widgets, ui, dependencies",
+  "licenses": {
+    "type": "APLv2",
+    "url": "https://raw.github.com/encuestame/encuestame/development/LICENSE.txt"
+  },
+  "keywords": [
+    "javascript",
+    "dojo",
+    "survey",
+    "cms"
+  ],
+  "author": {
+    "name": "Juan Picado, juan@encuestame.org"
+  },
+  "contributors": [
+    {
+      "name": "Diana Paola Morales",
+      "email": "paola@encuestame.org"
+    }
+  ],
+  "bugs": {
+    "url": "http://www.encuestame.org/issues"
+  },
+  "homepage": "https://github.com/encuestame/encuestame",
+  "devDependencies": {
+    "assert": "^1.1.2",
+    "bower": "*",
+    "chai": "^1.9.2",
+    "css-loader": "^0.23.0",
+    "del": "^0.1.3",
+    "dojo": "^1.10.4",
+    "express": "3.4.0",
+    "grunt": "0.4.5",
+    "grunt-babel": "^5.0.3",
+    "grunt-browserify": "^3.0.1",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-connect": "^0.8.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-eslint": "^17.2.0",
+    "grunt-webpack": "^1.0.11",
+    "history": "^1.13.1",
+    "intern": "*",
+    "jshint-stylish": "^0.4.0",
+    "lodash": "^2.4.1",
+    "react": "*",
+    "react-dom": "*",
+    "reflux": "*",
+    "should": "^4.0.4",
+    "sinon": "^1.14.1",
+    "style-loader": "^0.13.0",
+    "superagent": "^1.4.0",
+    "underscore": "*",
+    "webpack": "*",
+    "webpack-dev-server": "*"
+  }
+}

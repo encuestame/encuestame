@@ -12,15 +12,14 @@
  */
 package org.encuestame.core.test.util;
 
-import java.io.IOException;
-
 import junit.framework.TestCase;
-
 import org.apache.commons.httpclient.HttpException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.util.exception.EnmeFailOperation;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.IOException;
 
 /**
  * Date Utils Test Cases.

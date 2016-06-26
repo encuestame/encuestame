@@ -11,7 +11,7 @@
 
      <!-- env variables used by configurationEncryptor -->
     <bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
-        <property name="algorithm" value="spring.sec.encrypt.algorithm.key" />
+        <property name="algorithm" value="${spring.sec.encrypt.algorithm.key}" />
         <property name="passwordEnvName" value="${spring.sec.encrypt.password.key}" />
     </bean>
 

@@ -134,7 +134,7 @@
     <dependencies>     
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>enme-config</artifactId>
+            <artifactId>web-config</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>

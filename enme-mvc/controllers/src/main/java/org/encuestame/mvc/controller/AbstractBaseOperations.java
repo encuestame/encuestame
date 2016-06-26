@@ -22,13 +22,17 @@ import org.encuestame.business.service.AbstractSecurityContext;
 import org.encuestame.business.service.AbstractSurveyService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.*;
-import org.encuestame.core.util.*;
+import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.core.util.HTMLInputFilter;
+import org.encuestame.core.util.WidgetUtil;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.captcha.ReCaptcha;
 import org.encuestame.utils.enums.RelativeTimeEnum;
@@ -138,7 +142,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
     /** Force Proxy Pass Enabled. **/
-    @Value("${application.proxyPass}") private Boolean proxyPass;
+    private Boolean proxyPass = EnMePlaceHolderConfigurer.getBooleanProperty("application.proxyPass");
 
     /**
      * {@link AuthenticationManager}.
@@ -208,13 +212,13 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param hashtags
      * @param user
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     //@Deprecated
     public TweetPoll createTweetPoll(
             final String question,
             String[] hashtags,
-            UserAccount user) throws EnMeExpcetion{
+            UserAccount user) throws EnMeException{
         //create new tweetPoll
         final TweetPollBean tweetPollBean = new TweetPollBean();
         tweetPollBean.getHashTags().addAll(fillListOfHashTagsBean(hashtags));
@@ -240,9 +244,9 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      *
      * @param tweetPollBean
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
-    public TweetPoll createTweetPoll(final TweetPollBean tweetPollBean) throws EnMeExpcetion{
+    public TweetPoll createTweetPoll(final TweetPollBean tweetPollBean) throws EnMeException{
         //create new tweetPoll
         log.debug("createTweetPoll Bean "+tweetPollBean.toString());
         return getTweetPollService().createTweetPoll(tweetPollBean,
@@ -254,10 +258,10 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      *
      * @param tweetPollBean
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public TweetPoll updateTweetPoll(
-            final TweetPollBean tweetPollBean) throws EnMeExpcetion{
+            final TweetPollBean tweetPollBean) throws EnMeException{
             //final List<HashTagBean> hashtagsList = fillListOfHashTagsBean(hashtags);
             return getTweetPollService().updateTweetPoll(tweetPollBean);
        }
@@ -564,9 +568,9 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param questionName question description
      * @param user {@link UserAccount} owner.
      * @return {@link Question}
-     * @throws EnMeExpcetion exception
+     * @throws EnMeException exception
      */
-    public Question createQuestion(final String questionName, final String[] answers, final UserAccount user) throws EnMeExpcetion{
+    public Question createQuestion(final String questionName, final String[] answers, final UserAccount user) throws EnMeException{
         final QuestionBean questionBean = new QuestionBean();
         questionBean.setQuestionName(questionName);
         questionBean.setUserId(user.getUid());
@@ -711,14 +715,14 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param homeMaxItems
      * @param request
      * @return
-     * @throws EnMeExpcetion
+     * @throws EnMeException
      */
     public List<HomeBean> filterHomeItems (
             final String view,
             final String period,
             final Integer start,
             final Integer homeMaxItems,
-            final HttpServletRequest request) throws EnMeExpcetion {
+            final HttpServletRequest request) throws EnMeException {
         TypeSearchResult typeSearchResult = TypeSearchResult.getTypeSearchResult(view);
         final List<HomeBean> homeItems = new ArrayList<HomeBean>();
         if (view.isEmpty()) {
@@ -757,11 +761,11 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
                 final Locale lang = WidgetUtil.toLocale(language);
                 return lang;
                } else {
-                   //throw new EnMeExpcetion("anonymous user does not have locale");
+                   //throw new EnMeException("anonymous user does not have locale");
                    log.info(account + " user does not have locale");
                    return Locale.ENGLISH;
                }
-        //} catch (EnMeExpcetion e) {
+        //} catch (EnMeException e) {
             //log.warn(e.getMessage());
             //return Locale.ENGLISH;
         //}

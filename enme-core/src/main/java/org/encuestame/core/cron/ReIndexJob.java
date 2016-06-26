@@ -12,12 +12,12 @@
  */
 package org.encuestame.core.cron;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.util.EnMePlaceHolderConfigurer;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.springframework.scheduling.annotation.Scheduled;
+
+import javax.annotation.Resource;
 
 /**
  * Reindex Job.
@@ -42,7 +42,7 @@ public class ReIndexJob {
     /**
      * Reindex.
      */
-    @Scheduled(cron = "${cron.reindex}")
+//    @Scheduled(cron = "${cron.reindex}")
     public void reindex(){
         if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
             this.reindexData();

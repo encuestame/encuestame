@@ -12,25 +12,16 @@
  */
 package org.encuestame.rest.api.v1.security;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.EnumerationUtils;
 import org.encuestame.utils.enums.Profile;
@@ -44,6 +35,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Json users controller.
@@ -62,7 +61,7 @@ public class JsonUsersController extends AbstractJsonControllerV1{
             /**
              * Unconfirmed Accounts Limit Test
              **/
-    @Value("${application.user.unconfirmed.limit}") private Integer unconfirmedAccountsLimit;
+    private Integer unconfirmedAccountsLimit = EnMePlaceHolderConfigurer.getIntegerProperty("application.user.unconfirmed.limit");
 
     /**
      * Get List of Users.
@@ -171,7 +170,7 @@ public class JsonUsersController extends AbstractJsonControllerV1{
             log.debug("user newEmailUser " + email);
             final Integer userUnconfirmed = getSecurityService().retrieveListUserUnconfirmedByAccount();
             if (userUnconfirmed >= unconfirmedAccountsLimit) {
-                throw new EnMeExpcetion(getMessage("unconfirmed_limit", request, null));
+                throw new EnMeException(getMessage("unconfirmed_limit", request, null));
             }
             final UserAccountBean userBean = new UserAccountBean();
             userBean.setEmail(email);
@@ -372,7 +371,7 @@ public class JsonUsersController extends AbstractJsonControllerV1{
             final ValidateOperations cv = new ValidateOperations( getServiceManager().getApplicationServices().getSecurityService());
             boolean existEmail = cv.validateUserEmail(valueFilteres, null);
             if (!existEmail) {
-                throw new EnMeExpcetion(getMessage("e_008", request, null));
+                throw new EnMeException(getMessage("e_008", request, null));
             }
             getMailService().sendEmailJoinInvitation(valueFilteres, getUserPrincipalUsername());
             //FUTURE: count and limit the number of invitations

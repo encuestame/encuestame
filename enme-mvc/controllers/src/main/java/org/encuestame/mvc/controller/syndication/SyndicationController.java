@@ -16,9 +16,10 @@ import com.rometools.rome.feed.rss.Item;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.util.exception.EnMeException;
+import org.encuestame.util.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -51,7 +52,7 @@ public class SyndicationController extends AbstractFeedController {
     /**
      *
      */
-    @Value("${rss.display.items}") private Integer rssDisplayItems;
+    private Integer rssDisplayItems = EnMePlaceHolderConfigurer.getIntegerProperty("rss.display.items");
 
 
     /**
@@ -88,7 +89,7 @@ public class SyndicationController extends AbstractFeedController {
         if(secUserSecondary != null){
             try {
                 model.addAttribute("items", this.getEntryAtomFeed(username, request, TypeSearchResult.TWEETPOLL, rssDisplayItems));
-            } catch (EnMeExpcetion e) {
+            } catch (EnMeException e) {
                 log.error(e);
                 //e.printStackTrace();
                 model.addAttribute("items",ListUtils.EMPTY_LIST);
@@ -182,7 +183,7 @@ public class SyndicationController extends AbstractFeedController {
             try {
                 model.addAttribute("items", this.getEntryAtomFeed(username, request, TypeSearchResult.PROFILE, rssDisplayItems));
                 this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
-            } catch (EnMeExpcetion e) {
+            } catch (EnMeException e) {
                 log.error(e);
                 //e.printStackTrace();
                 model.addAttribute("items",ListUtils.EMPTY_LIST);
@@ -205,7 +206,7 @@ public class SyndicationController extends AbstractFeedController {
         if(secUserSecondary != null){
             try {
                 model.addAttribute("items", this.getEntryAtomFeed(username, request, TypeSearchResult.SURVEY, rssDisplayItems));
-            } catch (EnMeExpcetion e) {
+            } catch (EnMeException e) {
                 log.error(e);
             }
         }
@@ -272,7 +273,7 @@ public class SyndicationController extends AbstractFeedController {
         if(secUserSecondary != null){
             try {
                 model.addAttribute("items", this.getEntryAtomFeed(username, request, TypeSearchResult.POLL, rssDisplayItems));
-            } catch (EnMeExpcetion e) {
+            } catch (EnMeException e) {
                 log.error(e);
             }
         }
@@ -336,7 +337,7 @@ public class SyndicationController extends AbstractFeedController {
 //        if(secUserSecondary != null){
 //            try {
 //                model.addAttribute("items", this.getEntryAtomFeed(username, request, "projects", rssDisplayItems));
-//            } catch (EnMeExpcetion e) {
+//            } catch (EnMeException e) {
 //                log.error(e);
 //            }
 //        }
@@ -401,7 +402,7 @@ public class SyndicationController extends AbstractFeedController {
         HttpServletRequest request) throws UnsupportedEncodingException {
             try {
                 model.addAttribute("items", this.getEntryAtomFeed("", request, TypeSearchResult.ALL, rssDisplayItems));
-            } catch (EnMeExpcetion e) {
+            } catch (EnMeException e) {
                 log.error(e);
             }
         return "frontEndAtomFeedView";

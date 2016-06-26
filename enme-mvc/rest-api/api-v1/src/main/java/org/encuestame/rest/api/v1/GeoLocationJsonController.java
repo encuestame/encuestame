@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
-import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.util.exception.EnMeSearchException;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.geo.ItemGeoLocationBean;

@@ -14,8 +14,8 @@ package org.encuestame.utils;
 
 import junit.framework.TestCase;
 
+import org.encuestame.util.exception.EnMeGenericException;
 import org.encuestame.utils.categories.test.InternetTest;
-import org.encuestame.utils.exception.EnMeGenericException;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
