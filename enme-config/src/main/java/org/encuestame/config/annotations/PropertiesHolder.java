@@ -11,7 +11,7 @@ import org.springframework.core.io.Resource;
 public abstract class PropertiesHolder {
 
     protected static final Resource PROD_PROPERTIES =  new ClassPathResource(
-            "/org/encuestame/core/config/encuestame-config.properties");
+            "/org/encuestame/config/encuestame-config.properties");
 
     protected static final Resource TEST_PROPERTIES =  new ClassPathResource(
             "properties-test/encuestame-test-config.properties");
@@ -22,12 +22,11 @@ public abstract class PropertiesHolder {
     protected static final Resource VERSION_PROPERTIES =  new ClassPathResource(
             "/org/encuestame/core/config/version.properties");
 
-    protected static PropertyPlaceholderConfigurer createPropertyHolder() {
+    protected static PropertyPlaceholderConfigurer createPropertyHolder(Resource resource) {
         final PropertyPlaceholderConfigurer pspc = new EnMePlaceHolderConfigurer();
         pspc.setIgnoreResourceNotFound(true);
         //pspc.setLocalOverride(true);
-        pspc.setLocation(CUSTOM_PROPERTIES);
-        pspc.setLocation(VERSION_PROPERTIES);
+        pspc.setLocations(new Resource[] {PROD_PROPERTIES, VERSION_PROPERTIES, resource});
         return pspc;
     }
 }
