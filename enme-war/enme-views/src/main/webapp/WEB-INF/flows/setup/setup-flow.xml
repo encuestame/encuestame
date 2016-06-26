@@ -5,7 +5,7 @@
               http://www.springframework.org/schema/webflow
               http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <var name="administrator" class="org.encuestame.core.config.AdministratorProfile" />
+    <var name="administrator" class="org.encuestame.core.admin.AdministratorProfile" />
 
     <view-state id="setup">
         <on-entry>
