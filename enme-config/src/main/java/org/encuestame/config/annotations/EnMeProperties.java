@@ -11,9 +11,7 @@ public class EnMeProperties extends PropertiesHolder{
 
 	@Bean(name="propertyConfigurer")
 	public static PropertyPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-		final PropertyPlaceholderConfigurer pspc = createPropertyHolder();
-		pspc.setLocation(PROD_PROPERTIES);
-		return pspc;
+		return createPropertyHolder(CUSTOM_PROPERTIES);
 	}
 
 }
