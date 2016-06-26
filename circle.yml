@@ -1,6 +1,7 @@
 machine:
   java:
     version: openjdk7
-test:
- override:
-  - mvn clean install -Pproduction
+
+dependencies:
+  override:
+    - mvn clean install -Pproduction
