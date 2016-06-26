@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.annotation.AnnotationSessionFactoryBean;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Properties;
@@ -41,8 +41,8 @@ public class EnMeData {
 
 	@Bean(name="sessionFactory")
     @Autowired
-	public AnnotationSessionFactoryBean sessionFactory(DriverManagerDataSource driverManagerDataSource) throws  Exception{
-        AnnotationSessionFactoryBean sessionFactory = new AnnotationSessionFactoryBean();
+	public LocalSessionFactoryBean sessionFactory(DriverManagerDataSource driverManagerDataSource) throws  Exception{
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(driverManagerDataSource);
         sessionFactory.setPackagesToScan(new String[] { "org.encuestame.persistence.domain"});
         sessionFactory.setHibernateProperties(hibernateProperties());
