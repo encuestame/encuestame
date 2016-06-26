@@ -286,6 +286,14 @@
         <!-- A default thumbnail generator to be used for unregistered mime types -->
         <property name="defaultThumbnailGenerator" ref="imageThumbnailGenerator"/>
     </bean>
+    
+     <!-- Message Resources -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/messages/messages" />
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="1"/>
+    </bean>
 
     <!--
          This view it's necessary to render the AccessDeniedException @ExceptionHandler
