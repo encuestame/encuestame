@@ -5,14 +5,17 @@
 *Current version in Development (1.6)*
 
 [![Download encuestame](https://img.shields.io/sourceforge/dw/encuestame.svg)](https://sourceforge.net/projects/encuestame/files/latest/download)
+[![Build Status](https://travis-ci.org/encuestame/encuestame.svg?branch=master)](https://travis-ci.org/encuestame/encuestame)
+[![Codeship Status](https://www.codeship.io/projects/8538ea80-0137-0131-7612-4e2d0a4396c2/status)](https://www.codeship.io/)
+[![CircleCI](https://circleci.com/gh/encuestame/encuestame/tree/1.6-dev.svg?style=svg)](https://circleci.com/gh/encuestame/encuestame/tree/1.6-dev)
 
 For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
 
 **Take a look our [demo](http://www.encuestame.org/demo)**
 
-## Latest Stable Version (1.5.4)
+## Latest Stable Version (1.5.6)
 
-The **last release versions** is defined [here](http://encuestame.org/wiki/display/RELEASE/), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME?report=com.atlassian.jirafisheyeplugin:fisheye-projectpanel&mode=changesets#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
+The **last release versions** is defined [here](https://github.com/encuestame/encuestame/releases), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME?report=com.atlassian.jirafisheyeplugin:fisheye-projectpanel&mode=changesets#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
 If you want to download a built version of Encuestame, the files are hosted in SourceForge [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
 
@@ -24,7 +27,7 @@ If you want to download a built version of Encuestame, the files are hosted in S
 * [All Contributors](https://github.com/encuestame/encuestame/graphs/contributors)
 
 ## Direct Download
-* [1.5.4](https://sourceforge.net/projects/encuestame/files/latest/download?source=files)
+* [1.5.6](https://sourceforge.net/projects/encuestame/files/latest/download?source=files)
 * [Latest Build](http://encuestame.org/build/browse/ENME-PRO/latestSuccessful/artifact/shared/encuestame.war/encuestame.war)
 
 ## Revisions Download
@@ -52,7 +55,7 @@ Pull requests are, of course, very welcome! A few "todos", if anyone is [interes
 
 ## Thanks
 
-#### Atlassian 
+#### Atlassian
 
 ![alt tag](http://encuestame.org/images/sponsors/atlassian/atlassian-rgb-navy-small.png)
 
@@ -81,4 +84,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
