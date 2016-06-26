@@ -23,13 +23,11 @@ import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import javax.mail.internet.MimeMessage;
@@ -44,7 +42,6 @@ import java.util.Map;
  */
 
 @SuppressWarnings("unchecked")
-@Service(value = "mailService")
 public class MailService extends AbstractBaseService implements MailServiceOperations {
 
     private Log log = LogFactory.getLog(this.getClass());
@@ -60,6 +57,10 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
     /** VelocityEngine. **/
     @Autowired
     private VelocityEngine velocityEngine;
+
+    public MailService(JavaMailSenderImpl mailSender) {
+        this.mailSender = mailSender;
+    }
 
     /**
      *
@@ -83,7 +84,6 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
      * setter mail sender.
      * @param mailSender mail sender
      */
-    @Autowired
     public void setMailSender(JavaMailSenderImpl mailSender) {
         this.mailSender = mailSender;
     }

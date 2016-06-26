@@ -1,4 +1,4 @@
-package org.encuestame.test.business.config;
+package org.encuestame.config;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -40,7 +40,7 @@ import java.util.Properties;
 @PropertySources({
   @PropertySource("classpath:properties-test/encuestame-test-config.properties")
 })
-@ComponentScan({ "org.encuestame.business", "org.encuestame.test", "org.encuestame.core", "org.encuestame.security" })
+@ComponentScan({ "org.encuestame.business", "org.encuestame.config", "org.encuestame.core", "org.encuestame.security" })
 public class BusinessConfig {
 
   /**
@@ -96,6 +96,21 @@ public class BusinessConfig {
     return factory.createVelocityEngine();
   }
 
+  /**
+   *
+   * @return
+   */
+  public @Bean(name="messageSourceFactoryBean") IMessageSource messageSourceFactoryBean(){
+    return new MessageSourceFactoryBean(this.messageSource);
+  }
+
+  @Bean
+  public ResourceBundleMessageSource configureResourceBundleMessageSource() {
+    ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
+    resource.setBasename("messages");
+    return resource;
+  }
+
   @Bean(name="mailService")
   @Scope("singleton")
   @Autowired
@@ -104,20 +119,6 @@ public class BusinessConfig {
     return mail;
   }
 
-  /**
-   *
-   * @return
-   */
-  public @Bean(name="messageSourceFactoryBean") IMessageSource messageSourceFactoryBean() {
-    return new MessageSourceFactoryBean(this.messageSource);
-  }
-
-  @Bean()
-  public ResourceBundleMessageSource configureResourceBundleMessageSource() {
-    ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
-    resource.setBasename("messages");
-    return resource;
-  }
 
   /**
    *

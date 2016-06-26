@@ -33,8 +33,6 @@
     </mvc:annotation-driven>
 
     <bean id="messagesInterceptor" class="org.encuestame.mvc.interceptor.Messagei18nInterceptor" />
-    <bean id="mobileInterceptor" class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
-    <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.EnMeSecurityInterceptor" />
     <bean id="setupInterceptor" class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
     <bean id="signInInterceptor" class=" org.encuestame.mvc.interceptor.SignInInterceptor" />
     <bean id="checkInstallInterceptor" class=" org.encuestame.mvc.interceptor.CheckInstallInterceptor" />

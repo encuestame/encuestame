@@ -28,6 +28,8 @@ public class SendNotificationsJob {
 
 	private static final Log logger = LogFactory.getLog(SendNotificationsJob.class);
 
+	private String cron = EnMePlaceHolderConfigurer.getProperty("cron.sendNotifications");
+
 	//@Autowired
     //private SimpMessageSendingOperations messagingTemplate;
 
@@ -41,7 +43,7 @@ public class SendNotificationsJob {
 	/**
 	 *
 	 */
-	@Scheduled(cron = "${cron.sendNotifications}")
+//	@Scheduled(cron = org.encuestame.business.cron.Scheduled.ScheduledConst.NOTIFICATION)
 	public void sendNotifications() {
 		if (EnMePlaceHolderConfigurer.getSystemInstalled()) {
             logger.info("Sending storage notifications...");

@@ -61,7 +61,7 @@ public class CalculateHashTagSize {
     /**
      * Calculate all hashtag size.
      */
-    @Scheduled(cron = "${cron.calculateReindex}")
+//    @Scheduled(cron = "${cron.calculateReindex}")
     public void calculate(){
         if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
             log.info("calculate hastahg rating ...");

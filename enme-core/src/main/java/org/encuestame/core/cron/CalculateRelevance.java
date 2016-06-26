@@ -63,7 +63,7 @@ public class CalculateRelevance {
     /**
      * Calculate relevance.
      */
-    @Scheduled(cron = "${cron.calculateRelevance}")
+//    @Scheduled(cron = "${cron.calculateRelevance}")
     public void calculate() {
         if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
             log.info("Starting calculate of relevance..");

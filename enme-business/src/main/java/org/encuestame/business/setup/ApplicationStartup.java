@@ -15,12 +15,15 @@ package org.encuestame.business.setup;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.service.MailService;
 import org.encuestame.config.startup.DirectorySetupOperations;
 import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.MailServiceOperations;
 import org.encuestame.util.exception.EnMeStartupException;
 import org.encuestame.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
 
 /**
  * Manages encuestame application startup.
@@ -39,13 +42,14 @@ public class ApplicationStartup implements StartupProcess {
     /**
      * Mail service provider.
      */
-    @Autowired
     private MailServiceOperations mailService;
 
     /**
      * Constructor.
      */
-    public ApplicationStartup() {}
+    public ApplicationStartup(MailServiceOperations mailService) {
+        this.mailService = mailService;
+    }
 
     /**
      * Check if app started.

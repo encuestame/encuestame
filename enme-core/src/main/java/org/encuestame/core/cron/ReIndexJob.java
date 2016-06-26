@@ -42,7 +42,7 @@ public class ReIndexJob {
     /**
      * Reindex.
      */
-    @Scheduled(cron = "${cron.reindex}")
+//    @Scheduled(cron = "${cron.reindex}")
     public void reindex(){
         if (EnMePlaceHolderConfigurer.getSystemInitialized()) {
             this.reindexData();

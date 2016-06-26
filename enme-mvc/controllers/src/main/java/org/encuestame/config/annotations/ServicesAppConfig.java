@@ -8,9 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Configuration
 @ImportResource({"classpath:/org/encuestame/config/xml/service-context.xml"})
@@ -29,6 +32,13 @@ public class ServicesAppConfig {
      */
     public @Bean(name="enMeInterceptor") EnMeSecurityInterceptor enMeSecurityInterceptor(){
         return new EnMeSecurityInterceptor();
+    }
+
+    @Bean
+    public LocaleResolver localeResolver(){
+        SessionLocaleResolver resolver = new SessionLocaleResolver();
+        resolver.setDefaultLocale(new Locale("en"));
+        return resolver;
     }
 
     /**

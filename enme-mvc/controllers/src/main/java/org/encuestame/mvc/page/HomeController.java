@@ -49,17 +49,17 @@ public class HomeController extends AbstractViewController {
     /**
      * Default max of home beans to display.
      */
-    @Value("${front.home.items}") private Integer homeMaxItems;
+    private Integer homeMaxItems = EnMePlaceHolderConfigurer.getIntegerProperty("front.home.items");
 
     /**
      * Default max of hashtag to display.
      */
-    @Value("${front.hashtags.items}") private Integer homeHashtagMaxItems;
+    private Integer homeHashtagMaxItems = EnMePlaceHolderConfigurer.getIntegerProperty("front.hashtags.items");
 
     /**
      *
      */
-    @Value("${front.profile.items}") private Integer profileDefaultItems;
+    private Integer profileDefaultItems = EnMePlaceHolderConfigurer.getIntegerProperty("front.profile.items");
 
     /**
      * Default date range.

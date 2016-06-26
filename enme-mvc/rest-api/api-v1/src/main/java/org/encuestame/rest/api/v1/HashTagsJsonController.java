@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonControllerV1;
@@ -53,12 +54,12 @@ public class HashTagsJsonController extends AbstractJsonControllerV1{
             /**
              * Limit of results by default.
              */
-    @Value("${hashtags.suggests.items}") private Integer hashtagsSuggestLimit;
+    private Integer hashtagsSuggestLimit = EnMePlaceHolderConfigurer.getIntegerProperty("hashtags.suggests.items");
 
     /**
      * Limit of cloud results.
      */
-    @Value("${hashtags.cloud.items}") private Integer hashtagsCloudLimit;
+    private Integer hashtagsCloudLimit = EnMePlaceHolderConfigurer.getIntegerProperty("hashtags.cloud.items");
 
     /**
      * @api {get} /api/common/hashtags.json Hashtag by keyword

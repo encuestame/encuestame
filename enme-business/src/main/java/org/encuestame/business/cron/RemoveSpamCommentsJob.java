@@ -31,9 +31,10 @@ public class RemoveSpamCommentsJob {
 	@Autowired
 	private ICommentService commentService;
 	
+
 	public RemoveSpamCommentsJob() {}
 
-
+	private String cron = EnMePlaceHolderConfigurer.getProperty("cron.removeSpamComments");
 	  /**
      * Log.
      */
@@ -50,7 +51,7 @@ public class RemoveSpamCommentsJob {
     /**
 	 * Remove unconfirmed accounts.
 	 */
-    @Scheduled(cron = "${cron.removeSpamComments}")
+//    @Scheduled(cron = org.encuestame.business.cron.Scheduled.ScheduledConst.SPAM)
 	public void removeSpamComments() {
     	if (EnMePlaceHolderConfigurer.getSystemInstalled()) {
 			try {

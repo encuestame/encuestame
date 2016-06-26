@@ -142,7 +142,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
     /** Force Proxy Pass Enabled. **/
-    @Value("${application.proxyPass}") private Boolean proxyPass;
+    private Boolean proxyPass = EnMePlaceHolderConfigurer.getBooleanProperty("application.proxyPass");
 
     /**
      * {@link AuthenticationManager}.

@@ -16,6 +16,7 @@ import com.rometools.rome.feed.rss.Item;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.config.startup.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.util.exception.EnMeException;
 import org.encuestame.util.exception.EnMeNoResultsFoundException;
@@ -51,7 +52,7 @@ public class SyndicationController extends AbstractFeedController {
     /**
      *
      */
-    @Value("${rss.display.items}") private Integer rssDisplayItems;
+    private Integer rssDisplayItems = EnMePlaceHolderConfigurer.getIntegerProperty("rss.display.items");
 
 
     /**

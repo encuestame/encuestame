@@ -35,6 +35,8 @@ public class RemoveUnconfirmedAccountJob {
     @Autowired
     private SecurityOperations securityService;
 
+    private String cron = EnMePlaceHolderConfigurer.getProperty("cron.removeUnconfirmedAccount");
+
     /**
      * Log.
      */
@@ -50,7 +52,7 @@ public class RemoveUnconfirmedAccountJob {
     /**
      * Remove unconfirmed accounts.
      */
-    @Scheduled(cron = "${cron.removeUnconfirmedAccount}")
+//      @Scheduled(cron = org.encuestame.business.cron.Scheduled.ScheduledConst.UNCONFIRMED)
     public void removeUnconfirmedAccount(){
         log.info("EnMePlaceHolderConfigurer.getSystemInstalled()" + EnMePlaceHolderConfigurer.getSystemInstalled());
     	if (EnMePlaceHolderConfigurer.getSystemInstalled()) {

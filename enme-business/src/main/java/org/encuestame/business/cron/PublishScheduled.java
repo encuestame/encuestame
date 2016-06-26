@@ -48,11 +48,13 @@ public class PublishScheduled {
 	@Autowired
 	private ITweetPollService tpollService;
 
+	private String cron = EnMePlaceHolderConfigurer.getProperty("cron.publishAllScheduled");
+
 	/**
 	 * publish {@link TweetPoll} {@link Poll} or {@link Survey} scheduled to be
 	 * published later.
 	 */
-	@Scheduled(cron = "${cron.publishAllScheduled}")
+//	@Scheduled(cron = org.encuestame.business.cron.Scheduled.ScheduledConst.PUBLISH)
 	public void publish() {
 		if (EnMePlaceHolderConfigurer.getSystemInstalled()) {
             log.info("publishing scheduled items ...");
