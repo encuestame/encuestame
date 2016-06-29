@@ -14,7 +14,7 @@
         <param name="maxFileSize" value="1000KB" />
         <param name="maxBackupIndex" value="0" />
         <param name="File" value="encuestame.log" />
-        <param name="threshold" value="debug" />
+        <param name="threshold" value="warn" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{ABSOLUTE} %5p %c{1}:%L - %m%n" />
         </layout>
@@ -57,56 +57,59 @@
     <!-- Spring -->
 
     <logger name="org.springframework.core">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.beans">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.context">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.jdbc">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.webflow">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.messaging">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.messaging.simp.stomp">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.web">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.web.socket">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.security">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
-    <logger name="org.springframework.integration">
-        <level value="debug" />
+    <logger name="org.springframework.web">
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.orm.hibernate5.support">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <!-- APACHE -->
 
     <logger name="org.apache.http">
+        <level value="warn" />
+    </logger>
+    <logger name="org.apache.commons">
         <level value="warn" />
     </logger>
 
