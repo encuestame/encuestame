@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.utils.vote;
+package org.encuestame.utils.captcha;
 
 /**
  * Util Vote Captcha.
