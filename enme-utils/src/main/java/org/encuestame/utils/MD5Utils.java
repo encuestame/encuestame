@@ -77,14 +77,11 @@ public class MD5Utils {
     public static String shortMD5(String text) {
         try {
             return md5(text);
-        } catch (NoSuchAlgorithmException e) {
-            //e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
             log.error(e);
-        } catch (UnsupportedEncodingException e) {
-            //e.printStackTrace();
-            log.error(e);
+            return null;
         }
-        return "";
     }
 
     /**
@@ -95,12 +92,11 @@ public class MD5Utils {
     public static String sortURL(String url) {
         String[] urlArgs = url.split("&");
         java.util.Arrays.sort(urlArgs);
-        String ret = "";
-
+        String ret = null;
         for (String urlArg : urlArgs) {
             ret = ret + urlArg;
         }
-        return ret  ;
+        return ret;
     }
 
     /**
@@ -124,12 +120,12 @@ public class MD5Utils {
      */
     public static String md5Hex (String message) {
         try {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+        final MessageDigest md = MessageDigest.getInstance("MD5");
         return hex (md.digest(message.getBytes("CP1252")));
         }
-        catch (NoSuchAlgorithmException e) {
-        }
-        catch (UnsupportedEncodingException e) {
+        catch (Exception e) {
+            e.printStackTrace();
+            log.error(e);
         }
         return null;
     }
