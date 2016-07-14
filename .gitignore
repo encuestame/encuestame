@@ -70,7 +70,7 @@ enme-war/web-app/jetty-webapp/overlays/
 enme-war/web-app/tomcat-webapp/overlays/
 enme-war/web-app/weblogic-webapp/overlays/
 scripts/clover.license
-
+clover.license
 enme-js/src/main/resources/resource/js/d*
 enme-js/src/main/resources/resource/js/ecma*
 enme-js/src/main/resources/resource/js/Font*

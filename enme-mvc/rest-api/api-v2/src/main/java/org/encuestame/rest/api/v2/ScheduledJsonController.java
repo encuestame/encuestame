@@ -1,4 +1,4 @@
-package org.encuestame.mvc.controller.json.v2.scheduled;
+package org.encuestame.rest.api.v2;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;

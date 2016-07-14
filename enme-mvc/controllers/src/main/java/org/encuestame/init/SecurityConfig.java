@@ -30,12 +30,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * Created by jpicado on 17/09/15.
  */
 @Configuration
-//@ImportResource({
-//    "classpath:/org/encuestame/config/xml/security-context.xml",
-//    "classpath:/org/encuestame/config/xml/security-oauth-context.xml"
-//})
 @ImportResource({
-        "classpath:/org/encuestame/config/xml/security-context.xml"
+   "classpath:/org/encuestame/config/xml/security-context.xml"
 })
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{

@@ -221,7 +221,7 @@ public class DateUtil {
     * @param startDate
     * @return
     */
-    public static Integer getDaysBetweenDates(final Date startDate){
+    public static Integer getDaysBetweenDates(final Date startDate) {
         final DateTime currentDate = new DateTime();
         final DateTime storedDate = new DateTime(startDate);
         final Days daysBetween = Days.daysBetween(storedDate, currentDate);

@@ -1,4 +1,4 @@
-package org.encuestame.mvc.controller.json.v2;
+package org.encuestame.rest.api.v2;
 
 
 import org.apache.commons.logging.Log;

@@ -12,24 +12,11 @@
  */
 package org.encuestame.utils;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-
+import org.encuestame.utils.captcha.UtilVoteCaptcha;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.json.FolderBean;
-import org.encuestame.utils.json.HomeBean;
-import org.encuestame.utils.json.LinksSocialBean;
-import org.encuestame.utils.json.ProfileUserAccount;
-import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.ResumeResultTweetPoll;
-import org.encuestame.utils.json.SocialAccountBean;
-import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.json.*;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.oauth.OAuth1Token;
@@ -39,33 +26,9 @@ import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.social.SocialNetworkBean;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.social.SocialUserProfile;
-import org.encuestame.utils.vote.UtilVoteCaptcha;
-import org.encuestame.utils.web.CommentBean;
-import org.encuestame.utils.web.GadgetBean;
-import org.encuestame.utils.web.GadgetPropertiesBean;
-import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.PollBean;
-import org.encuestame.utils.web.PollBeanResult;
-import org.encuestame.utils.web.ProfileRatedTopBean;
-import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.SurveyBean;
-import org.encuestame.utils.web.TweetPollResultsBean;
-import org.encuestame.utils.web.TypeTreeNode;
+import org.encuestame.utils.web.*;
 import org.encuestame.utils.web.UnitAbstractSurvey.CustomFinalMessage;
 import org.encuestame.utils.web.UnitAbstractSurvey.MultipleResponse;
-import org.encuestame.utils.web.UnitCatStateBean;
-import org.encuestame.utils.web.UnitEmails;
-import org.encuestame.utils.web.UnitGroupBean;
-import org.encuestame.utils.web.UnitLists;
-import org.encuestame.utils.web.UnitLocationFolder;
-import org.encuestame.utils.web.UnitLocationTypeBean;
-import org.encuestame.utils.web.UnitPermission;
-import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.utils.web.UnitSessionUserBean;
-import org.encuestame.utils.web.UnitSurveyFormat;
-import org.encuestame.utils.web.UnitSurveySection;
-import org.encuestame.utils.web.UserAccountBean;
-import org.encuestame.utils.web.UtilTreeNode;
 import org.encuestame.utils.web.frontEnd.UnitSearchItem;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.encuestame.utils.web.search.TweetPollSearchBean;
@@ -73,6 +36,8 @@ import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.util.*;
 
     /**
     * Test Unit Beans.

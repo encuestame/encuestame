@@ -5,6 +5,7 @@ import org.encuestame.mvc.interceptor.EnMeSecurityInterceptor;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor;
@@ -17,6 +18,7 @@ import java.util.Locale;
 
 @Configuration
 @ImportResource({"classpath:/org/encuestame/config/xml/service-context.xml"})
+@ComponentScan({ "org.encuestame.rest" })
 public class ServicesAppConfig {
 
     /**
