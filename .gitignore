@@ -79,3 +79,8 @@ enme-js/src/main/resources/resource/js/lie*
 enme-js/src/main/resources/resource/js/require*
 encuestame.ipr
 encuestame.iws
+media
+node_modules
+.idea
+lib
+.env

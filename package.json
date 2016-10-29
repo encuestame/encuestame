@@ -1,9 +1,12 @@
 {
   "name": "encuestame",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha",
   "description": "encuestame survey social system",
   "main": "index.js",
   "scripts": {
+    "compile": "babel src/server --out-dir lib",
+    "lint": "eslint src/server/**/*.js",
+    "clean": "rimraf public && rimraf lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +23,40 @@
   "bugs": {
     "url": "https://github.com/encuestame/encuestame/issues"
   },
-  "homepage": "https://github.com/encuestame/encuestame#readme"
+  "homepage": "https://github.com/encuestame/encuestame#readme",
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.14.0",
+    "babel-eslint": "^7.1.0",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-transform-async-to-generator": "^6.8.0",
+    "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "babel-register": "^6.11.6",
+    "dojo": "^1.11.2",
+    "eslint": "^3.9.0",
+    "eslint-plugin-import": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1",
+    "grunt": "0.4.5",
+    "grunt-babel": "^5.0.3",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-eslint": "^17.2.0",
+    "grunt-webpack": "^1.0.11",
+    "intern": "^3.3.1",
+    "webpack": "^1.13.3"
+  },
+  "dependencies": {
+    "debug": "~2.2.0",
+    "dotenv": "^2.0.0",
+    "cross-env": "^2.0.0",
+    "hbs": "~4.0.0",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0",
+    "cookie-parser": "~1.4.3",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.5"
+  }
 }
