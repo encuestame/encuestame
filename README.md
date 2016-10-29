@@ -9,13 +9,11 @@
 [![Codeship Status](https://www.codeship.io/projects/8538ea80-0137-0131-7612-4e2d0a4396c2/status)](https://www.codeship.io/)
 [![CircleCI](https://circleci.com/gh/encuestame/encuestame/tree/1.6-dev.svg?style=svg)](https://circleci.com/gh/encuestame/encuestame/tree/1.6-dev)
 
-For information on how to **build** check out [documentation](http://www.encuestame.org/wiki/display/DOC/How+to+build+Encuestame).
-
-**Take a look our [demo](http://www.encuestame.org/demo)**
+For information on how to **build** check out [documentation](https://github.com/encuestame/encuestame/wiki).
 
 ## Latest Stable Version (1.5.6)
 
-The **last release versions** is defined [here](https://github.com/encuestame/encuestame/releases), if you are interested in the **Roadmap** click [here](http://www.encuestame.org/issues/browse/ENCUESTAME?report=com.atlassian.jirafisheyeplugin:fisheye-projectpanel&mode=changesets#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
+The **last release versions** is defined [here](https://github.com/encuestame/encuestame/releases), if you are interested in the **Roadmap** click [here](https://github.com/encuestame/encuestame/projects/1)
 
 If you want to download a built version of Encuestame, the files are hosted in SourceForge [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
 
@@ -47,9 +45,6 @@ Pull requests are, of course, very welcome! A few "todos", if anyone is [interes
 
 
 ## Links
-
-* [JIRA](http://www.encuestame.org/issues)
-* [Wiki](http://www.encuestame.org/wiki)
 * [Twitter](http://www.twitter.com/encuestame)
 * [Facebook](https://www.facebook.com/encuestame)
 
