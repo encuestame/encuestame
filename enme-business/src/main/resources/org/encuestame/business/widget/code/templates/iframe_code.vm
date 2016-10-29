@@ -1,7 +1,0 @@
-<iframe src="http://${domain}/embebed/iframe/preview/${class_type}/${itemId}"
-        width="640"
-        scrolling="no"
-        frameborder="0"
-        height="450"
-        allowTransparency="true">
-</iframe>
