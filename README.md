@@ -30,7 +30,6 @@ If you want to download a built version of Encuestame, the files are hosted in S
 
 ## Revisions Download
 
-* [Encuestame Latest Revisions](http://www.encuestame.org/revisions/)
 * [Sourceforce](http://sourceforge.net/projects/encuestame/?source=directory)
 
 ## Contributions
