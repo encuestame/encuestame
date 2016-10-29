@@ -1,0 +1,24 @@
+{
+  "name": "encuestame",
+  "version": "0.0.1",
+  "description": "encuestame survey social system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/encuestame/encuestame.git"
+  },
+  "keywords": [
+    "survey",
+    "cms",
+    "social"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com> (https://www.jotadeveloper.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/encuestame/encuestame/issues"
+  },
+  "homepage": "https://github.com/encuestame/encuestame#readme"
+}
