@@ -2,7 +2,7 @@
 
 ##Encuestame Open Source Social Survey
 
-*Current version in Development (2.0)[https://github.com/encuestame/encuestame/tree/2.0-beta]*
+*Current version in Development https://github.com/encuestame/encuestame/tree/2.0-beta
 
 [![Download encuestame](https://img.shields.io/sourceforge/dw/encuestame.svg)](https://sourceforge.net/projects/encuestame/files/latest/download)
 [![Build Status](https://travis-ci.org/encuestame/encuestame.svg?branch=master)](https://travis-ci.org/encuestame/encuestame)
