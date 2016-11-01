@@ -6,7 +6,6 @@
 
 [![Download encuestame](https://img.shields.io/sourceforge/dw/encuestame.svg)](https://sourceforge.net/projects/encuestame/files/latest/download)
 [![Build Status](https://travis-ci.org/encuestame/encuestame.svg?branch=master)](https://travis-ci.org/encuestame/encuestame)
-[![Codeship Status](https://www.codeship.io/projects/8538ea80-0137-0131-7612-4e2d0a4396c2/status)](https://www.codeship.io/)
 [![CircleCI](https://circleci.com/gh/encuestame/encuestame/tree/1.6-dev.svg?style=svg)](https://circleci.com/gh/encuestame/encuestame/tree/1.6-dev)
 
 For information on how to **build** check out [documentation](https://github.com/encuestame/encuestame/wiki).
