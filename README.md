@@ -2,7 +2,7 @@
 
 ##Encuestame Open Source Social Survey
 
-*Current version in Development (1.6)*
+*Current version in Development (2.0)[https://github.com/encuestame/encuestame/tree/2.0-beta]*
 
 [![Download encuestame](https://img.shields.io/sourceforge/dw/encuestame.svg)](https://sourceforge.net/projects/encuestame/files/latest/download)
 [![Build Status](https://travis-ci.org/encuestame/encuestame.svg?branch=master)](https://travis-ci.org/encuestame/encuestame)
@@ -26,7 +26,6 @@ If you want to download a built version of Encuestame, the files are hosted in S
 
 ## Direct Download
 * [1.5.6](https://sourceforge.net/projects/encuestame/files/latest/download?source=files)
-* [Latest Build](http://encuestame.org/build/browse/ENME-PRO/latestSuccessful/artifact/shared/encuestame.war/encuestame.war)
 
 ## Revisions Download
 
