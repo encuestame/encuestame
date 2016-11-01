@@ -49,14 +49,16 @@
     "webpack": "^1.13.3"
   },
   "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "cross-env": "^2.0.0",
     "debug": "~2.2.0",
     "dotenv": "^2.0.0",
-    "cross-env": "^2.0.0",
-    "hbs": "~4.0.0",
-    "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0",
-    "cookie-parser": "~1.4.3",
     "express": "^4.14.0",
-    "mongoose": "^4.6.5"
+    "express-graphql": "^0.3.0",
+    "graphql": "^0.7.2",
+    "hbs": "~4.0.0",
+    "mongoose": "^4.6.5",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0"
   }
 }
