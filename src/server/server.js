@@ -20,6 +20,14 @@ server.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+server.set('view engine', 'pug')
+server.set('views', path.join(__dirname, '/views'));
+
+server.get('/', function (req, res) {  
+    res.render(
+        'index',
+        { title: 'Encuestame Soon!', message: 'Yo Yo Encuestame'})
+});
 
 // development error handler
 // will print stacktrace

@@ -4,10 +4,11 @@
   "description": "encuestame survey social system",
   "main": "index.js",
   "scripts": {
-    "compile": "babel src/server --out-dir lib",
+    "compile": "babel src/server --out-dir lib --copy-files",
     "lint": "eslint src/server/**/*.js",
     "clean": "rimraf public && rimraf lib",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm run compile"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/encuestame/encuestame/issues"
+  },
+  "engines": {
+    "node": "6.5.0"
   },
   "homepage": "https://github.com/encuestame/encuestame#readme",
   "devDependencies": {
@@ -61,6 +65,7 @@
     "hbs": "~4.0.0",
     "mongoose": "^4.6.5",
     "morgan": "~1.7.0",
+    "pug": "^2.0.0-beta11",
     "serve-favicon": "~2.3.0"
   }
 }
