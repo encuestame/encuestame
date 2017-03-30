@@ -1,4 +1,5 @@
 const server = require('./lib/server');
-server.default.listen(3000, function(){
-	console.log('listen 3000');
+var port = process.env.PORT || 3000;
+server.default.listen(port, function() {
+	console.log(`listen ${port}`);
 });
