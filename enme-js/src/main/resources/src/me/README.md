@@ -9,7 +9,7 @@ Encuestame UI is based in Dojo Widgets, we use [Intern](http://theintern.io/) to
 
 ### Sponsors
 
-#![BrowserStack](http://encuestame.org/images/sponsors/browserstack/browserstack.jpg)
+# ![BrowserStack](http://encuestame.org/images/sponsors/browserstack/browserstack.jpg)
 
 ### Setup
 

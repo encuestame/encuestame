@@ -1,6 +1,6 @@
 ![Example](http://encuestame.org/logos/horizontal/enuestame_horizontal_small_alpha.png)
 
-##Encuestame Open Source Social Survey
+## Encuestame Open Source Social Survey
 
 *Current version in Development https://github.com/encuestame/encuestame/tree/2.0-beta
 
