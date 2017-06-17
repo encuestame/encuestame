@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  api:
+    image: encuestame/api:latest
+    container_name: api
+    ports:
+      - "4873:4873"
+    volumes:
+      - api:/api
+  web:
+    image: encuestame/web:latest
+    container_name: web
+    ports:
+      - "9001:9001"
+    volumes:
+      - web:/web      
+
+  nginx:
+    restart: always
+    build: ./conf/nginx/
+    ports:
+      - "80:80"
+    volumes:
+      - /www/public
+    volumes_from:
+      - api
+    links:
+      - web:web
+      - api:api
+
+volumes:
+  web:
+    driver: local

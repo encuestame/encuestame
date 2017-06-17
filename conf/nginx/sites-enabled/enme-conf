@@ -1,0 +1,13 @@
+server {
+  listen 80 default_server;
+	access_log /var/log/nginx/encuestame.log;
+	charset utf-8;
+  location / {
+    proxy_pass              http://web:9001/;
+    proxy_set_header        Host $host;
+  }
+	location /api {
+    proxy_pass              http://api:8080/;
+    proxy_set_header        Host $host;
+  }
+}
