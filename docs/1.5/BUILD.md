@@ -7,6 +7,8 @@ To get the last source code version run this (git is required). Encuestame use g
 
 ````
 git clone git://github.com/encuestame/encuestame.git
+git fetch
+git checkout v1.5.6
 ````
 
 ### Build with Maven (master branch)
