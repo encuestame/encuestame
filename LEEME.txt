@@ -1,4 +1,0 @@
-
-Aqui las instrucciones para construir Encuestame: (Por ahora solo en ingles ;) )
-
-   http://wiki.encuestame.org/display/DOC/How+to+build+Encuestame
