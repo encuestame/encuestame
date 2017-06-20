@@ -8,6 +8,9 @@ services:
       - "4873:4873"
     volumes:
       - api:/api
+    links:
+      - mongo
+      - mysql
   web:
     image: encuestame/web:latest
     container_name: web
@@ -15,7 +18,20 @@ services:
       - "9001:9001"
     volumes:
       - web:/web      
-
+  mongo:
+    image: mongo:3.0.2
+  mysql:
+    image: mysql
+    container_name: database.dev
+    command: mysqld --user=root --verbose
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "encuestame"
+      MYSQL_USER: "test"
+      MYSQL_PASSWORD: "test"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
   nginx:
     restart: always
     build: ./conf/nginx/
@@ -32,3 +48,5 @@ services:
 volumes:
   web:
     driver: local
+  api:
+    driver: local    
