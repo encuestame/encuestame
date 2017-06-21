@@ -12,7 +12,7 @@ For information on how to **build** check out [documentation](docs/2/BUILD.md)
 
 ## Last Beta Version (2.x)
 
-Since version 2.x, the builds are hosted in [Docker Hub](https://hub.docker.com/u/encuestame/dashboard/) and we follow the Continous Integration workflow. The docker compose file in this repository will install all stack you need to run the project.
+Since version 2.x, the builds are hosted in [Docker Hub](https://hub.docker.com/u/encuestame/dashboard/) and we follow the Continous Delivery workflow. The docker compose file in this repository will install all stack you need to run the project.
 
 ## Latest Stable Version (1.5.6)
 
