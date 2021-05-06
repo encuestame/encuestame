@@ -1,4 +1,5 @@
-![Example](http://encuestame.org/logos/horizontal/enuestame_horizontal_small_alpha.png)
+![encuestame (vertical)](https://user-images.githubusercontent.com/558752/117364418-2b652400-aebe-11eb-9a24-dbce86b0af99.png)
+
 
 ##Encuestame Open Source Social Survey
 
